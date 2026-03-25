@@ -1,0 +1,4440 @@
+{
+  "nodes": [
+    {
+      "id": "feu",
+      "name": "Feu",
+      "category": "element",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": -400000,
+      "complexity_depth": 0,
+      "tags": [
+        "primitif",
+        "chaleur",
+        "énergie"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "eau",
+      "name": "Eau",
+      "category": "element",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": null,
+      "complexity_depth": 0,
+      "tags": [
+        "élément",
+        "solvant",
+        "hydratation"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "air",
+      "name": "Air",
+      "category": "element",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": null,
+      "complexity_depth": 0,
+      "tags": [
+        "oxygène",
+        "combustion"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "sable",
+      "name": "Sable (silice)",
+      "category": "mineral",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": null,
+      "complexity_depth": 0,
+      "tags": [
+        "silice",
+        "minéral",
+        "construction",
+        "électronique"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "charbon",
+      "name": "Charbon",
+      "category": "energy",
+      "type": "raw_material",
+      "era": "medieval",
+      "year_approx": 1000,
+      "complexity_depth": 0,
+      "tags": [
+        "combustible",
+        "fossile",
+        "énergie"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "cuivre",
+      "name": "Cuivre",
+      "category": "mineral",
+      "type": "raw_material",
+      "era": "ancient",
+      "year_approx": -7000,
+      "complexity_depth": 0,
+      "tags": [
+        "métal",
+        "conducteur",
+        "électricité"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "minerai-fer",
+      "name": "Minerai de fer",
+      "category": "mineral",
+      "type": "raw_material",
+      "era": "ancient",
+      "year_approx": -3000,
+      "complexity_depth": 0,
+      "tags": [
+        "fer",
+        "mine",
+        "minéral"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "calcaire",
+      "name": "Calcaire",
+      "category": "mineral",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": null,
+      "complexity_depth": 0,
+      "tags": [
+        "ciment",
+        "construction",
+        "chaux"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "argile",
+      "name": "Argile",
+      "category": "mineral",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": null,
+      "complexity_depth": 0,
+      "tags": [
+        "céramique",
+        "ciment",
+        "construction"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "bois",
+      "name": "Bois",
+      "category": "vegetal",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": null,
+      "complexity_depth": 0,
+      "tags": [
+        "construction",
+        "papier",
+        "combustible"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "sel",
+      "name": "Sel",
+      "category": "mineral",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": null,
+      "complexity_depth": 0,
+      "tags": [
+        "conservation",
+        "alimentation"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "ble",
+      "name": "Blé",
+      "category": "vegetal",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": -10000,
+      "complexity_depth": 0,
+      "tags": [
+        "céréale",
+        "alimentation",
+        "pain"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "raisin",
+      "name": "Raisin",
+      "category": "vegetal",
+      "type": "raw_material",
+      "era": "ancient",
+      "year_approx": -6000,
+      "complexity_depth": 0,
+      "tags": [
+        "vin",
+        "fermentation",
+        "fruit"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "lait",
+      "name": "Lait",
+      "category": "animal",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": null,
+      "complexity_depth": 0,
+      "tags": [
+        "fromage",
+        "alimentation",
+        "protéine"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "levure",
+      "name": "Levure",
+      "category": "vegetal",
+      "type": "raw_material",
+      "era": "ancient",
+      "year_approx": -3000,
+      "complexity_depth": 0,
+      "tags": [
+        "fermentation",
+        "pain",
+        "vin"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "presure",
+      "name": "Présure",
+      "category": "animal",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": null,
+      "complexity_depth": 0,
+      "tags": [
+        "fromage",
+        "coagulation"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "plantes-medicinales",
+      "name": "Plantes médicinales",
+      "category": "vegetal",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": null,
+      "complexity_depth": 0,
+      "tags": [
+        "pharmacie",
+        "extraction",
+        "thérapeutique"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "petrole",
+      "name": "Pétrole",
+      "category": "energy",
+      "type": "raw_material",
+      "era": "industrial",
+      "year_approx": 1859,
+      "complexity_depth": 0,
+      "tags": [
+        "fossile",
+        "chimie",
+        "carburant"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "four",
+      "name": "Four",
+      "category": "tool",
+      "type": "tool",
+      "era": "ancient",
+      "year_approx": -6000,
+      "complexity_depth": 1,
+      "tags": [
+        "chaleur",
+        "cuisson",
+        "métallurgie"
+      ]
+    },
+    {
+      "id": "four-haute-temp",
+      "name": "Four à haute température",
+      "category": "machine",
+      "type": "tool",
+      "era": "industrial",
+      "year_approx": 1784,
+      "complexity_depth": 2,
+      "tags": [
+        "métallurgie",
+        "acier",
+        "industrie"
+      ]
+    },
+    {
+      "id": "soude",
+      "name": "Soude",
+      "category": "chemistry",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -3000,
+      "complexity_depth": 1,
+      "tags": [
+        "verre",
+        "chimie",
+        "fondant"
+      ]
+    },
+    {
+      "id": "verre",
+      "name": "Verre",
+      "category": "material",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -3500,
+      "complexity_depth": 1,
+      "tags": [
+        "transparent",
+        "optique",
+        "électronique"
+      ]
+    },
+    {
+      "id": "silicium",
+      "name": "Silicium",
+      "category": "material",
+      "type": "material",
+      "era": "modern",
+      "year_approx": 1954,
+      "complexity_depth": 2,
+      "tags": [
+        "semi-conducteur",
+        "électronique",
+        "purification"
+      ]
+    },
+    {
+      "id": "wafer-silicium",
+      "name": "Wafer de silicium",
+      "category": "electronics",
+      "type": "component",
+      "era": "digital",
+      "year_approx": 1960,
+      "complexity_depth": 3,
+      "tags": [
+        "puce",
+        "semi-conducteur",
+        "photolithographie"
+      ]
+    },
+    {
+      "id": "acide-gravure",
+      "name": "Acide de gravure",
+      "category": "chemistry",
+      "type": "material",
+      "era": "digital",
+      "year_approx": 1960,
+      "complexity_depth": 2,
+      "tags": [
+        "gravure",
+        "circuit",
+        "chimie"
+      ]
+    },
+    {
+      "id": "photolithographie",
+      "name": "Photolithographie",
+      "category": "process",
+      "type": "process",
+      "era": "digital",
+      "year_approx": 1957,
+      "complexity_depth": 2,
+      "tags": [
+        "circuit",
+        "masque",
+        "UV"
+      ]
+    },
+    {
+      "id": "resine-epoxy",
+      "name": "Résine époxy",
+      "category": "chemistry",
+      "type": "material",
+      "era": "modern",
+      "year_approx": 1936,
+      "complexity_depth": 2,
+      "tags": [
+        "polymère",
+        "isolant",
+        "circuit"
+      ]
+    },
+    {
+      "id": "fibre-verre",
+      "name": "Fibre de verre",
+      "category": "material",
+      "type": "material",
+      "era": "modern",
+      "year_approx": 1932,
+      "complexity_depth": 2,
+      "tags": [
+        "isolant",
+        "circuit imprimé",
+        "composite"
+      ]
+    },
+    {
+      "id": "circuit-imprime",
+      "name": "Circuit imprimé",
+      "category": "electronics",
+      "type": "component",
+      "era": "digital",
+      "year_approx": 1943,
+      "complexity_depth": 3,
+      "tags": [
+        "électronique",
+        "cuivre",
+        "PCB"
+      ]
+    },
+    {
+      "id": "transistor",
+      "name": "Transistor",
+      "category": "electronics",
+      "type": "component",
+      "era": "modern",
+      "year_approx": 1947,
+      "complexity_depth": 4,
+      "tags": [
+        "semi-conducteur",
+        "amplification",
+        "numérique"
+      ]
+    },
+    {
+      "id": "circuit-integre",
+      "name": "Circuit intégré",
+      "category": "electronics",
+      "type": "component",
+      "era": "digital",
+      "year_approx": 1958,
+      "complexity_depth": 5,
+      "tags": [
+        "puce",
+        "microprocesseur",
+        "électronique"
+      ]
+    },
+    {
+      "id": "microprocesseur",
+      "name": "Microprocesseur",
+      "category": "electronics",
+      "type": "end_product",
+      "era": "digital",
+      "year_approx": 1971,
+      "complexity_depth": 6,
+      "tags": [
+        "processeur",
+        "ordinateur",
+        "calcul"
+      ]
+    },
+    {
+      "id": "fer",
+      "name": "Fer",
+      "category": "material",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -1200,
+      "complexity_depth": 1,
+      "tags": [
+        "métal",
+        "métallurgie",
+        "construction"
+      ]
+    },
+    {
+      "id": "acier",
+      "name": "Acier",
+      "category": "material",
+      "type": "material",
+      "era": "industrial",
+      "year_approx": 1856,
+      "complexity_depth": 2,
+      "tags": [
+        "métal",
+        "alliance",
+        "construction"
+      ]
+    },
+    {
+      "id": "poutre-acier",
+      "name": "Poutre en acier",
+      "category": "construction",
+      "type": "component",
+      "era": "industrial",
+      "year_approx": 1889,
+      "complexity_depth": 3,
+      "tags": [
+        "construction",
+        "charpente",
+        "immeuble"
+      ]
+    },
+    {
+      "id": "structure-metallique",
+      "name": "Structure métallique",
+      "category": "construction",
+      "type": "end_product",
+      "era": "modern",
+      "year_approx": 1930,
+      "complexity_depth": 4,
+      "tags": [
+        "gratte-ciel",
+        "architecture",
+        "construction"
+      ]
+    },
+    {
+      "id": "ciment",
+      "name": "Ciment",
+      "category": "material",
+      "type": "material",
+      "era": "industrial",
+      "year_approx": 1824,
+      "complexity_depth": 2,
+      "tags": [
+        "construction",
+        "béton",
+        "liant"
+      ]
+    },
+    {
+      "id": "beton",
+      "name": "Béton",
+      "category": "construction",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -300,
+      "complexity_depth": 3,
+      "tags": [
+        "construction",
+        "fondation",
+        "armé"
+      ]
+    },
+    {
+      "id": "fondations",
+      "name": "Fondations",
+      "category": "construction",
+      "type": "component",
+      "era": "ancient",
+      "year_approx": null,
+      "complexity_depth": 4,
+      "tags": [
+        "construction",
+        "bâtiment",
+        "stabilité"
+      ]
+    },
+    {
+      "id": "pate-papier",
+      "name": "Pâte à papier",
+      "category": "material",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": 105,
+      "complexity_depth": 1,
+      "tags": [
+        "papier",
+        "bois",
+        "cellulose"
+      ]
+    },
+    {
+      "id": "papier",
+      "name": "Papier",
+      "category": "communication",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": 105,
+      "complexity_depth": 2,
+      "tags": [
+        "écriture",
+        "impression",
+        "support"
+      ]
+    },
+    {
+      "id": "encre",
+      "name": "Encre",
+      "category": "chemistry",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -2500,
+      "complexity_depth": 1,
+      "tags": [
+        "impression",
+        "écriture",
+        "pigment"
+      ]
+    },
+    {
+      "id": "presse-imprimer",
+      "name": "Presse à imprimer",
+      "category": "machine",
+      "type": "tool",
+      "era": "renaissance",
+      "year_approx": 1440,
+      "complexity_depth": 3,
+      "tags": [
+        "imprimerie",
+        "Gutenberg",
+        "livre"
+      ]
+    },
+    {
+      "id": "livre",
+      "name": "Livre",
+      "category": "communication",
+      "type": "end_product",
+      "era": "renaissance",
+      "year_approx": 1455,
+      "complexity_depth": 4,
+      "tags": [
+        "connaissance",
+        "impression",
+        "lecture"
+      ]
+    },
+    {
+      "id": "fil-cuivre",
+      "name": "Fil de cuivre",
+      "category": "material",
+      "type": "material",
+      "era": "industrial",
+      "year_approx": 1820,
+      "complexity_depth": 1,
+      "tags": [
+        "électricité",
+        "conducteur",
+        "transmission"
+      ]
+    },
+    {
+      "id": "cable-electrique",
+      "name": "Câble électrique",
+      "category": "electronics",
+      "type": "component",
+      "era": "industrial",
+      "year_approx": 1880,
+      "complexity_depth": 2,
+      "tags": [
+        "électricité",
+        "réseau",
+        "isolation"
+      ]
+    },
+    {
+      "id": "generateur",
+      "name": "Générateur électrique",
+      "category": "machine",
+      "type": "tool",
+      "era": "industrial",
+      "year_approx": 1831,
+      "complexity_depth": 2,
+      "tags": [
+        "électricité",
+        "Faraday",
+        "courant"
+      ]
+    },
+    {
+      "id": "electricite",
+      "name": "Électricité",
+      "category": "energy",
+      "type": "raw_material",
+      "era": "industrial",
+      "year_approx": 1882,
+      "complexity_depth": 2,
+      "tags": [
+        "courant",
+        "énergie",
+        "réseau"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "telegraphe",
+      "name": "Télégraphe",
+      "category": "communication",
+      "type": "machine",
+      "era": "industrial",
+      "year_approx": 1844,
+      "complexity_depth": 3,
+      "tags": [
+        "communication",
+        "Morse",
+        "réseau"
+      ]
+    },
+    {
+      "id": "telephone",
+      "name": "Téléphone",
+      "category": "communication",
+      "type": "machine",
+      "era": "industrial",
+      "year_approx": 1876,
+      "complexity_depth": 4,
+      "tags": [
+        "voix",
+        "Bell",
+        "communication"
+      ]
+    },
+    {
+      "id": "fibre-optique",
+      "name": "Fibre optique",
+      "category": "optical",
+      "type": "component",
+      "era": "digital",
+      "year_approx": 1970,
+      "complexity_depth": 3,
+      "tags": [
+        "données",
+        "lumière",
+        "internet"
+      ]
+    },
+    {
+      "id": "serveur-informatique",
+      "name": "Serveur informatique",
+      "category": "electronics",
+      "type": "machine",
+      "era": "digital",
+      "year_approx": 1990,
+      "complexity_depth": 6,
+      "tags": [
+        "réseau",
+        "données",
+        "cloud"
+      ]
+    },
+    {
+      "id": "internet",
+      "name": "Internet",
+      "category": "software",
+      "type": "end_product",
+      "era": "digital",
+      "year_approx": 1983,
+      "complexity_depth": 7,
+      "tags": [
+        "réseau",
+        "communication",
+        "données"
+      ]
+    },
+    {
+      "id": "extraits-vegetaux",
+      "name": "Extraits végétaux",
+      "category": "chemistry",
+      "type": "material",
+      "era": "medieval",
+      "year_approx": 800,
+      "complexity_depth": 1,
+      "tags": [
+        "pharmacie",
+        "extraction",
+        "principe actif"
+      ]
+    },
+    {
+      "id": "principes-actifs",
+      "name": "Principes actifs",
+      "category": "chemistry",
+      "type": "material",
+      "era": "industrial",
+      "year_approx": 1828,
+      "complexity_depth": 2,
+      "tags": [
+        "pharmacie",
+        "synthèse",
+        "médicament"
+      ]
+    },
+    {
+      "id": "chimie-organique",
+      "name": "Chimie organique",
+      "category": "chemistry",
+      "type": "process",
+      "era": "industrial",
+      "year_approx": 1856,
+      "complexity_depth": 1,
+      "tags": [
+        "pétrole",
+        "synthèse",
+        "polymère"
+      ]
+    },
+    {
+      "id": "polymeres",
+      "name": "Polymères",
+      "category": "chemistry",
+      "type": "material",
+      "era": "modern",
+      "year_approx": 1907,
+      "complexity_depth": 2,
+      "tags": [
+        "plastique",
+        "synthétique",
+        "gélule"
+      ]
+    },
+    {
+      "id": "gelules",
+      "name": "Gélules",
+      "category": "medical",
+      "type": "component",
+      "era": "modern",
+      "year_approx": 1834,
+      "complexity_depth": 3,
+      "tags": [
+        "pharmacie",
+        "enrobage",
+        "médicament"
+      ]
+    },
+    {
+      "id": "medicaments",
+      "name": "Médicaments",
+      "category": "medical",
+      "type": "end_product",
+      "era": "modern",
+      "year_approx": 1899,
+      "complexity_depth": 4,
+      "tags": [
+        "pharmacie",
+        "santé",
+        "thérapeutique"
+      ]
+    },
+    {
+      "id": "pain",
+      "name": "Pain",
+      "category": "food",
+      "type": "end_product",
+      "era": "prehistoric",
+      "year_approx": -10000,
+      "complexity_depth": 2,
+      "tags": [
+        "alimentation",
+        "farine",
+        "cuisson"
+      ]
+    },
+    {
+      "id": "fromage",
+      "name": "Fromage",
+      "category": "food",
+      "type": "end_product",
+      "era": "prehistoric",
+      "year_approx": -6000,
+      "complexity_depth": 2,
+      "tags": [
+        "laitier",
+        "fermentation",
+        "alimentation"
+      ]
+    },
+    {
+      "id": "tonneau",
+      "name": "Tonneau",
+      "category": "tool",
+      "type": "tool",
+      "era": "ancient",
+      "year_approx": -350,
+      "complexity_depth": 1,
+      "tags": [
+        "vin",
+        "fermentation",
+        "bois"
+      ]
+    },
+    {
+      "id": "vin",
+      "name": "Vin",
+      "category": "food",
+      "type": "end_product",
+      "era": "ancient",
+      "year_approx": -6000,
+      "complexity_depth": 2,
+      "tags": [
+        "fermentation",
+        "raisin",
+        "alcool"
+      ]
+    },
+    {
+      "id": "ampoule",
+      "name": "Ampoule électrique",
+      "category": "electronics",
+      "type": "end_product",
+      "era": "industrial",
+      "year_approx": 1879,
+      "complexity_depth": 2,
+      "tags": [
+        "éclairage",
+        "électricité",
+        "Edison"
+      ]
+    },
+    {
+      "id": "coton",
+      "name": "Coton",
+      "category": "textile",
+      "type": "raw_material",
+      "era": "ancient",
+      "year_approx": -5000,
+      "complexity_depth": 0,
+      "tags": [
+        "textile",
+        "fibre",
+        "vêtement"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "fil-de-coton",
+      "name": "Fil de coton",
+      "category": "textile",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -4000,
+      "complexity_depth": 1,
+      "tags": [
+        "fil",
+        "tissage"
+      ]
+    },
+    {
+      "id": "tissu",
+      "name": "Tissu",
+      "category": "textile",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -3000,
+      "complexity_depth": 2,
+      "tags": [
+        "tissu",
+        "habillement"
+      ]
+    },
+    {
+      "id": "vetement",
+      "name": "Vêtement",
+      "category": "textile",
+      "type": "end_product",
+      "era": "prehistoric",
+      "year_approx": -20000,
+      "complexity_depth": 3,
+      "tags": [
+        "mode",
+        "couture"
+      ]
+    },
+    {
+      "id": "laine",
+      "name": "Laine",
+      "category": "animal",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": -10000,
+      "complexity_depth": 0,
+      "tags": [
+        "textile",
+        "tricot"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "fil-de-laine",
+      "name": "Fil de laine",
+      "category": "textile",
+      "type": "material",
+      "era": "prehistoric",
+      "year_approx": -8000,
+      "complexity_depth": 1,
+      "tags": [
+        "fil",
+        "chaud"
+      ]
+    },
+    {
+      "id": "tricot",
+      "name": "Tricot",
+      "category": "textile",
+      "type": "end_product",
+      "era": "medieval",
+      "year_approx": 1200,
+      "complexity_depth": 2,
+      "tags": [
+        "pull",
+        "maille"
+      ]
+    },
+    {
+      "id": "ver-a-soie",
+      "name": "Ver à soie",
+      "category": "animal",
+      "type": "raw_material",
+      "era": "ancient",
+      "year_approx": -3000,
+      "complexity_depth": 0,
+      "tags": [
+        "soie",
+        "Asie"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "soie-naturelle",
+      "name": "Soie naturelle",
+      "category": "textile",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -3000,
+      "complexity_depth": 1,
+      "tags": [
+        "luxury",
+        "tissu"
+      ]
+    },
+    {
+      "id": "plantes-teinture",
+      "name": "Plantes tinctoriales",
+      "category": "vegetal",
+      "type": "raw_material",
+      "era": "ancient",
+      "year_approx": -2000,
+      "complexity_depth": 0,
+      "tags": [
+        "couleur",
+        "teinture"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "mordant",
+      "name": "Mordant",
+      "category": "chemistry",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -1500,
+      "complexity_depth": 1,
+      "tags": [
+        "fixateur",
+        "teinture"
+      ]
+    },
+    {
+      "id": "teinture-textile",
+      "name": "Teinture textile",
+      "category": "process",
+      "type": "process",
+      "era": "ancient",
+      "year_approx": -2000,
+      "complexity_depth": 2,
+      "tags": [
+        "couleur",
+        "industrie"
+      ]
+    },
+    {
+      "id": "roue",
+      "name": "Roue",
+      "category": "transport",
+      "type": "component",
+      "era": "ancient",
+      "year_approx": -3500,
+      "complexity_depth": 1,
+      "tags": [
+        "mécanique",
+        "char"
+      ]
+    },
+    {
+      "id": "chariot",
+      "name": "Chariot",
+      "category": "transport",
+      "type": "end_product",
+      "era": "ancient",
+      "year_approx": -3500,
+      "complexity_depth": 2,
+      "tags": [
+        "traction",
+        "route"
+      ]
+    },
+    {
+      "id": "caoutchouc",
+      "name": "Caoutchouc",
+      "category": "material",
+      "type": "raw_material",
+      "era": "industrial",
+      "year_approx": 1839,
+      "complexity_depth": 0,
+      "tags": [
+        "élastique",
+        "pneu"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "moteur-explosion",
+      "name": "Moteur à explosion",
+      "category": "machine",
+      "type": "machine",
+      "era": "industrial",
+      "year_approx": 1876,
+      "complexity_depth": 3,
+      "tags": [
+        "automobile",
+        "essence"
+      ]
+    },
+    {
+      "id": "automobile",
+      "name": "Automobile",
+      "category": "transport",
+      "type": "end_product",
+      "era": "industrial",
+      "year_approx": 1886,
+      "complexity_depth": 5,
+      "tags": [
+        "voiture",
+        "industrie"
+      ]
+    },
+    {
+      "id": "aluminium",
+      "name": "Aluminium",
+      "category": "material",
+      "type": "material",
+      "era": "modern",
+      "year_approx": 1886,
+      "complexity_depth": 2,
+      "tags": [
+        "léger",
+        "aéronautique"
+      ]
+    },
+    {
+      "id": "moteur-reaction",
+      "name": "Moteur à réaction",
+      "category": "machine",
+      "type": "machine",
+      "era": "modern",
+      "year_approx": 1937,
+      "complexity_depth": 4,
+      "tags": [
+        "avion",
+        "turbine"
+      ]
+    },
+    {
+      "id": "avion",
+      "name": "Avion",
+      "category": "transport",
+      "type": "end_product",
+      "era": "modern",
+      "year_approx": 1903,
+      "complexity_depth": 6,
+      "tags": [
+        "aviation",
+        "transport"
+      ]
+    },
+    {
+      "id": "charbon-de-bois",
+      "name": "Charbon de bois",
+      "category": "energy",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": -20000,
+      "complexity_depth": 1,
+      "tags": [
+        "forge",
+        "combustible"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "houille",
+      "name": "Houille",
+      "category": "energy",
+      "type": "raw_material",
+      "era": "industrial",
+      "year_approx": 1700,
+      "complexity_depth": 0,
+      "tags": [
+        "mine",
+        "thermique"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "essence",
+      "name": "Essence",
+      "category": "energy",
+      "type": "material",
+      "era": "industrial",
+      "year_approx": 1860,
+      "complexity_depth": 1,
+      "tags": [
+        "carburant",
+        "pétrole"
+      ]
+    },
+    {
+      "id": "uranium",
+      "name": "Uranium",
+      "category": "mineral",
+      "type": "raw_material",
+      "era": "modern",
+      "year_approx": 1942,
+      "complexity_depth": 0,
+      "tags": [
+        "nucléaire",
+        "fission"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "reacteur-nucleaire",
+      "name": "Réacteur nucléaire",
+      "category": "machine",
+      "type": "machine",
+      "era": "modern",
+      "year_approx": 1954,
+      "complexity_depth": 3,
+      "tags": [
+        "fission",
+        "centrale"
+      ]
+    },
+    {
+      "id": "panneau-solaire",
+      "name": "Panneau solaire",
+      "category": "electronics",
+      "type": "component",
+      "era": "modern",
+      "year_approx": 1954,
+      "complexity_depth": 3,
+      "tags": [
+        "PV",
+        "renouvelable"
+      ]
+    },
+    {
+      "id": "charpente-bois",
+      "name": "Charpente en bois",
+      "category": "construction",
+      "type": "component",
+      "era": "medieval",
+      "year_approx": 800,
+      "complexity_depth": 2,
+      "tags": [
+        "toit",
+        "ossature"
+      ]
+    },
+    {
+      "id": "pierre",
+      "name": "Pierre de taille",
+      "category": "mineral",
+      "type": "raw_material",
+      "era": "ancient",
+      "year_approx": -2500,
+      "complexity_depth": 0,
+      "tags": [
+        "mur",
+        "monument"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "taille-pierre",
+      "name": "Taille de pierre",
+      "category": "process",
+      "type": "process",
+      "era": "ancient",
+      "year_approx": -2000,
+      "complexity_depth": 1,
+      "tags": [
+        "maçonnerie",
+        "outil"
+      ]
+    },
+    {
+      "id": "mur-pierre",
+      "name": "Mur en pierre",
+      "category": "construction",
+      "type": "component",
+      "era": "ancient",
+      "year_approx": -1500,
+      "complexity_depth": 3,
+      "tags": [
+        "fortification",
+        "bâtiment"
+      ]
+    },
+    {
+      "id": "chaux",
+      "name": "Chaux vive",
+      "category": "chemistry",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -2000,
+      "complexity_depth": 1,
+      "tags": [
+        "liant",
+        "mortier"
+      ]
+    },
+    {
+      "id": "mortier",
+      "name": "Mortier",
+      "category": "construction",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -1500,
+      "complexity_depth": 2,
+      "tags": [
+        "joint",
+        "maçonnerie"
+      ]
+    },
+    {
+      "id": "vitre",
+      "name": "Vitre",
+      "category": "construction",
+      "type": "component",
+      "era": "ancient",
+      "year_approx": 100,
+      "complexity_depth": 2,
+      "tags": [
+        "fenêtre",
+        "transparence"
+      ]
+    },
+    {
+      "id": "fenetre",
+      "name": "Fenêtre",
+      "category": "construction",
+      "type": "end_product",
+      "era": "medieval",
+      "year_approx": 1200,
+      "complexity_depth": 3,
+      "tags": [
+        "bâtiment",
+        "lumière"
+      ]
+    },
+    {
+      "id": "papyrus",
+      "name": "Papyrus",
+      "category": "communication",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -3000,
+      "complexity_depth": 1,
+      "tags": [
+        "Égypte",
+        "écriture"
+      ]
+    },
+    {
+      "id": "parchemin",
+      "name": "Parchemin",
+      "category": "communication",
+      "type": "material",
+      "era": "medieval",
+      "year_approx": 200,
+      "complexity_depth": 1,
+      "tags": [
+        "manuscrit",
+        "livre"
+      ]
+    },
+    {
+      "id": "imprimerie",
+      "name": "Imprimerie industrielle",
+      "category": "process",
+      "type": "process",
+      "era": "industrial",
+      "year_approx": 1814,
+      "complexity_depth": 3,
+      "tags": [
+        "presse",
+        "journal"
+      ]
+    },
+    {
+      "id": "journal",
+      "name": "Journal",
+      "category": "communication",
+      "type": "end_product",
+      "era": "industrial",
+      "year_approx": 1704,
+      "complexity_depth": 4,
+      "tags": [
+        "presse",
+        "actualité"
+      ]
+    },
+    {
+      "id": "radio",
+      "name": "Radio",
+      "category": "communication",
+      "type": "machine",
+      "era": "modern",
+      "year_approx": 1920,
+      "complexity_depth": 4,
+      "tags": [
+        "ondes",
+        "audio"
+      ]
+    },
+    {
+      "id": "television",
+      "name": "Télévision",
+      "category": "communication",
+      "type": "machine",
+      "era": "modern",
+      "year_approx": 1927,
+      "complexity_depth": 5,
+      "tags": [
+        "image",
+        "broadcast"
+      ]
+    },
+    {
+      "id": "ordinateur",
+      "name": "Ordinateur",
+      "category": "electronics",
+      "type": "machine",
+      "era": "digital",
+      "year_approx": 1945,
+      "complexity_depth": 5,
+      "tags": [
+        "calcul",
+        "logiciel"
+      ]
+    },
+    {
+      "id": "smartphone",
+      "name": "Smartphone",
+      "category": "electronics",
+      "type": "end_product",
+      "era": "contemporary",
+      "year_approx": 2007,
+      "complexity_depth": 7,
+      "tags": [
+        "mobile",
+        "app"
+      ]
+    },
+    {
+      "id": "plastique",
+      "name": "Plastique",
+      "category": "chemistry",
+      "type": "material",
+      "era": "modern",
+      "year_approx": 1907,
+      "complexity_depth": 2,
+      "tags": [
+        "PE",
+        "moulage"
+      ]
+    },
+    {
+      "id": "bouteille-plastique",
+      "name": "Bouteille plastique",
+      "category": "food",
+      "type": "end_product",
+      "era": "modern",
+      "year_approx": 1973,
+      "complexity_depth": 3,
+      "tags": [
+        "emballage",
+        "recyclage"
+      ]
+    },
+    {
+      "id": "engrais",
+      "name": "Engrais azoté",
+      "category": "chemistry",
+      "type": "material",
+      "era": "modern",
+      "year_approx": 1913,
+      "complexity_depth": 2,
+      "tags": [
+        "agriculture",
+        "rendement"
+      ]
+    },
+    {
+      "id": "salpetre",
+      "name": "Salpêtre",
+      "category": "mineral",
+      "type": "raw_material",
+      "era": "medieval",
+      "year_approx": 1200,
+      "complexity_depth": 0,
+      "tags": [
+        "explosif",
+        "chimie"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "soufre",
+      "name": "Soufre",
+      "category": "mineral",
+      "type": "raw_material",
+      "era": "ancient",
+      "year_approx": -500,
+      "complexity_depth": 0,
+      "tags": [
+        "explosif",
+        "acide"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "poudre-a-canon",
+      "name": "Poudre à canon",
+      "category": "weapon",
+      "type": "material",
+      "era": "medieval",
+      "year_approx": 850,
+      "complexity_depth": 2,
+      "tags": [
+        "explosif",
+        "arme"
+      ]
+    },
+    {
+      "id": "lentille",
+      "name": "Lentille optique",
+      "category": "optical",
+      "type": "component",
+      "era": "renaissance",
+      "year_approx": 1280,
+      "complexity_depth": 2,
+      "tags": [
+        "optique",
+        "verre"
+      ]
+    },
+    {
+      "id": "lunettes",
+      "name": "Lunettes",
+      "category": "optical",
+      "type": "end_product",
+      "era": "renaissance",
+      "year_approx": 1286,
+      "complexity_depth": 3,
+      "tags": [
+        "vue",
+        "correction"
+      ]
+    },
+    {
+      "id": "microscope",
+      "name": "Microscope",
+      "category": "optical",
+      "type": "machine",
+      "era": "renaissance",
+      "year_approx": 1590,
+      "complexity_depth": 4,
+      "tags": [
+        "science",
+        "lentille"
+      ]
+    },
+    {
+      "id": "telescope",
+      "name": "Télescope",
+      "category": "optical",
+      "type": "machine",
+      "era": "renaissance",
+      "year_approx": 1608,
+      "complexity_depth": 4,
+      "tags": [
+        "astronomie",
+        "lunette"
+      ]
+    },
+    {
+      "id": "viande",
+      "name": "Viande",
+      "category": "animal",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": -50000,
+      "complexity_depth": 0,
+      "tags": [
+        "protéine",
+        "aliment"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "salaison",
+      "name": "Salaison",
+      "category": "food",
+      "type": "end_product",
+      "era": "ancient",
+      "year_approx": -2000,
+      "complexity_depth": 2,
+      "tags": [
+        "conservation",
+        "sel"
+      ]
+    },
+    {
+      "id": "canne-a-sucre",
+      "name": "Canne à sucre",
+      "category": "vegetal",
+      "type": "raw_material",
+      "era": "ancient",
+      "year_approx": -8000,
+      "complexity_depth": 0,
+      "tags": [
+        "sucre",
+        "tropical"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "sucre",
+      "name": "Sucre de canne",
+      "category": "food",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": 500,
+      "complexity_depth": 1,
+      "tags": [
+        "sucré",
+        "pâtisserie"
+      ]
+    },
+    {
+      "id": "confiserie",
+      "name": "Confiserie",
+      "category": "food",
+      "type": "end_product",
+      "era": "medieval",
+      "year_approx": 1200,
+      "complexity_depth": 2,
+      "tags": [
+        "bonbon",
+        "dessert"
+      ]
+    },
+    {
+      "id": "cacao",
+      "name": "Fèves de cacao",
+      "category": "vegetal",
+      "type": "raw_material",
+      "era": "ancient",
+      "year_approx": -1500,
+      "complexity_depth": 0,
+      "tags": [
+        "chocolat",
+        "Mesoamérique"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "chocolat",
+      "name": "Chocolat",
+      "category": "food",
+      "type": "end_product",
+      "era": "renaissance",
+      "year_approx": 1520,
+      "complexity_depth": 3,
+      "tags": [
+        "dessert",
+        "industrie"
+      ]
+    },
+    {
+      "id": "houblon",
+      "name": "Houblon",
+      "category": "vegetal",
+      "type": "raw_material",
+      "era": "medieval",
+      "year_approx": 800,
+      "complexity_depth": 0,
+      "tags": [
+        "bière",
+        "amer"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "orge",
+      "name": "Orge",
+      "category": "vegetal",
+      "type": "raw_material",
+      "era": "ancient",
+      "year_approx": -5000,
+      "complexity_depth": 0,
+      "tags": [
+        "malt",
+        "brasserie"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "biere",
+      "name": "Bière",
+      "category": "food",
+      "type": "end_product",
+      "era": "ancient",
+      "year_approx": -3500,
+      "complexity_depth": 2,
+      "tags": [
+        "fermentation",
+        "brasserie"
+      ]
+    },
+    {
+      "id": "metier-tisser",
+      "name": "Métier à tisser",
+      "category": "machine",
+      "type": "tool",
+      "era": "ancient",
+      "year_approx": -4000,
+      "complexity_depth": 1,
+      "tags": [
+        "textile",
+        "tissage"
+      ]
+    },
+    {
+      "id": "eau-de-chaux",
+      "name": "Eau de chaux",
+      "category": "chemistry",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -1000,
+      "complexity_depth": 1,
+      "tags": [
+        "mortier",
+        "chaux"
+      ]
+    },
+    {
+      "id": "bauxite",
+      "name": "Bauxite",
+      "category": "mineral",
+      "type": "raw_material",
+      "era": "industrial",
+      "year_approx": 1821,
+      "complexity_depth": 0,
+      "tags": [
+        "aluminium",
+        "mine"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "raffinerie",
+      "name": "Raffinerie",
+      "category": "process",
+      "type": "process",
+      "era": "industrial",
+      "year_approx": 1860,
+      "complexity_depth": 2,
+      "tags": [
+        "pétrole",
+        "essence"
+      ]
+    },
+    {
+      "id": "antenne-radio",
+      "name": "Antenne radio",
+      "category": "electronics",
+      "type": "component",
+      "era": "modern",
+      "year_approx": 1895,
+      "complexity_depth": 2,
+      "tags": [
+        "RF",
+        "ondes"
+      ]
+    },
+    {
+      "id": "tube-cathodique",
+      "name": "Tube cathodique",
+      "category": "electronics",
+      "type": "component",
+      "era": "modern",
+      "year_approx": 1897,
+      "complexity_depth": 3,
+      "tags": [
+        "image",
+        "TV"
+      ]
+    },
+    {
+      "id": "eau-lourde",
+      "name": "Eau lourde",
+      "category": "chemistry",
+      "type": "material",
+      "era": "modern",
+      "year_approx": 1934,
+      "complexity_depth": 1,
+      "tags": [
+        "nucléaire",
+        "modérateur"
+      ]
+    },
+    {
+      "id": "beton-arme",
+      "name": "Béton armé",
+      "category": "construction",
+      "type": "material",
+      "era": "industrial",
+      "year_approx": 1853,
+      "complexity_depth": 4,
+      "tags": [
+        "génie civil",
+        "pont"
+      ]
+    },
+    {
+      "id": "pneu",
+      "name": "Pneu",
+      "category": "transport",
+      "type": "component",
+      "era": "industrial",
+      "year_approx": 1888,
+      "complexity_depth": 2,
+      "tags": [
+        "caoutchouc",
+        "roue"
+      ]
+    },
+    {
+      "id": "chassis-auto",
+      "name": "Châssis automobile",
+      "category": "transport",
+      "type": "component",
+      "era": "industrial",
+      "year_approx": 1900,
+      "complexity_depth": 3,
+      "tags": [
+        "assemblage",
+        "acier"
+      ]
+    },
+    {
+      "id": "carlingue",
+      "name": "Carlingue",
+      "category": "transport",
+      "type": "component",
+      "era": "modern",
+      "year_approx": 1935,
+      "complexity_depth": 4,
+      "tags": [
+        "aéronautique",
+        "alu"
+      ]
+    },
+    {
+      "id": "gazole",
+      "name": "Gazole",
+      "category": "energy",
+      "type": "material",
+      "era": "industrial",
+      "year_approx": 1892,
+      "complexity_depth": 1,
+      "tags": [
+        "diesel",
+        "pétrole"
+      ]
+    },
+    {
+      "id": "turbine-vapeur",
+      "name": "Turbine à vapeur",
+      "category": "machine",
+      "type": "machine",
+      "era": "industrial",
+      "year_approx": 1884,
+      "complexity_depth": 3,
+      "tags": [
+        "thermique",
+        "électricité"
+      ]
+    },
+    {
+      "id": "alternateur",
+      "name": "Alternateur",
+      "category": "electronics",
+      "type": "component",
+      "era": "industrial",
+      "year_approx": 1891,
+      "complexity_depth": 2,
+      "tags": [
+        "réseau",
+        "AC"
+      ]
+    },
+    {
+      "id": "reseau-electrique",
+      "name": "Réseau électrique",
+      "category": "energy",
+      "type": "process",
+      "era": "industrial",
+      "year_approx": 1896,
+      "complexity_depth": 3,
+      "tags": [
+        "HT",
+        "transport"
+      ]
+    },
+    {
+      "id": "onduleur-solaire",
+      "name": "Onduleur solaire",
+      "category": "electronics",
+      "type": "component",
+      "era": "contemporary",
+      "year_approx": 1995,
+      "complexity_depth": 3,
+      "tags": [
+        "PV",
+        "grille"
+      ]
+    },
+    {
+      "id": "fonte",
+      "name": "Fonte",
+      "category": "material",
+      "type": "material",
+      "era": "industrial",
+      "year_approx": 1709,
+      "complexity_depth": 2,
+      "tags": [
+        "sidérurgie",
+        "moule"
+      ]
+    },
+    {
+      "id": "acier-inox",
+      "name": "Acier inoxydable",
+      "category": "material",
+      "type": "material",
+      "era": "modern",
+      "year_approx": 1913,
+      "complexity_depth": 3,
+      "tags": [
+        "chimie",
+        "alimentaire"
+      ]
+    },
+    {
+      "id": "tissu-teint",
+      "name": "Tissu teint",
+      "category": "textile",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -1500,
+      "complexity_depth": 3,
+      "tags": [
+        "mode",
+        "couleur"
+      ]
+    },
+    {
+      "id": "filature",
+      "name": "Filature",
+      "category": "process",
+      "type": "process",
+      "era": "industrial",
+      "year_approx": 1771,
+      "complexity_depth": 2,
+      "tags": [
+        "industrie",
+        "coton"
+      ]
+    },
+    {
+      "id": "mouton",
+      "name": "Mouton",
+      "category": "animal",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": -9000,
+      "complexity_depth": 0,
+      "tags": [
+        "élevage",
+        "laine"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "mulberry",
+      "name": "Mûrier",
+      "category": "vegetal",
+      "type": "raw_material",
+      "era": "ancient",
+      "year_approx": -3000,
+      "complexity_depth": 0,
+      "tags": [
+        "soie",
+        "feuille"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "feuille-or",
+      "name": "Feuille d’or",
+      "category": "material",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -500,
+      "complexity_depth": 1,
+      "tags": [
+        "luxe",
+        "dorure"
+      ]
+    },
+    {
+      "id": "or",
+      "name": "Or",
+      "category": "mineral",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": -4000,
+      "complexity_depth": 0,
+      "tags": [
+        "monnaie",
+        "bijou"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "scierie",
+      "name": "Scierie",
+      "category": "process",
+      "type": "process",
+      "era": "medieval",
+      "year_approx": 1300,
+      "complexity_depth": 2,
+      "tags": [
+        "bois",
+        "charpente"
+      ]
+    },
+    {
+      "id": "planche-bois",
+      "name": "Planche de bois",
+      "category": "material",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": -2000,
+      "complexity_depth": 1,
+      "tags": [
+        "construction",
+        "bois"
+      ]
+    },
+    {
+      "id": "verre-trempe",
+      "name": "Verre trempé",
+      "category": "material",
+      "type": "material",
+      "era": "modern",
+      "year_approx": 1929,
+      "complexity_depth": 3,
+      "tags": [
+        "sécurité",
+        "bâtiment"
+      ]
+    },
+    {
+      "id": "acier-structure",
+      "name": "Profilé acier",
+      "category": "construction",
+      "type": "component",
+      "era": "industrial",
+      "year_approx": 1850,
+      "complexity_depth": 3,
+      "tags": [
+        "pont",
+        "gratte-ciel"
+      ]
+    },
+    {
+      "id": "hydrogene",
+      "name": "Hydrogène",
+      "category": "element",
+      "type": "raw_material",
+      "era": "modern",
+      "year_approx": 1913,
+      "complexity_depth": 1,
+      "tags": [
+        "chimie",
+        "engrais"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "azote",
+      "name": "Azote",
+      "category": "element",
+      "type": "raw_material",
+      "era": "modern",
+      "year_approx": 1913,
+      "complexity_depth": 1,
+      "tags": [
+        "Haber",
+        "engrais"
+      ],
+      "origin": "Nature"
+    },
+    {
+      "id": "ammoniac",
+      "name": "Ammoniac",
+      "category": "chemistry",
+      "type": "material",
+      "era": "modern",
+      "year_approx": 1913,
+      "complexity_depth": 2,
+      "tags": [
+        "synthèse",
+        "engrais"
+      ]
+    },
+    {
+      "id": "nitrate",
+      "name": "Nitrate de calcium",
+      "category": "chemistry",
+      "type": "material",
+      "era": "modern",
+      "year_approx": 1920,
+      "complexity_depth": 2,
+      "tags": [
+        "sol",
+        "engrais"
+      ]
+    },
+    {
+      "id": "polycarbonate",
+      "name": "Polycarbonate",
+      "category": "chemistry",
+      "type": "material",
+      "era": "modern",
+      "year_approx": 1953,
+      "complexity_depth": 3,
+      "tags": [
+        "transparent",
+        "sécurité"
+      ]
+    },
+    {
+      "id": "route-bitee",
+      "name": "Route bitumée",
+      "category": "construction",
+      "type": "end_product",
+      "era": "industrial",
+      "year_approx": 1870,
+      "complexity_depth": 3,
+      "tags": [
+        "pétrole",
+        "transport"
+      ]
+    },
+    {
+      "id": "bitume",
+      "name": "Bitume",
+      "category": "material",
+      "type": "material",
+      "era": "industrial",
+      "year_approx": 1870,
+      "complexity_depth": 1,
+      "tags": [
+        "route",
+        "étanchéité"
+      ]
+    },
+    {
+      "id": "signal-numerique",
+      "name": "Signal numérique",
+      "category": "software",
+      "type": "process",
+      "era": "digital",
+      "year_approx": 1948,
+      "complexity_depth": 2,
+      "tags": [
+        "DSP",
+        "télécom"
+      ]
+    },
+    {
+      "id": "ecran-lcd",
+      "name": "Écran LCD",
+      "category": "electronics",
+      "type": "component",
+      "era": "digital",
+      "year_approx": 1971,
+      "complexity_depth": 4,
+      "tags": [
+        "mobile",
+        "affichage"
+      ]
+    },
+    {
+      "id": "batterie-li",
+      "name": "Batterie Li-ion",
+      "category": "electronics",
+      "type": "component",
+      "era": "contemporary",
+      "year_approx": 1991,
+      "complexity_depth": 3,
+      "tags": [
+        "stockage",
+        "mobile"
+      ]
+    },
+    {
+      "id": "reseau-cellulaire",
+      "name": "Réseau cellulaire",
+      "category": "communication",
+      "type": "process",
+      "era": "contemporary",
+      "year_approx": 1980,
+      "complexity_depth": 5,
+      "tags": [
+        "5G",
+        "opérateur"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "id": "l1",
+      "source_id": "sable",
+      "target_id": "verre",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l2",
+      "source_id": "soude",
+      "target_id": "verre",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l3",
+      "source_id": "four",
+      "target_id": "verre",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l4",
+      "source_id": "feu",
+      "target_id": "four",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l5",
+      "source_id": "charbon",
+      "target_id": "four",
+      "relation_type": "energy",
+      "is_optional": true,
+      "notes": "Alternative au bois"
+    },
+    {
+      "id": "l6",
+      "source_id": "sable",
+      "target_id": "silicium",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l7",
+      "source_id": "charbon",
+      "target_id": "silicium",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false,
+      "notes": "Réducteur"
+    },
+    {
+      "id": "l8",
+      "source_id": "four",
+      "target_id": "silicium",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l9",
+      "source_id": "silicium",
+      "target_id": "wafer-silicium",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l10",
+      "source_id": "acide-gravure",
+      "target_id": "wafer-silicium",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false
+    },
+    {
+      "id": "l11",
+      "source_id": "photolithographie",
+      "target_id": "wafer-silicium",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l12",
+      "source_id": "wafer-silicium",
+      "target_id": "transistor",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l13",
+      "source_id": "photolithographie",
+      "target_id": "transistor",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l14",
+      "source_id": "transistor",
+      "target_id": "circuit-integre",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l15",
+      "source_id": "wafer-silicium",
+      "target_id": "circuit-integre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l16",
+      "source_id": "photolithographie",
+      "target_id": "circuit-integre",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l17",
+      "source_id": "circuit-integre",
+      "target_id": "microprocesseur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l18",
+      "source_id": "photolithographie",
+      "target_id": "microprocesseur",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l19",
+      "source_id": "cuivre",
+      "target_id": "circuit-imprime",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l20",
+      "source_id": "fibre-verre",
+      "target_id": "circuit-imprime",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l21",
+      "source_id": "resine-epoxy",
+      "target_id": "circuit-imprime",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l22",
+      "source_id": "acide-gravure",
+      "target_id": "circuit-imprime",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false
+    },
+    {
+      "id": "l23",
+      "source_id": "photolithographie",
+      "target_id": "circuit-imprime",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l24",
+      "source_id": "verre",
+      "target_id": "ampoule",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l25",
+      "source_id": "cuivre",
+      "target_id": "ampoule",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false,
+      "notes": "Filament et connexions"
+    },
+    {
+      "id": "l26",
+      "source_id": "electricite",
+      "target_id": "ampoule",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l27",
+      "source_id": "minerai-fer",
+      "target_id": "fer",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l28",
+      "source_id": "charbon",
+      "target_id": "fer",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": "Réducteur"
+    },
+    {
+      "id": "l29",
+      "source_id": "four-haute-temp",
+      "target_id": "fer",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l30",
+      "source_id": "feu",
+      "target_id": "four-haute-temp",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l31",
+      "source_id": "charbon",
+      "target_id": "four-haute-temp",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l32",
+      "source_id": "fer",
+      "target_id": "acier",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l33",
+      "source_id": "charbon",
+      "target_id": "acier",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false,
+      "notes": "Carbone pour alliage"
+    },
+    {
+      "id": "l34",
+      "source_id": "four-haute-temp",
+      "target_id": "acier",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l35",
+      "source_id": "acier",
+      "target_id": "poutre-acier",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l36",
+      "source_id": "poutre-acier",
+      "target_id": "structure-metallique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l37",
+      "source_id": "fondations",
+      "target_id": "structure-metallique",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l38",
+      "source_id": "calcaire",
+      "target_id": "ciment",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l39",
+      "source_id": "argile",
+      "target_id": "ciment",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l40",
+      "source_id": "four",
+      "target_id": "ciment",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l41",
+      "source_id": "feu",
+      "target_id": "ciment",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l42",
+      "source_id": "ciment",
+      "target_id": "beton",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l43",
+      "source_id": "sable",
+      "target_id": "beton",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l44",
+      "source_id": "eau",
+      "target_id": "beton",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l45",
+      "source_id": "beton",
+      "target_id": "fondations",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l46",
+      "source_id": "acier",
+      "target_id": "fondations",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": true,
+      "notes": "Béton armé"
+    },
+    {
+      "id": "l47",
+      "source_id": "bois",
+      "target_id": "pate-papier",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l48",
+      "source_id": "eau",
+      "target_id": "pate-papier",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l49",
+      "source_id": "pate-papier",
+      "target_id": "papier",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l50",
+      "source_id": "eau",
+      "target_id": "papier",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false,
+      "notes": "Séchage"
+    },
+    {
+      "id": "l51",
+      "source_id": "papier",
+      "target_id": "livre",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l52",
+      "source_id": "encre",
+      "target_id": "livre",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l53",
+      "source_id": "presse-imprimer",
+      "target_id": "livre",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l54",
+      "source_id": "bois",
+      "target_id": "presse-imprimer",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l55",
+      "source_id": "fer",
+      "target_id": "presse-imprimer",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l56",
+      "source_id": "cuivre",
+      "target_id": "fil-cuivre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l57",
+      "source_id": "fil-cuivre",
+      "target_id": "cable-electrique",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l58",
+      "source_id": "resine-epoxy",
+      "target_id": "cable-electrique",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": true,
+      "notes": "Isolation"
+    },
+    {
+      "id": "l59",
+      "source_id": "charbon",
+      "target_id": "electricite",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l60",
+      "source_id": "generateur",
+      "target_id": "electricite",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l61",
+      "source_id": "cuivre",
+      "target_id": "generateur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l62",
+      "source_id": "fer",
+      "target_id": "generateur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l63",
+      "source_id": "cable-electrique",
+      "target_id": "telegraphe",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l64",
+      "source_id": "electricite",
+      "target_id": "telegraphe",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l65",
+      "source_id": "telegraphe",
+      "target_id": "telephone",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l66",
+      "source_id": "cable-electrique",
+      "target_id": "telephone",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l67",
+      "source_id": "electricite",
+      "target_id": "telephone",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l68",
+      "source_id": "verre",
+      "target_id": "fibre-optique",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l69",
+      "source_id": "circuit-integre",
+      "target_id": "serveur-informatique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l70",
+      "source_id": "cable-electrique",
+      "target_id": "serveur-informatique",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l71",
+      "source_id": "fibre-optique",
+      "target_id": "serveur-informatique",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l72",
+      "source_id": "electricite",
+      "target_id": "serveur-informatique",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l73",
+      "source_id": "serveur-informatique",
+      "target_id": "internet",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l74",
+      "source_id": "fibre-optique",
+      "target_id": "internet",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l75",
+      "source_id": "cable-electrique",
+      "target_id": "internet",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l76",
+      "source_id": "plantes-medicinales",
+      "target_id": "extraits-vegetaux",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l77",
+      "source_id": "eau",
+      "target_id": "extraits-vegetaux",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l78",
+      "source_id": "feu",
+      "target_id": "extraits-vegetaux",
+      "relation_type": "energy",
+      "is_optional": true,
+      "notes": "Pour distillation"
+    },
+    {
+      "id": "l79",
+      "source_id": "extraits-vegetaux",
+      "target_id": "principes-actifs",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l80",
+      "source_id": "petrole",
+      "target_id": "chimie-organique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l81",
+      "source_id": "feu",
+      "target_id": "chimie-organique",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l82",
+      "source_id": "chimie-organique",
+      "target_id": "polymeres",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l83",
+      "source_id": "polymeres",
+      "target_id": "gelules",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l84",
+      "source_id": "principes-actifs",
+      "target_id": "medicaments",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false
+    },
+    {
+      "id": "l85",
+      "source_id": "gelules",
+      "target_id": "medicaments",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": true,
+      "notes": "Enrobage des comprimés"
+    },
+    {
+      "id": "l86",
+      "source_id": "polymeres",
+      "target_id": "medicaments",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": true,
+      "notes": "Excipients"
+    },
+    {
+      "id": "l87",
+      "source_id": "ble",
+      "target_id": "pain",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l88",
+      "source_id": "eau",
+      "target_id": "pain",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l89",
+      "source_id": "levure",
+      "target_id": "pain",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false
+    },
+    {
+      "id": "l90",
+      "source_id": "four",
+      "target_id": "pain",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l91",
+      "source_id": "feu",
+      "target_id": "pain",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l92",
+      "source_id": "lait",
+      "target_id": "fromage",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l93",
+      "source_id": "presure",
+      "target_id": "fromage",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false
+    },
+    {
+      "id": "l94",
+      "source_id": "sel",
+      "target_id": "fromage",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false
+    },
+    {
+      "id": "l95",
+      "source_id": "raisin",
+      "target_id": "vin",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l96",
+      "source_id": "levure",
+      "target_id": "vin",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false
+    },
+    {
+      "id": "l97",
+      "source_id": "tonneau",
+      "target_id": "vin",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l98",
+      "source_id": "bois",
+      "target_id": "tonneau",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l99",
+      "source_id": "air",
+      "target_id": "feu",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": "Oxygène pour la combustion"
+    },
+    {
+      "id": "l100",
+      "source_id": "verre",
+      "target_id": "fibre-verre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l101",
+      "source_id": "feu",
+      "target_id": "fibre-verre",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l102",
+      "source_id": "chimie-organique",
+      "target_id": "resine-epoxy",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l103",
+      "source_id": "calcaire",
+      "target_id": "soude",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l104",
+      "source_id": "sel",
+      "target_id": "soude",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l105",
+      "source_id": "four",
+      "target_id": "soude",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l106",
+      "source_id": "circuit-imprime",
+      "target_id": "serveur-informatique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l107",
+      "source_id": "microprocesseur",
+      "target_id": "serveur-informatique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l108",
+      "source_id": "electricite",
+      "target_id": "photolithographie",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l109",
+      "source_id": "verre",
+      "target_id": "photolithographie",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": true,
+      "notes": "Masques optiques"
+    },
+    {
+      "id": "l110",
+      "source_id": "eau",
+      "target_id": "acide-gravure",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l111",
+      "source_id": "telegraphe",
+      "target_id": "internet",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l112",
+      "source_id": "telephone",
+      "target_id": "internet",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l113",
+      "source_id": "coton",
+      "target_id": "fil-de-coton",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l114",
+      "source_id": "filature",
+      "target_id": "fil-de-coton",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l115",
+      "source_id": "eau",
+      "target_id": "filature",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l116",
+      "source_id": "feu",
+      "target_id": "filature",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l117",
+      "source_id": "fil-de-coton",
+      "target_id": "tissu",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l118",
+      "source_id": "metier-tisser",
+      "target_id": "tissu",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l119",
+      "source_id": "bois",
+      "target_id": "metier-tisser",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l120",
+      "source_id": "tissu",
+      "target_id": "vetement",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l121",
+      "source_id": "feu",
+      "target_id": "vetement",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l122",
+      "source_id": "laine",
+      "target_id": "fil-de-laine",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l123",
+      "source_id": "mouton",
+      "target_id": "laine",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l124",
+      "source_id": "fil-de-laine",
+      "target_id": "tricot",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l125",
+      "source_id": "fil-de-laine",
+      "target_id": "tissu",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l126",
+      "source_id": "ver-a-soie",
+      "target_id": "soie-naturelle",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l127",
+      "source_id": "mulberry",
+      "target_id": "ver-a-soie",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l128",
+      "source_id": "soie-naturelle",
+      "target_id": "tissu",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l129",
+      "source_id": "plantes-teinture",
+      "target_id": "teinture-textile",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l130",
+      "source_id": "mordant",
+      "target_id": "teinture-textile",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l131",
+      "source_id": "eau",
+      "target_id": "teinture-textile",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l132",
+      "source_id": "feu",
+      "target_id": "teinture-textile",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l133",
+      "source_id": "tissu",
+      "target_id": "tissu-teint",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l134",
+      "source_id": "teinture-textile",
+      "target_id": "tissu-teint",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l135",
+      "source_id": "mordant",
+      "target_id": "tissu-teint",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l136",
+      "source_id": "tissu-teint",
+      "target_id": "vetement",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l137",
+      "source_id": "bois",
+      "target_id": "roue",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l138",
+      "source_id": "feu",
+      "target_id": "roue",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l139",
+      "source_id": "acier",
+      "target_id": "roue",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l140",
+      "source_id": "roue",
+      "target_id": "chariot",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l141",
+      "source_id": "bois",
+      "target_id": "chariot",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l142",
+      "source_id": "acier",
+      "target_id": "chariot",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l143",
+      "source_id": "acier",
+      "target_id": "chassis-auto",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l144",
+      "source_id": "caoutchouc",
+      "target_id": "pneu",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l145",
+      "source_id": "acier",
+      "target_id": "pneu",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l146",
+      "source_id": "pneu",
+      "target_id": "automobile",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l147",
+      "source_id": "chassis-auto",
+      "target_id": "automobile",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l148",
+      "source_id": "moteur-explosion",
+      "target_id": "automobile",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l149",
+      "source_id": "essence",
+      "target_id": "moteur-explosion",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l150",
+      "source_id": "petrole",
+      "target_id": "essence",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l151",
+      "source_id": "raffinerie",
+      "target_id": "essence",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l152",
+      "source_id": "petrole",
+      "target_id": "raffinerie",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l153",
+      "source_id": "acier",
+      "target_id": "moteur-explosion",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l154",
+      "source_id": "cuivre",
+      "target_id": "moteur-explosion",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l155",
+      "source_id": "bauxite",
+      "target_id": "aluminium",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l156",
+      "source_id": "electricite",
+      "target_id": "aluminium",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l157",
+      "source_id": "four-haute-temp",
+      "target_id": "aluminium",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l158",
+      "source_id": "aluminium",
+      "target_id": "carlingue",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l159",
+      "source_id": "moteur-reaction",
+      "target_id": "avion",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l160",
+      "source_id": "carlingue",
+      "target_id": "avion",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l161",
+      "source_id": "acier-inox",
+      "target_id": "moteur-reaction",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l162",
+      "source_id": "essence",
+      "target_id": "moteur-reaction",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l163",
+      "source_id": "bois",
+      "target_id": "charbon-de-bois",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l164",
+      "source_id": "feu",
+      "target_id": "charbon-de-bois",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l165",
+      "source_id": "four",
+      "target_id": "charbon-de-bois",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l166",
+      "source_id": "houille",
+      "target_id": "electricite",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l167",
+      "source_id": "houille",
+      "target_id": "charbon",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l168",
+      "source_id": "petrole",
+      "target_id": "gazole",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l169",
+      "source_id": "raffinerie",
+      "target_id": "gazole",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l170",
+      "source_id": "petrole",
+      "target_id": "essence",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l171",
+      "source_id": "uranium",
+      "target_id": "reacteur-nucleaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l172",
+      "source_id": "eau",
+      "target_id": "reacteur-nucleaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l173",
+      "source_id": "acier-inox",
+      "target_id": "reacteur-nucleaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l174",
+      "source_id": "reacteur-nucleaire",
+      "target_id": "electricite",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l175",
+      "source_id": "turbine-vapeur",
+      "target_id": "electricite",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l176",
+      "source_id": "houille",
+      "target_id": "turbine-vapeur",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l177",
+      "source_id": "eau",
+      "target_id": "turbine-vapeur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l178",
+      "source_id": "alternateur",
+      "target_id": "electricite",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l179",
+      "source_id": "turbine-vapeur",
+      "target_id": "alternateur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l180",
+      "source_id": "generateur",
+      "target_id": "alternateur",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l181",
+      "source_id": "electricite",
+      "target_id": "reseau-electrique",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l182",
+      "source_id": "cuivre",
+      "target_id": "reseau-electrique",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l183",
+      "source_id": "silicium",
+      "target_id": "panneau-solaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l184",
+      "source_id": "verre",
+      "target_id": "panneau-solaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l185",
+      "source_id": "cuivre",
+      "target_id": "panneau-solaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l186",
+      "source_id": "panneau-solaire",
+      "target_id": "electricite",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l187",
+      "source_id": "onduleur-solaire",
+      "target_id": "electricite",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l188",
+      "source_id": "panneau-solaire",
+      "target_id": "onduleur-solaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l189",
+      "source_id": "microprocesseur",
+      "target_id": "onduleur-solaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l190",
+      "source_id": "electricite",
+      "target_id": "onduleur-solaire",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l191",
+      "source_id": "bois",
+      "target_id": "planche-bois",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l192",
+      "source_id": "scierie",
+      "target_id": "planche-bois",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l193",
+      "source_id": "bois",
+      "target_id": "scierie",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l194",
+      "source_id": "eau",
+      "target_id": "scierie",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l195",
+      "source_id": "planche-bois",
+      "target_id": "charpente-bois",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l196",
+      "source_id": "acier",
+      "target_id": "charpente-bois",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l197",
+      "source_id": "pierre",
+      "target_id": "taille-pierre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l198",
+      "source_id": "feu",
+      "target_id": "taille-pierre",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l199",
+      "source_id": "acier",
+      "target_id": "taille-pierre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l200",
+      "source_id": "taille-pierre",
+      "target_id": "mur-pierre",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l201",
+      "source_id": "mortier",
+      "target_id": "mur-pierre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l202",
+      "source_id": "pierre",
+      "target_id": "mur-pierre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l203",
+      "source_id": "calcaire",
+      "target_id": "chaux",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l204",
+      "source_id": "four",
+      "target_id": "chaux",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l205",
+      "source_id": "feu",
+      "target_id": "chaux",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l206",
+      "source_id": "chaux",
+      "target_id": "mortier",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l207",
+      "source_id": "sable",
+      "target_id": "mortier",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l208",
+      "source_id": "eau",
+      "target_id": "mortier",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l209",
+      "source_id": "mortier",
+      "target_id": "beton-arme",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l210",
+      "source_id": "acier",
+      "target_id": "beton-arme",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l211",
+      "source_id": "beton",
+      "target_id": "beton-arme",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l212",
+      "source_id": "verre",
+      "target_id": "vitre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l213",
+      "source_id": "four",
+      "target_id": "vitre",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l214",
+      "source_id": "verre-trempe",
+      "target_id": "fenetre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l215",
+      "source_id": "vitre",
+      "target_id": "fenetre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l216",
+      "source_id": "bois",
+      "target_id": "fenetre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l217",
+      "source_id": "acier-inox",
+      "target_id": "fenetre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l218",
+      "source_id": "bitume",
+      "target_id": "route-bitee",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l219",
+      "source_id": "petrole",
+      "target_id": "bitume",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l220",
+      "source_id": "sable",
+      "target_id": "route-bitee",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l221",
+      "source_id": "acier",
+      "target_id": "route-bitee",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l222",
+      "source_id": "papyrus",
+      "target_id": "livre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l223",
+      "source_id": "parchemin",
+      "target_id": "livre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l224",
+      "source_id": "papier",
+      "target_id": "journal",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l225",
+      "source_id": "encre",
+      "target_id": "journal",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l226",
+      "source_id": "imprimerie",
+      "target_id": "journal",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l227",
+      "source_id": "electricite",
+      "target_id": "imprimerie",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l228",
+      "source_id": "presse-imprimer",
+      "target_id": "imprimerie",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l229",
+      "source_id": "acier",
+      "target_id": "imprimerie",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l230",
+      "source_id": "electricite",
+      "target_id": "radio",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l231",
+      "source_id": "cuivre",
+      "target_id": "radio",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l232",
+      "source_id": "antenne-radio",
+      "target_id": "radio",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l233",
+      "source_id": "transistor",
+      "target_id": "radio",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l234",
+      "source_id": "radio",
+      "target_id": "television",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l235",
+      "source_id": "tube-cathodique",
+      "target_id": "television",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l236",
+      "source_id": "electricite",
+      "target_id": "television",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l237",
+      "source_id": "cuivre",
+      "target_id": "television",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l238",
+      "source_id": "transistor",
+      "target_id": "ordinateur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l239",
+      "source_id": "circuit-integre",
+      "target_id": "ordinateur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l240",
+      "source_id": "microprocesseur",
+      "target_id": "ordinateur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l241",
+      "source_id": "electricite",
+      "target_id": "ordinateur",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l242",
+      "source_id": "ordinateur",
+      "target_id": "internet",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l243",
+      "source_id": "microprocesseur",
+      "target_id": "internet",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l244",
+      "source_id": "internet",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l245",
+      "source_id": "ecran-lcd",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l246",
+      "source_id": "microprocesseur",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l247",
+      "source_id": "batterie-li",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l248",
+      "source_id": "electricite",
+      "target_id": "smartphone",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l249",
+      "source_id": "reseau-cellulaire",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l250",
+      "source_id": "signal-numerique",
+      "target_id": "smartphone",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l251",
+      "source_id": "petrole",
+      "target_id": "plastique",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l252",
+      "source_id": "chimie-organique",
+      "target_id": "plastique",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l253",
+      "source_id": "polycarbonate",
+      "target_id": "bouteille-plastique",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l254",
+      "source_id": "plastique",
+      "target_id": "bouteille-plastique",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l255",
+      "source_id": "petrole",
+      "target_id": "engrais",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l256",
+      "source_id": "ammoniac",
+      "target_id": "engrais",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l257",
+      "source_id": "nitrate",
+      "target_id": "engrais",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l258",
+      "source_id": "azote",
+      "target_id": "ammoniac",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l259",
+      "source_id": "hydrogene",
+      "target_id": "ammoniac",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l260",
+      "source_id": "feu",
+      "target_id": "ammoniac",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l261",
+      "source_id": "salpetre",
+      "target_id": "poudre-a-canon",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l262",
+      "source_id": "charbon",
+      "target_id": "poudre-a-canon",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l263",
+      "source_id": "soufre",
+      "target_id": "poudre-a-canon",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l264",
+      "source_id": "feu",
+      "target_id": "poudre-a-canon",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l265",
+      "source_id": "verre",
+      "target_id": "lentille",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l266",
+      "source_id": "feu",
+      "target_id": "lentille",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l267",
+      "source_id": "lentille",
+      "target_id": "lunettes",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l268",
+      "source_id": "acier-inox",
+      "target_id": "lunettes",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l269",
+      "source_id": "lentille",
+      "target_id": "microscope",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l270",
+      "source_id": "cuivre",
+      "target_id": "microscope",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l271",
+      "source_id": "electricite",
+      "target_id": "microscope",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l272",
+      "source_id": "lentille",
+      "target_id": "telescope",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l273",
+      "source_id": "acier-structure",
+      "target_id": "telescope",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l274",
+      "source_id": "sel",
+      "target_id": "salaison",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l275",
+      "source_id": "viande",
+      "target_id": "salaison",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l276",
+      "source_id": "feu",
+      "target_id": "salaison",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l277",
+      "source_id": "canne-a-sucre",
+      "target_id": "sucre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l278",
+      "source_id": "feu",
+      "target_id": "sucre",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l279",
+      "source_id": "eau",
+      "target_id": "sucre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l280",
+      "source_id": "sucre",
+      "target_id": "confiserie",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l281",
+      "source_id": "feu",
+      "target_id": "confiserie",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l282",
+      "source_id": "cacao",
+      "target_id": "chocolat",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l283",
+      "source_id": "sucre",
+      "target_id": "chocolat",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l284",
+      "source_id": "lait",
+      "target_id": "chocolat",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l285",
+      "source_id": "feu",
+      "target_id": "chocolat",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l286",
+      "source_id": "orge",
+      "target_id": "biere",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l287",
+      "source_id": "houblon",
+      "target_id": "biere",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l288",
+      "source_id": "eau",
+      "target_id": "biere",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l289",
+      "source_id": "levure",
+      "target_id": "biere",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l290",
+      "source_id": "tonneau",
+      "target_id": "biere",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l291",
+      "source_id": "electricite",
+      "target_id": "radio",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l292",
+      "source_id": "electricite",
+      "target_id": "ordinateur",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l293",
+      "source_id": "acier",
+      "target_id": "chassis-auto",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l294",
+      "source_id": "fer",
+      "target_id": "fonte",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l295",
+      "source_id": "charbon",
+      "target_id": "fonte",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l296",
+      "source_id": "fonte",
+      "target_id": "acier",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l297",
+      "source_id": "or",
+      "target_id": "feuille-or",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l298",
+      "source_id": "feu",
+      "target_id": "feuille-or",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l299",
+      "source_id": "acier",
+      "target_id": "acier-inox",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l300",
+      "source_id": "cuivre",
+      "target_id": "radio",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l301",
+      "source_id": "petrole",
+      "target_id": "bitume",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l302",
+      "source_id": "raffinerie",
+      "target_id": "bitume",
+      "relation_type": "tool",
+      "is_optional": false
+    }
+  ]
+}

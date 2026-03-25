@@ -1,0 +1,4706 @@
+{
+  "links": [
+    {
+      "id": "l1",
+      "source_id": "sable",
+      "target_id": "verre",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l2",
+      "source_id": "soude",
+      "target_id": "verre",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l3",
+      "source_id": "four",
+      "target_id": "verre",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l4",
+      "source_id": "feu",
+      "target_id": "four",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l5",
+      "source_id": "charbon",
+      "target_id": "four",
+      "relation_type": "energy",
+      "is_optional": true,
+      "notes": "Alternative au bois"
+    },
+    {
+      "id": "l6",
+      "source_id": "sable",
+      "target_id": "silicium",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l7",
+      "source_id": "charbon",
+      "target_id": "silicium",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false,
+      "notes": "Réducteur"
+    },
+    {
+      "id": "l8",
+      "source_id": "four",
+      "target_id": "silicium",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l9",
+      "source_id": "silicium",
+      "target_id": "wafer-silicium",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l10",
+      "source_id": "acide-gravure",
+      "target_id": "wafer-silicium",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false
+    },
+    {
+      "id": "l11",
+      "source_id": "photolithographie",
+      "target_id": "wafer-silicium",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l12",
+      "source_id": "wafer-silicium",
+      "target_id": "transistor",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l13",
+      "source_id": "photolithographie",
+      "target_id": "transistor",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l14",
+      "source_id": "transistor",
+      "target_id": "circuit-integre",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l15",
+      "source_id": "wafer-silicium",
+      "target_id": "circuit-integre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l16",
+      "source_id": "photolithographie",
+      "target_id": "circuit-integre",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l17",
+      "source_id": "circuit-integre",
+      "target_id": "microprocesseur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l18",
+      "source_id": "photolithographie",
+      "target_id": "microprocesseur",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l19",
+      "source_id": "cuivre",
+      "target_id": "circuit-imprime",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l20",
+      "source_id": "fibre-verre",
+      "target_id": "circuit-imprime",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l21",
+      "source_id": "resine-epoxy",
+      "target_id": "circuit-imprime",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l22",
+      "source_id": "acide-gravure",
+      "target_id": "circuit-imprime",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false
+    },
+    {
+      "id": "l23",
+      "source_id": "photolithographie",
+      "target_id": "circuit-imprime",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l24",
+      "source_id": "verre",
+      "target_id": "ampoule",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l25",
+      "source_id": "cuivre",
+      "target_id": "ampoule",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false,
+      "notes": "Filament et connexions"
+    },
+    {
+      "id": "l26",
+      "source_id": "electricite",
+      "target_id": "ampoule",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l27",
+      "source_id": "minerai-fer",
+      "target_id": "fer",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l28",
+      "source_id": "charbon",
+      "target_id": "fer",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": "Réducteur"
+    },
+    {
+      "id": "l29",
+      "source_id": "four-haute-temp",
+      "target_id": "fer",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l30",
+      "source_id": "feu",
+      "target_id": "four-haute-temp",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l31",
+      "source_id": "charbon",
+      "target_id": "four-haute-temp",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l32",
+      "source_id": "fer",
+      "target_id": "acier",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l33",
+      "source_id": "charbon",
+      "target_id": "acier",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false,
+      "notes": "Carbone pour alliage"
+    },
+    {
+      "id": "l34",
+      "source_id": "four-haute-temp",
+      "target_id": "acier",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l35",
+      "source_id": "acier",
+      "target_id": "poutre-acier",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l36",
+      "source_id": "poutre-acier",
+      "target_id": "structure-metallique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l37",
+      "source_id": "fondations",
+      "target_id": "structure-metallique",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l38",
+      "source_id": "calcaire",
+      "target_id": "ciment",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l39",
+      "source_id": "argile",
+      "target_id": "ciment",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l40",
+      "source_id": "four",
+      "target_id": "ciment",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l41",
+      "source_id": "feu",
+      "target_id": "ciment",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l42",
+      "source_id": "ciment",
+      "target_id": "beton",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l43",
+      "source_id": "sable",
+      "target_id": "beton",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l44",
+      "source_id": "eau",
+      "target_id": "beton",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l45",
+      "source_id": "beton",
+      "target_id": "fondations",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l46",
+      "source_id": "acier",
+      "target_id": "fondations",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": true,
+      "notes": "Béton armé"
+    },
+    {
+      "id": "l47",
+      "source_id": "bois",
+      "target_id": "pate-papier",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l48",
+      "source_id": "eau",
+      "target_id": "pate-papier",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l49",
+      "source_id": "pate-papier",
+      "target_id": "papier",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l50",
+      "source_id": "eau",
+      "target_id": "papier",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false,
+      "notes": "Séchage"
+    },
+    {
+      "id": "l51",
+      "source_id": "papier",
+      "target_id": "livre",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l52",
+      "source_id": "encre",
+      "target_id": "livre",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l53",
+      "source_id": "presse-imprimer",
+      "target_id": "livre",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l54",
+      "source_id": "bois",
+      "target_id": "presse-imprimer",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l55",
+      "source_id": "fer",
+      "target_id": "presse-imprimer",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l56",
+      "source_id": "cuivre",
+      "target_id": "fil-cuivre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l57",
+      "source_id": "fil-cuivre",
+      "target_id": "cable-electrique",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l58",
+      "source_id": "resine-epoxy",
+      "target_id": "cable-electrique",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": true,
+      "notes": "Isolation"
+    },
+    {
+      "id": "l59",
+      "source_id": "charbon",
+      "target_id": "electricite",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l60",
+      "source_id": "generateur",
+      "target_id": "electricite",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l61",
+      "source_id": "cuivre",
+      "target_id": "generateur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l62",
+      "source_id": "fer",
+      "target_id": "generateur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l63",
+      "source_id": "cable-electrique",
+      "target_id": "telegraphe",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l64",
+      "source_id": "electricite",
+      "target_id": "telegraphe",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l65",
+      "source_id": "telegraphe",
+      "target_id": "telephone",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l66",
+      "source_id": "cable-electrique",
+      "target_id": "telephone",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l67",
+      "source_id": "electricite",
+      "target_id": "telephone",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l68",
+      "source_id": "verre",
+      "target_id": "fibre-optique",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l69",
+      "source_id": "circuit-integre",
+      "target_id": "serveur-informatique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l70",
+      "source_id": "cable-electrique",
+      "target_id": "serveur-informatique",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l71",
+      "source_id": "fibre-optique",
+      "target_id": "serveur-informatique",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l72",
+      "source_id": "electricite",
+      "target_id": "serveur-informatique",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l73",
+      "source_id": "serveur-informatique",
+      "target_id": "internet",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l74",
+      "source_id": "fibre-optique",
+      "target_id": "internet",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l75",
+      "source_id": "cable-electrique",
+      "target_id": "internet",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l76",
+      "source_id": "plantes-medicinales",
+      "target_id": "extraits-vegetaux",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l77",
+      "source_id": "eau",
+      "target_id": "extraits-vegetaux",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l78",
+      "source_id": "feu",
+      "target_id": "extraits-vegetaux",
+      "relation_type": "energy",
+      "is_optional": true,
+      "notes": "Pour distillation"
+    },
+    {
+      "id": "l79",
+      "source_id": "extraits-vegetaux",
+      "target_id": "principes-actifs",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l80",
+      "source_id": "petrole",
+      "target_id": "chimie-organique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l81",
+      "source_id": "feu",
+      "target_id": "chimie-organique",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l82",
+      "source_id": "chimie-organique",
+      "target_id": "polymeres",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l83",
+      "source_id": "polymeres",
+      "target_id": "gelules",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l84",
+      "source_id": "principes-actifs",
+      "target_id": "medicaments",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false
+    },
+    {
+      "id": "l85",
+      "source_id": "gelules",
+      "target_id": "medicaments",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": true,
+      "notes": "Enrobage des comprimés"
+    },
+    {
+      "id": "l86",
+      "source_id": "polymeres",
+      "target_id": "medicaments",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": true,
+      "notes": "Excipients"
+    },
+    {
+      "id": "l87",
+      "source_id": "ble",
+      "target_id": "pain",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l88",
+      "source_id": "eau",
+      "target_id": "pain",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l89",
+      "source_id": "levure",
+      "target_id": "pain",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false
+    },
+    {
+      "id": "l90",
+      "source_id": "four",
+      "target_id": "pain",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l91",
+      "source_id": "feu",
+      "target_id": "pain",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l92",
+      "source_id": "lait",
+      "target_id": "fromage",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l93",
+      "source_id": "presure",
+      "target_id": "fromage",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false
+    },
+    {
+      "id": "l94",
+      "source_id": "sel",
+      "target_id": "fromage",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false
+    },
+    {
+      "id": "l95",
+      "source_id": "raisin",
+      "target_id": "vin",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l96",
+      "source_id": "levure",
+      "target_id": "vin",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": false
+    },
+    {
+      "id": "l97",
+      "source_id": "tonneau",
+      "target_id": "vin",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l98",
+      "source_id": "bois",
+      "target_id": "tonneau",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l99",
+      "source_id": "air",
+      "target_id": "feu",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": "Oxygène pour la combustion"
+    },
+    {
+      "id": "l100",
+      "source_id": "verre",
+      "target_id": "fibre-verre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l101",
+      "source_id": "feu",
+      "target_id": "fibre-verre",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l102",
+      "source_id": "chimie-organique",
+      "target_id": "resine-epoxy",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l103",
+      "source_id": "calcaire",
+      "target_id": "soude",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l104",
+      "source_id": "sel",
+      "target_id": "soude",
+      "relation_type": "material",
+      "quantity_hint": "1",
+      "is_optional": false
+    },
+    {
+      "id": "l105",
+      "source_id": "four",
+      "target_id": "soude",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l106",
+      "source_id": "circuit-imprime",
+      "target_id": "serveur-informatique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l107",
+      "source_id": "microprocesseur",
+      "target_id": "serveur-informatique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l108",
+      "source_id": "electricite",
+      "target_id": "photolithographie",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l109",
+      "source_id": "verre",
+      "target_id": "photolithographie",
+      "relation_type": "material",
+      "quantity_hint": "trace",
+      "is_optional": true,
+      "notes": "Masques optiques"
+    },
+    {
+      "id": "l110",
+      "source_id": "eau",
+      "target_id": "acide-gravure",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false
+    },
+    {
+      "id": "l111",
+      "source_id": "telegraphe",
+      "target_id": "internet",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l112",
+      "source_id": "telephone",
+      "target_id": "internet",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l113",
+      "source_id": "coton",
+      "target_id": "fil-de-coton",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l114",
+      "source_id": "filature",
+      "target_id": "fil-de-coton",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l115",
+      "source_id": "eau",
+      "target_id": "filature",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l116",
+      "source_id": "feu",
+      "target_id": "filature",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l117",
+      "source_id": "fil-de-coton",
+      "target_id": "tissu",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l118",
+      "source_id": "metier-tisser",
+      "target_id": "tissu",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l119",
+      "source_id": "bois",
+      "target_id": "metier-tisser",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l120",
+      "source_id": "tissu",
+      "target_id": "vetement",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l121",
+      "source_id": "feu",
+      "target_id": "vetement",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l122",
+      "source_id": "laine",
+      "target_id": "fil-de-laine",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l123",
+      "source_id": "mouton",
+      "target_id": "laine",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l124",
+      "source_id": "fil-de-laine",
+      "target_id": "tricot",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l125",
+      "source_id": "fil-de-laine",
+      "target_id": "tissu",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l126",
+      "source_id": "ver-a-soie",
+      "target_id": "soie-naturelle",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l127",
+      "source_id": "mulberry",
+      "target_id": "ver-a-soie",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l128",
+      "source_id": "soie-naturelle",
+      "target_id": "tissu",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l129",
+      "source_id": "plantes-teinture",
+      "target_id": "teinture-textile",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l130",
+      "source_id": "mordant",
+      "target_id": "teinture-textile",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l131",
+      "source_id": "eau",
+      "target_id": "teinture-textile",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l132",
+      "source_id": "feu",
+      "target_id": "teinture-textile",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l133",
+      "source_id": "tissu",
+      "target_id": "tissu-teint",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l134",
+      "source_id": "teinture-textile",
+      "target_id": "tissu-teint",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l135",
+      "source_id": "mordant",
+      "target_id": "tissu-teint",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l136",
+      "source_id": "tissu-teint",
+      "target_id": "vetement",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l137",
+      "source_id": "bois",
+      "target_id": "roue",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l138",
+      "source_id": "feu",
+      "target_id": "roue",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l139",
+      "source_id": "acier",
+      "target_id": "roue",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l140",
+      "source_id": "roue",
+      "target_id": "chariot",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l141",
+      "source_id": "bois",
+      "target_id": "chariot",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l142",
+      "source_id": "acier",
+      "target_id": "chariot",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l143",
+      "source_id": "acier",
+      "target_id": "chassis-auto",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l144",
+      "source_id": "caoutchouc",
+      "target_id": "pneu",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l146",
+      "source_id": "pneu",
+      "target_id": "automobile",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l147",
+      "source_id": "chassis-auto",
+      "target_id": "automobile",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l148",
+      "source_id": "moteur-explosion",
+      "target_id": "automobile",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l149",
+      "source_id": "essence",
+      "target_id": "moteur-explosion",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l150",
+      "source_id": "petrole",
+      "target_id": "essence",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l151",
+      "source_id": "raffinerie",
+      "target_id": "essence",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l152",
+      "source_id": "petrole",
+      "target_id": "raffinerie",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l153",
+      "source_id": "acier",
+      "target_id": "moteur-explosion",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l154",
+      "source_id": "cuivre",
+      "target_id": "moteur-explosion",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l155",
+      "source_id": "bauxite",
+      "target_id": "aluminium",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l156",
+      "source_id": "electricite",
+      "target_id": "aluminium",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l157",
+      "source_id": "four-haute-temp",
+      "target_id": "aluminium",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l158",
+      "source_id": "aluminium",
+      "target_id": "carlingue",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l159",
+      "source_id": "moteur-reaction",
+      "target_id": "avion",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l160",
+      "source_id": "carlingue",
+      "target_id": "avion",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l161",
+      "source_id": "acier-inox",
+      "target_id": "moteur-reaction",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l162",
+      "source_id": "essence",
+      "target_id": "moteur-reaction",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l163",
+      "source_id": "bois",
+      "target_id": "charbon-de-bois",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l164",
+      "source_id": "feu",
+      "target_id": "charbon-de-bois",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l165",
+      "source_id": "four",
+      "target_id": "charbon-de-bois",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l166",
+      "source_id": "houille",
+      "target_id": "electricite",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l167",
+      "source_id": "houille",
+      "target_id": "charbon",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l168",
+      "source_id": "petrole",
+      "target_id": "gazole",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l169",
+      "source_id": "raffinerie",
+      "target_id": "gazole",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l170",
+      "source_id": "petrole",
+      "target_id": "essence",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l171",
+      "source_id": "uranium",
+      "target_id": "reacteur-nucleaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l172",
+      "source_id": "eau",
+      "target_id": "reacteur-nucleaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l173",
+      "source_id": "acier-inox",
+      "target_id": "reacteur-nucleaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l174",
+      "source_id": "reacteur-nucleaire",
+      "target_id": "electricite",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l175",
+      "source_id": "turbine-vapeur",
+      "target_id": "electricite",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l176",
+      "source_id": "houille",
+      "target_id": "turbine-vapeur",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l177",
+      "source_id": "eau",
+      "target_id": "turbine-vapeur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l178",
+      "source_id": "alternateur",
+      "target_id": "electricite",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l179",
+      "source_id": "turbine-vapeur",
+      "target_id": "alternateur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l180",
+      "source_id": "generateur",
+      "target_id": "alternateur",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l181",
+      "source_id": "electricite",
+      "target_id": "reseau-electrique",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l182",
+      "source_id": "cuivre",
+      "target_id": "reseau-electrique",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l183",
+      "source_id": "silicium",
+      "target_id": "panneau-solaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l184",
+      "source_id": "verre",
+      "target_id": "panneau-solaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l185",
+      "source_id": "cuivre",
+      "target_id": "panneau-solaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l186",
+      "source_id": "panneau-solaire",
+      "target_id": "electricite",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l187",
+      "source_id": "onduleur-solaire",
+      "target_id": "electricite",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l188",
+      "source_id": "panneau-solaire",
+      "target_id": "onduleur-solaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l189",
+      "source_id": "microprocesseur",
+      "target_id": "onduleur-solaire",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l190",
+      "source_id": "electricite",
+      "target_id": "onduleur-solaire",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l191",
+      "source_id": "bois",
+      "target_id": "planche-bois",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l192",
+      "source_id": "scierie",
+      "target_id": "planche-bois",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l193",
+      "source_id": "bois",
+      "target_id": "scierie",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l194",
+      "source_id": "eau",
+      "target_id": "scierie",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l195",
+      "source_id": "planche-bois",
+      "target_id": "charpente-bois",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l197",
+      "source_id": "pierre",
+      "target_id": "taille-pierre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l198",
+      "source_id": "feu",
+      "target_id": "taille-pierre",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l200",
+      "source_id": "taille-pierre",
+      "target_id": "mur-pierre",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l201",
+      "source_id": "mortier",
+      "target_id": "mur-pierre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l202",
+      "source_id": "pierre",
+      "target_id": "mur-pierre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l203",
+      "source_id": "calcaire",
+      "target_id": "chaux",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l204",
+      "source_id": "four",
+      "target_id": "chaux",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l205",
+      "source_id": "feu",
+      "target_id": "chaux",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l206",
+      "source_id": "chaux",
+      "target_id": "mortier",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l207",
+      "source_id": "sable",
+      "target_id": "mortier",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l208",
+      "source_id": "eau",
+      "target_id": "mortier",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l209",
+      "source_id": "mortier",
+      "target_id": "beton-arme",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l211",
+      "source_id": "beton",
+      "target_id": "beton-arme",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l212",
+      "source_id": "verre",
+      "target_id": "vitre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l213",
+      "source_id": "four",
+      "target_id": "vitre",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l214",
+      "source_id": "verre-trempe",
+      "target_id": "fenetre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l215",
+      "source_id": "vitre",
+      "target_id": "fenetre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l216",
+      "source_id": "bois",
+      "target_id": "fenetre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l217",
+      "source_id": "acier-inox",
+      "target_id": "fenetre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l218",
+      "source_id": "bitume",
+      "target_id": "route-bitee",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l219",
+      "source_id": "petrole",
+      "target_id": "bitume",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l220",
+      "source_id": "sable",
+      "target_id": "route-bitee",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l221",
+      "source_id": "acier",
+      "target_id": "route-bitee",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l222",
+      "source_id": "papyrus",
+      "target_id": "livre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l223",
+      "source_id": "parchemin",
+      "target_id": "livre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l224",
+      "source_id": "papier",
+      "target_id": "journal",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l225",
+      "source_id": "encre",
+      "target_id": "journal",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l226",
+      "source_id": "imprimerie",
+      "target_id": "journal",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l227",
+      "source_id": "electricite",
+      "target_id": "imprimerie",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l228",
+      "source_id": "presse-imprimer",
+      "target_id": "imprimerie",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l229",
+      "source_id": "acier",
+      "target_id": "imprimerie",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l230",
+      "source_id": "electricite",
+      "target_id": "radio",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l231",
+      "source_id": "cuivre",
+      "target_id": "radio",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l232",
+      "source_id": "antenne-radio",
+      "target_id": "radio",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l233",
+      "source_id": "transistor",
+      "target_id": "radio",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l234",
+      "source_id": "radio",
+      "target_id": "television",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l235",
+      "source_id": "tube-cathodique",
+      "target_id": "television",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l236",
+      "source_id": "electricite",
+      "target_id": "television",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l237",
+      "source_id": "cuivre",
+      "target_id": "television",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l238",
+      "source_id": "transistor",
+      "target_id": "ordinateur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l239",
+      "source_id": "circuit-integre",
+      "target_id": "ordinateur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l240",
+      "source_id": "microprocesseur",
+      "target_id": "ordinateur",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l241",
+      "source_id": "electricite",
+      "target_id": "ordinateur",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l242",
+      "source_id": "ordinateur",
+      "target_id": "internet",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l243",
+      "source_id": "microprocesseur",
+      "target_id": "internet",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l244",
+      "source_id": "internet",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l245",
+      "source_id": "ecran-lcd",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l246",
+      "source_id": "microprocesseur",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l247",
+      "source_id": "batterie-li",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l248",
+      "source_id": "electricite",
+      "target_id": "smartphone",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l249",
+      "source_id": "reseau-cellulaire",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l250",
+      "source_id": "signal-numerique",
+      "target_id": "smartphone",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l251",
+      "source_id": "petrole",
+      "target_id": "plastique",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l252",
+      "source_id": "chimie-organique",
+      "target_id": "plastique",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l253",
+      "source_id": "polycarbonate",
+      "target_id": "bouteille-plastique",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l254",
+      "source_id": "plastique",
+      "target_id": "bouteille-plastique",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l255",
+      "source_id": "petrole",
+      "target_id": "engrais",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l256",
+      "source_id": "ammoniac",
+      "target_id": "engrais",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l257",
+      "source_id": "nitrate",
+      "target_id": "engrais",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l258",
+      "source_id": "azote",
+      "target_id": "ammoniac",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l259",
+      "source_id": "hydrogene",
+      "target_id": "ammoniac",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l260",
+      "source_id": "feu",
+      "target_id": "ammoniac",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l261",
+      "source_id": "salpetre",
+      "target_id": "poudre-a-canon",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l262",
+      "source_id": "charbon",
+      "target_id": "poudre-a-canon",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l263",
+      "source_id": "soufre",
+      "target_id": "poudre-a-canon",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l264",
+      "source_id": "feu",
+      "target_id": "poudre-a-canon",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l265",
+      "source_id": "verre",
+      "target_id": "lentille",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l267",
+      "source_id": "lentille",
+      "target_id": "lunettes",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l268",
+      "source_id": "acier-inox",
+      "target_id": "lunettes",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l269",
+      "source_id": "lentille",
+      "target_id": "microscope",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l270",
+      "source_id": "cuivre",
+      "target_id": "microscope",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l271",
+      "source_id": "electricite",
+      "target_id": "microscope",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l272",
+      "source_id": "lentille",
+      "target_id": "telescope",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l273",
+      "source_id": "acier-structure",
+      "target_id": "telescope",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l274",
+      "source_id": "sel",
+      "target_id": "salaison",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l275",
+      "source_id": "viande",
+      "target_id": "salaison",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l277",
+      "source_id": "canne-a-sucre",
+      "target_id": "sucre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l279",
+      "source_id": "eau",
+      "target_id": "sucre",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l280",
+      "source_id": "sucre",
+      "target_id": "confiserie",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l282",
+      "source_id": "cacao",
+      "target_id": "chocolat",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l283",
+      "source_id": "sucre",
+      "target_id": "chocolat",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l284",
+      "source_id": "lait",
+      "target_id": "chocolat",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l286",
+      "source_id": "orge",
+      "target_id": "biere",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l287",
+      "source_id": "houblon",
+      "target_id": "biere",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l288",
+      "source_id": "eau",
+      "target_id": "biere",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l289",
+      "source_id": "levure",
+      "target_id": "biere",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l290",
+      "source_id": "tonneau",
+      "target_id": "biere",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l291",
+      "source_id": "electricite",
+      "target_id": "radio",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l292",
+      "source_id": "electricite",
+      "target_id": "ordinateur",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l293",
+      "source_id": "acier",
+      "target_id": "chassis-auto",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l294",
+      "source_id": "fer",
+      "target_id": "fonte",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l295",
+      "source_id": "charbon",
+      "target_id": "fonte",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l296",
+      "source_id": "fonte",
+      "target_id": "acier",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l297",
+      "source_id": "or",
+      "target_id": "feuille-or",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l299",
+      "source_id": "acier",
+      "target_id": "acier-inox",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l300",
+      "source_id": "cuivre",
+      "target_id": "radio",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l301",
+      "source_id": "petrole",
+      "target_id": "bitume",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l302",
+      "source_id": "raffinerie",
+      "target_id": "bitume",
+      "relation_type": "tool",
+      "is_optional": false
+    },
+    {
+      "id": "l303",
+      "source_id": "internet",
+      "target_id": "blockchain",
+      "relation_type": "knowledge",
+      "is_optional": false
+    },
+    {
+      "id": "l-d0b57667aeab",
+      "source_id": "taille-pierre",
+      "target_id": "pierre-de-taille",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7f13bf068171",
+      "source_id": "pierre-de-taille",
+      "target_id": "mur-pierre",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f93b9aed018b",
+      "source_id": "eau",
+      "target_id": "minerai-de-cuivre",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5da8fd5c7851",
+      "source_id": "minerai-de-cuivre",
+      "target_id": "cuivre",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a785fe207aae",
+      "source_id": "cuivre",
+      "target_id": "bronze",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup (90%)",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-477608ed63be",
+      "source_id": "four-haute-temp",
+      "target_id": "bronze",
+      "relation_type": "tool",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3547fef5ae01",
+      "source_id": "feu",
+      "target_id": "bronze",
+      "relation_type": "energy",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-babc534109fe",
+      "source_id": "charbon-de-bois",
+      "target_id": "bronze",
+      "relation_type": "energy",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-027284d9f305",
+      "source_id": "argile",
+      "target_id": "brique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0345d6f63f67",
+      "source_id": "eau",
+      "target_id": "brique",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3c39eaa443d7",
+      "source_id": "sable",
+      "target_id": "brique",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d1bb5f52251c",
+      "source_id": "four",
+      "target_id": "brique",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9e5afa174802",
+      "source_id": "feu",
+      "target_id": "brique",
+      "relation_type": "energy",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9b59685ce32b",
+      "source_id": "brique",
+      "target_id": "mortier",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6b19696242f3",
+      "source_id": "charbon",
+      "target_id": "titane",
+      "relation_type": "material",
+      "quantity_hint": "modérément",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c480bcc020b9",
+      "source_id": "four-haute-temp",
+      "target_id": "titane",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0c1e4d351319",
+      "source_id": "electricite",
+      "target_id": "titane",
+      "relation_type": "energy",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d2a8ff7e577c",
+      "source_id": "uranium",
+      "target_id": "energie-nucleaire",
+      "relation_type": "material",
+      "quantity_hint": "combustible principal",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0bc0a0b2af61",
+      "source_id": "reacteur-nucleaire",
+      "target_id": "energie-nucleaire",
+      "relation_type": "tool",
+      "quantity_hint": "installation",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7aa794290875",
+      "source_id": "eau-lourde",
+      "target_id": "energie-nucleaire",
+      "relation_type": "material",
+      "quantity_hint": "modérateur",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9314043b37a3",
+      "source_id": "four-haute-temp",
+      "target_id": "energie-nucleaire",
+      "relation_type": "tool",
+      "quantity_hint": "traitement combustible",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4a4a4d4dacf1",
+      "source_id": "turbine-vapeur",
+      "target_id": "energie-nucleaire",
+      "relation_type": "tool",
+      "quantity_hint": "conversion énergie",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-61525ca224c7",
+      "source_id": "energie-nucleaire",
+      "target_id": "electricite",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-eb42195ad41e",
+      "source_id": "silicium",
+      "target_id": "energie-solaire",
+      "relation_type": "material",
+      "quantity_hint": "principale",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e041705f48db",
+      "source_id": "verre",
+      "target_id": "energie-solaire",
+      "relation_type": "material",
+      "quantity_hint": "protection",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-36be23b97343",
+      "source_id": "aluminium",
+      "target_id": "energie-solaire",
+      "relation_type": "material",
+      "quantity_hint": "cadre",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e9b6d24725b3",
+      "source_id": "cuivre",
+      "target_id": "energie-solaire",
+      "relation_type": "material",
+      "quantity_hint": "connexions",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0e35be6fb91b",
+      "source_id": "electricite",
+      "target_id": "energie-solaire",
+      "relation_type": "knowledge",
+      "quantity_hint": "concepts",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0596c1e73b54",
+      "source_id": "energie-solaire",
+      "target_id": "panneau-solaire",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-981f11a61a52",
+      "source_id": "energie-solaire",
+      "target_id": "onduleur-solaire",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9447345059a1",
+      "source_id": "feu",
+      "target_id": "forge",
+      "relation_type": "energy",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-25b5f53c37c1",
+      "source_id": "charbon-de-bois",
+      "target_id": "forge",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-75155fa7c207",
+      "source_id": "fer",
+      "target_id": "forge",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1d43c7dd24e8",
+      "source_id": "pierre",
+      "target_id": "marteau",
+      "relation_type": "material",
+      "quantity_hint": "modérément",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-14939ea7e95f",
+      "source_id": "bois",
+      "target_id": "marteau",
+      "relation_type": "material",
+      "quantity_hint": "modérément",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-79e597014666",
+      "source_id": "marteau",
+      "target_id": "forge",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0360773c079f",
+      "source_id": "bronze",
+      "target_id": "clou",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9f795523010b",
+      "source_id": "fer",
+      "target_id": "clou",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4672ed1ac9c7",
+      "source_id": "forge",
+      "target_id": "clou",
+      "relation_type": "tool",
+      "quantity_hint": "une",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4ef4acd2092c",
+      "source_id": "marteau",
+      "target_id": "clou",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0ff07d99745f",
+      "source_id": "clou",
+      "target_id": "charpente-bois",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l304",
+      "source_id": "petrole",
+      "target_id": "caoutchouc",
+      "relation_type": "energy",
+      "is_optional": false
+    },
+    {
+      "id": "l305",
+      "source_id": "etain",
+      "target_id": "bronze",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l-a5a80a3fe320",
+      "source_id": "fer",
+      "target_id": "vis",
+      "relation_type": "material",
+      "quantity_hint": "principal",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ff1c601a3378",
+      "source_id": "acier",
+      "target_id": "vis",
+      "relation_type": "material",
+      "quantity_hint": "principal",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3faf491a6e6a",
+      "source_id": "forge",
+      "target_id": "vis",
+      "relation_type": "tool",
+      "quantity_hint": "une",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0e37733f0588",
+      "source_id": "marteau",
+      "target_id": "vis",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-08cc21808360",
+      "source_id": "fer",
+      "target_id": "tour",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5bbc90bca925",
+      "source_id": "acier",
+      "target_id": "tour",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-848c3d6cfccf",
+      "source_id": "forge",
+      "target_id": "tour",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8d364089e0d0",
+      "source_id": "marteau",
+      "target_id": "tour",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-70e2a9afe2e6",
+      "source_id": "tour",
+      "target_id": "moteur-explosion",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-54ee5f53497d",
+      "source_id": "tour",
+      "target_id": "microprocesseur",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6c9acbd1f306",
+      "source_id": "tour",
+      "target_id": "automobile",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f59e4a2a88b5",
+      "source_id": "argile",
+      "target_id": "moule",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7670cfa9f15d",
+      "source_id": "feu",
+      "target_id": "moule",
+      "relation_type": "energy",
+      "quantity_hint": "pour cuisson",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ff5e127381dc",
+      "source_id": "sable",
+      "target_id": "moule",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-33b9de8991b9",
+      "source_id": "pierre",
+      "target_id": "moule",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a8ec406692c7",
+      "source_id": "moule",
+      "target_id": "bronze",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d76d25344501",
+      "source_id": "moule",
+      "target_id": "fer",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9e410e30a5fa",
+      "source_id": "moule",
+      "target_id": "fonte",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4146765d3dea",
+      "source_id": "moule",
+      "target_id": "plastique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-096498e01057",
+      "source_id": "moule",
+      "target_id": "verre",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-621fa99bc525",
+      "source_id": "moule",
+      "target_id": "fromage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-601410c35d40",
+      "source_id": "fer",
+      "target_id": "presse-hydraulique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-db35d9f01b68",
+      "source_id": "acier",
+      "target_id": "presse-hydraulique",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fc3acc44c595",
+      "source_id": "eau",
+      "target_id": "presse-hydraulique",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-23007f12697b",
+      "source_id": "fer",
+      "target_id": "scie",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-eb64cffe5ff6",
+      "source_id": "acier",
+      "target_id": "scie",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6d5b0e29bfd6",
+      "source_id": "forge",
+      "target_id": "scie",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3350adf2150a",
+      "source_id": "marteau",
+      "target_id": "scie",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dd155af79052",
+      "source_id": "scie",
+      "target_id": "scierie",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2b12ce494314",
+      "source_id": "scie",
+      "target_id": "planche-bois",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ee8d858e45b8",
+      "source_id": "scie",
+      "target_id": "charpente-bois",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ccd1216ba117",
+      "source_id": "pierre",
+      "target_id": "hache",
+      "relation_type": "material",
+      "quantity_hint": "une lame",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aeef5cfc3af7",
+      "source_id": "bois",
+      "target_id": "hache",
+      "relation_type": "material",
+      "quantity_hint": "un manche",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5bd2b4eb694a",
+      "source_id": "feu",
+      "target_id": "fonderie",
+      "relation_type": "energy",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b779323f605e",
+      "source_id": "four",
+      "target_id": "fonderie",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2318bb7644a0",
+      "source_id": "cuivre",
+      "target_id": "fonderie",
+      "relation_type": "material",
+      "quantity_hint": "variable",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d143f149adbd",
+      "source_id": "bronze",
+      "target_id": "fonderie",
+      "relation_type": "material",
+      "quantity_hint": "variable",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-34c4b7e8c74e",
+      "source_id": "fer",
+      "target_id": "fonderie",
+      "relation_type": "material",
+      "quantity_hint": "variable",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b7b7699f8fa0",
+      "source_id": "charbon-de-bois",
+      "target_id": "fonderie",
+      "relation_type": "energy",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5c460a016f4c",
+      "source_id": "sable",
+      "target_id": "fonderie",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-995a263f4e89",
+      "source_id": "argile",
+      "target_id": "fonderie",
+      "relation_type": "material",
+      "quantity_hint": "variable",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c940480ca8b8",
+      "source_id": "fonderie",
+      "target_id": "fonte",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9462152ad734",
+      "source_id": "fonderie",
+      "target_id": "acier",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-83760063602f",
+      "source_id": "fonderie",
+      "target_id": "circuit-imprime",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8a9e9b6e6146",
+      "source_id": "fonderie",
+      "target_id": "clou",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2ad2c0ae8789",
+      "source_id": "fonderie",
+      "target_id": "vis",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e956de80ace4",
+      "source_id": "fonderie",
+      "target_id": "moule",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-19f302a8def2",
+      "source_id": "feu",
+      "target_id": "distillation",
+      "relation_type": "energy",
+      "quantity_hint": "nécessaire",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-044e0b5d8b12",
+      "source_id": "eau",
+      "target_id": "distillation",
+      "relation_type": "material",
+      "quantity_hint": "pour refroidissement",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6d3bc4f02d5d",
+      "source_id": "four",
+      "target_id": "distillation",
+      "relation_type": "tool",
+      "quantity_hint": "source de chaleur",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-85a3d4f2547d",
+      "source_id": "cuivre",
+      "target_id": "distillation",
+      "relation_type": "material",
+      "quantity_hint": "pour alambics",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6d92e410c629",
+      "source_id": "distillation",
+      "target_id": "raffinerie",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-50be52e6f845",
+      "source_id": "distillation",
+      "target_id": "essence",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e31a93078809",
+      "source_id": "levure",
+      "target_id": "fermentation",
+      "relation_type": "catalyst",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4036891aa345",
+      "source_id": "sucre",
+      "target_id": "fermentation",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9b71e2f3bda8",
+      "source_id": "eau",
+      "target_id": "fermentation",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e097cdcf8cce",
+      "source_id": "raisin",
+      "target_id": "fermentation",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-12b2b40451a3",
+      "source_id": "ble",
+      "target_id": "fermentation",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8ed2869eeb38",
+      "source_id": "fermentation",
+      "target_id": "vin",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-16834fc0e071",
+      "source_id": "fermentation",
+      "target_id": "biere",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0422ca8f397f",
+      "source_id": "fermentation",
+      "target_id": "pain",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-531e17b48a4e",
+      "source_id": "fermentation",
+      "target_id": "fromage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b3273394c9ec",
+      "source_id": "feu",
+      "target_id": "soudure",
+      "relation_type": "energy",
+      "quantity_hint": "nécessaire",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7177e7786a90",
+      "source_id": "fer",
+      "target_id": "soudure",
+      "relation_type": "material",
+      "quantity_hint": "principal",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5cb128022c8c",
+      "source_id": "bronze",
+      "target_id": "soudure",
+      "relation_type": "material",
+      "quantity_hint": "principal",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-deddf9935846",
+      "source_id": "forge",
+      "target_id": "soudure",
+      "relation_type": "tool",
+      "quantity_hint": "nécessaire",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-37b55442fa5b",
+      "source_id": "marteau",
+      "target_id": "soudure",
+      "relation_type": "tool",
+      "quantity_hint": "nécessaire",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-afe40e2f7301",
+      "source_id": "soudure",
+      "target_id": "structure-metallique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-61d0106fbe2a",
+      "source_id": "eau",
+      "target_id": "electrolyse",
+      "relation_type": "material",
+      "quantity_hint": "principale",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3f275255105b",
+      "source_id": "electricite",
+      "target_id": "electrolyse",
+      "relation_type": "energy",
+      "quantity_hint": "nécessaire",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a41e94414e9c",
+      "source_id": "sel",
+      "target_id": "electrolyse",
+      "relation_type": "catalyst",
+      "quantity_hint": "pour électrolyte",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8f1914677467",
+      "source_id": "cuivre",
+      "target_id": "electrolyse",
+      "relation_type": "material",
+      "quantity_hint": "pour électrodes",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9b476f214930",
+      "source_id": "electrolyse",
+      "target_id": "hydrogene",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5c3a79368e0c",
+      "source_id": "electrolyse",
+      "target_id": "aluminium",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e04b3e42e01b",
+      "source_id": "bois",
+      "target_id": "ressort",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6e8c1b7c7890",
+      "source_id": "acier",
+      "target_id": "ressort",
+      "relation_type": "material",
+      "quantity_hint": "moyen",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bbdc7087da11",
+      "source_id": "cuivre",
+      "target_id": "ressort",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ada3e0a965f5",
+      "source_id": "forge",
+      "target_id": "ressort",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4a9b78a1a527",
+      "source_id": "acier",
+      "target_id": "boulon",
+      "relation_type": "material",
+      "quantity_hint": "principal",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cd7191996061",
+      "source_id": "vis",
+      "target_id": "boulon",
+      "relation_type": "knowledge",
+      "quantity_hint": "technique",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-91a01d2701fa",
+      "source_id": "forge",
+      "target_id": "boulon",
+      "relation_type": "tool",
+      "quantity_hint": "pour fabrication",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-18463dbd8437",
+      "source_id": "tour",
+      "target_id": "boulon",
+      "relation_type": "tool",
+      "quantity_hint": "pour usinage",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f3d5be696452",
+      "source_id": "boulon",
+      "target_id": "structure-metallique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7349d89f565f",
+      "source_id": "bois",
+      "target_id": "poulie",
+      "relation_type": "material",
+      "quantity_hint": "moyen",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8ef87a44fe94",
+      "source_id": "bronze",
+      "target_id": "poulie",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-184060b2fbc1",
+      "source_id": "fer",
+      "target_id": "poulie",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5ada46f8b56e",
+      "source_id": "roue",
+      "target_id": "poulie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-02e715bb60b1",
+      "source_id": "electricite",
+      "target_id": "moteur-electrique",
+      "relation_type": "energy",
+      "quantity_hint": "source d'énergie",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-82eed6768332",
+      "source_id": "fer",
+      "target_id": "moteur-electrique",
+      "relation_type": "material",
+      "quantity_hint": "noyaux magnétiques",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fe8f72e33d2e",
+      "source_id": "fil-cuivre",
+      "target_id": "moteur-electrique",
+      "relation_type": "material",
+      "quantity_hint": "bobinages",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0364144ee3db",
+      "source_id": "acier",
+      "target_id": "moteur-electrique",
+      "relation_type": "material",
+      "quantity_hint": "structure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d7b811bc97dc",
+      "source_id": "bronze",
+      "target_id": "pompe",
+      "relation_type": "material",
+      "quantity_hint": "pour les cylindres",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-52debccb7f15",
+      "source_id": "eau",
+      "target_id": "pompe",
+      "relation_type": "material",
+      "quantity_hint": "fluide pompé",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2107ade9e4f3",
+      "source_id": "cuivre",
+      "target_id": "pompe",
+      "relation_type": "material",
+      "quantity_hint": "pour les tuyaux",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-88ff46db457a",
+      "source_id": "bois",
+      "target_id": "pompe",
+      "relation_type": "material",
+      "quantity_hint": "pour mécanismes",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-19223bb21c3f",
+      "source_id": "acier",
+      "target_id": "velo",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f798179ac953",
+      "source_id": "roue",
+      "target_id": "velo",
+      "relation_type": "component",
+      "quantity_hint": "deux",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-851243f77ebf",
+      "source_id": "caoutchouc",
+      "target_id": "velo",
+      "relation_type": "material",
+      "quantity_hint": "moyen",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-860a5a33fcfa",
+      "source_id": "forge",
+      "target_id": "velo",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9670ea0e2425",
+      "source_id": "soudure",
+      "target_id": "velo",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cca27f892131",
+      "source_id": "velo",
+      "target_id": "automobile",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-acc5541a22b7",
+      "source_id": "acier",
+      "target_id": "gratte-ciel",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8c25d7af6b1d",
+      "source_id": "beton-arme",
+      "target_id": "gratte-ciel",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-588eafc148c9",
+      "source_id": "verre",
+      "target_id": "gratte-ciel",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6a7dc8406496",
+      "source_id": "electricite",
+      "target_id": "gratte-ciel",
+      "relation_type": "energy",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a8516e37f750",
+      "source_id": "fondations",
+      "target_id": "gratte-ciel",
+      "relation_type": "knowledge",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4e8888b07445",
+      "source_id": "structure-metallique",
+      "target_id": "gratte-ciel",
+      "relation_type": "knowledge",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d2c34fc58c17",
+      "source_id": "pierre",
+      "target_id": "barrage",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-15d65c3fc8cc",
+      "source_id": "beton",
+      "target_id": "barrage",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-14f6e97a3649",
+      "source_id": "ciment",
+      "target_id": "barrage",
+      "relation_type": "material",
+      "quantity_hint": "moyennement",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-db03ea9e4d4d",
+      "source_id": "argile",
+      "target_id": "barrage",
+      "relation_type": "material",
+      "quantity_hint": "moyennement",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cfa2a35ff51e",
+      "source_id": "taille-pierre",
+      "target_id": "barrage",
+      "relation_type": "knowledge",
+      "quantity_hint": "technique",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dad3c7da21d6",
+      "source_id": "ver-a-soie",
+      "target_id": "soie",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6adde4b021cf",
+      "source_id": "mulberry",
+      "target_id": "soie",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fbee942a04f5",
+      "source_id": "eau",
+      "target_id": "soie",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8097c30be1d0",
+      "source_id": "feu",
+      "target_id": "soie",
+      "relation_type": "energy",
+      "quantity_hint": "moyennement",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-240760f937f3",
+      "source_id": "four",
+      "target_id": "soie",
+      "relation_type": "tool",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b8c6a4d98790",
+      "source_id": "filature",
+      "target_id": "soie",
+      "relation_type": "process",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-45d20f067223",
+      "source_id": "soie",
+      "target_id": "tissu-teint",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fb8a1a502c8b",
+      "source_id": "soie",
+      "target_id": "metier-tisser",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-000042c62f74",
+      "source_id": "soie",
+      "target_id": "teinture-textile",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d47dd17b9278",
+      "source_id": "bois",
+      "target_id": "presse",
+      "relation_type": "material",
+      "quantity_hint": "structure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-083ecb3dd01a",
+      "source_id": "acier",
+      "target_id": "presse",
+      "relation_type": "material",
+      "quantity_hint": "mécanisme",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-340620f82a47",
+      "source_id": "vis",
+      "target_id": "presse",
+      "relation_type": "component",
+      "quantity_hint": "système",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b9631d3bae24",
+      "source_id": "forge",
+      "target_id": "presse",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2b39a2028a51",
+      "source_id": "tour",
+      "target_id": "presse",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-afb6eb14dd81",
+      "source_id": "presse",
+      "target_id": "presse-imprimer",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5c2a2fcb022d",
+      "source_id": "presse",
+      "target_id": "presse-hydraulique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-36c91bd6adb6",
+      "source_id": "presse",
+      "target_id": "imprimerie",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ece4f84e051f",
+      "source_id": "acier",
+      "target_id": "galvanisation",
+      "relation_type": "material",
+      "quantity_hint": "pièces",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-12167348578c",
+      "source_id": "four-haute-temp",
+      "target_id": "galvanisation",
+      "relation_type": "tool",
+      "quantity_hint": "chauffage",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2300eeef19c9",
+      "source_id": "soude",
+      "target_id": "galvanisation",
+      "relation_type": "material",
+      "quantity_hint": "nettoyage",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e0d9e6c0958a",
+      "source_id": "electricite",
+      "target_id": "galvanisation",
+      "relation_type": "energy",
+      "quantity_hint": "électrozingage",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d52fb671a041",
+      "source_id": "four",
+      "target_id": "pasteurisation",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-92c8e1587650",
+      "source_id": "eau",
+      "target_id": "pasteurisation",
+      "relation_type": "material",
+      "quantity_hint": "pour refroidissement",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b75cd6df3bf6",
+      "source_id": "feu",
+      "target_id": "pasteurisation",
+      "relation_type": "energy",
+      "quantity_hint": "pour chauffage",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-876089666c81",
+      "source_id": "vin",
+      "target_id": "pasteurisation",
+      "relation_type": "material",
+      "quantity_hint": "produit d'origine",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5f6c0ae9695b",
+      "source_id": "lait",
+      "target_id": "pasteurisation",
+      "relation_type": "material",
+      "quantity_hint": "application principale",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-146c052155d3",
+      "source_id": "fermentation",
+      "target_id": "pasteurisation",
+      "relation_type": "knowledge",
+      "quantity_hint": "compréhension",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0dba9f1326ec",
+      "source_id": "caoutchouc",
+      "target_id": "vulcanisation",
+      "relation_type": "material",
+      "quantity_hint": "principal",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4ac26385dbc3",
+      "source_id": "soufre",
+      "target_id": "vulcanisation",
+      "relation_type": "material",
+      "quantity_hint": "faible",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-43b9c45b91f3",
+      "source_id": "four-haute-temp",
+      "target_id": "vulcanisation",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3a317c513e02",
+      "source_id": "chimie-organique",
+      "target_id": "vulcanisation",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d18ddfb384b7",
+      "source_id": "vulcanisation",
+      "target_id": "pneu",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-76372383bb0a",
+      "source_id": "roue",
+      "target_id": "engrenage",
+      "relation_type": "knowledge",
+      "quantity_hint": "concept de base",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-450e408cb25e",
+      "source_id": "bronze",
+      "target_id": "engrenage",
+      "relation_type": "material",
+      "quantity_hint": "pour les premières roues dentées",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ad93bfde9a76",
+      "source_id": "bois",
+      "target_id": "engrenage",
+      "relation_type": "material",
+      "quantity_hint": "pour les engrenages médiévaux",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-09bdfb86a1bc",
+      "source_id": "fer",
+      "target_id": "engrenage",
+      "relation_type": "material",
+      "quantity_hint": "pour les engrenages plus résistants",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-76615a034821",
+      "source_id": "tour",
+      "target_id": "engrenage",
+      "relation_type": "tool",
+      "quantity_hint": "pour tailler les dents",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cf8d290f862e",
+      "source_id": "acier",
+      "target_id": "roulement-a-billes",
+      "relation_type": "material",
+      "quantity_hint": "pour les bagues et billes",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4d9cdd466337",
+      "source_id": "forge",
+      "target_id": "roulement-a-billes",
+      "relation_type": "tool",
+      "quantity_hint": "forgeage des billes",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-514a8a5462c2",
+      "source_id": "tour",
+      "target_id": "roulement-a-billes",
+      "relation_type": "tool",
+      "quantity_hint": "usinage des bagues",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0660bf1f4bbe",
+      "source_id": "four-haute-temp",
+      "target_id": "roulement-a-billes",
+      "relation_type": "tool",
+      "quantity_hint": "traitement thermique",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cab4e213b0cb",
+      "source_id": "roulement-a-billes",
+      "target_id": "velo",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c13fe18fa76e",
+      "source_id": "roulement-a-billes",
+      "target_id": "automobile",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-282c601da114",
+      "source_id": "roulement-a-billes",
+      "target_id": "moteur-electrique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9d7bd049bbec",
+      "source_id": "bois",
+      "target_id": "levier",
+      "relation_type": "material",
+      "quantity_hint": "modérée",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6bacf479c570",
+      "source_id": "pierre",
+      "target_id": "levier",
+      "relation_type": "material",
+      "quantity_hint": "faible",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6c6aadde4cd5",
+      "source_id": "levier",
+      "target_id": "presse",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3166721f44df",
+      "source_id": "eau",
+      "target_id": "machine-a-vapeur",
+      "relation_type": "material",
+      "quantity_hint": "modérée",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-64922fefbc83",
+      "source_id": "charbon",
+      "target_id": "machine-a-vapeur",
+      "relation_type": "energy",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-697617f8cd6d",
+      "source_id": "fer",
+      "target_id": "machine-a-vapeur",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-35e1eaf29991",
+      "source_id": "cuivre",
+      "target_id": "machine-a-vapeur",
+      "relation_type": "material",
+      "quantity_hint": "modérée",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0e132500c271",
+      "source_id": "four",
+      "target_id": "machine-a-vapeur",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a10cbc02712d",
+      "source_id": "fonderie",
+      "target_id": "machine-a-vapeur",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d41fa0fa80a8",
+      "source_id": "machine-a-vapeur",
+      "target_id": "turbine-vapeur",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-879d92d93f78",
+      "source_id": "machine-a-vapeur",
+      "target_id": "generateur",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-04525086895c",
+      "source_id": "eau",
+      "target_id": "turbine",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b3cc110479ca",
+      "source_id": "fer",
+      "target_id": "turbine",
+      "relation_type": "material",
+      "quantity_hint": "moyennement",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8ce58c90365e",
+      "source_id": "fonderie",
+      "target_id": "turbine",
+      "relation_type": "tool",
+      "quantity_hint": "une",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-63476bc99d3f",
+      "source_id": "forge",
+      "target_id": "turbine",
+      "relation_type": "tool",
+      "quantity_hint": "une",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-252874f4406e",
+      "source_id": "acier",
+      "target_id": "turbine",
+      "relation_type": "material",
+      "quantity_hint": "moyennement",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-08e4c8178c07",
+      "source_id": "tour",
+      "target_id": "turbine",
+      "relation_type": "tool",
+      "quantity_hint": "une",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f6f032f56294",
+      "source_id": "turbine",
+      "target_id": "alternateur",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-770bf90faba4",
+      "source_id": "turbine",
+      "target_id": "barrage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-762fd97e9ba3",
+      "source_id": "turbine",
+      "target_id": "turbine-vapeur",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0c77f1b5bfb1",
+      "source_id": "bois",
+      "target_id": "bateau-a-voile",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7897061a66c0",
+      "source_id": "tissu",
+      "target_id": "bateau-a-voile",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b8bc70668e49",
+      "source_id": "air",
+      "target_id": "bateau-a-voile",
+      "relation_type": "energy",
+      "quantity_hint": "continu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-35b29b069256",
+      "source_id": "roue",
+      "target_id": "bateau-a-voile",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1205d5456e30",
+      "source_id": "acier",
+      "target_id": "locomotive",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-57eea350bcd1",
+      "source_id": "fer",
+      "target_id": "locomotive",
+      "relation_type": "material",
+      "quantity_hint": "moyen",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-285e5b3e11d0",
+      "source_id": "cuivre",
+      "target_id": "locomotive",
+      "relation_type": "material",
+      "quantity_hint": "moyen",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d4fbfd4cdc7e",
+      "source_id": "machine-a-vapeur",
+      "target_id": "locomotive",
+      "relation_type": "knowledge",
+      "quantity_hint": "fondamental",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7d70b50cbb50",
+      "source_id": "roue",
+      "target_id": "locomotive",
+      "relation_type": "component",
+      "quantity_hint": "plusieurs",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3d59b128bb05",
+      "source_id": "charbon",
+      "target_id": "locomotive",
+      "relation_type": "energy",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9a1edf6e96e6",
+      "source_id": "four",
+      "target_id": "locomotive",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ff4a20420d36",
+      "source_id": "soudure",
+      "target_id": "locomotive",
+      "relation_type": "knowledge",
+      "quantity_hint": "technique",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-659d90f6a501",
+      "source_id": "pierre",
+      "target_id": "pont",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-30936cc81927",
+      "source_id": "bois",
+      "target_id": "pont",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-df3164797359",
+      "source_id": "mortier",
+      "target_id": "pont",
+      "relation_type": "material",
+      "quantity_hint": "moyen",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c6987eae5a53",
+      "source_id": "acier",
+      "target_id": "pont",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b0bf234630fe",
+      "source_id": "beton",
+      "target_id": "pont",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a0c07c9e92bf",
+      "source_id": "beton-arme",
+      "target_id": "pont",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-962ee3bd3c15",
+      "source_id": "pierre-de-taille",
+      "target_id": "arche",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-838ceafe670b",
+      "source_id": "brique",
+      "target_id": "arche",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7606aeac2964",
+      "source_id": "mortier",
+      "target_id": "arche",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7cda819416ac",
+      "source_id": "taille-pierre",
+      "target_id": "arche",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f3b04fbf6d9d",
+      "source_id": "arche",
+      "target_id": "pont",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d2b775d5c565",
+      "source_id": "eau",
+      "target_id": "teinture",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-add9c13f13f8",
+      "source_id": "four",
+      "target_id": "teinture",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d89fba356e80",
+      "source_id": "plantes-teinture",
+      "target_id": "teinture",
+      "relation_type": "material",
+      "quantity_hint": "variable",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9274a93c6a7d",
+      "source_id": "mordant",
+      "target_id": "teinture",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c7adc032dc05",
+      "source_id": "teinture",
+      "target_id": "tissu-teint",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-318dfe918d3d",
+      "source_id": "teinture",
+      "target_id": "teinture-textile",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5dbed866b4bb",
+      "source_id": "fer",
+      "target_id": "machine-a-coudre",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aad2e1099350",
+      "source_id": "engrenage",
+      "target_id": "machine-a-coudre",
+      "relation_type": "tool",
+      "quantity_hint": "plusieurs",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-055c9f093362",
+      "source_id": "ressort",
+      "target_id": "machine-a-coudre",
+      "relation_type": "material",
+      "quantity_hint": "plusieurs",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-65f7524699b0",
+      "source_id": "fil-de-coton",
+      "target_id": "machine-a-coudre",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f415c7bb7f2c",
+      "source_id": "moteur-electrique",
+      "target_id": "machine-a-coudre",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d8ffa58751b1",
+      "source_id": "bois",
+      "target_id": "stethoscope",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-831c31ee7747",
+      "source_id": "papier",
+      "target_id": "stethoscope",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6037ef31769c",
+      "source_id": "principes-actifs",
+      "target_id": "stethoscope",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fd8f509f9678",
+      "source_id": "electricite",
+      "target_id": "rayons-x",
+      "relation_type": "energy",
+      "quantity_hint": "haute tension",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-39a95b490480",
+      "source_id": "verre",
+      "target_id": "rayons-x",
+      "relation_type": "material",
+      "quantity_hint": "tube",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-df5d88473c1c",
+      "source_id": "cuivre",
+      "target_id": "rayons-x",
+      "relation_type": "material",
+      "quantity_hint": "électrodes",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6118108938e6",
+      "source_id": "bois",
+      "target_id": "prothese",
+      "relation_type": "material",
+      "quantity_hint": "principal",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6cfd18bd24bd",
+      "source_id": "cuivre",
+      "target_id": "prothese",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-103bc4dc76e1",
+      "source_id": "fer",
+      "target_id": "prothese",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-564eb149b580",
+      "source_id": "plastique",
+      "target_id": "prothese",
+      "relation_type": "material",
+      "quantity_hint": "principal",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6c2c5ff48b94",
+      "source_id": "acier",
+      "target_id": "prothese",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b033d26a9793",
+      "source_id": "titane",
+      "target_id": "prothese",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f69861a77221",
+      "source_id": "forge",
+      "target_id": "prothese",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f866b815d8c0",
+      "source_id": "tour",
+      "target_id": "prothese",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-10771be08186",
+      "source_id": "poudre-a-canon",
+      "target_id": "fusee",
+      "relation_type": "knowledge",
+      "quantity_hint": "principe historique",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4080df1692c0",
+      "source_id": "aluminium",
+      "target_id": "fusee",
+      "relation_type": "material",
+      "quantity_hint": "structure principale",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b9153671179c",
+      "source_id": "acier",
+      "target_id": "fusee",
+      "relation_type": "material",
+      "quantity_hint": "moteur et tuyères",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-61b801f2c0e0",
+      "source_id": "essence",
+      "target_id": "fusee",
+      "relation_type": "material",
+      "quantity_hint": "ergol liquide",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9a80e2b8db0f",
+      "source_id": "moteur-explosion",
+      "target_id": "fusee",
+      "relation_type": "knowledge",
+      "quantity_hint": "principe propulsion",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6a2e5ce9dfdc",
+      "source_id": "acier",
+      "target_id": "sous-marin",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-297cea13b736",
+      "source_id": "cuivre",
+      "target_id": "sous-marin",
+      "relation_type": "material",
+      "quantity_hint": "modérément",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c9067f1f63d1",
+      "source_id": "moteur-electrique",
+      "target_id": "sous-marin",
+      "relation_type": "tool",
+      "quantity_hint": "quelques-uns",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9e79898bf80e",
+      "source_id": "electricite",
+      "target_id": "sous-marin",
+      "relation_type": "energy",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b85c46f0d706",
+      "source_id": "soudure",
+      "target_id": "sous-marin",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0f605555dafc",
+      "source_id": "bois",
+      "target_id": "charpente",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b1ebccd7b3c8",
+      "source_id": "fer",
+      "target_id": "charpente",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1e07b4841cd3",
+      "source_id": "scie",
+      "target_id": "charpente",
+      "relation_type": "tool",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cc3798d9ca4d",
+      "source_id": "hache",
+      "target_id": "charpente",
+      "relation_type": "tool",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8beb6a3ffc67",
+      "source_id": "marteau",
+      "target_id": "charpente",
+      "relation_type": "tool",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-36795fa6b6d3",
+      "source_id": "clou",
+      "target_id": "charpente",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2ac26f157b77",
+      "source_id": "charpente",
+      "target_id": "pont",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3cff1052e495",
+      "source_id": "charpente",
+      "target_id": "gratte-ciel",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0836a1bef84e",
+      "source_id": "charpente",
+      "target_id": "structure-metallique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ecaaa3bc0838",
+      "source_id": "argile",
+      "target_id": "tuyau",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3f7be16660d8",
+      "source_id": "cuivre",
+      "target_id": "tuyau",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2d62a6b55edf",
+      "source_id": "four",
+      "target_id": "tuyau",
+      "relation_type": "tool",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-31038e1316e8",
+      "source_id": "forge",
+      "target_id": "tuyau",
+      "relation_type": "tool",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ed5a5d3ad6b7",
+      "source_id": "tuyau",
+      "target_id": "fondations",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fdb5a60fb156",
+      "source_id": "feu",
+      "target_id": "conserve",
+      "relation_type": "energy",
+      "quantity_hint": "nécessaire",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-04c30d91c683",
+      "source_id": "eau",
+      "target_id": "conserve",
+      "relation_type": "tool",
+      "quantity_hint": "bain-marie",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6cc1ed187626",
+      "source_id": "verre",
+      "target_id": "conserve",
+      "relation_type": "material",
+      "quantity_hint": "récipient initial",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-89dde29f56ba",
+      "source_id": "fer",
+      "target_id": "conserve",
+      "relation_type": "material",
+      "quantity_hint": "boîtes métalliques",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a396e5b0b3fc",
+      "source_id": "etain",
+      "target_id": "conserve",
+      "relation_type": "material",
+      "quantity_hint": "revêtement fer-blanc",
+      "is_optional": false,
+      "notes": null
+    }
+  ]
+}

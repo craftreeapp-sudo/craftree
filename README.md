@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Craftree
 
-## Getting Started
+**Craftree** est une application web qui modélise les technologies humaines sous forme d’un graphe de recettes de fabrication — de la matière première au produit final.
 
-First, run the development server:
+## Prérequis
+
+- [Node.js](https://nodejs.org/) (version compatible avec le projet)
+- npm
+
+## Démarrage
+
+Installation des dépendances et lancement du serveur de développement :
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrez [http://localhost:3000](http://localhost:3000) dans le navigateur.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts utiles
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Serveur de développement Next.js |
+| `npm run build` | Build de production |
+| `npm run start` | Serveur de production après build |
+| `npm run lint` | ESLint |
+| `npm run generate:og` | Génération d’image Open Graph (`scripts/generate-og.mjs`) |
+| `npm run populate` | Outils de peuplement des données (voir `scripts/populate.mjs`) |
 
-## Learn More
+## Technique
 
-To learn more about Next.js, take a look at the following resources:
+Projet [Next.js](https://nextjs.org/) avec React, graphe interactif (React Flow / `@xyflow/react`), styles Tailwind CSS, état [Zustand](https://github.com/pmndrs/zustand).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Le site public est prévu sous **https://craftree.app** (URL de base configurable via `NEXT_PUBLIC_SITE_URL`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Licence
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Projet open source — voir le dépôt GitHub du projet pour les détails.

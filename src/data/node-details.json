@@ -1,0 +1,662 @@
+{
+  "feu": {
+    "name_en": "Fire",
+    "description": "Combustion permettant la transformation des matériaux par la chaleur."
+  },
+  "eau": {
+    "name_en": "Water",
+    "description": "Composé chimique essentiel à la vie et à de nombreuses transformations."
+  },
+  "air": {
+    "name_en": "Air",
+    "description": "Mélange gazeux nécessaire à la combustion et à la respiration."
+  },
+  "sable": {
+    "name_en": "Sand (silica)",
+    "description": "Particules de silice (SiO₂) utilisées pour le verre et le béton."
+  },
+  "charbon": {
+    "name_en": "Coal",
+    "description": "Combustible fossile utilisé pour la chaleur et la réduction des minerais."
+  },
+  "cuivre": {
+    "name_en": "Copper",
+    "description": "Métal ductile excellent conducteur d'électricité."
+  },
+  "minerai-fer": {
+    "name_en": "Iron ore",
+    "description": "Roche contenant du fer à réduire dans un four."
+  },
+  "calcaire": {
+    "name_en": "Limestone",
+    "description": "Roche sédimentaire riche en carbonate de calcium."
+  },
+  "argile": {
+    "name_en": "Clay",
+    "description": "Roche sédimentaire plastique utilisée pour céramique et ciment."
+  },
+  "bois": {
+    "name_en": "Wood",
+    "description": "Tissu ligneur des arbres, matériau de construction universel."
+  },
+  "sel": {
+    "name_en": "Salt",
+    "description": "Chlorure de sodium, conservateur et exhausteur de goût."
+  },
+  "ble": {
+    "name_en": "Wheat",
+    "description": "Céréale cultivée, base de l'alimentation en pain."
+  },
+  "raisin": {
+    "name_en": "Grape",
+    "description": "Fruit de la vigne, fermenté pour produire le vin."
+  },
+  "lait": {
+    "name_en": "Milk",
+    "description": "Sécrétion mammalienne transformée en fromage."
+  },
+  "levure": {
+    "name_en": "Yeast",
+    "description": "Champignon unicellulaire provoquant la fermentation."
+  },
+  "presure": {
+    "name_en": "Rennet",
+    "description": "Enzyme coagulante extraite de l'estomac des ruminants."
+  },
+  "plantes-medicinales": {
+    "name_en": "Medicinal plants",
+    "description": "Plantes contenant des principes actifs thérapeutiques."
+  },
+  "petrole": {
+    "name_en": "Petroleum",
+    "description": "Hydrocarbure fossile, base de la chimie organique moderne."
+  },
+  "four": {
+    "name_en": "Furnace",
+    "description": "Enceinte chauffée pour cuire, fondre ou transformer les matériaux."
+  },
+  "four-haute-temp": {
+    "name_en": "High-temperature furnace",
+    "description": "Four industriel atteignant 1500°C pour la réduction du fer."
+  },
+  "soude": {
+    "name_en": "Soda ash",
+    "description": "Carbonate de sodium, fondant pour la silice."
+  },
+  "verre": {
+    "name_en": "Glass",
+    "description": "Matière amorphe issue de la fusion du sable et de la soude."
+  },
+  "silicium": {
+    "name_en": "Silicon",
+    "description": "Élément semi-conducteur purifié à partir de la silice."
+  },
+  "wafer-silicium": {
+    "name_en": "Silicon wafer",
+    "description": "Pastille de silicium monocristallin pour circuits intégrés."
+  },
+  "acide-gravure": {
+    "name_en": "Etching acid",
+    "description": "Solution chimique pour graver les circuits sur le silicium."
+  },
+  "photolithographie": {
+    "name_en": "Photolithography",
+    "description": "Procédé d'impression des circuits par masque et lumière UV."
+  },
+  "resine-epoxy": {
+    "name_en": "Epoxy resin",
+    "description": "Polymère thermodurcissable dérivé du pétrole."
+  },
+  "fibre-verre": {
+    "name_en": "Fiberglass",
+    "description": "Tissu de filaments de verre pour isolation et support."
+  },
+  "circuit-imprime": {
+    "name_en": "Printed circuit board",
+    "description": "Support isolant avec pistes conductrices en cuivre."
+  },
+  "transistor": {
+    "name_en": "Transistor",
+    "description": "Composant semi-conducteur amplificateur et interrupteur."
+  },
+  "circuit-integre": {
+    "name_en": "Integrated circuit",
+    "description": "Milliers de transistors gravés sur une puce de silicium."
+  },
+  "microprocesseur": {
+    "name_en": "Microprocessor",
+    "description": "Circuit intégré contenant l'unité centrale de calcul."
+  },
+  "fer": {
+    "name_en": "Iron",
+    "description": "Métal obtenu par réduction du minerai dans un haut fourneau."
+  },
+  "acier": {
+    "name_en": "Steel",
+    "description": "Alliage de fer et de carbone, plus résistant que le fer pur."
+  },
+  "poutre-acier": {
+    "name_en": "Steel beam",
+    "description": "Profile métallique pour charpente et structure."
+  },
+  "structure-metallique": {
+    "name_en": "Metal structure",
+    "description": "Squelette de bâtiment en poutres et fondations."
+  },
+  "ciment": {
+    "name_en": "Cement",
+    "description": "Liant hydraulique obtenu par cuisson du calcaire et de l'argile."
+  },
+  "beton": {
+    "name_en": "Concrete",
+    "description": "Mélange de ciment, sable, gravier et eau."
+  },
+  "fondations": {
+    "name_en": "Foundations",
+    "description": "Base en béton ancrant la structure au sol."
+  },
+  "pate-papier": {
+    "name_en": "Paper pulp",
+    "description": "Fibres de bois défibrées et blanchies."
+  },
+  "papier": {
+    "name_en": "Paper",
+    "description": "Feuille de fibres cellulosiques séchées et pressées."
+  },
+  "encre": {
+    "name_en": "Ink",
+    "description": "Pigment ou colorant en suspension pour l'écriture et l'impression."
+  },
+  "presse-imprimer": {
+    "name_en": "Printing press",
+    "description": "Machine mécanique reproduisant texte et images sur papier."
+  },
+  "livre": {
+    "name_en": "Book",
+    "description": "Recueil de feuilles imprimées et reliées."
+  },
+  "fil-cuivre": {
+    "name_en": "Copper wire",
+    "description": "Fil métallique conducteur pour transmettre l'électricité."
+  },
+  "cable-electrique": {
+    "name_en": "Electrical cable",
+    "description": "Fil de cuivre isolé pour transporter le courant."
+  },
+  "generateur": {
+    "name_en": "Electrical generator",
+    "description": "Machine convertissant l'énergie mécanique en électricité."
+  },
+  "electricite": {
+    "name_en": "Electricity",
+    "description": "Énergie électrique produite et distribuée."
+  },
+  "telegraphe": {
+    "name_en": "Telegraph",
+    "description": "Système de transmission de messages par signaux électriques."
+  },
+  "telephone": {
+    "name_en": "Telephone",
+    "description": "Appareil de transmission de la voix par signaux électriques."
+  },
+  "fibre-optique": {
+    "name_en": "Optical fiber",
+    "description": "Fil de verre transmettant la lumière pour les données."
+  },
+  "serveur-informatique": {
+    "name_en": "Computer server",
+    "description": "Ordinateur dédié au stockage et à la distribution de données."
+  },
+  "internet": {
+    "name_en": "Internet",
+    "description": "Réseau mondial interconnectant ordinateurs et serveurs."
+  },
+  "extraits-vegetaux": {
+    "name_en": "Plant extracts",
+    "description": "Composés actifs concentrés par extraction des plantes."
+  },
+  "principes-actifs": {
+    "name_en": "Active ingredients",
+    "description": "Molécules thérapeutiques pures extraites ou synthétisées."
+  },
+  "chimie-organique": {
+    "name_en": "Organic chemistry",
+    "description": "Transformation des hydrocarbures en composés synthétiques."
+  },
+  "polymeres": {
+    "name_en": "Polymers",
+    "description": "Macromolécules synthétiques dérivées du pétrole."
+  },
+  "gelules": {
+    "name_en": "Capsules",
+    "description": "Enveloppe de polymère contenant le principe actif."
+  },
+  "medicaments": {
+    "name_en": "Medications",
+    "description": "Préparation thérapeutique combinant principes actifs et excipients."
+  },
+  "pain": {
+    "name_en": "Bread",
+    "description": "Aliment obtenu par cuisson de la pâte levée de blé."
+  },
+  "fromage": {
+    "name_en": "Cheese",
+    "description": "Produit laitier coagulé, affiné par fermentation."
+  },
+  "tonneau": {
+    "name_en": "Barrel",
+    "description": "Récipient en bois pour la fermentation et le stockage."
+  },
+  "vin": {
+    "name_en": "Wine",
+    "description": "Boisson alcoolisée par fermentation du raisin."
+  },
+  "ampoule": {
+    "name_en": "Light bulb",
+    "description": "Enveloppe de verre contenant un filament incandescent."
+  },
+  "coton": {
+    "name_en": "Cotton",
+    "description": "Fibres végétales filées pour textiles respirants."
+  },
+  "fil-de-coton": {
+    "name_en": "Cotton yarn",
+    "description": "Fil obtenu par filage et torsion des fibres de coton."
+  },
+  "tissu": {
+    "name_en": "Woven fabric",
+    "description": "Étoffe produite par entrecroisement de fils sur métier à tisser."
+  },
+  "vetement": {
+    "name_en": "Garment",
+    "description": "Article confectionné à partir de tissus pour se couvrir ou se parer."
+  },
+  "laine": {
+    "name_en": "Wool",
+    "description": "Fibres animales du mouton, isolantes et élastiques."
+  },
+  "fil-de-laine": {
+    "name_en": "Wool yarn",
+    "description": "Fil cardé et filé, adapté au tricot et au tissage lourd."
+  },
+  "tricot": {
+    "name_en": "Knitwear",
+    "description": "Textile formé de boucles de fil enchaînées (mailles)."
+  },
+  "ver-a-soie": {
+    "name_en": "Silkworm",
+    "description": "Larve du bombyx produisant le fil de la cocoon."
+  },
+  "soie-naturelle": {
+    "name_en": "Natural silk",
+    "description": "Fibre protéique filée à partir du cocon du bombyx du mûrier."
+  },
+  "plantes-teinture": {
+    "name_en": "Dye plants",
+    "description": "Indigo, garance, gaude : sources de pigments pour teindre."
+  },
+  "mordant": {
+    "name_en": "Mordant",
+    "description": "Sel métallique fixant le pigment sur la fibre textile."
+  },
+  "teinture-textile": {
+    "name_en": "Textile dyeing",
+    "description": "Procédé d’application durable des colorants sur fils ou étoffes."
+  },
+  "roue": {
+    "name_en": "Wheel",
+    "description": "Disque tournant réduisant le frottement au sol pour le transport."
+  },
+  "chariot": {
+    "name_en": "Wheeled cart",
+    "description": "Véhicule à roues pour transporter charges et personnes."
+  },
+  "caoutchouc": {
+    "name_en": "Rubber",
+    "description": "Polymère naturel ou synthétique pour pneus et joints étanches."
+  },
+  "moteur-explosion": {
+    "name_en": "Internal combustion engine",
+    "description": "Machine thermique convertissant l’essence en mouvement rotatif."
+  },
+  "automobile": {
+    "name_en": "Automobile",
+    "description": "Véhicule routier autonome à moteur et châssis métallique."
+  },
+  "aluminium": {
+    "name_en": "Aluminium",
+    "description": "Métal léger issu de la bauxite, allié pour aéronautique."
+  },
+  "moteur-reaction": {
+    "name_en": "Jet engine",
+    "description": "Propulseur à flux gazeux à haute vitesse pour aviation."
+  },
+  "avion": {
+    "name_en": "Airplane",
+    "description": "Aéronef à voilure fixe propulsé par réaction ou hélice."
+  },
+  "charbon-de-bois": {
+    "name_en": "Charcoal",
+    "description": "Carbone poreux obtenu par pyrolyse du bois, combustible intense."
+  },
+  "houille": {
+    "name_en": "Bituminous coal",
+    "description": "Charbon sédimentaire riche en carbone pour centrales et sidérurgie."
+  },
+  "essence": {
+    "name_en": "Gasoline",
+    "description": "Coupe d’hydrocarbures légers pour moteurs à allumage commandé."
+  },
+  "uranium": {
+    "name_en": "Uranium",
+    "description": "Élément fissile utilisé comme combustible nucléaire enrichi."
+  },
+  "reacteur-nucleaire": {
+    "name_en": "Nuclear reactor",
+    "description": "Cœur où la fission contrôlée produit de la chaleur."
+  },
+  "panneau-solaire": {
+    "name_en": "Solar panel",
+    "description": "Modules photovoltaïques convertissant la lumière en courant continu."
+  },
+  "charpente-bois": {
+    "name_en": "Timber frame",
+    "description": "Ossature porteuse assemblée en bois pour toitures et planchers."
+  },
+  "pierre": {
+    "name_en": "Dimension stone",
+    "description": "Bloc rocheux extrait et parfois équarr pour maçonnerie."
+  },
+  "taille-pierre": {
+    "name_en": "Stone dressing",
+    "description": "Façonnage des blocs par sciage et dressage pour l’assemblage."
+  },
+  "mur-pierre": {
+    "name_en": "Stone wall",
+    "description": "Ouvrage vertical maçonné en pierres liées au mortier."
+  },
+  "chaux": {
+    "name_en": "Quicklime",
+    "description": "Oxyde de calcium obtenu par cuisson du calcaire, base du mortier."
+  },
+  "mortier": {
+    "name_en": "Mortar",
+    "description": "Mélange de chaux ou ciment avec sable et eau pour liaison des maçonneries."
+  },
+  "vitre": {
+    "name_en": "Window glass pane",
+    "description": "Plaque de verre plane pour laisser passer la lumière."
+  },
+  "fenetre": {
+    "name_en": "Window",
+    "description": "Percement muni d’un châssis vitré et d’occultants."
+  },
+  "papyrus": {
+    "name_en": "Papyrus",
+    "description": "Support d’écriture en lamelle de moelle du papyrus nilotique."
+  },
+  "parchemin": {
+    "name_en": "Parchment",
+    "description": "Peau préparée pour l’écriture, durable et lisse."
+  },
+  "imprimerie": {
+    "name_en": "Industrial printing",
+    "description": "Ensemble de rotatives et composition pour tirages de masse."
+  },
+  "journal": {
+    "name_en": "Newspaper",
+    "description": "Périodique d’information imprimé sur papier bon marché."
+  },
+  "radio": {
+    "name_en": "Radio receiver",
+    "description": "Récepteur démodulant les ondes électromagnétiques en son."
+  },
+  "television": {
+    "name_en": "Television",
+    "description": "Appareil affichant images et son diffusés par ondes ou câble."
+  },
+  "ordinateur": {
+    "name_en": "Computer",
+    "description": "Machine programmable traitant l’information numérique."
+  },
+  "smartphone": {
+    "name_en": "Smartphone",
+    "description": "Terminal mobile tactile connecté à Internet et réseaux cellulaires."
+  },
+  "plastique": {
+    "name_en": "Plastic",
+    "description": "Polymère thermoplastique moulable pour emballages et pièces."
+  },
+  "bouteille-plastique": {
+    "name_en": "Plastic bottle",
+    "description": "Contenant soufflé en PET pour liquides alimentaires."
+  },
+  "engrais": {
+    "name_en": "Nitrogen fertilizer",
+    "description": "Amendement issu du procédé Haber-Bosch ou du nitrate."
+  },
+  "salpetre": {
+    "name_en": "Saltpeter",
+    "description": "Nitrate de potassium, oxydant majeur des poudres."
+  },
+  "soufre": {
+    "name_en": "Sulfur",
+    "description": "Élément jaune comburant secondaire dans les mélanges explosifs."
+  },
+  "poudre-a-canon": {
+    "name_en": "Gunpowder",
+    "description": "Mélange salpêtre–charbon–soufre déflagrant sous choc ou flamme."
+  },
+  "lentille": {
+    "name_en": "Optical lens",
+    "description": "Verre poli courbé pour converger ou diverger la lumière."
+  },
+  "lunettes": {
+    "name_en": "Eyeglasses",
+    "description": "Monture portant des verres correcteurs pour la vision."
+  },
+  "microscope": {
+    "name_en": "Microscope",
+    "description": "Instrument grossissant le très petit par lentilles combinées."
+  },
+  "telescope": {
+    "name_en": "Telescope",
+    "description": "Instrument astronomique collectant la lumière lointaine."
+  },
+  "viande": {
+    "name_en": "Meat",
+    "description": "Muscle animal frais ou préparé, riche en protéines."
+  },
+  "salaison": {
+    "name_en": "Salted meat",
+    "description": "Viande conservée par saumure et séchage pour longue durée."
+  },
+  "canne-a-sucre": {
+    "name_en": "Sugarcane",
+    "description": "Graminée tropicale dont le jus est riche en saccharose."
+  },
+  "sucre": {
+    "name_en": "Cane sugar",
+    "description": "Saccharose cristallisé après évaporation et raffinage."
+  },
+  "confiserie": {
+    "name_en": "Confectionery",
+    "description": "Bonbons et pâtes à base de sucre cuit et arômes."
+  },
+  "cacao": {
+    "name_en": "Cocoa beans",
+    "description": "Graines fermentées du cacaoyer, base du chocolat."
+  },
+  "chocolat": {
+    "name_en": "Chocolate",
+    "description": "Préparation à base de pâte de cacao, sucre et souvent lait."
+  },
+  "houblon": {
+    "name_en": "Hops",
+    "description": "Inflorescences amérisantes et conservatrices de la bière."
+  },
+  "orge": {
+    "name_en": "Barley",
+    "description": "Céréale maltée pour brasser la bière et alimenter le moût."
+  },
+  "biere": {
+    "name_en": "Beer",
+    "description": "Boisson fermentée du malt, houblonnée et gazéifiée."
+  },
+  "metier-tisser": {
+    "name_en": "Loom",
+    "description": "Machine à entrecroiser les fils pour former le tissu."
+  },
+  "eau-de-chaux": {
+    "name_en": "Limewater",
+    "description": "Solution de hydroxyde de calcium pour mortiers et peintures."
+  },
+  "bauxite": {
+    "name_en": "Bauxite",
+    "description": "Minerai alumineux servant à produire l’aluminium par électrolyse."
+  },
+  "raffinerie": {
+    "name_en": "Oil refinery",
+    "description": "Installation de distillation fractionnée du pétrole brut."
+  },
+  "antenne-radio": {
+    "name_en": "Radio antenna",
+    "description": "Structure captant les ondes HF pour réception et émission."
+  },
+  "tube-cathodique": {
+    "name_en": "CRT",
+    "description": "Écran à balayage électronique pour affichage analogique."
+  },
+  "eau-lourde": {
+    "name_en": "Heavy water",
+    "description": "Modérateur possible dans certains réacteurs (rôle pédagogique)."
+  },
+  "beton-arme": {
+    "name_en": "Reinforced concrete",
+    "description": "Béton coulé sur armature d’acier pour résistance à la traction."
+  },
+  "pneu": {
+    "name_en": "Tire",
+    "description": "Enveloppe caoutchouc gonflée assurant l’adhérence routière."
+  },
+  "chassis-auto": {
+    "name_en": "Car chassis",
+    "description": "Structure porteuse en acier ou aluminium du véhicule."
+  },
+  "carlingue": {
+    "name_en": "Fuselage",
+    "description": "Enveloppe structurelle de l’avion en alliages légers."
+  },
+  "gazole": {
+    "name_en": "Diesel fuel",
+    "description": "Coupe lourde pour moteurs diesel industriels et trains."
+  },
+  "turbine-vapeur": {
+    "name_en": "Steam turbine",
+    "description": "Machine thermique entraînant alternateurs dans les centrales."
+  },
+  "alternateur": {
+    "name_en": "Alternator",
+    "description": "Générateur produisant du courant alternatif triphasé."
+  },
+  "reseau-electrique": {
+    "name_en": "Power grid",
+    "description": "Transport et distribution de l’électricité à grande échelle."
+  },
+  "onduleur-solaire": {
+    "name_en": "Solar inverter",
+    "description": "Convertit le courant continu des panneaux en AC pour le réseau."
+  },
+  "fonte": {
+    "name_en": "Cast iron",
+    "description": "Alliage fer–carbone coulé, étape entre fer et acier."
+  },
+  "acier-inox": {
+    "name_en": "Stainless steel",
+    "description": "Acier allié au chrome résistant à la corrosion."
+  },
+  "tissu-teint": {
+    "name_en": "Dyed fabric",
+    "description": "Étoffe après fixation des pigments et mordantage."
+  },
+  "filature": {
+    "name_en": "Spinning mill",
+    "description": "Atelier mécanisé alignant les fibres en fil continu."
+  },
+  "mouton": {
+    "name_en": "Sheep",
+    "description": "Ruminant élevé pour laine, viande et lait."
+  },
+  "mulberry": {
+    "name_en": "Mulberry",
+    "description": "Arbre nourricier du bombyx du ver à soie."
+  },
+  "feuille-or": {
+    "name_en": "Gold leaf",
+    "description": "Or battu pour dorure décorative sur bois ou papier."
+  },
+  "or": {
+    "name_en": "Gold",
+    "description": "Métal noble ductile, résistant à l’oxydation."
+  },
+  "scierie": {
+    "name_en": "Sawmill",
+    "description": "Usine découpant les grumes en planches et poutres."
+  },
+  "planche-bois": {
+    "name_en": "Lumber board",
+    "description": "Pièce sciée servant aux charpentes et menuiseries."
+  },
+  "verre-trempe": {
+    "name_en": "Tempered glass",
+    "description": "Vitre renforcée thermiquement pour sécurité des façades."
+  },
+  "acier-structure": {
+    "name_en": "Steel section",
+    "description": "Poutrelles laminées pour ossatures industrielles."
+  },
+  "hydrogene": {
+    "name_en": "Hydrogen",
+    "description": "Gaz léger utilisé dans la synthèse ammoniaque (Haber)."
+  },
+  "azote": {
+    "name_en": "Nitrogen",
+    "description": "Gaz atmosphérique fixé industriellement pour engrais."
+  },
+  "ammoniac": {
+    "name_en": "Ammonia",
+    "description": "Précurseur des engrais azotés et explosifs nités."
+  },
+  "nitrate": {
+    "name_en": "Calcium nitrate",
+    "description": "Engrais soluble dérivé de chaînes azotées industrielles."
+  },
+  "polycarbonate": {
+    "name_en": "Polycarbonate",
+    "description": "Plastique transparent résistant pour bouteilles et visières."
+  },
+  "route-bitee": {
+    "name_en": "Asphalt road",
+    "description": "Chaussée liée au bitume de pétrole pour trafic motorisé."
+  },
+  "bitume": {
+    "name_en": "Bitumen",
+    "description": "Fraction visqueuse du pétrole pour enrobés routiers."
+  },
+  "signal-numerique": {
+    "name_en": "Digital signal",
+    "description": "Information discrétisée pour traitement par circuits logiques."
+  },
+  "ecran-lcd": {
+    "name_en": "LCD display",
+    "description": "Matrice à cristaux liquides polarisés pour affichage basse conso."
+  },
+  "batterie-li": {
+    "name_en": "Li-ion battery",
+    "description": "Accumulateur léger à haute densité pour mobiles et véhicules."
+  },
+  "reseau-cellulaire": {
+    "name_en": "Cellular network",
+    "description": "Infrastructure radio 4G/5G pour données mobiles."
+  }
+}

@@ -1,0 +1,116 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
+import type { LandingStats } from '@/lib/landing-stats';
+
+function AnimatedInt({
+  value,
+  duration = 1.35,
+}: {
+  value: number;
+  duration?: number;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-12%' });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    const start = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / (duration * 1000));
+      const eased = 1 - Math.pow(1 - t, 3);
+      setDisplay(Math.round(value * eased));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [isInView, value, duration]);
+
+  return <span ref={ref}>{display}</span>;
+}
+
+export function StatsSection({ stats }: { stats: LandingStats }) {
+  const cards: {
+    label: string;
+    value: number;
+    depth?: boolean;
+  }[] = [
+    {
+      label: 'technologies',
+      value: stats.techCount,
+    },
+    {
+      label: 'recettes de fabrication',
+      value: stats.recipeCount,
+    },
+    {
+      label: 'matières premières',
+      value: stats.rawMaterialCount,
+    },
+    {
+      label: 'niveaux (profondeur max)',
+      value: stats.maxDepth,
+      depth: true,
+    },
+  ];
+
+  return (
+    <section className="border-y border-[#2A3042]/80 bg-[#0A0E17] px-4 py-14 md:px-6 md:py-20">
+      <div className="mx-auto max-w-6xl">
+        <motion.h2
+          className="mb-12 text-center text-2xl font-bold tracking-tight text-[#E8ECF4] md:text-3xl"
+          style={{
+            fontFamily:
+              'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+          }}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5 }}
+        >
+          Chiffres clés
+        </motion.h2>
+        <div className="grid grid-cols-2 gap-3 md:gap-6 lg:grid-cols-4">
+          {cards.map((card, i) => (
+            <motion.div
+              key={card.label}
+              className="rounded-2xl border border-[#2A3042] bg-[#111827]/80 px-4 py-6 text-center shadow-lg backdrop-blur-sm md:px-6 md:py-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.45, delay: i * 0.06 }}
+            >
+              <div
+                className="text-4xl font-bold tabular-nums text-[#3B82F6] md:text-5xl"
+                style={{
+                  fontFamily:
+                    'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+                }}
+              >
+                <AnimatedInt value={card.value} />
+                {card.depth ? (
+                  <span className="ml-1 text-2xl font-semibold text-[#8B95A8] md:text-3xl">
+                    {' '}
+                    niveaux
+                  </span>
+                ) : null}
+              </div>
+              <p className="mt-3 text-sm text-[#8B95A8]">
+                {card.depth ? (
+                  <span className="font-medium text-[#E8ECF4]">
+                    Profondeur max
+                  </span>
+                ) : (
+                  card.label
+                )}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

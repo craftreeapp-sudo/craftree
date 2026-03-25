@@ -24,6 +24,10 @@
 .DS_Store
 *.pem
 
+# Images uploadées (lourdes, locales)
+public/images/nodes/*
+!public/images/nodes/.gitkeep
+
 # debug
 npm-debug.log*
 yarn-debug.log*

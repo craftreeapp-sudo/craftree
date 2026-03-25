@@ -1,0 +1,5189 @@
+{
+  "feu": {
+    "name_en": "Fire",
+    "description": "Combustion permettant la transformation des matériaux par la chaleur.",
+    "tags": [
+      "primitif",
+      "chaleur",
+      "énergie"
+    ],
+    "origin": "Nature"
+  },
+  "eau": {
+    "name_en": "Water",
+    "description": "Composé chimique essentiel à la vie et à de nombreuses transformations.",
+    "tags": [
+      "élément",
+      "solvant",
+      "hydratation"
+    ],
+    "origin": "Nature"
+  },
+  "air": {
+    "name_en": "Air",
+    "description": "Mélange gazeux nécessaire à la combustion et à la respiration.",
+    "tags": [
+      "oxygène",
+      "combustion"
+    ],
+    "origin": "Nature"
+  },
+  "sable": {
+    "name_en": "Sand (silica)",
+    "description": "Particules de silice (SiO₂) utilisées pour le verre et le béton.",
+    "tags": [
+      "silice",
+      "minéral",
+      "construction",
+      "électronique"
+    ],
+    "origin": "Nature"
+  },
+  "charbon": {
+    "name_en": "Coal",
+    "description": "Combustible fossile utilisé pour la chaleur et la réduction des minerais.",
+    "tags": [
+      "combustible",
+      "fossile",
+      "énergie"
+    ],
+    "origin": "Nature"
+  },
+  "cuivre": {
+    "name_en": "Copper",
+    "description": "Métal ductile excellent conducteur d'électricité.",
+    "tags": [
+      "métal",
+      "conducteur",
+      "électricité"
+    ],
+    "origin": "Nature"
+  },
+  "minerai-fer": {
+    "name_en": "Iron ore",
+    "description": "Roche contenant du fer à réduire dans un four.",
+    "tags": [
+      "fer",
+      "mine",
+      "minéral"
+    ],
+    "origin": "Nature"
+  },
+  "calcaire": {
+    "name_en": "Limestone",
+    "description": "Roche sédimentaire riche en carbonate de calcium.",
+    "tags": [
+      "ciment",
+      "construction",
+      "chaux"
+    ],
+    "origin": "Nature"
+  },
+  "argile": {
+    "name_en": "Clay",
+    "description": "Roche sédimentaire plastique utilisée pour céramique et ciment.",
+    "tags": [
+      "céramique",
+      "ciment",
+      "construction"
+    ],
+    "origin": "Nature"
+  },
+  "bois": {
+    "name_en": "Wood",
+    "description": "Tissu ligneur des arbres, matériau de construction universel.",
+    "tags": [
+      "construction",
+      "papier",
+      "combustible"
+    ],
+    "origin": "Nature"
+  },
+  "sel": {
+    "name_en": "Salt",
+    "description": "Chlorure de sodium, conservateur et exhausteur de goût.",
+    "tags": [
+      "conservation",
+      "alimentation"
+    ],
+    "origin": "Nature"
+  },
+  "ble": {
+    "name_en": "Wheat",
+    "description": "Céréale cultivée, base de l'alimentation en pain.",
+    "tags": [
+      "céréale",
+      "alimentation",
+      "pain"
+    ],
+    "origin": "Nature"
+  },
+  "raisin": {
+    "name_en": "Grape",
+    "description": "Fruit de la vigne, fermenté pour produire le vin.",
+    "tags": [
+      "vin",
+      "fermentation",
+      "fruit"
+    ],
+    "origin": "Nature"
+  },
+  "lait": {
+    "name_en": "Milk",
+    "description": "Sécrétion mammalienne transformée en fromage.",
+    "tags": [
+      "fromage",
+      "alimentation",
+      "protéine"
+    ],
+    "origin": "Nature"
+  },
+  "levure": {
+    "name_en": "Yeast",
+    "description": "Champignon unicellulaire provoquant la fermentation.",
+    "tags": [
+      "fermentation",
+      "pain",
+      "vin"
+    ],
+    "origin": "Nature"
+  },
+  "presure": {
+    "name_en": "Rennet",
+    "description": "Enzyme coagulante extraite de l'estomac des ruminants.",
+    "tags": [
+      "fromage",
+      "coagulation"
+    ],
+    "origin": "Nature"
+  },
+  "plantes-medicinales": {
+    "name_en": "Medicinal plants",
+    "description": "Plantes contenant des principes actifs thérapeutiques.",
+    "tags": [
+      "pharmacie",
+      "extraction",
+      "thérapeutique"
+    ],
+    "origin": "Nature"
+  },
+  "petrole": {
+    "name_en": "Petroleum",
+    "description": "Hydrocarbure fossile, base de la chimie organique moderne.",
+    "tags": [
+      "fossile",
+      "chimie",
+      "carburant"
+    ],
+    "origin": "Nature"
+  },
+  "four": {
+    "name_en": "Furnace",
+    "description": "Enceinte chauffée pour cuire, fondre ou transformer les matériaux.",
+    "tags": [
+      "chaleur",
+      "cuisson",
+      "métallurgie"
+    ]
+  },
+  "four-haute-temp": {
+    "name_en": "High-temperature furnace",
+    "description": "Four industriel atteignant 1500°C pour la réduction du fer.",
+    "tags": [
+      "métallurgie",
+      "acier",
+      "industrie"
+    ]
+  },
+  "soude": {
+    "name_en": "Soda ash",
+    "description": "Carbonate de sodium, fondant pour la silice.",
+    "tags": [
+      "verre",
+      "chimie",
+      "fondant"
+    ]
+  },
+  "verre": {
+    "name_en": "Glass",
+    "description": "Matière amorphe issue de la fusion du sable et de la soude.",
+    "tags": [
+      "transparent",
+      "optique",
+      "électronique"
+    ]
+  },
+  "silicium": {
+    "name_en": "Silicon",
+    "description": "Élément semi-conducteur purifié à partir de la silice.",
+    "tags": [
+      "semi-conducteur",
+      "électronique",
+      "purification"
+    ]
+  },
+  "wafer-silicium": {
+    "name_en": "Silicon wafer",
+    "description": "Pastille de silicium monocristallin pour circuits intégrés.",
+    "tags": [
+      "puce",
+      "semi-conducteur",
+      "photolithographie"
+    ]
+  },
+  "acide-gravure": {
+    "name_en": "Etching acid",
+    "description": "Solution chimique pour graver les circuits sur le silicium.",
+    "tags": [
+      "gravure",
+      "circuit",
+      "chimie"
+    ]
+  },
+  "photolithographie": {
+    "name_en": "Photolithography",
+    "description": "Procédé d'impression des circuits par masque et lumière UV.",
+    "tags": [
+      "circuit",
+      "masque",
+      "UV"
+    ]
+  },
+  "resine-epoxy": {
+    "name_en": "Epoxy resin",
+    "description": "Polymère thermodurcissable dérivé du pétrole.",
+    "tags": [
+      "polymère",
+      "isolant",
+      "circuit"
+    ]
+  },
+  "fibre-verre": {
+    "name_en": "Fiberglass",
+    "description": "Tissu de filaments de verre pour isolation et support.",
+    "tags": [
+      "isolant",
+      "circuit imprimé",
+      "composite"
+    ]
+  },
+  "circuit-imprime": {
+    "name_en": "Printed circuit board",
+    "description": "Support isolant avec pistes conductrices en cuivre.",
+    "tags": [
+      "électronique",
+      "cuivre",
+      "PCB"
+    ]
+  },
+  "transistor": {
+    "name_en": "Transistor",
+    "description": "Composant semi-conducteur amplificateur et interrupteur.",
+    "tags": [
+      "semi-conducteur",
+      "amplification",
+      "numérique"
+    ]
+  },
+  "circuit-integre": {
+    "name_en": "Integrated circuit",
+    "description": "Milliers de transistors gravés sur une puce de silicium.",
+    "tags": [
+      "puce",
+      "microprocesseur",
+      "électronique"
+    ]
+  },
+  "microprocesseur": {
+    "name_en": "Microprocessor",
+    "description": "Circuit intégré contenant l'unité centrale de calcul.",
+    "tags": [
+      "processeur",
+      "ordinateur",
+      "calcul"
+    ]
+  },
+  "fer": {
+    "name_en": "Iron",
+    "description": "Métal obtenu par réduction du minerai dans un haut fourneau.",
+    "tags": [
+      "métal",
+      "métallurgie",
+      "construction"
+    ]
+  },
+  "acier": {
+    "name_en": "Steel",
+    "description": "Alliage de fer et de carbone, plus résistant que le fer pur.",
+    "tags": [
+      "métal",
+      "alliance",
+      "construction"
+    ]
+  },
+  "poutre-acier": {
+    "name_en": "Steel beam",
+    "description": "Profile métallique pour charpente et structure.",
+    "tags": [
+      "construction",
+      "charpente",
+      "immeuble"
+    ]
+  },
+  "structure-metallique": {
+    "name_en": "Metal structure",
+    "description": "Squelette de bâtiment en poutres et fondations.",
+    "tags": [
+      "gratte-ciel",
+      "architecture",
+      "construction"
+    ]
+  },
+  "ciment": {
+    "name_en": "Cement",
+    "description": "Liant hydraulique obtenu par cuisson du calcaire et de l'argile.",
+    "tags": [
+      "construction",
+      "béton",
+      "liant"
+    ]
+  },
+  "beton": {
+    "name_en": "Concrete",
+    "description": "Mélange de ciment, sable, gravier et eau.",
+    "tags": [
+      "construction",
+      "fondation",
+      "armé"
+    ]
+  },
+  "fondations": {
+    "name_en": "Foundations",
+    "description": "Base en béton ancrant la structure au sol.",
+    "tags": [
+      "construction",
+      "bâtiment",
+      "stabilité"
+    ]
+  },
+  "pate-papier": {
+    "name_en": "Paper pulp",
+    "description": "Fibres de bois défibrées et blanchies.",
+    "tags": [
+      "papier",
+      "bois",
+      "cellulose"
+    ]
+  },
+  "papier": {
+    "name_en": "Paper",
+    "description": "Feuille de fibres cellulosiques séchées et pressées.",
+    "tags": [
+      "écriture",
+      "impression",
+      "support"
+    ]
+  },
+  "encre": {
+    "name_en": "Ink",
+    "description": "Pigment ou colorant en suspension pour l'écriture et l'impression.",
+    "tags": [
+      "impression",
+      "écriture",
+      "pigment"
+    ]
+  },
+  "presse-imprimer": {
+    "name_en": "Printing press",
+    "description": "Machine mécanique reproduisant texte et images sur papier.",
+    "tags": [
+      "imprimerie",
+      "Gutenberg",
+      "livre"
+    ]
+  },
+  "livre": {
+    "name_en": "Book",
+    "description": "Recueil de feuilles imprimées et reliées.",
+    "tags": [
+      "connaissance",
+      "impression",
+      "lecture"
+    ]
+  },
+  "fil-cuivre": {
+    "name_en": "Copper wire",
+    "description": "Fil métallique conducteur pour transmettre l'électricité.",
+    "tags": [
+      "électricité",
+      "conducteur",
+      "transmission"
+    ]
+  },
+  "cable-electrique": {
+    "name_en": "Electrical cable",
+    "description": "Fil de cuivre isolé pour transporter le courant.",
+    "tags": [
+      "électricité",
+      "réseau",
+      "isolation"
+    ]
+  },
+  "generateur": {
+    "name_en": "Electrical generator",
+    "description": "Machine convertissant l'énergie mécanique en électricité.",
+    "tags": [
+      "électricité",
+      "Faraday",
+      "courant"
+    ]
+  },
+  "electricite": {
+    "name_en": "Electricity",
+    "description": "Énergie électrique produite et distribuée.",
+    "tags": [
+      "courant",
+      "énergie",
+      "réseau"
+    ],
+    "origin": "Nature"
+  },
+  "telegraphe": {
+    "name_en": "Telegraph",
+    "description": "Système de transmission de messages par signaux électriques.",
+    "tags": [
+      "communication",
+      "Morse",
+      "réseau"
+    ]
+  },
+  "telephone": {
+    "name_en": "Telephone",
+    "description": "Appareil de transmission de la voix par signaux électriques.",
+    "tags": [
+      "voix",
+      "Bell",
+      "communication"
+    ]
+  },
+  "fibre-optique": {
+    "name_en": "Optical fiber",
+    "description": "Fil de verre transmettant la lumière pour les données.",
+    "tags": [
+      "données",
+      "lumière",
+      "internet"
+    ]
+  },
+  "serveur-informatique": {
+    "name_en": "Computer server",
+    "description": "Ordinateur dédié au stockage et à la distribution de données.",
+    "tags": [
+      "réseau",
+      "données",
+      "cloud"
+    ]
+  },
+  "internet": {
+    "name_en": "Internet",
+    "description": "Réseau mondial interconnectant ordinateurs et serveurs.",
+    "tags": [
+      "réseau",
+      "communication",
+      "données"
+    ]
+  },
+  "extraits-vegetaux": {
+    "name_en": "Plant extracts",
+    "description": "Composés actifs concentrés par extraction des plantes.",
+    "tags": [
+      "pharmacie",
+      "extraction",
+      "principe actif"
+    ]
+  },
+  "principes-actifs": {
+    "name_en": "Active ingredients",
+    "description": "Molécules thérapeutiques pures extraites ou synthétisées.",
+    "tags": [
+      "pharmacie",
+      "synthèse",
+      "médicament"
+    ]
+  },
+  "chimie-organique": {
+    "name_en": "Organic chemistry",
+    "description": "Transformation des hydrocarbures en composés synthétiques.",
+    "tags": [
+      "pétrole",
+      "synthèse",
+      "polymère"
+    ]
+  },
+  "polymeres": {
+    "name_en": "Polymers",
+    "description": "Macromolécules synthétiques dérivées du pétrole.",
+    "tags": [
+      "plastique",
+      "synthétique",
+      "gélule"
+    ]
+  },
+  "gelules": {
+    "name_en": "Capsules",
+    "description": "Enveloppe de polymère contenant le principe actif.",
+    "tags": [
+      "pharmacie",
+      "enrobage",
+      "médicament"
+    ]
+  },
+  "medicaments": {
+    "name_en": "Medications",
+    "description": "Préparation thérapeutique combinant principes actifs et excipients.",
+    "tags": [
+      "pharmacie",
+      "santé",
+      "thérapeutique"
+    ]
+  },
+  "pain": {
+    "name_en": "Bread",
+    "description": "Aliment obtenu par cuisson de la pâte levée de blé.",
+    "tags": [
+      "alimentation",
+      "farine",
+      "cuisson"
+    ]
+  },
+  "fromage": {
+    "name_en": "Cheese",
+    "description": "Produit laitier coagulé, affiné par fermentation.",
+    "tags": [
+      "laitier",
+      "fermentation",
+      "alimentation"
+    ]
+  },
+  "tonneau": {
+    "name_en": "Barrel",
+    "description": "Récipient en bois pour la fermentation et le stockage.",
+    "tags": [
+      "vin",
+      "fermentation",
+      "bois"
+    ]
+  },
+  "vin": {
+    "name_en": "Wine",
+    "description": "Boisson alcoolisée par fermentation du raisin.",
+    "tags": [
+      "fermentation",
+      "raisin",
+      "alcool"
+    ]
+  },
+  "ampoule": {
+    "name_en": "Light bulb",
+    "description": "Enveloppe de verre contenant un filament incandescent.",
+    "tags": [
+      "éclairage",
+      "électricité",
+      "Edison"
+    ]
+  },
+  "coton": {
+    "name_en": "Cotton",
+    "description": "Fibres végétales filées pour textiles respirants.",
+    "tags": [
+      "textile",
+      "fibre",
+      "vêtement"
+    ],
+    "origin": "Nature"
+  },
+  "fil-de-coton": {
+    "name_en": "Cotton yarn",
+    "description": "Fil obtenu par filage et torsion des fibres de coton.",
+    "tags": [
+      "fil",
+      "tissage"
+    ]
+  },
+  "tissu": {
+    "name_en": "Woven fabric",
+    "description": "Étoffe produite par entrecroisement de fils sur métier à tisser.",
+    "tags": [
+      "tissu",
+      "habillement"
+    ]
+  },
+  "vetement": {
+    "name_en": "Garment",
+    "description": "Article confectionné à partir de tissus pour se couvrir ou se parer.",
+    "tags": [
+      "mode",
+      "couture"
+    ]
+  },
+  "laine": {
+    "name_en": "Wool",
+    "description": "Fibres animales du mouton, isolantes et élastiques.",
+    "tags": [
+      "textile",
+      "tricot"
+    ],
+    "origin": "Nature"
+  },
+  "fil-de-laine": {
+    "name_en": "Wool yarn",
+    "description": "Fil cardé et filé, adapté au tricot et au tissage lourd.",
+    "tags": [
+      "fil",
+      "chaud"
+    ]
+  },
+  "tricot": {
+    "name_en": "Knitwear",
+    "description": "Textile formé de boucles de fil enchaînées (mailles).",
+    "tags": [
+      "pull",
+      "maille"
+    ]
+  },
+  "ver-a-soie": {
+    "name_en": "Silkworm",
+    "description": "Larve du bombyx produisant le fil de la cocoon.",
+    "tags": [
+      "soie",
+      "Asie"
+    ],
+    "origin": "Nature"
+  },
+  "soie-naturelle": {
+    "name_en": "Natural silk",
+    "description": "Fibre protéique filée à partir du cocon du bombyx du mûrier.",
+    "tags": [
+      "luxury",
+      "tissu"
+    ]
+  },
+  "plantes-teinture": {
+    "name_en": "Dye plants",
+    "description": "Indigo, garance, gaude : sources de pigments pour teindre.",
+    "tags": [
+      "couleur",
+      "teinture"
+    ],
+    "origin": "Nature"
+  },
+  "mordant": {
+    "name_en": "Mordant",
+    "description": "Sel métallique fixant le pigment sur la fibre textile.",
+    "tags": [
+      "fixateur",
+      "teinture"
+    ]
+  },
+  "teinture-textile": {
+    "name_en": "Textile dyeing",
+    "description": "Procédé d’application durable des colorants sur fils ou étoffes.",
+    "tags": [
+      "couleur",
+      "industrie"
+    ]
+  },
+  "roue": {
+    "name_en": "Wheel",
+    "description": "Disque tournant réduisant le frottement au sol pour le transport.",
+    "tags": [
+      "mécanique",
+      "char"
+    ]
+  },
+  "chariot": {
+    "name_en": "Wheeled cart",
+    "description": "Véhicule à roues pour transporter charges et personnes.",
+    "tags": [
+      "traction",
+      "route"
+    ]
+  },
+  "caoutchouc": {
+    "name_en": "Rubber",
+    "description": "Polymère naturel ou synthétique pour pneus et joints étanches.",
+    "tags": [
+      "élastique",
+      "pneu"
+    ],
+    "origin": "Nature"
+  },
+  "moteur-explosion": {
+    "name_en": "Internal combustion engine",
+    "description": "Machine thermique convertissant l’essence en mouvement rotatif.",
+    "tags": [
+      "automobile",
+      "essence"
+    ]
+  },
+  "automobile": {
+    "name_en": "Automobile",
+    "description": "Véhicule routier autonome à moteur et châssis métallique.",
+    "tags": [
+      "voiture",
+      "industrie"
+    ]
+  },
+  "aluminium": {
+    "name_en": "Aluminium",
+    "description": "Métal léger issu de la bauxite, allié pour aéronautique.",
+    "tags": [
+      "léger",
+      "aéronautique"
+    ]
+  },
+  "moteur-reaction": {
+    "name_en": "Jet engine",
+    "description": "Propulseur à flux gazeux à haute vitesse pour aviation.",
+    "tags": [
+      "avion",
+      "turbine"
+    ]
+  },
+  "avion": {
+    "name_en": "Airplane",
+    "description": "Aéronef à voilure fixe propulsé par réaction ou hélice.",
+    "tags": [
+      "aviation",
+      "transport"
+    ]
+  },
+  "charbon-de-bois": {
+    "name_en": "Charcoal",
+    "description": "Carbone poreux obtenu par pyrolyse du bois, combustible intense.",
+    "tags": [
+      "forge",
+      "combustible"
+    ],
+    "origin": "Nature"
+  },
+  "houille": {
+    "name_en": "Bituminous coal",
+    "description": "Charbon sédimentaire riche en carbone pour centrales et sidérurgie.",
+    "tags": [
+      "mine",
+      "thermique"
+    ],
+    "origin": "Nature"
+  },
+  "essence": {
+    "name_en": "Gasoline",
+    "description": "Coupe d’hydrocarbures légers pour moteurs à allumage commandé.",
+    "tags": [
+      "carburant",
+      "pétrole"
+    ]
+  },
+  "uranium": {
+    "name_en": "Uranium",
+    "description": "Élément fissile utilisé comme combustible nucléaire enrichi.",
+    "tags": [
+      "nucléaire",
+      "fission"
+    ],
+    "origin": "Nature"
+  },
+  "reacteur-nucleaire": {
+    "name_en": "Nuclear reactor",
+    "description": "Cœur où la fission contrôlée produit de la chaleur.",
+    "tags": [
+      "fission",
+      "centrale"
+    ]
+  },
+  "panneau-solaire": {
+    "name_en": "Solar panel",
+    "description": "Modules photovoltaïques convertissant la lumière en courant continu.",
+    "tags": [
+      "PV",
+      "renouvelable"
+    ]
+  },
+  "charpente-bois": {
+    "name_en": "Timber frame",
+    "description": "Ossature porteuse assemblée en bois pour toitures et planchers.",
+    "tags": [
+      "toit",
+      "ossature"
+    ]
+  },
+  "pierre": {
+    "name_en": "Dimension stone",
+    "description": "Bloc rocheux extrait et parfois équarr pour maçonnerie.",
+    "tags": [
+      "mur",
+      "monument"
+    ],
+    "origin": "Nature"
+  },
+  "taille-pierre": {
+    "name_en": "Stone dressing",
+    "description": "Façonnage des blocs par sciage et dressage pour l’assemblage.",
+    "tags": [
+      "maçonnerie",
+      "outil"
+    ]
+  },
+  "mur-pierre": {
+    "name_en": "Stone wall",
+    "description": "Ouvrage vertical maçonné en pierres liées au mortier.",
+    "tags": [
+      "fortification",
+      "bâtiment"
+    ]
+  },
+  "chaux": {
+    "name_en": "Quicklime",
+    "description": "Oxyde de calcium obtenu par cuisson du calcaire, base du mortier.",
+    "tags": [
+      "liant",
+      "mortier"
+    ]
+  },
+  "mortier": {
+    "name_en": "Mortar",
+    "description": "Mélange de chaux ou ciment avec sable et eau pour liaison des maçonneries.",
+    "tags": [
+      "joint",
+      "maçonnerie"
+    ]
+  },
+  "vitre": {
+    "name_en": "Window glass pane",
+    "description": "Plaque de verre plane pour laisser passer la lumière.",
+    "tags": [
+      "fenêtre",
+      "transparence"
+    ]
+  },
+  "fenetre": {
+    "name_en": "Window",
+    "description": "Percement muni d’un châssis vitré et d’occultants.",
+    "tags": [
+      "bâtiment",
+      "lumière"
+    ]
+  },
+  "papyrus": {
+    "name_en": "Papyrus",
+    "description": "Support d’écriture en lamelle de moelle du papyrus nilotique.",
+    "tags": [
+      "Égypte",
+      "écriture"
+    ]
+  },
+  "parchemin": {
+    "name_en": "Parchment",
+    "description": "Peau préparée pour l’écriture, durable et lisse.",
+    "tags": [
+      "manuscrit",
+      "livre"
+    ]
+  },
+  "imprimerie": {
+    "name_en": "Industrial printing",
+    "description": "Ensemble de rotatives et composition pour tirages de masse.",
+    "tags": [
+      "presse",
+      "journal"
+    ]
+  },
+  "journal": {
+    "name_en": "Newspaper",
+    "description": "Périodique d’information imprimé sur papier bon marché.",
+    "tags": [
+      "presse",
+      "actualité"
+    ]
+  },
+  "radio": {
+    "name_en": "Radio receiver",
+    "description": "Récepteur démodulant les ondes électromagnétiques en son.",
+    "tags": [
+      "ondes",
+      "audio"
+    ]
+  },
+  "television": {
+    "name_en": "Television",
+    "description": "Appareil affichant images et son diffusés par ondes ou câble.",
+    "tags": [
+      "image",
+      "broadcast"
+    ]
+  },
+  "ordinateur": {
+    "name_en": "Computer",
+    "description": "Machine programmable traitant l’information numérique.",
+    "tags": [
+      "calcul",
+      "logiciel"
+    ]
+  },
+  "smartphone": {
+    "name_en": "Smartphone",
+    "description": "Terminal mobile tactile connecté à Internet et réseaux cellulaires.",
+    "tags": [
+      "mobile",
+      "app"
+    ]
+  },
+  "plastique": {
+    "name_en": "Plastic",
+    "description": "Polymère thermoplastique moulable pour emballages et pièces.",
+    "tags": [
+      "PE",
+      "moulage"
+    ]
+  },
+  "bouteille-plastique": {
+    "name_en": "Plastic bottle",
+    "description": "Contenant soufflé en PET pour liquides alimentaires.",
+    "tags": [
+      "emballage",
+      "recyclage"
+    ]
+  },
+  "engrais": {
+    "name_en": "Nitrogen fertilizer",
+    "description": "Amendement issu du procédé Haber-Bosch ou du nitrate.",
+    "tags": [
+      "agriculture",
+      "rendement"
+    ]
+  },
+  "salpetre": {
+    "name_en": "Saltpeter",
+    "description": "Nitrate de potassium, oxydant majeur des poudres.",
+    "tags": [
+      "explosif",
+      "chimie"
+    ],
+    "origin": "Nature"
+  },
+  "soufre": {
+    "name_en": "Sulfur",
+    "description": "Élément jaune comburant secondaire dans les mélanges explosifs.",
+    "tags": [
+      "explosif",
+      "acide"
+    ],
+    "origin": "Nature"
+  },
+  "poudre-a-canon": {
+    "name_en": "Gunpowder",
+    "description": "Mélange salpêtre–charbon–soufre déflagrant sous choc ou flamme.",
+    "tags": [
+      "explosif",
+      "arme"
+    ]
+  },
+  "lentille": {
+    "name_en": "Optical lens",
+    "description": "Verre poli courbé pour converger ou diverger la lumière.",
+    "tags": [
+      "optique",
+      "verre"
+    ]
+  },
+  "lunettes": {
+    "name_en": "Eyeglasses",
+    "description": "Monture portant des verres correcteurs pour la vision.",
+    "tags": [
+      "vue",
+      "correction"
+    ]
+  },
+  "microscope": {
+    "name_en": "Microscope",
+    "description": "Instrument grossissant le très petit par lentilles combinées.",
+    "tags": [
+      "science",
+      "lentille"
+    ]
+  },
+  "telescope": {
+    "name_en": "Telescope",
+    "description": "Instrument astronomique collectant la lumière lointaine.",
+    "tags": [
+      "astronomie",
+      "lunette"
+    ]
+  },
+  "viande": {
+    "name_en": "Meat",
+    "description": "Muscle animal frais ou préparé, riche en protéines.",
+    "tags": [
+      "protéine",
+      "aliment"
+    ],
+    "origin": "Nature"
+  },
+  "salaison": {
+    "name_en": "Salted meat",
+    "description": "Viande conservée par saumure et séchage pour longue durée.",
+    "tags": [
+      "conservation",
+      "sel"
+    ]
+  },
+  "canne-a-sucre": {
+    "name_en": "Sugarcane",
+    "description": "Graminée tropicale dont le jus est riche en saccharose.",
+    "tags": [
+      "sucre",
+      "tropical"
+    ],
+    "origin": "Nature"
+  },
+  "sucre": {
+    "name_en": "Cane sugar",
+    "description": "Saccharose cristallisé après évaporation et raffinage.",
+    "tags": [
+      "sucré",
+      "pâtisserie"
+    ]
+  },
+  "confiserie": {
+    "name_en": "Confectionery",
+    "description": "Bonbons et pâtes à base de sucre cuit et arômes.",
+    "tags": [
+      "bonbon",
+      "dessert"
+    ]
+  },
+  "cacao": {
+    "name_en": "Cocoa beans",
+    "description": "Graines fermentées du cacaoyer, base du chocolat.",
+    "tags": [
+      "chocolat",
+      "Mesoamérique"
+    ],
+    "origin": "Nature"
+  },
+  "chocolat": {
+    "name_en": "Chocolate",
+    "description": "Préparation à base de pâte de cacao, sucre et souvent lait.",
+    "tags": [
+      "dessert",
+      "industrie"
+    ]
+  },
+  "houblon": {
+    "name_en": "Hops",
+    "description": "Inflorescences amérisantes et conservatrices de la bière.",
+    "tags": [
+      "bière",
+      "amer"
+    ],
+    "origin": "Nature"
+  },
+  "orge": {
+    "name_en": "Barley",
+    "description": "Céréale maltée pour brasser la bière et alimenter le moût.",
+    "tags": [
+      "malt",
+      "brasserie"
+    ],
+    "origin": "Nature"
+  },
+  "biere": {
+    "name_en": "Beer",
+    "description": "Boisson fermentée du malt, houblonnée et gazéifiée.",
+    "tags": [
+      "fermentation",
+      "brasserie"
+    ]
+  },
+  "metier-tisser": {
+    "name_en": "Loom",
+    "description": "Machine à entrecroiser les fils pour former le tissu.",
+    "tags": [
+      "textile",
+      "tissage"
+    ]
+  },
+  "eau-de-chaux": {
+    "name_en": "Limewater",
+    "description": "Solution de hydroxyde de calcium pour mortiers et peintures.",
+    "tags": [
+      "mortier",
+      "chaux"
+    ]
+  },
+  "bauxite": {
+    "name_en": "Bauxite",
+    "description": "Minerai alumineux servant à produire l’aluminium par électrolyse.",
+    "tags": [
+      "aluminium",
+      "mine"
+    ],
+    "origin": "Nature"
+  },
+  "raffinerie": {
+    "name_en": "Oil refinery",
+    "description": "Installation de distillation fractionnée du pétrole brut.",
+    "tags": [
+      "pétrole",
+      "essence"
+    ]
+  },
+  "antenne-radio": {
+    "name_en": "Radio antenna",
+    "description": "Structure captant les ondes HF pour réception et émission.",
+    "tags": [
+      "RF",
+      "ondes"
+    ]
+  },
+  "tube-cathodique": {
+    "name_en": "CRT",
+    "description": "Écran à balayage électronique pour affichage analogique.",
+    "tags": [
+      "image",
+      "TV"
+    ]
+  },
+  "eau-lourde": {
+    "name_en": "Heavy water",
+    "description": "Modérateur possible dans certains réacteurs (rôle pédagogique).",
+    "tags": [
+      "nucléaire",
+      "modérateur"
+    ]
+  },
+  "beton-arme": {
+    "name_en": "Reinforced concrete",
+    "description": "Béton coulé sur armature d’acier pour résistance à la traction.",
+    "tags": [
+      "génie civil",
+      "pont"
+    ]
+  },
+  "pneu": {
+    "name_en": "Tire",
+    "description": "Enveloppe caoutchouc gonflée assurant l’adhérence routière.",
+    "tags": [
+      "caoutchouc",
+      "roue"
+    ]
+  },
+  "chassis-auto": {
+    "name_en": "Car chassis",
+    "description": "Structure porteuse en acier ou aluminium du véhicule.",
+    "tags": [
+      "assemblage",
+      "acier"
+    ]
+  },
+  "carlingue": {
+    "name_en": "Fuselage",
+    "description": "Enveloppe structurelle de l’avion en alliages légers.",
+    "tags": [
+      "aéronautique",
+      "alu"
+    ]
+  },
+  "gazole": {
+    "name_en": "Diesel fuel",
+    "description": "Coupe lourde pour moteurs diesel industriels et trains.",
+    "tags": [
+      "diesel",
+      "pétrole"
+    ]
+  },
+  "turbine-vapeur": {
+    "name_en": "Steam turbine",
+    "description": "Machine thermique entraînant alternateurs dans les centrales.",
+    "tags": [
+      "thermique",
+      "électricité"
+    ]
+  },
+  "alternateur": {
+    "name_en": "Alternator",
+    "description": "Générateur produisant du courant alternatif triphasé.",
+    "tags": [
+      "réseau",
+      "AC"
+    ]
+  },
+  "reseau-electrique": {
+    "name_en": "Power grid",
+    "description": "Transport et distribution de l’électricité à grande échelle.",
+    "tags": [
+      "HT",
+      "transport"
+    ]
+  },
+  "onduleur-solaire": {
+    "name_en": "Solar inverter",
+    "description": "Convertit le courant continu des panneaux en AC pour le réseau.",
+    "tags": [
+      "PV",
+      "grille"
+    ]
+  },
+  "fonte": {
+    "name_en": "Cast iron",
+    "description": "Alliage fer–carbone coulé, étape entre fer et acier.",
+    "tags": [
+      "sidérurgie",
+      "moule"
+    ]
+  },
+  "acier-inox": {
+    "name_en": "Stainless steel",
+    "description": "Acier allié au chrome résistant à la corrosion.",
+    "tags": [
+      "chimie",
+      "alimentaire"
+    ]
+  },
+  "tissu-teint": {
+    "name_en": "Dyed fabric",
+    "description": "Étoffe après fixation des pigments et mordantage.",
+    "tags": [
+      "mode",
+      "couleur"
+    ]
+  },
+  "filature": {
+    "name_en": "Spinning mill",
+    "description": "Atelier mécanisé alignant les fibres en fil continu.",
+    "tags": [
+      "industrie",
+      "coton"
+    ]
+  },
+  "mouton": {
+    "name_en": "Sheep",
+    "description": "Ruminant élevé pour laine, viande et lait.",
+    "tags": [
+      "élevage",
+      "laine"
+    ],
+    "origin": "Nature"
+  },
+  "mulberry": {
+    "name_en": "Mulberry",
+    "description": "Arbre nourricier du bombyx du ver à soie.",
+    "tags": [
+      "soie",
+      "feuille"
+    ],
+    "origin": "Nature"
+  },
+  "feuille-or": {
+    "name_en": "Gold leaf",
+    "description": "Or battu pour dorure décorative sur bois ou papier.",
+    "tags": [
+      "luxe",
+      "dorure"
+    ]
+  },
+  "or": {
+    "name_en": "Gold",
+    "description": "Métal noble ductile, résistant à l’oxydation.",
+    "tags": [
+      "monnaie",
+      "bijou"
+    ],
+    "origin": "Nature"
+  },
+  "scierie": {
+    "name_en": "Sawmill",
+    "description": "Usine découpant les grumes en planches et poutres.",
+    "tags": [
+      "bois",
+      "charpente"
+    ]
+  },
+  "planche-bois": {
+    "name_en": "Lumber board",
+    "description": "Pièce sciée servant aux charpentes et menuiseries.",
+    "tags": [
+      "construction",
+      "bois"
+    ]
+  },
+  "verre-trempe": {
+    "name_en": "Tempered glass",
+    "description": "Vitre renforcée thermiquement pour sécurité des façades.",
+    "tags": [
+      "sécurité",
+      "bâtiment"
+    ]
+  },
+  "acier-structure": {
+    "name_en": "Steel section",
+    "description": "Poutrelles laminées pour ossatures industrielles.",
+    "tags": [
+      "pont",
+      "gratte-ciel"
+    ]
+  },
+  "hydrogene": {
+    "name_en": "Hydrogen",
+    "description": "Gaz léger utilisé dans la synthèse ammoniaque (Haber).",
+    "tags": [
+      "chimie",
+      "engrais"
+    ],
+    "origin": "Nature"
+  },
+  "azote": {
+    "name_en": "Nitrogen",
+    "description": "Gaz atmosphérique fixé industriellement pour engrais.",
+    "tags": [
+      "Haber",
+      "engrais"
+    ],
+    "origin": "Nature"
+  },
+  "ammoniac": {
+    "name_en": "Ammonia",
+    "description": "Précurseur des engrais azotés et explosifs nités.",
+    "tags": [
+      "synthèse",
+      "engrais"
+    ]
+  },
+  "nitrate": {
+    "name_en": "Calcium nitrate",
+    "description": "Engrais soluble dérivé de chaînes azotées industrielles.",
+    "tags": [
+      "sol",
+      "engrais"
+    ]
+  },
+  "polycarbonate": {
+    "name_en": "Polycarbonate",
+    "description": "Plastique transparent résistant pour bouteilles et visières.",
+    "tags": [
+      "transparent",
+      "sécurité"
+    ]
+  },
+  "route-bitee": {
+    "name_en": "Asphalt road",
+    "description": "Chaussée liée au bitume de pétrole pour trafic motorisé.",
+    "tags": [
+      "pétrole",
+      "transport"
+    ]
+  },
+  "bitume": {
+    "name_en": "Bitumen",
+    "description": "Fraction visqueuse du pétrole pour enrobés routiers.",
+    "tags": [
+      "route",
+      "étanchéité"
+    ]
+  },
+  "signal-numerique": {
+    "name_en": "Digital signal",
+    "description": "Information discrétisée pour traitement par circuits logiques.",
+    "tags": [
+      "DSP",
+      "télécom"
+    ]
+  },
+  "ecran-lcd": {
+    "name_en": "LCD display",
+    "description": "Matrice à cristaux liquides polarisés pour affichage basse conso.",
+    "tags": [
+      "mobile",
+      "affichage"
+    ]
+  },
+  "batterie-li": {
+    "name_en": "Li-ion battery",
+    "description": "Accumulateur léger à haute densité pour mobiles et véhicules.",
+    "tags": [
+      "stockage",
+      "mobile"
+    ]
+  },
+  "reseau-cellulaire": {
+    "name_en": "Cellular network",
+    "description": "Infrastructure radio 4G/5G pour données mobiles.",
+    "tags": [
+      "5G",
+      "opérateur"
+    ]
+  },
+  "blockchain": {
+    "name_en": "Blockchain",
+    "description": "Réseau décentralisé",
+    "tags": [],
+    "origin": "Satoshi Nakamoto",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Blockchain"
+  },
+  "pierre-de-taille": {
+    "name_en": "Dressed stone",
+    "description": "Pierre naturelle extraite de carrière et taillée par un artisan pour obtenir des blocs aux dimensions et formes précises. Matériau de construction noble utilisé depuis l'Antiquité pour édifier temples, cathédrales et monuments.",
+    "tags": [
+      "construction",
+      "architecture",
+      "taille",
+      "carrière",
+      "noble"
+    ],
+    "origin": "Égypte antique",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Pierre_de_taille",
+    "image_url": "/images/nodes/pierre-de-taille.jpg"
+  },
+  "minerai-de-cuivre": {
+    "name_en": "Copper ore",
+    "description": "<cite index=\"3-5,3-15\">Le minerai de cuivre se trouve généralement dans la croûte terrestre sous forme de minéraux de cuivre tels que chalcopyrite, bornite, malachite, et la chalcocite, entre autres. Les gisements de minerai de cuivre sont des accumulations naturelles de minéraux contenant du cuivre qui peuvent être extraits et traités de manière économique pour obtenir du cuivre métal.</cite> <cite index=\"2-15,2-16,2-17\">Le cuivre se trouve à l'état naturel au sein de dépôts minéraux appelés « porphyres cuprifères » formés par la circulation de fluides chauds produits lors du refroidissement des magmas. Le cuivre précipite à partir de ces fluides et se dépose sous la forme de porphyres entre 1 et 6 km de profondeur.</cite>",
+    "tags": [
+      "métallurgie",
+      "mine",
+      "chalcopyrite",
+      "porphyre",
+      "géologie"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Extraction_du_cuivre"
+  },
+  "bronze": {
+    "name_en": "Bronze",
+    "description": "Alliage métallique composé principalement de cuivre (environ 90%) et d'étain (environ 10%), beaucoup plus dur et résistant que le cuivre seul. Premier alliage métallique maîtrisé par l'humanité, il a révolutionné la fabrication d'outils, d'armes et d'objets d'art. Sa découverte marque le début de l'âge du Bronze vers -3500 av. J.-C.",
+    "tags": [
+      "alliage",
+      "métallurgie",
+      "cuivre",
+      "étain",
+      "antiquité",
+      "fonderie",
+      "durabilité"
+    ],
+    "origin": "Proche-Orient (Anatolie/Mésopotamie)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Bronze",
+    "image_url": "/images/nodes/bronze.jpg"
+  },
+  "brique": {
+    "name_en": "Brick",
+    "description": "Matériau de construction composé d'argile moulée et séchée au soleil (brique crue) ou cuite au four (brique cuite). La brique constitue la première pierre artificielle, permettant de construire des édifices durables et résistants.",
+    "tags": [
+      "construction",
+      "terre_cuite",
+      "argile",
+      "maconnerie",
+      "bâtiment"
+    ],
+    "origin": "Mésopotamie",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Brique_(mat%C3%A9riau)",
+    "image_url": "/images/nodes/brique.jpg"
+  },
+  "titane": {
+    "name_en": "Titanium",
+    "description": "Métal léger et résistant à la corrosion, découvert en 1790 par William Gregor. Obtenu par le procédé Kroll depuis 1939, il est principalement utilisé dans les alliages haute performance pour l'aéronautique, le médical et l'industrie.",
+    "tags": [
+      "métal",
+      "léger",
+      "résistant",
+      "biocompatible",
+      "aéronautique",
+      "médical"
+    ],
+    "origin": "William Gregor (Grande-Bretagne)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Titane",
+    "image_url": "/images/nodes/titane.jpg"
+  },
+  "energie-nucleaire": {
+    "name_en": "Nuclear energy",
+    "description": "Énergie libérée par la fission ou la fusion de noyaux atomiques. Découverte au début du XXe siècle avec la radioactivité, elle fut d'abord développée pour des usages militaires avant d'être exploitée pour la production d'électricité. Cette source d'énergie extrêmement dense nécessite des installations complexes et soulève des questions de sécurité et de gestion des déchets radioactifs.",
+    "tags": [
+      "fission",
+      "uranium",
+      "plutonium",
+      "radioactivité",
+      "électricité",
+      "réacteur"
+    ],
+    "origin": "Enrico Fermi (première réaction en chaîne contrôlée, Chicago Pile-1)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/%C3%89nergie_nucl%C3%A9aire",
+    "image_url": "/images/nodes/energie-nucleaire.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "uranium",
+        "name": "Uranium",
+        "relation_type": "material",
+        "quantity_hint": "combustible principal",
+        "exists": true
+      },
+      {
+        "id": "reacteur-nucleaire",
+        "name": "Réacteur nucléaire",
+        "relation_type": "tool",
+        "quantity_hint": "installation",
+        "exists": true
+      },
+      {
+        "id": "eau-lourde",
+        "name": "Eau lourde",
+        "relation_type": "material",
+        "quantity_hint": "modérateur",
+        "exists": true
+      },
+      {
+        "id": "four-haute-temp",
+        "name": "Four à haute température",
+        "relation_type": "tool",
+        "quantity_hint": "traitement combustible",
+        "exists": true
+      },
+      {
+        "id": "turbine-vapeur",
+        "name": "Turbine à vapeur",
+        "relation_type": "tool",
+        "quantity_hint": "conversion énergie",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "electricite",
+        "name": "Électricité",
+        "exists": true
+      },
+      {
+        "id": "sous-marin-nucleaire",
+        "name": "Sous-marin nucléaire",
+        "exists": false
+      },
+      {
+        "id": "medecine-nucleaire",
+        "name": "Médecine nucléaire",
+        "exists": false
+      },
+      {
+        "id": "centrale-nucleaire",
+        "name": "Centrale nucléaire",
+        "exists": false
+      }
+    ]
+  },
+  "energie-solaire": {
+    "name_en": "Solar energy",
+    "description": "Énergie produite par conversion de la lumière du soleil en électricité ou en chaleur. Le photovoltaïque transforme directement les photons en électricité grâce aux cellules solaires, tandis que le thermique capture la chaleur pour diverses applications. Cette technologie propre et renouvelable devient une source d'énergie majeure dans la transition énergétique mondiale.",
+    "tags": [
+      "renouvelable",
+      "photovoltaïque",
+      "propre",
+      "silicium",
+      "durable"
+    ],
+    "origin": "Laboratoires Bell (États-Unis)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Histoire_de_l'énergie_solaire",
+    "_ai_built_upon": [
+      {
+        "id": "silicium",
+        "name": "Silicium",
+        "relation_type": "material",
+        "quantity_hint": "principale",
+        "exists": true
+      },
+      {
+        "id": "verre",
+        "name": "Verre",
+        "relation_type": "material",
+        "quantity_hint": "protection",
+        "exists": true
+      },
+      {
+        "id": "aluminium",
+        "name": "Aluminium",
+        "relation_type": "material",
+        "quantity_hint": "cadre",
+        "exists": true
+      },
+      {
+        "id": "cuivre",
+        "name": "Cuivre",
+        "relation_type": "material",
+        "quantity_hint": "connexions",
+        "exists": true
+      },
+      {
+        "id": "electricite",
+        "name": "Électricité",
+        "relation_type": "knowledge",
+        "quantity_hint": "concepts",
+        "exists": true
+      },
+      {
+        "id": "electronique",
+        "name": "Électronique",
+        "relation_type": "knowledge",
+        "quantity_hint": "semi-conducteurs",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "panneau-solaire",
+        "name": "Panneau solaire",
+        "exists": true
+      },
+      {
+        "id": "onduleur-solaire",
+        "name": "Onduleur solaire",
+        "exists": true
+      },
+      {
+        "id": "centrale-solaire",
+        "name": "Centrale solaire",
+        "exists": false
+      },
+      {
+        "id": "stockage-batterie-solaire",
+        "name": "Stockage par batterie solaire",
+        "exists": false
+      },
+      {
+        "id": "autoconsommation-solaire",
+        "name": "Autoconsommation solaire",
+        "exists": false
+      }
+    ]
+  },
+  "forge": {
+    "name_en": "Forge",
+    "description": "Atelier et ensemble des techniques permettant de chauffer et déformer les métaux par martellement. La forge comprend le foyer de chauffe, l'enclume, et les outils nécessaires au travail des métaux à haute température pour créer outils, armes et objets divers.",
+    "tags": [
+      "métallurgie",
+      "artisanat",
+      "feu",
+      "métal",
+      "forge"
+    ],
+    "origin": "Mésopotamie",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Forge_(métallurgie)",
+    "image_url": "/images/nodes/forge.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "feu",
+        "name": "Feu",
+        "relation_type": "energy",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "charbon-de-bois",
+        "name": "Charbon de bois",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "enclume",
+        "name": "Enclume",
+        "relation_type": "tool",
+        "quantity_hint": "une",
+        "exists": false
+      },
+      {
+        "id": "marteau-forge",
+        "name": "Marteau de forge",
+        "relation_type": "tool",
+        "quantity_hint": "plusieurs",
+        "exists": false
+      },
+      {
+        "id": "tenailles",
+        "name": "Tenailles",
+        "relation_type": "tool",
+        "quantity_hint": "plusieurs",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "outils-fer",
+        "name": "Outils en fer",
+        "exists": false
+      },
+      {
+        "id": "armes-metalliques",
+        "name": "Armes métalliques",
+        "exists": false
+      },
+      {
+        "id": "fer-a-cheval",
+        "name": "Fer à cheval",
+        "exists": false
+      },
+      {
+        "id": "serrurerie",
+        "name": "Serrurerie",
+        "exists": false
+      },
+      {
+        "id": "coutellerie",
+        "name": "Coutellerie",
+        "exists": false
+      }
+    ]
+  },
+  "marteau": {
+    "name_en": "Hammer",
+    "description": "Outil percuteur fondamental composé d'une tête lourde fixée à un manche, utilisé pour frapper, forger et façonner depuis la préhistoire. Le marteau a évolué depuis les simples pierres attachées à des manches en bois jusqu'aux versions modernes spécialisées pour chaque métier.",
+    "tags": [
+      "percussion",
+      "forge",
+      "construction",
+      "artisanat",
+      "métallurgie"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Marteau_(outil)",
+    "image_url": "/images/nodes/marteau.png",
+    "_ai_built_upon": [
+      {
+        "id": "pierre",
+        "name": "Pierre",
+        "relation_type": "material",
+        "quantity_hint": "modérément",
+        "exists": false
+      },
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "modérément",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "forge",
+        "name": "Forge",
+        "exists": true
+      },
+      {
+        "id": "metallurgie",
+        "name": "Métallurgie",
+        "exists": false
+      },
+      {
+        "id": "marteau-pilon",
+        "name": "Marteau-pilon",
+        "exists": false
+      },
+      {
+        "id": "clou",
+        "name": "Clou",
+        "exists": false
+      },
+      {
+        "id": "construction-bois",
+        "name": "Construction en bois",
+        "exists": false
+      }
+    ]
+  },
+  "clou": {
+    "name_en": "Nail",
+    "description": "Pièce métallique allongée servant à fixer deux objets l'un à l'autre. Composé d'une tête plate et d'un corps terminé par une pointe. Révolutionne les techniques d'assemblage en construction et ébénisterie.",
+    "tags": [
+      "fixation",
+      "assemblage",
+      "construction",
+      "forge"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Clou",
+    "_ai_built_upon": [
+      {
+        "id": "bronze",
+        "name": "Bronze",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": "une",
+        "exists": true
+      },
+      {
+        "id": "marteau",
+        "name": "Marteau",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "construction-ossature",
+        "name": "Construction à ossature",
+        "exists": false
+      },
+      {
+        "id": "charpente-bois",
+        "name": "Charpente en bois",
+        "exists": true
+      },
+      {
+        "id": "assemblage-bois",
+        "name": "Assemblage moderne en bois",
+        "exists": false
+      },
+      {
+        "id": "construction-navale",
+        "name": "Construction navale",
+        "exists": false
+      }
+    ]
+  },
+  "eee": {
+    "name_en": "eee",
+    "description": "",
+    "tags": []
+  },
+  "ceee": {
+    "name_en": "ceee",
+    "description": "",
+    "tags": []
+  },
+  "etain": {
+    "name_en": "Étain",
+    "description": "",
+    "tags": []
+  },
+  "vis": {
+    "name_en": "Screw",
+    "description": "Élément de fixation mécanique constitué d'une tige filetée et d'une tête, destiné à assembler de façon démontable plusieurs pièces par pression. <cite index=\"1-3\">Une vis de fixation, appelée communément vis, est une pièce mécanique, comportant une tige filetée et une tête ; elle est destinée à réaliser la fixation d'une ou de plusieurs pièces par pression.</cite> <cite index=\"3-10,3-11\">L'applicabilité universelle de la vis en a fait un composant indispensable dans l'industrie, la construction et la technologie. Leur stabilité permet de relier des matériaux comme le bois, le métal ou le plastique.</cite>",
+    "tags": [
+      "fixation",
+      "assemblage",
+      "mécanique",
+      "filetage"
+    ],
+    "origin": "Renaissance européenne",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Vis_de_fixation",
+    "image_url": "/images/nodes/vis.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "principal",
+        "exists": true
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "principal",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": "une",
+        "exists": true
+      },
+      {
+        "id": "marteau",
+        "name": "Marteau",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "machine-a-vapeur",
+        "name": "Machine à vapeur",
+        "exists": false
+      },
+      {
+        "id": "horlogerie",
+        "name": "Horlogerie",
+        "exists": false
+      },
+      {
+        "id": "machine-outil",
+        "name": "Machine-outil",
+        "exists": false
+      },
+      {
+        "id": "assemblage-metallique",
+        "name": "Assemblage métallique",
+        "exists": false
+      }
+    ]
+  },
+  "tour": {
+    "name_en": "Lathe",
+    "description": "<cite index=\"1-1,1-30\">Le tour est une machine-outil permettant la production de pièces mécaniques par enlèvement de copeaux (usinage)</cite>. <cite index=\"8-3,8-5\">Dans le cas du tour, la pièce est en rotation et l'outil est fixe. Le tournage consiste à mettre en rotation une pièce généralement de forme cylindrique et d'usiner avec un outil qui est fixé sur une tourelle</cite>. <cite index=\"11-14,18-26\">L'origine du tour se perd dans la nuit des temps ; on sait seulement avec certitude que certaines de ses applications se situent en Égypte plus de mille neuf cents ans avant notre ère</cite>.",
+    "tags": [
+      "usinage",
+      "mécanique",
+      "métallurgie",
+      "tournage",
+      "précision"
+    ],
+    "origin": "Jacques de Vaucanson (France)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Tour_(machine-outil)",
+    "_ai_built_upon": [
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "marteau",
+        "name": "Marteau",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "moteur-explosion",
+        "name": "Moteur à explosion",
+        "exists": true
+      },
+      {
+        "id": "microprocesseur",
+        "name": "Microprocesseur",
+        "exists": true
+      },
+      {
+        "id": "automobile",
+        "name": "Automobile",
+        "exists": true
+      },
+      {
+        "id": "tour-cnc",
+        "name": "Tour à commande numérique",
+        "exists": false
+      },
+      {
+        "id": "pieces-precision",
+        "name": "Pièces de précision",
+        "exists": false
+      }
+    ]
+  },
+  "moule": {
+    "name_en": "Mold",
+    "description": "Le moule est un élément servant à la fabrication d'autres éléments par les techniques de moulage, représentant en creux la forme de l'objet que l'on désire obtenir. Depuis la plus haute Antiquité, les moules étaient utilisés pour obtenir des objets par coulée de métal en fusion, que cela soit l'or et l'argent pour les bijoux ou le bronze pour les armes et les outils. L'invention de moules réutilisables marque une étape particulièrement importante dans l'histoire de ces techniques.",
+    "tags": [
+      "fonderie",
+      "metallurgie",
+      "production",
+      "fabrication",
+      "coulée"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Moule_(outil)",
+    "image_url": "/images/nodes/moule.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "argile",
+        "name": "Argile",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "feu",
+        "name": "Feu",
+        "relation_type": "energy",
+        "quantity_hint": "pour cuisson",
+        "exists": true
+      },
+      {
+        "id": "sable",
+        "name": "Sable",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "pierre",
+        "name": "Pierre de taille",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "bronze",
+        "name": "Bronze",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "exists": true
+      },
+      {
+        "id": "fonte",
+        "name": "Fonte",
+        "exists": true
+      },
+      {
+        "id": "plastique",
+        "name": "Plastique",
+        "exists": true
+      },
+      {
+        "id": "verre",
+        "name": "Verre",
+        "exists": true
+      },
+      {
+        "id": "fromage",
+        "name": "Fromage",
+        "exists": true
+      }
+    ]
+  },
+  "presse-hydraulique": {
+    "name_en": "Hydraulic press",
+    "description": "Machine utilisant un circuit hydraulique pour fournir une grande force de compression, basée sur le principe de Pascal. Inventée par Joseph Bramah en 1795, elle permet de multiplier la force appliquée grâce aux différences de sections de pistons.",
+    "tags": [
+      "hydraulique",
+      "force",
+      "compression",
+      "forgeage",
+      "levage",
+      "pascal"
+    ],
+    "origin": "Joseph Bramah (Angleterre)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Presse_hydraulique",
+    "image_url": "/images/nodes/presse-hydraulique.png",
+    "_ai_built_upon": [
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "joint-hydraulique",
+        "name": "Joint hydraulique",
+        "relation_type": "component",
+        "quantity_hint": "peu",
+        "exists": false
+      },
+      {
+        "id": "cylindre-metal",
+        "name": "Cylindre métallique",
+        "relation_type": "component",
+        "quantity_hint": "peu",
+        "exists": false
+      },
+      {
+        "id": "piston",
+        "name": "Piston",
+        "relation_type": "component",
+        "quantity_hint": "peu",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "hydraulique-industrielle",
+        "name": "Hydraulique industrielle",
+        "exists": false
+      },
+      {
+        "id": "cric-hydraulique",
+        "name": "Cric hydraulique",
+        "exists": false
+      },
+      {
+        "id": "forge-industrielle",
+        "name": "Forge industrielle",
+        "exists": false
+      },
+      {
+        "id": "presse-forgeage",
+        "name": "Presse de forgeage",
+        "exists": false
+      }
+    ]
+  },
+  "scie": {
+    "name_en": "Saw",
+    "description": "<cite index=\"2-1\">Destinée à couper le bois, le métal ou même la pierre, la scie est un outil à lame dentée fabriquée en acier trempé.</cite> <cite index=\"1-1\">Elle est actionnée par divers moyens tels que la force musculaire, l'électricité ou l'eau.</cite> <cite index=\"9-1,9-7\">La scie est un des outils des plus utiles qui ayent été inventés pour la méchanique</cite>, permettant un découpage précis qui évite le gaspillage de matériaux.",
+    "tags": [
+      "découpe",
+      "menuiserie",
+      "charpenterie",
+      "métal",
+      "pierre"
+    ],
+    "origin": "Égypte antique",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Scie",
+    "_ai_built_upon": [
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "marteau",
+        "name": "Marteau",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "scierie",
+        "name": "Scierie",
+        "exists": true
+      },
+      {
+        "id": "planche-bois",
+        "name": "Planche de bois",
+        "exists": true
+      },
+      {
+        "id": "scie-circulaire",
+        "name": "Scie circulaire",
+        "exists": false
+      },
+      {
+        "id": "scie-electrique",
+        "name": "Scie électrique",
+        "exists": false
+      },
+      {
+        "id": "charpente-bois",
+        "name": "Charpente en bois",
+        "exists": true
+      }
+    ]
+  },
+  "hache": {
+    "name_en": "Axe",
+    "description": "Outil composé d'une lame tranchante fixée à un manche, utilisé pour couper du bois et défricher. L'une des inventions les plus anciennes de l'humanité, elle a évolué de la pierre taillée au bronze puis à l'acier. <cite index=\"1-1,1-35\">Les plus anciennes traces de haches ont été trouvées en Afrique et leur âge est évalué à 1,6 million d'années.</cite> <cite index=\"2-2\">Pour les archéologues, la hache représente un tournant dans l'Histoire, ainsi qu'un vecteur de changements sociaux et sociétaux majeurs.</cite>",
+    "tags": [
+      "outil",
+      "préhistoire",
+      "pierre",
+      "bois",
+      "défrichage",
+      "agriculture",
+      "arme"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Hache",
+    "_ai_built_upon": [
+      {
+        "id": "pierre",
+        "name": "Pierre",
+        "relation_type": "material",
+        "quantity_hint": "une lame",
+        "exists": false
+      },
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "un manche",
+        "exists": true
+      },
+      {
+        "id": "silex",
+        "name": "Silex",
+        "relation_type": "material",
+        "quantity_hint": "pour la lame",
+        "exists": false
+      },
+      {
+        "id": "corde",
+        "name": "Corde",
+        "relation_type": "material",
+        "quantity_hint": "pour la fixation",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "hache-polie",
+        "name": "Hache polie",
+        "exists": false
+      },
+      {
+        "id": "hache-bronze",
+        "name": "Hache en bronze",
+        "exists": false
+      },
+      {
+        "id": "herminette",
+        "name": "Herminette",
+        "exists": false
+      },
+      {
+        "id": "agriculture-neolithique",
+        "name": "Agriculture néolithique",
+        "exists": false
+      },
+      {
+        "id": "defrichage",
+        "name": "Défrichage",
+        "exists": false
+      }
+    ]
+  },
+  "fonderie": {
+    "name_en": "Foundry",
+    "description": "Procédé de formage des métaux qui consiste à couler un métal ou un alliage liquide dans un moule pour reproduire une pièce donnée après refroidissement. La fonderie permet de fabriquer des pièces complexes en limitant les travaux ultérieurs de finition.",
+    "tags": [
+      "metallurgie",
+      "moulage",
+      "coulage",
+      "fusion"
+    ],
+    "origin": "Anatolie",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Fonderie",
+    "_ai_built_upon": [
+      {
+        "id": "feu",
+        "name": "Feu",
+        "relation_type": "energy",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "four",
+        "name": "Four",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": true
+      },
+      {
+        "id": "cuivre",
+        "name": "Cuivre",
+        "relation_type": "material",
+        "quantity_hint": "variable",
+        "exists": true
+      },
+      {
+        "id": "bronze",
+        "name": "Bronze",
+        "relation_type": "material",
+        "quantity_hint": "variable",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "variable",
+        "exists": true
+      },
+      {
+        "id": "charbon-de-bois",
+        "name": "Charbon de bois",
+        "relation_type": "energy",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "sable",
+        "name": "Sable",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "argile",
+        "name": "Argile",
+        "relation_type": "material",
+        "quantity_hint": "variable",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "fonte",
+        "name": "Fonte",
+        "exists": true
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "exists": true
+      },
+      {
+        "id": "circuit-imprime",
+        "name": "Circuit imprimé",
+        "exists": true
+      },
+      {
+        "id": "clou",
+        "name": "Clou",
+        "exists": true
+      },
+      {
+        "id": "vis",
+        "name": "Vis",
+        "exists": true
+      },
+      {
+        "id": "moule",
+        "name": "Moule",
+        "exists": true
+      }
+    ]
+  },
+  "distillation": {
+    "name_en": "Distillation",
+    "description": "Procédé de séparation basé sur les différences de température d'ébullition des composants d'un mélange liquide. Consiste à chauffer le mélange pour vaporiser sélectivement les substances, puis condenser ces vapeurs pour récupérer les composants purifiés. Technique fondamentale utilisée depuis l'Antiquité pour la parfumerie, les médicaments, et plus tard pour la production d'alcool et le raffinage du pétrole.",
+    "tags": [
+      "séparation",
+      "purification",
+      "chimie",
+      "alchimie",
+      "raffinage",
+      "énergie",
+      "chaleur"
+    ],
+    "origin": "Mésopotamie (Babyloniens)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Distillation",
+    "_ai_built_upon": [
+      {
+        "id": "feu",
+        "name": "Feu",
+        "relation_type": "energy",
+        "quantity_hint": "nécessaire",
+        "exists": true
+      },
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "material",
+        "quantity_hint": "pour refroidissement",
+        "exists": true
+      },
+      {
+        "id": "four",
+        "name": "Four",
+        "relation_type": "tool",
+        "quantity_hint": "source de chaleur",
+        "exists": true
+      },
+      {
+        "id": "cuivre",
+        "name": "Cuivre",
+        "relation_type": "material",
+        "quantity_hint": "pour alambics",
+        "exists": true
+      },
+      {
+        "id": "alambic",
+        "name": "Alambic",
+        "relation_type": "tool",
+        "quantity_hint": "appareil principal",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "alcool-distille",
+        "name": "Alcool distillé",
+        "exists": false
+      },
+      {
+        "id": "eau-de-vie",
+        "name": "Eau-de-vie",
+        "exists": false
+      },
+      {
+        "id": "raffinerie",
+        "name": "Raffinerie",
+        "exists": true
+      },
+      {
+        "id": "essence",
+        "name": "Essence",
+        "exists": true
+      },
+      {
+        "id": "parfums-distilles",
+        "name": "Parfums distillés",
+        "exists": false
+      },
+      {
+        "id": "huiles-essentielles",
+        "name": "Huiles essentielles",
+        "exists": false
+      }
+    ]
+  },
+  "fermentation": {
+    "name_en": "Fermentation",
+    "description": "La fermentation est un processus métabolique anaérobie utilisé par l'humanité pour la production et la conservation des aliments depuis 13 000 ans. Louis Pasteur démontra en 1857 que la fermentation était due aux micro-organismes vivants et non à la décomposition spontanée des matières, établissant ainsi sa célèbre phrase : « La fermentation, c'est la vie sans air ». Aujourd'hui, la fermentation industrielle utilise les systèmes biologiques pour produire des produits chimiques, carburants, médicaments et matériaux dans de nombreux secteurs industriels.",
+    "tags": [
+      "biotechnologie",
+      "microbiologie",
+      "conservation",
+      "alimentation",
+      "chimie",
+      "industrie"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Fermentation",
+    "image_url": "/images/nodes/fermentation.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "levure",
+        "name": "Levure",
+        "relation_type": "catalyst",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "sucre",
+        "name": "Sucre de canne",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "raisin",
+        "name": "Raisin",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "ble",
+        "name": "Blé",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "vin",
+        "name": "Vin",
+        "exists": true
+      },
+      {
+        "id": "biere",
+        "name": "Bière",
+        "exists": true
+      },
+      {
+        "id": "pain",
+        "name": "Pain",
+        "exists": true
+      },
+      {
+        "id": "fromage",
+        "name": "Fromage",
+        "exists": true
+      },
+      {
+        "id": "vinaigre",
+        "name": "Vinaigre",
+        "exists": false
+      },
+      {
+        "id": "antibiotique",
+        "name": "Antibiotique",
+        "exists": false
+      }
+    ]
+  },
+  "soudure": {
+    "name_en": "Welding",
+    "description": "Procédé d'assemblage permanent qui assure la continuité de la matière en faisant fondre les métaux pour créer une liaison atomique. Technique connue depuis l'âge du bronze avec le soudage à la forge, révolutionnée à la fin du XIXe siècle par l'électricité et les gaz combustibles.",
+    "tags": [
+      "métallurgie",
+      "forge",
+      "assemblage",
+      "chaleur",
+      "feu",
+      "technique"
+    ],
+    "origin": "Civilisations antiques (Égypte, Mésopotamie)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Soudage",
+    "image_url": "/images/nodes/soudure.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "feu",
+        "name": "Feu",
+        "relation_type": "energy",
+        "quantity_hint": "nécessaire",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "principal",
+        "exists": true
+      },
+      {
+        "id": "bronze",
+        "name": "Bronze",
+        "relation_type": "material",
+        "quantity_hint": "principal",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": "nécessaire",
+        "exists": true
+      },
+      {
+        "id": "marteau",
+        "name": "Marteau",
+        "relation_type": "tool",
+        "quantity_hint": "nécessaire",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "structure-metallique",
+        "name": "Structure métallique",
+        "exists": true
+      },
+      {
+        "id": "construction-navale",
+        "name": "Construction navale",
+        "exists": false
+      },
+      {
+        "id": "chaudronnerie",
+        "name": "Chaudronnerie",
+        "exists": false
+      },
+      {
+        "id": "soudage-arc",
+        "name": "Soudage à l'arc",
+        "exists": false
+      },
+      {
+        "id": "soudage-oxyacetylenique",
+        "name": "Soudage oxyacétylénique",
+        "exists": false
+      }
+    ]
+  },
+  "electrolyse": {
+    "name_en": "Electrolysis",
+    "description": "L'électrolyse est un procédé de décomposition chimique utilisant un courant électrique continu pour séparer des composés ioniques en leurs éléments constitutifs. Cette technique permet notamment de produire de l'hydrogène par électrolyse de l'eau, de purifier et produire des métaux, ou de réaliser des traitements de surface par galvanoplastie. Découverte le 2 mai 1800 par William Nicholson et Sir Anthony Carlisle, elle est devenue un procédé industriel majeur du 19e siècle.",
+    "tags": [
+      "chimie",
+      "electrochimie",
+      "courant-electrique",
+      "decomposition",
+      "metallurgie"
+    ],
+    "origin": "William Nicholson et Sir Anthony Carlisle, Royaume-Uni",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Électrolyse",
+    "_ai_built_upon": [
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "material",
+        "quantity_hint": "principale",
+        "exists": true
+      },
+      {
+        "id": "electricite",
+        "name": "Électricité",
+        "relation_type": "energy",
+        "quantity_hint": "nécessaire",
+        "exists": true
+      },
+      {
+        "id": "sel",
+        "name": "Sel",
+        "relation_type": "catalyst",
+        "quantity_hint": "pour électrolyte",
+        "exists": true
+      },
+      {
+        "id": "cuivre",
+        "name": "Cuivre",
+        "relation_type": "material",
+        "quantity_hint": "pour électrodes",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "hydrogene",
+        "name": "Hydrogène",
+        "exists": false
+      },
+      {
+        "id": "aluminium",
+        "name": "Aluminium",
+        "exists": true
+      },
+      {
+        "id": "chlore",
+        "name": "Chlore",
+        "exists": false
+      },
+      {
+        "id": "galvanoplastie",
+        "name": "Galvanoplastie",
+        "exists": false
+      },
+      {
+        "id": "pile-rechargeable",
+        "name": "Pile rechargeable",
+        "exists": false
+      }
+    ]
+  },
+  "ressort": {
+    "name_en": "Spring",
+    "description": "Un ressort est un organe ou pièce mécanique qui utilise les propriétés élastiques de certains matériaux pour absorber de l'énergie mécanique, produire un mouvement, ou exercer un effort ou un couple. Des peintures rupestres attestent que l'homme a inventé cette pièce depuis plus de 10 000 ans, sous la forme de l'arc. L'élasticité permet de ramener la pièce à sa position initiale lorsqu'elle est déformée ; le ressort a ainsi joué un rôle déterminant dans l'essor des civilisations.",
+    "tags": [
+      "mécanique",
+      "élasticité",
+      "énergie",
+      "déformation"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Ressort",
+    "_ai_built_upon": [
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "moyen",
+        "exists": true
+      },
+      {
+        "id": "cuivre",
+        "name": "Cuivre",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "arc",
+        "name": "Arc",
+        "exists": false
+      },
+      {
+        "id": "catapulte",
+        "name": "Catapulte",
+        "exists": false
+      },
+      {
+        "id": "horloge-mecanique",
+        "name": "Horloge mécanique",
+        "exists": false
+      },
+      {
+        "id": "montre",
+        "name": "Montre",
+        "exists": false
+      },
+      {
+        "id": "suspension-vehicule",
+        "name": "Suspension de véhicule",
+        "exists": false
+      },
+      {
+        "id": "serrure",
+        "name": "Serrure",
+        "exists": false
+      }
+    ]
+  },
+  "boulon": {
+    "name_en": "Bolt",
+    "description": "Dispositif d'assemblage mécanique constitué d'une tige filetée avec tête et d'un écrou, créant une liaison complète, rigide et démontable entre les pièces qu'il traverse. Le boulon agit comme un ressort très raide qui maintient le serrage par précontrainte.",
+    "tags": [
+      "assemblage",
+      "mécanique",
+      "construction",
+      "métal",
+      "serrage"
+    ],
+    "origin": "Europe (XVe siècle)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Boulon",
+    "_ai_built_upon": [
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "principal",
+        "exists": true
+      },
+      {
+        "id": "vis",
+        "name": "Vis",
+        "relation_type": "knowledge",
+        "quantity_hint": "technique",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": "pour fabrication",
+        "exists": true
+      },
+      {
+        "id": "tour",
+        "name": "Tour",
+        "relation_type": "tool",
+        "quantity_hint": "pour usinage",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "structure-metallique",
+        "name": "Structure métallique",
+        "exists": true
+      },
+      {
+        "id": "charpente-metallique",
+        "name": "Charpente métallique",
+        "exists": false
+      },
+      {
+        "id": "assemblage-mecanique",
+        "name": "Assemblage mécanique",
+        "exists": false
+      },
+      {
+        "id": "boulonnerie-industrielle",
+        "name": "Boulonnerie industrielle",
+        "exists": false
+      }
+    ]
+  },
+  "poulie": {
+    "name_en": "Pulley",
+    "description": "Dispositif mécanique constitué d'une roue à gorge qui tourne autour d'un axe, utilisée avec une corde ou une courroie pour changer la direction d'une force ou démultiplier l'effort nécessaire au levage. Machine simple constituée d'une pièce en forme de roue servant à infléchir un mouvement de translation, utilisée avec une courroie, une corde, une chaîne ou un câble. Permet de soulever des charges lourdes en transformant la direction de la force appliquée.",
+    "tags": [
+      "levage",
+      "mécanique",
+      "force",
+      "construction"
+    ],
+    "origin": "Assyrie (Mésopotamie)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Poulie",
+    "_ai_built_upon": [
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "moyen",
+        "exists": true
+      },
+      {
+        "id": "bronze",
+        "name": "Bronze",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "roue",
+        "name": "Roue",
+        "relation_type": "knowledge",
+        "quantity_hint": "",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "grue",
+        "name": "Grue",
+        "exists": false
+      },
+      {
+        "id": "ascenseur",
+        "name": "Ascenseur",
+        "exists": false
+      },
+      {
+        "id": "palan",
+        "name": "Palan",
+        "exists": false
+      },
+      {
+        "id": "treuil",
+        "name": "Treuil",
+        "exists": false
+      },
+      {
+        "id": "machine-vapeur",
+        "name": "Machine à vapeur",
+        "exists": false
+      }
+    ]
+  },
+  "moteur-electrique": {
+    "name_en": "Electric Motor",
+    "description": "Machine électromécanique qui convertit l'énergie électrique en énergie mécanique par l'interaction d'un champ magnétique et d'un courant électrique. Composé d'un stator fixe et d'un rotor mobile, il génère un mouvement de rotation utilisé dans d'innombrables applications industrielles et domestiques.",
+    "tags": [
+      "électricité",
+      "magnétisme",
+      "industrie",
+      "automation",
+      "transport",
+      "énergie"
+    ],
+    "origin": "Thomas Davenport, Moritz von Jacobi",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Machine_%C3%A9lectrique",
+    "_ai_built_upon": [
+      {
+        "id": "electricite",
+        "name": "Électricité",
+        "relation_type": "energy",
+        "quantity_hint": "source d'énergie",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "noyaux magnétiques",
+        "exists": true
+      },
+      {
+        "id": "fil-cuivre",
+        "name": "Fil de cuivre",
+        "relation_type": "material",
+        "quantity_hint": "bobinages",
+        "exists": true
+      },
+      {
+        "id": "aimant",
+        "name": "Aimant",
+        "relation_type": "material",
+        "quantity_hint": "champ magnétique",
+        "exists": false
+      },
+      {
+        "id": "roulement",
+        "name": "Roulement",
+        "relation_type": "component",
+        "quantity_hint": "support du rotor",
+        "exists": false
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "structure",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "tramway",
+        "name": "Tramway électrique",
+        "exists": false
+      },
+      {
+        "id": "ascenseur",
+        "name": "Ascenseur électrique",
+        "exists": false
+      },
+      {
+        "id": "ventilateur-industriel",
+        "name": "Ventilateur industriel",
+        "exists": false
+      },
+      {
+        "id": "pompe-electrique",
+        "name": "Pompe électrique",
+        "exists": false
+      },
+      {
+        "id": "machine-outil",
+        "name": "Machine-outil électrique",
+        "exists": false
+      }
+    ]
+  },
+  "pompe": {
+    "name_en": "Pump",
+    "description": "Dispositif permettant d'aspirer et de refouler un fluide (liquide ou gaz) d'un point à un autre par action mécanique. Les premières pompes à eau utilisaient des mécanismes simples comme le balancier ou la vis, avant l'invention du piston qui révolutionna cette technologie.",
+    "tags": [
+      "hydraulique",
+      "mécanique",
+      "piston",
+      "eau",
+      "transport"
+    ],
+    "origin": "Ctésibius d'Alexandrie",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Pompe",
+    "_ai_built_upon": [
+      {
+        "id": "bronze",
+        "name": "Bronze",
+        "relation_type": "material",
+        "quantity_hint": "pour les cylindres",
+        "exists": false
+      },
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "material",
+        "quantity_hint": "fluide pompé",
+        "exists": true
+      },
+      {
+        "id": "cuivre",
+        "name": "Cuivre",
+        "relation_type": "material",
+        "quantity_hint": "pour les tuyaux",
+        "exists": true
+      },
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "pour mécanismes",
+        "exists": true
+      },
+      {
+        "id": "force-humaine",
+        "name": "Force humaine",
+        "relation_type": "energy",
+        "quantity_hint": "actionner",
+        "exists": false
+      },
+      {
+        "id": "principes-hydraulique",
+        "name": "Principes hydrauliques",
+        "relation_type": "knowledge",
+        "quantity_hint": "aspiration/refoulement",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "pompe-incendie",
+        "name": "Pompe à incendie",
+        "exists": false
+      },
+      {
+        "id": "machine-vapeur",
+        "name": "Machine à vapeur",
+        "exists": false
+      },
+      {
+        "id": "pompe-industrielle",
+        "name": "Pompe industrielle",
+        "exists": false
+      },
+      {
+        "id": "systeme-irrigation",
+        "name": "Système d'irrigation",
+        "exists": false
+      }
+    ]
+  },
+  "velo": {
+    "name_en": "Bicycle",
+    "description": "Véhicule terrestre propulsé par l'énergie musculaire humaine, composé de deux roues alignées reliées par un cadre, avec un système de pédalage et de direction. Révolutionnaire pour la mobilité personnelle depuis le 19e siècle.",
+    "tags": [
+      "transport",
+      "mobilité",
+      "mécanique",
+      "roues"
+    ],
+    "origin": "John Kemp Starley (bicyclette de sécurité moderne)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Bicyclette",
+    "_ai_built_upon": [
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "roue",
+        "name": "Roue",
+        "relation_type": "component",
+        "quantity_hint": "deux",
+        "exists": true
+      },
+      {
+        "id": "caoutchouc",
+        "name": "Caoutchouc",
+        "relation_type": "material",
+        "quantity_hint": "moyen",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "soudure",
+        "name": "Soudure",
+        "relation_type": "process",
+        "quantity_hint": null,
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "motocyclette",
+        "name": "Motocyclette",
+        "exists": false
+      },
+      {
+        "id": "automobile",
+        "name": "Automobile",
+        "exists": true
+      },
+      {
+        "id": "velo-electrique",
+        "name": "Vélo électrique",
+        "exists": false
+      }
+    ]
+  },
+  "gratte-ciel": {
+    "name_en": "Skyscraper",
+    "description": "Immeuble de très grande hauteur, typiquement à usage de bureaux ou d'habitation. <cite index=\"1-1,2-1\">Les premiers gratte-ciel sont construits entre 1884 et 1939 principalement à New York et Chicago</cite>. <cite index=\"1-18,13-8\">Le premier exemple est le Home Insurance Building de 42 m construit à Chicago en 1884-1885 par William Le Baron Jenney</cite>.",
+    "tags": [
+      "architecture",
+      "construction",
+      "hauteur",
+      "urbain",
+      "acier"
+    ],
+    "origin": "William Le Baron Jenney, Chicago, États-Unis",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Gratte-ciel",
+    "_ai_built_upon": [
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "beton-arme",
+        "name": "Béton armé",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "verre",
+        "name": "Verre",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "ascenseur",
+        "name": "Ascenseur",
+        "relation_type": "tool",
+        "quantity_hint": "plusieurs",
+        "exists": false
+      },
+      {
+        "id": "electricite",
+        "name": "Électricité",
+        "relation_type": "energy",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "fondations",
+        "name": "Fondations",
+        "relation_type": "knowledge",
+        "quantity_hint": "1",
+        "exists": true
+      },
+      {
+        "id": "structure-metallique",
+        "name": "Structure métallique",
+        "relation_type": "knowledge",
+        "quantity_hint": "1",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "urbanisme-vertical",
+        "name": "Urbanisme vertical",
+        "exists": false
+      },
+      {
+        "id": "tour-moderne",
+        "name": "Tour moderne",
+        "exists": false
+      }
+    ]
+  },
+  "barrage": {
+    "name_en": "Dam",
+    "description": "Structure artificielle construite en travers d'un cours d'eau pour retenir ou dévier l'eau. Permet de créer des réservoirs pour l'irrigation, l'alimentation en eau, la protection contre les crues et la production d'énergie hydroélectrique. Représente une innovation majeure dans la gestion des ressources hydrauliques depuis l'Antiquité.",
+    "tags": [
+      "hydraulique",
+      "construction",
+      "irrigation",
+      "énergie",
+      "infrastructure"
+    ],
+    "origin": "Égypte ancienne (barrage de Sadd el-Kafara)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Barrage",
+    "_ai_built_upon": [
+      {
+        "id": "pierre",
+        "name": "Pierre de taille",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "terre",
+        "name": "Terre",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": false
+      },
+      {
+        "id": "beton",
+        "name": "Béton",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "ciment",
+        "name": "Ciment",
+        "relation_type": "material",
+        "quantity_hint": "moyennement",
+        "exists": true
+      },
+      {
+        "id": "argile",
+        "name": "Argile",
+        "relation_type": "material",
+        "quantity_hint": "moyennement",
+        "exists": true
+      },
+      {
+        "id": "taille-pierre",
+        "name": "Taille de pierre",
+        "relation_type": "knowledge",
+        "quantity_hint": "technique",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "moulin-eau",
+        "name": "Moulin à eau",
+        "exists": false
+      },
+      {
+        "id": "reservoir",
+        "name": "Réservoir d'eau",
+        "exists": false
+      },
+      {
+        "id": "irrigation",
+        "name": "Système d'irrigation",
+        "exists": false
+      },
+      {
+        "id": "centrale-hydroelectrique",
+        "name": "Centrale hydroélectrique",
+        "exists": false
+      },
+      {
+        "id": "turbine",
+        "name": "Turbine hydraulique",
+        "exists": false
+      }
+    ]
+  },
+  "soie": {
+    "name_en": "Silk",
+    "description": "Fibre protéique naturelle d'une grande finesse et résistance, produite par la chenille du ver à soie (Bombyx mori) qui l'utilise pour former son cocon. Matériau de luxe aux propriétés exceptionnelles (brillance, souplesse, thermorégulation), elle a révolutionné l'industrie textile et le commerce international depuis l'Antiquité. La soie se caractérise par sa douceur incomparable et son éclat unique dû à sa structure triangulaire qui reflète la lumière.",
+    "tags": [
+      "textile",
+      "luxe",
+      "fibre",
+      "naturelle",
+      "proteine",
+      "brillance"
+    ],
+    "origin": "Chine",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Soie",
+    "_ai_built_upon": [
+      {
+        "id": "ver-a-soie",
+        "name": "Ver à soie",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "mulberry",
+        "name": "Mûrier",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "feu",
+        "name": "Feu",
+        "relation_type": "energy",
+        "quantity_hint": "moyennement",
+        "exists": true
+      },
+      {
+        "id": "four",
+        "name": "Four",
+        "relation_type": "tool",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "filature",
+        "name": "Filature",
+        "relation_type": "process",
+        "quantity_hint": "peu",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "tissu-teint",
+        "name": "Tissu teint",
+        "exists": true
+      },
+      {
+        "id": "metier-tisser",
+        "name": "Métier à tisser",
+        "exists": false
+      },
+      {
+        "id": "route-soie",
+        "name": "Route de la soie",
+        "exists": false
+      },
+      {
+        "id": "teinture-textile",
+        "name": "Teinture textile",
+        "exists": true
+      },
+      {
+        "id": "soie-artificielle",
+        "name": "Soie artificielle",
+        "exists": false
+      }
+    ]
+  },
+  "presse": {
+    "name_en": "Press",
+    "description": "Machine qui applique une force de compression pour transformer, façonner ou imprimer des matériaux. La presse à imprimer de Gutenberg révolutionna la diffusion du savoir, tandis que les presses mécaniques et hydrauliques transformèrent l'industrie manufacturière.",
+    "tags": [
+      "compression",
+      "force",
+      "fabrication",
+      "imprimerie",
+      "mécanique"
+    ],
+    "origin": "Johannes Gutenberg, Allemagne",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Presse_typographique",
+    "image_url": "/images/nodes/presse.png",
+    "_ai_built_upon": [
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "structure",
+        "exists": true
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "mécanisme",
+        "exists": true
+      },
+      {
+        "id": "vis",
+        "name": "Vis",
+        "relation_type": "component",
+        "quantity_hint": "système",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "tour",
+        "name": "Tour",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "presse-imprimer",
+        "name": "Presse à imprimer",
+        "exists": true
+      },
+      {
+        "id": "presse-hydraulique",
+        "name": "Presse hydraulique",
+        "exists": true
+      },
+      {
+        "id": "imprimerie",
+        "name": "Imprimerie industrielle",
+        "exists": true
+      },
+      {
+        "id": "estampage",
+        "name": "Estampage",
+        "exists": false
+      },
+      {
+        "id": "emboutissage",
+        "name": "Emboutissage",
+        "exists": false
+      }
+    ]
+  },
+  "galvanisation": {
+    "name_en": "Galvanization",
+    "description": "Procédé de traitement anticorrosion qui consiste à recouvrir une pièce d'acier ou de fer d'une couche de zinc pour la protéger de la rouille. Le procédé principal implique l'immersion de la pièce dans un bain de zinc fondu à 450°C, créant une liaison métallurgique entre le zinc et l'acier. Cette technique offre une protection durable et une résistance exceptionnelle à la corrosion.",
+    "tags": [
+      "anticorrosion",
+      "zinc",
+      "métallurgie",
+      "traitement-surface"
+    ],
+    "origin": "Stanislas Sorel (France)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Galvanisation",
+    "_ai_built_upon": [
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "pièces",
+        "exists": true
+      },
+      {
+        "id": "zinc",
+        "name": "Zinc",
+        "relation_type": "material",
+        "quantity_hint": "revêtement",
+        "exists": false
+      },
+      {
+        "id": "four-haute-temp",
+        "name": "Four à haute température",
+        "relation_type": "tool",
+        "quantity_hint": "chauffage",
+        "exists": true
+      },
+      {
+        "id": "soude",
+        "name": "Soude",
+        "relation_type": "material",
+        "quantity_hint": "nettoyage",
+        "exists": true
+      },
+      {
+        "id": "electricite",
+        "name": "Électricité",
+        "relation_type": "energy",
+        "quantity_hint": "électrozingage",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "acier-galvanise",
+        "name": "Acier galvanisé",
+        "exists": false
+      },
+      {
+        "id": "structure-metallique-resistant",
+        "name": "Structure métallique résistante",
+        "exists": false
+      },
+      {
+        "id": "construction-durable",
+        "name": "Construction durable",
+        "exists": false
+      }
+    ]
+  },
+  "pasteurisation": {
+    "name_en": "Pasteurization",
+    "description": "Procédé de conservation des aliments par traitement thermique modéré qui consiste à chauffer un liquide à une température précise (60-100°C) pendant une durée déterminée, puis à le refroidir rapidement pour éliminer les micro-organismes pathogènes tout en préservant les qualités nutritionnelles et organoleptiques du produit. Révolutionne la sécurité alimentaire et permet la conservation longue durée de nombreux aliments liquides.",
+    "tags": [
+      "conservation",
+      "chauffage",
+      "microbiologie",
+      "sécurité alimentaire",
+      "traitement thermique"
+    ],
+    "origin": "Louis Pasteur (France)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Pasteurisation",
+    "_ai_built_upon": [
+      {
+        "id": "four",
+        "name": "Four",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": true
+      },
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "material",
+        "quantity_hint": "pour refroidissement",
+        "exists": true
+      },
+      {
+        "id": "feu",
+        "name": "Feu",
+        "relation_type": "energy",
+        "quantity_hint": "pour chauffage",
+        "exists": true
+      },
+      {
+        "id": "vin",
+        "name": "Vin",
+        "relation_type": "material",
+        "quantity_hint": "produit d'origine",
+        "exists": true
+      },
+      {
+        "id": "lait",
+        "name": "Lait",
+        "relation_type": "material",
+        "quantity_hint": "application principale",
+        "exists": true
+      },
+      {
+        "id": "thermometre",
+        "name": "Thermomètre",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": false
+      },
+      {
+        "id": "fermentation",
+        "name": "Fermentation",
+        "relation_type": "knowledge",
+        "quantity_hint": "compréhension",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "industrie-laitiere",
+        "name": "Industrie laitière moderne",
+        "exists": false
+      },
+      {
+        "id": "sterilisation",
+        "name": "Stérilisation",
+        "exists": false
+      },
+      {
+        "id": "conserves-alimentaires",
+        "name": "Conserves alimentaires modernes",
+        "exists": false
+      },
+      {
+        "id": "microbiologie",
+        "name": "Microbiologie",
+        "exists": false
+      },
+      {
+        "id": "securite-alimentaire",
+        "name": "Sécurité alimentaire moderne",
+        "exists": false
+      }
+    ]
+  },
+  "vulcanisation": {
+    "name_en": "Vulcanization",
+    "description": "Procédé chimique consistant à incorporer du soufre ou d'autres agents vulcanisants au caoutchouc brut et à appliquer de la chaleur pour former des liaisons croisées entre les chaînes de polymères. Cette transformation rend le caoutchouc moins plastique mais plus élastique, stable et résistant aux variations de température.",
+    "tags": [
+      "chimie",
+      "polymère",
+      "caoutchouc",
+      "soufre",
+      "procédé_industriel"
+    ],
+    "origin": "Charles Goodyear (États-Unis), breveté par Thomas Hancock (Royaume-Uni)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Vulcanisation",
+    "image_url": "/images/nodes/vulcanisation.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "caoutchouc",
+        "name": "Caoutchouc",
+        "relation_type": "material",
+        "quantity_hint": "principal",
+        "exists": true
+      },
+      {
+        "id": "soufre",
+        "name": "Soufre",
+        "relation_type": "material",
+        "quantity_hint": "faible",
+        "exists": true
+      },
+      {
+        "id": "four-haute-temp",
+        "name": "Four à haute température",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "chimie-organique",
+        "name": "Chimie organique",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "pneu",
+        "name": "Pneu",
+        "exists": true
+      },
+      {
+        "id": "courroie-transporteuse",
+        "name": "Courroie transporteuse",
+        "exists": false
+      },
+      {
+        "id": "joint-etancheite",
+        "name": "Joint d'étanchéité",
+        "exists": false
+      },
+      {
+        "id": "tuyau-caoutchouc",
+        "name": "Tuyau en caoutchouc",
+        "exists": false
+      },
+      {
+        "id": "gant-caoutchouc",
+        "name": "Gant en caoutchouc",
+        "exists": false
+      }
+    ]
+  },
+  "engrenage": {
+    "name_en": "Gear",
+    "description": "Mécanisme de transmission composé de roues dentées qui s'interpénètrent pour transmettre le mouvement de rotation et modifier la vitesse ou le couple entre deux axes. <cite index=\"1-8\">L'engrenage est l'une des huit machines simples</cite> et constitue un composant fondamental de la mécanique. <cite index=\"1-6,12-22,13-14\">Les engrenages sont utilisés dans toutes les branches de la mécanique pour transmettre des mouvements</cite>, depuis l'horlogerie jusqu'aux machines industrielles.",
+    "tags": [
+      "transmission",
+      "mécanique",
+      "rotation",
+      "couple",
+      "vitesse"
+    ],
+    "origin": "Grèce antique (Aristote, Archimède)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Engrenage",
+    "_ai_built_upon": [
+      {
+        "id": "roue",
+        "name": "Roue",
+        "relation_type": "knowledge",
+        "quantity_hint": "concept de base",
+        "exists": true
+      },
+      {
+        "id": "bronze",
+        "name": "Bronze",
+        "relation_type": "material",
+        "quantity_hint": "pour les premières roues dentées",
+        "exists": true
+      },
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "pour les engrenages médiévaux",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "pour les engrenages plus résistants",
+        "exists": true
+      },
+      {
+        "id": "tour",
+        "name": "Tour",
+        "relation_type": "tool",
+        "quantity_hint": "pour tailler les dents",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "horloge-mecanique",
+        "name": "Horloge mécanique",
+        "exists": false
+      },
+      {
+        "id": "moulin-a-eau",
+        "name": "Moulin à eau",
+        "exists": false
+      },
+      {
+        "id": "boite-de-vitesses",
+        "name": "Boîte de vitesses",
+        "exists": false
+      },
+      {
+        "id": "differentiel",
+        "name": "Différentiel",
+        "exists": false
+      },
+      {
+        "id": "reducteur",
+        "name": "Réducteur",
+        "exists": false
+      },
+      {
+        "id": "machine-a-vapeur",
+        "name": "Machine à vapeur",
+        "exists": false
+      }
+    ]
+  },
+  "roulement-a-billes": {
+    "name_en": "Ball bearing",
+    "description": "Système mécanique composé de billes métalliques logées dans une cage entre deux anneaux, permettant la rotation fluide entre deux pièces mécaniques en réduisant considérablement les frottements. <cite index=\"29-9\">Son rôle principal : permettre un mouvement rotatif fluide, précis et durable, tout en supportant des charges (axiales, radiales ou combinées)</cite>. <cite index=\"21-1,21-4\">Les roulements à billes minimisent la friction entre les pièces mobiles, ce qui non seulement augmente l'efficacité énergétique des machines, mais prolonge également leur durée de vie</cite>.",
+    "tags": [
+      "mécanique",
+      "rotation",
+      "friction",
+      "précision",
+      "durabilité"
+    ],
+    "origin": "Philip Vaughan (Angleterre)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Roulement_m%C3%A9canique",
+    "image_url": "/images/nodes/roulement-a-billes.gif",
+    "_ai_built_upon": [
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "pour les bagues et billes",
+        "exists": true
+      },
+      {
+        "id": "chrome",
+        "name": "Chrome",
+        "relation_type": "material",
+        "quantity_hint": "alliage 100Cr6",
+        "exists": false
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": "forgeage des billes",
+        "exists": true
+      },
+      {
+        "id": "tour",
+        "name": "Tour",
+        "relation_type": "tool",
+        "quantity_hint": "usinage des bagues",
+        "exists": true
+      },
+      {
+        "id": "four-haute-temp",
+        "name": "Four à haute température",
+        "relation_type": "tool",
+        "quantity_hint": "traitement thermique",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "velo",
+        "name": "Vélo",
+        "exists": true
+      },
+      {
+        "id": "automobile",
+        "name": "Automobile",
+        "exists": true
+      },
+      {
+        "id": "moteur-electrique",
+        "name": "Moteur électrique",
+        "exists": true
+      },
+      {
+        "id": "machine-textile",
+        "name": "Machine textile",
+        "exists": false
+      },
+      {
+        "id": "turbine",
+        "name": "Turbine",
+        "exists": false
+      }
+    ]
+  },
+  "levier": {
+    "name_en": "Lever",
+    "description": "Machine simple consistant en une barre rigide qui pivote autour d'un point d'appui pour amplifier une force appliquée. <cite index=\"3-10,3-11\">Probablement le premier mécanisme utilisé par l'Homme, bien avant la découverte de la roue, il ne nécessite que deux solides : un appui et une barre qui permettent de démultiplier la force musculaire.</cite> <cite index=\"3-13,3-14\">Archimède a compris et maîtrisé toutes les possibilités qu'offre le levier, ce qui a donné naissance à sa célèbre citation : « Donne-moi où je puisse me tenir ferme, et j'ébranlerai la Terre ».</cite>",
+    "tags": [
+      "machine simple",
+      "mécanique",
+      "force",
+      "antiquité"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Levier_(m%C3%A9canique)",
+    "_ai_built_upon": [
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "modérée",
+        "exists": true
+      },
+      {
+        "id": "pierre",
+        "name": "Pierre de taille",
+        "relation_type": "material",
+        "quantity_hint": "faible",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "chadouf",
+        "name": "Chadouf",
+        "exists": false
+      },
+      {
+        "id": "balance",
+        "name": "Balance",
+        "exists": false
+      },
+      {
+        "id": "presse",
+        "name": "Presse",
+        "exists": true
+      },
+      {
+        "id": "pied-de-biche",
+        "name": "Pied-de-biche",
+        "exists": false
+      },
+      {
+        "id": "ciseaux",
+        "name": "Ciseaux",
+        "exists": false
+      }
+    ]
+  },
+  "machine-a-vapeur": {
+    "name_en": "Steam engine",
+    "description": "Moteur à combustion externe qui transforme l'énergie thermique de la vapeur d'eau produite par une chaudière en énergie mécanique. Première source d'énergie mécanique maîtrisée par l'homme, elle fut le pilier de la révolution industrielle au XIXe siècle.",
+    "tags": [
+      "vapeur",
+      "moteur",
+      "révolution industrielle",
+      "énergie mécanique",
+      "chaudière"
+    ],
+    "origin": "James Watt (perfection), Thomas Newcomen (1712), Denis Papin (précurseur 1690)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Machine_%C3%A0_vapeur",
+    "_ai_built_upon": [
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "material",
+        "quantity_hint": "modérée",
+        "exists": true
+      },
+      {
+        "id": "charbon",
+        "name": "Charbon",
+        "relation_type": "energy",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "cuivre",
+        "name": "Cuivre",
+        "relation_type": "material",
+        "quantity_hint": "modérée",
+        "exists": true
+      },
+      {
+        "id": "four",
+        "name": "Four",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": true
+      },
+      {
+        "id": "fonderie",
+        "name": "Fonderie",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "locomotive",
+        "name": "Locomotive",
+        "exists": false
+      },
+      {
+        "id": "bateau-vapeur",
+        "name": "Bateau à vapeur",
+        "exists": false
+      },
+      {
+        "id": "turbine-vapeur",
+        "name": "Turbine à vapeur",
+        "exists": true
+      },
+      {
+        "id": "usine-moderne",
+        "name": "Usine moderne",
+        "exists": false
+      },
+      {
+        "id": "generateur",
+        "name": "Générateur électrique",
+        "exists": true
+      }
+    ]
+  },
+  "turbine": {
+    "name_en": "Turbine",
+    "description": "Machine tournante qui convertit l'énergie cinétique d'un fluide en mouvement (eau, vapeur, gaz, air) en énergie mécanique de rotation. Inventée par Benoît Fourneyron en 1827 pour l'hydraulique, puis développée pour la vapeur et les gaz, elle constitue le cœur des centrales électriques et de nombreuses applications industrielles.",
+    "tags": [
+      "énergie",
+      "mécanique",
+      "hydraulique",
+      "vapeur",
+      "électricité",
+      "rotation"
+    ],
+    "origin": "Benoît Fourneyron (France)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Turbine",
+    "_ai_built_upon": [
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "moyennement",
+        "exists": true
+      },
+      {
+        "id": "fonderie",
+        "name": "Fonderie",
+        "relation_type": "tool",
+        "quantity_hint": "une",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": "une",
+        "exists": true
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "moyennement",
+        "exists": true
+      },
+      {
+        "id": "tour",
+        "name": "Tour",
+        "relation_type": "tool",
+        "quantity_hint": "une",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "alternateur",
+        "name": "Alternateur",
+        "exists": true
+      },
+      {
+        "id": "centrale-electrique",
+        "name": "Centrale électrique",
+        "exists": false
+      },
+      {
+        "id": "barrage",
+        "name": "Barrage",
+        "exists": true
+      },
+      {
+        "id": "turbine-vapeur",
+        "name": "Turbine à vapeur",
+        "exists": true
+      },
+      {
+        "id": "turbine-gaz",
+        "name": "Turbine à gaz",
+        "exists": false
+      },
+      {
+        "id": "hydroelectricite",
+        "name": "Hydroélectricité",
+        "exists": false
+      }
+    ]
+  },
+  "bateau-a-voile": {
+    "name_en": "Sailing boat",
+    "description": "Embarcation utilisant la force du vent capturée par des voiles pour sa propulsion. <cite index=\"4-20,4-21\">La plus ancienne représentation d'un bateau à voile est une peinture sur disque trouvé dans la région de l'actuel Koweït, datée de la fin du Ve millénaire avant notre ère. Dès cette époque en Mésopotamie, des bateaux à voile et rames auraient navigué sur les grands fleuves (Tigre, Euphrate), créant des routes commerciales entre les cités.</cite> <cite index=\"4-6\">À travers l'Histoire, la navigation à voile a été l'instrument du développement des civilisations, apportant à l'humanité une meilleure mobilité que le déplacement terrestre, pour le commerce, le transport, la guerre et pour la pêche.</cite>",
+    "tags": [
+      "navigation",
+      "maritime",
+      "transport",
+      "vent",
+      "voile"
+    ],
+    "origin": "Mésopotamie (actuel Irak)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Voilier",
+    "_ai_built_upon": [
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "tissu",
+        "name": "Tissu",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "air",
+        "name": "Air",
+        "relation_type": "energy",
+        "quantity_hint": "continu",
+        "exists": true
+      },
+      {
+        "id": "roue",
+        "name": "Roue",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "corde",
+        "name": "Corde",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "galere",
+        "name": "Galère",
+        "exists": false
+      },
+      {
+        "id": "caravelle",
+        "name": "Caravelle",
+        "exists": false
+      },
+      {
+        "id": "navire-ligne",
+        "name": "Navire de ligne",
+        "exists": false
+      },
+      {
+        "id": "clipper",
+        "name": "Clipper",
+        "exists": false
+      }
+    ]
+  },
+  "locomotive": {
+    "name_en": "Locomotive",
+    "description": "Engin de traction ferroviaire autopropulsé qui fournit la force motrice pour tracter ou pousser les wagons d'un train. <cite index=\"3-1,5-1,3-4,5-5\">Inventée en 1804 par Richard Trevithick avec la première locomotive à vapeur au Royaume-Uni, puis perfectionnée par George et Robert Stephenson avec la célèbre Rocket en 1829.</cite> <cite index=\"21-5,21-6\">La locomotive a évolué de la vapeur (1820-1970) vers l'électricité (début 1900) et le diesel (1912), révolutionnant les transports terrestres de masse.</cite>",
+    "tags": [
+      "transport",
+      "ferroviaire",
+      "vapeur",
+      "industriel",
+      "mécanisme"
+    ],
+    "origin": "Richard Trevithick (Royaume-Uni)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Locomotive_%C3%A0_vapeur",
+    "_ai_built_upon": [
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "moyen",
+        "exists": true
+      },
+      {
+        "id": "cuivre",
+        "name": "Cuivre",
+        "relation_type": "material",
+        "quantity_hint": "moyen",
+        "exists": true
+      },
+      {
+        "id": "machine-a-vapeur",
+        "name": "Machine à vapeur",
+        "relation_type": "knowledge",
+        "quantity_hint": "fondamental",
+        "exists": true
+      },
+      {
+        "id": "roue",
+        "name": "Roue",
+        "relation_type": "component",
+        "quantity_hint": "plusieurs",
+        "exists": true
+      },
+      {
+        "id": "charbon",
+        "name": "Charbon",
+        "relation_type": "energy",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "four",
+        "name": "Four",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": true
+      },
+      {
+        "id": "soudure",
+        "name": "Soudure",
+        "relation_type": "knowledge",
+        "quantity_hint": "technique",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "train-electrique",
+        "name": "Train électrique",
+        "exists": false
+      },
+      {
+        "id": "locomotive-diesel",
+        "name": "Locomotive diesel",
+        "exists": false
+      },
+      {
+        "id": "chemin-de-fer",
+        "name": "Chemin de fer",
+        "exists": false
+      },
+      {
+        "id": "transport-ferroviaire",
+        "name": "Transport ferroviaire",
+        "exists": false
+      },
+      {
+        "id": "tgv",
+        "name": "TGV",
+        "exists": false
+      }
+    ]
+  },
+  "pont": {
+    "name_en": "Bridge",
+    "description": "Construction permettant de franchir une dépression ou un obstacle comme un cours d'eau, une vallée ou une voie de communication. Les ponts ont évolué depuis les premiers troncs d'arbres jetés entre deux rives jusqu'aux ouvrages modernes en béton armé et acier.",
+    "tags": [
+      "infrastructure",
+      "transport",
+      "génie civil",
+      "franchissement"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Pont",
+    "_ai_built_upon": [
+      {
+        "id": "pierre",
+        "name": "Pierre de taille",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "mortier",
+        "name": "Mortier",
+        "relation_type": "material",
+        "quantity_hint": "moyen",
+        "exists": true
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "beton",
+        "name": "Béton",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "beton-arme",
+        "name": "Béton armé",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "viaduc",
+        "name": "Viaduc",
+        "exists": false
+      },
+      {
+        "id": "tunnel",
+        "name": "Tunnel",
+        "exists": false
+      },
+      {
+        "id": "reseau-routier",
+        "name": "Réseau routier",
+        "exists": false
+      },
+      {
+        "id": "chemin-de-fer",
+        "name": "Chemin de fer",
+        "exists": false
+      }
+    ]
+  },
+  "arche": {
+    "name_en": "Arch",
+    "description": "Structure incurvée capable d'enjamber un espace tout en soutenant un poids significatif. Élément architectural fondamental permettant de franchir des ouvertures dans les ponts, portes et fenêtres, puis devenu technique majeure dans la construction monumentale.",
+    "tags": [
+      "architecture",
+      "construction",
+      "voûte",
+      "pierre",
+      "structure"
+    ],
+    "origin": "Mésopotamie",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Arche_(architecture)",
+    "_ai_built_upon": [
+      {
+        "id": "pierre-de-taille",
+        "name": "Pierre de taille",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "brique",
+        "name": "Brique",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "mortier",
+        "name": "Mortier",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "taille-pierre",
+        "name": "Taille de pierre",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "cintre",
+        "name": "Cintre",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "pont",
+        "name": "Pont",
+        "exists": true
+      },
+      {
+        "id": "voute-berceau",
+        "name": "Voûte en berceau",
+        "exists": false
+      },
+      {
+        "id": "aqueduc",
+        "name": "Aqueduc",
+        "exists": false
+      },
+      {
+        "id": "cathedral-gothique",
+        "name": "Cathédrale gothique",
+        "exists": false
+      }
+    ]
+  },
+  "teinture": {
+    "name_en": "Dyeing",
+    "description": "Procédé consistant à modifier la couleur d'un support textile par absorption d'un colorant. Cette technique ancienne utilise des substances naturelles (plantes, minéraux, animaux) ou synthétiques pour colorer durablement les fibres textiles. L'utilisation de mordants permet de fixer les colorants sur les fibres.",
+    "tags": [
+      "textile",
+      "couleur",
+      "chimie",
+      "artisanat"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Teinture",
+    "_ai_built_upon": [
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "four",
+        "name": "Four",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": true
+      },
+      {
+        "id": "plantes-teinture",
+        "name": "Plantes tinctoriales",
+        "relation_type": "material",
+        "quantity_hint": "variable",
+        "exists": true
+      },
+      {
+        "id": "mordant",
+        "name": "Mordant",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "tissu-teint",
+        "name": "Tissu teint",
+        "exists": true
+      },
+      {
+        "id": "teinture-textile",
+        "name": "Teinture textile",
+        "exists": true
+      }
+    ]
+  },
+  "machine-a-coudre": {
+    "name_en": "Sewing machine",
+    "description": "Machine qui automatise la couture en utilisant deux fils (supérieur et inférieur) pour créer des points mécaniques. <cite index=\"3-25\">L'invention utilise une aiguille avec un œil près de la pointe et un système de canette pour former des points noués</cite>, révolutionnant l'industrie textile.",
+    "tags": [
+      "couture",
+      "textile",
+      "mécanisme",
+      "production",
+      "point",
+      "aiguille"
+    ],
+    "origin": "Barthélemy Thimonnier, France",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Machine_%C3%A0_coudre",
+    "_ai_built_upon": [
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "engrenage",
+        "name": "Engrenage",
+        "relation_type": "tool",
+        "quantity_hint": "plusieurs",
+        "exists": true
+      },
+      {
+        "id": "ressort",
+        "name": "Ressort",
+        "relation_type": "material",
+        "quantity_hint": "plusieurs",
+        "exists": true
+      },
+      {
+        "id": "fil-de-coton",
+        "name": "Fil de coton",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "aiguille-coudre",
+        "name": "Aiguille à coudre",
+        "relation_type": "tool",
+        "quantity_hint": "peu",
+        "exists": false
+      },
+      {
+        "id": "moteur-electrique",
+        "name": "Moteur électrique",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "industrie-textile",
+        "name": "Industrie textile",
+        "exists": false
+      },
+      {
+        "id": "pret-a-porter",
+        "name": "Prêt-à-porter",
+        "exists": false
+      },
+      {
+        "id": "machine-broder",
+        "name": "Machine à broder",
+        "exists": false
+      },
+      {
+        "id": "surjeteuse",
+        "name": "Surjeteuse",
+        "exists": false
+      }
+    ]
+  },
+  "stethoscope": {
+    "name_en": "Stethoscope",
+    "description": "<cite index=\"2-1,2-6\">Le stéthoscope est inventé le 17 février 1816 en France par le docteur René Laennec</cite>. <cite index=\"2-19\">C'est un instrument acoustique, servant principalement, dans le domaine médical ou vétérinaire, pour l'auscultation, c'est-à-dire l'écoute des sons internes du corps</cite>. <cite index=\"2-10\">Il crée ainsi l'auscultation médiate, par opposition à l'auscultation immédiate où la tête est collée à la poitrine du patient</cite>.",
+    "tags": [
+      "auscultation",
+      "diagnostic",
+      "cardiologie",
+      "pneumologie",
+      "médecine"
+    ],
+    "origin": "René Laennec, France",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Stéthoscope",
+    "_ai_built_upon": [
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "papier",
+        "name": "Papier",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "principes-actifs",
+        "name": "Principes actifs",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "anatomie-humaine",
+        "name": "Anatomie humaine",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "stethoscope-biauriculaire",
+        "name": "Stéthoscope biauriculaire",
+        "exists": false
+      },
+      {
+        "id": "stethoscope-electronique",
+        "name": "Stéthoscope électronique",
+        "exists": false
+      },
+      {
+        "id": "auscultation-moderne",
+        "name": "Auscultation moderne",
+        "exists": false
+      },
+      {
+        "id": "cardiologie-moderne",
+        "name": "Cardiologie moderne",
+        "exists": false
+      }
+    ]
+  },
+  "rayons-x": {
+    "name_en": "X-rays",
+    "description": "Rayonnement électromagnétique invisible découvert en 1895 par Wilhelm Röntgen lors d'expériences avec un tube de Crookes. Ces rayons traversent la matière de façon différentielle selon sa densité, permettant l'imagerie médicale et de nombreuses applications industrielles.",
+    "tags": [
+      "imagerie",
+      "médecine",
+      "radiologie",
+      "diagnostic",
+      "rayonnement",
+      "électromagnétique"
+    ],
+    "origin": "Wilhelm Röntgen, Allemagne",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Rayon_X",
+    "image_url": "/images/nodes/rayons-x.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "electricite",
+        "name": "Électricité",
+        "relation_type": "energy",
+        "quantity_hint": "haute tension",
+        "exists": true
+      },
+      {
+        "id": "verre",
+        "name": "Verre",
+        "relation_type": "material",
+        "quantity_hint": "tube",
+        "exists": true
+      },
+      {
+        "id": "tube-crookes",
+        "name": "Tube de Crookes",
+        "relation_type": "tool",
+        "quantity_hint": "dispositif",
+        "exists": false
+      },
+      {
+        "id": "cuivre",
+        "name": "Cuivre",
+        "relation_type": "material",
+        "quantity_hint": "électrodes",
+        "exists": true
+      },
+      {
+        "id": "tungstene",
+        "name": "Tungstène",
+        "relation_type": "material",
+        "quantity_hint": "anode",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "radiographie",
+        "name": "Radiographie",
+        "exists": false
+      },
+      {
+        "id": "scanner-medical",
+        "name": "Scanner médical",
+        "exists": false
+      },
+      {
+        "id": "radiotherapie",
+        "name": "Radiothérapie",
+        "exists": false
+      },
+      {
+        "id": "controle-non-destructif",
+        "name": "Contrôle non destructif",
+        "exists": false
+      },
+      {
+        "id": "cristallographie",
+        "name": "Cristallographie aux rayons X",
+        "exists": false
+      }
+    ]
+  },
+  "prothese": {
+    "name_en": "Prosthesis",
+    "description": "<cite index=\"7-12,7-13\">Dispositif médical artificiel qui remplace un membre mal formé, déformé ou amputé. Elle remplit la fonction du membre en question tout en se rapprochant de son aspect original</cite>. <cite index=\"1-1,1-3,1-6\">Les premières prothèses apparaissent à la Préhistoire, avec des exemples égyptiens datant de 3000 ans avant J.C.</cite> <cite index=\"21-8,21-9,21-10\">L'impression 3D révolutionne aujourd'hui ce secteur médical en permettant des prothèses personnalisées et plus accessibles</cite>.",
+    "tags": [
+      "medical",
+      "disability",
+      "rehabilitation",
+      "biomaterial",
+      "manufacturing"
+    ],
+    "origin": "Égypte antique",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Prothèse_(médecine)",
+    "image_url": "/images/nodes/prothese.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "principal",
+        "exists": true
+      },
+      {
+        "id": "cuivre",
+        "name": "Cuivre",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "plastique",
+        "name": "Plastique",
+        "relation_type": "material",
+        "quantity_hint": "principal",
+        "exists": true
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "titane",
+        "name": "Titane",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "tour",
+        "name": "Tour",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "impression-3d-medicale",
+        "name": "Impression 3D médicale",
+        "exists": false
+      },
+      {
+        "id": "prothese-bionique",
+        "name": "Prothèse bionique",
+        "exists": false
+      },
+      {
+        "id": "orthese",
+        "name": "Orthèse",
+        "exists": false
+      },
+      {
+        "id": "membre-artificiel",
+        "name": "Membre artificiel",
+        "exists": false
+      }
+    ]
+  },
+  "fusee": {
+    "name_en": "Rocket",
+    "description": "Véhicule spatial utilisant la propulsion par réaction pour se déplacer en atmosphère et dans l'espace. Constituée de plusieurs étages contenant ergols et moteur-fusée, elle permet de placer des satellites en orbite ou d'explorer l'espace.",
+    "tags": [
+      "spatial",
+      "propulsion",
+      "réaction",
+      "satellite",
+      "exploration"
+    ],
+    "origin": "Robert Goddard (États-Unis)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Fusée_(astronautique)",
+    "_ai_built_upon": [
+      {
+        "id": "poudre-a-canon",
+        "name": "Poudre à canon",
+        "relation_type": "knowledge",
+        "quantity_hint": "principe historique",
+        "exists": true
+      },
+      {
+        "id": "aluminium",
+        "name": "Aluminium",
+        "relation_type": "material",
+        "quantity_hint": "structure principale",
+        "exists": true
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "moteur et tuyères",
+        "exists": true
+      },
+      {
+        "id": "essence",
+        "name": "Essence",
+        "relation_type": "material",
+        "quantity_hint": "ergol liquide",
+        "exists": true
+      },
+      {
+        "id": "oxygene-liquide",
+        "name": "Oxygène liquide",
+        "relation_type": "material",
+        "quantity_hint": "comburant",
+        "exists": false
+      },
+      {
+        "id": "moteur-explosion",
+        "name": "Moteur à explosion",
+        "relation_type": "knowledge",
+        "quantity_hint": "principe propulsion",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "satellite",
+        "name": "Satellite artificiel",
+        "exists": false
+      },
+      {
+        "id": "exploration-spatiale",
+        "name": "Exploration spatiale",
+        "exists": false
+      },
+      {
+        "id": "missile-balistique",
+        "name": "Missile balistique",
+        "exists": false
+      }
+    ]
+  },
+  "sous-marin": {
+    "name_en": "Submarine",
+    "description": "<cite index=\"2-29\">Un sous-marin est un navire capable de se déplacer soit en surface, soit sous l'eau</cite>. <cite index=\"1-12,3-3\">Le premier sous-marin avec un moteur fut le Plongeur français en 1863, équipé d'un moteur à air comprimé, tandis que le premier modèle opérationnel fut construit par David Bushnell en 1775</cite>. <cite index=\"2-31,2-32\">La plupart des sous-marins sont des navires de guerre, bien qu'il existe des usages civils pour la recherche océanographique et l'exploitation pétrolière</cite>.",
+    "tags": [
+      "naval",
+      "militaire",
+      "plongée",
+      "navigation"
+    ],
+    "origin": "David Bushnell (États-Unis)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Sous-marin",
+    "image_url": "/images/nodes/sous-marin.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "cuivre",
+        "name": "Cuivre",
+        "relation_type": "material",
+        "quantity_hint": "modérément",
+        "exists": true
+      },
+      {
+        "id": "moteur-electrique",
+        "name": "Moteur électrique",
+        "relation_type": "tool",
+        "quantity_hint": "quelques-uns",
+        "exists": true
+      },
+      {
+        "id": "helice",
+        "name": "Hélice",
+        "relation_type": "component",
+        "quantity_hint": "une ou deux",
+        "exists": false
+      },
+      {
+        "id": "ballast",
+        "name": "Ballast",
+        "relation_type": "component",
+        "quantity_hint": "plusieurs",
+        "exists": false
+      },
+      {
+        "id": "electricite",
+        "name": "Électricité",
+        "relation_type": "energy",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "soudure",
+        "name": "Soudure",
+        "relation_type": "knowledge",
+        "quantity_hint": "",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "sous-marin-nucleaire",
+        "name": "Sous-marin nucléaire",
+        "exists": false
+      },
+      {
+        "id": "bathyscaphe",
+        "name": "Bathyscaphe",
+        "exists": false
+      },
+      {
+        "id": "torpille",
+        "name": "Torpille",
+        "exists": false
+      }
+    ]
+  },
+  "charpente": {
+    "name_en": "Roof framework",
+    "description": "La charpente est un assemblage d'éléments en bois, métal ou béton servant à soutenir ou couvrir des constructions. Elle constitue l'ossature porteuse d'un bâtiment, permettant de transmettre le poids de la couverture vers les murs porteurs. Cette technique fondamentale de construction évolue depuis l'Antiquité avec différents matériaux et méthodes d'assemblage.",
+    "tags": [
+      "ossature",
+      "toiture",
+      "assemblage",
+      "structure",
+      "porteur"
+    ],
+    "origin": "Grèce antique, Gaule",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Charpente",
+    "image_url": "/images/nodes/charpente.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "scie",
+        "name": "Scie",
+        "relation_type": "tool",
+        "quantity_hint": "1",
+        "exists": true
+      },
+      {
+        "id": "hache",
+        "name": "Hache",
+        "relation_type": "tool",
+        "quantity_hint": "1",
+        "exists": true
+      },
+      {
+        "id": "marteau",
+        "name": "Marteau",
+        "relation_type": "tool",
+        "quantity_hint": "1",
+        "exists": true
+      },
+      {
+        "id": "clou",
+        "name": "Clou",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "pont",
+        "name": "Pont",
+        "exists": true
+      },
+      {
+        "id": "gratte-ciel",
+        "name": "Gratte-ciel",
+        "exists": true
+      },
+      {
+        "id": "structure-metallique",
+        "name": "Structure métallique",
+        "exists": true
+      },
+      {
+        "id": "maison-ossature-bois",
+        "name": "Maison à ossature bois",
+        "exists": false
+      },
+      {
+        "id": "charpente-lamelle-colle",
+        "name": "Charpente lamellé-collé",
+        "exists": false
+      }
+    ]
+  },
+  "tuyau": {
+    "name_en": "Pipe",
+    "description": "Conduit cylindrique permettant de transporter des fluides (eau, gaz, vapeur) d'un point à un autre. Le tuyau représente une invention fondamentale pour l'adduction d'eau, l'assainissement et le transport de fluides, utilisé depuis l'Antiquité avec des matériaux variés selon les époques.",
+    "tags": [
+      "conduite",
+      "fluide",
+      "eau",
+      "transport",
+      "canalisation"
+    ],
+    "origin": "Égypte antique",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Tuyau",
+    "image_url": "/images/nodes/tuyau.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "argile",
+        "name": "Argile",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "cuivre",
+        "name": "Cuivre",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "four",
+        "name": "Four",
+        "relation_type": "tool",
+        "quantity_hint": "1",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": "1",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "fondations",
+        "name": "Fondations",
+        "exists": true
+      },
+      {
+        "id": "aqueduc",
+        "name": "Aqueduc",
+        "exists": false
+      },
+      {
+        "id": "plomberie",
+        "name": "Plomberie",
+        "exists": false
+      },
+      {
+        "id": "reseau-distribution-eau",
+        "name": "Réseau de distribution d'eau",
+        "exists": false
+      },
+      {
+        "id": "systeme-assainissement",
+        "name": "Système d'assainissement",
+        "exists": false
+      }
+    ]
+  },
+  "conserve": {
+    "name_en": "Canned food",
+    "description": "<cite index=\"3-1,3-2\">La conserve, ou appertisation, est une méthode de préservation des aliments qui consiste à les mettre dans des récipients rendus étanches à l'air, puis chauffés pour détruire les micro-organismes pathogènes.</cite> <cite index=\"1-4,3-14\">Cette révolution alimentaire fut inventée en 1795 par Nicolas Appert, confiseur français</cite>, qui découvrit qu'en chauffant des aliments à plus de 100°C dans des récipients hermétiquement clos, ils pouvaient se conserver très longtemps sans altération.",
+    "tags": [
+      "alimentation",
+      "preservation",
+      "sterilisation",
+      "appertisation"
+    ],
+    "origin": "Nicolas Appert, France",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Conserve",
+    "_ai_built_upon": [
+      {
+        "id": "feu",
+        "name": "Feu",
+        "relation_type": "energy",
+        "quantity_hint": "nécessaire",
+        "exists": true
+      },
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "tool",
+        "quantity_hint": "bain-marie",
+        "exists": true
+      },
+      {
+        "id": "verre",
+        "name": "Verre",
+        "relation_type": "material",
+        "quantity_hint": "récipient initial",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "boîtes métalliques",
+        "exists": true
+      },
+      {
+        "id": "etain",
+        "name": "Étain",
+        "relation_type": "material",
+        "quantity_hint": "revêtement fer-blanc",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "industrie-alimentaire",
+        "name": "Industrie alimentaire",
+        "exists": false
+      },
+      {
+        "id": "boite-conserve",
+        "name": "Boîte de conserve métallique",
+        "exists": false
+      },
+      {
+        "id": "commerce-maritime",
+        "name": "Commerce maritime moderne",
+        "exists": false
+      },
+      {
+        "id": "distribution-alimentaire",
+        "name": "Distribution alimentaire",
+        "exists": false
+      }
+    ]
+  }
+}
