@@ -13,7 +13,7 @@ export function ExploreWireframeHeader() {
 
   return (
     <header
-      className="fixed left-0 right-0 top-0 z-50 flex h-14 shrink-0 items-center gap-2 border-b border-[#2A3042]/60 bg-[#0A0E17]/95 px-3 backdrop-blur-md md:gap-3 md:px-4"
+      className="fixed left-0 right-0 top-0 z-[100] flex h-14 shrink-0 items-center gap-2 border-b border-[#2A3042]/60 bg-[#0A0E17]/95 px-3 backdrop-blur-md md:gap-3 md:px-4"
       style={{ backgroundColor: 'rgba(10, 14, 23, 0.95)' }}
     >
       <button

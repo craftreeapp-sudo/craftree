@@ -21,7 +21,7 @@ const BTN =
   'inline-flex shrink-0 items-center gap-1.5 rounded-[6px] border border-[#2A3042] bg-transparent px-2.5 py-1 text-[13px] text-[#E8ECF4] transition-colors hover:border-[#3B82F6]';
 
 const MENU =
-  'absolute z-[80] mt-1 min-w-[11rem] rounded-[8px] border border-[#2A3042] bg-[#1A1F2E] py-1 shadow-[0_8px_24px_rgba(0,0,0,0.4)]';
+  'absolute z-[110] mt-1 min-w-[11rem] rounded-[8px] border border-[#2A3042] bg-[#1A1F2E] py-1 shadow-[0_8px_24px_rgba(0,0,0,0.4)]';
 
 const ITEM =
   'flex w-full items-center gap-2 px-3 py-2 text-left text-[13px] text-[#E8ECF4] transition-colors hover:bg-[#111827]';

@@ -36,7 +36,7 @@ export function Header() {
 
   return (
     <header
-      className="fixed left-0 right-0 top-0 z-50 flex h-14 items-center justify-between gap-2 px-3 backdrop-blur-md md:gap-4 md:px-4 xl:px-6"
+      className="fixed left-0 right-0 top-0 z-[100] flex h-14 items-center justify-between gap-2 px-3 backdrop-blur-md md:gap-4 md:px-4 xl:px-6"
       style={{
         height: '56px',
         backgroundColor: 'rgba(10, 14, 23, 0.9)',
