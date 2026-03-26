@@ -6,7 +6,8 @@ export function pickNodeDisplayName(
   name: string,
   nameEn?: string | null
 ): string {
-  if (locale === 'fr') return name;
+  const frenchUi = locale === 'fr' || locale.startsWith('fr-');
+  if (frenchUi) return name;
   const en = nameEn?.trim();
   if (en) return en;
   return name;

@@ -339,7 +339,10 @@
     "cancel": "取消",
     "closeModal": "关闭",
     "linkSuggestionSent": "链接建议已发送！",
-    "newNodeSuggestionSent": "新发明建议已发送！"
+    "newNodeSuggestionSent": "新发明建议已发送！",
+    "oauthConfigMissing": "未配置 Supabase。请在 .env.local 中添加 NEXT_PUBLIC_SUPABASE_URL 和 NEXT_PUBLIC_SUPABASE_ANON_KEY。",
+    "oauthNoUrl": "无法获取 Google 登录链接。请在 Supabase 中检查 Google 提供方与重定向 URL。",
+    "oauthSignInFailed": "无法启动 Google 登录，请重试。"
   },
   "admin": {
     "navLink": "管理",

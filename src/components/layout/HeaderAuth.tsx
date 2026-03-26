@@ -4,10 +4,12 @@ import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useAuthStore } from '@/stores/auth-store';
+import { useToastStore } from '@/stores/toast-store';
 import { signInWithGoogle, signOut } from '@/lib/auth-client';
 
 export function HeaderAuth() {
   const t = useTranslations('auth');
+  const pushToast = useToastStore((s) => s.pushToast);
   const { user, isLoading, isAdmin } = useAuthStore();
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -21,9 +23,19 @@ export function HeaderAuth() {
     return () => document.removeEventListener('mousedown', onDoc);
   }, [open]);
 
-  const onSignIn = useCallback(() => {
-    void signInWithGoogle();
-  }, []);
+  const onSignIn = useCallback(async () => {
+    const { error, code } = await signInWithGoogle();
+    if (!error) return;
+    if (code === 'missing_config') {
+      pushToast(t('oauthConfigMissing'), 'error');
+      return;
+    }
+    if (code === 'no_oauth_url') {
+      pushToast(t('oauthNoUrl'), 'error');
+      return;
+    }
+    pushToast(error.message || t('oauthSignInFailed'), 'error');
+  }, [pushToast, t]);
 
   const onSignOut = useCallback(() => {
     setOpen(false);

@@ -339,7 +339,10 @@
     "cancel": "रद्द करें",
     "closeModal": "बंद करें",
     "linkSuggestionSent": "लिंक सुझाव भेजा गया!",
-    "newNodeSuggestionSent": "नवीन आविष्कार सुझाव भेजा गया!"
+    "newNodeSuggestionSent": "नवीन आविष्कार सुझाव भेजा गया!",
+    "oauthConfigMissing": "Supabase कॉन्फ़िगर नहीं है। .env.local में NEXT_PUBLIC_SUPABASE_URL और NEXT_PUBLIC_SUPABASE_ANON_KEY जोड़ें।",
+    "oauthNoUrl": "Google साइन-इन लिंक नहीं मिला। Supabase में प्रदाता और रीडायरेक्ट URL जाँचें।",
+    "oauthSignInFailed": "Google साइन-इन शुरू नहीं हो सका। कृपया पुनः प्रयास करें।"
   },
   "admin": {
     "navLink": "प्रशासन",

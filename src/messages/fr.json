@@ -339,7 +339,10 @@
     "cancel": "Annuler",
     "closeModal": "Fermer",
     "linkSuggestionSent": "Suggestion de lien envoyée !",
-    "newNodeSuggestionSent": "Suggestion d'invention envoyée !"
+    "newNodeSuggestionSent": "Suggestion d'invention envoyée !",
+    "oauthConfigMissing": "Supabase n’est pas configuré : ajoutez NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY dans .env.local.",
+    "oauthNoUrl": "Impossible d’obtenir le lien Google. Vérifiez le provider Google et les URLs de redirection dans Supabase.",
+    "oauthSignInFailed": "Impossible de lancer la connexion Google. Réessayez."
   },
   "admin": {
     "navLink": "Administration",

@@ -662,9 +662,9 @@ export function NodeDetailSidebar() {
                     href={detail.wikipedia_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm text-[#8B95A8] underline-offset-2 transition-colors hover:text-[#3B82F6] hover:underline"
+                    className="inline-flex w-full items-center justify-center rounded-lg border border-[#E5E7EB] bg-white px-3 py-2.5 text-sm font-medium text-[#0A0E17] transition-colors hover:bg-[#F3F4F6]"
                   >
-                    {tSidebar('wikipedia')} →
+                    {tSidebar('wikipedia')}
                   </a>
                 </motion.div>
               )}

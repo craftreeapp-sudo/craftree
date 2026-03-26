@@ -339,7 +339,10 @@
     "cancel": "Cancel",
     "closeModal": "Close",
     "linkSuggestionSent": "Link suggestion sent!",
-    "newNodeSuggestionSent": "Invention suggestion sent!"
+    "newNodeSuggestionSent": "Invention suggestion sent!",
+    "oauthConfigMissing": "Supabase is not configured. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to .env.local.",
+    "oauthNoUrl": "Could not get the Google sign-in link. Check the Google provider and redirect URLs in Supabase.",
+    "oauthSignInFailed": "Could not start Google sign-in. Please try again."
   },
   "admin": {
     "navLink": "Administration",

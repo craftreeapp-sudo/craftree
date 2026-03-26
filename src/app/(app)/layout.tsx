@@ -3,7 +3,7 @@ import { SiteFooter } from '@/components/layout/SiteFooter';
 
 /**
  * Routes avec barre globale (recherche, filtres) : graphe, vues dérivées.
- * Timeline, Stats et Catégories sont dans le pied de page, pas dans la barre du haut.
+ * Timeline, Stats et navigation secondaire dans le pied de page, pas dans la barre du haut.
  */
 export default function AppShellLayout({
   children,

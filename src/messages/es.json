@@ -339,7 +339,10 @@
     "cancel": "Cancelar",
     "closeModal": "Cerrar",
     "linkSuggestionSent": "¡Sugerencia de enlace enviada!",
-    "newNodeSuggestionSent": "¡Sugerencia de invento enviada!"
+    "newNodeSuggestionSent": "¡Sugerencia de invento enviada!",
+    "oauthConfigMissing": "Supabase no está configurado. Añade NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_ANON_KEY en .env.local.",
+    "oauthNoUrl": "No se pudo obtener el enlace de Google. Revisa el proveedor y las URLs de redirección en Supabase.",
+    "oauthSignInFailed": "No se pudo iniciar el inicio de sesión con Google. Inténtalo de nuevo."
   },
   "admin": {
     "navLink": "Administración",

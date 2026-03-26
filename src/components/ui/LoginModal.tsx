@@ -3,18 +3,30 @@
 import { useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { useUIStore } from '@/stores/ui-store';
+import { useToastStore } from '@/stores/toast-store';
 import { signInWithGoogle } from '@/lib/auth-client';
 
 export function LoginModal() {
   const open = useUIStore((s) => s.loginModalOpen);
   const setOpen = useUIStore((s) => s.setLoginModalOpen);
+  const pushToast = useToastStore((s) => s.pushToast);
   const t = useTranslations('auth');
 
   const onClose = useCallback(() => setOpen(false), [setOpen]);
 
-  const onGoogle = useCallback(() => {
-    void signInWithGoogle();
-  }, []);
+  const onGoogle = useCallback(async () => {
+    const { error, code } = await signInWithGoogle();
+    if (!error) return;
+    if (code === 'missing_config') {
+      pushToast(t('oauthConfigMissing'), 'error');
+      return;
+    }
+    if (code === 'no_oauth_url') {
+      pushToast(t('oauthNoUrl'), 'error');
+      return;
+    }
+    pushToast(error.message || t('oauthSignInFailed'), 'error');
+  }, [pushToast, t]);
 
   if (!open) return null;
 

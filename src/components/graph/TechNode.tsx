@@ -38,25 +38,44 @@ import type { Era, NodeCategory, TechNodeDetails, TechNodeType } from '@/lib/typ
 
 const BORDER_DEFAULT = '#2A3042';
 
-const FOCUS_DESC_HOVER_MS = 400;
+const FOCUS_DESC_HOVER_MS = 200;
 const FOCUS_DESC_GAP_PX = 8;
 const FOCUS_DESC_ARROW_PX = 6;
-const FOCUS_DESC_EST_BODY_PX = 148;
 const FOCUS_DESC_VIEWPORT_MARGIN = 8;
-const FOCUS_DESC_MAX_W = 280;
+const FOCUS_DESC_MAX_W = 320;
 
 function pickFocusTooltipDescription(
   detail: TechNodeDetails | null | undefined,
   locale: string
 ): string {
   if (!detail) return '';
-  if (locale === 'fr') return detail.description?.trim() ?? '';
+  const frenchUi = locale === 'fr' || locale.startsWith('fr-');
+  if (frenchUi) return detail.description?.trim() ?? '';
   const en = detail.description_en?.trim();
   if (en) return en;
   return detail.description?.trim() ?? '';
 }
 
-function computeFocusDescTooltipPlacement(rect: DOMRect): {
+/** Hauteur totale estimée du tooltip (titre + description + padding) pour le placement. */
+function estimateFocusTooltipTotalHeightPx(description: string): number {
+  const padY = 24;
+  const titleBlock = 26;
+  const gap = 4;
+  const t = description.trim();
+  if (!t) return padY + titleBlock + gap + 20;
+  const approxCharsPerLine = Math.max(28, Math.floor((FOCUS_DESC_MAX_W - 32) / 6.8));
+  const lines = Math.max(1, Math.ceil(t.length / approxCharsPerLine));
+  const descH = Math.min(
+    window.innerHeight * 0.58,
+    20 + lines * 17 * 1.4
+  );
+  return padY + titleBlock + gap + descH;
+}
+
+function computeFocusDescTooltipPlacement(
+  rect: DOMRect,
+  tooltipTotalHeightPx: number
+): {
   placement: 'above' | 'below';
   top: number;
   left: number;
@@ -69,7 +88,10 @@ function computeFocusDescTooltipPlacement(rect: DOMRect): {
   );
 
   const fitsAbove =
-    rect.top - FOCUS_DESC_GAP_PX - FOCUS_DESC_ARROW_PX - FOCUS_DESC_EST_BODY_PX >=
+    rect.top -
+      FOCUS_DESC_GAP_PX -
+      FOCUS_DESC_ARROW_PX -
+      tooltipTotalHeightPx >=
     FOCUS_DESC_VIEWPORT_MARGIN;
 
   if (fitsAbove) {
@@ -79,7 +101,7 @@ function computeFocusDescTooltipPlacement(rect: DOMRect): {
         rect.top -
         FOCUS_DESC_GAP_PX -
         FOCUS_DESC_ARROW_PX -
-        FOCUS_DESC_EST_BODY_PX,
+        tooltipTotalHeightPx,
       left,
     };
   }
@@ -156,16 +178,14 @@ function FocusNeighborDescTooltipView({
           {name}
         </div>
         <div
-          className={empty ? 'italic' : ''}
+          className={`max-h-[min(58vh,520px)] overflow-y-auto overscroll-contain pr-0.5 ${empty ? 'italic' : ''}`}
           style={{
             marginTop: 4,
             fontSize: 12,
             color: '#8B95A8',
             lineHeight: 1.4,
-            display: '-webkit-box',
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
           }}
         >
           {empty ? emptyLabel : description}
@@ -271,15 +291,14 @@ function TechNodeComponent({
   const tCat = useTranslations('categories');
   const tExplore = useTranslations('explore');
   const mergeDetail = useNodeDetailsStore((s) => s.mergeDetail);
-  const displayName = useMemo(
-    () =>
-      pickNodeDisplayName(
-        locale,
-        nodeData.name,
-        nodeData.name_en ?? getNameEnForNode(id)
-      ),
-    [locale, nodeData.name, nodeData.name_en, id]
-  );
+  const detailNameEn = useNodeDetailsStore((s) => s.byId[id]?.name_en);
+  const displayName = useMemo(() => {
+    const nameEnResolved =
+      nodeData.name_en?.trim() ||
+      detailNameEn?.trim() ||
+      getNameEnForNode(id);
+    return pickNodeDisplayName(locale, nodeData.name, nameEnResolved);
+  }, [locale, nodeData.name, nodeData.name_en, id, detailNameEn]);
   const categoryBadge = tCat(nodeData.category);
   const categoryColor = getCategoryColor(nodeData.category);
   const exploreHoveredNodeId = useUIStore((s) => s.exploreHoveredNodeId);
@@ -476,8 +495,9 @@ function TechNodeComponent({
     if (!focusDescHoverActiveRef.current || !cardRef.current) return;
     const detail = useNodeDetailsStore.getState().byId[id];
     const rect = cardRef.current.getBoundingClientRect();
-    const pos = computeFocusDescTooltipPlacement(rect);
     const description = pickFocusTooltipDescription(detail ?? null, locale);
+    const totalH = estimateFocusTooltipTotalHeightPx(description);
+    const pos = computeFocusDescTooltipPlacement(rect, totalH);
     setFocusDescTooltip({ ...pos, description });
   }, [id, locale, mergeDetail]);
 

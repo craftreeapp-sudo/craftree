@@ -339,7 +339,10 @@
     "cancel": "إلغاء",
     "closeModal": "إغلاق",
     "linkSuggestionSent": "تم إرسال اقتراح الرابط!",
-    "newNodeSuggestionSent": "تم إرسال اقتراح الاختراع!"
+    "newNodeSuggestionSent": "تم إرسال اقتراح الاختراع!",
+    "oauthConfigMissing": "لم يُضبط Supabase. أضف NEXT_PUBLIC_SUPABASE_URL و NEXT_PUBLIC_SUPABASE_ANON_KEY في ملف .env.local.",
+    "oauthNoUrl": "تعذر الحصول على رابط تسجيل الدخول عبر Google. تحقق من مزود Google وعناوين إعادة التوجيه في Supabase.",
+    "oauthSignInFailed": "تعذر بدء تسجيل الدخول عبر Google. حاول مرة أخرى."
   },
   "admin": {
     "navLink": "الإدارة",

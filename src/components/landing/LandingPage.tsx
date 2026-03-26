@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 import { SiteFooter } from '@/components/layout/SiteFooter';
+import { HeaderAuth } from '@/components/layout/HeaderAuth';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { LandingHeroBackground } from '@/components/landing/LandingHeroBackground';
@@ -88,7 +89,10 @@ export function LandingPage({ stats, feature, heroCards, demoNodes }: Props) {
         >
           Craft<span className="text-[#3B82F6]">ree</span>
         </Link>
-        <LanguageSwitcher align="end" />
+        <div className="flex items-center gap-3">
+          <HeaderAuth />
+          <LanguageSwitcher align="end" />
+        </div>
       </nav>
 
       <section className="relative flex min-h-screen min-h-[100dvh] flex-col items-center justify-center px-5 pb-20 pt-24 text-center md:px-6">
