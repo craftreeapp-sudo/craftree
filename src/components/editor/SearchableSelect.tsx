@@ -65,7 +65,7 @@ export function SearchableSelect({
         type="button"
         disabled={disabled}
         onClick={() => !disabled && setOpen((v) => !v)}
-        className="flex w-full items-center justify-between rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-left text-sm text-[#E8ECF4] outline-none focus:border-[#3B82F6] disabled:opacity-50"
+        className="flex w-full items-center justify-between rounded-lg border border-border bg-surface px-3 py-2 text-left text-sm text-foreground outline-none focus:border-accent disabled:opacity-50"
       >
         <span className="truncate">
           {selected ? (
@@ -81,20 +81,20 @@ export function SearchableSelect({
               {selected.label}
             </span>
           ) : (
-            <span className="text-[#5A6175]">{placeholder}</span>
+            <span className="text-muted-foreground">{placeholder}</span>
           )}
         </span>
-        <span className="text-[#8B95A8]">▼</span>
+        <span className="text-muted-foreground">▼</span>
       </button>
       {open ? (
-        <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-hidden rounded-lg border border-[#2A3042] bg-[#1A1F2E] shadow-xl">
+        <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-hidden rounded-lg border border-border bg-surface-elevated shadow-xl">
           <input
             ref={inputRef}
             type="text"
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={placeholder}
-            className="w-full border-b border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] placeholder:text-[#5A6175] outline-none focus:border-[#3B82F6]"
+            className="w-full border-b border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-accent"
             autoFocus
           />
           <ul className="max-h-48 overflow-y-auto py-1 text-sm">
@@ -102,7 +102,7 @@ export function SearchableSelect({
               <li key={o.value}>
                 <button
                   type="button"
-                  className="flex w-full items-center gap-2 px-3 py-2 text-left text-[#E8ECF4] hover:bg-[#2A3042]"
+                  className="flex w-full items-center gap-2 px-3 py-2 text-left text-foreground hover:bg-border"
                   onClick={() => {
                     onChange(o.value);
                     setOpen(false);
@@ -122,7 +122,7 @@ export function SearchableSelect({
               </li>
             ))}
             {filtered.length === 0 ? (
-              <li className="px-3 py-2 text-[#8B95A8]">Aucun résultat</li>
+              <li className="px-3 py-2 text-muted-foreground">Aucun résultat</li>
             ) : null}
           </ul>
         </div>

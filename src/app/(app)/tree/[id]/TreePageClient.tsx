@@ -25,34 +25,34 @@ export function TreePageClient({
 
   return (
     <main className="flex min-h-0 flex-1 flex-col overflow-hidden pt-14">
-      <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-[#2A3042] bg-[#0A0E17]/95 px-4 py-2.5 backdrop-blur-md">
+      <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-border bg-page/95 px-4 py-2.5 backdrop-blur-md">
         <nav
           className="flex min-w-0 flex-1 flex-wrap items-center gap-1.5 text-sm"
           aria-label={tNav('breadcrumbAria')}
         >
           <Link
             href="/"
-            className="shrink-0 text-[#3B82F6] transition-colors hover:underline"
+            className="shrink-0 text-accent transition-colors hover:underline"
           >
             Craftree
           </Link>
-          <span className="text-[#8B95A8]" aria-hidden>
+          <span className="text-muted-foreground" aria-hidden>
             ›
           </span>
           <span
-            className="truncate font-medium text-[#E8ECF4]"
+            className="truncate font-medium text-foreground"
             title={label}
           >
             {label}
           </span>
-          <span className="text-[#8B95A8]" aria-hidden>
+          <span className="text-muted-foreground" aria-hidden>
             ›
           </span>
-          <span className="text-[#8B95A8]">{tNav('dependencyTree')}</span>
+          <span className="text-muted-foreground">{tNav('dependencyTree')}</span>
         </nav>
         <Link
           href={`/explore?node=${encodeURIComponent(id)}`}
-          className="shrink-0 rounded-lg border border-[#2A3042] bg-[#1A1F2E] px-3 py-1.5 text-xs font-medium text-[#E8ECF4] transition-colors hover:bg-[#2A3042]"
+          className="shrink-0 rounded-lg border border-border bg-surface-elevated px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-border"
         >
           {te('backToTree')}
         </Link>

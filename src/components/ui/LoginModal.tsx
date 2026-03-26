@@ -44,21 +44,21 @@ export function LoginModal() {
         onClick={onClose}
       />
       <div
-        className="relative w-full max-w-[360px] rounded-[12px] border border-[#2A3042] bg-[#1A1F2E] p-6 shadow-xl"
+        className="relative w-full max-w-[360px] rounded-[12px] border border-border bg-surface-elevated p-6 shadow-xl"
       >
         <h2
           id="login-modal-title"
-          className="text-center text-lg font-semibold text-[#E8ECF4]"
+          className="text-center text-lg font-semibold text-foreground"
         >
           {t('loginModalTitle')}
         </h2>
-        <p className="mt-2 text-center text-sm text-[#8B95A8]">
+        <p className="mt-2 text-center text-sm text-muted-foreground">
           {t('loginModalSubtitle')}
         </p>
         <button
           type="button"
           onClick={onGoogle}
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-medium text-[#0A0E17] transition-opacity hover:opacity-95"
+          className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-medium text-slate-900 transition-opacity hover:opacity-95"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden>
             <path
@@ -83,7 +83,7 @@ export function LoginModal() {
         <button
           type="button"
           onClick={onClose}
-          className="mt-3 w-full py-2 text-sm text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
+          className="mt-3 w-full py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           {t('cancel')}
         </button>

@@ -61,10 +61,10 @@ export function StatsSection({ stats }: { stats: LandingStats }) {
   ];
 
   return (
-    <section className="border-y border-[#2A3042]/80 bg-[#0A0E17] px-4 py-14 md:px-6 md:py-20">
+    <section className="border-y border-border/80 bg-page px-4 py-14 md:px-6 md:py-20">
       <div className="mx-auto max-w-6xl">
         <motion.h2
-          className="mb-12 text-center text-2xl font-bold tracking-tight text-[#E8ECF4] md:text-3xl"
+          className="mb-12 text-center text-2xl font-bold tracking-tight text-foreground md:text-3xl"
           style={{
             fontFamily:
               'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -80,14 +80,14 @@ export function StatsSection({ stats }: { stats: LandingStats }) {
           {cards.map((card, i) => (
             <motion.div
               key={card.label}
-              className="rounded-2xl border border-[#2A3042] bg-[#111827]/80 px-4 py-6 text-center shadow-lg backdrop-blur-sm md:px-6 md:py-8"
+              className="rounded-2xl border border-border bg-surface/80 px-4 py-6 text-center shadow-lg backdrop-blur-sm md:px-6 md:py-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.45, delay: i * 0.06 }}
             >
               <div
-                className="text-4xl font-bold tabular-nums text-[#3B82F6] md:text-5xl"
+                className="text-4xl font-bold tabular-nums text-accent md:text-5xl"
                 style={{
                   fontFamily:
                     'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -95,15 +95,15 @@ export function StatsSection({ stats }: { stats: LandingStats }) {
               >
                 <AnimatedInt value={card.value} />
                 {card.depth ? (
-                  <span className="ms-1 text-2xl font-semibold text-[#8B95A8] md:text-3xl">
+                  <span className="ms-1 text-2xl font-semibold text-muted-foreground md:text-3xl">
                     {' '}
                     {t('statsDepthSuffix')}
                   </span>
                 ) : null}
               </div>
-              <p className="mt-3 text-sm text-[#8B95A8]">
+              <p className="mt-3 text-sm text-muted-foreground">
                 {card.depth ? (
-                  <span className="font-medium text-[#E8ECF4]">
+                  <span className="font-medium text-foreground">
                     {t('statsDepthMax')}
                   </span>
                 ) : (

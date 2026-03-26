@@ -42,9 +42,9 @@ const EDGE_STYLES: Record<
   { stroke: string; strokeWidth: number; strokeDasharray?: string; opacity: number }
 > = {
   material: {
-    stroke: '#94A3B8',
-    strokeWidth: 1.5,
-    opacity: 0.5,
+    stroke: 'var(--edge-stroke-material)',
+    strokeWidth: 1.75,
+    opacity: 0.72,
   },
   tool: {
     stroke: '#A78BFA',
@@ -65,9 +65,9 @@ const EDGE_STYLES: Record<
     opacity: 0.9,
   },
   catalyst: {
-    stroke: '#8B95A8',
-    strokeWidth: 0.75,
-    opacity: 0.3,
+    stroke: 'var(--edge-stroke-catalyst)',
+    strokeWidth: 0.85,
+    opacity: 0.45,
   },
 };
 
@@ -260,7 +260,7 @@ function TechEdgeComponent({
         introOpacity > 0.02 &&
         !focusTransitionAnimating && (
         <>
-          <circle r={3} fill="#E8ECF4" opacity={Math.min(1, 0.95 * opacity)}>
+          <circle r={3} fill="var(--foreground)" opacity={Math.min(1, 0.95 * opacity)}>
             <animateMotion
               dur="2.2s"
               repeatCount="indefinite"
@@ -268,7 +268,7 @@ function TechEdgeComponent({
               rotate="auto"
             />
           </circle>
-          <circle r={2.5} fill="#3B82F6" opacity={Math.min(1, 0.85 * opacity)}>
+          <circle r={2.5} fill="var(--accent)" opacity={Math.min(1, 0.85 * opacity)}>
             <animateMotion
               dur="2.2s"
               repeatCount="indefinite"

@@ -169,33 +169,33 @@ export function AdminPageClient() {
 
   if (isLoading || !isAdmin) {
     return (
-      <div className="flex min-h-[40vh] items-center justify-center bg-[#0A0E17] text-[#8B95A8]">
+      <div className="flex min-h-[40vh] items-center justify-center bg-page text-muted-foreground">
         …
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0E17] text-[#E8ECF4]">
-      <header className="flex shrink-0 items-center justify-between border-b border-[#2A3042] px-4 py-4 md:px-8">
+    <div className="min-h-screen bg-page text-foreground">
+      <header className="flex shrink-0 items-center justify-between border-b border-border px-4 py-4 md:px-8">
         <h1 className="text-lg font-semibold">{t('title')}</h1>
         <Link
           href="/explore"
-          className="text-sm text-[#3B82F6] hover:underline"
+          className="text-sm text-accent hover:underline"
         >
           {t('backToTree')}
         </Link>
       </header>
 
-      <div className="border-b border-[#2A3042] px-4 md:px-8">
+      <div className="border-b border-border px-4 md:px-8">
         <div className="flex flex-wrap gap-2 py-3">
           <button
             type="button"
             onClick={() => setTab('pending')}
             className={`rounded-md px-3 py-2 text-sm font-medium ${
               tab === 'pending'
-                ? 'bg-[#1A1F2E] text-white'
-                : 'text-[#8B95A8] hover:text-[#E8ECF4]'
+                ? 'bg-surface-elevated text-white'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             {t('tabPending')}
@@ -210,8 +210,8 @@ export function AdminPageClient() {
             onClick={() => setTab('history')}
             className={`rounded-md px-3 py-2 text-sm font-medium ${
               tab === 'history'
-                ? 'bg-[#1A1F2E] text-white'
-                : 'text-[#8B95A8] hover:text-[#E8ECF4]'
+                ? 'bg-surface-elevated text-white'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             {t('tabHistory')}
@@ -221,8 +221,8 @@ export function AdminPageClient() {
             onClick={() => setTab('contributors')}
             className={`rounded-md px-3 py-2 text-sm font-medium ${
               tab === 'contributors'
-                ? 'bg-[#1A1F2E] text-white'
-                : 'text-[#8B95A8] hover:text-[#E8ECF4]'
+                ? 'bg-surface-elevated text-white'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             {t('tabContributors')}
@@ -232,15 +232,15 @@ export function AdminPageClient() {
 
       <main className="mx-auto max-w-3xl px-4 py-6 md:px-8">
         {loading ? (
-          <p className="text-[#8B95A8]">…</p>
+          <p className="text-muted-foreground">…</p>
         ) : tab === 'contributors' ? (
           <ul className="space-y-2">
             {contributorList.map((p) => (
               <li
                 key={p.id}
-                className="flex items-center gap-3 rounded-lg border border-[#2A3042] bg-[#1A1F2E] px-4 py-3"
+                className="flex items-center gap-3 rounded-lg border border-border bg-surface-elevated px-4 py-3"
               >
-                <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-[#2A3042] bg-[#111827]">
+                <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border bg-surface">
                   {p.avatar_url ? (
                     <Image
                       src={p.avatar_url}
@@ -251,7 +251,7 @@ export function AdminPageClient() {
                       unoptimized
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center text-xs text-[#8B95A8]">
+                    <div className="flex h-full w-full items-center justify-center text-xs text-muted-foreground">
                       {(p.display_name ?? p.email ?? '?').slice(0, 1)}
                     </div>
                   )}
@@ -260,26 +260,26 @@ export function AdminPageClient() {
                   <p className="truncate font-medium">
                     {p.display_name ?? p.email ?? p.id}
                   </p>
-                  <p className="truncate text-xs text-[#8B95A8]">{p.email}</p>
+                  <p className="truncate text-xs text-muted-foreground">{p.email}</p>
                 </div>
-                <span className="text-sm text-[#8B95A8]">
+                <span className="text-sm text-muted-foreground">
                   {p.contributions_count} {t('contributions')}
                 </span>
               </li>
             ))}
           </ul>
         ) : suggestions.length === 0 ? (
-          <p className="text-[#8B95A8]">{t('noSuggestions')}</p>
+          <p className="text-muted-foreground">{t('noSuggestions')}</p>
         ) : (
           <ul className="space-y-3">
             {suggestions.map((s) => (
               <li
                 key={s.id}
-                className="rounded-lg border border-[#2A3042] bg-[#1A1F2E] p-4"
+                className="rounded-lg border border-border bg-surface-elevated p-4"
               >
                 <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
                   <TypeBadge type={s.suggestion_type} />
-                  <span className="text-xs text-[#8B95A8]">
+                  <span className="text-xs text-muted-foreground">
                     {formatRelativeFr(s.created_at)}
                   </span>
                 </div>
@@ -307,7 +307,7 @@ export function AdminPageClient() {
                     <button
                       type="button"
                       onClick={() => openEditApprove(s)}
-                      className="rounded-md border border-[#3B82F6] bg-transparent px-3 py-2 text-sm text-[#3B82F6]"
+                      className="rounded-md border border-[#3B82F6] bg-transparent px-3 py-2 text-sm text-accent"
                     >
                       {t('editApprove')}
                     </button>
@@ -333,8 +333,8 @@ export function AdminPageClient() {
 
       {editOverride ? (
         <div className="fixed inset-0 z-[400] flex items-center justify-center bg-black/60 p-4">
-          <div className="w-full max-w-lg rounded-lg border border-[#2A3042] bg-[#1A1F2E] p-4">
-            <p className="mb-2 text-sm text-[#8B95A8]">{t('overrideHint')}</p>
+          <div className="w-full max-w-lg rounded-lg border border-border bg-surface-elevated p-4">
+            <p className="mb-2 text-sm text-muted-foreground">{t('overrideHint')}</p>
             <textarea
               value={editOverride.json}
               onChange={(e) =>
@@ -343,7 +343,7 @@ export function AdminPageClient() {
                 )
               }
               rows={12}
-              className="w-full rounded-md border border-[#2A3042] bg-[#111827] p-2 font-mono text-xs text-[#E8ECF4]"
+              className="w-full rounded-md border border-border bg-surface p-2 font-mono text-xs text-foreground"
             />
             <div className="mt-3 flex gap-2">
               <button
@@ -366,7 +366,7 @@ export function AdminPageClient() {
               <button
                 type="button"
                 onClick={() => setEditOverride(null)}
-                className="text-sm text-[#8B95A8]"
+                className="text-sm text-muted-foreground"
               >
                 {tAuth('cancel')}
               </button>
@@ -408,11 +408,11 @@ function ContributorLine({
   userId: string | null;
   profiles: Record<string, ProfileLite>;
 }) {
-  if (!userId) return <p className="mb-2 text-sm text-[#8B95A8]">—</p>;
+  if (!userId) return <p className="mb-2 text-sm text-muted-foreground">—</p>;
   const p = profiles[userId];
   return (
     <div className="mb-3 flex items-center gap-2">
-      <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full border border-[#2A3042]">
+      <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full border border-border">
         {p?.avatar_url ? (
           <Image
             src={p.avatar_url}
@@ -423,12 +423,12 @@ function ContributorLine({
             unoptimized
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-[10px] text-[#8B95A8]">
+          <div className="flex h-full w-full items-center justify-center text-[10px] text-muted-foreground">
             {(p?.display_name ?? p?.email ?? '?').slice(0, 1)}
           </div>
         )}
       </div>
-      <span className="text-sm text-[#E8ECF4]">
+      <span className="text-sm text-foreground">
         {p?.display_name ?? p?.email ?? userId}
       </span>
     </div>
@@ -446,8 +446,8 @@ function SuggestionBody({ row }: { row: SuggestionRow }) {
     return (
       <div className="space-y-2 text-sm">
         {Object.entries(diff).map(([k, v]) => (
-          <div key={k} className="rounded border border-[#2A3042]/80 bg-[#111827]/50 px-2 py-1">
-            <span className="text-xs uppercase text-[#8B95A8]">{k}</span>
+          <div key={k} className="rounded border border-border/80 bg-surface/50 px-2 py-1">
+            <span className="text-xs uppercase text-muted-foreground">{k}</span>
             <div className="mt-1">
               <span className="text-red-400 line-through">
                 {String(v.from ?? '')}
@@ -469,10 +469,10 @@ function SuggestionBody({ row }: { row: SuggestionRow }) {
     };
     return (
       <p className="text-sm">
-        <span className="text-[#3B82F6]">{d.source_id}</span>
+        <span className="text-accent">{d.source_id}</span>
         {' → '}
-        <span className="text-[#3B82F6]">{d.target_id}</span>
-        <span className="text-[#8B95A8]"> ({d.relation_type})</span>
+        <span className="text-accent">{d.target_id}</span>
+        <span className="text-muted-foreground"> ({d.relation_type})</span>
       </p>
     );
   }
@@ -483,14 +483,14 @@ function SuggestionBody({ row }: { row: SuggestionRow }) {
       link: Record<string, unknown>;
     };
     return (
-      <pre className="max-h-40 overflow-auto rounded border border-[#2A3042] bg-[#111827] p-2 text-xs text-[#8B95A8]">
+      <pre className="max-h-40 overflow-auto rounded border border-border bg-surface p-2 text-xs text-muted-foreground">
         {JSON.stringify(d, null, 2)}
       </pre>
     );
   }
 
   return (
-    <pre className="text-xs text-[#8B95A8]">
+    <pre className="text-xs text-muted-foreground">
       {JSON.stringify(data, null, 2)}
     </pre>
   );

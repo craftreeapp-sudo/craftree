@@ -60,7 +60,7 @@ export function HeroGraphBackground() {
       {NODES.map((n, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-xl border border-[#2A3042]/60 bg-[#1A1F2E]/40 shadow-[0_0_24px_rgba(59,130,246,0.12)]"
+          className="absolute rounded-xl border border-border/60 bg-surface-elevated/40 shadow-[0_0_24px_rgba(59,130,246,0.12)]"
           style={{
             left: n.x,
             top: n.y,

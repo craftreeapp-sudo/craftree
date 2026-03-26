@@ -47,7 +47,7 @@ export function CategoriesPickerClient() {
     <main className="mx-auto flex min-h-[calc(100dvh-3.5rem)] w-full max-w-6xl flex-1 flex-col px-4 pb-16 pt-20 md:px-6 md:pt-24">
       <header className="mb-8 text-center md:mb-10">
         <h1
-          className="text-2xl font-semibold tracking-tight text-[#E8ECF4] md:text-3xl"
+          className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
           style={{
             fontFamily:
               'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -55,7 +55,7 @@ export function CategoriesPickerClient() {
         >
           Explorer le Tree
         </h1>
-        <p className="mt-2 text-sm text-[#8B95A8] md:text-base">
+        <p className="mt-2 text-sm text-muted-foreground md:text-base">
           Choisissez une catégorie, une époque ou un type pour voir les technologies
           associées, puis ouvrez le Tree filtré si vous le souhaitez.
         </p>
@@ -66,7 +66,7 @@ export function CategoriesPickerClient() {
         role="tablist"
         aria-label="Type de filtre"
       >
-        <div className="inline-flex w-full max-w-xl flex-wrap gap-1 rounded-xl border border-[#2A3042] bg-[#111827]/90 p-1 shadow-inner sm:flex-nowrap">
+        <div className="inline-flex w-full max-w-xl flex-wrap gap-1 rounded-xl border border-border bg-surface/90 p-1 shadow-inner sm:flex-nowrap">
           {TABS.map((t) => {
             const active = tab === t.id;
             return (
@@ -82,7 +82,7 @@ export function CategoriesPickerClient() {
                 className={`min-h-[44px] flex-1 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors sm:px-5 sm:text-base ${
                   active
                     ? 'bg-[#3B82F6] text-white shadow-md shadow-[#3B82F6]/25'
-                    : 'text-[#8B95A8] hover:bg-[#1A1F2E] hover:text-[#E8ECF4]'
+                    : 'text-muted-foreground hover:bg-surface-elevated hover:text-foreground'
                 }`}
               >
                 {t.label}
@@ -104,7 +104,7 @@ export function CategoriesPickerClient() {
               key={cat}
               type="button"
               onClick={() => onPickCategory(cat)}
-              className="group relative overflow-hidden rounded-xl border border-[#2A3042] bg-[#1A1F2E] text-left shadow-lg transition-transform hover:-translate-y-0.5 hover:border-[#3B82F6]/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6]"
+              className="group relative overflow-hidden rounded-xl border border-border bg-surface-elevated text-left shadow-lg transition-transform hover:-translate-y-0.5 hover:border-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus"
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <Image
@@ -116,7 +116,7 @@ export function CategoriesPickerClient() {
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/50 to-transparent" />
-                <span className="absolute bottom-0 left-0 right-0 p-3 text-sm font-semibold leading-tight text-[#E8ECF4] md:p-4 md:text-base">
+                <span className="absolute bottom-0 left-0 right-0 p-3 text-sm font-semibold leading-tight text-foreground md:p-4 md:text-base">
                   {NODE_CATEGORY_LABELS_FR[cat]}
                 </span>
               </div>
@@ -137,7 +137,7 @@ export function CategoriesPickerClient() {
               key={era}
               type="button"
               onClick={() => onPickEra(era)}
-              className="group relative overflow-hidden rounded-xl border border-[#2A3042] bg-[#1A1F2E] text-left shadow-lg transition-transform hover:-translate-y-0.5 hover:border-[#3B82F6]/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6]"
+              className="group relative overflow-hidden rounded-xl border border-border bg-surface-elevated text-left shadow-lg transition-transform hover:-translate-y-0.5 hover:border-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus"
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <Image
@@ -149,7 +149,7 @@ export function CategoriesPickerClient() {
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/50 to-transparent" />
-                <span className="absolute bottom-0 left-0 right-0 p-3 text-sm font-semibold leading-tight text-[#E8ECF4] md:p-4 md:text-base">
+                <span className="absolute bottom-0 left-0 right-0 p-3 text-sm font-semibold leading-tight text-foreground md:p-4 md:text-base">
                   {ERA_LABELS_FR[era]}
                 </span>
               </div>
@@ -170,7 +170,7 @@ export function CategoriesPickerClient() {
               key={tp}
               type="button"
               onClick={() => onPickType(tp)}
-              className="group relative overflow-hidden rounded-xl border border-[#2A3042] bg-[#1A1F2E] text-left shadow-lg transition-transform hover:-translate-y-0.5 hover:border-[#3B82F6]/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6]"
+              className="group relative overflow-hidden rounded-xl border border-border bg-surface-elevated text-left shadow-lg transition-transform hover:-translate-y-0.5 hover:border-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus"
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <Image
@@ -182,7 +182,7 @@ export function CategoriesPickerClient() {
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/50 to-transparent" />
-                <span className="absolute bottom-0 left-0 right-0 p-3 text-center text-sm font-semibold leading-tight text-[#E8ECF4] md:p-4 md:text-base">
+                <span className="absolute bottom-0 left-0 right-0 p-3 text-center text-sm font-semibold leading-tight text-foreground md:p-4 md:text-base">
                   {TECH_NODE_TYPE_LABELS_FR[tp]}
                 </span>
               </div>

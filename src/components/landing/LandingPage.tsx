@@ -8,6 +8,7 @@ import { SiteFooter } from '@/components/layout/SiteFooter';
 import { HeaderAuth } from '@/components/layout/HeaderAuth';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
+import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher';
 import { LandingHeroBackground } from '@/components/landing/LandingHeroBackground';
 import { LandingHowDemoTree } from '@/components/landing/LandingHowDemoTree';
 import { useCountUp } from '@/hooks/use-count-up';
@@ -74,23 +75,24 @@ export function LandingPage({ stats, feature, heroCards, demoNodes }: Props) {
   ] as const;
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#0A0E17]">
+    <div className="flex min-h-screen flex-col bg-page">
       <nav
         className="absolute left-0 right-0 top-0 z-[100] flex items-center justify-between px-4 py-3 md:px-6 md:py-4"
         aria-label={tNav('mainNav')}
       >
         <Link
           href="/"
-          className="text-lg font-bold tracking-tight text-[#E8ECF4]"
+          className="text-lg font-bold tracking-tight text-foreground"
           style={{
             fontFamily:
               'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
           }}
         >
-          Craft<span className="text-[#3B82F6]">ree</span>
+          Craft<span className="text-accent">ree</span>
         </Link>
         <div className="flex items-center gap-3">
           <HeaderAuth />
+          <ThemeSwitcher align="end" />
           <LanguageSwitcher align="end" />
         </div>
       </nav>
@@ -99,7 +101,7 @@ export function LandingPage({ stats, feature, heroCards, demoNodes }: Props) {
         {heroCards.length > 0 ? <LandingHeroBackground cards={heroCards} /> : null}
         <div className="relative z-10 mx-auto flex w-full max-w-[960px] flex-col items-center">
           <motion.h1
-            className="max-w-3xl font-bold leading-[1.08] tracking-tight text-[#E8ECF4]"
+            className="max-w-3xl font-bold leading-[1.08] tracking-tight text-foreground"
             style={{
               fontFamily:
                 'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -113,7 +115,7 @@ export function LandingPage({ stats, feature, heroCards, demoNodes }: Props) {
           </motion.h1>
 
           <motion.p
-            className="mt-6 max-w-2xl text-lg leading-relaxed text-[#8B95A8] md:text-xl"
+            className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -138,7 +140,7 @@ export function LandingPage({ stats, feature, heroCards, demoNodes }: Props) {
           >
             <Link
               href="/explore"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#3B82F6] px-10 py-3.5 text-base font-semibold text-white shadow-lg shadow-[#3B82F6]/25 transition-colors hover:bg-[#60A5FA] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#93C5FD] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0E17]"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-10 py-3.5 text-base font-semibold text-white shadow-lg shadow-accent/25 transition-colors hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-page"
             >
               {t('cta')}
               <span aria-hidden>→</span>
@@ -149,12 +151,12 @@ export function LandingPage({ stats, feature, heroCards, demoNodes }: Props) {
 
       <section
         ref={statsSectionRef}
-        className="border-t-[0.5px] border-[#1A1F2E] bg-[#0A0E17] px-5 py-14 md:px-6"
+        className="border-t-[0.5px] border-border-subtle bg-page px-5 py-14 md:px-6"
       >
         <div className="mx-auto flex max-w-[960px] flex-col items-center gap-6 text-center md:flex-row md:justify-center md:gap-12">
           <div>
             <p
-              className="text-[36px] font-medium leading-none text-[#E8ECF4]"
+              className="text-[36px] font-medium leading-none text-foreground"
               style={{
                 fontFamily:
                   'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -162,19 +164,19 @@ export function LandingPage({ stats, feature, heroCards, demoNodes }: Props) {
             >
               {nf.format(inventionsCount)}
             </p>
-            <p className="mt-2 text-[14px] text-[#5A6175]">
+            <p className="mt-2 text-[14px] text-muted-foreground">
               {t('stats.inventions')}
             </p>
           </div>
           <span
-            className="hidden select-none text-[20px] leading-none text-[#2A3042] md:inline md:self-center"
+            className="hidden select-none text-[20px] leading-none text-border md:inline md:self-center"
             aria-hidden
           >
             {t('statDot')}
           </span>
           <div>
             <p
-              className="text-[36px] font-medium leading-none text-[#E8ECF4]"
+              className="text-[36px] font-medium leading-none text-foreground"
               style={{
                 fontFamily:
                   'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -182,19 +184,19 @@ export function LandingPage({ stats, feature, heroCards, demoNodes }: Props) {
             >
               {nf.format(linksCount)}
             </p>
-            <p className="mt-2 text-[14px] text-[#5A6175]">
+            <p className="mt-2 text-[14px] text-muted-foreground">
               {t('stats.links')}
             </p>
           </div>
           <span
-            className="hidden select-none text-[20px] leading-none text-[#2A3042] md:inline md:self-center"
+            className="hidden select-none text-[20px] leading-none text-border md:inline md:self-center"
             aria-hidden
           >
             {t('statDot')}
           </span>
           <div>
             <p
-              className="text-[36px] font-medium leading-none text-[#E8ECF4]"
+              className="text-[36px] font-medium leading-none text-foreground"
               style={{
                 fontFamily:
                   'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -202,17 +204,17 @@ export function LandingPage({ stats, feature, heroCards, demoNodes }: Props) {
             >
               {nf.format(layersCount)}
             </p>
-            <p className="mt-2 text-[14px] text-[#5A6175]">
+            <p className="mt-2 text-[14px] text-muted-foreground">
               {t('stats.layers')}
             </p>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#0A0E17] px-5 py-20 md:px-6">
+      <section className="bg-page px-5 py-20 md:px-6">
         <div className="mx-auto w-full max-w-[960px]">
           <h2
-            className="mb-12 text-center text-[22px] font-medium text-[#E8ECF4]"
+            className="mb-12 text-center text-[22px] font-medium text-foreground"
             style={{
               fontFamily:
                 'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -227,15 +229,15 @@ export function LandingPage({ stats, feature, heroCards, demoNodes }: Props) {
                 className="flex flex-col items-center text-center"
               >
                 <div
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#3B82F6] text-[14px] font-bold text-white"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-[14px] font-bold text-white"
                   aria-hidden
                 >
                   {step.n}
                 </div>
-                <h3 className="mt-4 text-[15px] font-medium text-[#E8ECF4]">
+                <h3 className="mt-4 text-[15px] font-medium text-foreground">
                   {step.title}
                 </h3>
-                <p className="mt-2 text-[13px] leading-[1.5] text-[#5A6175]">
+                <p className="mt-2 text-[13px] leading-[1.5] text-muted-foreground">
                   {step.desc}
                 </p>
               </div>
@@ -245,55 +247,55 @@ export function LandingPage({ stats, feature, heroCards, demoNodes }: Props) {
         </div>
       </section>
 
-      <section className="bg-[#0A0E17] px-5 py-16 md:px-6" aria-labelledby="landing-quote-heading">
+      <section className="bg-page px-5 py-16 md:px-6" aria-labelledby="landing-quote-heading">
         <h2 id="landing-quote-heading" className="sr-only">
           {t('quoteSaganHeading')}
         </h2>
         <div className="mx-auto max-w-[640px] text-center">
           <div
-            className="mx-auto h-px w-10 bg-[#2A3042]"
+            className="mx-auto h-px w-10 bg-border"
             aria-hidden
           />
           <blockquote
-            className="mt-6 text-[20px] italic leading-[1.6] text-[#C8CDD8]"
+            className="mt-6 text-[20px] italic leading-[1.6] text-foreground/85"
             style={{
               fontFamily: 'var(--font-serif), Georgia, ui-serif, serif',
             }}
           >
             {t('quoteSagan')}
           </blockquote>
-          <p className="mt-4 text-[14px] font-medium text-[#5A6175]">
+          <p className="mt-4 text-[14px] font-medium text-muted-foreground">
             {t('quoteSaganAttribution')}
           </p>
           <div
-            className="mx-auto mt-6 h-px w-10 bg-[#2A3042]"
+            className="mx-auto mt-6 h-px w-10 bg-border"
             aria-hidden
           />
         </div>
       </section>
 
-      <section className="bg-[#111827] px-5 py-16 md:px-6">
+      <section className="bg-surface px-5 py-16 md:px-6">
         <div className="mx-auto max-w-[960px] text-center">
           <p
-            className="mx-auto max-w-[520px] text-[22px] font-medium leading-snug text-[#E8ECF4]"
+            className="mx-auto max-w-[520px] text-[22px] font-medium leading-snug text-foreground"
             style={{
               fontFamily:
                 'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
             }}
           >
             {t('featureHighlightLead', { name: feature.nodeName })}
-            <span className="text-[#3B82F6]">
+            <span className="text-accent">
               {nf.format(feature.rawMaterialCount)}
             </span>
             {t('featureHighlightMid')}
-            <span className="text-[#3B82F6]">
+            <span className="text-accent">
               {nf.format(feature.transformationLayers)}
             </span>
             {t('featureHighlightEnd')}
           </p>
           <Link
             href={`/explore?node=${encodeURIComponent(feature.nodeId)}`}
-            className="mt-8 inline-flex items-center justify-center rounded-lg border border-[#3B82F6] bg-transparent px-7 py-3 text-base font-medium text-[#3B82F6] transition-colors hover:bg-[#3B82F6] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#93C5FD] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111827]"
+            className="mt-8 inline-flex items-center justify-center rounded-lg border border-accent bg-transparent px-7 py-3 text-base font-medium text-accent transition-colors hover:bg-accent hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
           >
             {t('featureHighlightCta', { name: feature.nodeName })}
           </Link>

@@ -34,9 +34,10 @@ import { FOCUS_ADD_BTN_PX } from './focus-overlay-nodes';
 import { getNodeDetails } from '@/stores/graph-store';
 import { useNodeDetailsStore } from '@/stores/node-details-store';
 import { useAuthStore } from '@/stores/auth-store';
+import { useThemeStore } from '@/stores/theme-store';
 import type { Era, NodeCategory, TechNodeDetails, TechNodeType } from '@/lib/types';
 
-const BORDER_DEFAULT = '#2A3042';
+const BORDER_DEFAULT = 'var(--border)';
 
 const FOCUS_DESC_HOVER_MS = 200;
 const FOCUS_DESC_GAP_PX = 8;
@@ -140,7 +141,7 @@ function FocusNeighborDescTooltipView({
         className="relative"
         style={{
           background: '#1A1F2E',
-          border: '0.5px solid #2A3042',
+          border: '0.5px solid var(--border)',
           borderRadius: 8,
           padding: '12px 16px',
           maxWidth: FOCUS_DESC_MAX_W,
@@ -156,7 +157,7 @@ function FocusNeighborDescTooltipView({
               height: 0,
               borderLeft: '6px solid transparent',
               borderRight: '6px solid transparent',
-              borderTop: '6px solid #1A1F2E',
+              borderTop: '6px solid var(--surface-elevated)',
             }}
             aria-hidden
           />
@@ -169,12 +170,12 @@ function FocusNeighborDescTooltipView({
               height: 0,
               borderLeft: '6px solid transparent',
               borderRight: '6px solid transparent',
-              borderBottom: '6px solid #1A1F2E',
+              borderBottom: '6px solid var(--surface-elevated)',
             }}
             aria-hidden
           />
         )}
-        <div className="font-bold" style={{ fontSize: 14, color: '#E8ECF4' }}>
+        <div className="font-bold" style={{ fontSize: 14, color: 'var(--foreground)' }}>
           {name}
         </div>
         <div
@@ -182,7 +183,7 @@ function FocusNeighborDescTooltipView({
           style={{
             marginTop: 4,
             fontSize: 12,
-            color: '#8B95A8',
+            color: 'var(--muted-foreground)',
             lineHeight: 1.4,
             whiteSpace: 'pre-wrap',
             wordBreak: 'break-word',
@@ -310,6 +311,7 @@ function TechNodeComponent({
   const setEdgesAndRecompute = useGraphStore((s) => s.setEdgesAndRecompute);
   const { navigateToNode } = useExploreNavigation();
   const isAdmin = useAuthStore((s) => s.isAdmin);
+  const themeMode = useThemeStore((s) => s.theme);
 
   const hoverVisual = useMemo(() => {
     if (exploreFocusLayout || !exploreHoveredNodeId) {
@@ -579,8 +581,14 @@ function TechNodeComponent({
     return undefined;
   })();
 
+  const resolvedCardShadow =
+    cardShadow ??
+    (themeMode === 'light'
+      ? '0 1px 3px rgba(15, 23, 42, 0.12), 0 1px 2px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(15, 23, 42, 0.07)'
+      : undefined);
+
   const borderColor = (() => {
-    if (focusSlideBorder) return '#3B82F6';
+    if (focusSlideBorder) return 'var(--accent)';
     if (isSelectedUi) return categoryColor;
     if (hover) return hexToRgba(categoryColor, 0.6);
     if (isolatedNoLinks && !explosionMode) return '#F87171';
@@ -655,7 +663,7 @@ function TechNodeComponent({
           >
             <button
               type="button"
-              className="pointer-events-auto flex shrink-0 items-center justify-center rounded-full bg-[#2A3042] text-white transition-colors hover:bg-[#3B4558] !cursor-pointer"
+              className="pointer-events-auto flex shrink-0 items-center justify-center rounded-full bg-border text-white transition-colors hover:bg-border/80 !cursor-pointer"
               style={{ width: FOCUS_ADD_BTN_PX, height: FOCUS_ADD_BTN_PX, zIndex: 61 }}
               aria-label="Centrer et modifier"
               onPointerDown={(e) => e.stopPropagation()}
@@ -677,7 +685,7 @@ function TechNodeComponent({
             </button>
             <button
               type="button"
-              className="pointer-events-auto flex shrink-0 items-center justify-center rounded-full bg-[#2A3042] transition-colors hover:bg-[#3B4558] !cursor-pointer"
+              className="pointer-events-auto flex shrink-0 items-center justify-center rounded-full bg-border transition-colors hover:bg-border/80 !cursor-pointer"
               style={{
                 width: FOCUS_ADD_BTN_PX,
                 height: FOCUS_ADD_BTN_PX,
@@ -711,7 +719,7 @@ function TechNodeComponent({
             height: cardH,
             borderColor,
             borderWidth,
-            boxShadow: cardShadow,
+            boxShadow: resolvedCardShadow,
             borderStyle: 'solid',
             transitionDelay:
               focusStaggerDelayMs != null
@@ -781,12 +789,12 @@ function TechNodeComponent({
           <div
             className="flex min-h-0 w-full flex-[1_1_56%] flex-col items-stretch justify-start overflow-hidden p-3 text-left"
             style={{
-              backgroundColor: '#1E2432',
+              backgroundColor: 'var(--surface-elevated)',
               borderRadius: '0 0 8px 8px',
             }}
           >
             <span
-              className="line-clamp-2 min-h-[2lh] shrink-0 break-words font-bold leading-snug text-[#E8ECF4]"
+              className="line-clamp-2 min-h-[2lh] shrink-0 break-words font-bold leading-snug text-foreground"
               style={{
                 fontSize: nameSize,
                 marginBottom: 6,
@@ -796,9 +804,9 @@ function TechNodeComponent({
             </span>
             {yearLabel ? (
               <span
-                className="inline-block w-fit rounded px-2 py-1 text-[11px] text-[#8B95A8]"
+                className="inline-block w-fit rounded px-2 py-1 text-[11px] text-muted-foreground"
                 style={{
-                  backgroundColor: '#2A3042',
+                  backgroundColor: 'var(--border)',
                   marginBottom: 6,
                 }}
               >

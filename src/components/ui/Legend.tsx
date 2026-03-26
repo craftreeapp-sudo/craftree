@@ -17,7 +17,7 @@ function LegendHelpIcon() {
   return (
     <span
       aria-hidden
-      className="inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full border border-[#8B95A8]/90 text-[9px] font-bold leading-none text-[#8B95A8]"
+      className="inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full border border-[#8B95A8]/90 text-[9px] font-bold leading-none text-muted-foreground"
     >
       ?
     </span>
@@ -63,7 +63,7 @@ export function Legend() {
   return (
     <div
       ref={rootRef}
-      className={`fixed top-[4.5rem] z-[60] overflow-hidden rounded-lg border border-[#2A3042] bg-[#1A1F2E] shadow-lg ease-out ${
+      className={`fixed top-[4.5rem] z-[60] overflow-hidden rounded-lg border border-border bg-surface-elevated shadow-lg ease-out ${
         isRtl ? 'transition-[right,width,opacity]' : 'transition-[left,width,opacity]'
       } duration-200 ${isExpanded ? 'cursor-default' : 'cursor-pointer'} ${
         focusExploreActive
@@ -80,21 +80,21 @@ export function Legend() {
         <button
           type="button"
           onClick={() => setIsExpanded(true)}
-          className="flex h-9 w-full cursor-pointer items-center justify-center gap-1.5 px-2 text-xs font-medium text-[#E8ECF4] hover:bg-[#111827]/80"
+          className="flex h-9 w-full cursor-pointer items-center justify-center gap-1.5 px-2 text-xs font-medium text-foreground hover:bg-surface/80"
         >
           {tc('legend')}
           <LegendHelpIcon />
         </button>
       ) : (
-        <div className="flex flex-col p-3 pb-3.5 text-xs text-[#8B95A8]">
+        <div className="flex flex-col p-3 pb-3.5 text-xs text-muted-foreground">
           <div className="mb-2 flex shrink-0 items-center justify-between gap-2">
-            <span className="flex items-center gap-1.5 text-xs font-semibold text-[#E8ECF4]">
+            <span className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
               {tc('legend')}
               <LegendHelpIcon />
             </span>
             <button
               type="button"
-              className="flex min-h-9 min-w-9 cursor-pointer items-center justify-center rounded-md p-1.5 text-lg leading-none text-[#8B95A8] hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+              className="flex min-h-9 min-w-9 cursor-pointer items-center justify-center rounded-md p-1.5 text-lg leading-none text-muted-foreground hover:bg-border hover:text-foreground"
               aria-label={tSidebar('collapseLegend')}
               onClick={() => setIsExpanded(false)}
             >

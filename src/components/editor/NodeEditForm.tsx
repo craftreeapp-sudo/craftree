@@ -218,21 +218,21 @@ export function NodeEditForm({
     <div className="flex min-h-0 flex-1 flex-col">
       <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-1">
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">
+          <label className="mb-1 block text-xs text-muted-foreground">
             {te('labelName')}
           </label>
           <input
             value={form.name}
             onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-            className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] outline-none focus:border-[#3B82F6]"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
           />
-          <p className="mt-1 text-xs text-[#5A6175]">
+          <p className="mt-1 text-xs text-muted-foreground">
             {te('idPreview', { id: previewId || '—' })}
           </p>
         </div>
         {editingId && onImageUploadSuccess ? (
           <div className="w-full">
-            <label className="mb-1 block text-xs text-[#8B95A8]">
+            <label className="mb-1 block text-xs text-muted-foreground">
               {te('imageLabel')}
             </label>
             <ImageUploader
@@ -244,7 +244,7 @@ export function NodeEditForm({
           </div>
         ) : null}
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">
+          <label className="mb-1 block text-xs text-muted-foreground">
             {te('labelCategory')}
           </label>
           <select
@@ -255,7 +255,7 @@ export function NodeEditForm({
                 category: e.target.value as NodeCategory,
               }))
             }
-            className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
           >
             {NODE_CATEGORY_ORDER.map((c) => (
               <option key={c} value={c}>
@@ -265,7 +265,7 @@ export function NodeEditForm({
           </select>
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">
+          <label className="mb-1 block text-xs text-muted-foreground">
             {te('labelType')}
           </label>
           <select
@@ -276,7 +276,7 @@ export function NodeEditForm({
                 type: e.target.value as TechNodeType,
               }))
             }
-            className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
           >
             {TECH_NODE_TYPE_ORDER.map((nt) => (
               <option key={nt} value={nt}>
@@ -286,7 +286,7 @@ export function NodeEditForm({
           </select>
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">
+          <label className="mb-1 block text-xs text-muted-foreground">
             {te('labelEra')}
           </label>
           <select
@@ -294,7 +294,7 @@ export function NodeEditForm({
             onChange={(e) =>
               setForm((f) => ({ ...f, era: e.target.value as Era }))
             }
-            className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
           >
             {ERA_ORDER.map((era) => (
               <option key={era} value={era}>
@@ -304,7 +304,7 @@ export function NodeEditForm({
           </select>
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">{te('date')}</label>
+          <label className="mb-1 block text-xs text-muted-foreground">{te('date')}</label>
           <input
             type="text"
             inputMode="numeric"
@@ -313,22 +313,22 @@ export function NodeEditForm({
               setForm((f) => ({ ...f, year_approx: e.target.value }))
             }
             placeholder={te('datePlaceholder')}
-            className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">{te('origin')}</label>
+          <label className="mb-1 block text-xs text-muted-foreground">{te('origin')}</label>
           <input
             value={form.origin}
             onChange={(e) =>
               setForm((f) => ({ ...f, origin: e.target.value }))
             }
             placeholder={te('originPlaceholder')}
-            className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">
+          <label className="mb-1 block text-xs text-muted-foreground">
             {te('labelDescription')}
           </label>
           <textarea
@@ -339,22 +339,22 @@ export function NodeEditForm({
               setForm((f) => ({ ...f, description: e.target.value }))
             }
             placeholder={te('descriptionPlaceholder')}
-            className="min-h-[3rem] w-full resize-none overflow-hidden rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+            className="min-h-[3rem] w-full resize-none overflow-hidden rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">{te('tags')}</label>
+          <label className="mb-1 block text-xs text-muted-foreground">{te('tags')}</label>
           <input
             value={form.tags}
             onChange={(e) =>
               setForm((f) => ({ ...f, tags: e.target.value }))
             }
             placeholder={te('tagsPlaceholder')}
-            className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">
+          <label className="mb-1 block text-xs text-muted-foreground">
             {te('wikipediaUrl')}
           </label>
           <input
@@ -364,25 +364,25 @@ export function NodeEditForm({
               setForm((f) => ({ ...f, wikipedia_url: e.target.value }))
             }
             placeholder={te('wikipediaPlaceholder')}
-            className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">{te('nameEn')}</label>
+          <label className="mb-1 block text-xs text-muted-foreground">{te('nameEn')}</label>
           <input
             value={form.name_en}
             onChange={(e) =>
               setForm((f) => ({ ...f, name_en: e.target.value }))
             }
-            className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
           />
         </div>
 
         {editingId ? (
           <>
-            <hr className="border-[#2A3042]" />
+            <hr className="border-border" />
             <section>
-              <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#8B95A8]">
+              <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 {te('builtUponSection')}
               </h3>
               <ul className="mb-3 space-y-2">
@@ -391,14 +391,14 @@ export function NodeEditForm({
                   return (
                     <li
                       key={l.id}
-                      className="flex items-center gap-2 rounded border border-[#2A3042] bg-[#111827]/60 px-2 py-1.5"
+                      className="flex items-center gap-2 rounded border border-border bg-surface/60 px-2 py-1.5"
                     >
                       <span
                         className={`inline-block shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-medium ${RELATION_BADGE_COLORS[l.relation_type]}`}
                       >
                         {tRel(l.relation_type)}
                       </span>
-                      <span className="min-w-0 flex-1 truncate text-sm text-[#E8ECF4]">
+                      <span className="min-w-0 flex-1 truncate text-sm text-foreground">
                         {src?.name ?? l.source_id}
                       </span>
                       <button
@@ -428,7 +428,7 @@ export function NodeEditForm({
                     onChange={(e) =>
                       setBuiltRel(e.target.value as RelationType)
                     }
-                    className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-2 py-2 text-xs text-[#E8ECF4] outline-none focus:border-[#3B82F6]"
+                    className="w-full rounded-lg border border-border bg-surface px-2 py-2 text-xs text-foreground outline-none focus:border-accent"
                   >
                     {RELATION_TYPES_LIST.map((r) => (
                       <option key={r} value={r}>
@@ -448,7 +448,7 @@ export function NodeEditForm({
             </section>
 
             <section>
-              <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#8B95A8]">
+              <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 {te('ledToSection')}
               </h3>
               <ul className="mb-3 space-y-2">
@@ -457,14 +457,14 @@ export function NodeEditForm({
                   return (
                     <li
                       key={l.id}
-                      className="flex items-center gap-2 rounded border border-[#2A3042] bg-[#111827]/60 px-2 py-1.5"
+                      className="flex items-center gap-2 rounded border border-border bg-surface/60 px-2 py-1.5"
                     >
                       <span
                         className={`inline-block shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-medium ${RELATION_BADGE_COLORS[l.relation_type]}`}
                       >
                         {tRel(l.relation_type)}
                       </span>
-                      <span className="min-w-0 flex-1 truncate text-sm text-[#E8ECF4]">
+                      <span className="min-w-0 flex-1 truncate text-sm text-foreground">
                         {tgt?.name ?? l.target_id}
                       </span>
                       <button
@@ -486,7 +486,7 @@ export function NodeEditForm({
                     onChange={(e) =>
                       setLedRel(e.target.value as RelationType)
                     }
-                    className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-2 py-2 text-xs text-[#E8ECF4] outline-none focus:border-[#3B82F6]"
+                    className="w-full rounded-lg border border-border bg-surface px-2 py-2 text-xs text-foreground outline-none focus:border-accent"
                   >
                     {RELATION_TYPES_LIST.map((r) => (
                       <option key={r} value={r}>
@@ -515,11 +515,11 @@ export function NodeEditForm({
           </>
         ) : null}
 
-        <hr className="border-[#2A3042]" />
+        <hr className="border-border" />
       </div>
 
       {showFooter ? (
-        <div className="mt-4 flex shrink-0 gap-2 border-t border-[#2A3042] pt-4">
+        <div className="mt-4 flex shrink-0 gap-2 border-t border-border pt-4">
           <button
             type="button"
             onClick={() => void onSave()}
@@ -530,7 +530,7 @@ export function NodeEditForm({
           <button
             type="button"
             onClick={onCancel}
-            className="rounded-lg border border-[#2A3042] bg-transparent px-4 py-2 text-sm text-[#8B95A8] hover:bg-[#2A3042]"
+            className="rounded-lg border border-border bg-transparent px-4 py-2 text-sm text-muted-foreground hover:bg-border"
           >
             {tc('cancel')}
           </button>

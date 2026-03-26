@@ -19,7 +19,7 @@ export type SuggestNodeFormState = {
 };
 
 const SELECT =
-  'w-full appearance-none rounded-md border-[0.5px] border-[#2A3042] bg-[#111827] px-2.5 py-2 pr-9 text-[13px] text-[#E8ECF4] outline-none focus:border-[#F59E0B]';
+  'w-full appearance-none rounded-md border-[0.5px] border-border bg-surface px-2.5 py-2 pr-9 text-[13px] text-foreground outline-none focus:border-[#F59E0B]';
 
 type Props = {
   form: SuggestNodeFormState;
@@ -36,16 +36,16 @@ export function SuggestionNodeForm({ form, setForm }: Props) {
   return (
     <div className="space-y-4">
       <div>
-        <label className="mb-1 block text-[11px] text-[#8B95A8]">{te('name')}</label>
+        <label className="mb-1 block text-[11px] text-muted-foreground">{te('name')}</label>
         <input
           type="text"
           value={form.name}
           onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-          className="w-full rounded-md border-[0.5px] border-[#2A3042] bg-[#111827] px-2.5 py-2 text-[13px] text-[#E8ECF4] outline-none focus:border-[#F59E0B]"
+          className="w-full rounded-md border-[0.5px] border-border bg-surface px-2.5 py-2 text-[13px] text-foreground outline-none focus:border-[#F59E0B]"
         />
       </div>
       <div>
-        <label className="mb-1 block text-[11px] text-[#8B95A8]">
+        <label className="mb-1 block text-[11px] text-muted-foreground">
           {tSidebar('description')}
         </label>
         <textarea
@@ -54,11 +54,11 @@ export function SuggestionNodeForm({ form, setForm }: Props) {
           onChange={(e) =>
             setForm((f) => ({ ...f, description: e.target.value }))
           }
-          className="w-full rounded-md border-[0.5px] border-[#2A3042] bg-[#111827] px-2.5 py-2 text-[13px] text-[#E8ECF4] outline-none focus:border-[#F59E0B]"
+          className="w-full rounded-md border-[0.5px] border-border bg-surface px-2.5 py-2 text-[13px] text-foreground outline-none focus:border-[#F59E0B]"
         />
       </div>
       <div>
-        <label className="mb-1 block text-[11px] text-[#8B95A8]">{te('category')}</label>
+        <label className="mb-1 block text-[11px] text-muted-foreground">{te('category')}</label>
         <select
           value={form.category}
           onChange={(e) =>
@@ -77,7 +77,7 @@ export function SuggestionNodeForm({ form, setForm }: Props) {
         </select>
       </div>
       <div>
-        <label className="mb-1 block text-[11px] text-[#8B95A8]">{te('type')}</label>
+        <label className="mb-1 block text-[11px] text-muted-foreground">{te('type')}</label>
         <select
           value={form.type}
           onChange={(e) =>
@@ -93,7 +93,7 @@ export function SuggestionNodeForm({ form, setForm }: Props) {
         </select>
       </div>
       <div>
-        <label className="mb-1 block text-[11px] text-[#8B95A8]">{te('era')}</label>
+        <label className="mb-1 block text-[11px] text-muted-foreground">{te('era')}</label>
         <select
           value={form.era}
           onChange={(e) =>
@@ -109,7 +109,7 @@ export function SuggestionNodeForm({ form, setForm }: Props) {
         </select>
       </div>
       <div>
-        <label className="mb-1 block text-[11px] text-[#8B95A8]">{te('date')}</label>
+        <label className="mb-1 block text-[11px] text-muted-foreground">{te('date')}</label>
         <input
           type="text"
           inputMode="numeric"
@@ -117,19 +117,19 @@ export function SuggestionNodeForm({ form, setForm }: Props) {
           onChange={(e) =>
             setForm((f) => ({ ...f, year_approx: e.target.value }))
           }
-          className="w-full rounded-md border-[0.5px] border-[#2A3042] bg-[#111827] px-2.5 py-2 text-[13px] text-[#E8ECF4] outline-none focus:border-[#F59E0B]"
+          className="w-full rounded-md border-[0.5px] border-border bg-surface px-2.5 py-2 text-[13px] text-foreground outline-none focus:border-[#F59E0B]"
           placeholder="—"
         />
       </div>
       <div>
-        <label className="mb-1 block text-[11px] text-[#8B95A8]">{te('origin')}</label>
+        <label className="mb-1 block text-[11px] text-muted-foreground">{te('origin')}</label>
         <input
           type="text"
           value={form.origin}
           onChange={(e) =>
             setForm((f) => ({ ...f, origin: e.target.value }))
           }
-          className="w-full rounded-md border-[0.5px] border-[#2A3042] bg-[#111827] px-2.5 py-2 text-[13px] text-[#E8ECF4] outline-none focus:border-[#F59E0B]"
+          className="w-full rounded-md border-[0.5px] border-border bg-surface px-2.5 py-2 text-[13px] text-foreground outline-none focus:border-[#F59E0B]"
         />
       </div>
     </div>

@@ -72,10 +72,10 @@ export function TechListByFilterClient({
 
   return (
     <main className="mx-auto flex min-h-[calc(100dvh-3.5rem)] w-full max-w-6xl flex-1 flex-col px-4 pb-24 pt-20 md:px-6 md:pt-24">
-      <nav className="mb-6 text-sm text-[#8B95A8]">
+      <nav className="mb-6 text-sm text-muted-foreground">
         <Link
           href="/categories"
-          className="text-[#3B82F6] transition-colors hover:underline"
+          className="text-accent transition-colors hover:underline"
         >
           ← Catégories
         </Link>
@@ -83,7 +83,7 @@ export function TechListByFilterClient({
 
       <header className="mb-8 md:mb-10">
         <h1
-          className="text-2xl font-semibold tracking-tight text-[#E8ECF4] md:text-3xl"
+          className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
           style={{
             fontFamily:
               'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -92,9 +92,9 @@ export function TechListByFilterClient({
           {title}
         </h1>
         {subtitle ? (
-          <p className="mt-2 text-sm text-[#8B95A8] md:text-base">{subtitle}</p>
+          <p className="mt-2 text-sm text-muted-foreground md:text-base">{subtitle}</p>
         ) : null}
-        <p className="mt-3 text-sm text-[#8B95A8]">
+        <p className="mt-3 text-sm text-muted-foreground">
           {items.length} technologie{items.length > 1 ? 's' : ''} dans le jeu de
           données
         </p>
@@ -108,7 +108,7 @@ export function TechListByFilterClient({
       </header>
 
       {items.length === 0 ? (
-        <p className="rounded-xl border border-[#2A3042] bg-[#1A1F2E] px-4 py-8 text-center text-sm text-[#8B95A8]">
+        <p className="rounded-xl border border-border bg-surface-elevated px-4 py-8 text-center text-sm text-muted-foreground">
           Aucune technologie ne correspond à ce filtre pour l’instant.
         </p>
       ) : (
@@ -122,17 +122,17 @@ export function TechListByFilterClient({
               <li key={node.id}>
                 <Link
                   href={`/explore?node=${encodeURIComponent(node.id)}`}
-                  className="flex h-full flex-col rounded-xl border border-[#2A3042] bg-[#1A1F2E] p-4 shadow-md transition-colors hover:border-[#3B82F6]/50 hover:bg-[#111827]/80"
+                  className="flex h-full flex-col rounded-xl border border-border bg-surface-elevated p-4 shadow-md transition-colors hover:border-accent/50 hover:bg-surface/80"
                 >
                   <span
                     className="mb-2 h-1 w-12 shrink-0 rounded-full"
                     style={{ backgroundColor: c }}
                     aria-hidden
                   />
-                  <span className="font-medium leading-snug text-[#E8ECF4]">
+                  <span className="font-medium leading-snug text-foreground">
                     {node.name}
                   </span>
-                  <span className="mt-2 text-xs text-[#8B95A8]">
+                  <span className="mt-2 text-xs text-muted-foreground">
                     {NODE_CATEGORY_LABELS_FR[node.category]} ·{' '}
                     {ERA_LABELS_FR[node.era]} ·{' '}
                     {TECH_NODE_TYPE_LABELS_FR[node.type]}

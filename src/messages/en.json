@@ -20,6 +20,12 @@
     "filters": "Filters",
     "noResults": "No results"
   },
+  "theme": {
+    "classic": "Classic",
+    "dark": "Dark",
+    "light": "Light",
+    "switchTheme": "Color theme"
+  },
   "landing": {
     "title": "What is civilization made of?",
     "subtitle": "Explore the complete tree of human technologies, from raw materials to finished products.",

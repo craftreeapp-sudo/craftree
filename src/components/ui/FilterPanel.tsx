@@ -16,10 +16,10 @@ type OpenPanel = 'categories' | 'eras' | 'types' | null;
 const CATEGORY_PREVIEW_COUNT = 5;
 
 const panelBtnClass =
-  'inline-flex items-center gap-1.5 rounded-lg border border-[#2A3042] bg-[#1A1F2E] px-2.5 py-1.5 text-xs font-medium text-[#E8ECF4] transition-colors hover:bg-[#2A3042] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6]';
+  'inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface-elevated px-2.5 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-border focus:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus';
 
 const dropdownClass =
-  'absolute end-0 top-full z-[60] mt-1.5 w-[min(100vw-2rem,280px)] max-h-[min(70vh,320px)] overflow-y-auto rounded-lg border border-[#2A3042] bg-[#111827] py-2 shadow-xl';
+  'absolute end-0 top-full z-[60] mt-1.5 w-[min(100vw-2rem,280px)] max-h-[min(70vh,320px)] overflow-y-auto rounded-lg border border-border bg-surface py-2 shadow-xl';
 
 export function FilterPanel() {
   const tf = useTranslations('filters');
@@ -73,23 +73,23 @@ export function FilterPanel() {
           onClick={() => toggle('categories')}
         >
           {tf('categories')}
-          <span className="text-[#8B95A8]" aria-hidden>
+          <span className="text-muted-foreground" aria-hidden>
             ▾
           </span>
         </button>
         {open === 'categories' ? (
           <div className={dropdownClass} role="listbox" aria-label={tf('categories')}>
-            <div className="mb-2 flex gap-2 border-b border-[#2A3042] px-3 pb-2">
+            <div className="mb-2 flex gap-2 border-b border-border px-3 pb-2">
               <button
                 type="button"
-                className="rounded bg-[#2A3042] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#3B4558]"
+                className="rounded bg-border/35 px-2 py-1 text-[11px] text-foreground hover:bg-border/55"
                 onClick={() => setAllCategories(true)}
               >
                 {tc('all')}
               </button>
               <button
                 type="button"
-                className="rounded bg-[#2A3042] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#3B4558]"
+                className="rounded bg-border/35 px-2 py-1 text-[11px] text-foreground hover:bg-border/55"
                 onClick={() => setAllCategories(false)}
               >
                 {tc('none')}
@@ -110,8 +110,8 @@ export function FilterPanel() {
                       aria-selected={active}
                       className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-start text-sm transition-colors ${
                         active
-                          ? 'bg-[#1A1F2E] text-[#E8ECF4]'
-                          : 'text-[#8B95A8] hover:bg-[#1A1F2E]/80'
+                          ? 'bg-surface-elevated text-foreground'
+                          : 'text-muted-foreground hover:bg-surface-elevated/80'
                       }`}
                       onClick={() => toggleCategory(cat)}
                     >
@@ -121,7 +121,7 @@ export function FilterPanel() {
                       />
                       <span className="flex-1">{tCat(cat)}</span>
                       {active ? (
-                        <span className="text-[10px] text-[#3B82F6]">✓</span>
+                        <span className="text-[10px] text-accent">✓</span>
                       ) : null}
                     </button>
                   </li>
@@ -129,10 +129,10 @@ export function FilterPanel() {
               })}
             </ul>
             {NODE_CATEGORY_ORDER.length > CATEGORY_PREVIEW_COUNT ? (
-              <div className="border-t border-[#2A3042] px-2 pt-2">
+              <div className="border-t border-border px-2 pt-2">
                 <button
                   type="button"
-                  className="w-full rounded-md border border-[#2A3042] bg-[#1A1F2E] py-1.5 text-xs font-medium text-[#3B82F6] transition-colors hover:bg-[#2A3042]"
+                  className="w-full rounded-md border border-border bg-surface-elevated py-1.5 text-xs font-medium text-accent transition-colors hover:bg-border"
                   onClick={() => setShowAllCategories((v) => !v)}
                 >
                   {showAllCategories ? tf('showLess') : tf('showMore')}
@@ -153,23 +153,23 @@ export function FilterPanel() {
           onClick={() => toggle('eras')}
         >
           {tf('eras')}
-          <span className="text-[#8B95A8]" aria-hidden>
+          <span className="text-muted-foreground" aria-hidden>
             ▾
           </span>
         </button>
         {open === 'eras' ? (
           <div className={dropdownClass} role="listbox" aria-label={tf('eras')}>
-            <div className="mb-2 flex gap-2 border-b border-[#2A3042] px-3 pb-2">
+            <div className="mb-2 flex gap-2 border-b border-border px-3 pb-2">
               <button
                 type="button"
-                className="rounded bg-[#2A3042] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#3B4558]"
+                className="rounded bg-border/35 px-2 py-1 text-[11px] text-foreground hover:bg-border/55"
                 onClick={() => setAllEras(true)}
               >
                 {tc('all')}
               </button>
               <button
                 type="button"
-                className="rounded bg-[#2A3042] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#3B4558]"
+                className="rounded bg-border/35 px-2 py-1 text-[11px] text-foreground hover:bg-border/55"
                 onClick={() => setAllEras(false)}
               >
                 {tc('none')}
@@ -186,14 +186,14 @@ export function FilterPanel() {
                       aria-selected={active}
                       className={`flex w-full flex-col rounded-md px-2 py-1.5 text-start text-sm transition-colors ${
                         active
-                          ? 'bg-[#1A1F2E] text-[#E8ECF4]'
-                          : 'text-[#8B95A8] hover:bg-[#1A1F2E]/80'
+                          ? 'bg-surface-elevated text-foreground'
+                          : 'text-muted-foreground hover:bg-surface-elevated/80'
                       }`}
                       onClick={() => toggleEra(era)}
                     >
                       <span className="font-medium">
                         {tEra(era)}{' '}
-                        <span className="font-normal text-[#8B95A8]">
+                        <span className="font-normal text-muted-foreground">
                           ({ERA_DATE_RANGES[era]})
                         </span>
                       </span>
@@ -216,23 +216,23 @@ export function FilterPanel() {
           onClick={() => toggle('types')}
         >
           {tf('types')}
-          <span className="text-[#8B95A8]" aria-hidden>
+          <span className="text-muted-foreground" aria-hidden>
             ▾
           </span>
         </button>
         {open === 'types' ? (
           <div className={dropdownClass} role="listbox" aria-label={tf('types')}>
-            <div className="mb-2 flex gap-2 border-b border-[#2A3042] px-3 pb-2">
+            <div className="mb-2 flex gap-2 border-b border-border px-3 pb-2">
               <button
                 type="button"
-                className="rounded bg-[#2A3042] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#3B4558]"
+                className="rounded bg-border/35 px-2 py-1 text-[11px] text-foreground hover:bg-border/55"
                 onClick={() => setAllTypes(true)}
               >
                 {tc('all')}
               </button>
               <button
                 type="button"
-                className="rounded bg-[#2A3042] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#3B4558]"
+                className="rounded bg-border/35 px-2 py-1 text-[11px] text-foreground hover:bg-border/55"
                 onClick={() => setAllTypes(false)}
               >
                 {tc('none')}
@@ -249,15 +249,15 @@ export function FilterPanel() {
                       aria-selected={active}
                       className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-start text-sm capitalize transition-colors ${
                         active
-                          ? 'bg-[#1A1F2E] text-[#E8ECF4]'
-                          : 'text-[#8B95A8] hover:bg-[#1A1F2E]/80'
+                          ? 'bg-surface-elevated text-foreground'
+                          : 'text-muted-foreground hover:bg-surface-elevated/80'
                       }`}
                       onClick={() => toggleType(t)}
                     >
                       <span className="flex-1">{tType(t)}</span>
                       <span className="font-mono text-[10px] text-[#6B7280]">{t}</span>
                       {active ? (
-                        <span className="text-[10px] text-[#3B82F6]">✓</span>
+                        <span className="text-[10px] text-accent">✓</span>
                       ) : null}
                     </button>
                   </li>

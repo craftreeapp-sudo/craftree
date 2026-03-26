@@ -4,7 +4,7 @@ import { useState, type FormEvent } from 'react';
 import { useTranslations } from 'next-intl';
 
 const inputClass =
-  'w-full rounded-lg border border-[#2A3042] bg-[#111827]/80 px-4 py-2.5 text-sm text-[#E8ECF4] placeholder:text-[#5B6478] outline-none transition-colors focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]/40';
+  'w-full rounded-lg border border-border bg-surface/80 px-4 py-2.5 text-sm text-foreground placeholder:text-[#5B6478] outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-[#3B82F6]/40';
 
 const titleFont =
   'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif';
@@ -55,17 +55,17 @@ export function ContactPageClient() {
 
   return (
     <main
-      className="mx-auto w-full max-w-[720px] flex-1 px-6 pb-20 pt-16 font-[family-name:var(--font-inter)] text-[#C8CDD8]"
+      className="mx-auto w-full max-w-[720px] flex-1 px-6 pb-20 pt-16 font-[family-name:var(--font-inter)] text-foreground/85"
       style={{ fontFamily: 'var(--font-inter), Inter, system-ui, sans-serif' }}
     >
       <header className="mb-10">
         <h1
-          className="text-[32px] font-bold leading-tight text-[#E8ECF4]"
+          className="text-[32px] font-bold leading-tight text-foreground"
           style={{ fontFamily: titleFont }}
         >
           {t('title')}
         </h1>
-        <p className="mt-3 text-base text-[#8B95A8]">{t('intro')}</p>
+        <p className="mt-3 text-base text-muted-foreground">{t('intro')}</p>
       </header>
 
       {status === 'success' ? (
@@ -93,7 +93,7 @@ export function ContactPageClient() {
           <div>
             <label
               htmlFor="contact-name"
-              className="mb-1.5 block text-sm font-medium text-[#E8ECF4]"
+              className="mb-1.5 block text-sm font-medium text-foreground"
             >
               {t('nameLabel')}
             </label>
@@ -116,7 +116,7 @@ export function ContactPageClient() {
           <div>
             <label
               htmlFor="contact-email"
-              className="mb-1.5 block text-sm font-medium text-[#E8ECF4]"
+              className="mb-1.5 block text-sm font-medium text-foreground"
             >
               {t('emailLabel')}
             </label>
@@ -139,7 +139,7 @@ export function ContactPageClient() {
           <div>
             <label
               htmlFor="contact-message"
-              className="mb-1.5 block text-sm font-medium text-[#E8ECF4]"
+              className="mb-1.5 block text-sm font-medium text-foreground"
             >
               {t('messageLabel')}
             </label>

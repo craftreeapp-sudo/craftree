@@ -65,7 +65,7 @@ function TimelineEraLabels({ worldWidth }: { worldWidth: number }) {
   const span = LAYOUT_MAX_YEAR - LAYOUT_MIN_YEAR;
 
   return (
-    <div className="pointer-events-none absolute left-0 right-0 top-0 z-[5] h-8 overflow-hidden border-b border-[#2A3042]/60 bg-[#0A0E17]/95">
+    <div className="pointer-events-none absolute left-0 right-0 top-0 z-[5] h-8 overflow-hidden border-b border-border/60 bg-page/95">
       <div
         className="relative h-full"
         style={{
@@ -80,7 +80,7 @@ function TimelineEraLabels({ worldWidth }: { worldWidth: number }) {
           return (
             <span
               key={i}
-              className="absolute top-1/2 -translate-y-1/2 text-[10px] font-medium uppercase tracking-wide text-[#8B95A8]"
+              className="absolute top-1/2 -translate-y-1/2 text-[10px] font-medium uppercase tracking-wide text-muted-foreground"
               style={{
                 left: x0 + 8,
                 maxWidth: Math.max(40, w - 16),
@@ -105,7 +105,7 @@ function TimelineBottomAxis({ worldWidth }: { worldWidth: number }) {
   const span = LAYOUT_MAX_YEAR - LAYOUT_MIN_YEAR;
 
   return (
-    <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-[5] h-[52px] overflow-hidden border-t border-[#2A3042]/60 bg-[#0A0E17]/95">
+    <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-[5] h-[52px] overflow-hidden border-t border-border/60 bg-page/95">
       <div
         className="relative h-full"
         style={{
@@ -115,13 +115,13 @@ function TimelineBottomAxis({ worldWidth }: { worldWidth: number }) {
         }}
       >
         <div
-          className="absolute left-0 top-0 h-px w-full bg-[#2A3042]/80"
+          className="absolute left-0 top-0 h-px w-full bg-border/80"
           style={{ width: worldWidth }}
         />
-        <span className="absolute bottom-3 left-3 text-[11px] text-[#8B95A8]">
+        <span className="absolute bottom-3 left-3 text-[11px] text-muted-foreground">
           Préhistoire ({LAYOUT_MIN_YEAR})
         </span>
-        <span className="absolute bottom-3 right-3 text-[11px] text-[#8B95A8]">
+        <span className="absolute bottom-3 right-3 text-[11px] text-muted-foreground">
           Contemporain ({LAYOUT_MAX_YEAR})
         </span>
         {TIMELINE_ERA_SEGMENTS.map((seg, i) => {
@@ -129,7 +129,7 @@ function TimelineBottomAxis({ worldWidth }: { worldWidth: number }) {
           return (
             <div
               key={i}
-              className="absolute bottom-2 top-6 w-px bg-[#2A3042]/50"
+              className="absolute bottom-2 top-6 w-px bg-border/50"
               style={{ left: x0 }}
             />
           );
@@ -313,7 +313,7 @@ function TechTimelineInner() {
         zoomOnPinch
         nodesDraggable={false}
         nodesConnectable={false}
-        className="bg-[#0A0E17]"
+        className="bg-page"
         proOptions={{ hideAttribution: true }}
         translateExtent={[
           [-200, -80],
@@ -321,9 +321,9 @@ function TechTimelineInner() {
         ]}
         defaultEdgeOptions={{ type: 'tech' }}
       >
-        <Background color="#2A3042" gap={20} size={1} />
+        <Background color="var(--graph-bg-dot)" gap={20} size={1} />
         <Controls
-          className="!bottom-14 !m-3 !border-[#2A3042] !bg-[#1A1F2E]/95 !shadow-lg [&>button]:!border-[#2A3042] [&>button]:!bg-[#1A1F2E] [&>button]:!text-[#E8ECF4] [&>button:hover]:!bg-[#2A3042]"
+          className="!bottom-14 !m-3 !border-border !bg-surface-elevated/95 !shadow-lg [&>button]:!border-border [&>button]:!bg-surface-elevated [&>button]:!text-foreground [&>button:hover]:!bg-border/50"
           showInteractive={false}
         />
       </ReactFlow>

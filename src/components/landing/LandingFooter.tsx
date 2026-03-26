@@ -12,11 +12,11 @@ const LINKS: {
 
 export function LandingFooter() {
   return (
-    <footer className="border-t border-[#2A3042] bg-[#111827] px-6 py-16">
+    <footer className="border-t border-border bg-surface px-6 py-16">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-10 text-center md:flex-row md:justify-between md:text-left">
         <div>
           <p
-            className="text-lg font-bold text-[#E8ECF4]"
+            className="text-lg font-bold text-foreground"
             style={{
               fontFamily:
                 'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -24,7 +24,7 @@ export function LandingFooter() {
           >
             Craftree
           </p>
-          <p className="mt-2 text-sm text-[#8B95A8]">
+          <p className="mt-2 text-sm text-muted-foreground">
             Un projet open source — carte des dépendances matérielles de la
             civilisation.
           </p>
@@ -40,7 +40,7 @@ export function LandingFooter() {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#8B95A8] transition-colors hover:text-[#3B82F6]"
+                className="text-muted-foreground transition-colors hover:text-accent"
               >
                 {item.label}
               </a>
@@ -48,7 +48,7 @@ export function LandingFooter() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-[#8B95A8] transition-colors hover:text-[#3B82F6]"
+                className="text-muted-foreground transition-colors hover:text-accent"
               >
                 {item.label}
               </Link>

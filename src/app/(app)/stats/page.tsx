@@ -59,7 +59,7 @@ function CategoryDonut({ rows, total }: { rows: CategoryCount[]; total: number }
         role="img"
         aria-label="Répartition par catégorie"
       >
-        <div className="absolute inset-[26%] rounded-full bg-[#1A1F2E] ring-1 ring-[#2A3042]/60" />
+        <div className="absolute inset-[26%] rounded-full bg-surface-elevated ring-1 ring-[#2A3042]/60" />
       </div>
       <ul className="grid max-h-64 w-full max-w-md gap-2 overflow-y-auto text-sm sm:grid-cols-2">
         {rows.map((r) => (
@@ -68,10 +68,10 @@ function CategoryDonut({ rows, total }: { rows: CategoryCount[]; total: number }
               className="h-2.5 w-2.5 shrink-0 rounded-full ring-1 ring-white/15"
               style={{ backgroundColor: getCategoryColor(r.category) }}
             />
-            <span className="min-w-0 flex-1 truncate capitalize text-[#E8ECF4]">
+            <span className="min-w-0 flex-1 truncate capitalize text-foreground">
               {formatCategoryLabel(r.category)}
             </span>
-            <span className="tabular-nums text-[#8B95A8]">{r.count}</span>
+            <span className="tabular-nums text-muted-foreground">{r.count}</span>
           </li>
         ))}
       </ul>
@@ -96,15 +96,15 @@ function HorizontalBarRow({
   return (
     <div className="space-y-1">
       <div className="flex items-baseline justify-between gap-2">
-        <span className="min-w-0 truncate text-sm text-[#E8ECF4]" title={label}>
+        <span className="min-w-0 truncate text-sm text-foreground" title={label}>
           {label}
         </span>
-        <span className="shrink-0 text-xs tabular-nums text-[#8B95A8]">
+        <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
           {value}
-          {sub ? <span className="text-[#8B95A8]/80"> {sub}</span> : null}
+          {sub ? <span className="text-muted-foreground/80"> {sub}</span> : null}
         </span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-[#111827]">
+      <div className="h-2 overflow-hidden rounded-full bg-surface">
         <div
           className="h-full min-w-[2px] rounded-full transition-[width] duration-500"
           style={{
@@ -133,14 +133,14 @@ export default function StatsPage() {
     <main className="mx-auto min-h-[calc(100dvh-3.5rem)] w-full max-w-6xl flex-1 px-3 pb-12 pt-20 md:px-4 md:pb-16">
       <header className="mb-6 md:mb-10">
         <h1
-          className="text-2xl font-semibold tracking-tight text-[#E8ECF4] sm:text-3xl"
+          className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
           style={{
             fontFamily: 'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
           }}
         >
           Statistiques
         </h1>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#8B95A8]">
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
           Aperçu du Tree de fabrication : matières premières les plus « critiques »,
           technologies les plus complexes, et répartition des nœuds.
         </p>
@@ -151,17 +151,17 @@ export default function StatsPage() {
           className="mb-10 rounded-xl border border-[#3B82F6]/35 bg-[#3B82F6]/[0.07] p-5 shadow-lg"
           aria-label="Fait marquant"
         >
-          <p className="text-xs font-semibold uppercase tracking-wider text-[#3B82F6]">
+          <p className="text-xs font-semibold uppercase tracking-wider text-accent">
             Fait marquant
           </p>
-          <p className="mt-3 text-base leading-relaxed text-[#E8ECF4]">
-            <span className="font-medium text-[#E8ECF4]">{stats.highlight.name}</span>{' '}
+          <p className="mt-3 text-base leading-relaxed text-foreground">
+            <span className="font-medium text-foreground">{stats.highlight.name}</span>{' '}
             s’appuie sur{' '}
-            <strong className="text-[#3B82F6]">
+            <strong className="text-accent">
               {stats.highlight.rawMaterialCount}
             </strong>{' '}
             matières premières distinctes et compte{' '}
-            <strong className="text-[#3B82F6]">
+            <strong className="text-accent">
               {stats.highlight.dependencyLevels}
             </strong>{' '}
             niveaux de dépendance
@@ -175,7 +175,7 @@ export default function StatsPage() {
           </p>
           <Link
             href={`/tree/${stats.highlight.nodeId}`}
-            className="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-[#3B82F6]/50 bg-[#3B82F6]/15 px-4 py-2 text-sm font-medium text-[#3B82F6] transition-colors hover:bg-[#3B82F6]/25"
+            className="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-[#3B82F6]/50 bg-[#3B82F6]/15 px-4 py-2 text-sm font-medium text-accent transition-colors hover:bg-[#3B82F6]/25"
           >
             Voir l’arbre de dépendances
             <span aria-hidden>→</span>
@@ -185,16 +185,16 @@ export default function StatsPage() {
 
       <div className="grid w-full gap-4 md:gap-6 lg:grid-cols-2">
         <section
-          className="w-full rounded-xl border border-[#2A3042] bg-[#1A1F2E] p-4 shadow-xl md:p-5"
+          className="w-full rounded-xl border border-border bg-surface-elevated p-4 shadow-xl md:p-5"
           aria-labelledby="stats-raw-title"
         >
           <h2
             id="stats-raw-title"
-            className="text-sm font-semibold uppercase tracking-wider text-[#8B95A8]"
+            className="text-sm font-semibold uppercase tracking-wider text-muted-foreground"
           >
             Top 10 — matières premières critiques
           </h2>
-          <p className="mt-1 text-xs text-[#8B95A8]/90">
+          <p className="mt-1 text-xs text-muted-foreground/90">
             Classées par centralité (nombre de technologies en aval dans le Tree).
           </p>
           <div className="mt-5 space-y-4">
@@ -212,16 +212,16 @@ export default function StatsPage() {
         </section>
 
         <section
-          className="w-full rounded-xl border border-[#2A3042] bg-[#1A1F2E] p-4 shadow-xl md:p-5"
+          className="w-full rounded-xl border border-border bg-surface-elevated p-4 shadow-xl md:p-5"
           aria-labelledby="stats-complex-title"
         >
           <h2
             id="stats-complex-title"
-            className="text-sm font-semibold uppercase tracking-wider text-[#8B95A8]"
+            className="text-sm font-semibold uppercase tracking-wider text-muted-foreground"
           >
             Top 10 — technologies les plus complexes
           </h2>
-          <p className="mt-1 text-xs text-[#8B95A8]/90">
+          <p className="mt-1 text-xs text-muted-foreground/90">
             Classées par profondeur de dépendance (chemins vers les matières premières).
           </p>
           <div className="mt-5 space-y-4">
@@ -239,16 +239,16 @@ export default function StatsPage() {
         </section>
 
         <section
-          className="w-full rounded-xl border border-[#2A3042] bg-[#1A1F2E] p-4 shadow-xl md:p-5 lg:col-span-2"
+          className="w-full rounded-xl border border-border bg-surface-elevated p-4 shadow-xl md:p-5 lg:col-span-2"
           aria-labelledby="stats-cat-title"
         >
           <h2
             id="stats-cat-title"
-            className="text-sm font-semibold uppercase tracking-wider text-[#8B95A8]"
+            className="text-sm font-semibold uppercase tracking-wider text-muted-foreground"
           >
             Répartition par catégorie
           </h2>
-          <p className="mt-1 text-xs text-[#8B95A8]/90">
+          <p className="mt-1 text-xs text-muted-foreground/90">
             {stats.totalNodes} technologies et ressources au total.
           </p>
           <div className="mt-8">
@@ -257,16 +257,16 @@ export default function StatsPage() {
         </section>
 
         <section
-          className="w-full rounded-xl border border-[#2A3042] bg-[#1A1F2E] p-4 shadow-xl md:p-5 lg:col-span-2"
+          className="w-full rounded-xl border border-border bg-surface-elevated p-4 shadow-xl md:p-5 lg:col-span-2"
           aria-labelledby="stats-era-title"
         >
           <h2
             id="stats-era-title"
-            className="text-sm font-semibold uppercase tracking-wider text-[#8B95A8]"
+            className="text-sm font-semibold uppercase tracking-wider text-muted-foreground"
           >
             Répartition par époque
           </h2>
-          <p className="mt-1 text-xs text-[#8B95A8]/90">
+          <p className="mt-1 text-xs text-muted-foreground/90">
             Nombre de nœuds par ère (métadonnée du modèle).
           </p>
           <div className="mt-6 space-y-3">

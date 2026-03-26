@@ -45,8 +45,8 @@ export function AddConnectionButton({ data }: NodeProps) {
           width: bt,
           height: bt,
           fontSize: Math.round(bt * 0.55),
-          backgroundColor: hover ? '#3B82F6' : '#FFFFFF',
-          color: hover ? '#FFFFFF' : '#0A0E17',
+          backgroundColor: hover ? 'var(--accent)' : '#FFFFFF',
+          color: hover ? '#FFFFFF' : 'var(--page)',
           transform: hover ? 'scale(1.05)' : 'scale(1)',
         }}
         onPointerDown={(e) => e.stopPropagation()}

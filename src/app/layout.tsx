@@ -6,8 +6,10 @@ import './globals.css';
 import { getSiteUrl } from '@/lib/seo';
 import { isRtlLocale } from '@/lib/i18n-config';
 import { AuthInitializer } from '@/components/layout/AuthInitializer';
+import { ThemeProvider } from '@/components/layout/ThemeProvider';
 import { ToastContainer } from '@/components/ui/ToastContainer';
 import { LoginModal } from '@/components/ui/LoginModal';
+import { getThemeBootstrapScript } from '@/lib/theme-bootstrap';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -108,18 +110,23 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${inter.variable} ${geistMono.variable} ${spaceGrotesk.variable} ${lora.variable} h-full bg-[#0A0E17] antialiased`}
+      className={`${inter.variable} ${geistMono.variable} ${spaceGrotesk.variable} ${lora.variable} h-full bg-page antialiased`}
     >
-      <body className="flex min-h-screen min-h-[100dvh] flex-col bg-[#0A0E17] font-sans text-[#E8ECF4] antialiased">
+      <body className="flex min-h-screen min-h-[100dvh] flex-col bg-page font-sans text-foreground antialiased">
+        <script
+          dangerouslySetInnerHTML={{ __html: getThemeBootstrapScript() }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <AuthInitializer />
-          <ToastContainer />
-          <LoginModal />
-          {children}
+          <ThemeProvider>
+            <AuthInitializer />
+            <ToastContainer />
+            <LoginModal />
+            {children}
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

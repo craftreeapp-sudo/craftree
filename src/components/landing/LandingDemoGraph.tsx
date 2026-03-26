@@ -112,10 +112,10 @@ function DemoFlowInner() {
       panOnDrag={false}
       preventScrolling
       fitView={false}
-      className="rounded-2xl border border-[#2A3042] bg-[#0A0E17]/90"
+      className="rounded-2xl border border-border bg-page/90"
       proOptions={{ hideAttribution: true }}
     >
-      <Background color="#2A3042" gap={16} size={1} />
+      <Background color="var(--graph-bg-dot)" gap={16} size={1} />
     </ReactFlow>
   );
 }

@@ -17,7 +17,7 @@ type Props = {
 export function RelationTypePicker({ onPick }: Props) {
   return (
     <div className="px-3 pb-3 pt-2">
-      <p className="mb-2 text-xs font-medium text-[#8B95A8]">
+      <p className="mb-2 text-xs font-medium text-muted-foreground">
         Type de relation
       </p>
       <div className="flex flex-wrap gap-2">
@@ -26,7 +26,7 @@ export function RelationTypePicker({ onPick }: Props) {
             key={type}
             type="button"
             onClick={() => onPick(type)}
-            className="flex items-center gap-1.5 rounded-md border border-[#2A3042] bg-[#111827] px-2 py-1.5 text-xs font-medium text-[#E8ECF4] transition-colors hover:border-[#3B82F6] hover:bg-[#1A1F2E]"
+            className="flex items-center gap-1.5 rounded-md border border-border bg-surface px-2 py-1.5 text-xs font-medium text-foreground transition-colors hover:border-accent hover:bg-surface-elevated"
           >
             <span
               className="inline-block h-2.5 w-2.5 shrink-0 rounded-sm"

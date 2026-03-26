@@ -78,10 +78,10 @@ function ExploreInner({
   }, [dataReady, node, selectNode, isMobile, closeSidebar, router]);
 
   return (
-    <main className="relative flex h-full min-h-0 min-h-[calc(100dvh-3.5rem)] flex-1 flex-col overflow-hidden bg-[#0A0E17] pt-14">
+    <main className="relative flex h-full min-h-0 min-h-[calc(100dvh-3.5rem)] flex-1 flex-col overflow-hidden bg-page pt-14">
       {toast ? (
         <div
-          className="pointer-events-none fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-lg border border-[#2A3042] bg-[#1A1F2E] px-4 py-2.5 text-sm text-[#E8ECF4] shadow-lg"
+          className="pointer-events-none fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-lg border border-border bg-surface-elevated px-4 py-2.5 text-sm text-foreground shadow-lg"
           role="status"
         >
           {toast}
@@ -107,7 +107,7 @@ export function ExploreClient({
   return (
     <Suspense
       fallback={
-        <main className="relative min-h-[50vh] flex-1 bg-[#0A0E17] pt-14" />
+        <main className="relative min-h-[50vh] flex-1 bg-page pt-14" />
       }
     >
       <ExploreInner initialGraph={initialGraph} />

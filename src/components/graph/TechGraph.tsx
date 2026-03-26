@@ -1530,7 +1530,7 @@ function TechGraphInner() {
         {!focusLayoutActive ? (
           <TreeLayerChrome layerMetas={layerMetas} bounds={graphBounds} />
         ) : null}
-        <Background color="#2A3042" gap={16} size={1} />
+        <Background color="var(--graph-bg-dot)" gap={16} size={1} />
         <GraphControls
           showConnections={showConnections}
           onToggleConnections={() => setShowConnections((v) => !v)}

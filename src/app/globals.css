@@ -1,19 +1,99 @@
 @import "tailwindcss";
 
+/* Classic (default) — teinte bleu-nuit du site */
 :root {
-  --background: #0A0E17;
-  --foreground: #E8ECF4;
+  --page: #0a0e17;
+  --surface: #111827;
+  --surface-elevated: #1a1f2e;
+  --border: #2a3042;
+  --border-subtle: #1a1f2e;
+  --foreground: #e8ecf4;
+  --muted-foreground: #8b95a8;
+  --accent: #3b82f6;
+  --header-bg: rgba(10, 14, 23, 0.92);
+  --ring-focus: #3b82f6;
+  --scrollbar-track: #111827;
+  --scrollbar-thumb: #4b5563;
+  --panel-row-selected-bg: #2a3042;
+  --panel-row-selected-fg: #f8fafc;
+  --panel-row-selected-meta: #94a3b8;
+  --panel-row-hover-bg: #222837;
+  --graph-bg-dot: var(--border);
+  --edge-stroke-material: #94a3b8;
+  --edge-stroke-catalyst: #8b95a8;
+  /* compat anciennes variables */
+  --background: var(--page);
+}
+
+[data-theme='dark'] {
+  --page: #0a0a0a;
+  --surface: #171717;
+  --surface-elevated: #1f1f1f;
+  --border: #2e2e2e;
+  --border-subtle: #262626;
+  --foreground: #f4f4f5;
+  --muted-foreground: #a1a1aa;
+  --accent: #3b82f6;
+  --header-bg: rgba(10, 10, 10, 0.92);
+  --ring-focus: #60a5fa;
+  --scrollbar-track: #171717;
+  --scrollbar-thumb: #525252;
+  --panel-row-selected-bg: #2a3042;
+  --panel-row-selected-fg: #f8fafc;
+  --panel-row-selected-meta: #94a3b8;
+  --panel-row-hover-bg: #262626;
+  --graph-bg-dot: var(--border);
+  --edge-stroke-material: #94a3b8;
+  --edge-stroke-catalyst: #a1a1aa;
+  --background: var(--page);
+}
+
+[data-theme='light'] {
+  /* Fond canvas plus marqué que le blanc des cartes (contraste page / surface) */
+  --page: #e2e8f0;
+  --surface: #ffffff;
+  /* Panneaux latéraux / zones secondaires */
+  --surface-elevated: #f1f5f9;
+  --border: #94a3b8;
+  --border-subtle: #cbd5e1;
+  --foreground: #0f172a;
+  /* Secondaire plus lisible sur fond clair */
+  --muted-foreground: #475569;
+  --accent: #1d4ed8;
+  --header-bg: rgba(255, 255, 255, 0.96);
+  --ring-focus: #1d4ed8;
+  --scrollbar-track: #e2e8f0;
+  --scrollbar-thumb: #94a3b8;
+  --background: var(--page);
+  /* Liste catégorie / sélection (panneau gauche explore) */
+  --panel-row-selected-bg: #1e293b;
+  --panel-row-selected-fg: #f8fafc;
+  --panel-row-selected-meta: #cbd5e1;
+  --panel-row-hover-bg: #f1f5f9;
+  /* Mini-grille du graphe */
+  --graph-bg-dot: #cbd5e1;
+  --edge-stroke-material: #64748b;
+  --edge-stroke-catalyst: #64748b;
 }
 
 @theme inline {
-  --color-background: var(--background);
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
   --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-header-bg: var(--header-bg);
+  --color-ring-focus: var(--ring-focus);
+  --color-background: var(--page);
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: var(--background);
+  background: var(--page);
   color: var(--foreground);
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
@@ -77,7 +157,7 @@ h3 {
 }
 
 .react-flow__node.node-sliding-to-center .focus-explore-card-inner.focus-slide-border {
-  border-color: #3b82f6 !important;
+  border-color: var(--accent) !important;
   border-width: 2px;
 }
 
@@ -106,20 +186,20 @@ h3 {
   transform: none !important;
 }
 
-/* Éditeur : barres de défilement discrètes */
+/* Éditeur : barres de défilement (suivent le thème) */
 .editor-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #4b5563 #111827;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 .editor-scrollbar::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 .editor-scrollbar::-webkit-scrollbar-track {
-  background: #111827;
+  background: var(--scrollbar-track);
 }
 .editor-scrollbar::-webkit-scrollbar-thumb {
-  background: #4b5563;
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
 

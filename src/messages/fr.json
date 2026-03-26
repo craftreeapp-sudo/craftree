@@ -20,6 +20,12 @@
     "filters": "Filtres",
     "noResults": "Aucun résultat"
   },
+  "theme": {
+    "classic": "Classique",
+    "dark": "Sombre",
+    "light": "Clair",
+    "switchTheme": "Thème d’affichage"
+  },
   "landing": {
     "title": "De quoi est faite la civilisation ?",
     "subtitle": "Explorez l'arbre complet des technologies humaines, de la matière première au produit final.",

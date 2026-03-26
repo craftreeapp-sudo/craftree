@@ -203,12 +203,9 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
 
   return (
     <div ref={containerRef} className="relative w-full max-w-xl">
-      <div
-        className="flex items-center gap-2 rounded-lg border border-[#2A3042] bg-[#1A1F2E]/90 px-4 py-2.5 backdrop-blur-md"
-        style={{ backgroundColor: 'rgba(26, 31, 46, 0.9)' }}
-      >
+      <div className="flex items-center gap-2 rounded-lg border border-border bg-surface-elevated/90 px-4 py-2.5 backdrop-blur-md">
         <svg
-          className="h-4 w-4 shrink-0 text-[#8B95A8]"
+          className="h-4 w-4 shrink-0 text-muted-foreground"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -231,24 +228,20 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
             search(query);
           }}
           placeholder={placeholder ?? tc('search')}
-          className="w-full bg-transparent text-sm text-[#E8ECF4] placeholder:text-[#8B95A8] focus:outline-none"
+          className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
         />
-        <kbd className="hidden rounded border border-[#2A3042] bg-[#111827] px-1.5 py-0.5 text-xs text-[#8B95A8] sm:inline-block">
+        <kbd className="hidden rounded border border-border bg-surface px-1.5 py-0.5 text-xs text-muted-foreground sm:inline-block">
           ⌘K
         </kbd>
       </div>
 
       {dropdownOpen && (
         <div
-          className="absolute left-0 right-0 top-full z-50 mt-1 max-h-[320px] overflow-auto rounded-lg border border-[#2A3042] py-1"
-          style={{
-            backgroundColor: 'rgba(26, 31, 46, 0.95)',
-            backdropFilter: 'blur(12px)',
-          }}
+          className="absolute left-0 right-0 top-full z-50 mt-1 max-h-[320px] overflow-auto rounded-lg border border-border bg-surface-elevated/95 py-1 backdrop-blur-md"
           aria-live="polite"
         >
           {results.length === 0 ? (
-            <div className="px-4 py-3 text-sm text-[#8B95A8]">
+            <div className="px-4 py-3 text-sm text-muted-foreground">
               {tc('noResults')}
             </div>
           ) : (
@@ -274,8 +267,8 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
                   key={node.id}
                   className={`flex w-full items-stretch gap-0 transition-colors ${
                     index === highlightedIndex
-                      ? 'bg-[#2A3042]/80'
-                      : 'hover:bg-[#2A3042]/50'
+                      ? 'bg-border/80'
+                      : 'hover:bg-border/50'
                   }`}
                 >
                   <button
@@ -283,7 +276,7 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
                     onClick={() => handleTreeReveal(node)}
                     className="flex min-w-0 flex-1 items-start gap-3 px-3 py-2.5 text-left"
                   >
-                    <span className="relative mt-0.5 h-8 w-8 shrink-0 overflow-hidden rounded-md border border-[#2A3042] bg-[#111827]">
+                    <span className="relative mt-0.5 h-8 w-8 shrink-0 overflow-hidden rounded-md border border-border bg-surface">
                       <Image
                         src={thumb}
                         alt=""
@@ -295,7 +288,7 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
                     </span>
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="truncate font-medium text-[#E8ECF4]">
+                        <span className="truncate font-medium text-foreground">
                           {displayName}
                         </span>
                         <span
@@ -308,17 +301,17 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
                           {tCat(node.category as NodeCategory)}
                         </span>
                       </div>
-                      <div className="mt-0.5 flex flex-wrap gap-x-2 text-[11px] text-[#8B95A8]">
+                      <div className="mt-0.5 flex flex-wrap gap-x-2 text-[11px] text-muted-foreground">
                         {yearStr ? (
                           <>
                             <span>{yearStr}</span>
-                            <span className="text-[#5B6478]">·</span>
+                            <span className="text-muted-foreground/70">·</span>
                           </>
                         ) : null}
                         <span>
                           {tExplore('layerShort', { layer: layerIdx })}
                         </span>
-                        <span className="text-[#5B6478]">·</span>
+                        <span className="text-muted-foreground/70">·</span>
                         <span>{tEra(node.era)}</span>
                       </div>
                     </div>
@@ -329,7 +322,7 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
                       e.stopPropagation();
                       handleFocusView(node);
                     }}
-                    className="flex w-10 shrink-0 items-center justify-center border-l border-[#2A3042] text-[#8B95A8] transition-colors hover:bg-[#2A3042]/50 hover:text-[#3B82F6]"
+                    className="flex w-10 shrink-0 items-center justify-center border-l border-border text-muted-foreground transition-colors hover:bg-border/50 hover:text-accent"
                     title={tExplore('focusViewTitle')}
                     aria-label={tExplore('focusViewAria', {
                       name: displayName,

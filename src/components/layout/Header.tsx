@@ -8,6 +8,7 @@ import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { ExploreWireframeHeader } from '@/components/explore/ExploreWireframeHeader';
 import { ExploreFilterDrawer } from '@/components/explore/ExploreFilterDrawer';
 import { HeaderAuth } from '@/components/layout/HeaderAuth';
+import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher';
 
 export function Header() {
   const pathname = usePathname();
@@ -36,11 +37,8 @@ export function Header() {
 
   return (
     <header
-      className="fixed left-0 right-0 top-0 z-[100] flex h-14 items-center justify-between gap-2 px-3 backdrop-blur-md md:gap-4 md:px-4 xl:px-6"
-      style={{
-        height: '56px',
-        backgroundColor: 'rgba(10, 14, 23, 0.9)',
-      }}
+      className="fixed left-0 right-0 top-0 z-[100] flex h-14 items-center justify-between gap-2 border-b border-border/60 bg-header-bg px-3 backdrop-blur-md md:gap-4 md:px-4 xl:px-6"
+      style={{ height: '56px' }}
     >
       <div className="flex min-w-0 shrink-0 items-center gap-3 md:gap-6">
         <Link
@@ -49,11 +47,11 @@ export function Header() {
           style={{
             fontFamily:
               'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
-            color: '#E8ECF4',
+            color: 'var(--foreground)',
             fontSize: '1.25rem',
           }}
         >
-          Craft<span style={{ color: '#3B82F6' }}>ree</span>
+          Craft<span style={{ color: 'var(--accent)' }}>ree</span>
         </Link>
         <nav
           className="hidden max-w-[42vw] items-center gap-0.5 overflow-x-auto sm:flex md:max-w-none md:gap-1"
@@ -67,8 +65,8 @@ export function Header() {
                 href={tab.href}
                 className={`relative shrink-0 border-b-2 px-1.5 py-1 text-xs font-medium transition-colors md:px-2.5 md:text-sm ${
                   active
-                    ? 'border-[#3B82F6] text-[#E8ECF4]'
-                    : 'border-transparent text-[#8B95A8] hover:text-[#E8ECF4]/90'
+                    ? 'border-accent text-foreground'
+                    : 'border-transparent text-muted-foreground hover:text-foreground/90'
                 }`}
               >
                 {tab.label}
@@ -84,6 +82,7 @@ export function Header() {
 
       <div className="hidden min-w-0 shrink-0 items-center justify-end gap-2 md:flex">
         <HeaderAuth />
+        <ThemeSwitcher align="end" />
         <LanguageSwitcher align="end" />
       </div>
     </header>

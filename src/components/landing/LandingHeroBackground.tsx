@@ -30,7 +30,7 @@ function MiniCraftCard({
 
   return (
     <div
-      className={`shrink-0 overflow-hidden rounded-[8px] border-[0.5px] border-[#2A3042] ${
+      className={`shrink-0 overflow-hidden rounded-[8px] border-[0.5px] border-border ${
         compact ? 'h-[75px] w-[60px]' : 'h-[100px] w-[80px]'
       }`}
     >
@@ -48,14 +48,14 @@ function MiniCraftCard({
       </div>
       <div className="flex h-1/2 flex-col items-center justify-center gap-0.5 bg-[#1E2432] px-0.5">
         <span
-          className={`line-clamp-2 text-center font-normal leading-tight text-[#8B95A8] ${
+          className={`line-clamp-2 text-center font-normal leading-tight text-muted-foreground ${
             compact ? 'text-[6px]' : 'text-[8px]'
           }`}
         >
           {name}
         </span>
         <span
-          className={`max-w-full truncate text-center font-medium uppercase tracking-wide text-[#8B95A8] ${
+          className={`max-w-full truncate text-center font-medium uppercase tracking-wide text-muted-foreground ${
             compact ? 'text-[5px]' : 'text-[6px]'
           }`}
         >

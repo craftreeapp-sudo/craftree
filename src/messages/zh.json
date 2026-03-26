@@ -20,6 +20,12 @@
     "filters": "筛选",
     "noResults": "无结果"
   },
+  "theme": {
+    "classic": "经典",
+    "dark": "深色",
+    "light": "浅色",
+    "switchTheme": "配色主题"
+  },
   "landing": {
     "title": "文明由什么构成？",
     "subtitle": "探索人类技术的完整之树，从原材料到成品。",

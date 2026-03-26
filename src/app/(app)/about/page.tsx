@@ -22,12 +22,12 @@ function LinkTypeRow({
   body: string;
 }) {
   return (
-    <div className="flex gap-4 border-b border-[#1A1F2E] py-3 last:border-b-0">
+    <div className="flex gap-4 border-b border-border-subtle py-3 last:border-b-0">
       <div className="flex w-10 shrink-0 items-center justify-center" aria-hidden>
         {children}
       </div>
-      <p className="min-w-0 flex-1 text-base leading-[1.7] text-[#C8CDD8]">
-        <strong className="font-bold text-[#E8ECF4]">{title}</strong>
+      <p className="min-w-0 flex-1 text-base leading-[1.7] text-foreground/85">
+        <strong className="font-bold text-foreground">{title}</strong>
         {' — '}
         {body}
       </p>
@@ -45,12 +45,12 @@ function InventionTypeRow({
   body: string;
 }) {
   return (
-    <div className="flex gap-4 border-b border-[#1A1F2E] py-3 last:border-b-0">
+    <div className="flex gap-4 border-b border-border-subtle py-3 last:border-b-0">
       <div className="flex w-10 shrink-0 items-center justify-center" aria-hidden>
         {children}
       </div>
-      <p className="min-w-0 flex-1 text-base leading-[1.7] text-[#C8CDD8]">
-        <strong className="font-bold text-[#E8ECF4]">{title}</strong>
+      <p className="min-w-0 flex-1 text-base leading-[1.7] text-foreground/85">
+        <strong className="font-bold text-foreground">{title}</strong>
         {' — '}
         {body}
       </p>
@@ -65,19 +65,19 @@ export default async function AboutPage() {
 
   return (
     <main
-      className="mx-auto w-full max-w-[720px] flex-1 px-6 pb-20 pt-16 font-[family-name:var(--font-inter)] text-[#C8CDD8]"
+      className="mx-auto w-full max-w-[720px] flex-1 px-6 pb-20 pt-16 font-[family-name:var(--font-inter)] text-foreground/85"
       style={{ fontFamily: 'var(--font-inter), Inter, system-ui, sans-serif' }}
     >
       <article className="pb-20">
         {/* Hero */}
         <header className="mb-12">
           <h1
-            className="text-[32px] font-bold leading-tight text-[#E8ECF4]"
+            className="text-[32px] font-bold leading-tight text-foreground"
             style={{ fontFamily: titleFont }}
           >
             {t('title')}
           </h1>
-          <p className="mt-3 text-base text-[#8B95A8]">{t('subtitle')}</p>
+          <p className="mt-3 text-base text-muted-foreground">{t('subtitle')}</p>
         </header>
 
         <div className="space-y-16">
@@ -85,12 +85,12 @@ export default async function AboutPage() {
           <section aria-labelledby="about-projet">
             <h2
               id="about-projet"
-              className="mb-5 text-[22px] font-bold text-[#E8ECF4]"
+              className="mb-5 text-[22px] font-bold text-foreground"
               style={{ fontFamily: titleFont }}
             >
               {t('projectTitle')}
             </h2>
-            <div className="space-y-5 text-base leading-[1.7] text-[#C8CDD8]">
+            <div className="space-y-5 text-base leading-[1.7] text-foreground/85">
               <p>{t('projectP1')}</p>
               <p>{t('projectP2')}</p>
               <p>{t('projectP3')}</p>
@@ -102,22 +102,22 @@ export default async function AboutPage() {
           <section aria-labelledby="about-graphe">
             <h2
               id="about-graphe"
-              className="mb-5 text-[22px] font-bold text-[#E8ECF4]"
+              className="mb-5 text-[22px] font-bold text-foreground"
               style={{ fontFamily: titleFont }}
             >
               {t('graphTitle')}
             </h2>
-            <p className="mb-6 text-base leading-[1.7] text-[#C8CDD8]">
+            <p className="mb-6 text-base leading-[1.7] text-foreground/85">
               {t('graphIntro')}
             </p>
 
             <h3
-              className="mb-4 mt-8 text-lg font-bold text-[#E8ECF4]"
+              className="mb-4 mt-8 text-lg font-bold text-foreground"
               style={{ fontFamily: titleFont }}
             >
               {t('linkTypesTitle')}
             </h3>
-            <div className="rounded-lg border border-[#1A1F2E]/80">
+            <div className="rounded-lg border border-border-subtle/80">
               <LinkTypeRow
                 title={t('linkMaterialTitle')}
                 body={t('linkMaterialBody')}
@@ -199,12 +199,12 @@ export default async function AboutPage() {
             </div>
 
             <h3
-              className="mb-4 mt-8 text-lg font-bold text-[#E8ECF4]"
+              className="mb-4 mt-8 text-lg font-bold text-foreground"
               style={{ fontFamily: titleFont }}
             >
               {t('inventionTypesTitle')}
             </h3>
-            <div className="rounded-lg border border-[#1A1F2E]/80">
+            <div className="rounded-lg border border-border-subtle/80">
               <InventionTypeRow
                 title={t('invRawTitle')}
                 body={t('invRawBody')}
@@ -242,12 +242,12 @@ export default async function AboutPage() {
           <section aria-labelledby="about-methodo">
             <h2
               id="about-methodo"
-              className="mb-5 text-[22px] font-bold text-[#E8ECF4]"
+              className="mb-5 text-[22px] font-bold text-foreground"
               style={{ fontFamily: titleFont }}
             >
               {t('methodologyTitle')}
             </h2>
-            <div className="space-y-5 text-base leading-[1.7] text-[#C8CDD8]">
+            <div className="space-y-5 text-base leading-[1.7] text-foreground/85">
               <p>{t('methodologyP1')}</p>
               <p>{t('methodologyP2')}</p>
               <p>{t('methodologyP3')}</p>
@@ -261,12 +261,12 @@ export default async function AboutPage() {
           <section aria-labelledby="about-data">
             <h2
               id="about-data"
-              className="mb-5 text-[22px] font-bold text-[#E8ECF4]"
+              className="mb-5 text-[22px] font-bold text-foreground"
               style={{ fontFamily: titleFont }}
             >
               {t('dataTitle')}
             </h2>
-            <div className="space-y-5 text-base leading-[1.7] text-[#C8CDD8]">
+            <div className="space-y-5 text-base leading-[1.7] text-foreground/85">
               <p>{t('dataP1')}</p>
               <p>{t('dataP2')}</p>
               <p>
@@ -279,18 +279,18 @@ export default async function AboutPage() {
           <section aria-labelledby="about-contrib">
             <h2
               id="about-contrib"
-              className="mb-5 text-[22px] font-bold text-[#E8ECF4]"
+              className="mb-5 text-[22px] font-bold text-foreground"
               style={{ fontFamily: titleFont }}
             >
               {t('contributeTitle')}
             </h2>
-            <div className="space-y-5 text-base leading-[1.7] text-[#C8CDD8]">
+            <div className="space-y-5 text-base leading-[1.7] text-foreground/85">
               <p>{t('contributeP1')}</p>
               <a
                 href="https://github.com/craftreeapp-sudo/craftree"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center rounded-lg border border-[#2A3042] px-4 py-2.5 text-sm font-medium text-[#E8ECF4] transition-colors hover:border-[#3B82F6]"
+                className="inline-flex items-center rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-accent"
               >
                 {t('viewOnGithub')}
               </a>
@@ -298,7 +298,7 @@ export default async function AboutPage() {
               <p>
                 <a
                   href="mailto:contact@craftree.app"
-                  className="text-[#3B82F6] underline-offset-2 transition-colors hover:underline"
+                  className="text-accent underline-offset-2 transition-colors hover:underline"
                 >
                   contact@craftree.app
                 </a>
@@ -310,12 +310,12 @@ export default async function AboutPage() {
           <section aria-labelledby="about-credits">
             <h2
               id="about-credits"
-              className="mb-5 text-[22px] font-bold text-[#E8ECF4]"
+              className="mb-5 text-[22px] font-bold text-foreground"
               style={{ fontFamily: titleFont }}
             >
               {t('creditsTitle')}
             </h2>
-            <div className="space-y-5 text-base leading-[1.7] text-[#C8CDD8]">
+            <div className="space-y-5 text-base leading-[1.7] text-foreground/85">
               <p>{t('creditsP1')}</p>
               <p>{t('creditsP2')}</p>
               <p>
@@ -325,7 +325,7 @@ export default async function AboutPage() {
                       href="https://historicaltechtree.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-medium text-[#3B82F6] underline-offset-2 transition-colors hover:underline"
+                      className="font-medium text-accent underline-offset-2 transition-colors hover:underline"
                     >
                       {chunks}
                     </a>

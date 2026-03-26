@@ -489,11 +489,11 @@ export function EditorPageClient() {
 
   if (!authLoading && !isAdmin) {
     return (
-      <div className="flex min-h-[60vh] flex-1 flex-col items-center justify-center gap-4 bg-[#0A0E17] px-6 text-center text-[#E8ECF4]">
+      <div className="flex min-h-[60vh] flex-1 flex-col items-center justify-center gap-4 bg-page px-6 text-center text-foreground">
         <p className="max-w-md text-sm">{te('adminOnly')}</p>
         <Link
           href="/explore"
-          className="rounded-lg border border-[#2A3042] bg-[#1A1F2E] px-4 py-2 text-sm transition-colors hover:bg-[#2A3042]"
+          className="rounded-lg border border-border bg-surface-elevated px-4 py-2 text-sm transition-colors hover:bg-border"
         >
           {te('backToExplore')}
         </Link>
@@ -502,26 +502,26 @@ export function EditorPageClient() {
   }
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col bg-[#0A0E17] text-[#E8ECF4]">
-      <header className="sticky top-0 z-40 flex shrink-0 items-center justify-between border-b border-[#2A3042] bg-[#0A0E17] px-6 py-4">
+    <div className="flex min-h-0 flex-1 flex-col bg-page text-foreground">
+      <header className="sticky top-0 z-40 flex shrink-0 items-center justify-between border-b border-border bg-page px-6 py-4">
         <h1 className="text-lg font-semibold">{te('pageTitle')}</h1>
         <Link
           href="/explore"
-          className="rounded-lg border border-[#2A3042] bg-[#1A1F2E] px-4 py-2 text-sm text-[#E8ECF4] transition-colors hover:bg-[#2A3042]"
+          className="rounded-lg border border-border bg-surface-elevated px-4 py-2 text-sm text-foreground transition-colors hover:bg-border"
         >
           {te('backToExplore')}
         </Link>
       </header>
 
       <div className="flex min-h-0 flex-1 flex-col px-6 py-4">
-        <div className="mb-4 flex gap-6 border-b border-[#2A3042]">
+        <div className="mb-4 flex gap-6 border-b border-border">
           <button
             type="button"
             onClick={() => setTab('nodes')}
             className={`border-b-2 pb-3 text-sm font-medium transition-colors ${
               tab === 'nodes'
                 ? 'border-[#3B82F6] text-white'
-                : 'border-transparent text-[#8B95A8] hover:text-[#E8ECF4]'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >
             {te('inventions')}
@@ -532,7 +532,7 @@ export function EditorPageClient() {
             className={`border-b-2 pb-3 text-sm font-medium transition-colors ${
               tab === 'links'
                 ? 'border-[#3B82F6] text-white'
-                : 'border-transparent text-[#8B95A8] hover:text-[#E8ECF4]'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >
             {te('links')}
@@ -540,7 +540,7 @@ export function EditorPageClient() {
         </div>
 
         {loading ? (
-          <p className="text-[#8B95A8]">{te('loading')}</p>
+          <p className="text-muted-foreground">{te('loading')}</p>
         ) : tab === 'nodes' ? (
           <>
             <div className="mb-4 flex flex-wrap items-center gap-3">
@@ -556,12 +556,12 @@ export function EditorPageClient() {
                 value={qNode}
                 onChange={(e) => setQNode(e.target.value)}
                 placeholder={te('searchPlaceholderNodes')}
-                className="min-w-[200px] flex-1 rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] placeholder:text-[#5A6175] outline-none focus:border-[#3B82F6]"
+                className="min-w-[200px] flex-1 rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-accent"
               />
               <select
                 value={catF}
                 onChange={(e) => setCatF(e.target.value)}
-                className="rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] outline-none focus:border-[#3B82F6]"
+                className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
               >
                 <option value="all">{te('allCategories')}</option>
                 {NODE_CATEGORY_ORDER.map((c) => (
@@ -573,7 +573,7 @@ export function EditorPageClient() {
               <select
                 value={typeF}
                 onChange={(e) => setTypeF(e.target.value)}
-                className="rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] outline-none focus:border-[#3B82F6]"
+                className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
               >
                 <option value="all">{te('allTypes')}</option>
                 {TECH_NODE_TYPE_ORDER.map((nt) => (
@@ -585,7 +585,7 @@ export function EditorPageClient() {
               <select
                 value={eraF}
                 onChange={(e) => setEraF(e.target.value)}
-                className="rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] outline-none focus:border-[#3B82F6]"
+                className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
               >
                 <option value="all">{te('allEras')}</option>
                 {ERA_ORDER.map((e) => (
@@ -602,24 +602,24 @@ export function EditorPageClient() {
                 className={`shrink-0 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
                   isolatedOnly
                     ? 'border-[#F87171] bg-[#7f1d1d]/35 text-[#fecaca] hover:bg-[#7f1d1d]/50'
-                    : 'border-[#2A3042] bg-[#1A1F2E] text-[#E8ECF4] hover:bg-[#2A3042]'
+                    : 'border-border bg-surface-elevated text-foreground hover:bg-border'
                 }`}
               >
                 {te('noLinks')}
               </button>
-              <span className="text-sm text-[#8B95A8]">
+              <span className="text-sm text-muted-foreground">
                 {te('nodeCount', { count: sortedNodes.length })}
               </span>
             </div>
 
-            <div className="editor-scrollbar min-h-0 flex-1 overflow-auto rounded-lg border border-[#2A3042]">
+            <div className="editor-scrollbar min-h-0 flex-1 overflow-auto rounded-lg border border-border">
               <table className="w-full min-w-[1000px] border-collapse text-sm">
-                <thead className="sticky top-0 z-10 bg-[#1A1F2E] text-start text-xs font-bold uppercase tracking-wide text-[#8B95A8]">
+                <thead className="sticky top-0 z-10 bg-surface-elevated text-start text-xs font-bold uppercase tracking-wide text-muted-foreground">
                   <tr>
-                    <th className="w-12 px-1 py-1 text-center text-[#8B95A8]">
+                    <th className="w-12 px-1 py-1 text-center text-muted-foreground">
                       {te('imageColumn')}
                     </th>
-                    <th className="w-[200px] px-3 py-1 text-[#E8ECF4]">
+                    <th className="w-[200px] px-3 py-1 text-foreground">
                       <button
                         type="button"
                         className="inline-flex items-center gap-1"
@@ -695,7 +695,7 @@ export function EditorPageClient() {
                 <tbody>
                   {sortedNodes.map((n, i) => {
                     const lc = linkCounts(n.id, graphModelEdges);
-                    const bg = i % 2 === 0 ? 'bg-[#111827]' : 'bg-[#0F1420]';
+                    const bg = i % 2 === 0 ? 'bg-surface' : 'bg-[#0F1420]';
                     return (
                       <tr
                         key={n.id}
@@ -708,7 +708,7 @@ export function EditorPageClient() {
                             openEdit(n);
                           }
                         }}
-                        className={`cursor-pointer border-t border-[#2A3042] ${bg} hover:bg-[#1A1F2E]`}
+                        className={`cursor-pointer border-t border-border ${bg} hover:bg-surface-elevated`}
                       >
                         <td
                           className="w-12 px-1 py-2 align-middle"
@@ -744,7 +744,7 @@ export function EditorPageClient() {
                             )}
                           </div>
                         </td>
-                        <td className="px-3 py-2 font-bold text-[#E8ECF4]">{n.name}</td>
+                        <td className="px-3 py-2 font-bold text-foreground">{n.name}</td>
                         <td className="px-3 py-2">
                           <span
                             className="inline-flex items-center gap-1 rounded border px-2 py-0.5 text-xs"
@@ -757,11 +757,11 @@ export function EditorPageClient() {
                           </span>
                         </td>
                         <td className="px-3 py-2">
-                          <span className="rounded bg-[#2A3042] px-2 py-0.5 text-xs text-[#E8ECF4]">
+                          <span className="rounded bg-[#2A3042] px-2 py-0.5 text-xs text-foreground">
                             {tType(n.type as TechNodeType) ?? n.type}
                           </span>
                         </td>
-                        <td className="px-3 py-2 text-[#8B95A8]">
+                        <td className="px-3 py-2 text-muted-foreground">
                           {tEra(n.era as Era) ?? n.era}
                         </td>
                         <td className="px-3 py-2">
@@ -769,16 +769,16 @@ export function EditorPageClient() {
                             ? '—'
                             : String(n.year_approx)}
                         </td>
-                        <td className="max-w-[150px] truncate px-3 py-2 text-[#8B95A8]">
+                        <td className="max-w-[150px] truncate px-3 py-2 text-muted-foreground">
                           {n.origin?.trim() ? n.origin : '—'}
                         </td>
-                        <td className="px-3 py-2 text-center font-mono text-xs text-[#8B95A8]">
+                        <td className="px-3 py-2 text-center font-mono text-xs text-muted-foreground">
                           ↓{lc.in} ↑{lc.out}
                         </td>
                         <td className="px-3 py-2">
                           <button
                             type="button"
-                            className="mr-2 rounded p-1 hover:bg-[#2A3042]"
+                            className="mr-2 rounded p-1 hover:bg-border"
                             aria-label={te('panelEditInvention')}
                             onClick={(e) => {
                               e.stopPropagation();
@@ -808,9 +808,9 @@ export function EditorPageClient() {
           </>
         ) : (
           <>
-            <div className="mb-4 flex flex-wrap items-end gap-3 rounded-lg border border-[#2A3042] bg-[#111827]/50 p-4">
+            <div className="mb-4 flex flex-wrap items-end gap-3 rounded-lg border border-border bg-surface/50 p-4">
               <div className="min-w-[200px] flex-1">
-                <label className="mb-1 block text-xs text-[#8B95A8]">
+                <label className="mb-1 block text-xs text-muted-foreground">
                   {te('sourceNode')}
                 </label>
                 <SearchableSelect
@@ -821,13 +821,13 @@ export function EditorPageClient() {
                 />
               </div>
               <div className="min-w-[200px] flex-1">
-                <label className="mb-1 block text-xs text-[#8B95A8]">
+                <label className="mb-1 block text-xs text-muted-foreground">
                   {te('relationTypeLabel')}
                 </label>
                 <select
                   value={quickRel}
                   onChange={(e) => setQuickRel(e.target.value as RelationType)}
-                  className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] outline-none focus:border-[#3B82F6]"
+                  className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
                 >
                   {(
                     [
@@ -845,7 +845,7 @@ export function EditorPageClient() {
                 </select>
               </div>
               <div className="min-w-[200px] flex-1">
-                <label className="mb-1 block text-xs text-[#8B95A8]">
+                <label className="mb-1 block text-xs text-muted-foreground">
                   {te('targetNode')}
                 </label>
                 <SearchableSelect
@@ -869,12 +869,12 @@ export function EditorPageClient() {
                 value={linkQ}
                 onChange={(e) => setLinkQ(e.target.value)}
                 placeholder={te('searchPlaceholderLinks')}
-                className="min-w-[200px] flex-1 rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+                className="min-w-[200px] flex-1 rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
               />
               <select
                 value={relFilter}
                 onChange={(e) => setRelFilter(e.target.value)}
-                className="rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+                className="rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
               >
                 <option value="all">{te('allRelations')}</option>
                 {(
@@ -896,20 +896,20 @@ export function EditorPageClient() {
                 value={srcFilter}
                 onChange={(e) => setSrcFilter(e.target.value)}
                 placeholder={te('filterSource')}
-                className="rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+                className="rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
               />
               <input
                 type="search"
                 value={tgtFilter}
                 onChange={(e) => setTgtFilter(e.target.value)}
                 placeholder={te('filterTarget')}
-                className="rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+                className="rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
               />
             </div>
 
-            <div className="editor-scrollbar min-h-0 flex-1 overflow-auto rounded-lg border border-[#2A3042]">
+            <div className="editor-scrollbar min-h-0 flex-1 overflow-auto rounded-lg border border-border">
               <table className="w-full min-w-[900px] border-collapse text-sm">
-                <thead className="sticky top-0 z-10 bg-[#1A1F2E] text-start text-xs font-bold uppercase tracking-wide text-[#8B95A8]">
+                <thead className="sticky top-0 z-10 bg-surface-elevated text-start text-xs font-bold uppercase tracking-wide text-muted-foreground">
                   <tr>
                     <th className="px-3 py-2">
                       <button
@@ -964,14 +964,14 @@ export function EditorPageClient() {
                   {sortedLinks.map((l, i) => {
                     const s = nodeById.get(l.source_id);
                     const tgt = nodeById.get(l.target_id);
-                    const bg = i % 2 === 0 ? 'bg-[#111827]' : 'bg-[#0F1420]';
+                    const bg = i % 2 === 0 ? 'bg-surface' : 'bg-[#0F1420]';
                     return (
                       <tr
                         key={l.id}
-                        className={`border-t border-[#2A3042] ${bg} hover:bg-[#1A1F2E]`}
+                        className={`border-t border-border ${bg} hover:bg-surface-elevated`}
                       >
                         <td className="px-3 py-2 font-medium">{s?.name ?? l.source_id}</td>
-                        <td className="px-1 text-center text-[#8B95A8]">→</td>
+                        <td className="px-1 text-center text-muted-foreground">→</td>
                         <td className="px-3 py-2 font-medium">{tgt?.name ?? l.target_id}</td>
                         <td className="px-3 py-2">
                           <span
@@ -980,16 +980,16 @@ export function EditorPageClient() {
                             {tRel(l.relation_type)}
                           </span>
                         </td>
-                        <td className="px-3 py-2 text-[#8B95A8]">
+                        <td className="px-3 py-2 text-muted-foreground">
                           {l.is_optional ? te('yes') : te('no')}
                         </td>
-                        <td className="max-w-[200px] truncate px-3 py-2 text-[#8B95A8]">
+                        <td className="max-w-[200px] truncate px-3 py-2 text-muted-foreground">
                           {l.notes?.trim() ? l.notes : '—'}
                         </td>
                         <td className="px-3 py-2">
                           <button
                             type="button"
-                            className="mr-2 rounded p-1 hover:bg-[#2A3042]"
+                            className="mr-2 rounded p-1 hover:bg-border"
                             onClick={() => {
                               setLinkPanel(l);
                               setLinkForm({
@@ -1004,7 +1004,7 @@ export function EditorPageClient() {
                           </button>
                           <button
                             type="button"
-                            className="rounded p-1 hover:bg-[#2A3042]"
+                            className="rounded p-1 hover:bg-border"
                             onClick={() => deleteLink(l)}
                           >
                             🗑️
@@ -1029,14 +1029,14 @@ export function EditorPageClient() {
             aria-label={tc('close')}
             onClick={() => setPanelOpen(false)}
           />
-          <aside className="fixed right-0 top-0 z-[70] flex h-full w-full max-w-[400px] flex-col border-l border-[#2A3042] bg-[#1A1F2E] shadow-xl">
-            <div className="flex shrink-0 items-center justify-between border-b border-[#2A3042] px-4 py-3">
+          <aside className="fixed right-0 top-0 z-[70] flex h-full w-full max-w-[400px] flex-col border-l border-border bg-surface-elevated shadow-xl">
+            <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
               <h2 className="font-semibold">
                 {editingId ? te('panelEditInvention') : te('panelNewInvention')}
               </h2>
               <button
                 type="button"
-                className="text-[#8B95A8] hover:text-white"
+                className="text-muted-foreground hover:text-white"
                 onClick={() => setPanelOpen(false)}
               >
                 ×
@@ -1078,8 +1078,8 @@ export function EditorPageClient() {
       {/* Modal suppression nœud */}
       {deleteTarget ? (
         <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/60 p-4">
-          <div className="w-full max-w-md rounded-lg border border-[#2A3042] bg-[#1A1F2E] p-6 shadow-xl">
-            <p className="text-sm text-[#E8ECF4]">
+          <div className="w-full max-w-md rounded-lg border border-border bg-surface-elevated p-6 shadow-xl">
+            <p className="text-sm text-foreground">
               {te('deleteConfirmRich', {
                 name: deleteTarget.name,
                 count: deleteLinkCount,
@@ -1089,7 +1089,7 @@ export function EditorPageClient() {
               <button
                 type="button"
                 onClick={() => setDeleteTarget(null)}
-                className="rounded-lg border border-[#2A3042] px-4 py-2 text-sm text-[#8B95A8] hover:bg-[#2A3042]"
+                className="rounded-lg border border-border px-4 py-2 text-sm text-muted-foreground hover:bg-border"
               >
                 {tc('cancel')}
               </button>
@@ -1114,12 +1114,12 @@ export function EditorPageClient() {
             aria-label={tc('close')}
             onClick={() => setLinkPanel(null)}
           />
-          <aside className="fixed right-0 top-0 z-[70] flex h-full w-full max-w-[400px] flex-col border-l border-[#2A3042] bg-[#1A1F2E] shadow-xl">
-            <div className="flex items-center justify-between border-b border-[#2A3042] px-4 py-3">
+          <aside className="fixed right-0 top-0 z-[70] flex h-full w-full max-w-[400px] flex-col border-l border-border bg-surface-elevated shadow-xl">
+            <div className="flex items-center justify-between border-b border-border px-4 py-3">
               <h2 className="font-semibold">{te('editLink')}</h2>
               <button
                 type="button"
-                className="text-[#8B95A8] hover:text-white"
+                className="text-muted-foreground hover:text-white"
                 onClick={() => setLinkPanel(null)}
               >
                 ×
@@ -1127,29 +1127,29 @@ export function EditorPageClient() {
             </div>
             <div className="space-y-4 overflow-y-auto px-4 py-4">
               <div>
-                <label className="mb-1 block text-xs text-[#8B95A8]">
+                <label className="mb-1 block text-xs text-muted-foreground">
                   {te('linkColumnSource')}
                 </label>
                 <input
                   readOnly
                   disabled
                   value={nodeById.get(linkPanel.source_id)?.name ?? linkPanel.source_id}
-                  className="w-full rounded-lg border border-[#2A3042] bg-[#0A0E17] px-3 py-2 text-sm text-[#8B95A8]"
+                  className="w-full rounded-lg border border-border bg-page px-3 py-2 text-sm text-muted-foreground"
                 />
               </div>
               <div>
-                <label className="mb-1 block text-xs text-[#8B95A8]">
+                <label className="mb-1 block text-xs text-muted-foreground">
                   {te('linkColumnTarget')}
                 </label>
                 <input
                   readOnly
                   disabled
                   value={nodeById.get(linkPanel.target_id)?.name ?? linkPanel.target_id}
-                  className="w-full rounded-lg border border-[#2A3042] bg-[#0A0E17] px-3 py-2 text-sm text-[#8B95A8]"
+                  className="w-full rounded-lg border border-border bg-page px-3 py-2 text-sm text-muted-foreground"
                 />
               </div>
               <div>
-                <label className="mb-1 block text-xs text-[#8B95A8]">
+                <label className="mb-1 block text-xs text-muted-foreground">
                   {te('relationTypeLabel')}
                 </label>
                 <select
@@ -1160,7 +1160,7 @@ export function EditorPageClient() {
                       relation_type: e.target.value as RelationType,
                     }))
                   }
-                  className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+                  className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
                 >
                   {(
                     [
@@ -1178,7 +1178,7 @@ export function EditorPageClient() {
                 </select>
               </div>
               <div>
-                <label className="mb-1 block text-xs text-[#8B95A8]">
+                <label className="mb-1 block text-xs text-muted-foreground">
                   {te('quantityLabel')}
                 </label>
                 <input
@@ -1187,7 +1187,7 @@ export function EditorPageClient() {
                     setLinkForm((f) => ({ ...f, quantity_hint: e.target.value }))
                   }
                   placeholder={te('quantityPlaceholder')}
-                  className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+                  className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
                 />
               </div>
               <div className="flex items-center gap-2">
@@ -1198,14 +1198,14 @@ export function EditorPageClient() {
                   onChange={(e) =>
                     setLinkForm((f) => ({ ...f, is_optional: e.target.checked }))
                   }
-                  className="rounded border-[#2A3042]"
+                  className="rounded border-border"
                 />
-                <label htmlFor="opt" className="text-sm text-[#E8ECF4]">
+                <label htmlFor="opt" className="text-sm text-foreground">
                   {te('optionalCheckbox')}
                 </label>
               </div>
               <div>
-                <label className="mb-1 block text-xs text-[#8B95A8]">
+                <label className="mb-1 block text-xs text-muted-foreground">
                   {te('notesColumn')}
                 </label>
                 <textarea
@@ -1214,11 +1214,11 @@ export function EditorPageClient() {
                   onChange={(e) =>
                     setLinkForm((f) => ({ ...f, notes: e.target.value }))
                   }
-                  className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+                  className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
                 />
               </div>
             </div>
-            <div className="flex gap-2 border-t border-[#2A3042] p-4">
+            <div className="flex gap-2 border-t border-border p-4">
               <button
                 type="button"
                 onClick={saveLinkEdit}
@@ -1229,7 +1229,7 @@ export function EditorPageClient() {
               <button
                 type="button"
                 onClick={() => setLinkPanel(null)}
-                className="rounded-lg border border-[#2A3042] px-4 py-2 text-sm text-[#8B95A8] hover:bg-[#2A3042]"
+                className="rounded-lg border border-border px-4 py-2 text-sm text-muted-foreground hover:bg-border"
               >
                 {tc('cancel')}
               </button>
@@ -1245,8 +1245,8 @@ export function EditorPageClient() {
             key={toast.id}
             className={`pointer-events-auto max-w-sm rounded-lg border px-4 py-3 text-sm shadow-lg ${
               toast.kind === 'ok'
-                ? 'border-l-4 border-l-emerald-500 bg-[#1A1F2E] text-[#E8ECF4]'
-                : 'border-l-4 border-l-red-500 bg-[#1A1F2E] text-[#E8ECF4]'
+                ? 'border-l-4 border-l-emerald-500 bg-surface-elevated text-foreground'
+                : 'border-l-4 border-l-red-500 bg-surface-elevated text-foreground'
             }`}
           >
             {toast.text}

@@ -46,7 +46,7 @@ export function HeaderAuth() {
   if (isLoading) {
     return (
       <div
-        className="h-[32px] w-[72px] shrink-0 rounded-md border border-[#2A3042]/50 bg-transparent"
+        className="h-[32px] w-[72px] shrink-0 rounded-md border border-border/50 bg-transparent"
         aria-hidden
       />
     );
@@ -57,7 +57,7 @@ export function HeaderAuth() {
       <button
         type="button"
         onClick={onSignIn}
-        className="shrink-0 border border-[#2A3042] bg-transparent px-[14px] py-[6px] text-[13px] text-[#8B95A8] transition-colors hover:border-[#3B82F6]"
+        className="shrink-0 border border-border bg-transparent px-[14px] py-[6px] text-[13px] text-muted-foreground transition-colors hover:border-accent"
         style={{ borderRadius: 6 }}
       >
         {t('signIn')}
@@ -76,7 +76,7 @@ export function HeaderAuth() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full border border-[#2A3042] bg-[#1A1F2E] transition-colors hover:border-[#3B82F6]"
+        className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full border border-border bg-surface-elevated transition-colors hover:border-accent"
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label={t('accountMenu')}
@@ -91,22 +91,22 @@ export function HeaderAuth() {
             unoptimized
           />
         ) : (
-          <span className="text-[10px] font-bold text-[#8B95A8]">
+          <span className="text-[10px] font-bold text-muted-foreground">
             {label.slice(0, 1).toUpperCase()}
           </span>
         )}
       </button>
       {open ? (
         <div
-          className="absolute right-0 top-[calc(100%+6px)] z-[150] min-w-[160px] rounded-md border border-[#2A3042] bg-[#1A1F2E] py-1 shadow-lg"
+          className="absolute right-0 top-[calc(100%+6px)] z-[150] min-w-[160px] rounded-md border border-border bg-surface-elevated py-1 shadow-lg"
           role="menu"
         >
-          <div className="truncate px-3 py-2 text-[11px] text-[#8B95A8]">
+          <div className="truncate px-3 py-2 text-[11px] text-muted-foreground">
             {label}
           </div>
           <Link
             href="/profile"
-            className="block px-3 py-2 text-[13px] text-[#E8ECF4] hover:bg-[#2A3042]"
+            className="block px-3 py-2 text-[13px] text-foreground hover:bg-surface"
             role="menuitem"
             onClick={() => setOpen(false)}
           >
@@ -114,7 +114,7 @@ export function HeaderAuth() {
           </Link>
           <button
             type="button"
-            className="w-full px-3 py-2 text-start text-[13px] text-[#E8ECF4] hover:bg-[#2A3042]"
+            className="w-full px-3 py-2 text-start text-[13px] text-foreground hover:bg-surface"
             role="menuitem"
             onClick={onSignOut}
           >

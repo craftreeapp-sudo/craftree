@@ -385,7 +385,7 @@ export function NodeDetailSidebar() {
         />
       ) : null}
       <motion.aside
-        className={`fixed top-14 z-[52] flex h-[calc(100dvh-3.5rem)] w-[min(90vw,340px)] flex-col border-[#2A3042] bg-[#1A1F2E] shadow-xl md:w-[340px] ${
+        className={`fixed top-14 z-[52] flex h-[calc(100dvh-3.5rem)] w-[min(90vw,340px)] flex-col border-border bg-surface-elevated shadow-xl md:w-[340px] ${
           isRtl
             ? 'left-0 border-r'
             : 'right-0 border-l'
@@ -414,15 +414,15 @@ export function NodeDetailSidebar() {
               <>
                 <motion.div
                   variants={staggerItem}
-                  className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-2 border-b border-[#2A3042] bg-[#1A1F2E] px-4 py-4"
+                  className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-2 border-b border-border bg-surface-elevated px-4 py-4"
                 >
-                  <h2 className="text-lg font-semibold text-[#E8ECF4]">
+                  <h2 className="text-lg font-semibold text-foreground">
                     {tCommon('edit')}
                   </h2>
                   <button
                     type="button"
                     onClick={() => setEditMode(false)}
-                    className="shrink-0 rounded p-1.5 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                    className="shrink-0 rounded p-1.5 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
                     aria-label={tSidebar('backToDetail')}
                   >
                     <span className="text-xl leading-none">×</span>
@@ -466,15 +466,15 @@ export function NodeDetailSidebar() {
               <>
                 <motion.div
                   variants={staggerItem}
-                  className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-2 border-b border-[#2A3042] bg-[#1A1F2E] px-4 py-4"
+                  className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-2 border-b border-border bg-surface-elevated px-4 py-4"
                 >
-                  <h2 className="text-lg font-semibold text-[#E8ECF4]">
+                  <h2 className="text-lg font-semibold text-foreground">
                     {tAuth('suggestCorrection')}
                   </h2>
                   <button
                     type="button"
                     onClick={cancelSuggestMode}
-                    className="shrink-0 rounded p-1.5 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                    className="shrink-0 rounded p-1.5 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
                     aria-label={tSidebar('backToDetail')}
                   >
                     <span className="text-xl leading-none">×</span>
@@ -494,7 +494,7 @@ export function NodeDetailSidebar() {
                     <button
                       type="button"
                       onClick={cancelSuggestMode}
-                      className="py-2 text-sm text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
+                      className="py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
                     >
                       {tCommon('cancel')}
                     </button>
@@ -505,11 +505,11 @@ export function NodeDetailSidebar() {
               <>
                 <motion.div
                   variants={staggerItem}
-                  className="sticky top-0 z-10 flex shrink-0 items-start justify-between gap-2 border-b border-[#2A3042] bg-[#1A1F2E] px-4 py-4"
+                  className="sticky top-0 z-10 flex shrink-0 items-start justify-between gap-2 border-b border-border bg-surface-elevated px-4 py-4"
                 >
                   <div className="min-w-0 flex-1">
                     <h2
-                      className="text-[18px] font-bold leading-tight text-[#E8ECF4]"
+                      className="text-[18px] font-bold leading-tight text-foreground"
                       style={{
                         fontFamily:
                           'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -531,7 +531,7 @@ export function NodeDetailSidebar() {
                       >
                         {tCat(node.category as NodeCategory)}
                       </span>
-                      <span className="rounded bg-[#111827] px-2 py-0.5 text-xs text-[#8B95A8]">
+                      <span className="rounded bg-surface px-2 py-0.5 text-xs text-muted-foreground">
                         {tTypes(node.type)}
                       </span>
                     </div>
@@ -541,7 +541,7 @@ export function NodeDetailSidebar() {
                       <button
                         type="button"
                         onClick={() => void enterEdit()}
-                        className="rounded p-1.5 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                        className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
                         aria-label={tSidebar('editInvention')}
                       >
                         <span className="text-base leading-none">✏️</span>
@@ -554,7 +554,7 @@ export function NodeDetailSidebar() {
                         aria-expanded={moreMenuOpen}
                         aria-haspopup="menu"
                         aria-label={tSidebar('moreActions')}
-                        className="rounded p-1.5 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                        className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
                       >
                         <svg
                           width="20"
@@ -570,7 +570,7 @@ export function NodeDetailSidebar() {
                       </button>
                       {moreMenuOpen ? (
                         <div
-                          className="absolute end-0 top-[calc(100%+6px)] z-[60] min-w-[180px] rounded-md border border-[#2A3042] bg-[#1A1F2E] py-1 shadow-lg"
+                          className="absolute end-0 top-[calc(100%+6px)] z-[60] min-w-[180px] rounded-md border border-border bg-surface-elevated py-1 shadow-lg"
                           role="menu"
                         >
                           {detail?.wikipedia_url ? (
@@ -578,7 +578,7 @@ export function NodeDetailSidebar() {
                               href={detail.wikipedia_url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex items-center gap-2 px-3 py-2 text-[13px] text-[#E8ECF4] hover:bg-[#2A3042]"
+                              className="flex items-center gap-2 px-3 py-2 text-[13px] text-foreground hover:bg-border"
                               role="menuitem"
                               onClick={() => setMoreMenuOpen(false)}
                             >
@@ -591,7 +591,7 @@ export function NodeDetailSidebar() {
                                 strokeWidth="2"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-                                className="shrink-0 text-[#8B95A8]"
+                                className="shrink-0 text-muted-foreground"
                                 aria-hidden
                               >
                                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -603,7 +603,7 @@ export function NodeDetailSidebar() {
                           ) : null}
                           <button
                             type="button"
-                            className="flex w-full items-center gap-2 px-3 py-2 text-start text-[13px] text-[#E8ECF4] hover:bg-[#2A3042]"
+                            className="flex w-full items-center gap-2 px-3 py-2 text-start text-[13px] text-foreground hover:bg-border"
                             role="menuitem"
                             onClick={() => {
                               handleShare();
@@ -619,7 +619,7 @@ export function NodeDetailSidebar() {
                               strokeWidth="2"
                               strokeLinecap="round"
                               strokeLinejoin="round"
-                              className="shrink-0 text-[#8B95A8]"
+                              className="shrink-0 text-muted-foreground"
                               aria-hidden
                             >
                               <path d="M7 7h10v10" />
@@ -633,7 +633,7 @@ export function NodeDetailSidebar() {
                     <button
                       type="button"
                       onClick={closeDetail}
-                      className="shrink-0 rounded p-1.5 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                      className="shrink-0 rounded p-1.5 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
                       aria-label={tSidebar('closePanel')}
                     >
                       <span className="text-xl leading-none">×</span>
@@ -679,7 +679,7 @@ export function NodeDetailSidebar() {
               {yearLine ? (
                 <motion.p
                   variants={staggerItem}
-                  className="text-sm text-[#8B95A8]"
+                  className="text-sm text-muted-foreground"
                 >
                   {yearLine}
                 </motion.p>
@@ -688,7 +688,7 @@ export function NodeDetailSidebar() {
               {(node.origin?.trim() || detail?.origin?.trim()) ? (
                 <motion.p
                   variants={staggerItem}
-                  className={`text-[13px] text-[#8B95A8] ${yearLine ? 'mt-2' : ''}`}
+                  className={`text-[13px] text-muted-foreground ${yearLine ? 'mt-2' : ''}`}
                 >
                   {(node.origin ?? detail?.origin ?? '').trim()}
                 </motion.p>
@@ -696,7 +696,7 @@ export function NodeDetailSidebar() {
 
               <motion.p
                 variants={staggerItem}
-                className={`text-sm leading-relaxed text-[#8B95A8] ${
+                className={`text-sm leading-relaxed text-muted-foreground ${
                   hasDetailMetaAboveDescription ? 'mt-4' : ''
                 }`}
               >
@@ -732,10 +732,10 @@ export function NodeDetailSidebar() {
                 <button
                   type="button"
                   onClick={() => setLedToOpen((v) => !v)}
-                  className="mb-3 flex w-full items-center justify-between gap-2 rounded-md py-1.5 text-start transition-colors hover:bg-[#111827]/50"
+                  className="mb-3 flex w-full items-center justify-between gap-2 rounded-md py-1.5 text-start transition-colors hover:bg-surface/50"
                   aria-expanded={ledToOpen}
                 >
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-[#8B95A8]">
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     {tExplore('ledTo')} ({usages.length})
                   </h3>
                   <svg
@@ -747,7 +747,7 @@ export function NodeDetailSidebar() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className={`shrink-0 text-[#8B95A8] transition-transform duration-200 ${
+                    className={`shrink-0 text-muted-foreground transition-transform duration-200 ${
                       ledToOpen ? 'rotate-180' : ''
                     }`}
                     aria-hidden
@@ -757,7 +757,7 @@ export function NodeDetailSidebar() {
                 </button>
                 {ledToOpen ? (
                   usages.length === 0 ? (
-                    <p className="text-sm text-[#8B95A8]">
+                    <p className="text-sm text-muted-foreground">
                       {tExplore('noDownstream')}
                     </p>
                   ) : (
@@ -783,10 +783,10 @@ export function NodeDetailSidebar() {
                 <button
                   type="button"
                   onClick={() => setBuiltUponOpen((v) => !v)}
-                  className="mb-3 flex w-full items-center justify-between gap-2 rounded-md py-1.5 text-start transition-colors hover:bg-[#111827]/50"
+                  className="mb-3 flex w-full items-center justify-between gap-2 rounded-md py-1.5 text-start transition-colors hover:bg-surface/50"
                   aria-expanded={builtUponOpen}
                 >
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-[#8B95A8]">
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     {tExplore('builtUpon')} ({recipeLinks.length})
                   </h3>
                   <svg
@@ -798,7 +798,7 @@ export function NodeDetailSidebar() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className={`shrink-0 text-[#8B95A8] transition-transform duration-200 ${
+                    className={`shrink-0 text-muted-foreground transition-transform duration-200 ${
                       builtUponOpen ? 'rotate-180' : ''
                     }`}
                     aria-hidden
@@ -808,7 +808,7 @@ export function NodeDetailSidebar() {
                 </button>
                 {builtUponOpen ? (
                   recipeLinks.length === 0 ? (
-                    <p className="text-sm text-[#8B95A8]">
+                    <p className="text-sm text-muted-foreground">
                       {tExplore('noUpstream')}
                     </p>
                   ) : (
@@ -862,7 +862,7 @@ function LedToRow({
   const relLabel = tRel(rel);
 
   return (
-    <li className="flex gap-3 rounded-md border border-[#2A3042]/80 bg-[#111827]/40 px-2 py-2">
+    <li className="flex gap-3 rounded-md border border-border/80 bg-surface/40 px-2 py-2">
       <span
         className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ring-2 ring-white/10"
         style={{
@@ -875,7 +875,7 @@ function LedToRow({
         <button
           type="button"
           onClick={() => onSelectProduct(product.id)}
-          className="text-start text-sm font-medium text-[#3B82F6] hover:underline"
+          className="text-start text-sm font-medium text-accent hover:underline"
         >
           {pickNodeDisplayName(
             locale,
@@ -883,13 +883,13 @@ function LedToRow({
             detailsById[product.id]?.name_en
           )}
         </button>
-        <p className="mt-0.5 text-xs text-[#8B95A8]">
+        <p className="mt-0.5 text-xs text-muted-foreground">
           {relLabel}
           {link.quantity_hint ? ` · ${link.quantity_hint}` : ''}
           {link.is_optional ? ` · ${tEx('optional')}` : ''}
         </p>
         {link.notes ? (
-          <p className="mt-1 text-xs italic text-[#8B95A8]/80">{link.notes}</p>
+          <p className="mt-1 text-xs italic text-muted-foreground/80">{link.notes}</p>
         ) : null}
       </div>
     </li>
@@ -920,7 +920,7 @@ function RecipeRow({
   const relLabel = tRel(rel);
 
   return (
-    <li className="flex gap-3 rounded-md border border-[#2A3042]/80 bg-[#111827]/40 px-2 py-2">
+    <li className="flex gap-3 rounded-md border border-border/80 bg-surface/40 px-2 py-2">
       <span
         className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ring-2 ring-white/10"
         style={{
@@ -934,7 +934,7 @@ function RecipeRow({
           <button
             type="button"
             onClick={() => onSelectIngredient(input.id)}
-            className="text-start text-sm font-medium text-[#3B82F6] hover:underline"
+            className="text-start text-sm font-medium text-accent hover:underline"
           >
             {pickNodeDisplayName(
               locale,
@@ -943,15 +943,15 @@ function RecipeRow({
             )}
           </button>
         ) : (
-          <span className="text-sm text-[#E8ECF4]">{link.source_id}</span>
+          <span className="text-sm text-foreground">{link.source_id}</span>
         )}
-        <p className="mt-0.5 text-xs text-[#8B95A8]">
+        <p className="mt-0.5 text-xs text-muted-foreground">
           {relLabel}
           {link.quantity_hint ? ` · ${link.quantity_hint}` : ''}
           {link.is_optional ? ` · ${tEx('optional')}` : ''}
         </p>
         {link.notes && (
-          <p className="mt-1 text-xs italic text-[#8B95A8]/80">{link.notes}</p>
+          <p className="mt-1 text-xs italic text-muted-foreground/80">{link.notes}</p>
         )}
       </div>
     </li>

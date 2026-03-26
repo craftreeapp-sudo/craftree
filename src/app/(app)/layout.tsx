@@ -11,7 +11,7 @@ export default function AppShellLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex min-h-screen min-h-[100dvh] flex-col bg-[#0A0E17] text-[#E8ECF4]">
+    <div className="flex min-h-screen min-h-[100dvh] flex-col bg-page text-foreground">
       <Header />
       <div className="flex min-h-0 flex-1 flex-col">{children}</div>
       <SiteFooter />

@@ -68,7 +68,7 @@ function neighborIdsOfCenter(
 }
 
 const SELECT_CLASS =
-  'nodrag nopan w-full appearance-none rounded-md border-[0.5px] border-[#2A3042] bg-[#111827] px-2.5 py-2 pr-9 text-[13px] text-[#E8ECF4] outline-none focus:border-[#3B82F6]';
+  'nodrag nopan w-full appearance-none rounded-md border-[0.5px] border-border bg-surface px-2.5 py-2 pr-9 text-[13px] text-foreground outline-none focus:border-accent';
 
 /** Lien vers une carte déjà en base : pas de choix UI, type par défaut. */
 const DEFAULT_EXISTING_LINK_RELATION = RelationType.MATERIAL;
@@ -532,7 +532,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
       onWheel={(e) => e.stopPropagation()}
     >
       <motion.div
-        className="w-[280px] overflow-hidden rounded-lg border border-[#3B82F6] bg-[#1A1F2E] shadow-[0_8px_24px_rgba(0,0,0,0.4)]"
+        className="w-[280px] overflow-hidden rounded-lg border border-[#3B82F6] bg-surface-elevated shadow-[0_8px_24px_rgba(0,0,0,0.4)]"
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.2, ease: 'easeOut' }}
@@ -546,7 +546,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="flex items-start justify-between gap-2 border-b border-[#2A3042] px-3 py-2">
+                <div className="flex items-start justify-between gap-2 border-b border-border px-3 py-2">
                   <p className="min-w-0 text-[13px] font-bold leading-tight text-white">
                     {pendingExisting.node.name}
                   </p>
@@ -554,21 +554,21 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                     <button
                       type="button"
                       onClick={() => setPendingExisting(null)}
-                      className="text-[12px] text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
+                      className="text-[12px] text-muted-foreground transition-colors hover:text-foreground"
                     >
                       {tc('back')}
                     </button>
                     <button
                       type="button"
                       onClick={close}
-                      className="rounded p-1 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                      className="rounded p-1 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
                       aria-label={tc('close')}
                     >
                       <span className="text-lg leading-none">×</span>
                     </button>
                   </div>
                 </div>
-                <p className="px-3 pt-2 text-[11px] text-[#8B95A8]">
+                <p className="px-3 pt-2 text-[11px] text-muted-foreground">
                   {tConn('pickRelationForLink')}
                 </p>
                 <RelationTypePicker
@@ -590,7 +590,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                 transition={{ duration: 0.2 }}
                 className={creating ? 'pointer-events-none opacity-60' : ''}
               >
-                <div className="flex items-start justify-between gap-2 border-b border-[#2A3042] px-3 py-2">
+                <div className="flex items-start justify-between gap-2 border-b border-border px-3 py-2">
                   <p className="min-w-0 text-[13px] font-bold leading-tight text-white">
                     {tConn('createHeading', { name: pickDraft.name })}
                   </p>
@@ -598,14 +598,14 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                     <button
                       type="button"
                       onClick={backFromPickToCreate}
-                      className="text-[12px] text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
+                      className="text-[12px] text-muted-foreground transition-colors hover:text-foreground"
                     >
                       {tc('back')}
                     </button>
                     <button
                       type="button"
                       onClick={close}
-                      className="rounded p-1 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                      className="rounded p-1 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
                       aria-label={tc('close')}
                     >
                       <span className="text-lg leading-none">×</span>
@@ -613,11 +613,11 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                   </div>
                 </div>
                 <div className="max-h-[min(320px,55vh)] space-y-3 overflow-y-auto p-3">
-                  <p className="text-[11px] leading-snug text-[#8B95A8]">
+                  <p className="text-[11px] leading-snug text-muted-foreground">
                     {tConn('pickHint')}
                   </p>
                   <div>
-                    <label className="mb-1 block text-[11px] text-[#8B95A8]">
+                    <label className="mb-1 block text-[11px] text-muted-foreground">
                       {te('category')}
                     </label>
                     <select
@@ -640,7 +640,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                     </select>
                   </div>
                   <div>
-                    <label className="mb-1 block text-[11px] text-[#8B95A8]">
+                    <label className="mb-1 block text-[11px] text-muted-foreground">
                       {te('type')}
                     </label>
                     <select
@@ -663,7 +663,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                     </select>
                   </div>
                   <div>
-                    <label className="mb-1 block text-[11px] text-[#8B95A8]">
+                    <label className="mb-1 block text-[11px] text-muted-foreground">
                       {te('date')}
                     </label>
                     <input
@@ -681,13 +681,13 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                       }
                       onPointerDown={(e) => e.stopPropagation()}
                       placeholder={tConn('yearPlaceholder')}
-                      className="w-full rounded-md border-[0.5px] border-[#2A3042] bg-[#111827] px-2.5 py-2 text-[13px] text-[#E8ECF4] outline-none placeholder:text-[#5A6175] focus:border-[#3B82F6]"
+                      className="w-full rounded-md border-[0.5px] border-border bg-surface px-2.5 py-2 text-[13px] text-foreground outline-none placeholder:text-muted-foreground focus:border-accent"
                     />
                   </div>
                   {createError ? (
                     <p className="text-[13px] text-[#EF4444]">{createError}</p>
                   ) : null}
-                  <div className="border-t border-[#2A3042] pt-1">
+                  <div className="border-t border-border pt-1">
                     <RelationTypePicker
                       onPick={(rt) => {
                         if (!pickFormValid || creating) return;
@@ -696,7 +696,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                     />
                   </div>
                   {creating ? (
-                    <p className="text-center text-[12px] text-[#8B95A8]">
+                    <p className="text-center text-[12px] text-muted-foreground">
                       {tConn('creating')}
                     </p>
                   ) : null}
@@ -710,7 +710,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="flex items-start justify-between gap-2 border-b border-[#2A3042] px-3 py-2">
+                <div className="flex items-start justify-between gap-2 border-b border-border px-3 py-2">
                   <p className="min-w-0 text-[13px] font-bold leading-tight text-white">
                     {tConn('createHeading', { name: createName })}
                   </p>
@@ -718,14 +718,14 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                     <button
                       type="button"
                       onClick={backToSearch}
-                      className="text-[12px] text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
+                      className="text-[12px] text-muted-foreground transition-colors hover:text-foreground"
                     >
                       {tc('back')}
                     </button>
                     <button
                       type="button"
                       onClick={close}
-                      className="rounded p-1 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                      className="rounded p-1 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
                       aria-label={tc('close')}
                     >
                       <span className="text-lg leading-none">×</span>
@@ -734,7 +734,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                 </div>
                 <div className="space-y-3 p-3">
                   <div>
-                    <label className="mb-1 block text-[11px] text-[#8B95A8]">
+                    <label className="mb-1 block text-[11px] text-muted-foreground">
                       {te('category')}
                     </label>
                     <select
@@ -756,7 +756,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                     </select>
                   </div>
                   <div>
-                    <label className="mb-1 block text-[11px] text-[#8B95A8]">
+                    <label className="mb-1 block text-[11px] text-muted-foreground">
                       {te('type')}
                     </label>
                     <select
@@ -778,7 +778,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                     </select>
                   </div>
                   <div>
-                    <label className="mb-1 block text-[11px] text-[#8B95A8]">
+                    <label className="mb-1 block text-[11px] text-muted-foreground">
                       {te('date')}
                     </label>
                     <input
@@ -788,7 +788,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                       onChange={(e) => setYearInput(e.target.value)}
                       onPointerDown={(e) => e.stopPropagation()}
                       placeholder={tConn('yearPlaceholder')}
-                      className="w-full rounded-md border-[0.5px] border-[#2A3042] bg-[#111827] px-2.5 py-2 text-[13px] text-[#E8ECF4] outline-none placeholder:text-[#5A6175] focus:border-[#3B82F6]"
+                      className="w-full rounded-md border-[0.5px] border-border bg-surface px-2.5 py-2 text-[13px] text-foreground outline-none placeholder:text-muted-foreground focus:border-accent"
                     />
                   </div>
                   {createError ? (
@@ -806,7 +806,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                     <button
                       type="button"
                       onClick={backToSearch}
-                      className="rounded-md bg-[#2A3042] px-3 py-2.5 text-[13px] text-[#8B95A8] transition-colors hover:bg-[#3B4558]"
+                      className="rounded-md bg-[#2A3042] px-3 py-2.5 text-[13px] text-muted-foreground transition-colors hover:bg-[#3B4558]"
                     >
                       {tc('cancel')}
                     </button>
@@ -821,19 +821,19 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="flex items-center gap-1 border-b border-[#2A3042] p-2">
+                <div className="flex items-center gap-1 border-b border-border p-2">
                   <input
                     ref={inputRef}
                     type="search"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder={tConn('searchPlaceholder')}
-                    className="min-w-0 flex-1 rounded-md border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] placeholder:text-[#8B95A8] outline-none focus:border-[#3B82F6]"
+                    className="min-w-0 flex-1 rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-accent"
                   />
                   <button
                     type="button"
                     onClick={close}
-                    className="shrink-0 rounded p-1.5 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                    className="shrink-0 rounded p-1.5 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
                     aria-label={tc('close')}
                   >
                     <span className="text-xl leading-none">×</span>
@@ -853,22 +853,22 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                           type="button"
                           disabled={linkingExistingId !== null}
                           onClick={() => void onPickExistingNode(n)}
-                          className="flex w-full items-center gap-2 px-3 py-2 text-start text-sm transition-colors hover:bg-[#111827] disabled:cursor-wait disabled:opacity-60"
+                          className="flex w-full items-center gap-2 px-3 py-2 text-start text-sm transition-colors hover:bg-surface disabled:cursor-wait disabled:opacity-60"
                         >
                           <span
                             className="h-3 w-3 shrink-0 rounded-sm"
                             style={{ backgroundColor: color }}
                           />
-                          <span className="min-w-0 flex-1 truncate text-[#E8ECF4]">
+                          <span className="min-w-0 flex-1 truncate text-foreground">
                             {n.name}
                           </span>
                           {year ? (
-                            <span className="shrink-0 text-[11px] text-[#8B95A8]">
+                            <span className="shrink-0 text-[11px] text-muted-foreground">
                               {year}
                             </span>
                           ) : null}
                           {busy ? (
-                            <span className="shrink-0 text-[11px] text-[#8B95A8]">
+                            <span className="shrink-0 text-[11px] text-muted-foreground">
                               …
                             </span>
                           ) : null}
@@ -878,7 +878,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                   })}
                 </ul>
                 {showCreateButton ? (
-                  <div className="border-t border-[#2A3042] p-2">
+                  <div className="border-t border-border p-2">
                     <button
                       type="button"
                       onClick={() => {

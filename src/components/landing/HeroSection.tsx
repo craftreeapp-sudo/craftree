@@ -18,14 +18,14 @@ const titleVariants = {
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[min(88vh,820px)] overflow-hidden bg-[#0A0E17] md:min-h-[min(92vh,880px)]">
+    <section className="relative min-h-[min(88vh,820px)] overflow-hidden bg-page md:min-h-[min(92vh,880px)]">
       <div className="hidden md:block">
         <HeroGraphBackground />
       </div>
 
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-5 pb-16 pt-24 text-center md:px-6 md:pb-24 md:pt-36">
         <motion.h1
-          className="max-w-3xl font-bold leading-[1.08] tracking-tight text-[#E8ECF4]"
+          className="max-w-3xl font-bold leading-[1.08] tracking-tight text-foreground"
           style={{
             fontFamily:
               'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -39,7 +39,7 @@ export function HeroSection() {
         </motion.h1>
 
         <motion.p
-          className="mt-6 max-w-2xl text-[20px] leading-relaxed text-[#8B95A8]"
+          className="mt-6 max-w-2xl text-[20px] leading-relaxed text-muted-foreground"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -56,7 +56,7 @@ export function HeroSection() {
         >
           <Link
             href="/explore"
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#3B82F6] px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-[#3B82F6]/25 transition-colors hover:bg-[#60A5FA] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#93C5FD] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0E17] md:inline-flex md:w-auto"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#3B82F6] px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-[#3B82F6]/25 transition-colors hover:bg-[#60A5FA] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#93C5FD] focus-visible:ring-offset-2 focus-visible:ring-offset-page md:inline-flex md:w-auto"
           >
             Explorer
             <span aria-hidden>→</span>

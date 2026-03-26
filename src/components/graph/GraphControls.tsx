@@ -10,7 +10,7 @@ import type { TechNodeData } from './TechNode';
 const SIDEBAR_W = 340;
 const SIDEBAR_GAP = 20;
 const BTN =
-  'flex h-9 w-9 shrink-0 items-center justify-center rounded-[8px] border border-[#2A3042] bg-[#1A1F2E] text-[#E8ECF4] transition-colors hover:border-[#3B82F6]';
+  'flex h-9 w-9 shrink-0 items-center justify-center rounded-[8px] border border-border bg-surface-elevated text-foreground transition-colors hover:border-accent';
 
 function ZoomInIcon() {
   return (
@@ -196,7 +196,7 @@ export function GraphControls({
   const toolbar = (
     <>
       <span
-        className="flex min-w-[2.75rem] shrink-0 select-none items-center justify-center rounded-[8px] border border-[#2A3042] bg-[#1A1F2E] px-2 py-1.5 text-xs tabular-nums text-[#8B95A8]"
+        className="flex min-w-[2.75rem] shrink-0 select-none items-center justify-center rounded-[8px] border border-border bg-surface-elevated px-2 py-1.5 text-xs tabular-nums text-muted-foreground"
         aria-live="polite"
         title={tg('zoomTitle')}
       >
@@ -296,7 +296,7 @@ export function GraphControls({
               return getCategoryColor(data?.category ?? 'material');
             }}
             maskColor="rgba(10, 14, 23, 0.8)"
-            className="!bg-[#1A1F2E] !border border-[#2A3042]"
+            className="!bg-surface-elevated !border border-border"
           />
         </div>
       ) : null}

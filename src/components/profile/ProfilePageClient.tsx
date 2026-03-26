@@ -201,7 +201,7 @@ export function ProfilePageClient() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-[720px] bg-[#0A0E17] px-8 pb-24 pt-28 text-center text-base text-[#8B95A8]">
+      <div className="mx-auto max-w-[720px] bg-page px-8 pb-24 pt-28 text-center text-base text-muted-foreground">
         {t('loading')}
       </div>
     );
@@ -209,7 +209,7 @@ export function ProfilePageClient() {
 
   if (error || !data) {
     return (
-      <div className="mx-auto max-w-[720px] bg-[#0A0E17] px-8 pb-24 pt-28 text-center text-base text-[#EF4444]">
+      <div className="mx-auto max-w-[720px] bg-page px-8 pb-24 pt-28 text-center text-base text-[#EF4444]">
         {error ?? t('loadError')}
       </div>
     );
@@ -220,10 +220,10 @@ export function ProfilePageClient() {
   const avatarUrl = profile.avatar_url?.trim() || null;
 
   return (
-    <div className="mx-auto max-w-[720px] bg-[#0A0E17] px-8 pb-24 pt-28 sm:px-10">
+    <div className="mx-auto max-w-[720px] bg-page px-8 pb-24 pt-28 sm:px-10">
       <header className="mx-auto mb-10 max-w-[720px]">
         <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start sm:justify-center sm:gap-8">
-          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-[#2A3042] bg-[#1A1F2E]">
+          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-border bg-surface-elevated">
             {avatarUrl ? (
               <Image
                 src={avatarUrl}
@@ -237,19 +237,19 @@ export function ProfilePageClient() {
                 }
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-[#3B82F6] text-[28px] font-bold text-white">
+              <div className="flex h-full w-full items-center justify-center bg-accent text-[28px] font-bold text-white">
                 {initials}
               </div>
             )}
           </div>
           <div className="min-w-0 flex-1 text-center sm:text-start">
             <p
-              className="text-[26px] font-bold leading-tight text-white sm:text-[28px]"
+              className="text-[26px] font-bold leading-tight text-foreground sm:text-[28px]"
               style={{ fontFamily: 'var(--font-inter), Inter, sans-serif' }}
             >
               {displayName}
             </p>
-            <p className="mt-2 text-[14px] leading-snug text-[#8B95A8]">
+            <p className="mt-2 text-[14px] leading-snug text-muted-foreground">
               {t('memberSince', { date: memberSince })}
             </p>
             <div className="mt-3 flex flex-wrap items-center justify-center gap-2.5 sm:justify-start">
@@ -303,12 +303,12 @@ export function ProfilePageClient() {
           ).map(([key, n]) => (
             <div
               key={key}
-              className="rounded-lg border border-[#1F2937] bg-[#111827] px-4 py-5 text-center shadow-sm"
+              className="rounded-lg border border-border bg-surface px-4 py-5 text-center shadow-sm"
             >
-              <p className="text-[30px] font-medium tabular-nums leading-none text-white sm:text-[32px]">
+              <p className="text-[30px] font-medium tabular-nums leading-none text-foreground sm:text-[32px]">
                 {n}
               </p>
-              <p className="mt-3 text-[13px] leading-tight text-[#8B95A8]">
+              <p className="mt-3 text-[13px] leading-tight text-muted-foreground">
                 {t(`stat_${key}`)}
               </p>
             </div>
@@ -319,25 +319,25 @@ export function ProfilePageClient() {
       {level ? (
         <section className="mb-10 md:mb-12">
           <div className="mb-3 flex flex-col gap-1.5 sm:flex-row sm:items-baseline sm:justify-between">
-            <span className="text-[16px] font-bold text-white">
+            <span className="text-[16px] font-bold text-foreground">
               {t(`level_${level.labelKey}`)}
             </span>
             {level.nextLabelKey ? (
-              <span className="text-[13px] text-[#8B95A8] sm:text-right">
+              <span className="text-[13px] text-muted-foreground sm:text-right">
                 {t('levelProgress', {
                   n: level.remaining,
                   next: t(`level_${level.nextLabelKey}`),
                 })}
               </span>
             ) : (
-              <span className="text-[13px] text-[#8B95A8]">
+              <span className="text-[13px] text-muted-foreground">
                 {t('levelMax')}
               </span>
             )}
           </div>
-          <div className="h-2 overflow-hidden rounded-full bg-[#1A1F2E]">
+          <div className="h-2 overflow-hidden rounded-full bg-surface-elevated">
             <div
-              className="h-full rounded-full bg-[#3B82F6] transition-[width] duration-300"
+              className="h-full rounded-full bg-accent transition-[width] duration-300"
               style={{
                 width: `${Math.min(100, Math.max(0, level.progressPct))}%`,
               }}
@@ -347,19 +347,19 @@ export function ProfilePageClient() {
       ) : null}
 
       <section className="mb-10 md:mb-12">
-        <h2 className="mb-4 border-b border-[#1A1F2E] pb-3 text-[18px] font-semibold text-white">
+        <h2 className="mb-4 border-b border-border-subtle pb-3 text-[18px] font-semibold text-foreground">
           {t('recentSuggestions')}
         </h2>
         <ul className="space-y-2">
           {suggestions.length === 0 ? (
-            <li className="text-[15px] italic leading-relaxed text-[#8B95A8]">
+            <li className="text-[15px] italic leading-relaxed text-muted-foreground">
               {t('noSuggestions')}
             </li>
           ) : (
             suggestions.map((s) => (
               <li
                 key={s.id}
-                className="flex items-start gap-4 rounded-lg border border-[#1F2937] bg-[#111827] px-4 py-4"
+                className="flex items-start gap-4 rounded-lg border border-border bg-surface px-4 py-4"
               >
                 <span
                   className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full"
@@ -374,10 +374,10 @@ export function ProfilePageClient() {
                   aria-hidden
                 />
                 <div className="min-w-0 flex-1">
-                  <p className="text-[15px] font-semibold leading-snug text-white">
+                  <p className="text-[15px] font-semibold leading-snug text-foreground">
                     {s.summary}
                   </p>
-                  <p className="mt-1 text-[13px] text-[#8B95A8]">
+                  <p className="mt-1 text-[13px] text-muted-foreground">
                     {formatRelativeShort(s.created_at, locale)}
                   </p>
                 </div>
@@ -400,11 +400,11 @@ export function ProfilePageClient() {
       </section>
 
       <section className="mb-10 md:mb-12">
-        <h2 className="mb-4 border-b border-[#1A1F2E] pb-3 text-[18px] font-semibold text-white">
+        <h2 className="mb-4 border-b border-border-subtle pb-3 text-[18px] font-semibold text-foreground">
           {t('myInventions')}
         </h2>
         {inventedNodes.length === 0 ? (
-          <p className="text-[15px] italic leading-relaxed text-[#8B95A8]">
+          <p className="text-[15px] italic leading-relaxed text-muted-foreground">
             {t('noInventions')}
           </p>
         ) : (
@@ -413,7 +413,7 @@ export function ProfilePageClient() {
               <Link
                 key={n.id}
                 href={`/explore?node=${encodeURIComponent(n.id)}`}
-                className="inline-flex min-h-[44px] items-center gap-2.5 rounded-lg border border-[#2A3042] bg-[#111827] px-4 py-2.5 text-[14px] font-medium text-[#C8CDD8] transition-colors hover:border-[#3B82F6]"
+                className="inline-flex min-h-[44px] items-center gap-2.5 rounded-lg border border-border bg-surface px-4 py-2.5 text-[14px] font-medium text-foreground/85 transition-colors hover:border-accent"
               >
                 <span
                   className="h-2 w-2 shrink-0 rounded-full"
@@ -430,19 +430,19 @@ export function ProfilePageClient() {
       </section>
 
       <section className="mb-10 md:mb-12">
-        <h2 className="mb-4 border-b border-[#1A1F2E] pb-3 text-[18px] font-semibold text-white">
+        <h2 className="mb-4 border-b border-border-subtle pb-3 text-[18px] font-semibold text-foreground">
           {t('favoriteCategories')}
         </h2>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
           {favoriteCategories.length === 0 ? (
-            <p className="text-[15px] italic leading-relaxed text-[#8B95A8]">
+            <p className="text-[15px] italic leading-relaxed text-muted-foreground">
               {t('noCategories')}
             </p>
           ) : (
             favoriteCategories.map((c) => (
               <div
                 key={c.category}
-                className="rounded-lg border border-[#1F2937] bg-[#111827] px-4 py-5 text-center"
+                className="rounded-lg border border-border bg-surface px-4 py-5 text-center"
               >
                 <p
                   className="text-[18px] font-medium leading-tight"
@@ -450,7 +450,7 @@ export function ProfilePageClient() {
                 >
                   {tCat(c.category as NodeCategory)}
                 </p>
-                <p className="mt-2 text-[13px] text-[#8B95A8]">
+                <p className="mt-2 text-[13px] text-muted-foreground">
                   {t('categoryContributions', { n: c.count })}
                 </p>
               </div>
@@ -466,7 +466,7 @@ export function ProfilePageClient() {
               type="text"
               value={editName}
               onChange={(e) => setEditName(e.target.value)}
-              className="min-h-[44px] w-full rounded-lg border border-[#2A3042] bg-[#111827] px-4 py-3 text-[15px] text-[#E8ECF4] outline-none focus:border-[#3B82F6]"
+              className="min-h-[44px] w-full rounded-lg border border-border bg-surface px-4 py-3 text-[15px] text-foreground outline-none focus:border-accent"
               maxLength={120}
               aria-label={t('displayNameLabel')}
             />
@@ -474,7 +474,7 @@ export function ProfilePageClient() {
               type="button"
               disabled={saving}
               onClick={() => void onSaveDisplayName()}
-              className="min-h-[44px] shrink-0 rounded-lg border border-[#3B82F6] px-5 py-3 text-[14px] font-medium text-[#3B82F6] hover:bg-[#3B82F6]/10 disabled:opacity-50"
+              className="min-h-[44px] shrink-0 rounded-lg border border-accent px-5 py-3 text-[14px] font-medium text-accent hover:bg-accent/10 disabled:opacity-50"
             >
               {t('save')}
             </button>
@@ -484,7 +484,7 @@ export function ProfilePageClient() {
                 setEditing(false);
                 setEditName(profile.display_name ?? '');
               }}
-              className="min-h-[44px] shrink-0 rounded-lg border border-[#2A3042] px-5 py-3 text-[14px] text-[#8B95A8]"
+              className="min-h-[44px] shrink-0 rounded-lg border border-border px-5 py-3 text-[14px] text-muted-foreground"
             >
               {t('cancelEdit')}
             </button>
@@ -494,14 +494,14 @@ export function ProfilePageClient() {
             <button
               type="button"
               onClick={() => setEditing(true)}
-              className="min-h-[44px] rounded-lg border border-[#2A3042] px-5 py-3 text-[14px] font-medium text-[#8B95A8] transition-colors hover:border-[#3B82F6]"
+              className="min-h-[44px] rounded-lg border border-border px-5 py-3 text-[14px] font-medium text-muted-foreground transition-colors hover:border-accent"
             >
               {t('editProfile')}
             </button>
             <button
               type="button"
               onClick={() => void onSignOut()}
-              className="min-h-[44px] rounded-lg border border-[#2A3042] px-5 py-3 text-[14px] font-medium text-[#8B95A8] transition-colors hover:border-[#3B82F6]"
+              className="min-h-[44px] rounded-lg border border-border px-5 py-3 text-[14px] font-medium text-muted-foreground transition-colors hover:border-accent"
             >
               {t('signOut')}
             </button>

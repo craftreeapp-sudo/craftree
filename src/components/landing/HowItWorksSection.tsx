@@ -34,10 +34,10 @@ const STEPS = [
 
 export function HowItWorksSection() {
   return (
-    <section className="bg-[#0A0E17] px-4 py-14 md:px-6 md:py-20">
+    <section className="bg-page px-4 py-14 md:px-6 md:py-20">
       <div className="mx-auto max-w-6xl">
         <motion.h2
-          className="mb-14 text-center text-2xl font-bold tracking-tight text-[#E8ECF4] md:text-3xl"
+          className="mb-14 text-center text-2xl font-bold tracking-tight text-foreground md:text-3xl"
           style={{
             fontFamily:
               'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -53,19 +53,19 @@ export function HowItWorksSection() {
           {STEPS.map((step, i) => (
             <motion.article
               key={step.title}
-              className="flex flex-col items-center rounded-2xl border border-[#2A3042]/60 bg-[#111827]/40 px-5 py-6 text-center md:px-6 md:py-8"
+              className="flex flex-col items-center rounded-2xl border border-border/60 bg-surface/40 px-5 py-6 text-center md:px-6 md:py-8"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.45, delay: i * 0.08 }}
             >
-              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1A1F2E] ring-1 ring-[#2A3042]">
+              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-surface-elevated ring-1 ring-[#2A3042]">
                 {step.icon}
               </div>
-              <h3 className="text-lg font-semibold text-[#E8ECF4]">
+              <h3 className="text-lg font-semibold text-foreground">
                 {step.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-[#8B95A8]">
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 {step.text}
               </p>
             </motion.article>

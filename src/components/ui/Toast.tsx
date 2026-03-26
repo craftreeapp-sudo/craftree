@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import type { ToastKind } from '@/stores/toast-store';
 
 const BORDER: Record<ToastKind, string> = {
-  default: 'border-[#2A3042]',
+  default: 'border-border',
   success: 'border-emerald-500/60',
   error: 'border-red-500/60',
 };
@@ -37,7 +37,7 @@ export function Toast({
 
   return (
     <div
-      className={`pointer-events-auto max-w-[min(90vw,360px)] rounded-lg border bg-[#1A1F2E] px-5 py-3 text-[13px] text-[#E8ECF4] shadow-lg transition-opacity duration-300 ${
+      className={`pointer-events-auto max-w-[min(90vw,360px)] rounded-lg border bg-surface-elevated px-5 py-3 text-[13px] text-foreground shadow-lg transition-opacity duration-300 ${
         visible ? 'opacity-100' : 'opacity-0'
       } ${BORDER[kind]}`}
       role="status"

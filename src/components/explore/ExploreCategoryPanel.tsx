@@ -29,7 +29,7 @@ const TOOLTIP_GAP_PX = 10;
 const TOOLTIP_MAX_W_PX = 320;
 
 const CATEGORY_TOGGLE_BTN =
-  'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#2A3042] bg-[#1A1F2E] transition-colors hover:bg-[#2A3042]';
+  'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-elevated transition-colors hover:bg-border';
 
 /** Icône « déplié » : ouvrir le panneau (barre au bord extérieur + chevron vers l’intérieur). */
 function CategoryPanelIconExpand({ isRtl }: { isRtl: boolean }) {
@@ -245,7 +245,7 @@ export function ExploreCategoryPanel() {
             animate={{ x: 0 }}
             exit={{ x: isRtl ? PANEL_W : -PANEL_W }}
             transition={{ duration: 0.3, ease: [0, 0, 0.2, 1] }}
-            className={`fixed top-14 z-[45] flex h-[calc(100dvh-3.5rem)] w-[200px] flex-col border-[#2A3042] bg-[#111827] p-3 [border-width:0.5px] ${panelSideClass}`}
+            className={`fixed top-14 z-[45] flex h-[calc(100dvh-3.5rem)] w-[200px] flex-col border-border bg-surface p-3 [border-width:0.5px] ${panelSideClass}`}
             aria-label={tExplore('categoryPanelAria', {
               category: tCat(selected.category as NodeCategory),
             })}
@@ -256,7 +256,7 @@ export function ExploreCategoryPanel() {
                 style={{ color: categoryColor }}
               >
                 {tCat(selected.category as NodeCategory)}{' '}
-                <span className="font-semibold text-[#8B95A8]">
+                <span className="font-semibold text-muted-foreground">
                   ({sameCategoryList.length})
                 </span>
               </h2>
@@ -272,7 +272,7 @@ export function ExploreCategoryPanel() {
               </button>
             </div>
             <div
-              className="min-h-0 flex-1 space-y-2 overflow-y-auto pr-0.5 [scrollbar-color:#2A3042_transparent] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#2A3042]"
+              className="min-h-0 flex-1 space-y-2 overflow-y-auto pr-0.5 [scrollbar-color:var(--scrollbar-thumb)_transparent] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[color:var(--scrollbar-thumb)]"
             >
               {sameCategoryList.map((n) => {
                 const isCurrent = n.id === selectedNodeId;
@@ -292,15 +292,24 @@ export function ExploreCategoryPanel() {
                         role="group"
                         onPointerEnter={(e) => onRowPointerEnter(n, e)}
                         onPointerLeave={onRowPointerLeave}
-                        className="flex h-[50px] w-full max-w-full flex-col justify-center rounded-[6px] border border-[#2A3042] border-l-[3px] bg-[#2A3042] px-2.5 py-2"
-                        style={{ borderLeftColor: categoryColor }}
+                        className="flex h-[50px] w-full max-w-full flex-col justify-center rounded-[6px] border border-border border-l-[3px] px-2.5 py-2"
+                        style={{
+                          borderLeftColor: categoryColor,
+                          backgroundColor: 'var(--panel-row-selected-bg)',
+                        }}
                         aria-current="true"
                       >
-                        <span className="truncate text-[13px] font-bold text-[#E8ECF4]">
+                        <span
+                          className="truncate text-[13px] font-bold"
+                          style={{ color: 'var(--panel-row-selected-fg)' }}
+                        >
                           {rowLabel}
                         </span>
                         {yearStr ? (
-                          <span className="truncate text-[11px] text-[#5A6175]">
+                          <span
+                            className="truncate text-[11px]"
+                            style={{ color: 'var(--panel-row-selected-meta)' }}
+                          >
                             {yearStr}
                           </span>
                         ) : null}
@@ -316,14 +325,14 @@ export function ExploreCategoryPanel() {
                             forceFocusTransition: true,
                           })
                         }
-                        className="flex h-[50px] w-full max-w-full flex-col justify-center rounded-[6px] border border-[#2A3042] bg-[#1A1F2E] px-2.5 py-2 text-left transition-colors hover:border-[color:var(--cat)] hover:bg-[#222837]"
+                        className="flex h-[50px] w-full max-w-full flex-col justify-center rounded-[6px] border border-border bg-surface-elevated px-2.5 py-2 text-left transition-colors hover:border-[color:var(--cat)] hover:bg-[color:var(--panel-row-hover-bg)]"
                         style={{ ['--cat' as string]: categoryColor } as CSSProperties}
                       >
-                        <span className="truncate text-[13px] font-bold text-[#E8ECF4]">
+                        <span className="truncate text-[13px] font-bold text-foreground">
                           {rowLabel}
                         </span>
                         {yearStr ? (
-                          <span className="truncate text-[11px] text-[#5A6175]">
+                          <span className="truncate text-[11px] text-muted-foreground">
                             {yearStr}
                           </span>
                         ) : null}
@@ -374,14 +383,14 @@ export function ExploreCategoryPanel() {
               }}
             >
               <div
-                className="rounded-lg border border-[#2A3042] bg-[#1A1F2E] px-4 py-3 shadow-xl"
+                className="rounded-lg border border-border bg-surface-elevated px-4 py-3 shadow-xl"
                 style={{ maxWidth: TOOLTIP_MAX_W_PX }}
               >
-                <div className="text-[14px] font-bold text-[#E8ECF4]">
+                <div className="text-[14px] font-bold text-foreground">
                   {tooltip.title}
                 </div>
                 <div
-                  className="mt-1 max-h-[min(58vh,520px)] overflow-y-auto break-words text-[12px] leading-relaxed text-[#8B95A8]"
+                  className="mt-1 max-h-[min(58vh,520px)] overflow-y-auto break-words text-[12px] leading-relaxed text-muted-foreground"
                   style={{ whiteSpace: 'pre-wrap' }}
                 >
                   {tooltip.body.trim() ? (

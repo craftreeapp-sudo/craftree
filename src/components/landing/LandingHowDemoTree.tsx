@@ -150,7 +150,7 @@ export function LandingHowDemoTree({ nodes }: Props) {
               >
                 <Link
                   href={`/explore?node=${encodeURIComponent(id)}`}
-                  className="group relative flex h-full w-full flex-col items-center justify-center rounded-md bg-[#111827]/90 px-1 text-center shadow-sm outline-none transition-[transform,border-color,border-width] duration-200 hover:z-10 hover:scale-105 focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-[#3B82F6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0E17]"
+                  className="group relative flex h-full w-full flex-col items-center justify-center rounded-md bg-surface/90 px-1 text-center shadow-sm outline-none transition-[transform,border-color,border-width] duration-200 hover:z-10 hover:scale-105 focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-page"
                   style={
                     {
                       borderColor: hoverId === id ? color : '#2A3042',
@@ -162,7 +162,7 @@ export function LandingHowDemoTree({ nodes }: Props) {
                   onMouseLeave={() => setHoverId(null)}
                 >
                   <span
-                    className="line-clamp-3 text-[10px] font-medium leading-tight text-[#E8ECF4]"
+                    className="line-clamp-3 text-[10px] font-medium leading-tight text-foreground"
                     style={{
                       fontFamily:
                         'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -171,7 +171,7 @@ export function LandingHowDemoTree({ nodes }: Props) {
                     {node.name}
                   </span>
                   <span
-                    className="pointer-events-none absolute left-1/2 top-full z-20 mt-1 hidden w-[200px] -translate-x-1/2 rounded border border-[#2A3042] bg-[#1A1F2E] px-2 py-1.5 text-left text-[11px] leading-snug text-[#C8CDD8] shadow-lg group-hover:block"
+                    className="pointer-events-none absolute left-1/2 top-full z-20 mt-1 hidden w-[200px] -translate-x-1/2 rounded border border-border bg-surface-elevated px-2 py-1.5 text-left text-[11px] leading-snug text-foreground/85 shadow-lg group-hover:block"
                     role="tooltip"
                   >
                     {node.description}
@@ -183,7 +183,7 @@ export function LandingHowDemoTree({ nodes }: Props) {
         </div>
       </div>
       <p
-        className="mt-3 text-center text-[12px] text-[#5A6175]"
+        className="mt-3 text-center text-[12px] text-muted-foreground"
         style={{ fontFamily: 'var(--font-inter), ui-sans-serif, system-ui' }}
       >
         {t('howDemoHint')}

@@ -159,7 +159,7 @@ export function ImageUploader({
               className="h-8 w-8 animate-spin rounded-full border-2 border-[#5A6175] border-t-[#3B82F6]"
               aria-hidden
             />
-            <span className="text-xs text-[#5A6175]">Envoi…</span>
+            <span className="text-xs text-muted-foreground">Envoi…</span>
           </div>
         ) : (
           <div
@@ -179,7 +179,7 @@ export function ImageUploader({
             >
               <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" />
             </svg>
-            <span className="text-center text-[12px] text-[#5A6175]">
+            <span className="text-center text-[12px] text-muted-foreground">
               Cliquer ou glisser une image
             </span>
             <span className="text-center text-[11px] text-[#3D4555]">

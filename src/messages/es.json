@@ -20,6 +20,12 @@
     "filters": "Filtros",
     "noResults": "Sin resultados"
   },
+  "theme": {
+    "classic": "Clásico",
+    "dark": "Oscuro",
+    "light": "Claro",
+    "switchTheme": "Tema de color"
+  },
   "landing": {
     "title": "¿De qué está hecha la civilización?",
     "subtitle": "Explora el árbol completo de tecnologías humanas, de la materia prima al producto final.",

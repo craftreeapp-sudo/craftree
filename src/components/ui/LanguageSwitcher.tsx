@@ -18,15 +18,15 @@ const OPTIONS: {
 ];
 
 const BTN =
-  'inline-flex shrink-0 items-center gap-1.5 rounded-[6px] border border-[#2A3042] bg-transparent px-2.5 py-1 text-[13px] text-[#E8ECF4] transition-colors hover:border-[#3B82F6]';
+  'inline-flex shrink-0 items-center gap-1.5 rounded-[6px] border border-border bg-transparent px-2.5 py-1 text-[13px] text-foreground transition-colors hover:border-accent';
 
 const MENU =
-  'absolute z-[110] mt-1 min-w-[11rem] rounded-[8px] border border-[#2A3042] bg-[#1A1F2E] py-1 shadow-[0_8px_24px_rgba(0,0,0,0.4)]';
+  'absolute z-[110] mt-1 min-w-[11rem] rounded-[8px] border border-border bg-surface-elevated py-1 shadow-[0_8px_24px_rgba(0,0,0,0.4)]';
 
 const ITEM =
-  'flex w-full items-center gap-2 px-3 py-2 text-left text-[13px] text-[#E8ECF4] transition-colors hover:bg-[#111827]';
+  'flex w-full items-center gap-2 px-3 py-2 text-left text-[13px] text-foreground transition-colors hover:bg-surface';
 
-const ITEM_ACTIVE = 'bg-[#2A3042]';
+const ITEM_ACTIVE = 'bg-surface';
 
 function switchLocale(newLocale: string) {
   document.cookie = `locale=${newLocale};path=/;max-age=${60 * 60 * 24 * 365}`;

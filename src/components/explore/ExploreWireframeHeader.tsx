@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { HeaderAuth } from '@/components/layout/HeaderAuth';
+import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher';
 import { useUIStore } from '@/stores/ui-store';
 
 export function ExploreWireframeHeader() {
@@ -13,14 +14,11 @@ export function ExploreWireframeHeader() {
   const toggleFilterDrawer = useUIStore((s) => s.toggleFilterDrawer);
 
   return (
-    <header
-      className="fixed left-0 right-0 top-0 z-[100] flex h-14 shrink-0 items-center gap-2 border-b border-[#2A3042]/60 bg-[#0A0E17]/95 px-3 backdrop-blur-md md:gap-3 md:px-4"
-      style={{ backgroundColor: 'rgba(10, 14, 23, 0.95)' }}
-    >
+    <header className="fixed left-0 right-0 top-0 z-[100] flex h-14 shrink-0 items-center gap-2 border-b border-border/60 bg-header-bg px-3 backdrop-blur-md md:gap-3 md:px-4">
       <button
         type="button"
         onClick={toggleFilterDrawer}
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#2A3042] bg-[#1A1F2E] text-lg text-[#E8ECF4] transition-colors hover:bg-[#2A3042]"
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-elevated text-lg text-foreground transition-colors hover:bg-surface"
         aria-label={t('openFilters')}
       >
         ☰
@@ -28,14 +26,14 @@ export function ExploreWireframeHeader() {
 
       <Link
         href="/"
-        className="shrink-0 font-bold tracking-tight text-[#E8ECF4]"
+        className="shrink-0 font-bold tracking-tight text-foreground"
         style={{
           fontFamily:
             'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
           fontSize: '1.15rem',
         }}
       >
-        Craft<span className="text-[#3B82F6]">ree</span>
+        Craft<span className="text-accent">ree</span>
       </Link>
 
       <div className="flex min-w-0 flex-1 justify-center px-2">
@@ -46,6 +44,7 @@ export function ExploreWireframeHeader() {
 
       <div className="flex shrink-0 items-center gap-2">
         <HeaderAuth />
+        <ThemeSwitcher align="end" />
         <LanguageSwitcher align="end" />
       </div>
     </header>

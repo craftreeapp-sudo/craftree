@@ -184,10 +184,10 @@ function ExplosionTreeInner({ rootId }: { rootId: string }) {
   if (!root || !stats || baseNodes.length === 0) {
     return (
       <div className="flex h-full flex-col items-center justify-center gap-4 p-8 text-center">
-        <p className="text-lg text-[#E8ECF4]">Technologie introuvable.</p>
+        <p className="text-lg text-foreground">Technologie introuvable.</p>
         <Link
           href="/explore"
-          className="rounded-lg border border-[#2A3042] bg-[#1A1F2E] px-4 py-2 text-sm text-[#3B82F6] hover:bg-[#2A3042]"
+          className="rounded-lg border border-border bg-surface-elevated px-4 py-2 text-sm text-accent hover:bg-border"
         >
           Retour à l’exploration
         </Link>
@@ -208,40 +208,40 @@ function ExplosionTreeInner({ rootId }: { rootId: string }) {
         fitViewOptions={{ padding: 0.2 }}
         minZoom={0.15}
         maxZoom={1.5}
-        className="bg-[#0A0E17]"
+        className="bg-page"
         proOptions={{ hideAttribution: true }}
       >
-        <Background color="#2A3042" gap={16} size={1} />
+        <Background color="var(--graph-bg-dot)" gap={16} size={1} />
         <Controls
-          className="!m-3 !border-[#2A3042] !bg-[#1A1F2E]/95 !shadow-lg [&>button]:!border-[#2A3042] [&>button]:!bg-[#1A1F2E] [&>button]:!text-[#E8ECF4] [&>button:hover]:!bg-[#2A3042]"
+          className="!m-3 !border-border !bg-surface-elevated/95 !shadow-lg [&>button]:!border-border [&>button]:!bg-surface-elevated [&>button]:!text-foreground [&>button:hover]:!bg-border/50"
           showInteractive={false}
         />
       </ReactFlow>
 
       {/* Stats overlay */}
-      <div className="pointer-events-none absolute right-3 top-3 z-10 max-w-[min(100%-1.5rem,280px)] rounded-xl border border-[#2A3042]/90 bg-[#0A0E17]/85 p-4 text-sm shadow-xl backdrop-blur-md">
-        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#8B95A8]">
+      <div className="pointer-events-none absolute right-3 top-3 z-10 max-w-[min(100%-1.5rem,280px)] rounded-xl border border-border/90 bg-page/85 p-4 text-sm shadow-xl backdrop-blur-md">
+        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           Statistiques
         </h3>
-        <dl className="pointer-events-auto space-y-2 text-[#E8ECF4]">
+        <dl className="pointer-events-auto space-y-2 text-foreground">
           <div className="flex justify-between gap-4">
-            <dt className="text-[#8B95A8]">Dépendances (nœuds)</dt>
+            <dt className="text-muted-foreground">Dépendances (nœuds)</dt>
             <dd className="font-medium tabular-nums">{stats.totalDeps}</dd>
           </div>
           <div className="flex justify-between gap-4">
-            <dt className="text-[#8B95A8]">Niveaux</dt>
+            <dt className="text-muted-foreground">Niveaux</dt>
             <dd className="font-medium tabular-nums">{stats.numLevels}</dd>
           </div>
           <div className="flex justify-between gap-4">
-            <dt className="text-[#8B95A8]">Matières premières</dt>
+            <dt className="text-muted-foreground">Matières premières</dt>
             <dd className="font-medium tabular-nums">
               {stats.rawMaterials.length}
             </dd>
           </div>
         </dl>
         {stats.rawMaterials.length > 0 ? (
-          <div className="pointer-events-auto mt-4 border-t border-[#2A3042] pt-3">
-            <p className="mb-2 text-xs font-medium text-[#8B95A8]">
+          <div className="pointer-events-auto mt-4 border-t border-border pt-3">
+            <p className="mb-2 text-xs font-medium text-muted-foreground">
               Feuilles (matières premières)
             </p>
             <ul className="max-h-36 space-y-1.5 overflow-y-auto">
@@ -253,7 +253,7 @@ function ExplosionTreeInner({ rootId }: { rootId: string }) {
                       backgroundColor: getCategoryColor(n.category),
                     }}
                   />
-                  <span className="truncate text-xs text-[#E8ECF4]">
+                  <span className="truncate text-xs text-foreground">
                     {n.name}
                   </span>
                 </li>
@@ -266,15 +266,15 @@ function ExplosionTreeInner({ rootId }: { rootId: string }) {
       {/* Tooltip / mini popover */}
       {tip && tipNode ? (
         <div
-          className="pointer-events-auto fixed z-[100] w-[min(calc(100vw-2rem),320px)] rounded-xl border border-[#2A3042] bg-[#1A1F2E] p-4 shadow-2xl"
+          className="pointer-events-auto fixed z-[100] w-[min(calc(100vw-2rem),320px)] rounded-xl border border-border bg-surface-elevated p-4 shadow-2xl"
           style={{
             left: Math.min(tip.x, typeof window !== 'undefined' ? window.innerWidth - 340 : tip.x),
             top: Math.min(tip.y + 12, typeof window !== 'undefined' ? window.innerHeight - 200 : tip.y),
           }}
           role="dialog"
         >
-          <p className="text-sm font-semibold text-[#E8ECF4]">{tipNode.name}</p>
-          <p className="mt-2 line-clamp-6 text-xs leading-relaxed text-[#8B95A8]">
+          <p className="text-sm font-semibold text-foreground">{tipNode.name}</p>
+          <p className="mt-2 line-clamp-6 text-xs leading-relaxed text-muted-foreground">
             {tipDescription?.trim()
               ? tipDescription
               : detailsById
@@ -284,7 +284,7 @@ function ExplosionTreeInner({ rootId }: { rootId: string }) {
           <div className="mt-3 flex flex-wrap gap-2">
             <Link
               href={`/tree/${tipNode.id}`}
-              className="inline-flex rounded-lg bg-[#3B82F6]/20 px-3 py-1.5 text-xs font-medium text-[#3B82F6] hover:bg-[#3B82F6]/30"
+              className="inline-flex rounded-lg bg-[#3B82F6]/20 px-3 py-1.5 text-xs font-medium text-accent hover:bg-[#3B82F6]/30"
               onClick={() => setTip(null)}
             >
               Arbre de dépendances de ce nœud
