@@ -1,0 +1,134 @@
+-- Craftree — schéma PostgreSQL (Supabase)
+-- Remplacez craftree.app@gmail.com par l’e-mail admin si besoin (aligné sur NEXT_PUBLIC_ADMIN_EMAIL).
+
+-- Table des inventions
+CREATE TABLE IF NOT EXISTS nodes (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  name_en TEXT,
+  description TEXT,
+  description_en TEXT,
+  category TEXT NOT NULL,
+  type TEXT NOT NULL,
+  era TEXT,
+  year_approx INTEGER,
+  origin TEXT,
+  image_url TEXT,
+  wikipedia_url TEXT,
+  tags TEXT[] DEFAULT '{}',
+  complexity_depth INTEGER DEFAULT 0,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Table des liens de fabrication
+CREATE TABLE IF NOT EXISTS links (
+  id TEXT PRIMARY KEY,
+  source_id TEXT NOT NULL REFERENCES nodes(id) ON DELETE CASCADE,
+  target_id TEXT NOT NULL REFERENCES nodes(id) ON DELETE CASCADE,
+  relation_type TEXT NOT NULL,
+  quantity_hint TEXT,
+  is_optional BOOLEAN DEFAULT FALSE,
+  notes TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Table des utilisateurs (profils)
+CREATE TABLE IF NOT EXISTS profiles (
+  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  email TEXT,
+  display_name TEXT,
+  avatar_url TEXT,
+  role TEXT DEFAULT 'contributor',
+  contributions_count INTEGER DEFAULT 0,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Table des suggestions
+CREATE TABLE IF NOT EXISTS suggestions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES profiles(id) ON DELETE SET NULL,
+  suggestion_type TEXT NOT NULL,
+  status TEXT DEFAULT 'pending',
+  node_id TEXT,
+  data JSONB NOT NULL,
+  admin_comment TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  reviewed_at TIMESTAMP WITH TIME ZONE
+);
+
+-- Index
+CREATE INDEX IF NOT EXISTS idx_links_source ON links(source_id);
+CREATE INDEX IF NOT EXISTS idx_links_target ON links(target_id);
+CREATE INDEX IF NOT EXISTS idx_nodes_category ON nodes(category);
+CREATE INDEX IF NOT EXISTS idx_nodes_type ON nodes(type);
+CREATE INDEX IF NOT EXISTS idx_suggestions_status ON suggestions(status);
+
+-- Row Level Security
+ALTER TABLE nodes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE links ENABLE ROW LEVEL SECURITY;
+ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE suggestions ENABLE ROW LEVEL SECURITY;
+
+-- Lecture publique nodes / links
+DROP POLICY IF EXISTS "nodes_read" ON nodes;
+CREATE POLICY "nodes_read" ON nodes FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "links_read" ON links;
+CREATE POLICY "links_read" ON links FOR SELECT USING (true);
+
+-- Admin (e-mail fixe — doit correspondre au compte Google admin)
+DROP POLICY IF EXISTS "nodes_admin_write" ON nodes;
+CREATE POLICY "nodes_admin_write" ON nodes FOR ALL TO authenticated
+  USING ((auth.jwt() ->> 'email') = 'craftree.app@gmail.com')
+  WITH CHECK ((auth.jwt() ->> 'email') = 'craftree.app@gmail.com');
+
+DROP POLICY IF EXISTS "links_admin_write" ON links;
+CREATE POLICY "links_admin_write" ON links FOR ALL TO authenticated
+  USING ((auth.jwt() ->> 'email') = 'craftree.app@gmail.com')
+  WITH CHECK ((auth.jwt() ->> 'email') = 'craftree.app@gmail.com');
+
+DROP POLICY IF EXISTS "profiles_read_own" ON profiles;
+CREATE POLICY "profiles_read_own" ON profiles FOR SELECT USING (
+  auth.uid() = id OR (auth.jwt() ->> 'email') = 'craftree.app@gmail.com'
+);
+
+DROP POLICY IF EXISTS "profiles_update_own" ON profiles;
+CREATE POLICY "profiles_update_own" ON profiles FOR UPDATE USING (auth.uid() = id);
+
+DROP POLICY IF EXISTS "suggestions_insert" ON suggestions;
+CREATE POLICY "suggestions_insert" ON suggestions FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "suggestions_read_own" ON suggestions;
+CREATE POLICY "suggestions_read_own" ON suggestions FOR SELECT USING (
+  auth.uid() = user_id OR (auth.jwt() ->> 'email') = 'craftree.app@gmail.com'
+);
+
+DROP POLICY IF EXISTS "suggestions_admin_update" ON suggestions;
+CREATE POLICY "suggestions_admin_update" ON suggestions FOR UPDATE USING (
+  (auth.jwt() ->> 'email') = 'craftree.app@gmail.com'
+);
+
+-- Profil à l'inscription
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+  INSERT INTO public.profiles (id, email, display_name, avatar_url)
+  VALUES (
+    NEW.id,
+    NEW.email,
+    COALESCE(NEW.raw_user_meta_data ->> 'full_name', NEW.email),
+    NEW.raw_user_meta_data ->> 'avatar_url'
+  );
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();

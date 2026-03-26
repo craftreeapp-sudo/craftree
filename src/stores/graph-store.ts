@@ -10,8 +10,6 @@ import type {
   SeedNode,
   TechNodeDetails,
 } from '@/lib/types';
-import nodesIndexJson from '@/data/nodes-index.json';
-import linksJson from '@/data/links.json';
 import {
   computeComplexityDepth,
   computeCentrality,
@@ -51,19 +49,8 @@ interface RawLink {
 }
 
 const detailsMemoryCache = new Map<string, TechNodeDetails | null>();
-let detailsJsonPromise: Promise<Record<string, TechNodeDetails>> | null =
-  null;
 
-function loadNodesDetailsJson() {
-  if (!detailsJsonPromise) {
-    detailsJsonPromise = import('@/data/nodes-details.json').then(
-      (m) => m.default as unknown as Record<string, TechNodeDetails>
-    );
-  }
-  return detailsJsonPromise;
-}
-
-/** Détails d’un nœud : cache mémoire, puis JSON lazy, avec priorité au store hydraté par l’API. */
+/** Détails d’un nœud : cache mémoire + GET /api/nodes/[id] (priorité au store hydraté). */
 export async function getNodeDetails(id: string): Promise<TechNodeDetails | null> {
   const fromStore = useNodeDetailsStore.getState().byId[id];
   if (fromStore !== undefined) {
@@ -72,14 +59,24 @@ export async function getNodeDetails(id: string): Promise<TechNodeDetails | null
   if (detailsMemoryCache.has(id)) {
     return detailsMemoryCache.get(id)!;
   }
-  const all = await loadNodesDetailsJson();
-  const row = all[id];
-  if (!row) {
+  try {
+    const res = await fetch(`/api/nodes/${encodeURIComponent(id)}`);
+    if (!res.ok) {
+      detailsMemoryCache.set(id, null);
+      return null;
+    }
+    const json = (await res.json()) as { details?: TechNodeDetails };
+    const d = json.details;
+    if (!d) {
+      detailsMemoryCache.set(id, null);
+      return null;
+    }
+    detailsMemoryCache.set(id, d);
+    return d;
+  } catch {
     detailsMemoryCache.set(id, null);
     return null;
   }
-  detailsMemoryCache.set(id, row);
-  return row;
 }
 
 function normalizeNode(raw: RawNode): TechNodeBasic {
@@ -197,8 +194,8 @@ function buildGraphState(data: { nodes: RawNode[]; links: RawLink[] }) {
 }
 
 const bootstrap = buildGraphState({
-  nodes: nodesIndexJson.nodes as RawNode[],
-  links: linksJson.links as RawLink[],
+  nodes: [],
+  links: [],
 });
 
 export interface UsageEntry {
@@ -228,6 +225,8 @@ interface GraphStore {
   getUsagesOfNode: (id: string) => UsageEntry[];
   refreshData: () => Promise<void>;
   getNodeDetails: (id: string) => Promise<TechNodeDetails | null>;
+  /** Hydratation initiale (SSR Supabase ou refresh client). */
+  hydrateFromRaw: (nodes: SeedNode[], links: CraftingLink[]) => void;
 }
 
 export const useGraphStore = create<GraphStore>((set, get) => ({
@@ -241,6 +240,43 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
   exploreLayerMetas: bootstrap.exploreLayerMetas,
 
   getNodeDetails,
+
+  hydrateFromRaw: (seedNodes, craftingLinks) => {
+    const rawNodes: RawNode[] = seedNodes.map((n) => ({
+      id: n.id,
+      name: n.name,
+      category: n.category,
+      type: n.type,
+      era: n.era,
+      year_approx: n.year_approx ?? null,
+      complexity_depth: n.complexity_depth,
+      tags: n.tags ?? [],
+      origin: n.origin,
+      image_url: n.image_url,
+    }));
+    const rawLinks: RawLink[] = craftingLinks.map((l) => ({
+      id: l.id,
+      source_id: l.source_id,
+      target_id: l.target_id,
+      relation_type: l.relation_type,
+      quantity_hint: l.quantity_hint,
+      is_optional: l.is_optional,
+      notes: l.notes,
+    }));
+    detailsMemoryCache.clear();
+    const next = buildGraphState({ nodes: rawNodes, links: rawLinks });
+    set({
+      nodes: next.nodes,
+      edges: next.edges,
+      centralityByNodeId: next.centralityByNodeId,
+      complexityDepthByNodeId: next.complexityDepthByNodeId,
+      imageBustByNodeId: {},
+      exploreFlowNodes: next.exploreFlowNodes,
+      exploreFlowEdges: next.exploreFlowEdges,
+      exploreLayerMetas: next.exploreLayerMetas,
+    });
+    useNodeDetailsStore.getState().hydrateFromSeedNodes(seedNodes);
+  },
 
   setEdgesAndRecompute: (edges) => {
     set((s) => {

@@ -26,6 +26,11 @@ const nextConfig: NextConfig = {
         hostname: '**.wikipedia.org',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        pathname: '/**',
+      },
     ],
   },
 };

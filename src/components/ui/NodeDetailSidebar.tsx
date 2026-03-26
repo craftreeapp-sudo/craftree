@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { useUIStore } from '@/stores/ui-store';
 import { useGraphStore } from '@/stores/graph-store';
+import { useAuthStore } from '@/stores/auth-store';
 import { useNodeDetailsStore } from '@/stores/node-details-store';
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 import { formatYear } from '@/lib/utils';
@@ -26,9 +27,17 @@ import type {
   TechNodeBasic,
   SeedNode,
   TechNodeDetails,
+  Era,
 } from '@/lib/types';
 import { isRtlLocale } from '@/lib/i18n-config';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
+import {
+  SuggestionNodeForm,
+  type SuggestNodeFormState,
+} from '@/components/ui/SuggestionNodeForm';
+import { computeDiff } from '@/lib/suggestion-diff';
+import { useToastStore } from '@/stores/toast-store';
+import { NodeCategory as NC, Era as EraEnum } from '@/lib/types';
 
 const RELATION_DOT: Record<RelationType, string> = {
   material: '#94A3B8',
@@ -60,6 +69,7 @@ export function NodeDetailSidebar() {
   const tExplore = useTranslations('explore');
   const tSidebar = useTranslations('sidebar');
   const tCommon = useTranslations('common');
+  const tAuth = useTranslations('auth');
   const tTypes = useTranslations('types');
   const tCat = useTranslations('categories');
 
@@ -73,11 +83,28 @@ export function NodeDetailSidebar() {
   const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
   const getUsagesOfNode = useGraphStore((s) => s.getUsagesOfNode);
   const refreshData = useGraphStore((s) => s.refreshData);
+  const setLoginModalOpen = useUIStore((s) => s.setLoginModalOpen);
+  const pushToast = useToastStore((s) => s.pushToast);
+  const { isAdmin, user } = useAuthStore();
 
   const node = selectedNodeId ? getNodeById(selectedNodeId) : undefined;
 
   const [editMode, setEditMode] = useState(false);
-  const [shareToast, setShareToast] = useState(false);
+  const [suggestMode, setSuggestMode] = useState(false);
+  const [suggestForm, setSuggestForm] = useState<SuggestNodeFormState>(() => ({
+    name: '',
+    description: '',
+    category: NC.MATERIAL,
+    type: 'component',
+    era: EraEnum.MODERN,
+    year_approx: '',
+    origin: '',
+  }));
+  const [originalSnapshot, setOriginalSnapshot] = useState<Record<
+    string,
+    unknown
+  > | null>(null);
+  const [suggestSubmitting, setSuggestSubmitting] = useState(false);
   const [sidebarImageError, setSidebarImageError] = useState(false);
   const [form, setForm] = useState<NodeEditFormState>(() =>
     createEmptyFormState()
@@ -115,6 +142,7 @@ export function NodeDetailSidebar() {
   useEffect(() => {
     if (!selectedNodeId) {
       setEditMode(false);
+      setSuggestMode(false);
       return;
     }
     const st = useUIStore.getState();
@@ -123,10 +151,112 @@ export function NodeDetailSidebar() {
       void enterEdit();
     } else {
       setEditMode(false);
+      setSuggestMode(false);
     }
     // Intentionnel : pas de dépendance à enterEdit (évite de fermer l’édition au refresh / save).
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedNodeId]);
+
+  const snapshotFromForm = useCallback((f: SuggestNodeFormState) => {
+    return {
+      name: f.name.trim(),
+      description: f.description.trim(),
+      category: f.category,
+      type: f.type,
+      era: f.era,
+      year_approx:
+        f.year_approx.trim() === '' ? null : Number(f.year_approx.trim()),
+      origin: f.origin.trim(),
+    } as Record<string, unknown>;
+  }, []);
+
+  const enterSuggestMode = useCallback(async () => {
+    if (!node) return;
+    const res = await fetch(`/api/nodes/${encodeURIComponent(node.id)}`);
+    if (!res.ok) return;
+    const json = (await res.json()) as { node: SeedNode };
+    const seed = json.node;
+    setSuggestForm({
+      name: seed.name,
+      description: seed.description ?? '',
+      category: seed.category as NodeCategory,
+      type: seed.type as TechNodeType,
+      era: seed.era as Era,
+      year_approx:
+        seed.year_approx === undefined || seed.year_approx === null
+          ? ''
+          : String(seed.year_approx),
+      origin: seed.origin ?? '',
+    });
+    const snap = snapshotFromForm({
+      name: seed.name,
+      description: seed.description ?? '',
+      category: seed.category as NodeCategory,
+      type: seed.type as TechNodeType,
+      era: seed.era as Era,
+      year_approx:
+        seed.year_approx === undefined || seed.year_approx === null
+          ? ''
+          : String(seed.year_approx),
+      origin: seed.origin ?? '',
+    });
+    setOriginalSnapshot(snap);
+    setSuggestMode(true);
+  }, [node, snapshotFromForm]);
+
+  const handleSuggestCorrection = useCallback(() => {
+    if (!user) {
+      setLoginModalOpen(true);
+      return;
+    }
+    void enterSuggestMode();
+  }, [user, setLoginModalOpen, enterSuggestMode]);
+
+  const cancelSuggestMode = useCallback(() => {
+    setSuggestMode(false);
+    setOriginalSnapshot(null);
+  }, []);
+
+  const submitSuggestion = useCallback(async () => {
+    if (!node || !originalSnapshot) return;
+    setSuggestSubmitting(true);
+    try {
+      const proposed = snapshotFromForm(suggestForm);
+      const diff = computeDiff(originalSnapshot, proposed);
+      const res = await fetch('/api/suggestions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          suggestion_type: 'edit_node',
+          node_id: node.id,
+          data: {
+            original: originalSnapshot,
+            proposed,
+            diff,
+          },
+        }),
+      });
+      if (!res.ok) {
+        pushToast(
+          (await res.json().catch(() => ({})))?.error ?? 'Erreur',
+          'error'
+        );
+        return;
+      }
+      pushToast(tAuth('suggestionSent'), 'success');
+      setSuggestMode(false);
+      setOriginalSnapshot(null);
+    } finally {
+      setSuggestSubmitting(false);
+    }
+  }, [
+    node,
+    originalSnapshot,
+    suggestForm,
+    snapshotFromForm,
+    pushToast,
+    tAuth,
+  ]);
 
   const saveEdit = useCallback(async () => {
     if (!node) return;
@@ -182,18 +312,12 @@ export function NodeDetailSidebar() {
     };
   }, [isSidebarOpen, selectedNodeId, getNodeDetails, mergeDetail]);
 
-  useEffect(() => {
-    if (!shareToast) return;
-    const t = setTimeout(() => setShareToast(false), 2000);
-    return () => clearTimeout(t);
-  }, [shareToast]);
-
   const handleShare = useCallback(() => {
     if (!node) return;
     const url = `${window.location.origin}/invention/${encodeURIComponent(node.id)}`;
     void navigator.clipboard.writeText(url);
-    setShareToast(true);
-  }, [node]);
+    pushToast(tCommon('linkCopied'), 'success');
+  }, [node, pushToast, tCommon]);
 
   const detail = node ? detailsById[node.id] : undefined;
 
@@ -231,14 +355,6 @@ export function NodeDetailSidebar() {
 
   return (
     <>
-      {shareToast ? (
-        <div
-          className="pointer-events-none fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-lg border border-[#2A3042] bg-[#1A1F2E] px-4 py-2.5 text-sm text-[#E8ECF4] shadow-lg"
-          role="status"
-        >
-          {tCommon('linkCopied')}
-        </div>
-      ) : null}
       {isSidebarOpen ? (
         <button
           type="button"
@@ -325,6 +441,45 @@ export function NodeDetailSidebar() {
                   />
                 </div>
               </>
+            ) : suggestMode ? (
+              <>
+                <motion.div
+                  variants={staggerItem}
+                  className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-2 border-b border-[#2A3042] bg-[#1A1F2E] px-4 py-4"
+                >
+                  <h2 className="text-lg font-semibold text-[#E8ECF4]">
+                    {tAuth('suggestCorrection')}
+                  </h2>
+                  <button
+                    type="button"
+                    onClick={cancelSuggestMode}
+                    className="shrink-0 rounded p-1.5 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                    aria-label={tSidebar('backToDetail')}
+                  >
+                    <span className="text-xl leading-none">×</span>
+                  </button>
+                </motion.div>
+                <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-4 pt-4">
+                  <SuggestionNodeForm form={suggestForm} setForm={setSuggestForm} />
+                  <div className="mt-6 flex flex-col gap-2">
+                    <button
+                      type="button"
+                      disabled={suggestSubmitting}
+                      onClick={() => void submitSuggestion()}
+                      className="rounded-lg bg-[#F59E0B] px-4 py-2.5 text-sm font-medium text-white transition-opacity disabled:opacity-50"
+                    >
+                      {tAuth('sendSuggestion')}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={cancelSuggestMode}
+                      className="py-2 text-sm text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
+                    >
+                      {tCommon('cancel')}
+                    </button>
+                  </div>
+                </div>
+              </>
             ) : (
               <>
                 <motion.div
@@ -361,14 +516,16 @@ export function NodeDetailSidebar() {
                     </div>
                   </div>
                   <div className="flex shrink-0 items-center gap-1">
-                    <button
-                      type="button"
-                      onClick={() => void enterEdit()}
-                      className="rounded p-1.5 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
-                      aria-label={tSidebar('editInvention')}
-                    >
-                      <span className="text-base leading-none">✏️</span>
-                    </button>
+                    {isAdmin ? (
+                      <button
+                        type="button"
+                        onClick={() => void enterEdit()}
+                        className="rounded p-1.5 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                        aria-label={tSidebar('editInvention')}
+                      >
+                        <span className="text-base leading-none">✏️</span>
+                      </button>
+                    ) : null}
                     <button
                       type="button"
                       onClick={closeDetail}
@@ -542,6 +699,28 @@ export function NodeDetailSidebar() {
                   </svg>
                   {tCommon('share')}
                 </button>
+                {!isAdmin ? (
+                  <button
+                    type="button"
+                    onClick={handleSuggestCorrection}
+                    className="inline-flex w-full items-center justify-center gap-2 border border-[#2A3042] bg-transparent px-2.5 py-2.5 text-[13px] font-medium text-[#8B95A8] transition-colors hover:border-[#F59E0B] hover:text-[#F59E0B]"
+                    style={{ borderRadius: 8 }}
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      className="shrink-0"
+                      aria-hidden
+                    >
+                      <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+                    </svg>
+                    {tAuth('suggestCorrection')}
+                  </button>
+                ) : null}
               </motion.div>
                 </div>
               </>

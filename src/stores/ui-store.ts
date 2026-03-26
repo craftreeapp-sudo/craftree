@@ -83,6 +83,10 @@ interface UIStore {
   /** Vue focalisée /explore : panneau gauche « même catégorie » (✕ masque, bouton rouvre) */
   categoryPanelOpen: boolean;
   setCategoryPanelOpen: (open: boolean) => void;
+
+  /** Modal « connectez-vous pour contribuer » */
+  loginModalOpen: boolean;
+  setLoginModalOpen: (open: boolean) => void;
 }
 
 export const useUIStore = create<UIStore>((set) => ({
@@ -250,4 +254,7 @@ export const useUIStore = create<UIStore>((set) => ({
 
   categoryPanelOpen: true,
   setCategoryPanelOpen: (open) => set({ categoryPanelOpen: open }),
+
+  loginModalOpen: false,
+  setLoginModalOpen: (open) => set({ loginModalOpen: open }),
 }));

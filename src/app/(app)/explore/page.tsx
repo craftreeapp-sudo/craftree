@@ -1,8 +1,13 @@
 import type { Metadata } from 'next';
-import linksJson from '@/data/links.json';
 import { buildExploreNodeDescription, getSiteUrl } from '@/lib/seo';
-import { getExploreMetadataNodes } from '@/lib/seed-merge';
+import {
+  getExploreMetadataNodes,
+  getExploreMetadataLinks,
+  getAllNodes,
+  getAllLinks,
+} from '@/lib/data';
 import { ExploreClient } from './ExploreClient';
+import type { CraftingLink, SeedNode } from '@/lib/types';
 
 const defaultDescription =
   'Explorez l’arbre des technologies humaines : matières premières, recettes et dépendances, du néolithique au numérique.';
@@ -37,8 +42,10 @@ export async function generateMetadata({
     };
   }
 
-  const nodes = getExploreMetadataNodes();
-  const links = linksJson.links as { source_id: string; target_id: string }[];
+  const [nodes, links] = await Promise.all([
+    getExploreMetadataNodes(),
+    getExploreMetadataLinks(),
+  ]);
   const n = nodes.find((x) => x.id === nodeId);
 
   if (!n) {
@@ -70,6 +77,12 @@ export async function generateMetadata({
   };
 }
 
-export default function ExplorePage() {
-  return <ExploreClient />;
+export default async function ExplorePage() {
+  let initialGraph: { nodes: SeedNode[]; links: CraftingLink[] } | null = null;
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
+    const [nodes, links] = await Promise.all([getAllNodes(), getAllLinks()]);
+    initialGraph = { nodes, links };
+  }
+
+  return <ExploreClient initialGraph={initialGraph} />;
 }

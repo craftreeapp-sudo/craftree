@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import nodesIndexJson from '@/data/nodes-index.json';
 import { useUIStore } from '@/stores/ui-store';
+import { useAuthStore } from '@/stores/auth-store';
 import { getCategoryColor } from '@/lib/colors';
 import { isRtlLocale } from '@/lib/i18n-config';
 import {
@@ -21,6 +22,7 @@ const INVENTION_COUNT = nodesIndexJson.nodes.length;
 export function ExploreFilterDrawer() {
   const locale = useLocale();
   const isRtl = isRtlLocale(locale);
+  const tAdmin = useTranslations('admin');
   const tNav = useTranslations('nav');
   const t = useTranslations('filters');
   const tc = useTranslations('common');
@@ -35,6 +37,7 @@ export function ExploreFilterDrawer() {
   const toggleEra = useUIStore((s) => s.toggleEra);
   const setAllCategories = useUIStore((s) => s.setAllCategories);
   const setAllEras = useUIStore((s) => s.setAllEras);
+  const isAdmin = useAuthStore((s) => s.isAdmin);
 
   return (
     <>
@@ -83,6 +86,18 @@ export function ExploreFilterDrawer() {
             >
               {tc('about')}
             </Link>
+            {isAdmin ? (
+              <>
+                <div className="my-2 border-t border-[#2A3042]" />
+                <Link
+                  href="/admin"
+                  className="rounded-md px-2 py-2 text-sm text-[#EF4444] transition-colors hover:bg-[#1A1F2E] hover:underline"
+                  onClick={() => setOpen(false)}
+                >
+                  {tAdmin('navLink')}
+                </Link>
+              </>
+            ) : null}
           </nav>
         </div>
         <div className="flex shrink-0 items-center justify-between border-b border-[#2A3042] px-4 py-3">

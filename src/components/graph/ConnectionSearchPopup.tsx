@@ -19,6 +19,8 @@ import {
   useFocusLinkEditStore,
   type FocusLinkSearchMode,
 } from '@/stores/focus-link-edit-store';
+import { useAuthStore } from '@/stores/auth-store';
+import { useToastStore } from '@/stores/toast-store';
 import { RelationTypePicker } from './RelationTypePicker';
 import { getCategoryColor } from '@/lib/colors';
 import {
@@ -101,6 +103,9 @@ function parseYearString(raw: string): number | null {
 
 export function ConnectionSearchPopup(_props: NodeProps) {
   const selectedNodeId = useUIStore((s) => s.selectedNodeId);
+  const isAdmin = useAuthStore((s) => s.isAdmin);
+  const pushToast = useToastStore((s) => s.pushToast);
+  const tAuth = useTranslations('auth');
   const searchMode = useFocusLinkEditStore((s) => s.searchMode);
   const close = useFocusLinkEditStore((s) => s.close);
   const setLastCreatedEdgeId = useFocusLinkEditStore(
@@ -122,6 +127,10 @@ export function ConnectionSearchPopup(_props: NodeProps) {
   const [linkingExistingId, setLinkingExistingId] = useState<string | null>(
     null
   );
+  const [pendingExisting, setPendingExisting] = useState<{
+    node: TechNodeBasic;
+    mode: FocusLinkSearchMode;
+  } | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const draftRef = useRef<CreateDraft | null>(null);
 
@@ -184,6 +193,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
       setNodeType('');
       setYearInput('');
       setCreateError(null);
+      setPendingExisting(null);
       requestAnimationFrame(() => inputRef.current?.focus());
     }
   }, [searchMode]);
@@ -214,10 +224,54 @@ export function ConnectionSearchPopup(_props: NodeProps) {
 
   const showCreateButton = qTrim.length >= 2 && !nameExistsExact;
 
+  const submitContributorLinkSuggestion = useCallback(
+    async (n: TechNodeBasic, m: FocusLinkSearchMode, relationType: RelationType) => {
+      if (!selectedNodeId) return;
+      const body =
+        m === 'inputs'
+          ? {
+              source_id: n.id,
+              target_id: selectedNodeId,
+              relation_type: relationType,
+            }
+          : {
+              source_id: selectedNodeId,
+              target_id: n.id,
+              relation_type: relationType,
+            };
+      const res = await fetch('/api/suggestions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          suggestion_type: 'add_link',
+          node_id: null,
+          data: body,
+        }),
+      });
+      if (!res.ok) {
+        pushToast(
+          (await res.json().catch(() => ({})))?.error ?? 'Erreur',
+          'error'
+        );
+        return;
+      }
+      pushToast(tAuth('linkSuggestionSent'), 'success');
+      setPendingExisting(null);
+      close();
+    },
+    [selectedNodeId, close, pushToast, tAuth]
+  );
+
   const onPickExistingNode = useCallback(
     async (n: TechNodeBasic) => {
       if (!selectedNodeId || !searchMode) return;
       const m = searchMode;
+
+      if (!isAdmin) {
+        setPendingExisting({ node: n, mode: m });
+        return;
+      }
+
       const relationType = DEFAULT_EXISTING_LINK_RELATION;
       setLinkingExistingId(n.id);
       const body =
@@ -260,6 +314,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
     [
       selectedNodeId,
       searchMode,
+      isAdmin,
       setEdgesAndRecompute,
       close,
       setLastCreatedEdgeId,
@@ -280,7 +335,56 @@ export function ConnectionSearchPopup(_props: NodeProps) {
       setCreating(true);
       setCreateError(null);
       const era = getEraFromYear(d.year);
-      const idHint = slugify(d.name);
+      const idHint = slugify(d.name) || `n-${Date.now()}`;
+
+      if (!isAdmin) {
+        try {
+          const res = await fetch('/api/suggestions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              suggestion_type: 'new_node',
+              node_id: null,
+              data: {
+                node: {
+                  name: d.name,
+                  category: d.category,
+                  type: d.type,
+                  era,
+                  year_approx: d.year,
+                  proposed_id: idHint,
+                  description: '',
+                  origin: null,
+                },
+                link: {
+                  source_id:
+                    mode === 'inputs' ? idHint : selectedNodeId,
+                  target_id:
+                    mode === 'inputs' ? selectedNodeId : idHint,
+                  relation_type: relationType,
+                },
+              },
+            }),
+          });
+          if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            setCreateError(
+              typeof err?.error === 'string' ? err.error : tConn('createFailed')
+            );
+            setCreating(false);
+            return;
+          }
+          pushToast(tAuth('newNodeSuggestionSent'), 'success');
+          setPopupState({ mode: 'search' });
+          close();
+        } catch {
+          setCreateError(te('toastNetworkError'));
+        } finally {
+          setCreating(false);
+        }
+        return;
+      }
+
       try {
         const nodeRes = await fetch('/api/nodes', {
           method: 'POST',
@@ -358,6 +462,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
     [
       selectedNodeId,
       mode,
+      isAdmin,
       mergeNodeDetail,
       addNodeAndRecompute,
       setEdgesAndRecompute,
@@ -365,6 +470,8 @@ export function ConnectionSearchPopup(_props: NodeProps) {
       setLastCreatedEdgeId,
       tConn,
       te,
+      pushToast,
+      tAuth,
     ]
   );
 
@@ -431,7 +538,40 @@ export function ConnectionSearchPopup(_props: NodeProps) {
         transition={{ duration: 0.2, ease: 'easeOut' }}
       >
         <AnimatePresence mode="wait">
-            {popupState.mode === 'pickRelation' && pickDraft ? (
+            {pendingExisting ? (
+              <motion.div
+                key="pick-existing-rel"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="flex items-start justify-between gap-2 border-b border-[#2A3042] px-3 py-2">
+                  <p className="min-w-0 text-[13px] font-bold leading-tight text-white">
+                    {pendingExisting.node.name}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setPendingExisting(null)}
+                    className="shrink-0 text-[12px] text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
+                  >
+                    {tc('back')}
+                  </button>
+                </div>
+                <p className="px-3 pt-2 text-[11px] text-[#8B95A8]">
+                  {tConn('pickRelationForLink')}
+                </p>
+                <RelationTypePicker
+                  onPick={(rt) => {
+                    void submitContributorLinkSuggestion(
+                      pendingExisting.node,
+                      pendingExisting.mode,
+                      rt
+                    );
+                  }}
+                />
+              </motion.div>
+            ) : popupState.mode === 'pickRelation' && pickDraft ? (
               <motion.div
                 key="pick-new"
                 initial={{ opacity: 0 }}

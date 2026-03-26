@@ -7,6 +7,7 @@ import { SearchBar } from '@/components/ui/SearchBar';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { ExploreWireframeHeader } from '@/components/explore/ExploreWireframeHeader';
 import { ExploreFilterDrawer } from '@/components/explore/ExploreFilterDrawer';
+import { HeaderAuth } from '@/components/layout/HeaderAuth';
 
 export function Header() {
   const pathname = usePathname();
@@ -82,6 +83,7 @@ export function Header() {
       </div>
 
       <div className="hidden min-w-0 shrink-0 items-center justify-end gap-2 md:flex">
+        <HeaderAuth />
         <LanguageSwitcher align="end" />
       </div>
     </header>

@@ -84,6 +84,20 @@ function mergeNodeClass(...parts: (string | undefined)[]): string {
   return parts.filter(Boolean).join(' ');
 }
 
+/** Retire `style.pointerEvents` résiduel après la transition vue focalisée (sinon survol/clic bloqués). */
+function stripTechNodePointerEventsStyle(nodes: Node[]): Node[] {
+  return nodes.map((n) => {
+    if (n.type !== 'tech' || !n.style) return n;
+    const st = n.style as Record<string, unknown>;
+    if (!('pointerEvents' in st)) return n;
+    const { pointerEvents: _p, ...rest } = st;
+    return {
+      ...n,
+      style: Object.keys(rest).length > 0 ? rest : undefined,
+    };
+  });
+}
+
 /** Ordre de disparition : centre, puis intrants (x), puis produits (x). */
 function buildNeighborFadeStaggerMap(
   fromId: string,
@@ -1196,7 +1210,17 @@ function TechGraphInner() {
       });
     }
 
-    setNodes(mergedNodes);
+    const uiAnim = useUIStore.getState().isAnimating;
+    const tfState = useExploreFocusTransitionStore.getState();
+    const nodesToCommit =
+      focusLayoutActive &&
+      selectedNodeId &&
+      !uiAnim &&
+      !tfState.isAnimating
+        ? stripTechNodePointerEventsStyle(mergedNodes)
+        : mergedNodes;
+
+    setNodes(nodesToCommit);
     setEdges(outEdges);
   }, [
     selectedNodeId,

@@ -2,6 +2,12 @@ import { NextResponse } from 'next/server';
 import { readSeedData, writeSeedData } from '@/lib/seed-data-fs';
 import { normalizeInventionName, slugify } from '@/lib/utils';
 import type { SeedNode } from '@/lib/types';
+import {
+  createSupabaseServerReadClient,
+  createSupabaseServiceRoleClient,
+} from '@/lib/supabase-server';
+import { requireAdminFromRequest } from '@/lib/auth-server';
+import { mapNodeRowToSeedNode } from '@/lib/data';
 
 function uniqueIdFromName(base: string, existingIds: Set<string>): string {
   let id = slugify(base);
@@ -12,14 +18,32 @@ function uniqueIdFromName(base: string, existingIds: Set<string>): string {
   return `${id}-${n}`;
 }
 
+function useSupabase(): boolean {
+  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
+}
+
 export async function GET() {
   try {
-    const data = readSeedData();
-    return NextResponse.json({ nodes: data.nodes });
+    if (!useSupabase()) {
+      const data = readSeedData();
+      return NextResponse.json({ nodes: data.nodes });
+    }
+    const supabase = createSupabaseServerReadClient();
+    const { data, error } = await supabase
+      .from('nodes')
+      .select(
+        'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth'
+      )
+      .order('name');
+    if (error) throw error;
+    const nodes = (data ?? []).map((r) =>
+      mapNodeRowToSeedNode(r as Record<string, unknown>)
+    );
+    return NextResponse.json({ nodes });
   } catch (e) {
     console.error(e);
     return NextResponse.json(
-      { error: 'Failed to read seed data' },
+      { error: 'Failed to read nodes' },
       { status: 500 }
     );
   }
@@ -45,14 +69,115 @@ export async function POST(request: Request) {
       );
     }
 
-    const data = readSeedData();
-    const existingIds = new Set(data.nodes.map((n) => n.id));
+    if (!useSupabase()) {
+      const data = readSeedData();
+      const existingIds = new Set(data.nodes.map((n) => n.id));
+      const normName = normalizeInventionName(name);
+      if (
+        data.nodes.some((n) => normalizeInventionName(n.name) === normName)
+      ) {
+        return NextResponse.json(
+          {
+            error: 'name_exists',
+            message: 'Une invention avec ce nom existe déjà',
+          },
+          { status: 409 }
+        );
+      }
+      let id: string;
+      if (typeof body.id === 'string' && body.id.trim()) {
+        const candidate = slugify(body.id) || uniqueIdFromName(name, existingIds);
+        if (existingIds.has(candidate)) {
+          return NextResponse.json(
+            {
+              error: 'id_exists',
+              message: 'Une invention avec ce nom existe déjà',
+            },
+            { status: 409 }
+          );
+        }
+        id = candidate;
+      } else {
+        id = uniqueIdFromName(name, existingIds);
+      }
+      const rawTags = body.tags;
+      const tags =
+        typeof rawTags === 'string'
+          ? rawTags
+              .split(',')
+              .map((t) => t.trim())
+              .filter(Boolean)
+          : Array.isArray(rawTags)
+            ? rawTags.map(String)
+            : [];
+      const yearRaw = body.year_approx;
+      const year_approx =
+        yearRaw === null || yearRaw === undefined || yearRaw === ''
+          ? undefined
+          : Number(yearRaw);
+      const complexity_depth =
+        typeof body.complexity_depth === 'number' &&
+        Number.isFinite(body.complexity_depth)
+          ? body.complexity_depth
+          : 0;
+      const node: SeedNode = {
+        id,
+        name,
+        name_en: typeof body.name_en === 'string' ? body.name_en.trim() : name,
+        description,
+        category: body.category,
+        type: body.type,
+        era: body.era,
+        year_approx:
+          year_approx !== undefined && Number.isFinite(year_approx)
+            ? year_approx
+            : undefined,
+        complexity_depth,
+        tags,
+        origin:
+          body.origin === null
+            ? undefined
+            : typeof body.origin === 'string' && body.origin.trim()
+              ? body.origin.trim()
+              : undefined,
+        image_url:
+          body.image_url === null
+            ? undefined
+            : typeof body.image_url === 'string' && body.image_url.trim()
+              ? body.image_url.trim()
+              : undefined,
+        wikipedia_url:
+          body.wikipedia_url === null
+            ? undefined
+            : typeof body.wikipedia_url === 'string' &&
+                body.wikipedia_url.trim()
+              ? body.wikipedia_url.trim()
+              : undefined,
+      };
+      data.nodes.push(node);
+      writeSeedData(data);
+      return NextResponse.json({ node }, { status: 201 });
+    }
+
+    const admin = await requireAdminFromRequest();
+    if (!admin) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
+    const sb = createSupabaseServiceRoleClient();
+    const { data: existingRows } = await sb.from('nodes').select('id, name');
+    const existingIds = new Set((existingRows ?? []).map((r) => String(r.id)));
     const normName = normalizeInventionName(name);
     if (
-      data.nodes.some((n) => normalizeInventionName(n.name) === normName)
+      (existingRows ?? []).some(
+        (r) => normalizeInventionName(String(r.name)) === normName
+      )
     ) {
       return NextResponse.json(
-        { error: 'name_exists', message: 'Une invention avec ce nom existe déjà' },
+        {
+          error: 'name_exists',
+          message: 'Une invention avec ce nom existe déjà',
+        },
         { status: 409 }
       );
     }
@@ -62,7 +187,10 @@ export async function POST(request: Request) {
       const candidate = slugify(body.id) || uniqueIdFromName(name, existingIds);
       if (existingIds.has(candidate)) {
         return NextResponse.json(
-          { error: 'id_exists', message: 'Une invention avec ce nom existe déjà' },
+          {
+            error: 'id_exists',
+            message: 'Une invention avec ce nom existe déjà',
+          },
           { status: 409 }
         );
       }
@@ -85,7 +213,7 @@ export async function POST(request: Request) {
     const yearRaw = body.year_approx;
     const year_approx =
       yearRaw === null || yearRaw === undefined || yearRaw === ''
-        ? undefined
+        ? null
         : Number(yearRaw);
 
     const complexity_depth =
@@ -93,42 +221,53 @@ export async function POST(request: Request) {
         ? body.complexity_depth
         : 0;
 
-    const node: SeedNode = {
+    const insertRow = {
       id,
       name,
-      name_en: typeof body.name_en === 'string' ? body.name_en.trim() : name,
+      name_en:
+        typeof body.name_en === 'string' ? body.name_en.trim() : name,
       description,
+      description_en:
+        typeof body.description_en === 'string'
+          ? body.description_en.trim()
+          : null,
       category: body.category,
       type: body.type,
       era: body.era,
       year_approx:
-        year_approx !== undefined && Number.isFinite(year_approx)
+        year_approx !== null && Number.isFinite(year_approx)
           ? year_approx
-          : undefined,
+          : null,
       complexity_depth,
       tags,
       origin:
         body.origin === null
-          ? undefined
+          ? null
           : typeof body.origin === 'string' && body.origin.trim()
             ? body.origin.trim()
-            : undefined,
+            : null,
       image_url:
         body.image_url === null
-          ? undefined
+          ? null
           : typeof body.image_url === 'string' && body.image_url.trim()
             ? body.image_url.trim()
-            : undefined,
+            : null,
       wikipedia_url:
         body.wikipedia_url === null
-          ? undefined
+          ? null
           : typeof body.wikipedia_url === 'string' && body.wikipedia_url.trim()
             ? body.wikipedia_url.trim()
-            : undefined,
+            : null,
     };
 
-    data.nodes.push(node);
-    writeSeedData(data);
+    const { data: inserted, error } = await sb
+      .from('nodes')
+      .insert(insertRow)
+      .select()
+      .single();
+
+    if (error) throw error;
+    const node = mapNodeRowToSeedNode(inserted as Record<string, unknown>);
     return NextResponse.json({ node }, { status: 201 });
   } catch (e) {
     console.error(e);

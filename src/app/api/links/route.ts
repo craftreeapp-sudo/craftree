@@ -1,6 +1,16 @@
 import { NextResponse } from 'next/server';
 import { readSeedData, writeSeedData } from '@/lib/seed-data-fs';
-import { RelationType as RT, type CraftingLink, type RelationType } from '@/lib/types';
+import {
+  RelationType as RT,
+  type CraftingLink,
+  type RelationType,
+} from '@/lib/types';
+import {
+  createSupabaseServerReadClient,
+  createSupabaseServiceRoleClient,
+} from '@/lib/supabase-server';
+import { requireAdminFromRequest } from '@/lib/auth-server';
+import { mapLinkRowToCraftingLink } from '@/lib/data';
 
 function nextLinkId(links: CraftingLink[]): string {
   let max = 0;
@@ -23,14 +33,27 @@ function isRelationType(s: string): s is RelationType {
   return RELATIONS.includes(s as RelationType);
 }
 
+function useSupabase(): boolean {
+  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
+}
+
 export async function GET() {
   try {
-    const data = readSeedData();
-    return NextResponse.json({ links: data.links });
+    if (!useSupabase()) {
+      const data = readSeedData();
+      return NextResponse.json({ links: data.links });
+    }
+    const supabase = createSupabaseServerReadClient();
+    const { data, error } = await supabase.from('links').select('*');
+    if (error) throw error;
+    const links = (data ?? []).map((r) =>
+      mapLinkRowToCraftingLink(r as Record<string, unknown>)
+    );
+    return NextResponse.json({ links });
   } catch (e) {
     console.error(e);
     return NextResponse.json(
-      { error: 'Failed to read seed data' },
+      { error: 'Failed to read links' },
       { status: 500 }
     );
   }
@@ -62,8 +85,59 @@ export async function POST(request: Request) {
       );
     }
 
-    const data = readSeedData();
-    const nodeIds = new Set(data.nodes.map((n) => n.id));
+    if (!useSupabase()) {
+      const data = readSeedData();
+      const nodeIds = new Set(data.nodes.map((n) => n.id));
+      if (!nodeIds.has(source_id) || !nodeIds.has(target_id)) {
+        return NextResponse.json(
+          { error: 'source_id or target_id does not exist' },
+          { status: 400 }
+        );
+      }
+
+      const dup = data.links.some(
+        (l) =>
+          l.source_id === source_id &&
+          l.target_id === target_id &&
+          l.relation_type === relation_type
+      );
+      if (dup) {
+        return NextResponse.json(
+          { error: 'Link already exists' },
+          { status: 409 }
+        );
+      }
+
+      const id = nextLinkId(data.links);
+      const link: CraftingLink = {
+        id,
+        source_id,
+        target_id,
+        relation_type: relation_type as RelationType,
+        quantity_hint:
+          typeof body.quantity_hint === 'string' && body.quantity_hint.trim()
+            ? body.quantity_hint.trim()
+            : undefined,
+        is_optional: Boolean(body.is_optional),
+        notes:
+          typeof body.notes === 'string' && body.notes.trim()
+            ? body.notes.trim()
+            : undefined,
+      };
+
+      data.links.push(link);
+      writeSeedData(data);
+      return NextResponse.json({ link }, { status: 201 });
+    }
+
+    const admin = await requireAdminFromRequest();
+    if (!admin) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
+    const sb = createSupabaseServiceRoleClient();
+    const { data: nodes } = await sb.from('nodes').select('id');
+    const nodeIds = new Set((nodes ?? []).map((n) => String(n.id)));
     if (!nodeIds.has(source_id) || !nodeIds.has(target_id)) {
       return NextResponse.json(
         { error: 'source_id or target_id does not exist' },
@@ -71,7 +145,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const dup = data.links.some(
+    const { data: existingLinks } = await sb.from('links').select('*');
+    const dup = (existingLinks ?? []).some(
       (l) =>
         l.source_id === source_id &&
         l.target_id === target_id &&
@@ -84,25 +159,36 @@ export async function POST(request: Request) {
       );
     }
 
-    const id = nextLinkId(data.links);
-    const link: CraftingLink = {
+    const id = nextLinkId(
+      (existingLinks ?? []).map((l) =>
+        mapLinkRowToCraftingLink(l as Record<string, unknown>)
+      )
+    );
+
+    const insertRow = {
       id,
       source_id,
       target_id,
-      relation_type: relation_type as RelationType,
+      relation_type,
       quantity_hint:
         typeof body.quantity_hint === 'string' && body.quantity_hint.trim()
           ? body.quantity_hint.trim()
-          : undefined,
+          : null,
       is_optional: Boolean(body.is_optional),
       notes:
         typeof body.notes === 'string' && body.notes.trim()
           ? body.notes.trim()
-          : undefined,
+          : null,
     };
 
-    data.links.push(link);
-    writeSeedData(data);
+    const { data: inserted, error } = await sb
+      .from('links')
+      .insert(insertRow)
+      .select()
+      .single();
+
+    if (error) throw error;
+    const link = mapLinkRowToCraftingLink(inserted as Record<string, unknown>);
     return NextResponse.json({ link }, { status: 201 });
   } catch (e) {
     console.error(e);

@@ -30,6 +30,7 @@ import {
   filterValidCraftingLinks,
 } from '@/lib/graph-utils';
 import { useGraphStore } from '@/stores/graph-store';
+import { useAuthStore } from '@/stores/auth-store';
 
 const RELATION_BADGE_COLORS: Record<RelationType, string> = {
   [RT.MATERIAL]: 'bg-teal-500/20 text-teal-200 border-teal-500/40',
@@ -90,6 +91,8 @@ export function EditorPageClient() {
   const tEra = useTranslations('eras');
   const tType = useTranslations('types');
   const tc = useTranslations('common');
+
+  const { isAdmin, isLoading: authLoading } = useAuthStore();
 
   const updateNode = useGraphStore((s) => s.updateNode);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
@@ -483,6 +486,20 @@ export function EditorPageClient() {
         (l) => l.source_id === deleteTarget.id || l.target_id === deleteTarget.id
       ).length
     : 0;
+
+  if (!authLoading && !isAdmin) {
+    return (
+      <div className="flex min-h-[60vh] flex-1 flex-col items-center justify-center gap-4 bg-[#0A0E17] px-6 text-center text-[#E8ECF4]">
+        <p className="max-w-md text-sm">{te('adminOnly')}</p>
+        <Link
+          href="/explore"
+          className="rounded-lg border border-[#2A3042] bg-[#1A1F2E] px-4 py-2 text-sm transition-colors hover:bg-[#2A3042]"
+        >
+          {te('backToExplore')}
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-0 flex-1 flex-col bg-[#0A0E17] text-[#E8ECF4]">

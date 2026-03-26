@@ -5,6 +5,9 @@ import { getLocale, getMessages } from 'next-intl/server';
 import './globals.css';
 import { getSiteUrl } from '@/lib/seo';
 import { isRtlLocale } from '@/lib/i18n-config';
+import { AuthInitializer } from '@/components/layout/AuthInitializer';
+import { ToastContainer } from '@/components/ui/ToastContainer';
+import { LoginModal } from '@/components/ui/LoginModal';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -113,6 +116,9 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <AuthInitializer />
+          <ToastContainer />
+          <LoginModal />
           {children}
         </NextIntlClientProvider>
       </body>

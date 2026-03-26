@@ -9,22 +9,33 @@ import { NodeDetailSidebar } from '@/components/ui/NodeDetailSidebar';
 import { useUIStore } from '@/stores/ui-store';
 import { useGraphStore } from '@/stores/graph-store';
 import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
+import type { CraftingLink, SeedNode } from '@/lib/types';
 
-function ExploreInner() {
+function ExploreInner({
+  initialGraph,
+}: {
+  initialGraph: { nodes: SeedNode[]; links: CraftingLink[] } | null;
+}) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const node = searchParams.get('node');
   const selectNode = useUIStore((s) => s.selectNode);
   const closeSidebar = useUIStore((s) => s.closeSidebar);
   const refreshData = useGraphStore((s) => s.refreshData);
+  const hydrateFromRaw = useGraphStore((s) => s.hydrateFromRaw);
   const isMobile = useIsMobileBreakpoint();
   const [dataReady, setDataReady] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    if (initialGraph) {
+      hydrateFromRaw(initialGraph.nodes, initialGraph.links);
+      setDataReady(true);
+      return;
+    }
     void refreshData().then(() => setDataReady(true));
-  }, [refreshData]);
+  }, [refreshData, hydrateFromRaw, initialGraph]);
 
   useEffect(() => {
     if (!toast) return;
@@ -88,14 +99,18 @@ function ExploreInner() {
   );
 }
 
-export function ExploreClient() {
+export function ExploreClient({
+  initialGraph,
+}: {
+  initialGraph: { nodes: SeedNode[]; links: CraftingLink[] } | null;
+}) {
   return (
     <Suspense
       fallback={
         <main className="relative min-h-[50vh] flex-1 bg-[#0A0E17] pt-14" />
       }
     >
-      <ExploreInner />
+      <ExploreInner initialGraph={initialGraph} />
     </Suspense>
   );
 }

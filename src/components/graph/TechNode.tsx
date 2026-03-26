@@ -6,7 +6,6 @@ import {
   useCallback,
   useRef,
   useEffect,
-  memo,
   type MouseEvent,
 } from 'react';
 import { createPortal } from 'react-dom';
@@ -34,6 +33,7 @@ import {
 import { FOCUS_ADD_BTN_PX } from './focus-overlay-nodes';
 import { getNodeDetails } from '@/stores/graph-store';
 import { useNodeDetailsStore } from '@/stores/node-details-store';
+import { useAuthStore } from '@/stores/auth-store';
 import type { Era, NodeCategory, TechNodeDetails, TechNodeType } from '@/lib/types';
 
 const BORDER_DEFAULT = '#2A3042';
@@ -256,22 +256,6 @@ function getFlowNodeXY(n: NodeProps): { x: number; y: number } {
   return { x, y };
 }
 
-function areTechNodePropsEqual(prev: NodeProps, next: NodeProps): boolean {
-  const pa = getFlowNodeXY(prev);
-  const na = getFlowNodeXY(next);
-  if (pa.x !== na.x || pa.y !== na.y) return false;
-  const pPrev = prev as unknown as TechNodeFlowProps;
-  const pNext = next as unknown as TechNodeFlowProps;
-  if (pPrev.id !== pNext.id) return false;
-  if (pPrev.selected !== pNext.selected) return false;
-  if (pPrev.className !== pNext.className) return false;
-  const p = pPrev.data as unknown as TechNodeData;
-  const n = pNext.data as unknown as TechNodeData;
-  if (p.image_url !== n.image_url) return false;
-  if (p.imageBust !== n.imageBust) return false;
-  return techNodeVisualKey(p) === techNodeVisualKey(n);
-}
-
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const easeOutBack: [number, number, number, number] = [0.34, 1.56, 0.64, 1];
 
@@ -306,6 +290,7 @@ function TechNodeComponent({
   const craftEdges = useGraphStore((s) => s.edges);
   const setEdgesAndRecompute = useGraphStore((s) => s.setEdgesAndRecompute);
   const { navigateToNode } = useExploreNavigation();
+  const isAdmin = useAuthStore((s) => s.isAdmin);
 
   const hoverVisual = useMemo(() => {
     if (exploreFocusLayout || !exploreHoveredNodeId) {
@@ -634,14 +619,15 @@ function TechNodeComponent({
       />
 
       <div
-        className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${
-          focusExploreNeighbor ? 'pointer-events-none' : 'pointer-events-auto'
-        }`}
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
         style={{ width: cardW, height: cardH }}
       >
-        {focusExploreNeighbor && focusLinkId && !focusTransitionAnimating ? (
+        {focusExploreNeighbor &&
+        focusLinkId &&
+        !focusTransitionAnimating &&
+        isAdmin ? (
           <div
-            className="pointer-events-none absolute right-0 z-[60] flex opacity-100 transition-opacity duration-150"
+            className="pointer-events-none absolute right-0 z-[60] flex opacity-0 transition-opacity duration-150 group-hover:opacity-100"
             style={{
               gap: 6,
               top: -FOCUS_ADD_BTN_PX / 2,
@@ -725,8 +711,8 @@ function TechNodeComponent({
               ? { duration: 0 }
               : { type: 'spring', stiffness: 380, damping: 28 }
           }
-          onMouseEnter={onCardMouseEnter}
-          onMouseLeave={onCardMouseLeave}
+          onPointerEnter={onCardMouseEnter}
+          onPointerLeave={onCardMouseLeave}
         >
           {/* Moitié haute — un peu moins de hauteur pour laisser 2 lignes au titre */}
           <div
@@ -829,10 +815,10 @@ function TechNodeComponent({
   );
 }
 
-const TechNodeMemo = memo(TechNodeComponent, areTechNodePropsEqual);
-TechNodeMemo.displayName = 'TechNode';
+TechNodeComponent.displayName = 'TechNode';
 
-export const TechNode = TechNodeMemo;
+/** Pas de memo ici : le rôle admin (store auth) doit mettre à jour les icônes sans changement de props Flow. */
+export const TechNode = TechNodeComponent;
 
 /** Alias — carte invention React Flow (Tree / Explore). */
 export const TechNodeCard = TechNode;

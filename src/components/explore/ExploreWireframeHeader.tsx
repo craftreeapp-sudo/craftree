@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
+import { HeaderAuth } from '@/components/layout/HeaderAuth';
 import { useUIStore } from '@/stores/ui-store';
 
 export function ExploreWireframeHeader() {
@@ -43,7 +44,8 @@ export function ExploreWireframeHeader() {
         </div>
       </div>
 
-      <div className="shrink-0">
+      <div className="flex shrink-0 items-center gap-2">
+        <HeaderAuth />
         <LanguageSwitcher align="end" />
       </div>
     </header>
