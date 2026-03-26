@@ -76,6 +76,8 @@ export interface TechNodeBasic {
 export interface TechNodeDetails {
   name_en: string;
   description: string;
+  /** Description courte en anglais (sidebar hors locale FR) */
+  description_en?: string;
   image_url?: string;
   wikipedia_url?: string;
   origin?: string | null;
@@ -115,6 +117,7 @@ export interface SeedNode {
   name: string;
   name_en: string;
   description: string;
+  description_en?: string;
   category: string;
   type: string;
   era: string;

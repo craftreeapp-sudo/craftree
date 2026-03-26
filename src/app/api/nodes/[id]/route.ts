@@ -32,6 +32,10 @@ export async function PUT(request: Request, ctx: Ctx) {
       name: typeof body.name === 'string' ? body.name.trim() : cur.name,
       description:
         typeof body.description === 'string' ? body.description : cur.description,
+      description_en:
+        typeof body.description_en === 'string'
+          ? body.description_en.trim()
+          : cur.description_en,
       name_en:
         typeof body.name_en === 'string' ? body.name_en.trim() : cur.name_en,
       category:

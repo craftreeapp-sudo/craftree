@@ -209,6 +209,7 @@ function TechNodeComponent({
   const explosionRevealed = nodeData.explosionRevealed === true;
 
   const [hover, setHover] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const onDeleteLinkAfterAnim = useCallback(async () => {
     if (!focusLinkId) return;
@@ -385,7 +386,9 @@ function TechNodeComponent({
   return (
     <motion.div
       title={tooltip}
-      className={`relative ${focusExploreNeighbor ? 'group' : ''}`}
+      className={`relative ${focusExploreNeighbor ? 'group' : ''} ${
+        focusExploreNeighbor ? 'pointer-events-none' : ''
+      }`}
       style={{
         width: layoutW,
         height: layoutH,
@@ -413,12 +416,14 @@ function TechNodeComponent({
       />
 
       <div
-        className="pointer-events-auto absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${
+          focusExploreNeighbor ? 'pointer-events-none' : 'pointer-events-auto'
+        }`}
         style={{ width: cardW, height: cardH }}
       >
         {focusExploreNeighbor && focusLinkId && !focusTransitionAnimating ? (
           <div
-            className="pointer-events-none absolute right-0 z-[60] flex opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+            className="pointer-events-none absolute right-0 z-[60] flex opacity-100 transition-opacity duration-150"
             style={{
               gap: 6,
               top: -FOCUS_ADD_BTN_PX / 2,
@@ -511,7 +516,7 @@ function TechNodeComponent({
               borderRadius: '8px 8px 0 0',
             }}
           >
-            {hasImage && imageDisplaySrc ? (
+            {hasImage && imageDisplaySrc && !imageError ? (
               <Image
                 src={imageDisplaySrc}
                 alt=""
@@ -521,6 +526,10 @@ function TechNodeComponent({
                 placeholder="empty"
                 className="h-full w-full object-cover"
                 sizes="150px"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  setImageError(true);
+                }}
                 unoptimized={
                   Boolean(rawImageUrl?.startsWith('/images/')) ||
                   Boolean(rawImageUrl?.includes('placehold.co')) ||

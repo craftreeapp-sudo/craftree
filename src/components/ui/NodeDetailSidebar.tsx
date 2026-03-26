@@ -11,7 +11,6 @@ import { useNodeDetailsStore } from '@/stores/node-details-store';
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 import { formatYear } from '@/lib/utils';
 import { getCategoryColor } from '@/lib/colors';
-import { IMAGE_BLUR_DATA_URL } from '@/lib/image-placeholder';
 import {
   NodeEditForm,
   createEmptyFormState,
@@ -79,6 +78,7 @@ export function NodeDetailSidebar() {
 
   const [editMode, setEditMode] = useState(false);
   const [shareToast, setShareToast] = useState(false);
+  const [sidebarImageError, setSidebarImageError] = useState(false);
   const [form, setForm] = useState<NodeEditFormState>(() =>
     createEmptyFormState()
   );
@@ -197,6 +197,14 @@ export function NodeDetailSidebar() {
 
   const detail = node ? detailsById[node.id] : undefined;
 
+  const sidebarDescription = useMemo(() => {
+    if (!detail) return '—';
+    if (locale === 'fr') return detail.description?.trim() || '—';
+    const en = detail.description_en?.trim();
+    if (en) return en;
+    return detail.description?.trim() || '—';
+  }, [detail, locale]);
+
   const categoryColor = node ? getCategoryColor(node.category) : '#3B82F6';
   const yearLine = formatYear(node?.year_approx);
 
@@ -206,6 +214,15 @@ export function NodeDetailSidebar() {
     sidebarImageUrl && sidebarImageBust > 0
       ? `${sidebarImageUrl}${sidebarImageUrl.includes('?') ? '&' : '?'}t=${sidebarImageBust}`
       : sidebarImageUrl;
+
+  useEffect(() => {
+    setSidebarImageError(false);
+  }, [node?.id, sidebarImageSrc]);
+
+  const hasDetailMetaAboveDescription =
+    Boolean(yearLine) ||
+    Boolean(node?.origin?.trim() || detail?.origin?.trim()) ||
+    Boolean(sidebarImageSrc && !sidebarImageError);
 
   return (
     <>
@@ -359,6 +376,25 @@ export function NodeDetailSidebar() {
                 </motion.div>
 
                 <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 py-4">
+              {sidebarImageSrc && !sidebarImageError ? (
+                <motion.div
+                  variants={staggerItem}
+                  className="mb-4 w-full shrink-0 overflow-hidden rounded-lg"
+                >
+                  <Image
+                    src={sidebarImageSrc}
+                    alt=""
+                    width={340}
+                    height={200}
+                    className="max-h-[200px] w-full object-cover"
+                    loading="lazy"
+                    placeholder="empty"
+                    unoptimized
+                    onError={() => setSidebarImageError(true)}
+                  />
+                </motion.div>
+              ) : null}
+
               {yearLine ? (
                 <motion.p
                   variants={staggerItem}
@@ -377,30 +413,13 @@ export function NodeDetailSidebar() {
                 </motion.p>
               ) : null}
 
-              {sidebarImageSrc ? (
-                <motion.div
-                  variants={staggerItem}
-                  className="mt-4 overflow-hidden rounded-lg border border-[#2A3042]"
-                >
-                  <Image
-                    src={sidebarImageSrc}
-                    alt=""
-                    width={340}
-                    height={200}
-                    className="h-auto w-full object-cover"
-                    loading="lazy"
-                    placeholder="blur"
-                    blurDataURL={IMAGE_BLUR_DATA_URL}
-                    unoptimized
-                  />
-                </motion.div>
-              ) : null}
-
               <motion.p
                 variants={staggerItem}
-                className="mt-4 text-sm leading-relaxed text-[#8B95A8]"
+                className={`text-sm leading-relaxed text-[#8B95A8] ${
+                  hasDetailMetaAboveDescription ? 'mt-4' : ''
+                }`}
               >
-                {detail?.description ?? '—'}
+                {sidebarDescription}
               </motion.p>
 
               <motion.section variants={staggerItem} className="mt-6">

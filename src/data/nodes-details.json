@@ -1813,6 +1813,7 @@
     ],
     "origin": null,
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Clou",
+    "image_url": "/images/nodes/clou.jpg",
     "_ai_built_upon": [
       {
         "id": "bronze",
@@ -1873,7 +1874,7 @@
   },
   "vis": {
     "name_en": "Screw",
-    "description": "Élément de fixation mécanique constitué d'une tige filetée et d'une tête, destiné à assembler de façon démontable plusieurs pièces par pression. <cite index=\"1-3\">Une vis de fixation, appelée communément vis, est une pièce mécanique, comportant une tige filetée et une tête ; elle est destinée à réaliser la fixation d'une ou de plusieurs pièces par pression.</cite> <cite index=\"3-10,3-11\">L'applicabilité universelle de la vis en a fait un composant indispensable dans l'industrie, la construction et la technologie. Leur stabilité permet de relier des matériaux comme le bois, le métal ou le plastique.</cite>",
+    "description": "Élément de fixation mécanique constitué d'une tige filetée et d'une tête, destiné à assembler de façon démontable plusieurs pièces par pression. Une vis de fixation, appelée communément vis, est une pièce mécanique, comportant une tige filetée et une tête ; elle est destinée à réaliser la fixation d'une ou de plusieurs pièces par pression. L'applicabilité universelle de la vis en a fait un composant indispensable dans l'industrie, la construction et la technologie. Leur stabilité permet de relier des matériaux comme le bois, le métal ou le plastique.",
     "tags": [
       "fixation",
       "assemblage",
@@ -1938,7 +1939,7 @@
   },
   "tour": {
     "name_en": "Lathe",
-    "description": "<cite index=\"1-1,1-30\">Le tour est une machine-outil permettant la production de pièces mécaniques par enlèvement de copeaux (usinage)</cite>. <cite index=\"8-3,8-5\">Dans le cas du tour, la pièce est en rotation et l'outil est fixe. Le tournage consiste à mettre en rotation une pièce généralement de forme cylindrique et d'usiner avec un outil qui est fixé sur une tourelle</cite>. <cite index=\"11-14,18-26\">L'origine du tour se perd dans la nuit des temps ; on sait seulement avec certitude que certaines de ses applications se situent en Égypte plus de mille neuf cents ans avant notre ère</cite>.",
+    "description": "Le tour est une machine-outil permettant la production de pièces mécaniques par enlèvement de copeaux (usinage). Dans le cas du tour, la pièce est en rotation et l'outil est fixe. Le tournage consiste à mettre en rotation une pièce généralement de forme cylindrique et d'usiner avec un outil qui est fixé sur une tourelle. L'origine du tour se perd dans la nuit des temps ; on sait seulement avec certitude que certaines de ses applications se situent en Égypte plus de mille neuf cents ans avant notre ère.",
     "tags": [
       "usinage",
       "mécanique",
@@ -2165,7 +2166,7 @@
   },
   "scie": {
     "name_en": "Saw",
-    "description": "<cite index=\"2-1\">Destinée à couper le bois, le métal ou même la pierre, la scie est un outil à lame dentée fabriquée en acier trempé.</cite> <cite index=\"1-1\">Elle est actionnée par divers moyens tels que la force musculaire, l'électricité ou l'eau.</cite> <cite index=\"9-1,9-7\">La scie est un des outils des plus utiles qui ayent été inventés pour la méchanique</cite>, permettant un découpage précis qui évite le gaspillage de matériaux.",
+    "description": "Destinée à couper le bois, le métal ou même la pierre, la scie est un outil à lame dentée fabriquée en acier trempé. Elle est actionnée par divers moyens tels que la force musculaire, l'électricité ou l'eau. La scie est un des outils des plus utiles qui ayent été inventés pour la méchanique, permettant un découpage précis qui évite le gaspillage de matériaux.",
     "tags": [
       "découpe",
       "menuiserie",
@@ -2175,6 +2176,7 @@
     ],
     "origin": "Égypte antique",
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Scie",
+    "image_url": "/images/nodes/scie.jpg",
     "_ai_built_upon": [
       {
         "id": "fer",
@@ -2235,7 +2237,7 @@
   },
   "hache": {
     "name_en": "Axe",
-    "description": "Outil composé d'une lame tranchante fixée à un manche, utilisé pour couper du bois et défricher. L'une des inventions les plus anciennes de l'humanité, elle a évolué de la pierre taillée au bronze puis à l'acier. <cite index=\"1-1,1-35\">Les plus anciennes traces de haches ont été trouvées en Afrique et leur âge est évalué à 1,6 million d'années.</cite> <cite index=\"2-2\">Pour les archéologues, la hache représente un tournant dans l'Histoire, ainsi qu'un vecteur de changements sociaux et sociétaux majeurs.</cite>",
+    "description": "Outil composé d'une lame tranchante fixée à un manche, utilisé pour couper du bois et défricher. L'une des inventions les plus anciennes de l'humanité, elle a évolué de la pierre taillée au bronze puis à l'acier. Les plus anciennes traces de haches ont été trouvées en Afrique et leur âge est évalué à 1,6 million d'années. Pour les archéologues, la hache représente un tournant dans l'Histoire, ainsi qu'un vecteur de changements sociaux et sociétaux majeurs.",
     "tags": [
       "outil",
       "préhistoire",
@@ -2735,6 +2737,7 @@
     ],
     "origin": null,
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Ressort",
+    "image_url": "/images/nodes/ressort.jpg",
     "_ai_built_upon": [
       {
         "id": "bois",
@@ -2945,6 +2948,7 @@
     ],
     "origin": "Thomas Davenport, Moritz von Jacobi",
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Machine_%C3%A9lectrique",
+    "image_url": "/images/nodes/moteur-electrique.jpg",
     "_ai_built_upon": [
       {
         "id": "electricite",
@@ -3164,7 +3168,7 @@
   },
   "gratte-ciel": {
     "name_en": "Skyscraper",
-    "description": "Immeuble de très grande hauteur, typiquement à usage de bureaux ou d'habitation. <cite index=\"1-1,2-1\">Les premiers gratte-ciel sont construits entre 1884 et 1939 principalement à New York et Chicago</cite>. <cite index=\"1-18,13-8\">Le premier exemple est le Home Insurance Building de 42 m construit à Chicago en 1884-1885 par William Le Baron Jenney</cite>.",
+    "description": "Immeuble de très grande hauteur, typiquement à usage de bureaux ou d'habitation. Les premiers gratte-ciel sont construits entre 1884 et 1939 principalement à New York et Chicago. Le premier exemple est le Home Insurance Building de 42 m construit à Chicago en 1884-1885 par William Le Baron Jenney.",
     "tags": [
       "architecture",
       "construction",
@@ -3715,7 +3719,7 @@
   },
   "engrenage": {
     "name_en": "Gear",
-    "description": "Mécanisme de transmission composé de roues dentées qui s'interpénètrent pour transmettre le mouvement de rotation et modifier la vitesse ou le couple entre deux axes. <cite index=\"1-8\">L'engrenage est l'une des huit machines simples</cite> et constitue un composant fondamental de la mécanique. <cite index=\"1-6,12-22,13-14\">Les engrenages sont utilisés dans toutes les branches de la mécanique pour transmettre des mouvements</cite>, depuis l'horlogerie jusqu'aux machines industrielles.",
+    "description": "Mécanisme de transmission composé de roues dentées qui s'interpénètrent pour transmettre le mouvement de rotation et modifier la vitesse ou le couple entre deux axes. L'engrenage est l'une des huit machines simples et constitue un composant fondamental de la mécanique. Les engrenages sont utilisés dans toutes les branches de la mécanique pour transmettre des mouvements, depuis l'horlogerie jusqu'aux machines industrielles.",
     "tags": [
       "transmission",
       "mécanique",
@@ -3797,7 +3801,7 @@
   },
   "roulement-a-billes": {
     "name_en": "Ball bearing",
-    "description": "Système mécanique composé de billes métalliques logées dans une cage entre deux anneaux, permettant la rotation fluide entre deux pièces mécaniques en réduisant considérablement les frottements. <cite index=\"29-9\">Son rôle principal : permettre un mouvement rotatif fluide, précis et durable, tout en supportant des charges (axiales, radiales ou combinées)</cite>. <cite index=\"21-1,21-4\">Les roulements à billes minimisent la friction entre les pièces mobiles, ce qui non seulement augmente l'efficacité énergétique des machines, mais prolonge également leur durée de vie</cite>.",
+    "description": "Système mécanique composé de billes métalliques logées dans une cage entre deux anneaux, permettant la rotation fluide entre deux pièces mécaniques en réduisant considérablement les frottements. Son rôle principal : permettre un mouvement rotatif fluide, précis et durable, tout en supportant des charges (axiales, radiales ou combinées). Les roulements à billes minimisent la friction entre les pièces mobiles, ce qui non seulement augmente l'efficacité énergétique des machines, mais prolonge également leur durée de vie.",
     "tags": [
       "mécanique",
       "rotation",
@@ -3875,7 +3879,7 @@
   },
   "levier": {
     "name_en": "Lever",
-    "description": "Machine simple consistant en une barre rigide qui pivote autour d'un point d'appui pour amplifier une force appliquée. <cite index=\"3-10,3-11\">Probablement le premier mécanisme utilisé par l'Homme, bien avant la découverte de la roue, il ne nécessite que deux solides : un appui et une barre qui permettent de démultiplier la force musculaire.</cite> <cite index=\"3-13,3-14\">Archimède a compris et maîtrisé toutes les possibilités qu'offre le levier, ce qui a donné naissance à sa célèbre citation : « Donne-moi où je puisse me tenir ferme, et j'ébranlerai la Terre ».</cite>",
+    "description": "Machine simple consistant en une barre rigide qui pivote autour d'un point d'appui pour amplifier une force appliquée. Probablement le premier mécanisme utilisé par l'Homme, bien avant la découverte de la roue, il ne nécessite que deux solides : un appui et une barre qui permettent de démultiplier la force musculaire. Archimède a compris et maîtrisé toutes les possibilités qu'offre le levier, ce qui a donné naissance à sa célèbre citation : « Donne-moi où je puisse me tenir ferme, et j'ébranlerai la Terre ».",
     "tags": [
       "machine simple",
       "mécanique",
@@ -4104,7 +4108,7 @@
   },
   "bateau-a-voile": {
     "name_en": "Sailing boat",
-    "description": "Embarcation utilisant la force du vent capturée par des voiles pour sa propulsion. <cite index=\"4-20,4-21\">La plus ancienne représentation d'un bateau à voile est une peinture sur disque trouvé dans la région de l'actuel Koweït, datée de la fin du Ve millénaire avant notre ère. Dès cette époque en Mésopotamie, des bateaux à voile et rames auraient navigué sur les grands fleuves (Tigre, Euphrate), créant des routes commerciales entre les cités.</cite> <cite index=\"4-6\">À travers l'Histoire, la navigation à voile a été l'instrument du développement des civilisations, apportant à l'humanité une meilleure mobilité que le déplacement terrestre, pour le commerce, le transport, la guerre et pour la pêche.</cite>",
+    "description": "Embarcation utilisant la force du vent capturée par des voiles pour sa propulsion. La plus ancienne représentation d'un bateau à voile est une peinture sur disque trouvé dans la région de l'actuel Koweït, datée de la fin du Ve millénaire avant notre ère. Dès cette époque en Mésopotamie, des bateaux à voile et rames auraient navigué sur les grands fleuves (Tigre, Euphrate), créant des routes commerciales entre les cités. À travers l'Histoire, la navigation à voile a été l'instrument du développement des civilisations, apportant à l'humanité une meilleure mobilité que le déplacement terrestre, pour le commerce, le transport, la guerre et pour la pêche.",
     "tags": [
       "navigation",
       "maritime",
@@ -4176,7 +4180,7 @@
   },
   "locomotive": {
     "name_en": "Locomotive",
-    "description": "Engin de traction ferroviaire autopropulsé qui fournit la force motrice pour tracter ou pousser les wagons d'un train. <cite index=\"3-1,5-1,3-4,5-5\">Inventée en 1804 par Richard Trevithick avec la première locomotive à vapeur au Royaume-Uni, puis perfectionnée par George et Robert Stephenson avec la célèbre Rocket en 1829.</cite> <cite index=\"21-5,21-6\">La locomotive a évolué de la vapeur (1820-1970) vers l'électricité (début 1900) et le diesel (1912), révolutionnant les transports terrestres de masse.</cite>",
+    "description": "Engin de traction ferroviaire autopropulsé qui fournit la force motrice pour tracter ou pousser les wagons d'un train. Inventée en 1804 par Richard Trevithick avec la première locomotive à vapeur au Royaume-Uni, puis perfectionnée par George et Robert Stephenson avec la célèbre Rocket en 1829. La locomotive a évolué de la vapeur (1820-1970) vers l'électricité (début 1900) et le diesel (1912), révolutionnant les transports terrestres de masse.",
     "tags": [
       "transport",
       "ferroviaire",
@@ -4433,6 +4437,7 @@
     ],
     "origin": null,
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Teinture",
+    "image_url": "/images/nodes/teinture.jpg",
     "_ai_built_upon": [
       {
         "id": "eau",
@@ -4478,7 +4483,7 @@
   },
   "machine-a-coudre": {
     "name_en": "Sewing machine",
-    "description": "Machine qui automatise la couture en utilisant deux fils (supérieur et inférieur) pour créer des points mécaniques. <cite index=\"3-25\">L'invention utilise une aiguille avec un œil près de la pointe et un système de canette pour former des points noués</cite>, révolutionnant l'industrie textile.",
+    "description": "Machine qui automatise la couture en utilisant deux fils (supérieur et inférieur) pour créer des points mécaniques. L'invention utilise une aiguille avec un œil près de la pointe et un système de canette pour former des points noués, révolutionnant l'industrie textile.",
     "tags": [
       "couture",
       "textile",
@@ -4558,7 +4563,7 @@
   },
   "stethoscope": {
     "name_en": "Stethoscope",
-    "description": "<cite index=\"2-1,2-6\">Le stéthoscope est inventé le 17 février 1816 en France par le docteur René Laennec</cite>. <cite index=\"2-19\">C'est un instrument acoustique, servant principalement, dans le domaine médical ou vétérinaire, pour l'auscultation, c'est-à-dire l'écoute des sons internes du corps</cite>. <cite index=\"2-10\">Il crée ainsi l'auscultation médiate, par opposition à l'auscultation immédiate où la tête est collée à la poitrine du patient</cite>.",
+    "description": "Le stéthoscope est inventé le 17 février 1816 en France par le docteur René Laennec. C'est un instrument acoustique, servant principalement, dans le domaine médical ou vétérinaire, pour l'auscultation, c'est-à-dire l'écoute des sons internes du corps. Il crée ainsi l'auscultation médiate, par opposition à l'auscultation immédiate où la tête est collée à la poitrine du patient.",
     "tags": [
       "auscultation",
       "diagnostic",
@@ -4702,7 +4707,7 @@
   },
   "prothese": {
     "name_en": "Prosthesis",
-    "description": "<cite index=\"7-12,7-13\">Dispositif médical artificiel qui remplace un membre mal formé, déformé ou amputé. Elle remplit la fonction du membre en question tout en se rapprochant de son aspect original</cite>. <cite index=\"1-1,1-3,1-6\">Les premières prothèses apparaissent à la Préhistoire, avec des exemples égyptiens datant de 3000 ans avant J.C.</cite> <cite index=\"21-8,21-9,21-10\">L'impression 3D révolutionne aujourd'hui ce secteur médical en permettant des prothèses personnalisées et plus accessibles</cite>.",
+    "description": "Dispositif médical artificiel qui remplace un membre mal formé, déformé ou amputé. Elle remplit la fonction du membre en question tout en se rapprochant de son aspect original. Les premières prothèses apparaissent à la Préhistoire, avec des exemples égyptiens datant de 3000 ans avant J.C. L'impression 3D révolutionne aujourd'hui ce secteur médical en permettant des prothèses personnalisées et plus accessibles.",
     "tags": [
       "medical",
       "disability",
@@ -4870,7 +4875,7 @@
   },
   "sous-marin": {
     "name_en": "Submarine",
-    "description": "<cite index=\"2-29\">Un sous-marin est un navire capable de se déplacer soit en surface, soit sous l'eau</cite>. <cite index=\"1-12,3-3\">Le premier sous-marin avec un moteur fut le Plongeur français en 1863, équipé d'un moteur à air comprimé, tandis que le premier modèle opérationnel fut construit par David Bushnell en 1775</cite>. <cite index=\"2-31,2-32\">La plupart des sous-marins sont des navires de guerre, bien qu'il existe des usages civils pour la recherche océanographique et l'exploitation pétrolière</cite>.",
+    "description": "Un sous-marin est un navire capable de se déplacer soit en surface, soit sous l'eau. Le premier sous-marin avec un moteur fut le Plongeur français en 1863, équipé d'un moteur à air comprimé, tandis que le premier modèle opérationnel fut construit par David Bushnell en 1775. La plupart des sous-marins sont des navires de guerre, bien qu'il existe des usages civils pour la recherche océanographique et l'exploitation pétrolière.",
     "tags": [
       "naval",
       "militaire",
@@ -5418,7 +5423,7 @@
   },
   "antibiotique": {
     "name_en": "Antibiotic",
-    "description": "<cite index=\"11-3\">Une substance chimique organique d'origine naturelle ou synthétique inhibant ou tuant les bactéries pathogènes à faible concentration et possédant une toxicité sélective</cite>. <cite index=\"1-1,8-1,8-6\">La pénicilline, découverte par Alexander Fleming en 1928</cite>, est le premier antibiotique produit industriellement et a révolutionné la médecine moderne. <cite index=\"11-13,11-14\">Les antibiotiques ont augmenté l'espérance de vie de plus de dix ans</cite>.",
+    "description": "Une substance chimique organique d'origine naturelle ou synthétique inhibant ou tuant les bactéries pathogènes à faible concentration et possédant une toxicité sélective. La pénicilline, découverte par Alexander Fleming en 1928, est le premier antibiotique produit industriellement et a révolutionné la médecine moderne. Les antibiotiques ont augmenté l'espérance de vie de plus de dix ans.",
     "tags": [
       "médecine",
       "bactérie",
@@ -5490,7 +5495,7 @@
   },
   "anesthesie": {
     "name_en": "Anesthesia",
-    "description": "<cite index=\"6-15\">L'anesthésie est la suppression des sensations (et en particulier la sensation de douleur)</cite>. <cite index=\"1-7\">Le 16 octobre 1846, William Thomas MORTON, au Massachusetts General Hospital réalisa la première anesthésie à l'éther</cite>, révolutionnant la chirurgie. <cite index=\"1-3,6-20\">Cette spécialité médicale récente a révolutionné la médecine en permettant une chirurgie de qualité</cite>.",
+    "description": "L'anesthésie est la suppression des sensations (et en particulier la sensation de douleur). Le 16 octobre 1846, William Thomas MORTON, au Massachusetts General Hospital réalisa la première anesthésie à l'éther, révolutionnant la chirurgie. Cette spécialité médicale récente a révolutionné la médecine en permettant une chirurgie de qualité.",
     "tags": [
       "médecine",
       "chirurgie",
@@ -5691,7 +5696,7 @@
   },
   "memoire-ram": {
     "name_en": "RAM Memory",
-    "description": "<cite index=\"1-10\">La mémoire vive, ou RAM, est la mémoire informatique dans laquelle peuvent être enregistrées, généralement de façon volatile, les informations traitées par un appareil informatique.</cite> <cite index=\"1-21\">Son rôle est notamment de stocker les données qui vont être traitées par l'unité centrale de traitement (UCT), soit un microprocesseur dans la plupart des appareils modernes.</cite> <cite index=\"11-6,11-7\">Les puces de mémoire sont composées de circuits intégrés comportant plusieurs transistors, résistances et condensateurs qui doivent être formés sur chaque puce. Ces circuits intégrés commencent leur cycle de vie sous forme de silicium, généralement extrait du sable.</cite>",
+    "description": "La mémoire vive, ou RAM, est la mémoire informatique dans laquelle peuvent être enregistrées, généralement de façon volatile, les informations traitées par un appareil informatique. Son rôle est notamment de stocker les données qui vont être traitées par l'unité centrale de traitement (UCT), soit un microprocesseur dans la plupart des appareils modernes. Les puces de mémoire sont composées de circuits intégrés comportant plusieurs transistors, résistances et condensateurs qui doivent être formés sur chaque puce. Ces circuits intégrés commencent leur cycle de vie sous forme de silicium, généralement extrait du sable.",
     "tags": [
       "mémoire",
       "électronique",
@@ -6104,7 +6109,7 @@
   },
   "cuisine-mediterraneenne": {
     "name_en": "Mediterranean cuisine",
-    "description": "<cite index=\"1-17,1-1\">La cuisine méditerranéenne est un concept récent formalisé dans les années 1950, basé sur la triade alimentaire traditionnelle de l'olive, du blé et du raisin</cite>. <cite index=\"1-19\">Elle englobe les cuisines des pays du bassin méditerranéen : maghrébine, égyptienne, levantine, turque, balkanique, grecque, italienne, française, chypriote, maltaise, espagnole et portugaise</cite>. <cite index=\"6-13,6-14\">Inscrite au patrimoine culturel immatériel de l'humanité par l'UNESCO en 2010, elle représente un ensemble de savoir-faire, connaissances, pratiques et traditions culinaires</cite>.",
+    "description": "La cuisine méditerranéenne est un concept récent formalisé dans les années 1950, basé sur la triade alimentaire traditionnelle de l'olive, du blé et du raisin. Elle englobe les cuisines des pays du bassin méditerranéen : maghrébine, égyptienne, levantine, turque, balkanique, grecque, italienne, française, chypriote, maltaise, espagnole et portugaise. Inscrite au patrimoine culturel immatériel de l'humanité par l'UNESCO en 2010, elle représente un ensemble de savoir-faire, connaissances, pratiques et traditions culinaires.",
     "tags": [
       "alimentation",
       "santé",
@@ -6231,7 +6236,7 @@
   },
   "parachute-en-nylon": {
     "name_en": "Nylon parachute",
-    "description": "<cite index=\"2-1,2-3,2-4\">Le parachute en nylon fut testé pour la première fois par Adeline Gray le 6 juin 1942 à Hartford, marquant la transition de la soie vers ce nouveau matériau synthétique</cite>. <cite index=\"1-18,2-5\">Cette innovation révolutionna l'industrie parachutiste car le nylon offrait une combinaison unique de légèreté, de résistance et de résilience supérieure à la soie</cite>. <cite index=\"11-8,12-18\">Pendant la Seconde Guerre mondiale, la production de nylon fut massivement réorientée vers les besoins militaires, notamment pour la fabrication de parachutes où il remplaça définitivement la soie</cite>.",
+    "description": "Le parachute en nylon fut testé pour la première fois par Adeline Gray le 6 juin 1942 à Hartford, marquant la transition de la soie vers ce nouveau matériau synthétique. Cette innovation révolutionna l'industrie parachutiste car le nylon offrait une combinaison unique de légèreté, de résistance et de résilience supérieure à la soie. Pendant la Seconde Guerre mondiale, la production de nylon fut massivement réorientée vers les besoins militaires, notamment pour la fabrication de parachutes où il remplaça définitivement la soie.",
     "tags": [
       "sécurité",
       "militaire",
@@ -6815,7 +6820,7 @@
   },
   "nitroglycerine": {
     "name_en": "Nitroglycerin",
-    "description": "<cite index=\"1-4,1-5,1-6\">La nitroglycérine est un composé organique liquide dense, incolore, huileux, explosif et hautement toxique, obtenu par condensation du glycérol avec l'acide nitrique. Elle est utilisée dans la fabrication d'explosifs, et plus particulièrement de la dynamite, et peut également avoir un usage médical comme vasodilatateur</cite>. <cite index=\"1-8\">Elle a été découverte par Ascanio Sobrero en 1847 à l'université de Turin</cite>.",
+    "description": "La nitroglycérine est un composé organique liquide dense, incolore, huileux, explosif et hautement toxique, obtenu par condensation du glycérol avec l'acide nitrique. Elle est utilisée dans la fabrication d'explosifs, et plus particulièrement de la dynamite, et peut également avoir un usage médical comme vasodilatateur. Elle a été découverte par Ascanio Sobrero en 1847 à l'université de Turin.",
     "tags": [
       "explosif",
       "médical",
@@ -6887,7 +6892,7 @@
   },
   "tunnel-ferroviaire": {
     "name_en": "Railway tunnel",
-    "description": "Ouvrage souterrain spécialement conçu pour le passage des trains. <cite index=\"11-5,11-6,1-1\">Le développement du réseau ferroviaire au XIXe siècle entraine le percement de très nombreux tunnels pour éviter les rampes importantes. C'est à cette époque que sont mis au point la technique du bouclier qui permet de protéger les ouvriers des éboulements, les perforatrices à air comprimé qui permettent d'accélérer le creusement. Le premier tunnel ferroviaire est le tunnel de Terre-Noire, de 1477 mètres de long.</cite> Les tunnels ferroviaires révolutionnent le transport en permettant de franchir les obstacles naturels comme les montagnes.",
+    "description": "Ouvrage souterrain spécialement conçu pour le passage des trains. Le développement du réseau ferroviaire au XIXe siècle entraine le percement de très nombreux tunnels pour éviter les rampes importantes. C'est à cette époque que sont mis au point la technique du bouclier qui permet de protéger les ouvriers des éboulements, les perforatrices à air comprimé qui permettent d'accélérer le creusement. Le premier tunnel ferroviaire est le tunnel de Terre-Noire, de 1477 mètres de long. Les tunnels ferroviaires révolutionnent le transport en permettant de franchir les obstacles naturels comme les montagnes.",
     "tags": [
       "chemin de fer",
       "transport",
@@ -6974,7 +6979,7 @@
   },
   "geligniite": {
     "name_en": "Gelignite",
-    "description": "<cite index=\"1-4,1-5\">La géligniite est un explosif constitué de collodion-coton (nitrocellulose) dissous dans la nitroglycérine et mélangé avec de la pâte de bois et du salpêtre. Elle fut inventée en 1875 par Alfred Nobel.</cite> <cite index=\"1-6,1-7,1-8\">Plus stable que la dynamite, elle est facilement malléable et sûre à manipuler sans protection tant qu'elle n'est pas proche d'un détonateur, brûle lentement et ne peut exploser sans détonateur.</cite>",
+    "description": "La géligniite est un explosif constitué de collodion-coton (nitrocellulose) dissous dans la nitroglycérine et mélangé avec de la pâte de bois et du salpêtre. Elle fut inventée en 1875 par Alfred Nobel. Plus stable que la dynamite, elle est facilement malléable et sûre à manipuler sans protection tant qu'elle n'est pas proche d'un détonateur, brûle lentement et ne peut exploser sans détonateur.",
     "tags": [
       "explosif",
       "nitroglycerine",
@@ -7208,14 +7213,14 @@
   },
   "disque-dur": {
     "name_en": "Hard disk drive",
-    "description": "Mémoire de masse magnétique constituée de plateaux rigides en rotation recouverts d'une couche magnétique. <cite index=\"2-7,2-8\">Le premier système de disque dur IBM 350 fut utilisé dans le RAMAC 305 en 1956</cite>, révolutionnant le stockage informatique. Les données sont écrites et lues par des têtes magnétiques qui survolent les plateaux sans les toucher.",
+    "description": "Mémoire de masse magnétique constituée de plateaux rigides en rotation recouverts d'une couche magnétique. Le premier système de disque dur IBM 350 fut utilisé dans le RAMAC 305 en 1956, révolutionnant le stockage informatique. Les données sont écrites et lues par des têtes magnétiques qui survolent les plateaux sans les toucher.",
     "tags": [
       "stockage",
       "magnétique",
       "informatique",
       "mémoire"
     ],
-    "origin": "<cite index=\"10-1,10-12\">Reynold Johnson (IBM)</cite>",
+    "origin": "Reynold Johnson (IBM)",
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Disque_dur",
     "image_url": "/images/nodes/disque-dur.jpg",
     "_ai_built_upon": [

@@ -695,6 +695,9 @@ function TechGraphInner() {
 
   const focusLayoutActive = Boolean(isSidebarOpen && selectedNodeId);
 
+  /** En vue focalisée, ignorer le survol pour ne pas relancer le layout (évite le recentrage au hover). */
+  const graphLayoutHoverDep = focusLayoutActive ? 0 : exploreHoveredNodeId;
+
   const searchMode = useFocusLinkEditStore((s) => s.searchMode);
   const relationPick = useFocusLinkEditStore((s) => s.relationPick);
   const lastCreatedEdgeId = useFocusLinkEditStore((s) => s.lastCreatedEdgeId);
@@ -1197,7 +1200,7 @@ function TechGraphInner() {
     setEdges(outEdges);
   }, [
     selectedNodeId,
-    exploreHoveredNodeId,
+    graphLayoutHoverDep,
     activeCategories,
     activeEras,
     activeTypes,
@@ -1413,9 +1416,10 @@ function TechGraphInner() {
   const onNodeMouseEnter: NodeMouseHandler = useCallback(
     (_, node) => {
       if (node.type === 'layerLabel') return;
+      if (focusLayoutActive) return;
       setExploreHoveredNodeId(node.id);
     },
-    [setExploreHoveredNodeId]
+    [focusLayoutActive, setExploreHoveredNodeId]
   );
 
   const onNodeMouseLeave: NodeMouseHandler = useCallback(() => {

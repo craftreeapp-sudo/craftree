@@ -44,6 +44,25 @@ const MODEL =
 const USER_AGENT = 'CivTree/1.0 (educational project; contact: local dev)';
 const NODES_IMG_DIR = path.join(process.cwd(), 'public/images/nodes');
 
+function cleanDescription(text) {
+  if (!text) return '';
+  return text
+    .replace(/<cite[^>]*>/g, '')
+    .replace(/<\/cite>/g, '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\[\d+\]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/** @returns {string|null} chemin public /images/nodes/... si un fichier nodeId.* existe */
+function getLocalNodeImagePublicPath(nodeId) {
+  if (!fs.existsSync(NODES_IMG_DIR)) return null;
+  const existingFiles = fs.readdirSync(NODES_IMG_DIR);
+  const match = existingFiles.find((f) => f.startsWith(`${nodeId}.`));
+  return match ? `/images/nodes/${match}` : null;
+}
+
 /** Évite les lectures/écritures concurrentes sur seed-data.json */
 let seedWriteChain = Promise.resolve();
 
@@ -67,11 +86,10 @@ async function fetchWikipediaImage(wikipediaUrl, nodeId) {
   if (!wikipediaUrl || typeof wikipediaUrl !== 'string') return null;
 
   try {
-    if (fs.existsSync(NODES_IMG_DIR)) {
-      const existingFiles = fs.readdirSync(NODES_IMG_DIR);
-      if (existingFiles.some((f) => f.startsWith(`${nodeId}.`))) {
-        return null;
-      }
+    const existingLocal = getLocalNodeImagePublicPath(nodeId);
+    if (existingLocal) {
+      await enqueuePatchNodeImage(nodeId, existingLocal);
+      return existingLocal;
     }
 
     let urlObj;
@@ -141,21 +159,18 @@ async function runImagesMode() {
   let skipped = 0;
 
   for (const node of db.nodes) {
-    if (node.image_url) {
-      skipped++;
-      continue;
-    }
     if (!node.wikipedia_url) {
       skipped++;
       continue;
     }
 
-    if (fs.existsSync(NODES_IMG_DIR)) {
-      const existingFiles = fs.readdirSync(NODES_IMG_DIR);
-      if (existingFiles.some((f) => f.startsWith(`${node.id}.`))) {
-        skipped++;
-        continue;
+    const localPublic = getLocalNodeImagePublicPath(node.id);
+    if (localPublic) {
+      if (node.image_url !== localPublic) {
+        await enqueuePatchNodeImage(node.id, localPublic);
       }
+      skipped++;
+      continue;
     }
 
     console.log(`🖼️  ${node.name}...`);
@@ -337,12 +352,15 @@ Vise des inventions au même niveau de généralité que : Roue, Acier, Papier, 
 
 ## FORMAT DE RÉPONSE
 
+Les descriptions doivent être du texte brut, sans aucune balise HTML, sans aucune balise XML, sans cite, sans index, sans crochets, sans référence. Juste du texte simple et lisible.
+
 Réponds UNIQUEMENT avec un JSON valide, rien d'autre :
 
 {
   "name": "Nom en français",
   "name_en": "English name",
   "description": "2-3 phrases en français.",
+  "description_en": "2-3 short sentences in English.",
   "category": "...",
   "type": "...",
   "era": "...",
@@ -424,7 +442,8 @@ function addInventionToDB(enriched) {
     id,
     name: enriched.name,
     name_en: enriched.name_en || '',
-    description: enriched.description || '',
+    description: cleanDescription(enriched.description ?? ''),
+    description_en: cleanDescription(enriched.description_en ?? ''),
     category: enriched.category,
     type: enriched.type,
     era: enriched.era,

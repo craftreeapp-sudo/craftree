@@ -34,6 +34,9 @@ for (const n of data.nodes) {
     name_en: n.name_en ?? n.name,
     description: n.description ?? '',
   };
+  if (typeof n.description_en === 'string' && n.description_en.trim() !== '') {
+    detail.description_en = n.description_en.trim();
+  }
   if (n.image_url) detail.image_url = n.image_url;
   if (n.wikipedia_url) detail.wikipedia_url = n.wikipedia_url;
   byId[n.id] = detail;

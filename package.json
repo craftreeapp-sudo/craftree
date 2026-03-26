@@ -8,6 +8,8 @@
     "populate:expand": "node scripts/populate.mjs --expand",
     "populate:deep": "node scripts/populate.mjs --deep",
     "populate:images": "node scripts/populate.mjs --images",
+    "clean:descriptions": "node scripts/clean-descriptions.mjs",
+    "translate": "node scripts/translate-descriptions.mjs",
     "dev": "next dev",
     "generate:og": "node scripts/generate-og.mjs",
     "prebuild": "npm run split-data",

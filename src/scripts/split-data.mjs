@@ -39,6 +39,9 @@ for (const n of data.nodes) {
     origin: n.origin,
     wikipedia_url: n.wikipedia_url,
   };
+  if (typeof n.description_en === 'string' && n.description_en.trim() !== '') {
+    det.description_en = n.description_en.trim();
+  }
   if (n.image_url) det.image_url = n.image_url;
   if (Array.isArray(n._ai_built_upon)) det._ai_built_upon = n._ai_built_upon;
   if (Array.isArray(n._ai_led_to)) det._ai_led_to = n._ai_led_to;

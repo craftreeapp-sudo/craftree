@@ -1589,6 +1589,7 @@
       "type": "component",
       "era": "ancient",
       "year_approx": -400,
+      "image_url": "/images/nodes/clou.jpg",
       "complexity_depth": 0
     },
     {
@@ -1646,6 +1647,7 @@
       "type": "tool",
       "era": "ancient",
       "year_approx": -1800,
+      "image_url": "/images/nodes/scie.jpg",
       "complexity_depth": 0
     },
     {
@@ -1711,6 +1713,7 @@
       "type": "component",
       "era": "prehistoric",
       "year_approx": -8000,
+      "image_url": "/images/nodes/ressort.jpg",
       "complexity_depth": 0
     },
     {
@@ -1738,6 +1741,7 @@
       "type": "tool",
       "era": "industrial",
       "year_approx": 1834,
+      "image_url": "/images/nodes/moteur-electrique.jpg",
       "complexity_depth": 0
     },
     {
@@ -1912,6 +1916,7 @@
       "type": "process",
       "era": "ancient",
       "year_approx": -3000,
+      "image_url": "/images/nodes/teinture.jpg",
       "complexity_depth": 0
     },
     {

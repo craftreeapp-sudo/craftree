@@ -10,6 +10,7 @@ function buildDetailsMap(nodes: SeedNode[]): DetailsMap {
     m[n.id] = {
       name_en: n.name_en ?? '',
       description: n.description ?? '',
+      description_en: n.description_en,
       image_url: n.image_url,
       wikipedia_url: n.wikipedia_url,
       origin: n.origin,
@@ -58,6 +59,7 @@ export const useNodeDetailsStore = create<NodeDetailsStore>((set) => ({
         [node.id]: {
           name_en: node.name_en ?? '',
           description: node.description ?? '',
+          description_en: node.description_en,
           image_url: node.image_url,
           wikipedia_url: node.wikipedia_url,
           origin: node.origin,
