@@ -105,6 +105,8 @@ export function NodeDetailSidebar() {
   > | null>(null);
   const [suggestSubmitting, setSuggestSubmitting] = useState(false);
   const [sidebarImageError, setSidebarImageError] = useState(false);
+  const [ledToOpen, setLedToOpen] = useState(true);
+  const [builtUponOpen, setBuiltUponOpen] = useState(true);
   const [form, setForm] = useState<NodeEditFormState>(() =>
     createEmptyFormState()
   );
@@ -139,6 +141,11 @@ export function NodeDetailSidebar() {
     else setForm(createEmptyFormState());
     setEditMode(true);
   }, [node, loadEditorData]);
+
+  useEffect(() => {
+    setLedToOpen(true);
+    setBuiltUponOpen(true);
+  }, [selectedNodeId]);
 
   useEffect(() => {
     if (!selectedNodeId) {
@@ -372,11 +379,9 @@ export function NodeDetailSidebar() {
   return (
     <>
       {isSidebarOpen ? (
-        <button
-          type="button"
-          className="fixed inset-0 top-14 z-[51] bg-black/50 lg:hidden"
-          aria-label={tSidebar('closePanel')}
-          onClick={closeDetail}
+        <div
+          aria-hidden
+          className="pointer-events-none fixed inset-0 top-14 z-[51] bg-black/50 lg:hidden"
         />
       ) : null}
       <motion.aside
@@ -724,60 +729,105 @@ export function NodeDetailSidebar() {
               ) : null}
 
               <motion.section variants={staggerItem} className="mt-6">
-                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#8B95A8]">
-                  {tExplore('builtUpon')} ({recipeLinks.length})
-                </h3>
-                {recipeLinks.length === 0 ? (
-                  <p className="text-sm text-[#8B95A8]">
-                    {tExplore('noUpstream')}
-                  </p>
-                ) : (
-                  <ul className="space-y-3">
-                    {recipeLinks.map((link) => (
-                      <RecipeRow
-                        key={link.id}
-                        link={link}
-                        getNodeById={getNodeById}
-                        locale={locale}
-                        detailsById={detailsById}
-                        onSelectIngredient={(id) =>
-                          navigateToNode(id, { center: false })
-                        }
-                      />
-                    ))}
-                  </ul>
-                )}
+                <button
+                  type="button"
+                  onClick={() => setLedToOpen((v) => !v)}
+                  className="mb-3 flex w-full items-center justify-between gap-2 rounded-md py-1.5 text-start transition-colors hover:bg-[#111827]/50"
+                  aria-expanded={ledToOpen}
+                >
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-[#8B95A8]">
+                    {tExplore('ledTo')} ({usages.length})
+                  </h3>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`shrink-0 text-[#8B95A8] transition-transform duration-200 ${
+                      ledToOpen ? 'rotate-180' : ''
+                    }`}
+                    aria-hidden
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </button>
+                {ledToOpen ? (
+                  usages.length === 0 ? (
+                    <p className="text-sm text-[#8B95A8]">
+                      {tExplore('noDownstream')}
+                    </p>
+                  ) : (
+                    <ul className="space-y-3">
+                      {usages.map(({ link, product }) => (
+                        <LedToRow
+                          key={link.id}
+                          link={link}
+                          product={product}
+                          locale={locale}
+                          detailsById={detailsById}
+                          onSelectProduct={(id) =>
+                            navigateToNode(id, { center: false })
+                          }
+                        />
+                      ))}
+                    </ul>
+                  )
+                ) : null}
               </motion.section>
 
               <motion.section variants={staggerItem} className="mt-6">
-                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#8B95A8]">
-                  {tExplore('ledTo')} ({usages.length})
-                </h3>
-                {usages.length === 0 ? (
-                  <p className="text-sm text-[#8B95A8]">
-                    {tExplore('noDownstream')}
-                  </p>
-                ) : (
-                  <ul className="space-y-2">
-                    {usages.map(({ link, product }) => (
-                      <li key={link.id}>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            navigateToNode(product.id, { center: false })
+                <button
+                  type="button"
+                  onClick={() => setBuiltUponOpen((v) => !v)}
+                  className="mb-3 flex w-full items-center justify-between gap-2 rounded-md py-1.5 text-start transition-colors hover:bg-[#111827]/50"
+                  aria-expanded={builtUponOpen}
+                >
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-[#8B95A8]">
+                    {tExplore('builtUpon')} ({recipeLinks.length})
+                  </h3>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`shrink-0 text-[#8B95A8] transition-transform duration-200 ${
+                      builtUponOpen ? 'rotate-180' : ''
+                    }`}
+                    aria-hidden
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </button>
+                {builtUponOpen ? (
+                  recipeLinks.length === 0 ? (
+                    <p className="text-sm text-[#8B95A8]">
+                      {tExplore('noUpstream')}
+                    </p>
+                  ) : (
+                    <ul className="space-y-3">
+                      {recipeLinks.map((link) => (
+                        <RecipeRow
+                          key={link.id}
+                          link={link}
+                          getNodeById={getNodeById}
+                          locale={locale}
+                          detailsById={detailsById}
+                          onSelectIngredient={(id) =>
+                            navigateToNode(id, { center: false })
                           }
-                          className="w-full rounded-md border border-transparent px-2 py-2 text-start text-sm text-[#3B82F6] transition-colors hover:border-[#2A3042] hover:bg-[#111827]"
-                        >
-                          {pickNodeDisplayName(
-                            locale,
-                            product.name,
-                            detailsById[product.id]?.name_en
-                          )}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                        />
+                      ))}
+                    </ul>
+                  )
+                ) : null}
               </motion.section>
                 </div>
               </>
@@ -786,6 +836,63 @@ export function NodeDetailSidebar() {
         )}
       </motion.aside>
     </>
+  );
+}
+
+function LedToRow({
+  link,
+  product,
+  onSelectProduct,
+  locale,
+  detailsById,
+}: {
+  link: CraftingLink;
+  product: TechNodeBasic;
+  onSelectProduct: (id: string) => void;
+  locale: string;
+  detailsById: Record<string, TechNodeDetails | undefined>;
+}) {
+  const tRel = useTranslations('relationTypes');
+  const tEx = useTranslations('explore');
+  const rel = link.relation_type as RelationType;
+  const dotColor =
+    rel === 'material'
+      ? getCategoryColor(product.category as NodeCategory)
+      : RELATION_DOT[rel];
+  const relLabel = tRel(rel);
+
+  return (
+    <li className="flex gap-3 rounded-md border border-[#2A3042]/80 bg-[#111827]/40 px-2 py-2">
+      <span
+        className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ring-2 ring-white/10"
+        style={{
+          backgroundColor: dotColor,
+          opacity: rel === 'catalyst' ? 0.6 : 1,
+        }}
+        title={relLabel}
+      />
+      <div className="min-w-0 flex-1">
+        <button
+          type="button"
+          onClick={() => onSelectProduct(product.id)}
+          className="text-start text-sm font-medium text-[#3B82F6] hover:underline"
+        >
+          {pickNodeDisplayName(
+            locale,
+            product.name,
+            detailsById[product.id]?.name_en
+          )}
+        </button>
+        <p className="mt-0.5 text-xs text-[#8B95A8]">
+          {relLabel}
+          {link.quantity_hint ? ` · ${link.quantity_hint}` : ''}
+          {link.is_optional ? ` · ${tEx('optional')}` : ''}
+        </p>
+        {link.notes ? (
+          <p className="mt-1 text-xs italic text-[#8B95A8]/80">{link.notes}</p>
+        ) : null}
+      </div>
+    </li>
   );
 }
 

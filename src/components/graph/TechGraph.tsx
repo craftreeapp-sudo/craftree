@@ -84,6 +84,19 @@ function mergeNodeClass(...parts: (string | undefined)[]): string {
   return parts.filter(Boolean).join(' ');
 }
 
+/** Retire les classes de transition vue focalisée (sinon `node-appearing` maintient opacity:0 — globals.css). */
+function stripFocusTransitionNodeClassName(className?: string): string | undefined {
+  if (!className?.trim()) return undefined;
+  const drop = new Set([
+    'node-appearing',
+    'focus-incoming-visible',
+    'node-sliding-to-center',
+    'will-change-[transform,opacity]',
+  ]);
+  const next = className.split(/\s+/).filter((p) => p && !drop.has(p));
+  return next.length ? next.join(' ') : undefined;
+}
+
 /** Retire `style.pointerEvents` résiduel après la transition vue focalisée (sinon survol/clic bloqués). */
 function stripTechNodePointerEventsStyle(nodes: Node[]): Node[] {
   return nodes.map((n) => {
@@ -1122,10 +1135,16 @@ function TechGraphInner() {
             const live = nodesRef.current.find((l) => l.id === n.id);
             const decorated = nextNodes.find((x) => x.id === n.id);
             if (live) {
+              const cleanedLiveClass = stripFocusTransitionNodeClassName(
+                live.className
+              );
               return {
                 ...n,
                 position: live.position,
-                className: live.className,
+                className:
+                  incomingReveal && n.id !== selectedNodeId
+                    ? live.className
+                    : cleanedLiveClass,
                 style: live.style,
                 data: {
                   ...((decorated?.data ?? n.data) as Record<string, unknown>),
@@ -1139,14 +1158,15 @@ function TechGraphInner() {
             x: n.position.x,
             y: n.position.y,
           };
+          const cleanedClass = stripFocusTransitionNodeClassName(n.className);
           if (incomingReveal && n.id !== selectedNodeId) {
             return {
               ...n,
               position: nextPos,
-              className: mergeNodeClass(n.className, 'node-appearing'),
+              className: mergeNodeClass(cleanedClass, 'node-appearing'),
             };
           }
-          return { ...n, position: nextPos };
+          return { ...n, position: nextPos, className: cleanedClass };
         });
         focusPositionsAppliedRef.current = true;
       }
@@ -1407,12 +1427,17 @@ function TechGraphInner() {
         le.close();
         return;
       }
+      if (focusLayoutActive) return;
       closeDetail();
       setExploreHoveredNodeId(null);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [closeDetail, setExploreHoveredNodeId]);
+  }, [
+    closeDetail,
+    setExploreHoveredNodeId,
+    focusLayoutActive,
+  ]);
 
   const scheduleSingleClick = useCallback(
     (nodeId: string) => {
@@ -1456,9 +1481,16 @@ function TechGraphInner() {
       clickTimerRef.current = null;
     }
     closeFocusLinkEdit();
-    closeDetail();
+    if (!focusLayoutActive) {
+      closeDetail();
+    }
     setExploreHoveredNodeId(null);
-  }, [closeDetail, closeFocusLinkEdit, setExploreHoveredNodeId]);
+  }, [
+    closeDetail,
+    closeFocusLinkEdit,
+    setExploreHoveredNodeId,
+    focusLayoutActive,
+  ]);
 
   return (
     <div

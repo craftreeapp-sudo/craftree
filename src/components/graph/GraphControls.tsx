@@ -195,22 +195,6 @@ export function GraphControls({
 
   const toolbar = (
     <>
-      <button
-        type="button"
-        className={BTN}
-        onClick={onToggleConnections}
-        aria-pressed={showConnections}
-        title={
-          showConnections ? tg('hideConnections') : tg('showConnections')
-        }
-        aria-label={
-          showConnections
-            ? tg('hideConnectionsAria')
-            : tg('showConnectionsAria')
-        }
-      >
-        <ConnectionsIcon on={showConnections} />
-      </button>
       <span
         className="flex min-w-[2.75rem] shrink-0 select-none items-center justify-center rounded-[8px] border border-[#2A3042] bg-[#1A1F2E] px-2 py-1.5 text-xs tabular-nums text-[#8B95A8]"
         aria-live="polite"
@@ -235,6 +219,22 @@ export function GraphControls({
         title={tg('zoomOut')}
       >
         <ZoomOutIcon />
+      </button>
+      <button
+        type="button"
+        className={BTN}
+        onClick={onToggleConnections}
+        aria-pressed={showConnections}
+        title={
+          showConnections ? tg('hideConnections') : tg('showConnections')
+        }
+        aria-label={
+          showConnections
+            ? tg('hideConnectionsAria')
+            : tg('showConnectionsAria')
+        }
+      >
+        <ConnectionsIcon on={showConnections} />
       </button>
       {!focused ? (
         <button

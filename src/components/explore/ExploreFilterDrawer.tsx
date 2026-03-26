@@ -37,6 +37,7 @@ export function ExploreFilterDrawer() {
   const toggleEra = useUIStore((s) => s.toggleEra);
   const setAllCategories = useUIStore((s) => s.setAllCategories);
   const setAllEras = useUIStore((s) => s.setAllEras);
+  const user = useAuthStore((s) => s.user);
   const isAdmin = useAuthStore((s) => s.isAdmin);
 
   return (
@@ -72,13 +73,15 @@ export function ExploreFilterDrawer() {
             >
               {tc('explore')}
             </Link>
-            <Link
-              href="/editor"
-              className="rounded-md px-2 py-2 text-sm text-[#E8ECF4] transition-colors hover:bg-[#1A1F2E] hover:text-[#3B82F6]"
-              onClick={() => setOpen(false)}
-            >
-              {tc('allInventions')} ({INVENTION_COUNT})
-            </Link>
+            {user ? (
+              <Link
+                href="/editor"
+                className="rounded-md px-2 py-2 text-sm text-[#E8ECF4] transition-colors hover:bg-[#1A1F2E] hover:text-[#3B82F6]"
+                onClick={() => setOpen(false)}
+              >
+                {tc('allInventions')} ({INVENTION_COUNT})
+              </Link>
+            ) : null}
             <Link
               href="/about"
               className="rounded-md px-2 py-2 text-sm text-[#E8ECF4] transition-colors hover:bg-[#1A1F2E] hover:text-[#3B82F6]"
