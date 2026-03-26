@@ -286,6 +286,7 @@
   "footer": {
     "about": "关于",
     "tagline": "文明的物质配方。",
+    "brandLine": "Craftree · 文明的物质配方",
     "timeline": "时间线",
     "stats": "统计",
     "categories": "分类",
@@ -295,6 +296,7 @@
   },
   "nav": {
     "mainNav": "主导航",
+    "drawerNavigation": "导航",
     "footerNav": "页脚",
     "tree": "树",
     "breadcrumbAria": "面包屑",

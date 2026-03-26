@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
+import nodesIndexJson from '@/data/nodes-index.json';
 import { useUIStore } from '@/stores/ui-store';
 import { getCategoryColor } from '@/lib/colors';
 import { isRtlLocale } from '@/lib/i18n-config';
@@ -15,9 +16,12 @@ import type { NodeCategory } from '@/lib/types';
 
 const CATEGORY_PREVIEW_COUNT = 5;
 
+const INVENTION_COUNT = nodesIndexJson.nodes.length;
+
 export function ExploreFilterDrawer() {
   const locale = useLocale();
   const isRtl = isRtlLocale(locale);
+  const tNav = useTranslations('nav');
   const t = useTranslations('filters');
   const tc = useTranslations('common');
   const tCat = useTranslations('categories');
@@ -50,6 +54,37 @@ export function ExploreFilterDrawer() {
         }`}
         aria-hidden={!open}
       >
+        <div className="shrink-0 border-b border-[#2A3042] px-4 py-3">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#8B95A8]">
+            {tNav('drawerNavigation')}
+          </h3>
+          <nav
+            className="flex flex-col gap-0.5"
+            aria-label={tNav('drawerNavigation')}
+          >
+            <Link
+              href="/explore"
+              className="rounded-md px-2 py-2 text-sm text-[#E8ECF4] transition-colors hover:bg-[#1A1F2E] hover:text-[#3B82F6]"
+              onClick={() => setOpen(false)}
+            >
+              {tc('explore')}
+            </Link>
+            <Link
+              href="/editor"
+              className="rounded-md px-2 py-2 text-sm text-[#E8ECF4] transition-colors hover:bg-[#1A1F2E] hover:text-[#3B82F6]"
+              onClick={() => setOpen(false)}
+            >
+              {tc('allInventions')} ({INVENTION_COUNT})
+            </Link>
+            <Link
+              href="/about"
+              className="rounded-md px-2 py-2 text-sm text-[#E8ECF4] transition-colors hover:bg-[#1A1F2E] hover:text-[#3B82F6]"
+              onClick={() => setOpen(false)}
+            >
+              {tc('about')}
+            </Link>
+          </nav>
+        </div>
         <div className="flex shrink-0 items-center justify-between border-b border-[#2A3042] px-4 py-3">
           <h2 className="text-sm font-semibold text-[#E8ECF4]">{tc('filters')}</h2>
           <button
@@ -165,16 +200,6 @@ export function ExploreFilterDrawer() {
               })}
             </ul>
           </section>
-        </div>
-
-        <div className="shrink-0 border-t border-[#8B95A8]/40 px-4 py-3">
-          <Link
-            href="/about"
-            className="text-sm text-[#8B95A8] transition-colors hover:text-[#3B82F6]"
-            onClick={() => setOpen(false)}
-          >
-            {tc('about')}
-          </Link>
         </div>
       </aside>
     </>

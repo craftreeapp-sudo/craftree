@@ -285,6 +285,7 @@
   },
   "footer": {
     "tagline": "Las recetas materiales de la civilización.",
+    "brandLine": "Craftree · Las recetas materiales de la civilización.",
     "about": "Acerca de",
     "timeline": "Línea de tiempo",
     "stats": "Estadísticas",
@@ -295,6 +296,7 @@
   },
   "nav": {
     "mainNav": "Navegación principal",
+    "drawerNavigation": "Navegación",
     "footerNav": "Pie de página",
     "tree": "Árbol",
     "breadcrumbAria": "Miga de pan",

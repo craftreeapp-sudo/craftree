@@ -43,7 +43,6 @@ export function Header() {
       }}
     >
       <div className="flex min-w-0 shrink-0 items-center gap-3 md:gap-6">
-        <LanguageSwitcher align="start" />
         <Link
           href="/"
           className="shrink-0 font-bold tracking-tight"
@@ -83,8 +82,9 @@ export function Header() {
         <SearchBar />
       </div>
 
-      <div className="hidden min-w-0 shrink-0 justify-end md:flex">
+      <div className="hidden min-w-0 shrink-0 items-center justify-end gap-2 md:flex">
         <FilterPanel />
+        <LanguageSwitcher align="end" />
       </div>
     </header>
   );

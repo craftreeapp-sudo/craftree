@@ -285,6 +285,7 @@
   },
   "footer": {
     "tagline": "Les recettes matérielles de la civilisation.",
+    "brandLine": "Craftree · Les recettes matérielles de la civilisation.",
     "about": "À propos",
     "timeline": "Timeline",
     "stats": "Stats",
@@ -295,6 +296,7 @@
   },
   "nav": {
     "mainNav": "Navigation principale",
+    "drawerNavigation": "Navigation",
     "footerNav": "Pied de page",
     "tree": "Tree",
     "breadcrumbAria": "Fil d'Ariane",

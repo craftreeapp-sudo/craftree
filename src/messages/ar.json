@@ -286,6 +286,7 @@
   "footer": {
     "about": "حول",
     "tagline": "وصفات الحضارة المادية.",
+    "brandLine": "Craftree · وصفات الحضارة المادية",
     "timeline": "الخط الزمني",
     "stats": "إحصاءات",
     "categories": "الفئات",
@@ -295,6 +296,7 @@
   },
   "nav": {
     "mainNav": "التنقّل الرئيسي",
+    "drawerNavigation": "التنقّل",
     "footerNav": "تذييل الصفحة",
     "tree": "الشجرة",
     "breadcrumbAria": "مسار التنقل",

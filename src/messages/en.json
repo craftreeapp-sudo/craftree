@@ -285,6 +285,7 @@
   },
   "footer": {
     "tagline": "The material recipes of civilization.",
+    "brandLine": "Craftree · The material recipes of civilization.",
     "about": "About",
     "timeline": "Timeline",
     "stats": "Stats",
@@ -295,6 +296,7 @@
   },
   "nav": {
     "mainNav": "Main navigation",
+    "drawerNavigation": "Navigation",
     "footerNav": "Footer",
     "tree": "Tree",
     "breadcrumbAria": "Breadcrumb",

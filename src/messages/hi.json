@@ -285,6 +285,7 @@
   },
   "footer": {
     "tagline": "सभ्यता की भौतिक विधियाँ।",
+    "brandLine": "Craftree · सभ्यता की भौतिक विधियाँ",
     "about": "परिचय",
     "timeline": "समयरेखा",
     "stats": "आँकड़े",
@@ -295,6 +296,7 @@
   },
   "nav": {
     "mainNav": "मुख्य नेविगेशन",
+    "drawerNavigation": "नेविगेशन",
     "footerNav": "पाद लेख",
     "tree": "वृक्ष",
     "breadcrumbAria": "ब्रेडक्रम्ब",
