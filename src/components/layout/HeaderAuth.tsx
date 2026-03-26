@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useAuthStore } from '@/stores/auth-store';
@@ -10,7 +11,7 @@ import { signInWithGoogle, signOut } from '@/lib/auth-client';
 export function HeaderAuth() {
   const t = useTranslations('auth');
   const pushToast = useToastStore((s) => s.pushToast);
-  const { user, isLoading, isAdmin } = useAuthStore();
+  const { user, isLoading } = useAuthStore();
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
 
@@ -103,14 +104,14 @@ export function HeaderAuth() {
           <div className="truncate px-3 py-2 text-[11px] text-[#8B95A8]">
             {label}
           </div>
-          <a
-            href={isAdmin ? '/editor' : '/explore'}
+          <Link
+            href="/profile"
             className="block px-3 py-2 text-[13px] text-[#E8ECF4] hover:bg-[#2A3042]"
             role="menuitem"
             onClick={() => setOpen(false)}
           >
             {t('myProfile')}
-          </a>
+          </Link>
           <button
             type="button"
             className="w-full px-3 py-2 text-start text-[13px] text-[#E8ECF4] hover:bg-[#2A3042]"

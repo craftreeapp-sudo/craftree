@@ -28,6 +28,7 @@ export function ExploreFilterDrawer() {
   const tc = useTranslations('common');
   const tCat = useTranslations('categories');
   const tEra = useTranslations('eras');
+  const tAuth = useTranslations('auth');
   const [showAllCategories, setShowAllCategories] = useState(false);
   const open = useUIStore((s) => s.filterDrawerOpen);
   const setOpen = useUIStore((s) => s.setFilterDrawerOpen);
@@ -73,6 +74,15 @@ export function ExploreFilterDrawer() {
             >
               {tc('explore')}
             </Link>
+            {user ? (
+              <Link
+                href="/profile"
+                className="rounded-md px-2 py-2 text-sm text-[#E8ECF4] transition-colors hover:bg-[#1A1F2E] hover:text-[#3B82F6]"
+                onClick={() => setOpen(false)}
+              >
+                {tAuth('myProfile')}
+              </Link>
+            ) : null}
             {user ? (
               <Link
                 href="/editor"
