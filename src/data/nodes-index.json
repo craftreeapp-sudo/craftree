@@ -7,6 +7,7 @@
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": -400000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/FIRE_01.JPG/600px-FIRE_01.JPG",
       "complexity_depth": 0
     },
     {
@@ -16,6 +17,7 @@
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Pvs%2Ceau%2C348-647K.svg/600px-Pvs%2Ceau%2C348-647K.svg.png",
       "complexity_depth": 0
     },
     {
@@ -25,6 +27,7 @@
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Meteotek08_atmosfera10.jpg/600px-Meteotek08_atmosfera10.jpg",
       "complexity_depth": 0
     },
     {
@@ -34,6 +37,7 @@
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Dunes5.JPG/600px-Dunes5.JPG",
       "complexity_depth": 0
     },
     {
@@ -43,6 +47,7 @@
       "type": "raw_material",
       "era": "medieval",
       "year_approx": 1000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Anthrazit.jpg/600px-Anthrazit.jpg",
       "complexity_depth": 0
     },
     {
@@ -52,6 +57,7 @@
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -7000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/NatCopper.jpg/600px-NatCopper.jpg",
       "complexity_depth": 0
     },
     {
@@ -61,6 +67,7 @@
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -3000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Black-band_ironstone_%28aka%29.jpg/600px-Black-band_ironstone_%28aka%29.jpg",
       "complexity_depth": 0
     },
     {
@@ -70,6 +77,7 @@
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Kalksteenrots_met_in_het_midden_een_breccie._10-09-2019._%28actm.%29_02.jpg/600px-Kalksteenrots_met_in_het_midden_een_breccie._10-09-2019._%28actm.%29_02.jpg",
       "complexity_depth": 0
     },
     {
@@ -79,6 +87,7 @@
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Clay-ss-2005.jpg/600px-Clay-ss-2005.jpg",
       "complexity_depth": 0
     },
     {
@@ -88,6 +97,7 @@
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Wood_grain.jpg/600px-Wood_grain.jpg",
       "complexity_depth": 0
     },
     {
@@ -97,6 +107,7 @@
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Table_salt_with_salt_shaker_V1.jpg/600px-Table_salt_with_salt_shaker_V1.jpg",
       "complexity_depth": 0
     },
     {
@@ -106,6 +117,7 @@
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": -10000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/%C3%89pi_de_bl%C3%A9.jpg/600px-%C3%89pi_de_bl%C3%A9.jpg",
       "complexity_depth": 0
     },
     {
@@ -115,6 +127,7 @@
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -6000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Grapes%2C_Dry_Creek_Valley-7705.jpg/600px-Grapes%2C_Dry_Creek_Valley-7705.jpg",
       "complexity_depth": 0
     },
     {
@@ -124,6 +137,7 @@
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Milk_glass.jpg/600px-Milk_glass.jpg",
       "complexity_depth": 0
     },
     {
@@ -133,6 +147,7 @@
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -3000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/S_cerevisiae_under_DIC_microscopy.jpg/600px-S_cerevisiae_under_DIC_microscopy.jpg",
       "complexity_depth": 0
     },
     {
@@ -142,6 +157,7 @@
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Pr%C3%A9sure-p%C3%A8ral_feda_presura.JPG/600px-Pr%C3%A9sure-p%C3%A8ral_feda_presura.JPG",
       "complexity_depth": 0
     },
     {
@@ -151,6 +167,7 @@
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/20120726Lythrum_salicaria2.jpg/600px-20120726Lythrum_salicaria2.jpg",
       "complexity_depth": 0
     },
     {
@@ -160,6 +177,7 @@
       "type": "raw_material",
       "era": "industrial",
       "year_approx": 1859,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Petroleum_sample.jpg/600px-Petroleum_sample.jpg",
       "complexity_depth": 0
     },
     {
@@ -169,6 +187,7 @@
       "type": "tool",
       "era": "ancient",
       "year_approx": -6000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Oven.jpg/600px-Oven.jpg",
       "complexity_depth": 1
     },
     {
@@ -178,6 +197,7 @@
       "type": "tool",
       "era": "industrial",
       "year_approx": 1784,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/FourSolaire2.JPG/600px-FourSolaire2.JPG",
       "complexity_depth": 2
     },
     {
@@ -187,6 +207,7 @@
       "type": "material",
       "era": "ancient",
       "year_approx": -3000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Sodium-hydroxide-crystal-3D-vdW.png/600px-Sodium-hydroxide-crystal-3D-vdW.png",
       "complexity_depth": 1
     },
     {
@@ -196,6 +217,7 @@
       "type": "material",
       "era": "ancient",
       "year_approx": -3500,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Colorful_bottle.jpg/600px-Colorful_bottle.jpg",
       "complexity_depth": 1
     },
     {
@@ -205,6 +227,7 @@
       "type": "material",
       "era": "modern",
       "year_approx": 1954,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Silicon2.jpg/600px-Silicon2.jpg",
       "complexity_depth": 2
     },
     {
@@ -214,6 +237,7 @@
       "type": "component",
       "era": "digital",
       "year_approx": 1960,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Etchedwafer.jpg",
       "complexity_depth": 3
     },
     {
@@ -223,6 +247,7 @@
       "type": "material",
       "era": "digital",
       "year_approx": 1960,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Rembrandt_The_Hundred_Guilder_Print.jpg/600px-Rembrandt_The_Hundred_Guilder_Print.jpg",
       "complexity_depth": 2
     },
     {
@@ -232,6 +257,7 @@
       "type": "process",
       "era": "digital",
       "year_approx": 1957,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Wafer-trasparente.png/600px-Wafer-trasparente.png",
       "complexity_depth": 2
     },
     {
@@ -241,6 +267,7 @@
       "type": "material",
       "era": "modern",
       "year_approx": 1936,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Epoxide_generic.svg/600px-Epoxide_generic.svg.png",
       "complexity_depth": 2
     },
     {
@@ -250,6 +277,7 @@
       "type": "material",
       "era": "modern",
       "year_approx": 1932,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Glasfaser_Roving.jpg/600px-Glasfaser_Roving.jpg",
       "complexity_depth": 2
     },
     {
@@ -259,6 +287,7 @@
       "type": "component",
       "era": "digital",
       "year_approx": 1943,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Aurora_2ch_mixer_board_arrived_%282009-07-28_11.20.55_by_c-g.%29.jpg/600px-Aurora_2ch_mixer_board_arrived_%282009-07-28_11.20.55_by_c-g.%29.jpg",
       "complexity_depth": 3
     },
     {
@@ -268,6 +297,7 @@
       "type": "component",
       "era": "modern",
       "year_approx": 1947,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Transistors.agr.jpg/600px-Transistors.agr.jpg",
       "complexity_depth": 4
     },
     {
@@ -277,6 +307,7 @@
       "type": "component",
       "era": "digital",
       "year_approx": 1958,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/NXP_PCF8577C_LCD_driver_with_I%C2%B2C_%28Colour_Corrected%29.jpg/600px-NXP_PCF8577C_LCD_driver_with_I%C2%B2C_%28Colour_Corrected%29.jpg",
       "complexity_depth": 5
     },
     {
@@ -286,6 +317,7 @@
       "type": "end_product",
       "era": "digital",
       "year_approx": 1971,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Ic-photo-Motorola--XPC750PRX333SE--%28PowerPC-CPU%29.png/600px-Ic-photo-Motorola--XPC750PRX333SE--%28PowerPC-CPU%29.png",
       "complexity_depth": 6
     },
     {
@@ -295,6 +327,7 @@
       "type": "material",
       "era": "ancient",
       "year_approx": -1200,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Iron_electrolytic_and_1cm3_cube.jpg/600px-Iron_electrolytic_and_1cm3_cube.jpg",
       "complexity_depth": 1
     },
     {
@@ -304,6 +337,7 @@
       "type": "material",
       "era": "industrial",
       "year_approx": 1856,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Kaltbandcoils.jpg",
       "complexity_depth": 2
     },
     {
@@ -313,6 +347,7 @@
       "type": "component",
       "era": "industrial",
       "year_approx": 1889,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/DeTomasoPanteraBlack.jpg/600px-DeTomasoPanteraBlack.jpg",
       "complexity_depth": 3
     },
     {
@@ -331,6 +366,7 @@
       "type": "material",
       "era": "industrial",
       "year_approx": 1824,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/USMC-110806-M-IX060-148.jpg/600px-USMC-110806-M-IX060-148.jpg",
       "complexity_depth": 2
     },
     {
@@ -340,6 +376,7 @@
       "type": "material",
       "era": "ancient",
       "year_approx": -300,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Metre-cube-beton-p1040192.jpg/600px-Metre-cube-beton-p1040192.jpg",
       "complexity_depth": 3
     },
     {
@@ -358,6 +395,7 @@
       "type": "material",
       "era": "ancient",
       "year_approx": 105,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Bergisch_Gladbach_-_Papierm%C3%BChle_Alte_Dombach_13_ies.jpg/600px-Bergisch_Gladbach_-_Papierm%C3%BChle_Alte_Dombach_13_ies.jpg",
       "complexity_depth": 1
     },
     {
@@ -367,6 +405,7 @@
       "type": "material",
       "era": "ancient",
       "year_approx": 105,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/FileStack_retouched.jpg/600px-FileStack_retouched.jpg",
       "complexity_depth": 2
     },
     {
@@ -376,6 +415,7 @@
       "type": "material",
       "era": "ancient",
       "year_approx": -2500,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/BlackInkBottle.JPG/600px-BlackInkBottle.JPG",
       "complexity_depth": 1
     },
     {
@@ -385,6 +425,7 @@
       "type": "tool",
       "era": "renaissance",
       "year_approx": 1440,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Gutenberg_MAME.jpg/600px-Gutenberg_MAME.jpg",
       "complexity_depth": 3
     },
     {
@@ -394,6 +435,7 @@
       "type": "end_product",
       "era": "renaissance",
       "year_approx": 1455,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Latin_dictionary.jpg/600px-Latin_dictionary.jpg",
       "complexity_depth": 4
     },
     {
@@ -403,6 +445,7 @@
       "type": "material",
       "era": "industrial",
       "year_approx": 1820,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Wire.agr.jpg/600px-Wire.agr.jpg",
       "complexity_depth": 1
     },
     {
@@ -412,6 +455,7 @@
       "type": "component",
       "era": "industrial",
       "year_approx": 1880,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Large_Voltage_Electrical_Cable.jpg",
       "complexity_depth": 2
     },
     {
@@ -421,6 +465,7 @@
       "type": "tool",
       "era": "industrial",
       "year_approx": 1831,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm/600px--Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm.jpg",
       "complexity_depth": 2
     },
     {
@@ -826,6 +871,7 @@
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -2500,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Pierres_de_taille_livr%C3%A9es_par_la_carri%C3%A8re.JPG/600px-Pierres_de_taille_livr%C3%A9es_par_la_carri%C3%A8re.JPG",
       "complexity_depth": 0
     },
     {
@@ -1438,6 +1484,7 @@
       "type": "end_product",
       "era": "industrial",
       "year_approx": 1870,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Transfagaras.jpg/600px-Transfagaras.jpg",
       "complexity_depth": 3
     },
     {
@@ -1501,7 +1548,7 @@
       "type": "end_product",
       "era": "ancient",
       "year_approx": -3000,
-      "image_url": "/images/nodes/pierre-de-taille.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Paris_%28France%29%2C_Rue_R%C3%A9aumur.JPG/600px-Paris_%28France%29%2C_Rue_R%C3%A9aumur.JPG",
       "complexity_depth": 0
     },
     {
@@ -1520,7 +1567,7 @@
       "type": "material",
       "era": "ancient",
       "year_approx": -3500,
-      "image_url": "/images/nodes/bronze.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Bronze_Marcus_Aurelius_Louvre_Br45.jpg/600px-Bronze_Marcus_Aurelius_Louvre_Br45.jpg",
       "complexity_depth": 0
     },
     {
@@ -1530,7 +1577,7 @@
       "type": "component",
       "era": "ancient",
       "year_approx": -3000,
-      "image_url": "/images/nodes/brique.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Colors_and_texture_of_a_brick_ground_artlibre_jnl.png/600px-Colors_and_texture_of_a_brick_ground_artlibre_jnl.png",
       "complexity_depth": 0
     },
     {
@@ -1550,7 +1597,7 @@
       "type": "process",
       "era": "modern",
       "year_approx": 1942,
-      "image_url": "/images/nodes/energie-nucleaire.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/HEUraniumC.jpg/600px-HEUraniumC.jpg",
       "complexity_depth": 0
     },
     {
@@ -1569,7 +1616,7 @@
       "type": "tool",
       "era": "ancient",
       "year_approx": -3000,
-      "image_url": "/images/nodes/forge.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Andrea_pisano%2C_tubalcain_ovvero_la_metallurgia%2C_1334-43%2C_dal_lato_ovest_del_campanile_01.JPG/600px-Andrea_pisano%2C_tubalcain_ovvero_la_metallurgia%2C_1334-43%2C_dal_lato_ovest_del_campanile_01.JPG",
       "complexity_depth": 0
     },
     {
@@ -1589,7 +1636,7 @@
       "type": "component",
       "era": "ancient",
       "year_approx": -400,
-      "image_url": "/images/nodes/clou.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nails.jpg",
       "complexity_depth": 0
     },
     {
@@ -1608,7 +1655,7 @@
       "type": "component",
       "era": "renaissance",
       "year_approx": 1500,
-      "image_url": "/images/nodes/vis.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Screws.jpg",
       "complexity_depth": 0
     },
     {
@@ -1627,7 +1674,7 @@
       "type": "tool",
       "era": "prehistoric",
       "year_approx": -3000,
-      "image_url": "/images/nodes/moule.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Bronze_spearhead_mold.JPG/600px-Bronze_spearhead_mold.JPG",
       "complexity_depth": 0
     },
     {
@@ -1647,7 +1694,7 @@
       "type": "tool",
       "era": "ancient",
       "year_approx": -1800,
-      "image_url": "/images/nodes/scie.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/S%C3%A5gkamraten.jpg/600px-S%C3%A5gkamraten.jpg",
       "complexity_depth": 0
     },
     {
@@ -1667,7 +1714,7 @@
       "type": "process",
       "era": "ancient",
       "year_approx": -4000,
-      "image_url": "/images/nodes/fonderie.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Fonderie_Rosini_-_L%27art_et_le_savoir_faire..webm/600px--Fonderie_Rosini_-_L%27art_et_le_savoir_faire..webm.jpg",
       "complexity_depth": 0
     },
     {
@@ -1686,7 +1733,7 @@
       "type": "process",
       "era": "prehistoric",
       "year_approx": -11000,
-      "image_url": "/images/nodes/fermentation.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Fermenting.jpg",
       "complexity_depth": 0
     },
     {
@@ -1706,6 +1753,7 @@
       "type": "process",
       "era": "industrial",
       "year_approx": 1800,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Symbole_electrolyseur.png",
       "complexity_depth": 0
     },
     {
@@ -1734,7 +1782,7 @@
       "type": "tool",
       "era": "ancient",
       "year_approx": -870,
-      "image_url": "/images/nodes/poulie.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/%D0%98%D0%BB%D0%BB%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F_%D0%BA_%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B5_%C2%AB%D0%91%D0%BB%D0%BE%D0%BA%C2%BB._%D0%92%D0%BE%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F_%D1%8D%D0%BD%D1%86%D0%B8%D0%BA%D0%BB%D0%BE%D0%BF%D0%B5%D0%B4%D0%B8%D1%8F_%D0%A1%D1%8B%D1%82%D0%B8%D0%BD%D0%B0_%28%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3%2C_1911-1915%29.jpg/600px-%D0%98%D0%BB%D0%BB%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F_%D0%BA_%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B5_%C2%AB%D0%91%D0%BB%D0%BE%D0%BA%C2%BB._%D0%92%D0%BE%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F_%D1%8D%D0%BD%D1%86%D0%B8%D0%BA%D0%BB%D0%BE%D0%BF%D0%B5%D0%B4%D0%B8%D1%8F_%D0%A1%D1%8B%D1%82%D0%B8%D0%BD%D0%B0_%28%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3%2C_1911-1915%29.jpg",
       "complexity_depth": 0
     },
     {
@@ -1754,6 +1802,7 @@
       "type": "tool",
       "era": "ancient",
       "year_approx": -280,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Pompe_%C3%A0_eau_de_Fixin.jpg/600px-Pompe_%C3%A0_eau_de_Fixin.jpg",
       "complexity_depth": 0
     },
     {
@@ -1772,6 +1821,7 @@
       "type": "end_product",
       "era": "industrial",
       "year_approx": 1885,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Taipei101.portrait.altonthompson.jpg",
       "complexity_depth": 0
     },
     {
@@ -1791,6 +1841,7 @@
       "type": "material",
       "era": "ancient",
       "year_approx": -2570,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Khmersilk.JPG/600px-Khmersilk.JPG",
       "complexity_depth": 0
     },
     {
@@ -1810,6 +1861,7 @@
       "type": "process",
       "era": "industrial",
       "year_approx": 1837,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Galvanized_surface.jpg/600px-Galvanized_surface.jpg",
       "complexity_depth": 0
     },
     {
@@ -1828,7 +1880,7 @@
       "type": "process",
       "era": "industrial",
       "year_approx": 1839,
-      "image_url": "/images/nodes/vulcanisation.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/VulcanizationMold1941.jpg/600px-VulcanizationMold1941.jpg",
       "complexity_depth": 0
     },
     {
@@ -1847,7 +1899,7 @@
       "type": "component",
       "era": "industrial",
       "year_approx": 1794,
-      "image_url": "/images/nodes/roulement-a-billes.gif",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/30/BallBearing.gif",
       "complexity_depth": 0
     },
     {
@@ -1866,6 +1918,7 @@
       "type": "tool",
       "era": "industrial",
       "year_approx": 1769,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Mulhouse%2C_Electropolis.JPG/600px-Mulhouse%2C_Electropolis.JPG",
       "complexity_depth": 0
     },
     {
@@ -1884,6 +1937,7 @@
       "type": "end_product",
       "era": "prehistoric",
       "year_approx": -3500,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Bateaugoelette.jpg/600px-Bateaugoelette.jpg",
       "complexity_depth": 0
     },
     {
@@ -1902,6 +1956,7 @@
       "type": "end_product",
       "era": "ancient",
       "year_approx": -2000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Metrobaan_Duikerlaan_-_panoramio.jpg/600px-Metrobaan_Duikerlaan_-_panoramio.jpg",
       "complexity_depth": 0
     },
     {
@@ -1920,7 +1975,7 @@
       "type": "process",
       "era": "ancient",
       "year_approx": -3000,
-      "image_url": "/images/nodes/teinture.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Hue_Vietnam_Citadel-of-Hu%E1%BA%BF-21.jpg/600px-Hue_Vietnam_Citadel-of-Hu%E1%BA%BF-21.jpg",
       "complexity_depth": 0
     },
     {
@@ -1939,6 +1994,7 @@
       "type": "tool",
       "era": "industrial",
       "year_approx": 1816,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/2023_Stetoskop.jpg/600px-2023_Stetoskop.jpg",
       "complexity_depth": 0
     },
     {
@@ -1958,7 +2014,7 @@
       "type": "end_product",
       "era": "prehistoric",
       "year_approx": -3000,
-      "image_url": "/images/nodes/prothese.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Prosthetic_toe.jpg/600px-Prosthetic_toe.jpg",
       "complexity_depth": 0
     },
     {
@@ -1977,7 +2033,7 @@
       "type": "end_product",
       "era": "industrial",
       "year_approx": 1775,
-      "image_url": "/images/nodes/sous-marin.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Virginia_class_submarine.jpg/600px-Virginia_class_submarine.jpg",
       "complexity_depth": 0
     },
     {
@@ -1997,7 +2053,7 @@
       "type": "component",
       "era": "ancient",
       "year_approx": -2750,
-      "image_url": "/images/nodes/tuyau.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/2006-02-15_Piping.jpg/600px-2006-02-15_Piping.jpg",
       "complexity_depth": 0
     },
     {
@@ -2016,6 +2072,7 @@
       "type": "end_product",
       "era": "prehistoric",
       "year_approx": -6000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Huile_d%27olive_04.jpg/600px-Huile_d%27olive_04.jpg",
       "complexity_depth": 0
     },
     {
@@ -2034,7 +2091,7 @@
       "type": "end_product",
       "era": "modern",
       "year_approx": 1796,
-      "image_url": "/images/nodes/vaccin.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Smallpox_vaccine.jpg/600px-Smallpox_vaccine.jpg",
       "complexity_depth": 0
     },
     {
@@ -2054,7 +2111,7 @@
       "type": "process",
       "era": "industrial",
       "year_approx": 1846,
-      "image_url": "/images/nodes/anesthesie.png",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Anesthesia_-_The_Noun_Project.svg/600px-Anesthesia_-_The_Noun_Project.svg.png",
       "complexity_depth": 0
     },
     {
@@ -2074,7 +2131,7 @@
       "type": "end_product",
       "era": "industrial",
       "year_approx": 1839,
-      "image_url": "/images/nodes/appareil-photo.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Many_cameras.jpg/600px-Many_cameras.jpg",
       "complexity_depth": 0
     },
     {
@@ -2094,7 +2151,7 @@
       "type": "tool",
       "era": "medieval",
       "year_approx": 1313,
-      "image_url": "/images/nodes/canon.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cannon%2C_Ch%C3%A2teau_du_Haut-Koenigsbourg%2C_France.jpg/600px-Cannon%2C_Ch%C3%A2teau_du_Haut-Koenigsbourg%2C_France.jpg",
       "complexity_depth": 0
     },
     {
@@ -2114,7 +2171,7 @@
       "type": "end_product",
       "era": "ancient",
       "year_approx": -2800,
-      "image_url": "/images/nodes/savon.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Handmade_soap.jpg/600px-Handmade_soap.jpg",
       "complexity_depth": 0
     },
     {
@@ -2134,6 +2191,7 @@
       "type": "process",
       "era": "modern",
       "year_approx": 1950,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Gazpacho_ingredients.jpg/600px-Gazpacho_ingredients.jpg",
       "complexity_depth": 0
     },
     {
@@ -2152,7 +2210,7 @@
       "type": "end_product",
       "era": "modern",
       "year_approx": 1942,
-      "image_url": "/images/nodes/parachute-en-nylon.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/USMC_Paratrooper.jpg",
       "complexity_depth": 0
     },
     {
@@ -2172,7 +2230,7 @@
       "type": "process",
       "era": "ancient",
       "year_approx": -400,
-      "image_url": "/images/nodes/anatomie-humaine.png",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Human_body_features-fr.svg/600px-Human_body_features-fr.svg.png",
       "complexity_depth": 0
     },
     {
@@ -2192,7 +2250,7 @@
       "type": "process",
       "era": "modern",
       "year_approx": 1854,
-      "image_url": "/images/nodes/epidemiologie.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/3548786222_7a3d3208d3_bInfluenzaGrippe.jpg/600px-3548786222_7a3d3208d3_bInfluenzaGrippe.jpg",
       "complexity_depth": 0
     },
     {
@@ -2212,7 +2270,7 @@
       "type": "component",
       "era": "modern",
       "year_approx": 1943,
-      "image_url": "/images/nodes/streptomycine.png",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Streptomycin_structure.svg/600px-Streptomycin_structure.svg.png",
       "complexity_depth": 0
     },
     {
@@ -2232,7 +2290,7 @@
       "type": "material",
       "era": "industrial",
       "year_approx": 1847,
-      "image_url": "/images/nodes/nitroglycerine.png",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Nitroglycerin.svg/600px-Nitroglycerin.svg.png",
       "complexity_depth": 0
     },
     {
@@ -2252,7 +2310,7 @@
       "type": "component",
       "era": "industrial",
       "year_approx": 1875,
-      "image_url": "/images/nodes/geligniite.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Gelingnite_general_view.jpg/600px-Gelingnite_general_view.jpg",
       "complexity_depth": 0
     },
     {
@@ -2272,7 +2330,7 @@
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -4000,
-      "image_url": "/images/nodes/bitume-de-judee.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Bitumen.jpg/600px-Bitumen.jpg",
       "complexity_depth": 0
     },
     {
@@ -2292,7 +2350,7 @@
       "type": "component",
       "era": "modern",
       "year_approx": 1956,
-      "image_url": "/images/nodes/disque-dur.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Hard_disk_platter_reflection.jpg/600px-Hard_disk_platter_reflection.jpg",
       "complexity_depth": 0
     },
     {
@@ -2312,7 +2370,7 @@
       "type": "end_product",
       "era": "ancient",
       "year_approx": -400,
-      "image_url": "/images/nodes/arbalete.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Une_arbal%C3%A8te_classique.jpg/600px-Une_arbal%C3%A8te_classique.jpg",
       "complexity_depth": 0
     },
     {
@@ -2332,6 +2390,7 @@
       "type": "component",
       "era": "medieval",
       "year_approx": 800,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Sulfuric-acid-2D-dimensions.svg/600px-Sulfuric-acid-2D-dimensions.svg.png",
       "complexity_depth": 0
     },
     {
@@ -2360,6 +2419,7 @@
       "type": "end_product",
       "era": "digital",
       "year_approx": 1973,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Navstar.jpg",
       "complexity_depth": 0
     },
     {
@@ -2388,7 +2448,7 @@
       "type": "component",
       "era": "industrial",
       "year_approx": 1859,
-      "image_url": "/images/nodes/batterie-au-plomb.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Photo-CarBattery.jpg/600px-Photo-CarBattery.jpg",
       "complexity_depth": 0
     },
     {
@@ -2398,7 +2458,7 @@
       "type": "material",
       "era": "industrial",
       "year_approx": 1867,
-      "image_url": "/images/nodes/explosifs-industriels.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Explosions.jpg/600px-Explosions.jpg",
       "complexity_depth": 0
     }
   ]

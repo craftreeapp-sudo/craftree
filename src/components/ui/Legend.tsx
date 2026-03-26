@@ -10,6 +10,8 @@ import type { NodeCategory } from '@/lib/types';
 
 const DRAWER_W_PX = 280;
 const LEGEND_MARGIN_PX = 20;
+/** Marge droite (LTR) / gauche (RTL) pour ne pas toucher au bord de l’écran. */
+const LEGEND_EXPANDED_EDGE_MARGIN_PX = 20;
 
 function LegendHelpIcon() {
   return (
@@ -37,6 +39,9 @@ export function Legend() {
   const [isExpanded, setIsExpanded] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const filterDrawerOpen = useUIStore((s) => s.filterDrawerOpen);
+  const focusExploreActive = useUIStore((s) =>
+    Boolean(s.selectedNodeId && s.isSidebarOpen)
+  );
 
   useEffect(() => {
     if (!isExpanded) return;
@@ -58,9 +63,13 @@ export function Legend() {
   return (
     <div
       ref={rootRef}
-      className={`pointer-events-auto fixed top-[4.5rem] z-[60] overflow-hidden rounded-lg border border-[#2A3042] bg-[#1A1F2E] shadow-lg duration-300 ease-out ${
-        isRtl ? 'transition-[right,width]' : 'transition-[left,width]'
-      } ${isExpanded ? 'cursor-default' : 'cursor-pointer'}`}
+      className={`fixed top-[4.5rem] z-[60] overflow-hidden rounded-lg border border-[#2A3042] bg-[#1A1F2E] shadow-lg ease-out ${
+        isRtl ? 'transition-[right,width,opacity]' : 'transition-[left,width,opacity]'
+      } duration-200 ${isExpanded ? 'cursor-default' : 'cursor-pointer'} ${
+        focusExploreActive
+          ? 'pointer-events-none opacity-0'
+          : 'pointer-events-auto opacity-100'
+      }`}
       style={{
         ...(isRtl ? { right: insetPx } : { left: insetPx }),
         width: isExpanded ? 300 : 100,
@@ -77,7 +86,7 @@ export function Legend() {
           <LegendHelpIcon />
         </button>
       ) : (
-        <div className="flex flex-col p-3 pb-3.5 text-[11px] text-[#8B95A8]">
+        <div className="flex flex-col p-3 pb-3.5 text-xs text-[#8B95A8]">
           <div className="mb-2 flex shrink-0 items-center justify-between gap-2">
             <span className="flex items-center gap-1.5 text-xs font-semibold text-[#E8ECF4]">
               {tc('legend')}
@@ -85,7 +94,7 @@ export function Legend() {
             </span>
             <button
               type="button"
-              className="cursor-pointer rounded p-1 text-[#8B95A8] hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+              className="flex min-h-9 min-w-9 cursor-pointer items-center justify-center rounded-md p-1.5 text-lg leading-none text-[#8B95A8] hover:bg-[#2A3042] hover:text-[#E8ECF4]"
               aria-label={tSidebar('collapseLegend')}
               onClick={() => setIsExpanded(false)}
             >
@@ -94,7 +103,7 @@ export function Legend() {
           </div>
           <div className="space-y-3 pr-0.5">
             <section>
-              <h3 className="mb-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#5B6478]">
+              <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-[#5B6478]">
                 {t('linkTypes')}
               </h3>
               <ul className="space-y-1.5">
@@ -124,19 +133,17 @@ export function Legend() {
               </ul>
             </section>
             <section>
-              <h3 className="mb-1.5 text-[10px] font-semibold uppercase tracking-wide text-[#5B6478]">
+              <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-[#5B6478]">
                 {t('nodeTypes')}
               </h3>
-              <ul className="grid grid-cols-2 gap-x-2 gap-y-1">
+              <ul className="flex flex-col gap-1">
                 {NODE_CATEGORY_ORDER.map((cat: NodeCategory) => (
                   <li key={cat} className="flex items-center gap-1.5">
                     <span
                       className="h-2 w-2 shrink-0 rounded-sm"
                       style={{ backgroundColor: getCategoryColor(cat) }}
                     />
-                    <span className="truncate text-[10px] leading-tight">
-                      {tCat(cat)}
-                    </span>
+                    <span className="leading-tight">{tCat(cat)}</span>
                   </li>
                 ))}
               </ul>

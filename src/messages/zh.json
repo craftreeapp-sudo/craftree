@@ -71,7 +71,12 @@
     "optional": "可选",
     "layerShort": "第 {layer} 层",
     "focusViewTitle": "聚焦视图（详情 + 图）",
-    "focusViewAria": "聚焦视图：{name}"
+    "focusViewAria": "聚焦视图：{name}",
+    "categoryPanelAria": "类别 {category} 的发明",
+    "categoryPanelCloseAria": "隐藏类别面板",
+    "categoryPanelReopen": "类别",
+    "categoryPanelReopenAria": "显示同类发明面板",
+    "focusTooltipNoDescription": "暂无描述"
   },
   "sidebar": {
     "origin": "起源",
@@ -322,6 +327,21 @@
     "breadcrumbAria": "面包屑",
     "dependencyTree": "依赖树",
     "openFilters": "打开筛选"
+  },
+  "contactPage": {
+    "title": "联系",
+    "intro": "有问题、建议或反馈？欢迎写信给我们。",
+    "nameLabel": "姓名",
+    "namePlaceholder": "您的姓名",
+    "emailLabel": "电子邮箱",
+    "emailPlaceholder": "you@example.com",
+    "messageLabel": "留言",
+    "messagePlaceholder": "请输入留言…",
+    "submit": "发送",
+    "sending": "发送中…",
+    "success": "已发送，谢谢！",
+    "error": "发送失败，请稍后再试。",
+    "errorEmail": "电子邮箱格式无效。"
   },
   "graphControls": {
     "zoomIn": "放大",

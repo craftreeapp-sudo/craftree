@@ -79,6 +79,10 @@ interface UIStore {
   /** /explore : liens orthogonaux (angles droits) ou courbes de Bézier */
   edgeStyle: EdgeStyle;
   toggleEdgeStyle: () => void;
+
+  /** Vue focalisée /explore : panneau gauche « même catégorie » (✕ masque, bouton rouvre) */
+  categoryPanelOpen: boolean;
+  setCategoryPanelOpen: (open: boolean) => void;
 }
 
 export const useUIStore = create<UIStore>((set) => ({
@@ -137,6 +141,7 @@ export const useUIStore = create<UIStore>((set) => ({
       exploreNeighborhoodFitId: null,
       exploreStack: [],
       pendingExploreEdit: false,
+      categoryPanelOpen: true,
     }),
 
   closeSidebarKeepGraphHover: () =>
@@ -146,6 +151,7 @@ export const useUIStore = create<UIStore>((set) => ({
       centerOnNodeId: null,
       exploreStack: [],
       pendingExploreEdit: false,
+      categoryPanelOpen: true,
     }),
 
   popExploreStack: () =>
@@ -159,6 +165,7 @@ export const useUIStore = create<UIStore>((set) => ({
           exploreNeighborhoodFitId: null,
           exploreStack: [],
           pendingExploreEdit: false,
+          categoryPanelOpen: true,
         };
       }
       const nextStack = s.exploreStack.slice(0, -1);
@@ -240,4 +247,7 @@ export const useUIStore = create<UIStore>((set) => ({
     set((s) => ({
       edgeStyle: s.edgeStyle === 'angular' ? 'smooth' : 'angular',
     })),
+
+  categoryPanelOpen: true,
+  setCategoryPanelOpen: (open) => set({ categoryPanelOpen: open }),
 }));

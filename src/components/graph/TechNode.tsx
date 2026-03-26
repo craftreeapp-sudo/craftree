@@ -9,6 +9,7 @@ import {
   memo,
   type MouseEvent,
 } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { Handle, Position, type NodeProps } from '@xyflow/react';
 import { motion } from 'framer-motion';
@@ -31,9 +32,148 @@ import {
   EXPLORE_LAYOUT_NODE_W,
 } from '@/lib/graph-utils';
 import { FOCUS_ADD_BTN_PX } from './focus-overlay-nodes';
-import type { Era, NodeCategory, TechNodeType } from '@/lib/types';
+import { getNodeDetails } from '@/stores/graph-store';
+import { useNodeDetailsStore } from '@/stores/node-details-store';
+import type { Era, NodeCategory, TechNodeDetails, TechNodeType } from '@/lib/types';
 
 const BORDER_DEFAULT = '#2A3042';
+
+const FOCUS_DESC_HOVER_MS = 400;
+const FOCUS_DESC_GAP_PX = 8;
+const FOCUS_DESC_ARROW_PX = 6;
+const FOCUS_DESC_EST_BODY_PX = 148;
+const FOCUS_DESC_VIEWPORT_MARGIN = 8;
+const FOCUS_DESC_MAX_W = 280;
+
+function pickFocusTooltipDescription(
+  detail: TechNodeDetails | null | undefined,
+  locale: string
+): string {
+  if (!detail) return '';
+  if (locale === 'fr') return detail.description?.trim() ?? '';
+  const en = detail.description_en?.trim();
+  if (en) return en;
+  return detail.description?.trim() ?? '';
+}
+
+function computeFocusDescTooltipPlacement(rect: DOMRect): {
+  placement: 'above' | 'below';
+  top: number;
+  left: number;
+} {
+  const cx = rect.left + rect.width / 2;
+  const halfW = FOCUS_DESC_MAX_W / 2;
+  const left = Math.max(
+    FOCUS_DESC_VIEWPORT_MARGIN + halfW,
+    Math.min(cx, window.innerWidth - FOCUS_DESC_VIEWPORT_MARGIN - halfW)
+  );
+
+  const fitsAbove =
+    rect.top - FOCUS_DESC_GAP_PX - FOCUS_DESC_ARROW_PX - FOCUS_DESC_EST_BODY_PX >=
+    FOCUS_DESC_VIEWPORT_MARGIN;
+
+  if (fitsAbove) {
+    return {
+      placement: 'above',
+      top:
+        rect.top -
+        FOCUS_DESC_GAP_PX -
+        FOCUS_DESC_ARROW_PX -
+        FOCUS_DESC_EST_BODY_PX,
+      left,
+    };
+  }
+  return {
+    placement: 'below',
+    top: rect.bottom + FOCUS_DESC_GAP_PX + FOCUS_DESC_ARROW_PX,
+    left,
+  };
+}
+
+function FocusNeighborDescTooltipView({
+  placement,
+  left,
+  top,
+  name,
+  description,
+  emptyLabel,
+}: {
+  placement: 'above' | 'below';
+  left: number;
+  top: number;
+  name: string;
+  description: string;
+  emptyLabel: string;
+}) {
+  const empty = !description.trim();
+  return (
+    <div
+      className="pointer-events-none fixed z-[9999]"
+      style={{ left, top, transform: 'translateX(-50%)' }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.15, ease: 'easeOut' }}
+        className="relative"
+        style={{
+          background: '#1A1F2E',
+          border: '0.5px solid #2A3042',
+          borderRadius: 8,
+          padding: '12px 16px',
+          maxWidth: FOCUS_DESC_MAX_W,
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
+        }}
+      >
+        {placement === 'above' ? (
+          <div
+            className="pointer-events-none absolute left-1/2 -translate-x-1/2"
+            style={{
+              bottom: -FOCUS_DESC_ARROW_PX,
+              width: 0,
+              height: 0,
+              borderLeft: '6px solid transparent',
+              borderRight: '6px solid transparent',
+              borderTop: '6px solid #1A1F2E',
+            }}
+            aria-hidden
+          />
+        ) : (
+          <div
+            className="pointer-events-none absolute left-1/2 -translate-x-1/2"
+            style={{
+              top: -FOCUS_DESC_ARROW_PX,
+              width: 0,
+              height: 0,
+              borderLeft: '6px solid transparent',
+              borderRight: '6px solid transparent',
+              borderBottom: '6px solid #1A1F2E',
+            }}
+            aria-hidden
+          />
+        )}
+        <div className="font-bold" style={{ fontSize: 14, color: '#E8ECF4' }}>
+          {name}
+        </div>
+        <div
+          className={empty ? 'italic' : ''}
+          style={{
+            marginTop: 4,
+            fontSize: 12,
+            color: '#8B95A8',
+            lineHeight: 1.4,
+            display: '-webkit-box',
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+          }}
+        >
+          {empty ? emptyLabel : description}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 export interface TechNodeData {
   name: string;
@@ -145,6 +285,8 @@ function TechNodeComponent({
   const nodeData = data as unknown as TechNodeData;
   const locale = useLocale();
   const tCat = useTranslations('categories');
+  const tExplore = useTranslations('explore');
+  const mergeDetail = useNodeDetailsStore((s) => s.mergeDetail);
   const displayName = useMemo(
     () =>
       pickNodeDisplayName(
@@ -210,6 +352,15 @@ function TechNodeComponent({
 
   const [hover, setHover] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const focusDescTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const focusDescHoverActiveRef = useRef(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [focusDescTooltip, setFocusDescTooltip] = useState<{
+    placement: 'above' | 'below';
+    left: number;
+    top: number;
+    description: string;
+  } | null>(null);
 
   const onDeleteLinkAfterAnim = useCallback(async () => {
     if (!focusLinkId) return;
@@ -321,6 +472,68 @@ function TechNodeComponent({
     ? { duration: 0.2, ease: easeOut }
     : motionOuter.transition ?? { duration: 0 };
 
+  const resolvedOpacity =
+    typeof resolvedAnimate.opacity === 'number' ? resolvedAnimate.opacity : 1;
+
+  const canShowFocusDescTooltip =
+    focusExploreNeighbor &&
+    !focusSelected &&
+    resolvedOpacity > 0 &&
+    !focusTransitionAnimating;
+
+  const openFocusDescTooltip = useCallback(async () => {
+    if (!cardRef.current || !focusDescHoverActiveRef.current) return;
+    const existing = useNodeDetailsStore.getState().byId[id];
+    if (existing === undefined) {
+      const fetched = await getNodeDetails(id);
+      if (fetched) mergeDetail(id, fetched);
+    }
+    if (!focusDescHoverActiveRef.current || !cardRef.current) return;
+    const detail = useNodeDetailsStore.getState().byId[id];
+    const rect = cardRef.current.getBoundingClientRect();
+    const pos = computeFocusDescTooltipPlacement(rect);
+    const description = pickFocusTooltipDescription(detail ?? null, locale);
+    setFocusDescTooltip({ ...pos, description });
+  }, [id, locale, mergeDetail]);
+
+  const onCardMouseEnter = useCallback(() => {
+    setHover(true);
+    if (!canShowFocusDescTooltip) return;
+    focusDescHoverActiveRef.current = true;
+    if (focusDescTimerRef.current) clearTimeout(focusDescTimerRef.current);
+    focusDescTimerRef.current = setTimeout(() => {
+      focusDescTimerRef.current = null;
+      void openFocusDescTooltip();
+    }, FOCUS_DESC_HOVER_MS);
+  }, [canShowFocusDescTooltip, openFocusDescTooltip]);
+
+  const onCardMouseLeave = useCallback(() => {
+    setHover(false);
+    focusDescHoverActiveRef.current = false;
+    if (focusDescTimerRef.current) {
+      clearTimeout(focusDescTimerRef.current);
+      focusDescTimerRef.current = null;
+    }
+    setFocusDescTooltip(null);
+  }, []);
+
+  useEffect(() => {
+    if (!canShowFocusDescTooltip) {
+      focusDescHoverActiveRef.current = false;
+      if (focusDescTimerRef.current) {
+        clearTimeout(focusDescTimerRef.current);
+        focusDescTimerRef.current = null;
+      }
+      setFocusDescTooltip(null);
+    }
+  }, [canShowFocusDescTooltip]);
+
+  useEffect(() => {
+    return () => {
+      if (focusDescTimerRef.current) clearTimeout(focusDescTimerRef.current);
+    };
+  }, []);
+
   const isSelectedUi = selected || focusSelected;
 
   const cardW = explosionMode
@@ -388,8 +601,9 @@ function TechNodeComponent({
     .join(' ');
 
   return (
+    <>
     <motion.div
-      title={tooltip}
+      title={focusExploreNeighbor ? undefined : tooltip}
       className={`relative ${focusExploreNeighbor ? 'group' : ''} ${
         focusExploreNeighbor ? 'pointer-events-none' : ''
       }`}
@@ -484,6 +698,7 @@ function TechNodeComponent({
           </div>
         ) : null}
         <motion.div
+          ref={cardRef}
           className={innerCardClass}
           style={{
             width: cardW,
@@ -510,8 +725,8 @@ function TechNodeComponent({
               ? { duration: 0 }
               : { type: 'spring', stiffness: 380, damping: 28 }
           }
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
+          onMouseEnter={onCardMouseEnter}
+          onMouseLeave={onCardMouseLeave}
         >
           {/* Moitié haute — un peu moins de hauteur pour laisser 2 lignes au titre */}
           <div
@@ -597,6 +812,20 @@ function TechNodeComponent({
         </motion.div>
       </div>
     </motion.div>
+    {focusDescTooltip && typeof document !== 'undefined'
+      ? createPortal(
+          <FocusNeighborDescTooltipView
+            placement={focusDescTooltip.placement}
+            left={focusDescTooltip.left}
+            top={focusDescTooltip.top}
+            name={displayName}
+            description={focusDescTooltip.description}
+            emptyLabel={tExplore('focusTooltipNoDescription')}
+          />,
+          document.body
+        )
+      : null}
+    </>
   );
 }
 

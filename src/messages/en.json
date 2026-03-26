@@ -71,7 +71,12 @@
     "optional": "optional",
     "layerShort": "Layer {layer}",
     "focusViewTitle": "Focused view (detail + graph)",
-    "focusViewAria": "Focused view: {name}"
+    "focusViewAria": "Focused view: {name}",
+    "categoryPanelAria": "Inventions in category {category}",
+    "categoryPanelCloseAria": "Hide category panel",
+    "categoryPanelReopen": "Category",
+    "categoryPanelReopenAria": "Show same-category inventions panel",
+    "focusTooltipNoDescription": "No description available"
   },
   "sidebar": {
     "origin": "Origin",
@@ -322,6 +327,21 @@
     "breadcrumbAria": "Breadcrumb",
     "dependencyTree": "Dependency tree",
     "openFilters": "Open filters"
+  },
+  "contactPage": {
+    "title": "Contact",
+    "intro": "Questions, suggestions, or bug reports? Write to us.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Your message…",
+    "submit": "Send",
+    "sending": "Sending…",
+    "success": "Message sent. Thank you!",
+    "error": "Could not send. Please try again later.",
+    "errorEmail": "Invalid email address."
   },
   "graphControls": {
     "zoomIn": "Zoom in",

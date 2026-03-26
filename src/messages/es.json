@@ -71,7 +71,12 @@
     "optional": "opcional",
     "layerShort": "Capa {layer}",
     "focusViewTitle": "Vista focalizada (detalle + grafo)",
-    "focusViewAria": "Vista focalizada: {name}"
+    "focusViewAria": "Vista focalizada: {name}",
+    "categoryPanelAria": "Invenciones en la categoría {category}",
+    "categoryPanelCloseAria": "Ocultar panel de categoría",
+    "categoryPanelReopen": "Categoría",
+    "categoryPanelReopenAria": "Mostrar panel de la misma categoría",
+    "focusTooltipNoDescription": "No hay descripción disponible"
   },
   "sidebar": {
     "origin": "Origen",
@@ -322,6 +327,21 @@
     "breadcrumbAria": "Miga de pan",
     "dependencyTree": "Árbol de dependencias",
     "openFilters": "Abrir filtros"
+  },
+  "contactPage": {
+    "title": "Contacto",
+    "intro": "¿Preguntas, sugerencias o avisos? Escríbenos.",
+    "nameLabel": "Nombre",
+    "namePlaceholder": "Tu nombre",
+    "emailLabel": "Correo",
+    "emailPlaceholder": "tu@ejemplo.com",
+    "messageLabel": "Mensaje",
+    "messagePlaceholder": "Tu mensaje…",
+    "submit": "Enviar",
+    "sending": "Enviando…",
+    "success": "Mensaje enviado. ¡Gracias!",
+    "error": "No se pudo enviar. Inténtalo más tarde.",
+    "errorEmail": "Correo electrónico no válido."
   },
   "graphControls": {
     "zoomIn": "Acercar",

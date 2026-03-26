@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
-import { FilterPanel } from '@/components/ui/FilterPanel';
 import { ExploreWireframeHeader } from '@/components/explore/ExploreWireframeHeader';
 import { ExploreFilterDrawer } from '@/components/explore/ExploreFilterDrawer';
 
@@ -83,7 +82,6 @@ export function Header() {
       </div>
 
       <div className="hidden min-w-0 shrink-0 items-center justify-end gap-2 md:flex">
-        <FilterPanel />
         <LanguageSwitcher align="end" />
       </div>
     </header>

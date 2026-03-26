@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { TechGraph } from '@/components/graph/TechGraph';
+import { ExploreCategoryPanel } from '@/components/explore/ExploreCategoryPanel';
 import { ExploreMobile } from '@/components/explore/ExploreMobile';
 import { NodeDetailSidebar } from '@/components/ui/NodeDetailSidebar';
 import { useUIStore } from '@/stores/ui-store';
@@ -79,6 +80,7 @@ function ExploreInner() {
         <ExploreMobile />
       </div>
       <div className="relative hidden min-h-0 flex-1 flex-col md:flex">
+        <ExploreCategoryPanel />
         <TechGraph />
       </div>
       <NodeDetailSidebar />

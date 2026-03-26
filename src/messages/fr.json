@@ -71,7 +71,12 @@
     "optional": "optionnel",
     "layerShort": "Couche {layer}",
     "focusViewTitle": "Vue focalisée (détail + graphe)",
-    "focusViewAria": "Vue focalisée : {name}"
+    "focusViewAria": "Vue focalisée : {name}",
+    "categoryPanelAria": "Inventions de la catégorie {category}",
+    "categoryPanelCloseAria": "Masquer le panneau catégorie",
+    "categoryPanelReopen": "Catégorie",
+    "categoryPanelReopenAria": "Afficher le panneau des inventions de la même catégorie",
+    "focusTooltipNoDescription": "Aucune description disponible"
   },
   "sidebar": {
     "origin": "Origine",
@@ -322,6 +327,21 @@
     "breadcrumbAria": "Fil d'Ariane",
     "dependencyTree": "Arbre de dépendances",
     "openFilters": "Ouvrir les filtres"
+  },
+  "contactPage": {
+    "title": "Contact",
+    "intro": "Une question, une suggestion ou un signalement ? Écrivez-nous.",
+    "nameLabel": "Nom",
+    "namePlaceholder": "Votre nom",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "vous@exemple.com",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Votre message…",
+    "submit": "Envoyer",
+    "sending": "Envoi…",
+    "success": "Message envoyé. Merci !",
+    "error": "Envoi impossible. Réessayez plus tard.",
+    "errorEmail": "Adresse e-mail invalide."
   },
   "graphControls": {
     "zoomIn": "Zoom avant",

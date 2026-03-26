@@ -71,7 +71,12 @@
     "optional": "اختياري",
     "layerShort": "طبقة {layer}",
     "focusViewTitle": "عرض مركّز (تفاصيل + رسم)",
-    "focusViewAria": "عرض مركّز: {name}"
+    "focusViewAria": "عرض مركّز: {name}",
+    "categoryPanelAria": "اختراعات في الفئة {category}",
+    "categoryPanelCloseAria": "إخفاء لوحة الفئة",
+    "categoryPanelReopen": "الفئة",
+    "categoryPanelReopenAria": "إظهار لوحة نفس الفئة",
+    "focusTooltipNoDescription": "لا يوجد وصف متاح"
   },
   "sidebar": {
     "origin": "الأصل",
@@ -322,6 +327,21 @@
     "breadcrumbAria": "مسار التنقل",
     "dependencyTree": "شجرة الاعتماد",
     "openFilters": "فتح عوامل التصفية"
+  },
+  "contactPage": {
+    "title": "اتصل",
+    "intro": "أسئلة أو اقتراحات أو بلاغ؟ راسلنا.",
+    "nameLabel": "الاسم",
+    "namePlaceholder": "اسمك",
+    "emailLabel": "البريد الإلكتروني",
+    "emailPlaceholder": "you@example.com",
+    "messageLabel": "الرسالة",
+    "messagePlaceholder": "رسالتك…",
+    "submit": "إرسال",
+    "sending": "جارٍ الإرسال…",
+    "success": "تم إرسال الرسالة. شكرًا!",
+    "error": "تعذّر الإرسال. حاول لاحقًا.",
+    "errorEmail": "عنوان بريد إلكتروني غير صالح."
   },
   "graphControls": {
     "zoomIn": "تكبير",

@@ -71,7 +71,12 @@
     "optional": "वैकल्पिक",
     "layerShort": "परत {layer}",
     "focusViewTitle": "केंद्रित दृश्य (विवरण + ग्राफ़)",
-    "focusViewAria": "केंद्रित दृश्य: {name}"
+    "focusViewAria": "केंद्रित दृश्य: {name}",
+    "categoryPanelAria": "श्रेणी {category} के आविष्कार",
+    "categoryPanelCloseAria": "श्रेणी पैनल छिपाएँ",
+    "categoryPanelReopen": "श्रेणी",
+    "categoryPanelReopenAria": "समान श्रेणी का पैनल दिखाएँ",
+    "focusTooltipNoDescription": "कोई विवरण उपलब्ध नहीं"
   },
   "sidebar": {
     "origin": "मूल",
@@ -322,6 +327,21 @@
     "breadcrumbAria": "ब्रेडक्रम्ब",
     "dependencyTree": "निर्भरता वृक्ष",
     "openFilters": "फ़िल्टर खोलें"
+  },
+  "contactPage": {
+    "title": "संपर्क",
+    "intro": "प्रश्न, सुझाव या रिपोर्ट? हमें लिखें।",
+    "nameLabel": "नाम",
+    "namePlaceholder": "आपका नाम",
+    "emailLabel": "ईमेल",
+    "emailPlaceholder": "aap@example.com",
+    "messageLabel": "संदेश",
+    "messagePlaceholder": "आपका संदेश…",
+    "submit": "भेजें",
+    "sending": "भेजा जा रहा है…",
+    "success": "संदेश भेजा गया। धन्यवाद!",
+    "error": "भेजा नहीं जा सका। बाद में पुनः प्रयास करें।",
+    "errorEmail": "अमान्य ईमेल पता।"
   },
   "graphControls": {
     "zoomIn": "ज़ूम इन",

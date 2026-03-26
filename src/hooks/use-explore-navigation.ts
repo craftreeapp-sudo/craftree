@@ -26,6 +26,8 @@ export function useExploreNavigation() {
         openEdit?: boolean;
         /** Forcer navigation immédiate (ex. fin d’animation focus) */
         skipFocusTransition?: boolean;
+        /** Même animation que voisin direct (ex. panneau « même catégorie ») */
+        forceFocusTransition?: boolean;
       }
     ) => {
       const selected = useUIStore.getState().selectedNodeId;
@@ -42,7 +44,8 @@ export function useExploreNavigation() {
       ) {
         const preds = getDirectPredecessors(selected, edges);
         const succs = getDirectSuccessors(selected, edges);
-        if (preds.includes(id) || succs.includes(id)) {
+        const isNeighbor = preds.includes(id) || succs.includes(id);
+        if (isNeighbor || opts?.forceFocusTransition === true) {
           useExploreFocusTransitionStore.getState().requestTransition(
             selected,
             id,
