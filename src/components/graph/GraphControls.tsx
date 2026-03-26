@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { MiniMap, useReactFlow, useStore } from '@xyflow/react';
 import { useUIStore } from '@/stores/ui-store';
 import { getCategoryColor } from '@/lib/colors';
@@ -156,6 +157,7 @@ export function GraphControls({
   onToggleConnections: () => void;
   graphContainerRef: React.RefObject<HTMLDivElement | null>;
 }) {
+  const tg = useTranslations('graphControls');
   const { zoomIn, zoomOut } = useReactFlow();
   const zoom = useStore((s) => s.transform[2]);
   const zoomPercent = Math.round(zoom * 100);
@@ -199,14 +201,12 @@ export function GraphControls({
         onClick={onToggleConnections}
         aria-pressed={showConnections}
         title={
-          showConnections
-            ? 'Masquer les connexions'
-            : 'Afficher les connexions'
+          showConnections ? tg('hideConnections') : tg('showConnections')
         }
         aria-label={
           showConnections
-            ? 'Masquer les connexions entre les inventions'
-            : 'Afficher les connexions entre les inventions'
+            ? tg('hideConnectionsAria')
+            : tg('showConnectionsAria')
         }
       >
         <ConnectionsIcon on={showConnections} />
@@ -214,7 +214,7 @@ export function GraphControls({
       <span
         className="flex min-w-[2.75rem] shrink-0 select-none items-center justify-center rounded-[8px] border border-[#2A3042] bg-[#1A1F2E] px-2 py-1.5 text-xs tabular-nums text-[#8B95A8]"
         aria-live="polite"
-        title="Zoom"
+        title={tg('zoomTitle')}
       >
         {zoomPercent}%
       </span>
@@ -222,8 +222,8 @@ export function GraphControls({
         type="button"
         className={BTN}
         onClick={zoomInClick}
-        aria-label="Zoom avant"
-        title="Zoom avant"
+        aria-label={tg('zoomIn')}
+        title={tg('zoomIn')}
       >
         <ZoomInIcon />
       </button>
@@ -231,8 +231,8 @@ export function GraphControls({
         type="button"
         className={BTN}
         onClick={zoomOutClick}
-        aria-label="Zoom arrière"
-        title="Zoom arrière"
+        aria-label={tg('zoomOut')}
+        title={tg('zoomOut')}
       >
         <ZoomOutIcon />
       </button>
@@ -241,8 +241,8 @@ export function GraphControls({
           type="button"
           className={BTN}
           onClick={toggleFullscreen}
-          aria-label={fs ? 'Quitter le plein écran' : 'Plein écran'}
-          title={fs ? 'Quitter le plein écran' : 'Plein écran'}
+          aria-label={fs ? tg('exitFullscreen') : tg('fullscreen')}
+          title={fs ? tg('exitFullscreen') : tg('fullscreen')}
         >
           <FullscreenIcon exit={fs} />
         </button>
@@ -252,14 +252,12 @@ export function GraphControls({
         className={BTN}
         onClick={toggleEdgeStyle}
         title={
-          edgeStyle === 'angular'
-            ? 'Liens anguleux — cliquer pour courbes douces'
-            : 'Liens courbes — cliquer pour angles droits'
+          edgeStyle === 'angular' ? tg('edgeAngular') : tg('edgeSmooth')
         }
         aria-label={
           edgeStyle === 'angular'
-            ? 'Passer aux liens en courbes de Bézier'
-            : 'Passer aux liens anguleux'
+            ? tg('edgeAngularAria')
+            : tg('edgeSmoothAria')
         }
       >
         <EdgeStyleIcon angular={edgeStyle === 'angular'} />

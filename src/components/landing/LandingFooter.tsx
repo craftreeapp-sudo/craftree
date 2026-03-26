@@ -6,7 +6,7 @@ const LINKS: {
   external?: boolean;
 }[] = [
   { href: '/about', label: 'À propos' },
-  { href: 'https://github.com/civtree/civtree', label: 'GitHub', external: true },
+  { href: 'https://github.com/craftreeapp-sudo/craftree', label: 'GitHub', external: true },
   { href: '/contact', label: 'Contact' },
 ];
 

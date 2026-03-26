@@ -4701,6 +4701,1253 @@
       "quantity_hint": "revêtement fer-blanc",
       "is_optional": false,
       "notes": null
+    },
+    {
+      "id": "l306",
+      "source_id": "verre",
+      "target_id": "ecran-lcd",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l307",
+      "source_id": "verre",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false
+    },
+    {
+      "id": "l-e8ea054276a6",
+      "source_id": "eau",
+      "target_id": "huile-d-olive",
+      "relation_type": "tool",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3b18fa209b8e",
+      "source_id": "presse",
+      "target_id": "huile-d-olive",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9616b986ac27",
+      "source_id": "pierre",
+      "target_id": "huile-d-olive",
+      "relation_type": "material",
+      "quantity_hint": "quelques",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-23e709c5c862",
+      "source_id": "petrole",
+      "target_id": "nylon",
+      "relation_type": "material",
+      "quantity_hint": "moyennement",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1aa1eb8e43e2",
+      "source_id": "chimie-organique",
+      "target_id": "nylon",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2d5581de9566",
+      "source_id": "polymeres",
+      "target_id": "nylon",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-438f17ed37a9",
+      "source_id": "four-haute-temp",
+      "target_id": "nylon",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-706d259d33ac",
+      "source_id": "nylon",
+      "target_id": "plastique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-835d7f7ec9e4",
+      "source_id": "plantes-medicinales",
+      "target_id": "vaccin",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e60c25bd0aab",
+      "source_id": "lait",
+      "target_id": "vaccin",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f528ebc0500c",
+      "source_id": "microscope",
+      "target_id": "vaccin",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f6b9abe21aaf",
+      "source_id": "plantes-medicinales",
+      "target_id": "antibiotique",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4461d91497f2",
+      "source_id": "chimie-organique",
+      "target_id": "antibiotique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2fa86f20a03a",
+      "source_id": "microscope",
+      "target_id": "antibiotique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-28ac1a5ea945",
+      "source_id": "fermentation",
+      "target_id": "antibiotique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a7488b2dff22",
+      "source_id": "plantes-medicinales",
+      "target_id": "anesthesie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-93241fe76a61",
+      "source_id": "chimie-organique",
+      "target_id": "anesthesie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d03db55b12ed",
+      "source_id": "soude",
+      "target_id": "dynamite",
+      "relation_type": "material",
+      "quantity_hint": "stabilisant",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-36b477a445c5",
+      "source_id": "lentille",
+      "target_id": "appareil-photo",
+      "relation_type": "material",
+      "quantity_hint": "plusieurs",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8d086adab3cf",
+      "source_id": "verre",
+      "target_id": "appareil-photo",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e2a8f3e93446",
+      "source_id": "acier",
+      "target_id": "appareil-photo",
+      "relation_type": "material",
+      "quantity_hint": "moyen",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-58a21eb4edd7",
+      "source_id": "cuivre",
+      "target_id": "appareil-photo",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-444d05efe4d5",
+      "source_id": "silicium",
+      "target_id": "memoire-ram",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4dc5ea09320e",
+      "source_id": "transistor",
+      "target_id": "memoire-ram",
+      "relation_type": "material",
+      "quantity_hint": "plusieurs",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-50777df19f5d",
+      "source_id": "circuit-imprime",
+      "target_id": "memoire-ram",
+      "relation_type": "material",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8881f3570ae5",
+      "source_id": "electricite",
+      "target_id": "memoire-ram",
+      "relation_type": "energy",
+      "quantity_hint": "constante",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0f06d91d0f26",
+      "source_id": "photolithographie",
+      "target_id": "memoire-ram",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a8a31c74869e",
+      "source_id": "memoire-ram",
+      "target_id": "ordinateur",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6539e73e4bf3",
+      "source_id": "memoire-ram",
+      "target_id": "serveur-informatique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-957e757e5adc",
+      "source_id": "memoire-ram",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a6d1b4fd0749",
+      "source_id": "poudre-a-canon",
+      "target_id": "canon",
+      "relation_type": "material",
+      "quantity_hint": "modérée",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9a184508a773",
+      "source_id": "fer",
+      "target_id": "canon",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b28e1da0d0f7",
+      "source_id": "bronze",
+      "target_id": "canon",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-83a5cbef9748",
+      "source_id": "fonderie",
+      "target_id": "canon",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-11f3e0f778bf",
+      "source_id": "forge",
+      "target_id": "canon",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d2fe2bad3548",
+      "source_id": "acier",
+      "target_id": "fusil",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7b7e1ead096a",
+      "source_id": "bois",
+      "target_id": "fusil",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-62b4220cd127",
+      "source_id": "poudre-a-canon",
+      "target_id": "fusil",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3a40bfab797b",
+      "source_id": "fer",
+      "target_id": "fusil",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8a78bcde7502",
+      "source_id": "forge",
+      "target_id": "fusil",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3cae4e55cc9e",
+      "source_id": "marteau",
+      "target_id": "fusil",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-29e2b7af00d7",
+      "source_id": "soude",
+      "target_id": "savon",
+      "relation_type": "material",
+      "quantity_hint": "nécessaire",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-426a20d7a191",
+      "source_id": "eau",
+      "target_id": "savon",
+      "relation_type": "material",
+      "quantity_hint": "modérée",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9a454281e353",
+      "source_id": "four",
+      "target_id": "savon",
+      "relation_type": "tool",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d3ea0d9767b1",
+      "source_id": "eau",
+      "target_id": "cosmetique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4b11aaf53cae",
+      "source_id": "extraits-vegetaux",
+      "target_id": "cosmetique",
+      "relation_type": "material",
+      "quantity_hint": "moyen",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8303f9da5230",
+      "source_id": "argile",
+      "target_id": "cosmetique",
+      "relation_type": "material",
+      "quantity_hint": "moyen",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1435ecba652e",
+      "source_id": "feu",
+      "target_id": "cosmetique",
+      "relation_type": "energy",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aa0c0e7948df",
+      "source_id": "lait",
+      "target_id": "cosmetique",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4b53c2430be6",
+      "source_id": "cosmetique",
+      "target_id": "savon",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-04a7b1e9edc2",
+      "source_id": "huile-d-olive",
+      "target_id": "cuisine-mediterraneenne",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8b0063ccf0e0",
+      "source_id": "ble",
+      "target_id": "cuisine-mediterraneenne",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-55a1e12c19a8",
+      "source_id": "raisin",
+      "target_id": "cuisine-mediterraneenne",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cc8b4f95de1f",
+      "source_id": "four",
+      "target_id": "cuisine-mediterraneenne",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dd57ec673a8a",
+      "source_id": "fermentation",
+      "target_id": "cuisine-mediterraneenne",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7947a18ac71d",
+      "source_id": "feu",
+      "target_id": "conservation-des-aliments",
+      "relation_type": "energy",
+      "quantity_hint": "selon technique",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8091d7918628",
+      "source_id": "sel",
+      "target_id": "conservation-des-aliments",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-efb331234b5d",
+      "source_id": "air",
+      "target_id": "conservation-des-aliments",
+      "relation_type": "material",
+      "quantity_hint": "selon technique",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-faf95d7d2a7a",
+      "source_id": "eau",
+      "target_id": "conservation-des-aliments",
+      "relation_type": "material",
+      "quantity_hint": "selon technique",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bfba47966aeb",
+      "source_id": "conservation-des-aliments",
+      "target_id": "salaison",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2f73fcb0d3c8",
+      "source_id": "conservation-des-aliments",
+      "target_id": "conserve",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-38cbf28b0cad",
+      "source_id": "conservation-des-aliments",
+      "target_id": "fermentation",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-55b9b391097d",
+      "source_id": "conservation-des-aliments",
+      "target_id": "fromage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ece068c964e8",
+      "source_id": "conservation-des-aliments",
+      "target_id": "vin",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-36e100937c99",
+      "source_id": "nylon",
+      "target_id": "parachute-en-nylon",
+      "relation_type": "material",
+      "quantity_hint": "plusieurs mètres carrés",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5e5c50bc4b1b",
+      "source_id": "machine-a-coudre",
+      "target_id": "parachute-en-nylon",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c529fcc73b38",
+      "source_id": "acier-inox",
+      "target_id": "seringue",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-64d7f5a9edf7",
+      "source_id": "verre",
+      "target_id": "seringue",
+      "relation_type": "material",
+      "quantity_hint": "modérément",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-323414ab7e3b",
+      "source_id": "plastique",
+      "target_id": "seringue",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-30519e065af0",
+      "source_id": "caoutchouc",
+      "target_id": "seringue",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-245dd2f3ff12",
+      "source_id": "forge",
+      "target_id": "seringue",
+      "relation_type": "tool",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c621f3094a07",
+      "source_id": "four",
+      "target_id": "seringue",
+      "relation_type": "tool",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-92c229ff76dd",
+      "source_id": "seringue",
+      "target_id": "vaccin",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-385d40ccffeb",
+      "source_id": "seringue",
+      "target_id": "anesthesie",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2d4289fc3935",
+      "source_id": "seringue",
+      "target_id": "antibiotique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bca67e962475",
+      "source_id": "seringue",
+      "target_id": "medicaments",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-413b7fe1c5b9",
+      "source_id": "plantes-medicinales",
+      "target_id": "anatomie-humaine",
+      "relation_type": "knowledge",
+      "quantity_hint": "quelques",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0877a937b4ef",
+      "source_id": "anatomie-humaine",
+      "target_id": "medicaments",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-02fc1baa8aec",
+      "source_id": "anatomie-humaine",
+      "target_id": "microscope",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-88df431b060a",
+      "source_id": "anatomie-humaine",
+      "target_id": "stethoscope",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8c9c3830a895",
+      "source_id": "anatomie-humaine",
+      "target_id": "rayons-x",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-435a71e5b7ec",
+      "source_id": "anatomie-humaine",
+      "target_id": "immunologie",
+      "relation_type": "knowledge",
+      "quantity_hint": "essentiel",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-82fc9f8ab7b4",
+      "source_id": "microscope",
+      "target_id": "immunologie",
+      "relation_type": "tool",
+      "quantity_hint": "indispensable",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ac5697460ad9",
+      "source_id": "vaccin",
+      "target_id": "immunologie",
+      "relation_type": "knowledge",
+      "quantity_hint": "précurseur",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4c76ed25f91d",
+      "source_id": "chimie-organique",
+      "target_id": "immunologie",
+      "relation_type": "knowledge",
+      "quantity_hint": "nécessaire",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e123a3e8b028",
+      "source_id": "immunologie",
+      "target_id": "antibiotique",
+      "relation_type": "direct",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fe2739747451",
+      "source_id": "anatomie-humaine",
+      "target_id": "epidemiologie",
+      "relation_type": "knowledge",
+      "quantity_hint": "nécessaire",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9ffa03aeb66b",
+      "source_id": "papier",
+      "target_id": "epidemiologie",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4b01d9e4a9a0",
+      "source_id": "encre",
+      "target_id": "epidemiologie",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f7a495b3b294",
+      "source_id": "epidemiologie",
+      "target_id": "vaccin",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fec344691472",
+      "source_id": "eau",
+      "target_id": "moisissures",
+      "relation_type": "material",
+      "quantity_hint": "essentielle",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0c75633e0e77",
+      "source_id": "air",
+      "target_id": "moisissures",
+      "relation_type": "material",
+      "quantity_hint": "modérée",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bbfdcd88c313",
+      "source_id": "moisissures",
+      "target_id": "fermentation",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-28016947ef1c",
+      "source_id": "moisissures",
+      "target_id": "fromage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dde3da4c1565",
+      "source_id": "moisissures",
+      "target_id": "antibiotique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7d3c538bdd7b",
+      "source_id": "moisissures",
+      "target_id": "medicaments",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-90c129c3f038",
+      "source_id": "moisissures",
+      "target_id": "streptomycine",
+      "relation_type": "material",
+      "quantity_hint": "cultures",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a9bcd587a3de",
+      "source_id": "chimie-organique",
+      "target_id": "streptomycine",
+      "relation_type": "knowledge",
+      "quantity_hint": "principes",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bc4d004cf2bd",
+      "source_id": "fermentation",
+      "target_id": "streptomycine",
+      "relation_type": "tool",
+      "quantity_hint": "procédé",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-038251e99acd",
+      "source_id": "principes-actifs",
+      "target_id": "streptomycine",
+      "relation_type": "knowledge",
+      "quantity_hint": "extraction",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-53439309c9af",
+      "source_id": "plantes-medicinales",
+      "target_id": "anesthesie-locale",
+      "relation_type": "material",
+      "quantity_hint": "base",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e022db2ff2a2",
+      "source_id": "principes-actifs",
+      "target_id": "anesthesie-locale",
+      "relation_type": "material",
+      "quantity_hint": "essence",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fe5be258d9d2",
+      "source_id": "seringue",
+      "target_id": "anesthesie-locale",
+      "relation_type": "tool",
+      "quantity_hint": "instrument",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-782302bb79e7",
+      "source_id": "anatomie-humaine",
+      "target_id": "anesthesie-locale",
+      "relation_type": "knowledge",
+      "quantity_hint": "fondamental",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aa9af7f8f2a8",
+      "source_id": "chimie-organique",
+      "target_id": "anesthesie-locale",
+      "relation_type": "knowledge",
+      "quantity_hint": "base",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d5c58a6da486",
+      "source_id": "chimie-organique",
+      "target_id": "nitroglycerine",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-87ec5296815e",
+      "source_id": "four",
+      "target_id": "nitroglycerine",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8e6af8b97b0b",
+      "source_id": "nitroglycerine",
+      "target_id": "dynamite",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0c704ad9ad58",
+      "source_id": "nitroglycerine",
+      "target_id": "medicaments",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-29f96bc28998",
+      "source_id": "acier",
+      "target_id": "tunnel-ferroviaire",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4fe1c2c0f65c",
+      "source_id": "pierre",
+      "target_id": "tunnel-ferroviaire",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5f82ebfec6bd",
+      "source_id": "ciment",
+      "target_id": "tunnel-ferroviaire",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-87b9d285afcd",
+      "source_id": "locomotive",
+      "target_id": "tunnel-ferroviaire",
+      "relation_type": "knowledge",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fe379279eeaa",
+      "source_id": "nitroglycerine",
+      "target_id": "geligniite",
+      "relation_type": "material",
+      "quantity_hint": "60-75%",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-027e49feb104",
+      "source_id": "salpetre",
+      "target_id": "geligniite",
+      "relation_type": "material",
+      "quantity_hint": "25-35%",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4b70749df8a2",
+      "source_id": "chimie-organique",
+      "target_id": "geligniite",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-29a8c26a4e6f",
+      "source_id": "argent",
+      "target_id": "bronze",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ad374e08530e",
+      "source_id": "petrole",
+      "target_id": "bitume-de-judee",
+      "relation_type": "material",
+      "quantity_hint": "dérivé naturel",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8706f61e840c",
+      "source_id": "rayons-x",
+      "target_id": "radiographie",
+      "relation_type": "tool",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-99af0ce7d413",
+      "source_id": "electricite",
+      "target_id": "radiographie",
+      "relation_type": "energy",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c89800ff4d9a",
+      "source_id": "anatomie-humaine",
+      "target_id": "radiographie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f4ac9253caa3",
+      "source_id": "aluminium",
+      "target_id": "disque-dur",
+      "relation_type": "material",
+      "quantity_hint": "substrat des plateaux",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f46e4c29d2a9",
+      "source_id": "verre",
+      "target_id": "disque-dur",
+      "relation_type": "material",
+      "quantity_hint": "substrat moderne",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-324a5e54f5fc",
+      "source_id": "cuivre",
+      "target_id": "disque-dur",
+      "relation_type": "material",
+      "quantity_hint": "bobinages têtes",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ea22b4464a80",
+      "source_id": "moteur-electrique",
+      "target_id": "disque-dur",
+      "relation_type": "tool",
+      "quantity_hint": "rotation plateaux",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-88de7a0ae482",
+      "source_id": "circuit-imprime",
+      "target_id": "disque-dur",
+      "relation_type": "tool",
+      "quantity_hint": "contrôleur",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ba752604a754",
+      "source_id": "disque-dur",
+      "target_id": "ordinateur",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-700ec5005261",
+      "source_id": "disque-dur",
+      "target_id": "serveur-informatique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-668f41ee6c37",
+      "source_id": "bois",
+      "target_id": "arc",
+      "relation_type": "material",
+      "quantity_hint": "principal",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-733f287dfdef",
+      "source_id": "bois",
+      "target_id": "arbalete",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-85b6e0c8aae1",
+      "source_id": "acier",
+      "target_id": "arbalete",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-224540c12dc8",
+      "source_id": "bronze",
+      "target_id": "arbalete",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3a0d290c0555",
+      "source_id": "forge",
+      "target_id": "arbalete",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-04ee28bf6a16",
+      "source_id": "scie",
+      "target_id": "arbalete",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a65a73a72665",
+      "source_id": "ressort",
+      "target_id": "arbalete",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a8d2b74e22fe",
+      "source_id": "arbalete",
+      "target_id": "fusil",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-06d2d4c14b16",
+      "source_id": "acier",
+      "target_id": "artillerie-moderne",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bb1b7c2d94d2",
+      "source_id": "poudre-a-canon",
+      "target_id": "artillerie-moderne",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-07aa119f1c5d",
+      "source_id": "bronze",
+      "target_id": "artillerie-moderne",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-de91d3598e34",
+      "source_id": "fonderie",
+      "target_id": "artillerie-moderne",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7d7563ec022f",
+      "source_id": "forge",
+      "target_id": "artillerie-moderne",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d1ec4ad4c3d5",
+      "source_id": "tour",
+      "target_id": "artillerie-moderne",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cd272fe7a343",
+      "source_id": "canon",
+      "target_id": "artillerie-moderne",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
     }
   ]
 }

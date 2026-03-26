@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import type { LandingStats } from '@/lib/landing-stats';
 
 function AnimatedInt({
@@ -33,25 +34,27 @@ function AnimatedInt({
 }
 
 export function StatsSection({ stats }: { stats: LandingStats }) {
+  const t = useTranslations('landing');
+
   const cards: {
     label: string;
     value: number;
     depth?: boolean;
   }[] = [
     {
-      label: 'technologies',
+      label: t('statsTech'),
       value: stats.techCount,
     },
     {
-      label: 'recettes de fabrication',
+      label: t('statsRecipes'),
       value: stats.recipeCount,
     },
     {
-      label: 'matières premières',
+      label: t('statsRaw'),
       value: stats.rawMaterialCount,
     },
     {
-      label: 'niveaux (profondeur max)',
+      label: t('statsDepthLabel'),
       value: stats.maxDepth,
       depth: true,
     },
@@ -71,7 +74,7 @@ export function StatsSection({ stats }: { stats: LandingStats }) {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5 }}
         >
-          Chiffres clés
+          {t('statsSectionTitle')}
         </motion.h2>
         <div className="grid grid-cols-2 gap-3 md:gap-6 lg:grid-cols-4">
           {cards.map((card, i) => (
@@ -92,16 +95,16 @@ export function StatsSection({ stats }: { stats: LandingStats }) {
               >
                 <AnimatedInt value={card.value} />
                 {card.depth ? (
-                  <span className="ml-1 text-2xl font-semibold text-[#8B95A8] md:text-3xl">
+                  <span className="ms-1 text-2xl font-semibold text-[#8B95A8] md:text-3xl">
                     {' '}
-                    niveaux
+                    {t('statsDepthSuffix')}
                   </span>
                 ) : null}
               </div>
               <p className="mt-3 text-sm text-[#8B95A8]">
                 {card.depth ? (
                   <span className="font-medium text-[#E8ECF4]">
-                    Profondeur max
+                    {t('statsDepthMax')}
                   </span>
                 ) : (
                   card.label

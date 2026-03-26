@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import linksJson from '@/data/links.json';
 import nodesIndex from '@/data/nodes-index.json';
 
@@ -57,7 +58,8 @@ function InventionTypeRow({
   );
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const t = await getTranslations('about');
   const nInventions = nodesIndex.nodes.length;
   const nLinks = linksJson.links.length;
 
@@ -73,11 +75,9 @@ export default function AboutPage() {
             className="text-[32px] font-bold leading-tight text-[#E8ECF4]"
             style={{ fontFamily: titleFont }}
           >
-            À propos de Craftree
+            {t('title')}
           </h1>
-          <p className="mt-3 text-base text-[#8B95A8]">
-            Comprendre de quoi est faite la civilisation.
-          </p>
+          <p className="mt-3 text-base text-[#8B95A8]">{t('subtitle')}</p>
         </header>
 
         <div className="space-y-16">
@@ -88,39 +88,13 @@ export default function AboutPage() {
               className="mb-5 text-[22px] font-bold text-[#E8ECF4]"
               style={{ fontFamily: titleFont }}
             >
-              Le projet
+              {t('projectTitle')}
             </h2>
             <div className="space-y-5 text-base leading-[1.7] text-[#C8CDD8]">
-              <p>
-                Craftree est un arbre technologique interactif qui modélise les
-                inventions humaines sous forme de recettes de fabrication.
-                Contrairement aux chronologies classiques qui montrent quand les
-                choses ont été inventées, Craftree répond à une question
-                différente : de quoi a-t-on besoin pour les fabriquer ?
-              </p>
-              <p>
-                Chaque invention est décomposée en ses intrants directs — les
-                matériaux consommés, les outils utilisés, les sources
-                d&apos;énergie nécessaires et les connaissances prérequises. En
-                cliquant sur un intrant, on descend d&apos;un niveau. Et ainsi
-                de suite, jusqu&apos;aux matières premières que l&apos;on trouve
-                dans la nature : le sable, l&apos;argile, le bois, l&apos;eau,
-                le feu.
-              </p>
-              <p>
-                Le résultat est une pyramide inversée. En haut, un smartphone. En
-                bas, du sable et du minerai. Entre les deux, des centaines
-                d&apos;inventions empilées les unes sur les autres, chacune
-                rendue possible par celles qui la précèdent. Craftree rend cette
-                profondeur visible et navigable.
-              </p>
-              <p>
-                Le projet est né d&apos;une conviction : dans un monde où les
-                choses vont de plus en plus vite, il est important de comprendre
-                d&apos;où elles viennent. Pas seulement qui les a inventées,
-                mais ce qu&apos;il a fallu assembler, transformer et maîtriser
-                pour qu&apos;elles existent.
-              </p>
+              <p>{t('projectP1')}</p>
+              <p>{t('projectP2')}</p>
+              <p>{t('projectP3')}</p>
+              <p>{t('projectP4')}</p>
             </div>
           </section>
 
@@ -131,26 +105,22 @@ export default function AboutPage() {
               className="mb-5 text-[22px] font-bold text-[#E8ECF4]"
               style={{ fontFamily: titleFont }}
             >
-              Comment lire le graphe
+              {t('graphTitle')}
             </h2>
             <p className="mb-6 text-base leading-[1.7] text-[#C8CDD8]">
-              Le graphe s&apos;organise en couches horizontales. Les matières
-              premières sont en bas, les produits les plus complexes en haut. La
-              position verticale d&apos;une invention correspond à sa profondeur
-              de fabrication : le nombre d&apos;étapes de transformation depuis
-              la nature.
+              {t('graphIntro')}
             </p>
 
             <h3
               className="mb-4 mt-8 text-lg font-bold text-[#E8ECF4]"
               style={{ fontFamily: titleFont }}
             >
-              Les types de liens
+              {t('linkTypesTitle')}
             </h3>
             <div className="rounded-lg border border-[#1A1F2E]/80">
               <LinkTypeRow
-                title="Matériau"
-                body="consommé ou transformé dans le produit. Le minerai de fer disparaît pour devenir de l'acier."
+                title={t('linkMaterialTitle')}
+                body={t('linkMaterialBody')}
               >
                 <svg width={40} height={14} viewBox="0 0 40 14" aria-hidden>
                   <line
@@ -164,8 +134,8 @@ export default function AboutPage() {
                 </svg>
               </LinkTypeRow>
               <LinkTypeRow
-                title="Outil"
-                body="utilisé pendant la fabrication mais récupéré intact. Le four sert à cuire le pain, mais on le réutilise ensuite."
+                title={t('linkToolTitle')}
+                body={t('linkToolBody')}
               >
                 <svg width={40} height={14} viewBox="0 0 40 14" aria-hidden>
                   <line
@@ -180,8 +150,8 @@ export default function AboutPage() {
                 </svg>
               </LinkTypeRow>
               <LinkTypeRow
-                title="Énergie"
-                body="fournit la force ou la chaleur nécessaire. Le feu chauffe le four, l'électricité alimente le moteur."
+                title={t('linkEnergyTitle')}
+                body={t('linkEnergyBody')}
               >
                 <svg width={40} height={14} viewBox="0 0 40 14" aria-hidden>
                   <line
@@ -196,8 +166,8 @@ export default function AboutPage() {
                 </svg>
               </LinkTypeRow>
               <LinkTypeRow
-                title="Connaissance"
-                body="un savoir ou une technique qu'il faut maîtriser au préalable. La thermodynamique est nécessaire pour concevoir un moteur à vapeur."
+                title={t('linkKnowledgeTitle')}
+                body={t('linkKnowledgeBody')}
               >
                 <svg width={40} height={14} viewBox="0 0 40 14" aria-hidden>
                   <line
@@ -212,8 +182,8 @@ export default function AboutPage() {
                 </svg>
               </LinkTypeRow>
               <LinkTypeRow
-                title="Catalyseur"
-                body="facilite le processus sans être strictement indispensable."
+                title={t('linkCatalystTitle')}
+                body={t('linkCatalystBody')}
               >
                 <svg width={40} height={14} viewBox="0 0 40 14" aria-hidden>
                   <line
@@ -232,36 +202,36 @@ export default function AboutPage() {
               className="mb-4 mt-8 text-lg font-bold text-[#E8ECF4]"
               style={{ fontFamily: titleFont }}
             >
-              Les types d&apos;inventions
+              {t('inventionTypesTitle')}
             </h3>
             <div className="rounded-lg border border-[#1A1F2E]/80">
               <InventionTypeRow
-                title="Matière première"
-                body="existe dans la nature sans intervention humaine. Eau, sable, minerai, bois."
+                title={t('invRawTitle')}
+                body={t('invRawBody')}
               >
                 <span className="inline-block h-5 min-w-[2.25rem] rounded-full bg-[#6B7280]" />
               </InventionTypeRow>
               <InventionTypeRow
-                title="Procédé"
-                body="une technique, pas un objet. Fonderie, distillation, soudure."
+                title={t('invProcessTitle')}
+                body={t('invProcessBody')}
               >
                 <span className="inline-block h-6 w-10 rounded border border-[#8B95A8] bg-transparent" />
               </InventionTypeRow>
               <InventionTypeRow
-                title="Outil"
-                body="un objet réutilisable. Four, marteau, laser."
+                title={t('invToolTitle')}
+                body={t('invToolBody')}
               >
                 <span className="inline-block h-6 w-10 rounded border border-[#8B95A8] bg-transparent" />
               </InventionTypeRow>
               <InventionTypeRow
-                title="Composant"
-                body="un objet intégré dans un autre. Transistor, lentille, engrenage."
+                title={t('invComponentTitle')}
+                body={t('invComponentBody')}
               >
                 <span className="inline-block h-6 w-10 rounded border border-[#8B95A8] bg-transparent" />
               </InventionTypeRow>
               <InventionTypeRow
-                title="Produit final"
-                body="utilisé directement par l'humain. Automobile, smartphone, pain."
+                title={t('invEndTitle')}
+                body={t('invEndBody')}
               >
                 <span className="inline-block h-6 w-10 rounded border-2 border-[#8B95A8] bg-transparent" />
               </InventionTypeRow>
@@ -275,49 +245,15 @@ export default function AboutPage() {
               className="mb-5 text-[22px] font-bold text-[#E8ECF4]"
               style={{ fontFamily: titleFont }}
             >
-              Méthodologie
+              {t('methodologyTitle')}
             </h2>
             <div className="space-y-5 text-base leading-[1.7] text-[#C8CDD8]">
-              <p>
-                Chaque invention est classée selon trois critères : son type
-                (matière première, procédé, outil, composant ou produit final), sa
-                catégorie (le domaine d&apos;application principal, parmi 20
-                catégories comme Électronique, Transport, Alimentation, etc.) et
-                ses intrants de fabrication.
-              </p>
-              <p>
-                La classification suit un arbre de décision en trois questions :
-              </p>
-              <p>
-                Première question : est-ce que ça existe dans la nature sans
-                intervention humaine ? Si oui, c&apos;est une matière première.
-                Sinon, est-ce un objet physique ou une technique ? Les techniques
-                sont des procédés, les objets sont classés selon leur usage —
-                outils s&apos;ils sont réutilisables, composants s&apos;ils sont
-                intégrés dans un autre produit, produits finaux s&apos;ils sont
-                utilisés directement.
-              </p>
-              <p>
-                Deuxième question : dans quel domaine cette invention est-elle
-                principalement utilisée ? Si elle sert dans un seul domaine,
-                c&apos;est la catégorie de ce domaine. Si elle est transversale,
-                c&apos;est la catégorie de sa nature physique.
-              </p>
-              <p>
-                Troisième question : quels sont les intrants nécessaires à sa
-                fabrication ? Pour chaque intrant, on détermine s&apos;il est
-                consommé (matériau), réutilisé (outil), s&apos;il fournit de
-                l&apos;énergie, ou s&apos;il représente une connaissance
-                prérequise.
-              </p>
-              <p>
-                Ce graphe est une simplification. Les vraies chaînes de fabrication
-                sont infiniment plus complexes, impliquent des centaines de
-                sous-étapes et de variantes régionales. L&apos;objectif n&apos;est
-                pas l&apos;exhaustivité absolue, mais de capturer les
-                dépendances principales pour révéler la structure profonde de
-                notre civilisation technologique.
-              </p>
+              <p>{t('methodologyP1')}</p>
+              <p>{t('methodologyP2')}</p>
+              <p>{t('methodologyP3')}</p>
+              <p>{t('methodologyP4')}</p>
+              <p>{t('methodologyP5')}</p>
+              <p>{t('methodologyP6')}</p>
             </div>
           </section>
 
@@ -328,29 +264,13 @@ export default function AboutPage() {
               className="mb-5 text-[22px] font-bold text-[#E8ECF4]"
               style={{ fontFamily: titleFont }}
             >
-              Les données
+              {t('dataTitle')}
             </h2>
             <div className="space-y-5 text-base leading-[1.7] text-[#C8CDD8]">
+              <p>{t('dataP1')}</p>
+              <p>{t('dataP2')}</p>
               <p>
-                La base de données de Craftree est construite à l&apos;aide
-                d&apos;un agent IA (Claude, développé par Anthropic) qui recherche
-                les informations sur le web, classe chaque invention selon les
-                règles de méthodologie décrites ci-dessus, et identifie ses
-                intrants de fabrication. Les résultats sont ensuite vérifiés et
-                corrigés manuellement.
-              </p>
-              <p>
-                Les images des inventions proviennent de Wikimedia Commons et
-                sont dans le domaine public ou sous licence Creative Commons.
-              </p>
-              <p>
-                La base contient actuellement{' '}
-                <strong className="font-semibold text-[#E8ECF4]">
-                  {nInventions}
-                </strong>{' '}
-                inventions et{' '}
-                <strong className="font-semibold text-[#E8ECF4]">{nLinks}</strong>{' '}
-                liens de fabrication. Elle est enrichie en continu.
+                {t('dataP3', { nInventions, nLinks })}
               </p>
             </div>
           </section>
@@ -362,26 +282,19 @@ export default function AboutPage() {
               className="mb-5 text-[22px] font-bold text-[#E8ECF4]"
               style={{ fontFamily: titleFont }}
             >
-              Contribuer
+              {t('contributeTitle')}
             </h2>
             <div className="space-y-5 text-base leading-[1.7] text-[#C8CDD8]">
-              <p>
-                Craftree est un projet open source. Le code est disponible sur
-                GitHub.
-              </p>
+              <p>{t('contributeP1')}</p>
               <a
-                href="https://github.com/julien-beljio/civtree"
+                href="https://github.com/craftreeapp-sudo/craftree"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center rounded-lg border border-[#2A3042] px-4 py-2.5 text-sm font-medium text-[#E8ECF4] transition-colors hover:border-[#3B82F6]"
               >
-                Voir sur GitHub →
+                {t('viewOnGithub')}
               </a>
-              <p>
-                Si vous repérez une erreur de classification, un lien manquant,
-                ou une invention qui devrait figurer dans l&apos;arbre, vous
-                pouvez ouvrir une issue sur GitHub ou nous contacter directement.
-              </p>
+              <p>{t('contributeP2')}</p>
               <p>
                 <a
                   href="mailto:contact@craftree.app"
@@ -400,29 +313,24 @@ export default function AboutPage() {
               className="mb-5 text-[22px] font-bold text-[#E8ECF4]"
               style={{ fontFamily: titleFont }}
             >
-              Crédits
+              {t('creditsTitle')}
             </h2>
             <div className="space-y-5 text-base leading-[1.7] text-[#C8CDD8]">
-              <p>Craftree est un projet créé par Julien Beljio.</p>
+              <p>{t('creditsP1')}</p>
+              <p>{t('creditsP2')}</p>
               <p>
-                Développé avec Next.js, React Flow et Tailwind CSS. Les données
-                sont enrichies par Claude (Anthropic). Les images proviennent de
-                Wikimedia Commons.
-              </p>
-              <p>
-                Inspiré par le{' '}
-                <a
-                  href="https://historicaltechtree.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium text-[#3B82F6] underline-offset-2 transition-colors hover:underline"
-                >
-                  Historical Tech Tree
-                </a>{' '}
-                d&apos;Étienne Fortier-Dubois, les arbres technologiques de la
-                série Civilization, et la conviction que comprendre d&apos;où
-                viennent les choses est la première étape pour comprendre où
-                elles vont.
+                {t.rich('creditsP3', {
+                  ht: (chunks) => (
+                    <a
+                      href="https://historicaltechtree.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-[#3B82F6] underline-offset-2 transition-colors hover:underline"
+                    >
+                      {chunks}
+                    </a>
+                  ),
+                })}
               </p>
             </div>
           </section>

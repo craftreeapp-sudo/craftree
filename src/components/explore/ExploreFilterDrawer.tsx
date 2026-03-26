@@ -2,19 +2,26 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 import { useUIStore } from '@/stores/ui-store';
 import { getCategoryColor } from '@/lib/colors';
+import { isRtlLocale } from '@/lib/i18n-config';
 import {
   ERA_DATE_RANGES,
-  ERA_LABELS_FR,
   ERA_ORDER,
-  NODE_CATEGORY_LABELS_FR,
   NODE_CATEGORY_ORDER,
 } from '@/lib/node-labels';
+import type { NodeCategory } from '@/lib/types';
 
 const CATEGORY_PREVIEW_COUNT = 5;
 
 export function ExploreFilterDrawer() {
+  const locale = useLocale();
+  const isRtl = isRtlLocale(locale);
+  const t = useTranslations('filters');
+  const tc = useTranslations('common');
+  const tCat = useTranslations('categories');
+  const tEra = useTranslations('eras');
   const [showAllCategories, setShowAllCategories] = useState(false);
   const open = useUIStore((s) => s.filterDrawerOpen);
   const setOpen = useUIStore((s) => s.setFilterDrawerOpen);
@@ -36,17 +43,19 @@ export function ExploreFilterDrawer() {
         onClick={() => setOpen(false)}
       />
       <aside
-        className={`fixed left-0 top-14 z-[50] flex h-[calc(100dvh-3.5rem)] w-[280px] flex-col border-r border-[#2A3042] bg-[#111827] shadow-xl transition-transform duration-300 ease-out ${
-          open ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed top-14 z-[50] flex h-[calc(100dvh-3.5rem)] w-[280px] flex-col border-[#2A3042] bg-[#111827] shadow-xl transition-transform duration-300 ease-out ${
+          isRtl
+            ? `right-0 border-l ${open ? 'translate-x-0' : 'translate-x-full'}`
+            : `left-0 border-r ${open ? 'translate-x-0' : '-translate-x-full'}`
         }`}
         aria-hidden={!open}
       >
         <div className="flex shrink-0 items-center justify-between border-b border-[#2A3042] px-4 py-3">
-          <h2 className="text-sm font-semibold text-[#E8ECF4]">Filtres</h2>
+          <h2 className="text-sm font-semibold text-[#E8ECF4]">{tc('filters')}</h2>
           <button
             type="button"
             className="rounded p-1 text-[#8B95A8] hover:bg-[#1A1F2E] hover:text-[#E8ECF4]"
-            aria-label="Fermer les filtres"
+            aria-label={t('closeFilters')}
             onClick={() => setOpen(false)}
           >
             ×
@@ -55,7 +64,7 @@ export function ExploreFilterDrawer() {
         <div className="min-h-0 flex-1 overflow-y-auto px-3 py-4">
           <section className="mb-8">
             <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-[#8B95A8]">
-              Catégories
+              {t('categories')}
             </h3>
             <div className="mb-2 flex gap-2">
               <button
@@ -63,14 +72,14 @@ export function ExploreFilterDrawer() {
                 className="rounded bg-[#1A1F2E] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#2A3042]"
                 onClick={() => setAllCategories(true)}
               >
-                Tout
+                {tc('all')}
               </button>
               <button
                 type="button"
                 className="rounded bg-[#1A1F2E] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#2A3042]"
                 onClick={() => setAllCategories(false)}
               >
-                Aucun
+                {tc('none')}
               </button>
             </div>
             <ul className="space-y-1">
@@ -94,7 +103,7 @@ export function ExploreFilterDrawer() {
                         style={{ backgroundColor: color }}
                       />
                       <span className={active ? 'text-[#E8ECF4]' : 'text-[#8B95A8]'}>
-                        {NODE_CATEGORY_LABELS_FR[cat]}
+                        {tCat(cat as NodeCategory)}
                       </span>
                     </label>
                   </li>
@@ -107,14 +116,14 @@ export function ExploreFilterDrawer() {
                 className="mt-2 w-full rounded-md border border-[#2A3042] bg-[#1A1F2E] py-2 text-xs font-medium text-[#3B82F6] transition-colors hover:bg-[#2A3042]"
                 onClick={() => setShowAllCategories((v) => !v)}
               >
-                {showAllCategories ? 'Afficher moins' : 'Afficher tout'}
+                {showAllCategories ? t('showLess') : t('showMore')}
               </button>
             ) : null}
           </section>
 
           <section>
             <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-[#8B95A8]">
-              Époques
+              {t('eras')}
             </h3>
             <div className="mb-2 flex gap-2">
               <button
@@ -122,14 +131,14 @@ export function ExploreFilterDrawer() {
                 className="rounded bg-[#1A1F2E] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#2A3042]"
                 onClick={() => setAllEras(true)}
               >
-                Tout
+                {tc('all')}
               </button>
               <button
                 type="button"
                 className="rounded bg-[#1A1F2E] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#2A3042]"
                 onClick={() => setAllEras(false)}
               >
-                Aucun
+                {tc('none')}
               </button>
             </div>
             <ul className="space-y-1">
@@ -145,7 +154,7 @@ export function ExploreFilterDrawer() {
                         className="h-4 w-4 shrink-0 cursor-pointer rounded border-[#2A3042] bg-[#0A0E17] accent-[#3B82F6] ring-offset-[#0A0E17] focus-visible:ring-2 focus-visible:ring-[#3B82F6]"
                       />
                       <span className={active ? 'text-[#E8ECF4]' : 'text-[#8B95A8]'}>
-                        {ERA_LABELS_FR[era]}{' '}
+                        {tEra(era)}{' '}
                         <span className="text-[11px] text-[#6B7280]">
                           ({ERA_DATE_RANGES[era]})
                         </span>
@@ -164,7 +173,7 @@ export function ExploreFilterDrawer() {
             className="text-sm text-[#8B95A8] transition-colors hover:text-[#3B82F6]"
             onClick={() => setOpen(false)}
           >
-            À propos
+            {tc('about')}
           </Link>
         </div>
       </aside>

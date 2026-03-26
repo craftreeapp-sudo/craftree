@@ -1592,24 +1592,6 @@
       "complexity_depth": 0
     },
     {
-      "id": "eee",
-      "name": "eee",
-      "category": "animal",
-      "type": "component",
-      "era": "modern",
-      "year_approx": 1949,
-      "complexity_depth": 0
-    },
-    {
-      "id": "ceee",
-      "name": "ceee",
-      "category": "material",
-      "type": "process",
-      "era": "modern",
-      "year_approx": 1950,
-      "complexity_depth": 0
-    },
-    {
       "id": "etain",
       "name": "Étain",
       "category": "material",
@@ -2016,6 +1998,322 @@
       "type": "process",
       "era": "industrial",
       "year_approx": 1795,
+      "complexity_depth": 0
+    },
+    {
+      "id": "huile-d-olive",
+      "name": "Huile d'olive",
+      "category": "food",
+      "type": "end_product",
+      "era": "prehistoric",
+      "year_approx": -6000,
+      "complexity_depth": 0
+    },
+    {
+      "id": "nylon",
+      "name": "Nylon",
+      "category": "material",
+      "type": "material",
+      "era": "modern",
+      "year_approx": 1935,
+      "complexity_depth": 0
+    },
+    {
+      "id": "vaccin",
+      "name": "Vaccin",
+      "category": "medical",
+      "type": "end_product",
+      "era": "modern",
+      "year_approx": 1796,
+      "image_url": "/images/nodes/vaccin.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "antibiotique",
+      "name": "Antibiotique",
+      "category": "medical",
+      "type": "end_product",
+      "era": "modern",
+      "year_approx": 1928,
+      "image_url": "/images/nodes/antibiotique.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "anesthesie",
+      "name": "Anesthésie",
+      "category": "medical",
+      "type": "process",
+      "era": "industrial",
+      "year_approx": 1846,
+      "image_url": "/images/nodes/anesthesie.png",
+      "complexity_depth": 0
+    },
+    {
+      "id": "dynamite",
+      "name": "Dynamite",
+      "category": "weapon",
+      "type": "component",
+      "era": "industrial",
+      "year_approx": 1867,
+      "image_url": "/images/nodes/dynamite.png",
+      "complexity_depth": 0
+    },
+    {
+      "id": "appareil-photo",
+      "name": "Appareil photo",
+      "category": "optical",
+      "type": "end_product",
+      "era": "industrial",
+      "year_approx": 1839,
+      "image_url": "/images/nodes/appareil-photo.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "memoire-ram",
+      "name": "Mémoire RAM",
+      "category": "electronics",
+      "type": "component",
+      "era": "modern",
+      "year_approx": 1963,
+      "image_url": "/images/nodes/memoire-ram.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "canon",
+      "name": "Canon",
+      "category": "weapon",
+      "type": "tool",
+      "era": "medieval",
+      "year_approx": 1313,
+      "image_url": "/images/nodes/canon.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "fusil",
+      "name": "Fusil",
+      "category": "weapon",
+      "type": "end_product",
+      "era": "renaissance",
+      "year_approx": 1550,
+      "image_url": "/images/nodes/fusil.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "savon",
+      "name": "Savon",
+      "category": "chemistry",
+      "type": "end_product",
+      "era": "ancient",
+      "year_approx": -2800,
+      "image_url": "/images/nodes/savon.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "cosmetique",
+      "name": "Cosmétique",
+      "category": "medical",
+      "type": "process",
+      "era": "prehistoric",
+      "year_approx": -8000,
+      "image_url": "/images/nodes/cosmetique.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "cuisine-mediterraneenne",
+      "name": "Cuisine méditerranéenne",
+      "category": "food",
+      "type": "process",
+      "era": "modern",
+      "year_approx": 1950,
+      "complexity_depth": 0
+    },
+    {
+      "id": "conservation-des-aliments",
+      "name": "Conservation des aliments",
+      "category": "process",
+      "type": "process",
+      "era": "prehistoric",
+      "year_approx": -50000,
+      "complexity_depth": 0
+    },
+    {
+      "id": "parachute-en-nylon",
+      "name": "Parachute en nylon",
+      "category": "textile",
+      "type": "end_product",
+      "era": "modern",
+      "year_approx": 1942,
+      "image_url": "/images/nodes/parachute-en-nylon.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "seringue",
+      "name": "Seringue",
+      "category": "medical",
+      "type": "tool",
+      "era": "industrial",
+      "year_approx": 1841,
+      "image_url": "/images/nodes/seringue.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "anatomie-humaine",
+      "name": "Anatomie humaine",
+      "category": "medical",
+      "type": "process",
+      "era": "ancient",
+      "year_approx": -400,
+      "image_url": "/images/nodes/anatomie-humaine.png",
+      "complexity_depth": 0
+    },
+    {
+      "id": "immunologie",
+      "name": "Immunologie",
+      "category": "medical",
+      "type": "process",
+      "era": "modern",
+      "year_approx": 1880,
+      "image_url": "/images/nodes/immunologie.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "epidemiologie",
+      "name": "Épidémiologie",
+      "category": "medical",
+      "type": "process",
+      "era": "modern",
+      "year_approx": 1854,
+      "image_url": "/images/nodes/epidemiologie.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "moisissures",
+      "name": "Moisissures",
+      "category": "animal",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": -40000,
+      "image_url": "/images/nodes/moisissures.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "streptomycine",
+      "name": "Streptomycine",
+      "category": "medical",
+      "type": "component",
+      "era": "modern",
+      "year_approx": 1943,
+      "image_url": "/images/nodes/streptomycine.png",
+      "complexity_depth": 0
+    },
+    {
+      "id": "anesthesie-locale",
+      "name": "Anesthésie locale",
+      "category": "medical",
+      "type": "process",
+      "era": "modern",
+      "year_approx": 1884,
+      "image_url": "/images/nodes/anesthesie-locale.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "nitroglycerine",
+      "name": "Nitroglycérine",
+      "category": "chemistry",
+      "type": "material",
+      "era": "industrial",
+      "year_approx": 1847,
+      "image_url": "/images/nodes/nitroglycerine.png",
+      "complexity_depth": 0
+    },
+    {
+      "id": "tunnel-ferroviaire",
+      "name": "Tunnel ferroviaire",
+      "category": "transport",
+      "type": "construction",
+      "era": "industrial",
+      "year_approx": 1827,
+      "image_url": "/images/nodes/tunnel-ferroviaire.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "geligniite",
+      "name": "Géligniite",
+      "category": "weapon",
+      "type": "component",
+      "era": "industrial",
+      "year_approx": 1875,
+      "image_url": "/images/nodes/geligniite.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "argent",
+      "name": "Argent",
+      "category": "element",
+      "type": "raw_material",
+      "era": "prehistoric",
+      "year_approx": -3000,
+      "image_url": "/images/nodes/argent.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "bitume-de-judee",
+      "name": "Bitume de Judée",
+      "category": "material",
+      "type": "raw_material",
+      "era": "ancient",
+      "year_approx": -4000,
+      "image_url": "/images/nodes/bitume-de-judee.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "radiographie",
+      "name": "Radiographie",
+      "category": "medical",
+      "type": "process",
+      "era": "industrial",
+      "year_approx": 1895,
+      "image_url": "/images/nodes/radiographie.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "disque-dur",
+      "name": "Disque dur",
+      "category": "electronics",
+      "type": "component",
+      "era": "modern",
+      "year_approx": 1956,
+      "image_url": "/images/nodes/disque-dur.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "arc",
+      "name": "Arc",
+      "category": "weapon",
+      "type": "tool",
+      "era": "prehistoric",
+      "year_approx": -15000,
+      "image_url": "/images/nodes/arc.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "arbalete",
+      "name": "Arbalète",
+      "category": "weapon",
+      "type": "end_product",
+      "era": "ancient",
+      "year_approx": -400,
+      "image_url": "/images/nodes/arbalete.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "artillerie-moderne",
+      "name": "Artillerie moderne",
+      "category": "weapon",
+      "type": "tool",
+      "era": "industrial",
+      "year_approx": 1897,
+      "image_url": "/images/nodes/artillerie-moderne.jpg",
       "complexity_depth": 0
     }
   ]

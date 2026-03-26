@@ -1,15 +1,13 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { useUIStore } from '@/stores/ui-store';
 import { getCategoryColor } from '@/lib/colors';
 import {
   ERA_DATE_RANGES,
-  ERA_LABELS_FR,
   ERA_ORDER,
-  NODE_CATEGORY_LABELS_FR,
   NODE_CATEGORY_ORDER,
-  TECH_NODE_TYPE_LABELS_FR,
   TECH_NODE_TYPE_ORDER,
 } from '@/lib/node-labels';
 
@@ -21,9 +19,15 @@ const panelBtnClass =
   'inline-flex items-center gap-1.5 rounded-lg border border-[#2A3042] bg-[#1A1F2E] px-2.5 py-1.5 text-xs font-medium text-[#E8ECF4] transition-colors hover:bg-[#2A3042] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6]';
 
 const dropdownClass =
-  'absolute right-0 top-full z-[60] mt-1.5 w-[min(100vw-2rem,280px)] max-h-[min(70vh,320px)] overflow-y-auto rounded-lg border border-[#2A3042] bg-[#111827] py-2 shadow-xl';
+  'absolute end-0 top-full z-[60] mt-1.5 w-[min(100vw-2rem,280px)] max-h-[min(70vh,320px)] overflow-y-auto rounded-lg border border-[#2A3042] bg-[#111827] py-2 shadow-xl';
 
 export function FilterPanel() {
+  const tf = useTranslations('filters');
+  const tc = useTranslations('common');
+  const tCat = useTranslations('categories');
+  const tEra = useTranslations('eras');
+  const tType = useTranslations('types');
+
   const [open, setOpen] = useState<OpenPanel>(null);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -68,27 +72,27 @@ export function FilterPanel() {
           aria-haspopup="listbox"
           onClick={() => toggle('categories')}
         >
-          Catégories
+          {tf('categories')}
           <span className="text-[#8B95A8]" aria-hidden>
             ▾
           </span>
         </button>
         {open === 'categories' ? (
-          <div className={dropdownClass} role="listbox" aria-label="Filtre par catégorie">
+          <div className={dropdownClass} role="listbox" aria-label={tf('categories')}>
             <div className="mb-2 flex gap-2 border-b border-[#2A3042] px-3 pb-2">
               <button
                 type="button"
                 className="rounded bg-[#2A3042] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#3B4558]"
                 onClick={() => setAllCategories(true)}
               >
-                Tout
+                {tc('all')}
               </button>
               <button
                 type="button"
                 className="rounded bg-[#2A3042] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#3B4558]"
                 onClick={() => setAllCategories(false)}
               >
-                Aucun
+                {tc('none')}
               </button>
             </div>
             <ul className="space-y-0.5 px-2">
@@ -104,7 +108,7 @@ export function FilterPanel() {
                       type="button"
                       role="option"
                       aria-selected={active}
-                      className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors ${
+                      className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-start text-sm transition-colors ${
                         active
                           ? 'bg-[#1A1F2E] text-[#E8ECF4]'
                           : 'text-[#8B95A8] hover:bg-[#1A1F2E]/80'
@@ -115,7 +119,7 @@ export function FilterPanel() {
                         className="h-3 w-3 shrink-0 rounded-full border border-white/20"
                         style={{ backgroundColor: color, opacity: active ? 1 : 0.35 }}
                       />
-                      <span className="flex-1">{NODE_CATEGORY_LABELS_FR[cat]}</span>
+                      <span className="flex-1">{tCat(cat)}</span>
                       {active ? (
                         <span className="text-[10px] text-[#3B82F6]">✓</span>
                       ) : null}
@@ -131,7 +135,7 @@ export function FilterPanel() {
                   className="w-full rounded-md border border-[#2A3042] bg-[#1A1F2E] py-1.5 text-xs font-medium text-[#3B82F6] transition-colors hover:bg-[#2A3042]"
                   onClick={() => setShowAllCategories((v) => !v)}
                 >
-                  {showAllCategories ? 'Afficher moins' : 'Afficher tout'}
+                  {showAllCategories ? tf('showLess') : tf('showMore')}
                 </button>
               </div>
             ) : null}
@@ -148,27 +152,27 @@ export function FilterPanel() {
           aria-haspopup="listbox"
           onClick={() => toggle('eras')}
         >
-          Époques
+          {tf('eras')}
           <span className="text-[#8B95A8]" aria-hidden>
             ▾
           </span>
         </button>
         {open === 'eras' ? (
-          <div className={dropdownClass} role="listbox" aria-label="Filtre par époque">
+          <div className={dropdownClass} role="listbox" aria-label={tf('eras')}>
             <div className="mb-2 flex gap-2 border-b border-[#2A3042] px-3 pb-2">
               <button
                 type="button"
                 className="rounded bg-[#2A3042] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#3B4558]"
                 onClick={() => setAllEras(true)}
               >
-                Tout
+                {tc('all')}
               </button>
               <button
                 type="button"
                 className="rounded bg-[#2A3042] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#3B4558]"
                 onClick={() => setAllEras(false)}
               >
-                Aucun
+                {tc('none')}
               </button>
             </div>
             <ul className="space-y-0.5 px-2">
@@ -180,7 +184,7 @@ export function FilterPanel() {
                       type="button"
                       role="option"
                       aria-selected={active}
-                      className={`flex w-full flex-col rounded-md px-2 py-1.5 text-left text-sm transition-colors ${
+                      className={`flex w-full flex-col rounded-md px-2 py-1.5 text-start text-sm transition-colors ${
                         active
                           ? 'bg-[#1A1F2E] text-[#E8ECF4]'
                           : 'text-[#8B95A8] hover:bg-[#1A1F2E]/80'
@@ -188,7 +192,7 @@ export function FilterPanel() {
                       onClick={() => toggleEra(era)}
                     >
                       <span className="font-medium">
-                        {ERA_LABELS_FR[era]}{' '}
+                        {tEra(era)}{' '}
                         <span className="font-normal text-[#8B95A8]">
                           ({ERA_DATE_RANGES[era]})
                         </span>
@@ -211,27 +215,27 @@ export function FilterPanel() {
           aria-haspopup="listbox"
           onClick={() => toggle('types')}
         >
-          Types
+          {tf('types')}
           <span className="text-[#8B95A8]" aria-hidden>
             ▾
           </span>
         </button>
         {open === 'types' ? (
-          <div className={dropdownClass} role="listbox" aria-label="Filtre par type">
+          <div className={dropdownClass} role="listbox" aria-label={tf('types')}>
             <div className="mb-2 flex gap-2 border-b border-[#2A3042] px-3 pb-2">
               <button
                 type="button"
                 className="rounded bg-[#2A3042] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#3B4558]"
                 onClick={() => setAllTypes(true)}
               >
-                Tout
+                {tc('all')}
               </button>
               <button
                 type="button"
                 className="rounded bg-[#2A3042] px-2 py-1 text-[11px] text-[#E8ECF4] hover:bg-[#3B4558]"
                 onClick={() => setAllTypes(false)}
               >
-                Aucun
+                {tc('none')}
               </button>
             </div>
             <ul className="space-y-0.5 px-2">
@@ -243,14 +247,14 @@ export function FilterPanel() {
                       type="button"
                       role="option"
                       aria-selected={active}
-                      className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm capitalize transition-colors ${
+                      className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-start text-sm capitalize transition-colors ${
                         active
                           ? 'bg-[#1A1F2E] text-[#E8ECF4]'
                           : 'text-[#8B95A8] hover:bg-[#1A1F2E]/80'
                       }`}
                       onClick={() => toggleType(t)}
                     >
-                      <span className="flex-1">{TECH_NODE_TYPE_LABELS_FR[t]}</span>
+                      <span className="flex-1">{tType(t)}</span>
                       <span className="font-mono text-[10px] text-[#6B7280]">{t}</span>
                       {active ? (
                         <span className="text-[10px] text-[#3B82F6]">✓</span>

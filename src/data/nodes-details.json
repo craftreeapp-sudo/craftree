@@ -1446,7 +1446,7 @@
   },
   "minerai-de-cuivre": {
     "name_en": "Copper ore",
-    "description": "<cite index=\"3-5,3-15\">Le minerai de cuivre se trouve généralement dans la croûte terrestre sous forme de minéraux de cuivre tels que chalcopyrite, bornite, malachite, et la chalcocite, entre autres. Les gisements de minerai de cuivre sont des accumulations naturelles de minéraux contenant du cuivre qui peuvent être extraits et traités de manière économique pour obtenir du cuivre métal.</cite> <cite index=\"2-15,2-16,2-17\">Le cuivre se trouve à l'état naturel au sein de dépôts minéraux appelés « porphyres cuprifères » formés par la circulation de fluides chauds produits lors du refroidissement des magmas. Le cuivre précipite à partir de ces fluides et se dépose sous la forme de porphyres entre 1 et 6 km de profondeur.</cite>",
+    "description": "Le minerai de cuivre se trouve généralement dans la croûte terrestre sous forme de minéraux de cuivre tels que chalcopyrite, bornite, malachite, et la chalcocite, entre autres. Les gisements de minerai de cuivre sont des accumulations naturelles de minéraux contenant du cuivre qui peuvent être extraits et traités de manière économique pour obtenir du cuivre métal. Le cuivre se trouve à l'état naturel au sein de dépôts minéraux appelés « porphyres cuprifères » formés par la circulation de fluides chauds produits lors du refroidissement des magmas. Le cuivre précipite à partir de ces fluides et se dépose sous la forme de porphyres entre 1 et 6 km de profondeur.",
     "tags": [
       "métallurgie",
       "mine",
@@ -1865,16 +1865,6 @@
         "exists": false
       }
     ]
-  },
-  "eee": {
-    "name_en": "eee",
-    "description": "",
-    "tags": []
-  },
-  "ceee": {
-    "name_en": "ceee",
-    "description": "",
-    "tags": []
   },
   "etain": {
     "name_en": "Étain",
@@ -5117,7 +5107,7 @@
   },
   "conserve": {
     "name_en": "Canned food",
-    "description": "<cite index=\"3-1,3-2\">La conserve, ou appertisation, est une méthode de préservation des aliments qui consiste à les mettre dans des récipients rendus étanches à l'air, puis chauffés pour détruire les micro-organismes pathogènes.</cite> <cite index=\"1-4,3-14\">Cette révolution alimentaire fut inventée en 1795 par Nicolas Appert, confiseur français</cite>, qui découvrit qu'en chauffant des aliments à plus de 100°C dans des récipients hermétiquement clos, ils pouvaient se conserver très longtemps sans altération.",
+    "description": "La conserve, ou appertisation, est une méthode de préservation des aliments qui consiste à les mettre dans des récipients rendus étanches à l'air, puis chauffés pour détruire les micro-organismes pathogènes. Cette révolution alimentaire fut inventée en 1795 par Nicolas Appert, confiseur français, qui découvrit qu'en chauffant des aliments à plus de 100°C dans des récipients hermétiquement clos, ils pouvaient se conserver très longtemps sans altération.",
     "tags": [
       "alimentation",
       "preservation",
@@ -5182,6 +5172,2339 @@
       {
         "id": "distribution-alimentaire",
         "name": "Distribution alimentaire",
+        "exists": false
+      }
+    ]
+  },
+  "huile-d-olive": {
+    "name_en": "Olive oil",
+    "description": "Huile végétale extraite des olives par broyage et pression ou centrifugation. Premier huile de consommation du bassin méditerranéen, utilisée pour l'alimentation, l'éclairage, la cosmétique et les soins. Produit emblématique de la civilisation méditerranéenne depuis plus de 8000 ans.",
+    "tags": [
+      "méditerranée",
+      "alimentation",
+      "cosmétique",
+      "éclairage",
+      "pression",
+      "extraction"
+    ],
+    "origin": "Bassin méditerranéen, Proche-Orient",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Huile_d'olive",
+    "_ai_built_upon": [
+      {
+        "id": "olive",
+        "name": "Olive",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": false
+      },
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "tool",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "presse",
+        "name": "Presse",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": true
+      },
+      {
+        "id": "pierre",
+        "name": "Pierre de taille",
+        "relation_type": "material",
+        "quantity_hint": "quelques",
+        "exists": true
+      },
+      {
+        "id": "moulin",
+        "name": "Moulin",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "lampe-a-huile",
+        "name": "Lampe à huile",
+        "exists": false
+      },
+      {
+        "id": "savon",
+        "name": "Savon",
+        "exists": false
+      },
+      {
+        "id": "cosmetique",
+        "name": "Cosmétique",
+        "exists": false
+      },
+      {
+        "id": "cuisine-mediterraneenne",
+        "name": "Cuisine méditerranéenne",
+        "exists": false
+      },
+      {
+        "id": "conservation-aliments",
+        "name": "Conservation des aliments",
+        "exists": false
+      }
+    ]
+  },
+  "nylon": {
+    "name_en": "Nylon",
+    "description": "Premier polymère synthétique entièrement artificiel créé par réaction entre l'acide adipique et l'hexaméthylènediamine. Cette fibre révolutionnaire lancée en 1938 possède des propriétés supérieures à la soie naturelle et ouvre l'ère des matériaux synthétiques modernes.",
+    "tags": [
+      "polymère",
+      "synthétique",
+      "polyamide",
+      "textile",
+      "révolution"
+    ],
+    "origin": "Wallace Carothers, DuPont (États-Unis)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Nylon",
+    "_ai_built_upon": [
+      {
+        "id": "petrole",
+        "name": "Pétrole",
+        "relation_type": "material",
+        "quantity_hint": "moyennement",
+        "exists": true
+      },
+      {
+        "id": "chimie-organique",
+        "name": "Chimie organique",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "polymeres",
+        "name": "Polymères",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "four-haute-temp",
+        "name": "Four à haute température",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "acide-adipique",
+        "name": "Acide adipique",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": false
+      },
+      {
+        "id": "hexamethylenediamine",
+        "name": "Hexaméthylènediamine",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "plastique",
+        "name": "Plastique",
+        "exists": true
+      },
+      {
+        "id": "fibre-synthetique",
+        "name": "Fibre synthétique",
+        "exists": false
+      },
+      {
+        "id": "parachute-nylon",
+        "name": "Parachute en nylon",
+        "exists": false
+      },
+      {
+        "id": "collant-nylon",
+        "name": "Collant en nylon",
+        "exists": false
+      }
+    ]
+  },
+  "vaccin": {
+    "name_en": "Vaccine",
+    "description": "Préparation biologique stimulant le système immunitaire pour prévenir les maladies infectieuses. Contient des micro-organismes affaiblis, tués ou des fragments de pathogènes qui enseignent au corps à reconnaître et combattre les agents infectieux.",
+    "tags": [
+      "immunologie",
+      "prévention",
+      "santé publique",
+      "médecine"
+    ],
+    "origin": "Edward Jenner (Angleterre)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Vaccin",
+    "image_url": "/images/nodes/vaccin.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "plantes-medicinales",
+        "name": "Plantes médicinales",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "lait",
+        "name": "Lait",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "seringue",
+        "name": "Seringue",
+        "relation_type": "tool",
+        "quantity_hint": "une",
+        "exists": false
+      },
+      {
+        "id": "microscope",
+        "name": "Microscope",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": true
+      },
+      {
+        "id": "culture-microbienne",
+        "name": "Culture microbienne",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": false
+      },
+      {
+        "id": "anatomie-humaine",
+        "name": "Anatomie humaine",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "vaccination-obligatoire",
+        "name": "Vaccination obligatoire",
+        "relation_type": "process",
+        "exists": false
+      },
+      {
+        "id": "sante-publique",
+        "name": "Santé publique",
+        "relation_type": "concept",
+        "exists": false
+      },
+      {
+        "id": "immunologie",
+        "name": "Immunologie",
+        "relation_type": "science",
+        "exists": false
+      },
+      {
+        "id": "epidemiologie",
+        "name": "Épidémiologie",
+        "relation_type": "science",
+        "exists": false
+      }
+    ]
+  },
+  "antibiotique": {
+    "name_en": "Antibiotic",
+    "description": "<cite index=\"11-3\">Une substance chimique organique d'origine naturelle ou synthétique inhibant ou tuant les bactéries pathogènes à faible concentration et possédant une toxicité sélective</cite>. <cite index=\"1-1,8-1,8-6\">La pénicilline, découverte par Alexander Fleming en 1928</cite>, est le premier antibiotique produit industriellement et a révolutionné la médecine moderne. <cite index=\"11-13,11-14\">Les antibiotiques ont augmenté l'espérance de vie de plus de dix ans</cite>.",
+    "tags": [
+      "médecine",
+      "bactérie",
+      "pénicilline",
+      "infection"
+    ],
+    "origin": "Alexander Fleming",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Antibiotique",
+    "image_url": "/images/nodes/antibiotique.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "plantes-medicinales",
+        "name": "Plantes médicinales",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "chimie-organique",
+        "name": "Chimie organique",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "moisissures",
+        "name": "Moisissures",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": false
+      },
+      {
+        "id": "microscope",
+        "name": "Microscope",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "fermentation",
+        "name": "Fermentation",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "penicilline",
+        "name": "Pénicilline",
+        "exists": false
+      },
+      {
+        "id": "streptomycine",
+        "name": "Streptomycine",
+        "exists": false
+      },
+      {
+        "id": "medecine-moderne",
+        "name": "Médecine moderne",
+        "exists": false
+      },
+      {
+        "id": "antibioresistance",
+        "name": "Antibiorésistance",
+        "exists": false
+      }
+    ]
+  },
+  "anesthesie": {
+    "name_en": "Anesthesia",
+    "description": "<cite index=\"6-15\">L'anesthésie est la suppression des sensations (et en particulier la sensation de douleur)</cite>. <cite index=\"1-7\">Le 16 octobre 1846, William Thomas MORTON, au Massachusetts General Hospital réalisa la première anesthésie à l'éther</cite>, révolutionnant la chirurgie. <cite index=\"1-3,6-20\">Cette spécialité médicale récente a révolutionné la médecine en permettant une chirurgie de qualité</cite>.",
+    "tags": [
+      "médecine",
+      "chirurgie",
+      "douleur",
+      "éther",
+      "procédé médical"
+    ],
+    "origin": "William Thomas Morton (États-Unis)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Anesthésie",
+    "image_url": "/images/nodes/anesthesie.png",
+    "_ai_built_upon": [
+      {
+        "id": "ether-sulfurique",
+        "name": "Éther sulfurique",
+        "relation_type": "material",
+        "quantity_hint": "petite quantité",
+        "exists": false
+      },
+      {
+        "id": "plantes-medicinales",
+        "name": "Plantes médicinales",
+        "relation_type": "knowledge",
+        "quantity_hint": "",
+        "exists": true
+      },
+      {
+        "id": "chimie-organique",
+        "name": "Chimie organique",
+        "relation_type": "knowledge",
+        "quantity_hint": "",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "anesthesie-locale",
+        "name": "Anesthésie locale",
+        "exists": false
+      },
+      {
+        "id": "chirurgie-moderne",
+        "name": "Chirurgie moderne",
+        "exists": false
+      },
+      {
+        "id": "reanimation",
+        "name": "Réanimation",
+        "exists": false
+      }
+    ]
+  },
+  "dynamite": {
+    "name_en": "Dynamite",
+    "description": "Explosif révolutionnaire inventé par Alfred Nobel en 1867, constitué de nitroglycérine stabilisée par de la terre de diatomée. Cette invention a transformé l'industrie minière, la construction de tunnels et les travaux de terrassement, offrant un explosif puissant mais beaucoup plus sûr à manipuler que la nitroglycérine liquide pure.",
+    "tags": [
+      "explosif",
+      "nobel",
+      "nitroglycérine",
+      "sécurité",
+      "construction"
+    ],
+    "origin": "Alfred Nobel, Suède",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Dynamite",
+    "image_url": "/images/nodes/dynamite.png",
+    "_ai_built_upon": [
+      {
+        "id": "nitroglycerine",
+        "name": "Nitroglycérine",
+        "relation_type": "material",
+        "quantity_hint": "75%",
+        "exists": false
+      },
+      {
+        "id": "terre-diatomee",
+        "name": "Terre de diatomée",
+        "relation_type": "material",
+        "quantity_hint": "25%",
+        "exists": false
+      },
+      {
+        "id": "soude",
+        "name": "Soude",
+        "relation_type": "material",
+        "quantity_hint": "stabilisant",
+        "exists": true
+      },
+      {
+        "id": "detonateur",
+        "name": "Détonateur",
+        "relation_type": "tool",
+        "quantity_hint": "un par bâton",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "tunnel-ferroviaire",
+        "name": "Tunnel ferroviaire",
+        "exists": false
+      },
+      {
+        "id": "canal-panama",
+        "name": "Canal de Panama",
+        "exists": false
+      },
+      {
+        "id": "industrie-miniere",
+        "name": "Industrie minière moderne",
+        "exists": false
+      },
+      {
+        "id": "gelignite",
+        "name": "Gelignite",
+        "exists": false
+      }
+    ]
+  },
+  "appareil-photo": {
+    "name_en": "Camera",
+    "description": "Dispositif optique et mécanique permettant de capturer et d'enregistrer des images de manière permanente. Utilise le principe de la chambre noire avec un système d'objectifs et un support photosensible pour fixer les images.",
+    "tags": [
+      "photographie",
+      "optique",
+      "image",
+      "chambre-noire"
+    ],
+    "origin": "Louis Daguerre (France)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Appareil_photographique",
+    "image_url": "/images/nodes/appareil-photo.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "lentille",
+        "name": "Lentille optique",
+        "relation_type": "material",
+        "quantity_hint": "plusieurs",
+        "exists": true
+      },
+      {
+        "id": "verre",
+        "name": "Verre",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "moyen",
+        "exists": true
+      },
+      {
+        "id": "cuivre",
+        "name": "Cuivre",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "argent",
+        "name": "Argent",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": false
+      },
+      {
+        "id": "bitume-judee",
+        "name": "Bitume de Judée",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": false
+      },
+      {
+        "id": "chambre-noire",
+        "name": "Chambre noire",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "photojournalisme",
+        "name": "Photojournalisme",
+        "exists": false
+      },
+      {
+        "id": "cinema",
+        "name": "Cinéma",
+        "exists": false
+      },
+      {
+        "id": "radiographie",
+        "name": "Radiographie",
+        "exists": false
+      }
+    ]
+  },
+  "memoire-ram": {
+    "name_en": "RAM Memory",
+    "description": "<cite index=\"1-10\">La mémoire vive, ou RAM, est la mémoire informatique dans laquelle peuvent être enregistrées, généralement de façon volatile, les informations traitées par un appareil informatique.</cite> <cite index=\"1-21\">Son rôle est notamment de stocker les données qui vont être traitées par l'unité centrale de traitement (UCT), soit un microprocesseur dans la plupart des appareils modernes.</cite> <cite index=\"11-6,11-7\">Les puces de mémoire sont composées de circuits intégrés comportant plusieurs transistors, résistances et condensateurs qui doivent être formés sur chaque puce. Ces circuits intégrés commencent leur cycle de vie sous forme de silicium, généralement extrait du sable.</cite>",
+    "tags": [
+      "mémoire",
+      "électronique",
+      "informatique",
+      "stockage"
+    ],
+    "origin": "<cite index=\"1-1\">Robert H. Norman à Fairchild Semiconductor</cite>",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Mémoire_vive",
+    "image_url": "/images/nodes/memoire-ram.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "silicium",
+        "name": "Silicium",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "transistor",
+        "name": "Transistor",
+        "relation_type": "material",
+        "quantity_hint": "plusieurs",
+        "exists": true
+      },
+      {
+        "id": "circuit-imprime",
+        "name": "Circuit imprimé",
+        "relation_type": "material",
+        "quantity_hint": "un",
+        "exists": true
+      },
+      {
+        "id": "electricite",
+        "name": "Électricité",
+        "relation_type": "energy",
+        "quantity_hint": "constante",
+        "exists": true
+      },
+      {
+        "id": "photolithographie",
+        "name": "Photolithographie",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "ordinateur",
+        "name": "Ordinateur",
+        "exists": true
+      },
+      {
+        "id": "serveur-informatique",
+        "name": "Serveur informatique",
+        "exists": true
+      },
+      {
+        "id": "smartphone",
+        "name": "Smartphone",
+        "exists": true
+      }
+    ]
+  },
+  "canon": {
+    "name_en": "Cannon",
+    "description": "Arme d'artillerie utilisant de la poudre à canon pour lancer des projectiles. Invention révolutionnaire qui a transformé la guerre de siège, la guerre navale et les batailles terrestres, rendant obsolètes les fortifications médiévales.",
+    "tags": [
+      "artillerie",
+      "poudre",
+      "guerre",
+      "siege",
+      "projectile",
+      "bronze",
+      "fer"
+    ],
+    "origin": "Europe (Gand), développé à partir des innovations chinoises",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Canon_(artillerie)",
+    "image_url": "/images/nodes/canon.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "poudre-a-canon",
+        "name": "Poudre à canon",
+        "relation_type": "material",
+        "quantity_hint": "modérée",
+        "exists": false
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "bronze",
+        "name": "Bronze",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "fonderie",
+        "name": "Fonderie",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "artillerie-moderne",
+        "name": "Artillerie moderne",
+        "exists": false
+      },
+      {
+        "id": "fortification-bastionnee",
+        "name": "Fortification bastionnée",
+        "exists": false
+      },
+      {
+        "id": "navire-de-guerre",
+        "name": "Navire de guerre",
+        "exists": false
+      },
+      {
+        "id": "mousquet",
+        "name": "Mousquet",
+        "exists": false
+      }
+    ]
+  },
+  "fusil": {
+    "name_en": "Rifle",
+    "description": "Arme à feu portative à canon long et crosse d'épaule, évolution de l'arquebuse et du mousquet. Utilise un système de mise à feu par silex puis percussion pour projeter une balle ou des projectiles grâce à la poudre à canon. Le fusil révolutionne l'armement militaire et devient l'arme standard d'infanterie.",
+    "tags": [
+      "militaire",
+      "chasse",
+      "arme_a_feu",
+      "portative",
+      "projectile"
+    ],
+    "origin": "Europe (France, Allemagne, Espagne)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Fusil_(arme)",
+    "image_url": "/images/nodes/fusil.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "poudre-a-canon",
+        "name": "Poudre à canon",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "fer",
+        "name": "Fer",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "marteau",
+        "name": "Marteau",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "mousquet",
+        "name": "Mousquet",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": false
+      },
+      {
+        "id": "arquebuse",
+        "name": "Arquebuse",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "fusil-a-repetition",
+        "name": "Fusil à répétition",
+        "exists": false
+      },
+      {
+        "id": "carabine",
+        "name": "Carabine",
+        "exists": false
+      },
+      {
+        "id": "fusil-automatique",
+        "name": "Fusil automatique",
+        "exists": false
+      },
+      {
+        "id": "fusil-d-assaut",
+        "name": "Fusil d'assaut",
+        "exists": false
+      },
+      {
+        "id": "mitrailleuse",
+        "name": "Mitrailleuse",
+        "exists": false
+      },
+      {
+        "id": "baionnette",
+        "name": "Baïonnette",
+        "exists": false
+      }
+    ]
+  },
+  "savon": {
+    "name_en": "Soap",
+    "description": "Produit de lavage et de nettoyage obtenu par saponification de corps gras (huiles végétales ou graisses animales) avec une base alcaline (soude ou potasse). La réaction chimique produit du savon (carboxylates de sodium ou de potassium) et de la glycérine.",
+    "tags": [
+      "hygiène",
+      "nettoyage",
+      "saponification",
+      "corps gras",
+      "détergent",
+      "biodégradable"
+    ],
+    "origin": "Mésopotamie (Sumériens), puis perfectionnement par les Gaulois selon Pline l'Ancien",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Savon",
+    "image_url": "/images/nodes/savon.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "huile-vegetale",
+        "name": "Huile végétale",
+        "relation_type": "material",
+        "quantity_hint": "principale",
+        "exists": false
+      },
+      {
+        "id": "soude",
+        "name": "Soude",
+        "relation_type": "material",
+        "quantity_hint": "nécessaire",
+        "exists": true
+      },
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "material",
+        "quantity_hint": "modérée",
+        "exists": true
+      },
+      {
+        "id": "four",
+        "name": "Four",
+        "relation_type": "tool",
+        "quantity_hint": "1",
+        "exists": true
+      },
+      {
+        "id": "cendres-alcalines",
+        "name": "Cendres alcalines",
+        "relation_type": "material",
+        "quantity_hint": "historique",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "savon-marseille",
+        "name": "Savon de Marseille",
+        "exists": false
+      },
+      {
+        "id": "savon-alep",
+        "name": "Savon d'Alep",
+        "exists": false
+      },
+      {
+        "id": "detergent",
+        "name": "Détergent",
+        "exists": false
+      },
+      {
+        "id": "glycerine",
+        "name": "Glycérine",
+        "exists": false
+      }
+    ]
+  },
+  "cosmetique": {
+    "name_en": "Cosmetics",
+    "description": "Art et science de l'embellissement du corps humain par l'application de produits destinés à nettoyer, protéger, parfumer ou modifier l'apparence de la peau, des cheveux et des ongles. La cosmétique englobe tous les produits de soins, maquillage et hygiène corporelle utilisés pour entretenir et valoriser la beauté naturelle.",
+    "tags": [
+      "beauté",
+      "soins",
+      "hygiène",
+      "maquillage",
+      "parfum",
+      "peau"
+    ],
+    "origin": "Égypte antique",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Cosmétique",
+    "image_url": "/images/nodes/cosmetique.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "extraits-vegetaux",
+        "name": "Extraits végétaux",
+        "relation_type": "material",
+        "quantity_hint": "moyen",
+        "exists": true
+      },
+      {
+        "id": "argile",
+        "name": "Argile",
+        "relation_type": "material",
+        "quantity_hint": "moyen",
+        "exists": true
+      },
+      {
+        "id": "feu",
+        "name": "Feu",
+        "relation_type": "energy",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "lait",
+        "name": "Lait",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "huiles-vegetales",
+        "name": "Huiles végétales",
+        "relation_type": "material",
+        "quantity_hint": "moyen",
+        "exists": false
+      },
+      {
+        "id": "cire-abeille",
+        "name": "Cire d'abeille",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "parfum",
+        "name": "Parfum",
+        "exists": false
+      },
+      {
+        "id": "savon",
+        "name": "Savon",
+        "exists": false
+      },
+      {
+        "id": "rouge-a-levres",
+        "name": "Rouge à lèvres",
+        "exists": false
+      },
+      {
+        "id": "mascara",
+        "name": "Mascara",
+        "exists": false
+      },
+      {
+        "id": "shampoing",
+        "name": "Shampoing",
+        "exists": false
+      }
+    ]
+  },
+  "cuisine-mediterraneenne": {
+    "name_en": "Mediterranean cuisine",
+    "description": "<cite index=\"1-17,1-1\">La cuisine méditerranéenne est un concept récent formalisé dans les années 1950, basé sur la triade alimentaire traditionnelle de l'olive, du blé et du raisin</cite>. <cite index=\"1-19\">Elle englobe les cuisines des pays du bassin méditerranéen : maghrébine, égyptienne, levantine, turque, balkanique, grecque, italienne, française, chypriote, maltaise, espagnole et portugaise</cite>. <cite index=\"6-13,6-14\">Inscrite au patrimoine culturel immatériel de l'humanité par l'UNESCO en 2010, elle représente un ensemble de savoir-faire, connaissances, pratiques et traditions culinaires</cite>.",
+    "tags": [
+      "alimentation",
+      "santé",
+      "tradition",
+      "patrimoine",
+      "unesco"
+    ],
+    "origin": "Elizabeth David (conceptualisation moderne)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Cuisine_méditerranéenne",
+    "_ai_built_upon": [
+      {
+        "id": "huile-d-olive",
+        "name": "Huile d'olive",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "ble",
+        "name": "Blé",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "raisin",
+        "name": "Raisin",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "four",
+        "name": "Four",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": true
+      },
+      {
+        "id": "fermentation",
+        "name": "Fermentation",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "regime-mediterraneen",
+        "name": "Régime méditerranéen",
+        "exists": false
+      }
+    ]
+  },
+  "conservation-des-aliments": {
+    "name_en": "Food preservation",
+    "description": "Ensemble de techniques permettant d'empêcher ou de ralentir la détérioration des aliments pour assurer leur conservation sur des périodes prolongées. Ces procédés visent à éliminer ou inhiber les micro-organismes responsables de la décomposition tout en préservant les qualités nutritionnelles et gustatives des denrées alimentaires. La conservation des aliments est fondamentale pour la survie humaine et a évolué des techniques primitives de séchage et fumage aux méthodes modernes de stérilisation et de réfrigération.",
+    "tags": [
+      "preservation",
+      "food",
+      "survival",
+      "techniques",
+      "storage"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Conservation_des_aliments",
+    "_ai_built_upon": [
+      {
+        "id": "feu",
+        "name": "Feu",
+        "relation_type": "energy",
+        "quantity_hint": "selon technique",
+        "exists": true
+      },
+      {
+        "id": "sel",
+        "name": "Sel",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "air",
+        "name": "Air",
+        "relation_type": "material",
+        "quantity_hint": "selon technique",
+        "exists": true
+      },
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "material",
+        "quantity_hint": "selon technique",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "salaison",
+        "name": "Salaison",
+        "exists": true
+      },
+      {
+        "id": "conserve",
+        "name": "Conserve",
+        "exists": true
+      },
+      {
+        "id": "fermentation",
+        "name": "Fermentation",
+        "exists": true
+      },
+      {
+        "id": "fromage",
+        "name": "Fromage",
+        "exists": true
+      },
+      {
+        "id": "vin",
+        "name": "Vin",
+        "exists": true
+      }
+    ]
+  },
+  "parachute-en-nylon": {
+    "name_en": "Nylon parachute",
+    "description": "<cite index=\"2-1,2-3,2-4\">Le parachute en nylon fut testé pour la première fois par Adeline Gray le 6 juin 1942 à Hartford, marquant la transition de la soie vers ce nouveau matériau synthétique</cite>. <cite index=\"1-18,2-5\">Cette innovation révolutionna l'industrie parachutiste car le nylon offrait une combinaison unique de légèreté, de résistance et de résilience supérieure à la soie</cite>. <cite index=\"11-8,12-18\">Pendant la Seconde Guerre mondiale, la production de nylon fut massivement réorientée vers les besoins militaires, notamment pour la fabrication de parachutes où il remplaça définitivement la soie</cite>.",
+    "tags": [
+      "sécurité",
+      "militaire",
+      "aviation",
+      "saut",
+      "synthétique"
+    ],
+    "origin": "DuPont et Pioneer Parachute Company (États-Unis)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Parachute",
+    "image_url": "/images/nodes/parachute-en-nylon.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "nylon",
+        "name": "Nylon",
+        "relation_type": "material",
+        "quantity_hint": "plusieurs mètres carrés",
+        "exists": true
+      },
+      {
+        "id": "parachute-soie",
+        "name": "Parachute en soie",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": false
+      },
+      {
+        "id": "machine-a-coudre",
+        "name": "Machine à coudre",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "fil-de-nylon",
+        "name": "Fil de nylon",
+        "relation_type": "material",
+        "quantity_hint": "bobines",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "parachutisme-moderne",
+        "name": "Parachutisme moderne",
+        "exists": false
+      },
+      {
+        "id": "parachute-sport",
+        "name": "Parachute sportif",
+        "exists": false
+      },
+      {
+        "id": "parachute-cargo",
+        "name": "Parachute de transport de fret",
+        "exists": false
+      }
+    ]
+  },
+  "seringue": {
+    "name_en": "Syringe",
+    "description": "Instrument médical constitué d'un tube cylindrique muni d'un piston, équipé d'une aiguille creuse permettant l'injection ou le prélèvement de substances liquides dans le corps. La seringue moderne, développée par Pravaz en 1841, révolutionne la médecine en permettant l'administration précise de médicaments par voie hypodermique.",
+    "tags": [
+      "médical",
+      "injection",
+      "hypodermique",
+      "chirurgie",
+      "soins"
+    ],
+    "origin": "Charles Gabriel Pravaz (France)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Seringue",
+    "image_url": "/images/nodes/seringue.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "acier-inox",
+        "name": "Acier inoxydable",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": false
+      },
+      {
+        "id": "verre",
+        "name": "Verre",
+        "relation_type": "material",
+        "quantity_hint": "modérément",
+        "exists": true
+      },
+      {
+        "id": "plastique",
+        "name": "Plastique",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "caoutchouc",
+        "name": "Caoutchouc",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": "1",
+        "exists": true
+      },
+      {
+        "id": "four",
+        "name": "Four",
+        "relation_type": "tool",
+        "quantity_hint": "1",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "vaccin",
+        "name": "Vaccin",
+        "exists": true
+      },
+      {
+        "id": "anesthesie",
+        "name": "Anesthésie",
+        "exists": true
+      },
+      {
+        "id": "antibiotique",
+        "name": "Antibiotique",
+        "exists": true
+      },
+      {
+        "id": "medicaments",
+        "name": "Médicaments",
+        "exists": true
+      }
+    ]
+  },
+  "anatomie-humaine": {
+    "name_en": "Human anatomy",
+    "description": "Science qui étudie la structure du corps humain, ses organes et leurs relations. Développée depuis l'Antiquité par l'observation et la dissection, elle devient une discipline moderne au XVIe siècle avec André Vésale et son ouvrage De Humani Corporis Fabrica (1543).",
+    "tags": [
+      "médecine",
+      "science",
+      "corps humain",
+      "dissection",
+      "observation"
+    ],
+    "origin": "Hippocrate (Grèce antique)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Anatomie_humaine",
+    "image_url": "/images/nodes/anatomie-humaine.png",
+    "_ai_built_upon": [
+      {
+        "id": "plantes-medicinales",
+        "name": "Plantes médicinales",
+        "relation_type": "knowledge",
+        "quantity_hint": "quelques",
+        "exists": true
+      },
+      {
+        "id": "observation-directe",
+        "name": "Observation directe",
+        "relation_type": "knowledge",
+        "quantity_hint": "beaucoup",
+        "exists": false
+      },
+      {
+        "id": "dissection-animale",
+        "name": "Dissection animale",
+        "relation_type": "knowledge",
+        "quantity_hint": "beaucoup",
+        "exists": false
+      },
+      {
+        "id": "cadavre-humain",
+        "name": "Cadavre humain",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": false
+      },
+      {
+        "id": "outils-dissection",
+        "name": "Outils de dissection",
+        "relation_type": "tool",
+        "quantity_hint": "quelques",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "chirurgie",
+        "name": "Chirurgie",
+        "exists": false
+      },
+      {
+        "id": "medicaments",
+        "name": "Médicaments",
+        "exists": true
+      },
+      {
+        "id": "microscope",
+        "name": "Microscope",
+        "exists": true
+      },
+      {
+        "id": "stethoscope",
+        "name": "Stéthoscope",
+        "exists": true
+      },
+      {
+        "id": "rayons-x",
+        "name": "Rayons X",
+        "exists": true
+      },
+      {
+        "id": "anatomie-artistique",
+        "name": "Anatomie artistique",
+        "exists": false
+      }
+    ]
+  },
+  "immunologie": {
+    "name_en": "Immunology",
+    "description": "Science qui étudie le système immunitaire et ses réactions de défense contre les agents pathogènes. Fondée sur les travaux de vaccination de Jenner et Pasteur, elle s'est développée comme discipline autonome avec l'identification des mécanismes cellulaires et humoraux de l'immunité. Elle englobe l'étude des anticorps, des lymphocytes, et des phénomènes de reconnaissance du soi et du non-soi.",
+    "tags": [
+      "science",
+      "médecine",
+      "biologie",
+      "microbiologie",
+      "vaccination",
+      "système immunitaire",
+      "recherche"
+    ],
+    "origin": "Louis Pasteur, Ilya Metchnikov",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Immunologie",
+    "image_url": "/images/nodes/immunologie.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "anatomie-humaine",
+        "name": "Anatomie humaine",
+        "relation_type": "knowledge",
+        "quantity_hint": "essentiel",
+        "exists": true
+      },
+      {
+        "id": "microscope",
+        "name": "Microscope",
+        "relation_type": "tool",
+        "quantity_hint": "indispensable",
+        "exists": true
+      },
+      {
+        "id": "vaccin",
+        "name": "Vaccin",
+        "relation_type": "knowledge",
+        "quantity_hint": "précurseur",
+        "exists": true
+      },
+      {
+        "id": "chimie-organique",
+        "name": "Chimie organique",
+        "relation_type": "knowledge",
+        "quantity_hint": "nécessaire",
+        "exists": true
+      },
+      {
+        "id": "microbiologie",
+        "name": "Microbiologie",
+        "relation_type": "knowledge",
+        "quantity_hint": "fondamentale",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "antibiotique",
+        "name": "Antibiotique",
+        "relation_type": "direct",
+        "exists": true
+      },
+      {
+        "id": "transfusion-sanguine",
+        "name": "Transfusion sanguine",
+        "exists": false
+      },
+      {
+        "id": "greffe-organe",
+        "name": "Greffe d'organe",
+        "exists": false
+      },
+      {
+        "id": "immunotherapie",
+        "name": "Immunothérapie",
+        "exists": false
+      },
+      {
+        "id": "vaccin-arn",
+        "name": "Vaccin ARN",
+        "exists": false
+      }
+    ]
+  },
+  "epidemiologie": {
+    "name_en": "Epidemiology",
+    "description": "Discipline scientifique qui étudie la distribution et les déterminants des problèmes de santé dans les populations humaines, leur fréquence et leur répartition dans le temps et l'espace. Elle utilise des méthodes statistiques et analytiques pour identifier les causes des maladies, surveiller les épidémies et évaluer les interventions de santé publique.",
+    "tags": [
+      "santé publique",
+      "statistiques",
+      "médecine préventive",
+      "surveillance sanitaire",
+      "recherche médicale"
+    ],
+    "origin": "John Snow (Angleterre)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Épidémiologie",
+    "image_url": "/images/nodes/epidemiologie.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "anatomie-humaine",
+        "name": "Anatomie humaine",
+        "relation_type": "knowledge",
+        "quantity_hint": "nécessaire",
+        "exists": true
+      },
+      {
+        "id": "mathematiques",
+        "name": "Mathématiques",
+        "relation_type": "knowledge",
+        "quantity_hint": "beaucoup",
+        "exists": false
+      },
+      {
+        "id": "statistiques",
+        "name": "Statistiques",
+        "relation_type": "knowledge",
+        "quantity_hint": "beaucoup",
+        "exists": false
+      },
+      {
+        "id": "papier",
+        "name": "Papier",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "encre",
+        "name": "Encre",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "observation-medicale",
+        "name": "Observation médicale",
+        "relation_type": "knowledge",
+        "quantity_hint": "nécessaire",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "vaccin",
+        "name": "Vaccin",
+        "exists": true
+      },
+      {
+        "id": "sante-publique",
+        "name": "Santé publique",
+        "exists": false
+      },
+      {
+        "id": "medecine-preventive",
+        "name": "Médecine préventive",
+        "exists": false
+      },
+      {
+        "id": "surveillance-sanitaire",
+        "name": "Surveillance sanitaire",
+        "exists": false
+      },
+      {
+        "id": "essais-cliniques",
+        "name": "Essais cliniques",
+        "exists": false
+      }
+    ]
+  },
+  "moisissures": {
+    "name_en": "Molds",
+    "description": "Organismes microscopiques filamenteux appartenant au règne Fungi, caractérisés par leur développement dans des environnements humides. Elles jouent un rôle essentiel dans la décomposition des matières organiques et ont permis des découvertes majeures comme la pénicilline. Utilisées traditionnellement dans l'alimentaire pour les fromages et la fermentation.",
+    "tags": [
+      "champignon",
+      "microorganisme",
+      "décomposition",
+      "fermentation",
+      "antibiotique"
+    ],
+    "origin": "Naturel",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Moisissure",
+    "image_url": "/images/nodes/moisissures.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "eau",
+        "name": "Eau",
+        "relation_type": "material",
+        "quantity_hint": "essentielle",
+        "exists": true
+      },
+      {
+        "id": "air",
+        "name": "Air",
+        "relation_type": "material",
+        "quantity_hint": "modérée",
+        "exists": true
+      },
+      {
+        "id": "matiere-organique",
+        "name": "Matière organique",
+        "relation_type": "material",
+        "quantity_hint": "variable",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "fermentation",
+        "name": "Fermentation",
+        "exists": true
+      },
+      {
+        "id": "fromage",
+        "name": "Fromage",
+        "exists": true
+      },
+      {
+        "id": "antibiotique",
+        "name": "Antibiotique",
+        "exists": true
+      },
+      {
+        "id": "medicaments",
+        "name": "Médicaments",
+        "exists": true
+      }
+    ]
+  },
+  "streptomycine": {
+    "name_en": "Streptomycin",
+    "description": "Premier antibiotique efficace contre la tuberculose, isolé en 1943 de la bactérie Streptomyces griseus. Appartient à la famille des aminosides et inhibe la synthèse protéique bactérienne en se liant aux ribosomes. Révolutionna le traitement de la tuberculose et marqua un tournant dans l'histoire des antibiotiques.",
+    "tags": [
+      "antibiotique",
+      "aminoside",
+      "tuberculose",
+      "médecine",
+      "microbiologie",
+      "fermentation"
+    ],
+    "origin": "Albert Schatz et Selman Waksman (Université Rutgers, États-Unis)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Streptomycine",
+    "image_url": "/images/nodes/streptomycine.png",
+    "_ai_built_upon": [
+      {
+        "id": "moisissures",
+        "name": "Moisissures",
+        "relation_type": "material",
+        "quantity_hint": "cultures",
+        "exists": true
+      },
+      {
+        "id": "chimie-organique",
+        "name": "Chimie organique",
+        "relation_type": "knowledge",
+        "quantity_hint": "principes",
+        "exists": true
+      },
+      {
+        "id": "fermentation",
+        "name": "Fermentation",
+        "relation_type": "tool",
+        "quantity_hint": "procédé",
+        "exists": true
+      },
+      {
+        "id": "principes-actifs",
+        "name": "Principes actifs",
+        "relation_type": "knowledge",
+        "quantity_hint": "extraction",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "autres-antibiotiques",
+        "name": "Autres antibiotiques",
+        "exists": false
+      },
+      {
+        "id": "traitement-tuberculose",
+        "name": "Traitement moderne de la tuberculose",
+        "exists": false
+      },
+      {
+        "id": "aminoglycosides",
+        "name": "Famille des aminoglycosides",
+        "exists": false
+      },
+      {
+        "id": "essais-cliniques-randomises",
+        "name": "Essais cliniques randomisés",
+        "exists": false
+      }
+    ]
+  },
+  "anesthesie-locale": {
+    "name_en": "Local anesthesia",
+    "description": "Technique médicale qui consiste à inhiber de façon réversible la propagation des signaux le long des nerfs dans une région spécifique du corps, permettant d'effectuer des interventions chirurgicales sans douleur. La première anesthésie locale moderne fut introduite en 1884 par Carl Koller avec la cocaïne en chirurgie oculaire, révolutionnant la pratique médicale.",
+    "tags": [
+      "chirurgie",
+      "analgésie",
+      "médecine",
+      "cocaïne",
+      "lidocaïne"
+    ],
+    "origin": "Carl Koller (Autriche)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Anesth%C3%A9sie_locale",
+    "image_url": "/images/nodes/anesthesie-locale.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "plantes-medicinales",
+        "name": "Plantes médicinales",
+        "relation_type": "material",
+        "quantity_hint": "base",
+        "exists": true
+      },
+      {
+        "id": "principes-actifs",
+        "name": "Principes actifs",
+        "relation_type": "material",
+        "quantity_hint": "essence",
+        "exists": true
+      },
+      {
+        "id": "seringue",
+        "name": "Seringue",
+        "relation_type": "tool",
+        "quantity_hint": "instrument",
+        "exists": true
+      },
+      {
+        "id": "anatomie-humaine",
+        "name": "Anatomie humaine",
+        "relation_type": "knowledge",
+        "quantity_hint": "fondamental",
+        "exists": true
+      },
+      {
+        "id": "chimie-organique",
+        "name": "Chimie organique",
+        "relation_type": "knowledge",
+        "quantity_hint": "base",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "anesthesie-regionale",
+        "name": "Anesthésie régionale",
+        "exists": false
+      },
+      {
+        "id": "chirurgie-moderne",
+        "name": "Chirurgie moderne",
+        "exists": false
+      },
+      {
+        "id": "dentisterie-moderne",
+        "name": "Dentisterie moderne",
+        "exists": false
+      }
+    ]
+  },
+  "nitroglycerine": {
+    "name_en": "Nitroglycerin",
+    "description": "<cite index=\"1-4,1-5,1-6\">La nitroglycérine est un composé organique liquide dense, incolore, huileux, explosif et hautement toxique, obtenu par condensation du glycérol avec l'acide nitrique. Elle est utilisée dans la fabrication d'explosifs, et plus particulièrement de la dynamite, et peut également avoir un usage médical comme vasodilatateur</cite>. <cite index=\"1-8\">Elle a été découverte par Ascanio Sobrero en 1847 à l'université de Turin</cite>.",
+    "tags": [
+      "explosif",
+      "médical",
+      "chimie",
+      "nitration"
+    ],
+    "origin": "Ascanio Sobrero",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Nitroglyc%C3%A9rine",
+    "image_url": "/images/nodes/nitroglycerine.png",
+    "_ai_built_upon": [
+      {
+        "id": "glycerol",
+        "name": "Glycérol",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": false
+      },
+      {
+        "id": "acide-nitrique",
+        "name": "Acide nitrique",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": false
+      },
+      {
+        "id": "acide-sulfurique",
+        "name": "Acide sulfurique",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": false
+      },
+      {
+        "id": "chimie-organique",
+        "name": "Chimie organique",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "four",
+        "name": "Four",
+        "relation_type": "tool",
+        "quantity_hint": "un",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "dynamite",
+        "name": "Dynamite",
+        "exists": true
+      },
+      {
+        "id": "medicaments",
+        "name": "Médicaments",
+        "exists": true
+      },
+      {
+        "id": "cordite",
+        "name": "Cordite",
+        "exists": false
+      },
+      {
+        "id": "poudre-sans-fumee",
+        "name": "Poudre sans fumée",
+        "exists": false
+      }
+    ]
+  },
+  "tunnel-ferroviaire": {
+    "name_en": "Railway tunnel",
+    "description": "Ouvrage souterrain spécialement conçu pour le passage des trains. <cite index=\"11-5,11-6,1-1\">Le développement du réseau ferroviaire au XIXe siècle entraine le percement de très nombreux tunnels pour éviter les rampes importantes. C'est à cette époque que sont mis au point la technique du bouclier qui permet de protéger les ouvriers des éboulements, les perforatrices à air comprimé qui permettent d'accélérer le creusement. Le premier tunnel ferroviaire est le tunnel de Terre-Noire, de 1477 mètres de long.</cite> Les tunnels ferroviaires révolutionnent le transport en permettant de franchir les obstacles naturels comme les montagnes.",
+    "tags": [
+      "chemin de fer",
+      "transport",
+      "génie civil",
+      "souterrain",
+      "montagne"
+    ],
+    "origin": "France (tunnel de Terre-Noire)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Tunnel_ferroviaire",
+    "image_url": "/images/nodes/tunnel-ferroviaire.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "explosifs",
+        "name": "Explosifs",
+        "relation_type": "tool",
+        "quantity_hint": "beaucoup",
+        "exists": false
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "pierre",
+        "name": "Pierre de taille",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "ciment",
+        "name": "Ciment",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "locomotive",
+        "name": "Locomotive",
+        "relation_type": "knowledge",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "perforatrice-pneumatique",
+        "name": "Perforatrice pneumatique",
+        "relation_type": "tool",
+        "quantity_hint": "peu",
+        "exists": false
+      },
+      {
+        "id": "air-comprime",
+        "name": "Air comprimé",
+        "relation_type": "energy",
+        "quantity_hint": "beaucoup",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "metro",
+        "name": "Métro",
+        "exists": false
+      },
+      {
+        "id": "tunnel-sous-marin",
+        "name": "Tunnel sous-marin",
+        "exists": false
+      },
+      {
+        "id": "tgv",
+        "name": "Train à grande vitesse",
+        "exists": false
+      },
+      {
+        "id": "reseau-ferroviaire-transalpin",
+        "name": "Réseau ferroviaire transalpin",
+        "exists": false
+      }
+    ]
+  },
+  "geligniite": {
+    "name_en": "Gelignite",
+    "description": "<cite index=\"1-4,1-5\">La géligniite est un explosif constitué de collodion-coton (nitrocellulose) dissous dans la nitroglycérine et mélangé avec de la pâte de bois et du salpêtre. Elle fut inventée en 1875 par Alfred Nobel.</cite> <cite index=\"1-6,1-7,1-8\">Plus stable que la dynamite, elle est facilement malléable et sûre à manipuler sans protection tant qu'elle n'est pas proche d'un détonateur, brûle lentement et ne peut exploser sans détonateur.</cite>",
+    "tags": [
+      "explosif",
+      "nitroglycerine",
+      "stabilisant",
+      "mines",
+      "demolition"
+    ],
+    "origin": "Alfred Nobel (Suède)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/G%C3%A9lignite",
+    "image_url": "/images/nodes/geligniite.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "nitroglycerine",
+        "name": "Nitroglycérine",
+        "relation_type": "material",
+        "quantity_hint": "60-75%",
+        "exists": true
+      },
+      {
+        "id": "nitrocellulose",
+        "name": "Nitrocellulose",
+        "relation_type": "material",
+        "quantity_hint": "3-5%",
+        "exists": false
+      },
+      {
+        "id": "salpetre",
+        "name": "Salpêtre",
+        "relation_type": "material",
+        "quantity_hint": "25-35%",
+        "exists": true
+      },
+      {
+        "id": "pate-bois",
+        "name": "Pâte de bois",
+        "relation_type": "material",
+        "quantity_hint": "5-10%",
+        "exists": false
+      },
+      {
+        "id": "chimie-organique",
+        "name": "Chimie organique",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "explosif-plastique",
+        "name": "Explosif plastique",
+        "exists": false
+      },
+      {
+        "id": "mines-modernes",
+        "name": "Mines modernes",
+        "exists": false
+      },
+      {
+        "id": "demolition-industrielle",
+        "name": "Démolition industrielle",
+        "exists": false
+      }
+    ]
+  },
+  "argent": {
+    "name_en": "Silver",
+    "description": "Métal précieux blanc et brillant, l'argent (Ag) est connu depuis l'Antiquité et présente d'excellentes propriétés de conductivité électrique et thermique. Il existe à l'état natif dans la nature mais est plus souvent extrait de sulfures associés au cuivre, plomb et zinc.",
+    "tags": [
+      "métal",
+      "précieux",
+      "conducteur",
+      "antimicrobien",
+      "monnaie"
+    ],
+    "origin": "Anatolie (Turquie actuelle)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Argent",
+    "image_url": "/images/nodes/argent.jpg",
+    "_ai_built_upon": [],
+    "_ai_led_to": [
+      {
+        "id": "bronze",
+        "name": "Bronze",
+        "exists": true
+      },
+      {
+        "id": "electrum",
+        "name": "Électrum",
+        "exists": false
+      },
+      {
+        "id": "monnaie-argent",
+        "name": "Monnaie d'argent",
+        "exists": false
+      },
+      {
+        "id": "bijoux-argent",
+        "name": "Bijoux en argent",
+        "exists": false
+      },
+      {
+        "id": "fil-argent",
+        "name": "Fil d'argent",
+        "exists": false
+      },
+      {
+        "id": "contacts-electriques",
+        "name": "Contacts électriques",
+        "exists": false
+      }
+    ]
+  },
+  "bitume-de-judee": {
+    "name_en": "Bitumen of Judea",
+    "description": "Substance naturelle noire composée d'hydrocarbures fossiles, extraite principalement de la région de la mer Morte. Utilisé depuis l'Antiquité comme imperméabilisant et pigment, il est devenu célèbre au 19e siècle en peinture artistique et pour l'invention de la photographie par Nicéphore Niépce.",
+    "tags": [
+      "hydrocarbure",
+      "fossile",
+      "pigment",
+      "imperméabilisant",
+      "photographie",
+      "peinture"
+    ],
+    "origin": "Région de Judée (mer Morte)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Bitume_(pigment)",
+    "image_url": "/images/nodes/bitume-de-judee.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "petrole",
+        "name": "Pétrole",
+        "relation_type": "material",
+        "quantity_hint": "dérivé naturel",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "photographie",
+        "name": "Photographie",
+        "exists": false
+      },
+      {
+        "id": "asphalte-routier",
+        "name": "Asphalte routier",
+        "exists": false
+      },
+      {
+        "id": "pigment-brun",
+        "name": "Pigment brun",
+        "exists": false
+      },
+      {
+        "id": "heliographie",
+        "name": "Héliographie",
+        "exists": false
+      }
+    ]
+  },
+  "radiographie": {
+    "name_en": "Radiography",
+    "description": "Technique d'imagerie utilisant les rayons X pour visualiser les structures internes d'un objet sans le détruire. Découverte en 1895 par Wilhelm Röntgen, elle revolutionne le diagnostic médical en permettant de voir à travers le corps humain.",
+    "tags": [
+      "imagerie",
+      "diagnostic",
+      "médecine",
+      "rayons-x",
+      "non-destructif"
+    ],
+    "origin": "Wilhelm Conrad Röntgen (Allemagne)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Radiographie",
+    "image_url": "/images/nodes/radiographie.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "rayons-x",
+        "name": "Rayons X",
+        "relation_type": "tool",
+        "quantity_hint": "1",
+        "exists": true
+      },
+      {
+        "id": "tube-crookes",
+        "name": "Tube de Crookes",
+        "relation_type": "tool",
+        "quantity_hint": "1",
+        "exists": false
+      },
+      {
+        "id": "plaque-photographique",
+        "name": "Plaque photographique",
+        "relation_type": "material",
+        "quantity_hint": "1",
+        "exists": false
+      },
+      {
+        "id": "electricite",
+        "name": "Électricité",
+        "relation_type": "energy",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "anatomie-humaine",
+        "name": "Anatomie humaine",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "radiologie-industrielle",
+        "name": "Radiologie industrielle",
+        "exists": false
+      },
+      {
+        "id": "scanner-medical",
+        "name": "Scanner médical",
+        "exists": false
+      },
+      {
+        "id": "mammographie",
+        "name": "Mammographie",
+        "exists": false
+      },
+      {
+        "id": "radioprotection",
+        "name": "Radioprotection",
+        "exists": false
+      }
+    ]
+  },
+  "disque-dur": {
+    "name_en": "Hard disk drive",
+    "description": "Mémoire de masse magnétique constituée de plateaux rigides en rotation recouverts d'une couche magnétique. <cite index=\"2-7,2-8\">Le premier système de disque dur IBM 350 fut utilisé dans le RAMAC 305 en 1956</cite>, révolutionnant le stockage informatique. Les données sont écrites et lues par des têtes magnétiques qui survolent les plateaux sans les toucher.",
+    "tags": [
+      "stockage",
+      "magnétique",
+      "informatique",
+      "mémoire"
+    ],
+    "origin": "<cite index=\"10-1,10-12\">Reynold Johnson (IBM)</cite>",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Disque_dur",
+    "image_url": "/images/nodes/disque-dur.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "aluminium",
+        "name": "Aluminium",
+        "relation_type": "material",
+        "quantity_hint": "substrat des plateaux",
+        "exists": true
+      },
+      {
+        "id": "verre",
+        "name": "Verre",
+        "relation_type": "material",
+        "quantity_hint": "substrat moderne",
+        "exists": true
+      },
+      {
+        "id": "cuivre",
+        "name": "Cuivre",
+        "relation_type": "material",
+        "quantity_hint": "bobinages têtes",
+        "exists": true
+      },
+      {
+        "id": "moteur-electrique",
+        "name": "Moteur électrique",
+        "relation_type": "tool",
+        "quantity_hint": "rotation plateaux",
+        "exists": true
+      },
+      {
+        "id": "circuit-imprime",
+        "name": "Circuit imprimé",
+        "relation_type": "tool",
+        "quantity_hint": "contrôleur",
+        "exists": true
+      },
+      {
+        "id": "alliage-cobalt-chrome-platine",
+        "name": "Alliage cobalt-chrome-platine",
+        "relation_type": "material",
+        "quantity_hint": "couche magnétique",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "ordinateur",
+        "name": "Ordinateur",
+        "exists": true
+      },
+      {
+        "id": "serveur-informatique",
+        "name": "Serveur informatique",
+        "exists": true
+      },
+      {
+        "id": "base-de-donnees",
+        "name": "Base de données",
+        "exists": false
+      },
+      {
+        "id": "disque-ssd",
+        "name": "Disque SSD",
+        "exists": false
+      }
+    ]
+  },
+  "arc": {
+    "name_en": "Bow",
+    "description": "Arme de trait constituée d'une pièce courbe flexible et d'une corde, permettant de lancer des flèches. L'arc emmagasine et restitue l'énergie comme un ressort lors de l'armement et de la détente. Inventé à l'époque préhistorique, il fut d'abord une arme de chasse puis de guerre, révolutionnant les techniques de combat à distance.",
+    "tags": [
+      "arme",
+      "chasse",
+      "guerre",
+      "trait",
+      "tir"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Arc_(arme)",
+    "image_url": "/images/nodes/arc.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "principal",
+        "exists": true
+      },
+      {
+        "id": "tendon-animal",
+        "name": "Tendon animal",
+        "relation_type": "material",
+        "quantity_hint": "pour corde",
+        "exists": false
+      },
+      {
+        "id": "fibres-vegetales",
+        "name": "Fibres végétales",
+        "relation_type": "material",
+        "quantity_hint": "pour corde",
+        "exists": false
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "fleche",
+        "name": "Flèche",
+        "exists": false
+      },
+      {
+        "id": "arbalete",
+        "name": "Arbalète",
+        "exists": false
+      },
+      {
+        "id": "carquois",
+        "name": "Carquois",
+        "exists": false
+      }
+    ]
+  },
+  "arbalete": {
+    "name_en": "Crossbow",
+    "description": "Arme de jet constituée d'un arc monté horizontalement sur un fût (arbrier) avec un mécanisme de détente pour retenir et libérer la corde. Elle lance des projectiles courts appelés carreaux avec plus de précision que l'arc traditionnel mais une cadence de tir plus lente. Largement utilisée de l'Antiquité au Moyen Âge pour la guerre, la chasse et la défense des places fortes.",
+    "tags": [
+      "tir",
+      "guerre",
+      "chasse",
+      "médiéval",
+      "siege",
+      "projectile"
+    ],
+    "origin": "Chine",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Arbal%C3%A8te",
+    "image_url": "/images/nodes/arbalete.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "bois",
+        "name": "Bois",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "corde",
+        "name": "Corde",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": false
+      },
+      {
+        "id": "bronze",
+        "name": "Bronze",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "scie",
+        "name": "Scie",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "ressort",
+        "name": "Ressort",
+        "relation_type": "material",
+        "quantity_hint": "peu",
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "fusil",
+        "name": "Fusil",
+        "exists": true
+      },
+      {
+        "id": "arbalete-moderne",
+        "name": "Arbalète moderne",
+        "exists": false
+      },
+      {
+        "id": "mecanisme-detente",
+        "name": "Mécanisme de détente",
+        "exists": false
+      }
+    ]
+  },
+  "artillerie-moderne": {
+    "name_en": "Modern artillery",
+    "description": "L'artillerie moderne désigne l'évolution révolutionnaire de l'art militaire des bouches à feu entre 1850 et 1950, caractérisée par l'introduction du chargement par la culasse, des âmes rayées, de la poudre sans fumée et des systèmes de tir rapide. Cette transformation technologique majeure a rendu les pièces d'artillerie plus précises, plus puissantes et plus mobiles.",
+    "tags": [
+      "militaire",
+      "guerre",
+      "innovation",
+      "révolution industrielle",
+      "tir rapide"
+    ],
+    "origin": "France (Canon de 75 mm modèle 1897)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Artillerie",
+    "image_url": "/images/nodes/artillerie-moderne.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "acier",
+        "name": "Acier",
+        "relation_type": "material",
+        "quantity_hint": "beaucoup",
+        "exists": true
+      },
+      {
+        "id": "poudre-a-canon",
+        "name": "Poudre à canon",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "bronze",
+        "name": "Bronze",
+        "relation_type": "material",
+        "quantity_hint": "modéré",
+        "exists": true
+      },
+      {
+        "id": "fonderie",
+        "name": "Fonderie",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "forge",
+        "name": "Forge",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "tour",
+        "name": "Tour",
+        "relation_type": "tool",
+        "quantity_hint": null,
+        "exists": true
+      },
+      {
+        "id": "canon",
+        "name": "Canon",
+        "relation_type": "knowledge",
+        "quantity_hint": null,
+        "exists": true
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "artillerie-lourde",
+        "name": "Artillerie lourde",
+        "exists": false
+      },
+      {
+        "id": "obus-explosif",
+        "name": "Obus explosif",
+        "exists": false
+      },
+      {
+        "id": "tir-indirect",
+        "name": "Tir indirect",
+        "exists": false
+      },
+      {
+        "id": "obusier-moderne",
+        "name": "Obusier moderne",
         "exists": false
       }
     ]

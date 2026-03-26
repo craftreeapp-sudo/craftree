@@ -8,6 +8,7 @@ import {
   useCallback,
   type CSSProperties,
 } from 'react';
+import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { NodeProps } from '@xyflow/react';
 import Fuse from 'fuse.js';
@@ -34,7 +35,10 @@ import type {
   TechNodeType,
 } from '@/lib/types';
 import { RelationType } from '@/lib/types';
-import { NodeCategory as NC } from '@/lib/types';
+import {
+  NODE_CATEGORY_ORDER,
+  TECH_NODE_TYPE_ORDER,
+} from '@/lib/node-labels';
 
 /** Brouillon avant création API (catégorie / type modifiables jusqu’au choix du lien). */
 export type CreateDraft = {
@@ -60,37 +64,6 @@ function neighborIdsOfCenter(
   }
   return set;
 }
-
-const CATEGORY_OPTIONS: { value: NodeCategory; label: string }[] = [
-  { value: NC.MINERAL, label: 'Minéral' },
-  { value: NC.VEGETAL, label: 'Végétal' },
-  { value: NC.ANIMAL, label: 'Animal' },
-  { value: NC.ELEMENT, label: 'Élément' },
-  { value: NC.ENERGY, label: 'Énergie' },
-  { value: NC.MATERIAL, label: 'Matériau' },
-  { value: NC.TOOL, label: 'Outil' },
-  { value: NC.PROCESS, label: 'Procédé' },
-  { value: NC.MACHINE, label: 'Machine' },
-  { value: NC.ELECTRONICS, label: 'Électronique' },
-  { value: NC.CHEMISTRY, label: 'Chimie' },
-  { value: NC.CONSTRUCTION, label: 'Construction' },
-  { value: NC.TRANSPORT, label: 'Transport' },
-  { value: NC.COMMUNICATION, label: 'Communication' },
-  { value: NC.FOOD, label: 'Alimentation' },
-  { value: NC.TEXTILE, label: 'Textile' },
-  { value: NC.MEDICAL, label: 'Médical' },
-  { value: NC.WEAPON, label: 'Armes' },
-  { value: NC.OPTICAL, label: 'Optique' },
-  { value: NC.SOFTWARE, label: 'Logiciel' },
-];
-
-const TYPE_OPTIONS: { value: TechNodeType; label: string }[] = [
-  { value: 'raw_material', label: 'Matière première' },
-  { value: 'process', label: 'Procédé' },
-  { value: 'tool', label: 'Outil' },
-  { value: 'component', label: 'Composant' },
-  { value: 'end_product', label: 'Produit final' },
-];
 
 const SELECT_CLASS =
   'nodrag nopan w-full appearance-none rounded-md border-[0.5px] border-[#2A3042] bg-[#111827] px-2.5 py-2 pr-9 text-[13px] text-[#E8ECF4] outline-none focus:border-[#3B82F6]';
@@ -151,6 +124,30 @@ export function ConnectionSearchPopup(_props: NodeProps) {
   );
   const inputRef = useRef<HTMLInputElement>(null);
   const draftRef = useRef<CreateDraft | null>(null);
+
+  const tConn = useTranslations('connectionPopup');
+  const tc = useTranslations('common');
+  const te = useTranslations('editor');
+
+  const tCat = useTranslations('categories');
+  const tType = useTranslations('types');
+
+  const categoryOptions = useMemo(
+    () =>
+      NODE_CATEGORY_ORDER.map((value) => ({
+        value,
+        label: tCat(value),
+      })),
+    [tCat]
+  );
+  const typeOptions = useMemo(
+    () =>
+      TECH_NODE_TYPE_ORDER.map((value) => ({
+        value,
+        label: tType(value),
+      })),
+    [tType]
+  );
 
   const mode: FocusLinkSearchMode | null = searchMode;
 
@@ -309,8 +306,8 @@ export function ConnectionSearchPopup(_props: NodeProps) {
             nodeData?.message ||
             (nodeData?.error === 'name_exists' ||
             nodeData?.error === 'id_exists'
-              ? 'Une invention avec ce nom existe déjà'
-              : 'Création impossible. Réessayez.');
+              ? tConn('inventionNameExists')
+              : tConn('createFailed'));
           setCreateError(msg);
           setCreating(false);
           return;
@@ -340,7 +337,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
         if (!linkRes.ok) {
           const err = await linkRes.json().catch(() => ({}));
           console.warn('POST /api/links failed', err);
-          setCreateError('Nœud créé, mais échec du lien. Réessayez depuis l’éditeur.');
+          setCreateError(tConn('nodeCreatedLinkFailed'));
           setCreating(false);
           return;
         }
@@ -353,7 +350,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
         setPopupState({ mode: 'search' });
         close();
       } catch {
-        setCreateError('Erreur réseau.');
+        setCreateError(te('toastNetworkError'));
       } finally {
         setCreating(false);
       }
@@ -366,6 +363,8 @@ export function ConnectionSearchPopup(_props: NodeProps) {
       setEdgesAndRecompute,
       close,
       setLastCreatedEdgeId,
+      tConn,
+      te,
     ]
   );
 
@@ -443,24 +442,23 @@ export function ConnectionSearchPopup(_props: NodeProps) {
               >
                 <div className="flex items-start justify-between gap-2 border-b border-[#2A3042] px-3 py-2">
                   <p className="text-[13px] font-bold leading-tight text-white">
-                    Créer : {pickDraft.name}
+                    {tConn('createHeading', { name: pickDraft.name })}
                   </p>
                   <button
                     type="button"
                     onClick={backFromPickToCreate}
                     className="shrink-0 text-[12px] text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
                   >
-                    Retour
+                    {tc('back')}
                   </button>
                 </div>
                 <div className="max-h-[min(320px,55vh)] space-y-3 overflow-y-auto p-3">
                   <p className="text-[11px] leading-snug text-[#8B95A8]">
-                    Choisissez la catégorie, le type et le type de lien vers
-                    l’invention au centre.
+                    {tConn('pickHint')}
                   </p>
                   <div>
                     <label className="mb-1 block text-[11px] text-[#8B95A8]">
-                      Catégorie
+                      {te('category')}
                     </label>
                     <select
                       value={pickDraft.category}
@@ -474,7 +472,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                       className={SELECT_CLASS}
                       style={SELECT_ARROW}
                     >
-                      {CATEGORY_OPTIONS.map((o) => (
+                      {categoryOptions.map((o) => (
                         <option key={o.value} value={o.value}>
                           {o.label}
                         </option>
@@ -483,7 +481,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                   </div>
                   <div>
                     <label className="mb-1 block text-[11px] text-[#8B95A8]">
-                      Type
+                      {te('type')}
                     </label>
                     <select
                       value={pickDraft.type}
@@ -497,7 +495,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                       className={SELECT_CLASS}
                       style={SELECT_ARROW}
                     >
-                      {TYPE_OPTIONS.map((o) => (
+                      {typeOptions.map((o) => (
                         <option key={o.value} value={o.value}>
                           {o.label}
                         </option>
@@ -506,7 +504,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                   </div>
                   <div>
                     <label className="mb-1 block text-[11px] text-[#8B95A8]">
-                      Date
+                      {te('date')}
                     </label>
                     <input
                       type="text"
@@ -522,7 +520,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                         })
                       }
                       onPointerDown={(e) => e.stopPropagation()}
-                      placeholder="ex: 1939 ou -3000"
+                      placeholder={tConn('yearPlaceholder')}
                       className="w-full rounded-md border-[0.5px] border-[#2A3042] bg-[#111827] px-2.5 py-2 text-[13px] text-[#E8ECF4] outline-none placeholder:text-[#5A6175] focus:border-[#3B82F6]"
                     />
                   </div>
@@ -539,7 +537,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                   </div>
                   {creating ? (
                     <p className="text-center text-[12px] text-[#8B95A8]">
-                      Création…
+                      {tConn('creating')}
                     </p>
                   ) : null}
                 </div>
@@ -554,20 +552,20 @@ export function ConnectionSearchPopup(_props: NodeProps) {
               >
                 <div className="flex items-start justify-between gap-2 border-b border-[#2A3042] px-3 py-2">
                   <p className="text-[13px] font-bold leading-tight text-white">
-                    Créer : {createName}
+                    {tConn('createHeading', { name: createName })}
                   </p>
                   <button
                     type="button"
                     onClick={backToSearch}
                     className="shrink-0 text-[12px] text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
                   >
-                    Retour
+                    {tc('back')}
                   </button>
                 </div>
                 <div className="space-y-3 p-3">
                   <div>
                     <label className="mb-1 block text-[11px] text-[#8B95A8]">
-                      Catégorie
+                      {te('category')}
                     </label>
                     <select
                       value={category}
@@ -579,8 +577,8 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                       className={SELECT_CLASS}
                       style={SELECT_ARROW}
                     >
-                      <option value="">— Choisir —</option>
-                      {CATEGORY_OPTIONS.map((o) => (
+                      <option value="">{tConn('choose')}</option>
+                      {categoryOptions.map((o) => (
                         <option key={o.value} value={o.value}>
                           {o.label}
                         </option>
@@ -589,7 +587,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                   </div>
                   <div>
                     <label className="mb-1 block text-[11px] text-[#8B95A8]">
-                      Type
+                      {te('type')}
                     </label>
                     <select
                       value={nodeType}
@@ -601,8 +599,8 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                       className={SELECT_CLASS}
                       style={SELECT_ARROW}
                     >
-                      <option value="">— Choisir —</option>
-                      {TYPE_OPTIONS.map((o) => (
+                      <option value="">{tConn('choose')}</option>
+                      {typeOptions.map((o) => (
                         <option key={o.value} value={o.value}>
                           {o.label}
                         </option>
@@ -611,7 +609,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                   </div>
                   <div>
                     <label className="mb-1 block text-[11px] text-[#8B95A8]">
-                      Date
+                      {te('date')}
                     </label>
                     <input
                       type="text"
@@ -619,7 +617,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                       value={yearInput}
                       onChange={(e) => setYearInput(e.target.value)}
                       onPointerDown={(e) => e.stopPropagation()}
-                      placeholder="ex: 1939 ou -3000"
+                      placeholder={tConn('yearPlaceholder')}
                       className="w-full rounded-md border-[0.5px] border-[#2A3042] bg-[#111827] px-2.5 py-2 text-[13px] text-[#E8ECF4] outline-none placeholder:text-[#5A6175] focus:border-[#3B82F6]"
                     />
                   </div>
@@ -633,14 +631,14 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                       onClick={proceedToPickRelation}
                       className="flex-1 rounded-md bg-[#3B82F6] py-2.5 text-[13px] font-bold text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                      Créer + connecter
+                      {tConn('createAndConnect')}
                     </button>
                     <button
                       type="button"
                       onClick={backToSearch}
                       className="rounded-md bg-[#2A3042] px-3 py-2.5 text-[13px] text-[#8B95A8] transition-colors hover:bg-[#3B4558]"
                     >
-                      Annuler
+                      {tc('cancel')}
                     </button>
                   </div>
                 </div>
@@ -659,7 +657,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                     type="search"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Rechercher une invention..."
+                    placeholder={tConn('searchPlaceholder')}
                     className="w-full rounded-md border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] placeholder:text-[#8B95A8] outline-none focus:border-[#3B82F6]"
                   />
                 </div>
@@ -677,7 +675,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                           type="button"
                           disabled={linkingExistingId !== null}
                           onClick={() => void onPickExistingNode(n)}
-                          className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-[#111827] disabled:cursor-wait disabled:opacity-60"
+                          className="flex w-full items-center gap-2 px-3 py-2 text-start text-sm transition-colors hover:bg-[#111827] disabled:cursor-wait disabled:opacity-60"
                         >
                           <span
                             className="h-3 w-3 shrink-0 rounded-sm"
@@ -712,7 +710,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                         setCreateError(null);
                         setPopupState({ mode: 'create', name: qTrim });
                       }}
-                      className="flex w-full items-center justify-center gap-2 rounded-md px-[14px] py-2.5 text-left transition-opacity hover:opacity-95"
+                      className="flex w-full items-center justify-center gap-2 rounded-md px-[14px] py-2.5 text-start transition-opacity hover:opacity-95"
                       style={{
                         backgroundColor: '#6366F1',
                         borderRadius: 6,
@@ -728,7 +726,7 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                         className="text-[13px] font-medium leading-tight text-white"
                         style={{ fontWeight: 500 }}
                       >
-                        Créer &quot;{qTrim}&quot;
+                        {tConn('createQuoted', { name: qTrim })}
                       </span>
                     </button>
                   </div>

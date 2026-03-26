@@ -13,7 +13,9 @@ import Image from 'next/image';
 import { Handle, Position, type NodeProps } from '@xyflow/react';
 import { motion } from 'framer-motion';
 import { getCategoryColor, hexToRgba } from '@/lib/colors';
-import { getCategoryLabelFr } from '@/lib/category-labels';
+import { useLocale, useTranslations } from 'next-intl';
+import { pickNodeDisplayName } from '@/lib/node-display-name';
+import { getNameEnForNode } from '@/lib/name-en-lookup';
 import { formatYear } from '@/lib/utils';
 import {
   getDirectPredecessors,
@@ -46,6 +48,8 @@ export interface TechNodeData {
   /** Query anti-cache après upload (store graph) */
   imageBust?: number;
   origin?: string;
+  /** Surcharge affichage (sinon lookup nodes-details) */
+  name_en?: string;
   centralityNorm?: number;
   dimmed?: boolean;
   focusSelected?: boolean;
@@ -139,6 +143,18 @@ function TechNodeComponent({
   targetPosition = Position.Bottom,
 }: NodeProps) {
   const nodeData = data as unknown as TechNodeData;
+  const locale = useLocale();
+  const tCat = useTranslations('categories');
+  const displayName = useMemo(
+    () =>
+      pickNodeDisplayName(
+        locale,
+        nodeData.name,
+        nodeData.name_en ?? getNameEnForNode(id)
+      ),
+    [locale, nodeData.name, nodeData.name_en, id]
+  );
+  const categoryBadge = tCat(nodeData.category);
   const categoryColor = getCategoryColor(nodeData.category);
   const exploreHoveredNodeId = useUIStore((s) => s.exploreHoveredNodeId);
   const exploreFocusLayout = useUIStore(
@@ -247,8 +263,6 @@ function TechNodeComponent({
       : rawImageUrl;
   const hasImage = Boolean(rawImageUrl);
   const yearLabel = formatYear(nodeData.year_approx);
-  const categoryBadge = getCategoryLabelFr(nodeData.category);
-
   /**
    * Survol /explore : voisins hors focus → opacité 0.
    * Filtres globaux (dimmed dans les données) → opacité réduite mais carte lisible.
@@ -355,7 +369,7 @@ function TechNodeComponent({
 
   const nameSize = explosionMode ? `${13 + centralityNorm * 1}px` : '14px';
 
-  const tooltip = `${nodeData.name} · ${categoryBadge}${
+  const tooltip = `${displayName} · ${categoryBadge}${
     isolatedNoLinks ? ' · Aucun lien entrant ni sortant' : ''
   }`;
 
@@ -523,7 +537,7 @@ function TechNodeComponent({
                     : '15px',
                 }}
               >
-                <span className="line-clamp-3">{nodeData.name}</span>
+                <span className="line-clamp-3">{displayName}</span>
               </div>
             )}
           </div>
@@ -543,7 +557,7 @@ function TechNodeComponent({
                 marginBottom: 6,
               }}
             >
-              {nodeData.name}
+              {displayName}
             </span>
             {yearLabel ? (
               <span

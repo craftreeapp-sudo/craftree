@@ -2,15 +2,20 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { SearchBar } from '@/components/ui/SearchBar';
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 
 export function LandingPage() {
+  const t = useTranslations('landing');
+  const tNav = useTranslations('nav');
+
   return (
     <div className="flex min-h-screen flex-col bg-[#0A0E17]">
       <nav
         className="absolute left-0 right-0 top-0 z-20 flex items-center px-4 py-3 md:px-6 md:py-4"
-        aria-label="Navigation principale"
+        aria-label={tNav('mainNav')}
       >
         <Link
           href="/"
@@ -36,7 +41,7 @@ export function LandingPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
-          De quoi est faite la civilisation ?
+          {t('title')}
         </motion.h1>
 
         <motion.p
@@ -45,8 +50,7 @@ export function LandingPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          Explorez l&apos;arbre complet des technologies humaines, de la matière
-          première au produit final.
+          {t('subtitle')}
         </motion.p>
 
         <motion.div
@@ -55,7 +59,7 @@ export function LandingPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.2 }}
         >
-          <SearchBar />
+          <SearchBar placeholder={t('searchPlaceholder')} />
         </motion.div>
 
         <motion.div
@@ -68,7 +72,7 @@ export function LandingPage() {
             href="/explore"
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#3B82F6] px-10 py-3.5 text-base font-semibold text-white shadow-lg shadow-[#3B82F6]/25 transition-colors hover:bg-[#60A5FA] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#93C5FD] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0E17]"
           >
-            Explore
+            {t('cta')}
             <span aria-hidden>→</span>
           </Link>
         </motion.div>

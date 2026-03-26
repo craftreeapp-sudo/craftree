@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import { Geist_Mono, Inter, Space_Grotesk } from 'next/font/google';
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
 import './globals.css';
 import { getSiteUrl } from '@/lib/seo';
+import { isRtlLocale } from '@/lib/i18n-config';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -83,14 +86,19 @@ const jsonLd = {
   inLanguage: 'fr-FR',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+  const dir = isRtlLocale(locale) ? 'rtl' : 'ltr';
+
   return (
     <html
-      lang="fr"
+      lang={locale}
+      dir={dir}
       className={`${inter.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full bg-[#0A0E17] antialiased`}
     >
       <body className="flex min-h-screen min-h-[100dvh] flex-col bg-[#0A0E17] font-sans text-[#E8ECF4] antialiased">
@@ -98,7 +106,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {children}
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

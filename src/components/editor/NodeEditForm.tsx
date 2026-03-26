@@ -1,13 +1,11 @@
 'use client';
 
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import {
-  NODE_CATEGORY_LABELS_FR,
   NODE_CATEGORY_ORDER,
-  ERA_LABELS_FR,
   ERA_DATE_RANGES,
   ERA_ORDER,
-  TECH_NODE_TYPE_LABELS_FR,
   TECH_NODE_TYPE_ORDER,
 } from '@/lib/node-labels';
 import { slugify } from '@/lib/utils';
@@ -104,6 +102,13 @@ export function NodeEditForm({
   currentImageUrl = null,
   onImageUploadSuccess,
 }: Props) {
+  const te = useTranslations('editor');
+  const tCat = useTranslations('categories');
+  const tEra = useTranslations('eras');
+  const tType = useTranslations('types');
+  const tRel = useTranslations('relationTypes');
+  const tc = useTranslations('common');
+
   const previewId = editingId ?? slugify(form.name);
 
   const nodeById = useMemo(
@@ -195,17 +200,23 @@ export function NodeEditForm({
     <div className="flex min-h-0 flex-1 flex-col">
       <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-1">
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">Nom *</label>
+          <label className="mb-1 block text-xs text-[#8B95A8]">
+            {te('labelName')}
+          </label>
           <input
             value={form.name}
             onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
             className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] outline-none focus:border-[#3B82F6]"
           />
-          <p className="mt-1 text-xs text-[#5A6175]">id: {previewId || '—'}</p>
+          <p className="mt-1 text-xs text-[#5A6175]">
+            {te('idPreview', { id: previewId || '—' })}
+          </p>
         </div>
         {editingId && onImageUploadSuccess ? (
           <div className="w-full">
-            <label className="mb-1 block text-xs text-[#8B95A8]">Image</label>
+            <label className="mb-1 block text-xs text-[#8B95A8]">
+              {te('imageLabel')}
+            </label>
             <ImageUploader
               nodeId={editingId}
               currentImageUrl={currentImageUrl}
@@ -215,7 +226,9 @@ export function NodeEditForm({
           </div>
         ) : null}
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">Catégorie *</label>
+          <label className="mb-1 block text-xs text-[#8B95A8]">
+            {te('labelCategory')}
+          </label>
           <select
             value={form.category}
             onChange={(e) =>
@@ -228,13 +241,15 @@ export function NodeEditForm({
           >
             {NODE_CATEGORY_ORDER.map((c) => (
               <option key={c} value={c}>
-                {NODE_CATEGORY_LABELS_FR[c]}
+                {tCat(c)}
               </option>
             ))}
           </select>
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">Type *</label>
+          <label className="mb-1 block text-xs text-[#8B95A8]">
+            {te('labelType')}
+          </label>
           <select
             value={form.type}
             onChange={(e) =>
@@ -245,15 +260,17 @@ export function NodeEditForm({
             }
             className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
           >
-            {TECH_NODE_TYPE_ORDER.map((t) => (
-              <option key={t} value={t}>
-                {TECH_NODE_TYPE_LABELS_FR[t]}
+            {TECH_NODE_TYPE_ORDER.map((nt) => (
+              <option key={nt} value={nt}>
+                {tType(nt)}
               </option>
             ))}
           </select>
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">Époque *</label>
+          <label className="mb-1 block text-xs text-[#8B95A8]">
+            {te('labelEra')}
+          </label>
           <select
             value={form.era}
             onChange={(e) =>
@@ -261,15 +278,15 @@ export function NodeEditForm({
             }
             className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
           >
-            {ERA_ORDER.map((e) => (
-              <option key={e} value={e}>
-                {ERA_LABELS_FR[e]} ({ERA_DATE_RANGES[e]})
+            {ERA_ORDER.map((era) => (
+              <option key={era} value={era}>
+                {tEra(era)} ({ERA_DATE_RANGES[era]})
               </option>
             ))}
           </select>
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">Date</label>
+          <label className="mb-1 block text-xs text-[#8B95A8]">{te('date')}</label>
           <input
             type="text"
             inputMode="numeric"
@@ -277,58 +294,62 @@ export function NodeEditForm({
             onChange={(e) =>
               setForm((f) => ({ ...f, year_approx: e.target.value }))
             }
-            placeholder="ex: 1954 ou -3000"
+            placeholder={te('datePlaceholder')}
             className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">Origine</label>
+          <label className="mb-1 block text-xs text-[#8B95A8]">{te('origin')}</label>
           <input
             value={form.origin}
             onChange={(e) =>
               setForm((f) => ({ ...f, origin: e.target.value }))
             }
-            placeholder="Inventeur, entreprise ou pays"
+            placeholder={te('originPlaceholder')}
             className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">Description *</label>
+          <label className="mb-1 block text-xs text-[#8B95A8]">
+            {te('labelDescription')}
+          </label>
           <textarea
             rows={4}
             value={form.description}
             onChange={(e) =>
               setForm((f) => ({ ...f, description: e.target.value }))
             }
-            placeholder="Description courte (2–3 phrases)"
+            placeholder={te('descriptionPlaceholder')}
             className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">Tags</label>
+          <label className="mb-1 block text-xs text-[#8B95A8]">{te('tags')}</label>
           <input
             value={form.tags}
             onChange={(e) =>
               setForm((f) => ({ ...f, tags: e.target.value }))
             }
-            placeholder="tag1, tag2, tag3"
+            placeholder={te('tagsPlaceholder')}
             className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">URL Wikipedia</label>
+          <label className="mb-1 block text-xs text-[#8B95A8]">
+            {te('wikipediaUrl')}
+          </label>
           <input
             type="url"
             value={form.wikipedia_url}
             onChange={(e) =>
               setForm((f) => ({ ...f, wikipedia_url: e.target.value }))
             }
-            placeholder="https://fr.wikipedia.org/wiki/..."
+            placeholder={te('wikipediaPlaceholder')}
             className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-[#8B95A8]">Nom (EN)</label>
+          <label className="mb-1 block text-xs text-[#8B95A8]">{te('nameEn')}</label>
           <input
             value={form.name_en}
             onChange={(e) =>
@@ -343,7 +364,7 @@ export function NodeEditForm({
             <hr className="border-[#2A3042]" />
             <section>
               <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#8B95A8]">
-                Obtenu grâce à
+                {te('builtUponSection')}
               </h3>
               <ul className="mb-3 space-y-2">
                 {incomingLinks.map((l) => {
@@ -354,9 +375,9 @@ export function NodeEditForm({
                       className="flex items-center gap-2 rounded border border-[#2A3042] bg-[#111827]/60 px-2 py-1.5"
                     >
                       <span
-                        className={`inline-block shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase ${RELATION_BADGE_COLORS[l.relation_type]}`}
+                        className={`inline-block shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-medium ${RELATION_BADGE_COLORS[l.relation_type]}`}
                       >
-                        {String(l.relation_type).toUpperCase()}
+                        {tRel(l.relation_type)}
                       </span>
                       <span className="min-w-0 flex-1 truncate text-sm text-[#E8ECF4]">
                         {src?.name ?? l.source_id}
@@ -365,7 +386,7 @@ export function NodeEditForm({
                         type="button"
                         onClick={() => void removeLink(l.id)}
                         className="shrink-0 rounded p-1 text-[#EF4444] transition-colors hover:text-[#F87171]"
-                        aria-label="Supprimer le lien"
+                        aria-label={te('removeLinkAria')}
                       >
                         ×
                       </button>
@@ -379,7 +400,7 @@ export function NodeEditForm({
                     options={nodeOptions}
                     value={builtSource}
                     onChange={setBuiltSource}
-                    placeholder="Invention source"
+                    placeholder={te('placeholderInventionSource')}
                   />
                 </div>
                 <div className="w-[130px]">
@@ -392,7 +413,7 @@ export function NodeEditForm({
                   >
                     {RELATION_TYPES_LIST.map((r) => (
                       <option key={r} value={r}>
-                        {String(r).toUpperCase()}
+                        {tRel(r)}
                       </option>
                     ))}
                   </select>
@@ -402,14 +423,14 @@ export function NodeEditForm({
                   onClick={() => void addBuiltUpon()}
                   className="rounded-lg bg-[#3B82F6] px-3 py-2 text-xs font-medium text-white hover:bg-[#2563eb]"
                 >
-                  + Ajouter
+                  {te('addLink')}
                 </button>
               </div>
             </section>
 
             <section>
               <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#8B95A8]">
-                A conduit à
+                {te('ledToSection')}
               </h3>
               <ul className="mb-3 space-y-2">
                 {outgoingLinks.map((l) => {
@@ -420,9 +441,9 @@ export function NodeEditForm({
                       className="flex items-center gap-2 rounded border border-[#2A3042] bg-[#111827]/60 px-2 py-1.5"
                     >
                       <span
-                        className={`inline-block shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-medium uppercase ${RELATION_BADGE_COLORS[l.relation_type]}`}
+                        className={`inline-block shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-medium ${RELATION_BADGE_COLORS[l.relation_type]}`}
                       >
-                        {String(l.relation_type).toUpperCase()}
+                        {tRel(l.relation_type)}
                       </span>
                       <span className="min-w-0 flex-1 truncate text-sm text-[#E8ECF4]">
                         {tgt?.name ?? l.target_id}
@@ -431,7 +452,7 @@ export function NodeEditForm({
                         type="button"
                         onClick={() => void removeLink(l.id)}
                         className="shrink-0 rounded p-1 text-[#EF4444] transition-colors hover:text-[#F87171]"
-                        aria-label="Supprimer le lien"
+                        aria-label={te('removeLinkAria')}
                       >
                         ×
                       </button>
@@ -450,7 +471,7 @@ export function NodeEditForm({
                   >
                     {RELATION_TYPES_LIST.map((r) => (
                       <option key={r} value={r}>
-                        {String(r).toUpperCase()}
+                        {tRel(r)}
                       </option>
                     ))}
                   </select>
@@ -460,7 +481,7 @@ export function NodeEditForm({
                     options={nodeOptions}
                     value={ledTarget}
                     onChange={setLedTarget}
-                    placeholder="Invention cible"
+                    placeholder={te('placeholderInventionTarget')}
                   />
                 </div>
                 <button
@@ -468,7 +489,7 @@ export function NodeEditForm({
                   onClick={() => void addLedTo()}
                   className="rounded-lg bg-[#3B82F6] px-3 py-2 text-xs font-medium text-white hover:bg-[#2563eb]"
                 >
-                  + Ajouter
+                  {te('addLink')}
                 </button>
               </div>
             </section>
@@ -485,14 +506,14 @@ export function NodeEditForm({
             onClick={() => void onSave()}
             className="flex-1 rounded-lg bg-[#3B82F6] py-2 text-sm font-medium text-white hover:bg-[#2563eb]"
           >
-            Sauvegarder
+            {tc('save')}
           </button>
           <button
             type="button"
             onClick={onCancel}
             className="rounded-lg border border-[#2A3042] bg-transparent px-4 py-2 text-sm text-[#8B95A8] hover:bg-[#2A3042]"
           >
-            Annuler
+            {tc('cancel')}
           </button>
         </div>
       ) : null}

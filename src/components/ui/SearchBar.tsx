@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import Fuse from 'fuse.js';
 import { useUIStore } from '@/stores/ui-store';
 import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
@@ -11,7 +12,9 @@ import { getCategoryColor } from '@/lib/colors';
 import { formatYear, getPlaceholderImage } from '@/lib/utils';
 import type { NodeCategory } from '@/lib/types';
 import { useGraphStore } from '@/stores/graph-store';
-import { getTreeLayerShortLabel } from '@/lib/tree-layers';
+import { getTreeLayerDisplayIndex } from '@/lib/tree-layers';
+import { pickNodeDisplayName } from '@/lib/node-display-name';
+import { getNameEnForNode } from '@/lib/name-en-lookup';
 
 interface SearchNode {
   id: string;
@@ -25,27 +28,18 @@ interface SearchNode {
 }
 
 const MAX_RESULTS = 8;
-const ERA_LABELS: Record<string, string> = {
-  prehistoric: 'Préhistorique',
-  ancient: 'Antiquité',
-  medieval: 'Moyen Âge',
-  renaissance: 'Renaissance',
-  industrial: 'Industriel',
-  modern: 'Moderne',
-  digital: 'Numérique',
-  contemporary: 'Contemporain',
-};
-
-function formatEra(era: string): string {
-  return ERA_LABELS[era] ?? era;
-}
 
 function treeLayerForSearchNode(n: SearchNode): number {
   if (n.type === 'raw_material') return 0;
   return n.complexity_depth ?? 0;
 }
 
-export function SearchBar() {
+export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
+  const locale = useLocale();
+  const tc = useTranslations('common');
+  const tEra = useTranslations('eras');
+  const tCat = useTranslations('categories');
+  const tExplore = useTranslations('explore');
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchNode[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -236,7 +230,7 @@ export function SearchBar() {
             setDropdownOpen(true);
             search(query);
           }}
-          placeholder="Rechercher une technologie..."
+          placeholder={placeholder ?? tc('search')}
           className="w-full bg-transparent text-sm text-[#E8ECF4] placeholder:text-[#8B95A8] focus:outline-none"
         />
         <kbd className="hidden rounded border border-[#2A3042] bg-[#111827] px-1.5 py-0.5 text-xs text-[#8B95A8] sm:inline-block">
@@ -255,18 +249,26 @@ export function SearchBar() {
         >
           {results.length === 0 ? (
             <div className="px-4 py-3 text-sm text-[#8B95A8]">
-              Aucun résultat
+              {tc('noResults')}
             </div>
           ) : (
             results.map((node, index) => {
               const categoryColor = getCategoryColor(
                 node.category as NodeCategory
               );
+              const displayName = pickNodeDisplayName(
+                locale,
+                node.name,
+                getNameEnForNode(node.id)
+              );
               const thumb = getPlaceholderImage(
                 node.category as NodeCategory,
                 node.name
               );
               const yearStr = formatYear(node.year_approx ?? undefined);
+              const layerIdx = getTreeLayerDisplayIndex(
+                treeLayerForSearchNode(node)
+              );
               return (
                 <div
                   key={node.id}
@@ -294,7 +296,7 @@ export function SearchBar() {
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="truncate font-medium text-[#E8ECF4]">
-                          {node.name}
+                          {displayName}
                         </span>
                         <span
                           className="shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium capitalize"
@@ -303,7 +305,7 @@ export function SearchBar() {
                             color: categoryColor,
                           }}
                         >
-                          {node.category.replace(/_/g, ' ')}
+                          {tCat(node.category as NodeCategory)}
                         </span>
                       </div>
                       <div className="mt-0.5 flex flex-wrap gap-x-2 text-[11px] text-[#8B95A8]">
@@ -314,10 +316,10 @@ export function SearchBar() {
                           </>
                         ) : null}
                         <span>
-                          {getTreeLayerShortLabel(treeLayerForSearchNode(node))}
+                          {tExplore('layerShort', { layer: layerIdx })}
                         </span>
                         <span className="text-[#5B6478]">·</span>
-                        <span>{formatEra(node.era)}</span>
+                        <span>{tEra(node.era)}</span>
                       </div>
                     </div>
                   </button>
@@ -328,8 +330,10 @@ export function SearchBar() {
                       handleFocusView(node);
                     }}
                     className="flex w-10 shrink-0 items-center justify-center border-l border-[#2A3042] text-[#8B95A8] transition-colors hover:bg-[#2A3042]/50 hover:text-[#3B82F6]"
-                    title="Vue focalisée (détail + graphe)"
-                    aria-label={`Vue focalisée : ${node.name}`}
+                    title={tExplore('focusViewTitle')}
+                    aria-label={tExplore('focusViewAria', {
+                      name: displayName,
+                    })}
                   >
                     <svg
                       width="18"

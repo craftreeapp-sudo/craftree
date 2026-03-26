@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useLocale, useTranslations } from 'next-intl';
 import { useUIStore } from '@/stores/ui-store';
 import { useGraphStore } from '@/stores/graph-store';
 import { useNodeDetailsStore } from '@/stores/node-details-store';
@@ -25,35 +26,10 @@ import type {
   CraftingLink,
   TechNodeBasic,
   SeedNode,
+  TechNodeDetails,
 } from '@/lib/types';
-
-const ERA_LABELS: Record<string, string> = {
-  prehistoric: 'Préhistorique',
-  ancient: 'Antiquité',
-  medieval: 'Moyen Âge',
-  renaissance: 'Renaissance',
-  industrial: 'Industriel',
-  modern: 'Moderne',
-  digital: 'Numérique',
-  contemporary: 'Contemporain',
-};
-
-const RELATION_LABELS: Record<RelationType, string> = {
-  material: 'Matériau',
-  tool: 'Outil',
-  energy: 'Énergie',
-  knowledge: 'Connaissance',
-  catalyst: 'Catalyseur',
-};
-
-const NODE_TYPE_LABELS: Record<TechNodeType, string> = {
-  raw_material: 'Matière première',
-  material: 'Matériau',
-  process: 'Procédé',
-  tool: 'Outil',
-  component: 'Composant',
-  end_product: 'Produit final',
-};
+import { isRtlLocale } from '@/lib/i18n-config';
+import { pickNodeDisplayName } from '@/lib/node-display-name';
 
 const RELATION_DOT: Record<RelationType, string> = {
   material: '#94A3B8',
@@ -80,6 +56,14 @@ const staggerItem = {
 };
 
 export function NodeDetailSidebar() {
+  const locale = useLocale();
+  const isRtl = isRtlLocale(locale);
+  const tExplore = useTranslations('explore');
+  const tSidebar = useTranslations('sidebar');
+  const tCommon = useTranslations('common');
+  const tTypes = useTranslations('types');
+  const tCat = useTranslations('categories');
+
   const isSidebarOpen = useUIStore((s) => s.isSidebarOpen);
   const selectedNodeId = useUIStore((s) => s.selectedNodeId);
   const { navigateToNode, closeDetail } = useExploreNavigation();
@@ -230,24 +214,32 @@ export function NodeDetailSidebar() {
           className="pointer-events-none fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-lg border border-[#2A3042] bg-[#1A1F2E] px-4 py-2.5 text-sm text-[#E8ECF4] shadow-lg"
           role="status"
         >
-          Lien copié !
+          {tCommon('linkCopied')}
         </div>
       ) : null}
       {isSidebarOpen ? (
         <button
           type="button"
           className="fixed inset-0 top-14 z-[51] bg-black/50 lg:hidden"
-          aria-label="Fermer le panneau"
+          aria-label={tSidebar('closePanel')}
           onClick={closeDetail}
         />
       ) : null}
       <motion.aside
-        className={`fixed right-0 top-14 z-[52] flex h-[calc(100dvh-3.5rem)] w-[min(90vw,340px)] flex-col border-l border-[#2A3042] bg-[#1A1F2E] shadow-xl md:w-[340px] ${
-          !isSidebarOpen ? 'pointer-events-none' : ''
-        }`}
+        className={`fixed top-14 z-[52] flex h-[calc(100dvh-3.5rem)] w-[min(90vw,340px)] flex-col border-[#2A3042] bg-[#1A1F2E] shadow-xl md:w-[340px] ${
+          isRtl
+            ? 'left-0 border-r'
+            : 'right-0 border-l'
+        } ${!isSidebarOpen ? 'pointer-events-none' : ''}`}
         style={{ willChange: 'transform' }}
         initial={false}
-        animate={{ x: isSidebarOpen ? 0 : '100%' }}
+        animate={{
+          x: isSidebarOpen
+            ? 0
+            : isRtl
+              ? '-100%'
+              : '100%',
+        }}
         transition={{ duration: 0.3, ease: [0, 0, 0.2, 1] }}
         aria-hidden={!isSidebarOpen}
       >
@@ -266,13 +258,13 @@ export function NodeDetailSidebar() {
                   className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-2 border-b border-[#2A3042] bg-[#1A1F2E] px-4 py-4"
                 >
                   <h2 className="text-lg font-semibold text-[#E8ECF4]">
-                    Modifier
+                    {tCommon('edit')}
                   </h2>
                   <button
                     type="button"
                     onClick={() => setEditMode(false)}
                     className="shrink-0 rounded p-1.5 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
-                    aria-label="Retour au détail"
+                    aria-label={tSidebar('backToDetail')}
                   >
                     <span className="text-xl leading-none">×</span>
                   </button>
@@ -325,7 +317,11 @@ export function NodeDetailSidebar() {
                           'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
                       }}
                     >
-                      {node.name}
+                      {pickNodeDisplayName(
+                        locale,
+                        node.name,
+                        detail?.name_en
+                      )}
                     </h2>
                     <div className="mt-2 flex flex-wrap gap-2">
                       <span
@@ -335,10 +331,10 @@ export function NodeDetailSidebar() {
                           color: categoryColor,
                         }}
                       >
-                        {String(node.category).replace(/_/g, ' ')}
+                        {tCat(node.category as NodeCategory)}
                       </span>
                       <span className="rounded bg-[#111827] px-2 py-0.5 text-xs text-[#8B95A8]">
-                        {NODE_TYPE_LABELS[node.type] ?? node.type}
+                        {tTypes(node.type)}
                       </span>
                     </div>
                   </div>
@@ -347,7 +343,7 @@ export function NodeDetailSidebar() {
                       type="button"
                       onClick={() => void enterEdit()}
                       className="rounded p-1.5 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
-                      aria-label="Modifier l’invention"
+                      aria-label={tSidebar('editInvention')}
                     >
                       <span className="text-base leading-none">✏️</span>
                     </button>
@@ -355,7 +351,7 @@ export function NodeDetailSidebar() {
                       type="button"
                       onClick={closeDetail}
                       className="shrink-0 rounded p-1.5 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
-                      aria-label="Fermer le panneau"
+                      aria-label={tSidebar('closePanel')}
                     >
                       <span className="text-xl leading-none">×</span>
                     </button>
@@ -409,10 +405,12 @@ export function NodeDetailSidebar() {
 
               <motion.section variants={staggerItem} className="mt-6">
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#8B95A8]">
-                  Obtenu grâce à ({recipeLinks.length})
+                  {tExplore('builtUpon')} ({recipeLinks.length})
                 </h3>
                 {recipeLinks.length === 0 ? (
-                  <p className="text-sm text-[#8B95A8]">Aucun intrant.</p>
+                  <p className="text-sm text-[#8B95A8]">
+                    {tExplore('noUpstream')}
+                  </p>
                 ) : (
                   <ul className="space-y-3">
                     {recipeLinks.map((link) => (
@@ -420,6 +418,8 @@ export function NodeDetailSidebar() {
                         key={link.id}
                         link={link}
                         getNodeById={getNodeById}
+                        locale={locale}
+                        detailsById={detailsById}
                         onSelectIngredient={(id) =>
                           navigateToNode(id, { center: false })
                         }
@@ -431,11 +431,11 @@ export function NodeDetailSidebar() {
 
               <motion.section variants={staggerItem} className="mt-6">
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#8B95A8]">
-                  A conduit à ({usages.length})
+                  {tExplore('ledTo')} ({usages.length})
                 </h3>
                 {usages.length === 0 ? (
                   <p className="text-sm text-[#8B95A8]">
-                    Aucune technologie en aval direct.
+                    {tExplore('noDownstream')}
                   </p>
                 ) : (
                   <ul className="space-y-2">
@@ -446,9 +446,13 @@ export function NodeDetailSidebar() {
                           onClick={() =>
                             navigateToNode(product.id, { center: false })
                           }
-                          className="w-full rounded-md border border-transparent px-2 py-2 text-left text-sm text-[#3B82F6] transition-colors hover:border-[#2A3042] hover:bg-[#111827]"
+                          className="w-full rounded-md border border-transparent px-2 py-2 text-start text-sm text-[#3B82F6] transition-colors hover:border-[#2A3042] hover:bg-[#111827]"
                         >
-                          {product.name}
+                          {pickNodeDisplayName(
+                            locale,
+                            product.name,
+                            detailsById[product.id]?.name_en
+                          )}
                         </button>
                       </li>
                     ))}
@@ -464,7 +468,7 @@ export function NodeDetailSidebar() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-sm text-[#8B95A8] underline-offset-2 transition-colors hover:text-[#3B82F6] hover:underline"
                   >
-                    Voir sur Wikipedia →
+                    {tSidebar('wikipedia')} →
                   </a>
                 </motion.div>
               )}
@@ -474,7 +478,7 @@ export function NodeDetailSidebar() {
                   href={`/tree/${node.id}`}
                   className="inline-flex w-full items-center justify-center rounded-lg border border-[#3B82F6]/40 bg-[#3B82F6]/10 px-3 py-2.5 text-sm font-medium text-[#3B82F6] transition-colors hover:bg-[#3B82F6]/20"
                 >
-                  Voir l’arbre complet
+                  {tExplore('seeFullTree')}
                 </Link>
                 <button
                   type="button"
@@ -497,7 +501,7 @@ export function NodeDetailSidebar() {
                     <path d="M7 7h10v10" />
                     <path d="M7 17 17 7" />
                   </svg>
-                  Partager
+                  {tCommon('share')}
                 </button>
               </motion.div>
                 </div>
@@ -514,17 +518,24 @@ function RecipeRow({
   link,
   getNodeById,
   onSelectIngredient,
+  locale,
+  detailsById,
 }: {
   link: CraftingLink;
   getNodeById: (id: string) => TechNodeBasic | undefined;
   onSelectIngredient: (id: string) => void;
+  locale: string;
+  detailsById: Record<string, TechNodeDetails | undefined>;
 }) {
+  const tRel = useTranslations('relationTypes');
+  const tEx = useTranslations('explore');
   const input = getNodeById(link.source_id);
   const rel = link.relation_type as RelationType;
   const dotColor =
     rel === 'material' && input
       ? getCategoryColor(input.category as NodeCategory)
       : RELATION_DOT[rel];
+  const relLabel = tRel(rel);
 
   return (
     <li className="flex gap-3 rounded-md border border-[#2A3042]/80 bg-[#111827]/40 px-2 py-2">
@@ -534,24 +545,28 @@ function RecipeRow({
           backgroundColor: dotColor,
           opacity: rel === 'catalyst' ? 0.6 : 1,
         }}
-        title={RELATION_LABELS[rel]}
+        title={relLabel}
       />
       <div className="min-w-0 flex-1">
         {input ? (
           <button
             type="button"
             onClick={() => onSelectIngredient(input.id)}
-            className="text-left text-sm font-medium text-[#3B82F6] hover:underline"
+            className="text-start text-sm font-medium text-[#3B82F6] hover:underline"
           >
-            {input.name}
+            {pickNodeDisplayName(
+              locale,
+              input.name,
+              detailsById[input.id]?.name_en
+            )}
           </button>
         ) : (
           <span className="text-sm text-[#E8ECF4]">{link.source_id}</span>
         )}
         <p className="mt-0.5 text-xs text-[#8B95A8]">
-          {RELATION_LABELS[rel]}
+          {relLabel}
           {link.quantity_hint ? ` · ${link.quantity_hint}` : ''}
-          {link.is_optional ? ' · optionnel' : ''}
+          {link.is_optional ? ` · ${tEx('optional')}` : ''}
         </p>
         {link.notes && (
           <p className="mt-1 text-xs italic text-[#8B95A8]/80">{link.notes}</p>

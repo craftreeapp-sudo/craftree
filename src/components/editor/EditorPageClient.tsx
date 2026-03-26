@@ -2,13 +2,11 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { getCategoryColor } from '@/lib/colors';
 import {
-  NODE_CATEGORY_LABELS_FR,
   NODE_CATEGORY_ORDER,
-  ERA_LABELS_FR,
   ERA_ORDER,
-  TECH_NODE_TYPE_LABELS_FR,
   TECH_NODE_TYPE_ORDER,
 } from '@/lib/node-labels';
 import {
@@ -32,14 +30,6 @@ import {
   filterValidCraftingLinks,
 } from '@/lib/graph-utils';
 import { useGraphStore } from '@/stores/graph-store';
-
-const RELATION_LABELS_FR: Record<RelationType, string> = {
-  [RT.MATERIAL]: 'Matériau',
-  [RT.TOOL]: 'Outil',
-  [RT.ENERGY]: 'Énergie',
-  [RT.KNOWLEDGE]: 'Connaissance',
-  [RT.CATALYST]: 'Catalyseur',
-};
 
 const RELATION_BADGE_COLORS: Record<RelationType, string> = {
   [RT.MATERIAL]: 'bg-teal-500/20 text-teal-200 border-teal-500/40',
@@ -94,6 +84,13 @@ function linkCounts(
 }
 
 export function EditorPageClient() {
+  const te = useTranslations('editor');
+  const tRel = useTranslations('relationTypes');
+  const tCat = useTranslations('categories');
+  const tEra = useTranslations('eras');
+  const tType = useTranslations('types');
+  const tc = useTranslations('common');
+
   const updateNode = useGraphStore((s) => s.updateNode);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
   const { toasts, push } = useToasts();
@@ -114,7 +111,7 @@ export function EditorPageClient() {
       setNodes(nj.nodes ?? []);
       setLinks(lj.links ?? []);
     } catch {
-      push('Erreur de chargement', 'err');
+      push(te('toastLoadError'), 'err');
     } finally {
       setLoading(false);
     }
@@ -266,7 +263,7 @@ export function EditorPageClient() {
       wikipedia_url: form.wikipedia_url.trim() || undefined,
     };
     if (!body.name || !body.description) {
-      push('Nom et description requis', 'err');
+      push(te('toastNameDescRequired'), 'err');
       return;
     }
     try {
@@ -278,10 +275,10 @@ export function EditorPageClient() {
         });
         if (!res.ok) {
           const e = await res.json().catch(() => ({}));
-          push((e as { error?: string }).error ?? 'Erreur', 'err');
+          push((e as { error?: string }).error ?? te('toastError'), 'err');
           return;
         }
-        push('Invention modifiée');
+        push(te('toastNodeUpdated'));
       } else {
         const res = await fetch('/api/nodes', {
           method: 'POST',
@@ -290,15 +287,15 @@ export function EditorPageClient() {
         });
         if (!res.ok) {
           const e = await res.json().catch(() => ({}));
-          push((e as { error?: string }).error ?? 'Erreur', 'err');
+          push((e as { error?: string }).error ?? te('toastError'), 'err');
           return;
         }
-        push('Invention créée');
+        push(te('toastNodeCreated'));
       }
       setPanelOpen(false);
       await loadAll();
     } catch {
-      push('Erreur réseau', 'err');
+      push(te('toastNetworkError'), 'err');
     }
   };
 
@@ -310,14 +307,14 @@ export function EditorPageClient() {
         method: 'DELETE',
       });
       if (!res.ok) {
-        push('Suppression impossible', 'err');
+        push(te('toastDeleteFailed'), 'err');
         return;
       }
-      push('Invention supprimée');
+      push(te('toastNodeDeleted'));
       setDeleteTarget(null);
       await loadAll();
     } catch {
-      push('Erreur réseau', 'err');
+      push(te('toastNetworkError'), 'err');
     }
   };
 
@@ -403,7 +400,7 @@ export function EditorPageClient() {
 
   const addQuickLink = async () => {
     if (!quickSource || !quickTarget || quickSource === quickTarget) {
-      push('Source et cible invalides', 'err');
+      push(te('toastInvalidSourceTarget'), 'err');
       return;
     }
     try {
@@ -417,22 +414,22 @@ export function EditorPageClient() {
         }),
       });
       if (res.status === 409) {
-        push('Ce lien existe déjà', 'err');
+        push(te('toastLinkExists'), 'err');
         return;
       }
       if (!res.ok) {
         const e = await res.json().catch(() => ({}));
-        push((e as { error?: string }).error ?? 'Erreur', 'err');
+        push((e as { error?: string }).error ?? te('toastError'), 'err');
         return;
       }
-      push('Lien ajouté');
+      push(te('toastLinkAdded'));
       setQuickTarget('');
       setQuickSource('');
       setQuickRel(RT.MATERIAL);
       await loadAll();
       sourceRef.current?.focus();
     } catch {
-      push('Erreur réseau', 'err');
+      push(te('toastNetworkError'), 'err');
     }
   };
 
@@ -453,14 +450,14 @@ export function EditorPageClient() {
         }
       );
       if (!res.ok) {
-        push('Erreur de sauvegarde', 'err');
+        push(te('toastSaveError'), 'err');
         return;
       }
-      push('Lien modifié');
+        push(te('toastLinkUpdated'));
       setLinkPanel(null);
       await loadAll();
     } catch {
-      push('Erreur réseau', 'err');
+      push(te('toastNetworkError'), 'err');
     }
   };
 
@@ -470,14 +467,14 @@ export function EditorPageClient() {
         method: 'DELETE',
       });
       if (!res.ok) {
-        push('Suppression impossible', 'err');
+        push(te('toastDeleteFailed'), 'err');
         return;
       }
-      push('Lien supprimé');
+      push(te('toastLinkDeleted'));
       setLinkPanel(null);
       await loadAll();
     } catch {
-      push('Erreur réseau', 'err');
+      push(te('toastNetworkError'), 'err');
     }
   };
 
@@ -490,12 +487,12 @@ export function EditorPageClient() {
   return (
     <div className="flex min-h-0 flex-1 flex-col bg-[#0A0E17] text-[#E8ECF4]">
       <header className="sticky top-0 z-40 flex shrink-0 items-center justify-between border-b border-[#2A3042] bg-[#0A0E17] px-6 py-4">
-        <h1 className="text-lg font-semibold">Craftree — Éditeur</h1>
+        <h1 className="text-lg font-semibold">{te('pageTitle')}</h1>
         <Link
           href="/explore"
           className="rounded-lg border border-[#2A3042] bg-[#1A1F2E] px-4 py-2 text-sm text-[#E8ECF4] transition-colors hover:bg-[#2A3042]"
         >
-          ← Retour au Tree
+          {te('backToExplore')}
         </Link>
       </header>
 
@@ -510,7 +507,7 @@ export function EditorPageClient() {
                 : 'border-transparent text-[#8B95A8] hover:text-[#E8ECF4]'
             }`}
           >
-            Inventions
+            {te('inventions')}
           </button>
           <button
             type="button"
@@ -521,12 +518,12 @@ export function EditorPageClient() {
                 : 'border-transparent text-[#8B95A8] hover:text-[#E8ECF4]'
             }`}
           >
-            Liens
+            {te('links')}
           </button>
         </div>
 
         {loading ? (
-          <p className="text-[#8B95A8]">Chargement…</p>
+          <p className="text-[#8B95A8]">{te('loading')}</p>
         ) : tab === 'nodes' ? (
           <>
             <div className="mb-4 flex flex-wrap items-center gap-3">
@@ -535,13 +532,13 @@ export function EditorPageClient() {
                 onClick={openNew}
                 className="rounded-lg bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-[#2563eb]"
               >
-                + Nouvelle invention
+                {te('newInventionButton')}
               </button>
               <input
                 type="search"
                 value={qNode}
                 onChange={(e) => setQNode(e.target.value)}
-                placeholder="Rechercher…"
+                placeholder={te('searchPlaceholderNodes')}
                 className="min-w-[200px] flex-1 rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] placeholder:text-[#5A6175] outline-none focus:border-[#3B82F6]"
               />
               <select
@@ -549,10 +546,10 @@ export function EditorPageClient() {
                 onChange={(e) => setCatF(e.target.value)}
                 className="rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] outline-none focus:border-[#3B82F6]"
               >
-                <option value="all">Toutes catégories</option>
+                <option value="all">{te('allCategories')}</option>
                 {NODE_CATEGORY_ORDER.map((c) => (
                   <option key={c} value={c}>
-                    {NODE_CATEGORY_LABELS_FR[c]}
+                    {tCat(c)}
                   </option>
                 ))}
               </select>
@@ -561,10 +558,10 @@ export function EditorPageClient() {
                 onChange={(e) => setTypeF(e.target.value)}
                 className="rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] outline-none focus:border-[#3B82F6]"
               >
-                <option value="all">Tous types</option>
-                {TECH_NODE_TYPE_ORDER.map((t) => (
-                  <option key={t} value={t}>
-                    {TECH_NODE_TYPE_LABELS_FR[t]}
+                <option value="all">{te('allTypes')}</option>
+                {TECH_NODE_TYPE_ORDER.map((nt) => (
+                  <option key={nt} value={nt}>
+                    {tType(nt)}
                   </option>
                 ))}
               </select>
@@ -573,16 +570,16 @@ export function EditorPageClient() {
                 onChange={(e) => setEraF(e.target.value)}
                 className="rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] outline-none focus:border-[#3B82F6]"
               >
-                <option value="all">Toutes époques</option>
+                <option value="all">{te('allEras')}</option>
                 {ERA_ORDER.map((e) => (
                   <option key={e} value={e}>
-                    {ERA_LABELS_FR[e]}
+                    {tEra(e)}
                   </option>
                 ))}
               </select>
               <button
                 type="button"
-                title="Afficher uniquement les inventions sans lien entrant ni sortant"
+                title={te('isolatedOnlyTitle')}
                 aria-pressed={isolatedOnly}
                 onClick={() => setIsolatedOnly((v) => !v)}
                 className={`shrink-0 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
@@ -591,20 +588,19 @@ export function EditorPageClient() {
                     : 'border-[#2A3042] bg-[#1A1F2E] text-[#E8ECF4] hover:bg-[#2A3042]'
                 }`}
               >
-                Sans liens
+                {te('noLinks')}
               </button>
               <span className="text-sm text-[#8B95A8]">
-                {sortedNodes.length} invention
-                {sortedNodes.length !== 1 ? 's' : ''}
+                {te('nodeCount', { count: sortedNodes.length })}
               </span>
             </div>
 
             <div className="editor-scrollbar min-h-0 flex-1 overflow-auto rounded-lg border border-[#2A3042]">
               <table className="w-full min-w-[1000px] border-collapse text-sm">
-                <thead className="sticky top-0 z-10 bg-[#1A1F2E] text-left text-xs font-bold uppercase tracking-wide text-[#8B95A8]">
+                <thead className="sticky top-0 z-10 bg-[#1A1F2E] text-start text-xs font-bold uppercase tracking-wide text-[#8B95A8]">
                   <tr>
                     <th className="w-12 px-1 py-1 text-center text-[#8B95A8]">
-                      Image
+                      {te('imageColumn')}
                     </th>
                     <th className="w-[200px] px-3 py-1 text-[#E8ECF4]">
                       <button
@@ -612,7 +608,8 @@ export function EditorPageClient() {
                         className="inline-flex items-center gap-1"
                         onClick={() => toggleSort('name')}
                       >
-                        Nom {sortKey === 'name' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
+                        {te('name')}{' '}
+                        {sortKey === 'name' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
                     <th className="w-[130px] px-3 py-1">
@@ -621,7 +618,8 @@ export function EditorPageClient() {
                         className="inline-flex items-center gap-1"
                         onClick={() => toggleSort('category')}
                       >
-                        Catégorie {sortKey === 'category' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
+                        {te('category')}{' '}
+                        {sortKey === 'category' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
                     <th className="w-[100px] px-3 py-1">
@@ -630,7 +628,8 @@ export function EditorPageClient() {
                         className="inline-flex items-center gap-1"
                         onClick={() => toggleSort('type')}
                       >
-                        Type {sortKey === 'type' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
+                        {te('type')}{' '}
+                        {sortKey === 'type' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
                     <th className="w-[120px] px-3 py-1">
@@ -639,7 +638,8 @@ export function EditorPageClient() {
                         className="inline-flex items-center gap-1"
                         onClick={() => toggleSort('era')}
                       >
-                        Époque {sortKey === 'era' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
+                        {te('era')}{' '}
+                        {sortKey === 'era' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
                     <th className="w-[80px] px-3 py-1">
@@ -648,7 +648,8 @@ export function EditorPageClient() {
                         className="inline-flex items-center gap-1"
                         onClick={() => toggleSort('year_approx')}
                       >
-                        Date {sortKey === 'year_approx' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
+                        {te('date')}{' '}
+                        {sortKey === 'year_approx' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
                     <th className="w-[150px] px-3 py-1">
@@ -657,7 +658,8 @@ export function EditorPageClient() {
                         className="inline-flex items-center gap-1"
                         onClick={() => toggleSort('origin')}
                       >
-                        Origine {sortKey === 'origin' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
+                        {te('origin')}{' '}
+                        {sortKey === 'origin' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
                     <th className="w-[60px] px-3 py-1 text-center">
@@ -666,10 +668,11 @@ export function EditorPageClient() {
                         className="inline-flex items-center gap-1"
                         onClick={() => toggleSort('links')}
                       >
-                        Liens {sortKey === 'links' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
+                        {te('links')}{' '}
+                        {sortKey === 'links' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
-                    <th className="w-[120px] px-3 py-1">Actions</th>
+                    <th className="w-[120px] px-3 py-1">{te('actionsColumn')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -733,16 +736,16 @@ export function EditorPageClient() {
                               color: getCategoryColor(n.category as NodeCategory),
                             }}
                           >
-                            {NODE_CATEGORY_LABELS_FR[n.category as NodeCategory] ?? n.category}
+                            {tCat(n.category as NodeCategory) ?? n.category}
                           </span>
                         </td>
                         <td className="px-3 py-2">
                           <span className="rounded bg-[#2A3042] px-2 py-0.5 text-xs text-[#E8ECF4]">
-                            {TECH_NODE_TYPE_LABELS_FR[n.type as TechNodeType] ?? n.type}
+                            {tType(n.type as TechNodeType) ?? n.type}
                           </span>
                         </td>
                         <td className="px-3 py-2 text-[#8B95A8]">
-                          {ERA_LABELS_FR[n.era as Era] ?? n.era}
+                          {tEra(n.era as Era) ?? n.era}
                         </td>
                         <td className="px-3 py-2">
                           {n.year_approx === null || n.year_approx === undefined
@@ -759,7 +762,7 @@ export function EditorPageClient() {
                           <button
                             type="button"
                             className="mr-2 rounded p-1 hover:bg-[#2A3042]"
-                            aria-label="Modifier"
+                            aria-label={te('panelEditInvention')}
                             onClick={(e) => {
                               e.stopPropagation();
                               openEdit(n);
@@ -770,7 +773,7 @@ export function EditorPageClient() {
                           <button
                             type="button"
                             className="rounded p-1 text-[#EF4444] transition-colors hover:text-[#F87171]"
-                            aria-label="Supprimer"
+                            aria-label={tc('delete')}
                             onClick={(e) => {
                               e.stopPropagation();
                               setDeleteTarget(n);
@@ -790,7 +793,9 @@ export function EditorPageClient() {
           <>
             <div className="mb-4 flex flex-wrap items-end gap-3 rounded-lg border border-[#2A3042] bg-[#111827]/50 p-4">
               <div className="min-w-[200px] flex-1">
-                <label className="mb-1 block text-xs text-[#8B95A8]">Nœud source</label>
+                <label className="mb-1 block text-xs text-[#8B95A8]">
+                  {te('sourceNode')}
+                </label>
                 <SearchableSelect
                   options={nodeOptions}
                   value={quickSource}
@@ -799,7 +804,9 @@ export function EditorPageClient() {
                 />
               </div>
               <div className="min-w-[200px] flex-1">
-                <label className="mb-1 block text-xs text-[#8B95A8]">Type de relation</label>
+                <label className="mb-1 block text-xs text-[#8B95A8]">
+                  {te('relationTypeLabel')}
+                </label>
                 <select
                   value={quickRel}
                   onChange={(e) => setQuickRel(e.target.value as RelationType)}
@@ -815,13 +822,15 @@ export function EditorPageClient() {
                     ] as const
                   ).map((r) => (
                     <option key={r} value={r}>
-                      {RELATION_LABELS_FR[r]}
+                      {tRel(r)}
                     </option>
                   ))}
                 </select>
               </div>
               <div className="min-w-[200px] flex-1">
-                <label className="mb-1 block text-xs text-[#8B95A8]">Nœud cible</label>
+                <label className="mb-1 block text-xs text-[#8B95A8]">
+                  {te('targetNode')}
+                </label>
                 <SearchableSelect
                   options={nodeOptions}
                   value={quickTarget}
@@ -833,7 +842,7 @@ export function EditorPageClient() {
                 onClick={addQuickLink}
                 className="rounded-lg bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-[#2563eb]"
               >
-                + Ajouter
+                {te('addLink')}
               </button>
             </div>
 
@@ -842,7 +851,7 @@ export function EditorPageClient() {
                 type="search"
                 value={linkQ}
                 onChange={(e) => setLinkQ(e.target.value)}
-                placeholder="Rechercher dans les liens…"
+                placeholder={te('searchPlaceholderLinks')}
                 className="min-w-[200px] flex-1 rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
               />
               <select
@@ -850,7 +859,7 @@ export function EditorPageClient() {
                 onChange={(e) => setRelFilter(e.target.value)}
                 className="rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
               >
-                <option value="all">Toutes relations</option>
+                <option value="all">{te('allRelations')}</option>
                 {(
                   [
                     RT.MATERIAL,
@@ -861,7 +870,7 @@ export function EditorPageClient() {
                   ] as const
                 ).map((r) => (
                   <option key={r} value={r}>
-                    {RELATION_LABELS_FR[r]}
+                    {tRel(r)}
                   </option>
                 ))}
               </select>
@@ -869,28 +878,29 @@ export function EditorPageClient() {
                 type="search"
                 value={srcFilter}
                 onChange={(e) => setSrcFilter(e.target.value)}
-                placeholder="Filtrer source"
+                placeholder={te('filterSource')}
                 className="rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
               />
               <input
                 type="search"
                 value={tgtFilter}
                 onChange={(e) => setTgtFilter(e.target.value)}
-                placeholder="Filtrer cible"
+                placeholder={te('filterTarget')}
                 className="rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
               />
             </div>
 
             <div className="editor-scrollbar min-h-0 flex-1 overflow-auto rounded-lg border border-[#2A3042]">
               <table className="w-full min-w-[900px] border-collapse text-sm">
-                <thead className="sticky top-0 z-10 bg-[#1A1F2E] text-left text-xs font-bold uppercase tracking-wide text-[#8B95A8]">
+                <thead className="sticky top-0 z-10 bg-[#1A1F2E] text-start text-xs font-bold uppercase tracking-wide text-[#8B95A8]">
                   <tr>
                     <th className="px-3 py-2">
                       <button
                         type="button"
                         onClick={() => toggleLinkSort('source')}
                       >
-                        Source {linkSortKey === 'source' ? (linkSortDir === 'asc' ? '↑' : '↓') : ''}
+                        {te('linkColumnSource')}{' '}
+                        {linkSortKey === 'source' ? (linkSortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
                     <th className="w-8 px-1 text-center">→</th>
@@ -899,7 +909,8 @@ export function EditorPageClient() {
                         type="button"
                         onClick={() => toggleLinkSort('target')}
                       >
-                        Cible {linkSortKey === 'target' ? (linkSortDir === 'asc' ? '↑' : '↓') : ''}
+                        {te('linkColumnTarget')}{' '}
+                        {linkSortKey === 'target' ? (linkSortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
                     <th className="px-3 py-2">
@@ -907,7 +918,8 @@ export function EditorPageClient() {
                         type="button"
                         onClick={() => toggleLinkSort('relation')}
                       >
-                        Relation {linkSortKey === 'relation' ? (linkSortDir === 'asc' ? '↑' : '↓') : ''}
+                        {te('linkColumnRelation')}{' '}
+                        {linkSortKey === 'relation' ? (linkSortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
                     <th className="px-3 py-2">
@@ -915,7 +927,8 @@ export function EditorPageClient() {
                         type="button"
                         onClick={() => toggleLinkSort('optional')}
                       >
-                        Optionnel {linkSortKey === 'optional' ? (linkSortDir === 'asc' ? '↑' : '↓') : ''}
+                        {te('optionalColumn')}{' '}
+                        {linkSortKey === 'optional' ? (linkSortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
                     <th className="px-3 py-2">
@@ -923,16 +936,17 @@ export function EditorPageClient() {
                         type="button"
                         onClick={() => toggleLinkSort('notes')}
                       >
-                        Notes {linkSortKey === 'notes' ? (linkSortDir === 'asc' ? '↑' : '↓') : ''}
+                        {te('notesColumn')}{' '}
+                        {linkSortKey === 'notes' ? (linkSortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
-                    <th className="w-[100px] px-3 py-2">Actions</th>
+                    <th className="w-[100px] px-3 py-2">{te('actionsColumn')}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {sortedLinks.map((l, i) => {
                     const s = nodeById.get(l.source_id);
-                    const t = nodeById.get(l.target_id);
+                    const tgt = nodeById.get(l.target_id);
                     const bg = i % 2 === 0 ? 'bg-[#111827]' : 'bg-[#0F1420]';
                     return (
                       <tr
@@ -941,16 +955,16 @@ export function EditorPageClient() {
                       >
                         <td className="px-3 py-2 font-medium">{s?.name ?? l.source_id}</td>
                         <td className="px-1 text-center text-[#8B95A8]">→</td>
-                        <td className="px-3 py-2 font-medium">{t?.name ?? l.target_id}</td>
+                        <td className="px-3 py-2 font-medium">{tgt?.name ?? l.target_id}</td>
                         <td className="px-3 py-2">
                           <span
                             className={`inline-block rounded border px-2 py-0.5 text-xs ${RELATION_BADGE_COLORS[l.relation_type]}`}
                           >
-                            {RELATION_LABELS_FR[l.relation_type]}
+                            {tRel(l.relation_type)}
                           </span>
                         </td>
                         <td className="px-3 py-2 text-[#8B95A8]">
-                          {l.is_optional ? 'Oui' : 'Non'}
+                          {l.is_optional ? te('yes') : te('no')}
                         </td>
                         <td className="max-w-[200px] truncate px-3 py-2 text-[#8B95A8]">
                           {l.notes?.trim() ? l.notes : '—'}
@@ -995,13 +1009,13 @@ export function EditorPageClient() {
           <button
             type="button"
             className="fixed inset-0 z-[60] bg-black/50"
-            aria-label="Fermer"
+            aria-label={tc('close')}
             onClick={() => setPanelOpen(false)}
           />
           <aside className="fixed right-0 top-0 z-[70] flex h-full w-full max-w-[400px] flex-col border-l border-[#2A3042] bg-[#1A1F2E] shadow-xl">
             <div className="flex shrink-0 items-center justify-between border-b border-[#2A3042] px-4 py-3">
               <h2 className="font-semibold">
-                {editingId ? 'Modifier' : 'Nouvelle invention'}
+                {editingId ? te('panelEditInvention') : te('panelNewInvention')}
               </h2>
               <button
                 type="button"
@@ -1049,9 +1063,10 @@ export function EditorPageClient() {
         <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/60 p-4">
           <div className="w-full max-w-md rounded-lg border border-[#2A3042] bg-[#1A1F2E] p-6 shadow-xl">
             <p className="text-sm text-[#E8ECF4]">
-              Supprimer <strong>{deleteTarget.name}</strong> ? Cette action supprimera
-              aussi {deleteLinkCount} lien{deleteLinkCount !== 1 ? 's' : ''} associé
-              {deleteLinkCount !== 1 ? 's' : ''}. Cette action est irréversible.
+              {te('deleteConfirmRich', {
+                name: deleteTarget.name,
+                count: deleteLinkCount,
+              })}
             </p>
             <div className="mt-6 flex justify-end gap-2">
               <button
@@ -1059,14 +1074,14 @@ export function EditorPageClient() {
                 onClick={() => setDeleteTarget(null)}
                 className="rounded-lg border border-[#2A3042] px-4 py-2 text-sm text-[#8B95A8] hover:bg-[#2A3042]"
               >
-                Annuler
+                {tc('cancel')}
               </button>
               <button
                 type="button"
                 onClick={confirmDelete}
                 className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
               >
-                Supprimer
+                {tc('delete')}
               </button>
             </div>
           </div>
@@ -1079,12 +1094,12 @@ export function EditorPageClient() {
           <button
             type="button"
             className="fixed inset-0 z-[60] bg-black/50"
-            aria-label="Fermer"
+            aria-label={tc('close')}
             onClick={() => setLinkPanel(null)}
           />
           <aside className="fixed right-0 top-0 z-[70] flex h-full w-full max-w-[400px] flex-col border-l border-[#2A3042] bg-[#1A1F2E] shadow-xl">
             <div className="flex items-center justify-between border-b border-[#2A3042] px-4 py-3">
-              <h2 className="font-semibold">Modifier le lien</h2>
+              <h2 className="font-semibold">{te('editLink')}</h2>
               <button
                 type="button"
                 className="text-[#8B95A8] hover:text-white"
@@ -1095,7 +1110,9 @@ export function EditorPageClient() {
             </div>
             <div className="space-y-4 overflow-y-auto px-4 py-4">
               <div>
-                <label className="mb-1 block text-xs text-[#8B95A8]">Source</label>
+                <label className="mb-1 block text-xs text-[#8B95A8]">
+                  {te('linkColumnSource')}
+                </label>
                 <input
                   readOnly
                   disabled
@@ -1104,7 +1121,9 @@ export function EditorPageClient() {
                 />
               </div>
               <div>
-                <label className="mb-1 block text-xs text-[#8B95A8]">Cible</label>
+                <label className="mb-1 block text-xs text-[#8B95A8]">
+                  {te('linkColumnTarget')}
+                </label>
                 <input
                   readOnly
                   disabled
@@ -1113,7 +1132,9 @@ export function EditorPageClient() {
                 />
               </div>
               <div>
-                <label className="mb-1 block text-xs text-[#8B95A8]">Type de relation</label>
+                <label className="mb-1 block text-xs text-[#8B95A8]">
+                  {te('relationTypeLabel')}
+                </label>
                 <select
                   value={linkForm.relation_type}
                   onChange={(e) =>
@@ -1134,19 +1155,21 @@ export function EditorPageClient() {
                     ] as const
                   ).map((r) => (
                     <option key={r} value={r}>
-                      {RELATION_LABELS_FR[r]}
+                      {tRel(r)}
                     </option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className="mb-1 block text-xs text-[#8B95A8]">Quantité</label>
+                <label className="mb-1 block text-xs text-[#8B95A8]">
+                  {te('quantityLabel')}
+                </label>
                 <input
                   value={linkForm.quantity_hint}
                   onChange={(e) =>
                     setLinkForm((f) => ({ ...f, quantity_hint: e.target.value }))
                   }
-                  placeholder="beaucoup, trace, 1…"
+                  placeholder={te('quantityPlaceholder')}
                   className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
                 />
               </div>
@@ -1161,11 +1184,13 @@ export function EditorPageClient() {
                   className="rounded border-[#2A3042]"
                 />
                 <label htmlFor="opt" className="text-sm text-[#E8ECF4]">
-                  Optionnel
+                  {te('optionalCheckbox')}
                 </label>
               </div>
               <div>
-                <label className="mb-1 block text-xs text-[#8B95A8]">Notes</label>
+                <label className="mb-1 block text-xs text-[#8B95A8]">
+                  {te('notesColumn')}
+                </label>
                 <textarea
                   rows={3}
                   value={linkForm.notes}
@@ -1182,14 +1207,14 @@ export function EditorPageClient() {
                 onClick={saveLinkEdit}
                 className="flex-1 rounded-lg bg-[#3B82F6] py-2 text-sm font-medium text-white hover:bg-[#2563eb]"
               >
-                Sauvegarder
+                {tc('save')}
               </button>
               <button
                 type="button"
                 onClick={() => setLinkPanel(null)}
                 className="rounded-lg border border-[#2A3042] px-4 py-2 text-sm text-[#8B95A8] hover:bg-[#2A3042]"
               >
-                Annuler
+                {tc('cancel')}
               </button>
             </div>
           </aside>
@@ -1198,16 +1223,16 @@ export function EditorPageClient() {
 
       {/* Toasts */}
       <div className="pointer-events-none fixed right-4 top-20 z-[100] flex flex-col gap-2">
-        {toasts.map((t) => (
+        {toasts.map((toast) => (
           <div
-            key={t.id}
+            key={toast.id}
             className={`pointer-events-auto max-w-sm rounded-lg border px-4 py-3 text-sm shadow-lg ${
-              t.kind === 'ok'
+              toast.kind === 'ok'
                 ? 'border-l-4 border-l-emerald-500 bg-[#1A1F2E] text-[#E8ECF4]'
                 : 'border-l-4 border-l-red-500 bg-[#1A1F2E] text-[#E8ECF4]'
             }`}
           >
-            {t.text}
+            {toast.text}
           </div>
         ))}
       </div>

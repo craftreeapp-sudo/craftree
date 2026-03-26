@@ -2,17 +2,24 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { SearchBar } from '@/components/ui/SearchBar';
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { FilterPanel } from '@/components/ui/FilterPanel';
 import { ExploreWireframeHeader } from '@/components/explore/ExploreWireframeHeader';
 import { ExploreFilterDrawer } from '@/components/explore/ExploreFilterDrawer';
 
-const NAV_TABS = [
-  { href: '/explore', label: 'Tree', match: (p: string) => p === '/explore' },
-] as const;
-
 export function Header() {
   const pathname = usePathname();
+  const tNav = useTranslations('nav');
+
+  const NAV_TABS = [
+    {
+      href: '/explore',
+      label: tNav('tree'),
+      match: (p: string) => p === '/explore',
+    },
+  ] as const;
 
   if (pathname === '/editor') {
     return null;
@@ -35,7 +42,8 @@ export function Header() {
         backgroundColor: 'rgba(10, 14, 23, 0.9)',
       }}
     >
-      <div className="flex min-w-0 shrink-0 items-center gap-6">
+      <div className="flex min-w-0 shrink-0 items-center gap-3 md:gap-6">
+        <LanguageSwitcher align="start" />
         <Link
           href="/"
           className="shrink-0 font-bold tracking-tight"
