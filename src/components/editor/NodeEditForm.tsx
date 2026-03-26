@@ -1,6 +1,12 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import {
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useTranslations } from 'next-intl';
 import {
   NODE_CATEGORY_ORDER,
@@ -149,6 +155,18 @@ export function NodeEditForm({
   const [builtRel, setBuiltRel] = useState<RelationType>(RT.MATERIAL);
   const [ledRel, setLedRel] = useState<RelationType>(RT.MATERIAL);
   const [ledTarget, setLedTarget] = useState('');
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
+
+  const syncDescriptionHeight = useCallback(() => {
+    const el = descriptionRef.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${el.scrollHeight}px`;
+  }, []);
+
+  useLayoutEffect(() => {
+    syncDescriptionHeight();
+  }, [form.description, editingId, syncDescriptionHeight]);
 
   const addBuiltUpon = useCallback(async () => {
     if (!editingId || !builtSource || builtSource === editingId) return;
@@ -314,13 +332,14 @@ export function NodeEditForm({
             {te('labelDescription')}
           </label>
           <textarea
-            rows={4}
+            ref={descriptionRef}
+            rows={1}
             value={form.description}
             onChange={(e) =>
               setForm((f) => ({ ...f, description: e.target.value }))
             }
             placeholder={te('descriptionPlaceholder')}
-            className="w-full rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
+            className="min-h-[3rem] w-full resize-none overflow-hidden rounded-lg border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm outline-none focus:border-[#3B82F6]"
           />
         </div>
         <div>

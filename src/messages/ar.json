@@ -85,7 +85,8 @@
     "closePanel": "إغلاق اللوحة",
     "backToDetail": "العودة للتفاصيل",
     "editInvention": "تعديل الاختراع",
-    "collapseLegend": "طي المفتاح"
+    "collapseLegend": "طي المفتاح",
+    "moreActions": "المزيد من الإجراءات"
   },
   "legend": {
     "title": "مفتاح",

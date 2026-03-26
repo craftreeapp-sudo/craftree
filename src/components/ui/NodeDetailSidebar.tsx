@@ -1,8 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { useUIStore } from '@/stores/ui-store';
@@ -111,6 +110,8 @@ export function NodeDetailSidebar() {
   );
   const [editorNodes, setEditorNodes] = useState<SeedNode[]>([]);
   const [editorLinks, setEditorLinks] = useState<CraftingLink[]>([]);
+  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
+  const moreMenuRef = useRef<HTMLDivElement>(null);
 
   const loadEditorData = useCallback(async () => {
     const [nr, lr] = await Promise.all([
@@ -319,6 +320,21 @@ export function NodeDetailSidebar() {
     pushToast(tCommon('linkCopied'), 'success');
   }, [node, pushToast, tCommon]);
 
+  useEffect(() => {
+    if (!moreMenuOpen) return;
+    const onDoc = (e: MouseEvent) => {
+      if (!moreMenuRef.current?.contains(e.target as Node)) {
+        setMoreMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', onDoc);
+    return () => document.removeEventListener('mousedown', onDoc);
+  }, [moreMenuOpen]);
+
+  useEffect(() => {
+    setMoreMenuOpen(false);
+  }, [selectedNodeId]);
+
   const detail = node ? detailsById[node.id] : undefined;
 
   const sidebarDescription = useMemo(() => {
@@ -526,6 +542,89 @@ export function NodeDetailSidebar() {
                         <span className="text-base leading-none">✏️</span>
                       </button>
                     ) : null}
+                    <div className="relative" ref={moreMenuRef}>
+                      <button
+                        type="button"
+                        onClick={() => setMoreMenuOpen((v) => !v)}
+                        aria-expanded={moreMenuOpen}
+                        aria-haspopup="menu"
+                        aria-label={tSidebar('moreActions')}
+                        className="rounded p-1.5 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                      >
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          aria-hidden
+                        >
+                          <circle cx="12" cy="6" r="1.75" />
+                          <circle cx="12" cy="12" r="1.75" />
+                          <circle cx="12" cy="18" r="1.75" />
+                        </svg>
+                      </button>
+                      {moreMenuOpen ? (
+                        <div
+                          className="absolute end-0 top-[calc(100%+6px)] z-[60] min-w-[180px] rounded-md border border-[#2A3042] bg-[#1A1F2E] py-1 shadow-lg"
+                          role="menu"
+                        >
+                          {detail?.wikipedia_url ? (
+                            <a
+                              href={detail.wikipedia_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-2 px-3 py-2 text-[13px] text-[#E8ECF4] hover:bg-[#2A3042]"
+                              role="menuitem"
+                              onClick={() => setMoreMenuOpen(false)}
+                            >
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="shrink-0 text-[#8B95A8]"
+                                aria-hidden
+                              >
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                <polyline points="15 3 21 3 21 9" />
+                                <line x1="10" y1="14" x2="21" y2="3" />
+                              </svg>
+                              {tSidebar('wikipedia')}
+                            </a>
+                          ) : null}
+                          <button
+                            type="button"
+                            className="flex w-full items-center gap-2 px-3 py-2 text-start text-[13px] text-[#E8ECF4] hover:bg-[#2A3042]"
+                            role="menuitem"
+                            onClick={() => {
+                              handleShare();
+                              setMoreMenuOpen(false);
+                            }}
+                          >
+                            <svg
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="shrink-0 text-[#8B95A8]"
+                              aria-hidden
+                            >
+                              <path d="M7 7h10v10" />
+                              <path d="M7 17 17 7" />
+                            </svg>
+                            {tCommon('share')}
+                          </button>
+                        </div>
+                      ) : null}
+                    </div>
                     <button
                       type="button"
                       onClick={closeDetail}
@@ -599,6 +698,31 @@ export function NodeDetailSidebar() {
                 {sidebarDescription}
               </motion.p>
 
+              {!isAdmin ? (
+                <motion.div variants={staggerItem} className="mt-4">
+                  <button
+                    type="button"
+                    onClick={handleSuggestCorrection}
+                    className="flex w-full items-center justify-center gap-2 rounded-lg border border-amber-500/45 bg-amber-950/40 px-4 py-2.5 text-sm font-medium text-amber-200 shadow-sm transition-colors hover:border-amber-400/55 hover:bg-amber-950/55"
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden
+                    >
+                      <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+                    </svg>
+                    <span>{tAuth('suggestCorrection')}</span>
+                  </button>
+                </motion.div>
+              ) : null}
+
               <motion.section variants={staggerItem} className="mt-6">
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#8B95A8]">
                   {tExplore('builtUpon')} ({recipeLinks.length})
@@ -655,73 +779,6 @@ export function NodeDetailSidebar() {
                   </ul>
                 )}
               </motion.section>
-
-              {detail?.wikipedia_url && (
-                <motion.div variants={staggerItem} className="mt-6">
-                  <a
-                    href={detail.wikipedia_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex w-full items-center justify-center rounded-lg border border-[#E5E7EB] bg-white px-3 py-2.5 text-sm font-medium text-[#0A0E17] transition-colors hover:bg-[#F3F4F6]"
-                  >
-                    {tSidebar('wikipedia')}
-                  </a>
-                </motion.div>
-              )}
-
-              <motion.div variants={staggerItem} className="mt-6 space-y-2">
-                <Link
-                  href={`/tree/${node.id}`}
-                  className="inline-flex w-full items-center justify-center rounded-lg border border-[#3B82F6]/40 bg-[#3B82F6]/10 px-3 py-2.5 text-sm font-medium text-[#3B82F6] transition-colors hover:bg-[#3B82F6]/20"
-                >
-                  {tExplore('seeFullTree')}
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => handleShare()}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#2A3042] bg-[#111827]/60 px-3 py-2.5 text-sm font-medium text-[#E8ECF4] transition-colors hover:border-[#3B82F6]/40 hover:bg-[#1A1F2E]"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-[#8B95A8]"
-                    aria-hidden
-                  >
-                    <path d="M7 7h10v10" />
-                    <path d="M7 17 17 7" />
-                  </svg>
-                  {tCommon('share')}
-                </button>
-                {!isAdmin ? (
-                  <button
-                    type="button"
-                    onClick={handleSuggestCorrection}
-                    className="inline-flex w-full items-center justify-center gap-2 border border-[#2A3042] bg-transparent px-2.5 py-2.5 text-[13px] font-medium text-[#8B95A8] transition-colors hover:border-[#F59E0B] hover:text-[#F59E0B]"
-                    style={{ borderRadius: 8 }}
-                  >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      className="shrink-0"
-                      aria-hidden
-                    >
-                      <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
-                    </svg>
-                    {tAuth('suggestCorrection')}
-                  </button>
-                ) : null}
-              </motion.div>
                 </div>
               </>
             )}

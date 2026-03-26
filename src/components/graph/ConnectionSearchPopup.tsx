@@ -550,13 +550,23 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                   <p className="min-w-0 text-[13px] font-bold leading-tight text-white">
                     {pendingExisting.node.name}
                   </p>
-                  <button
-                    type="button"
-                    onClick={() => setPendingExisting(null)}
-                    className="shrink-0 text-[12px] text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
-                  >
-                    {tc('back')}
-                  </button>
+                  <div className="flex shrink-0 items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={() => setPendingExisting(null)}
+                      className="text-[12px] text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
+                    >
+                      {tc('back')}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={close}
+                      className="rounded p-1 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                      aria-label={tc('close')}
+                    >
+                      <span className="text-lg leading-none">×</span>
+                    </button>
+                  </div>
                 </div>
                 <p className="px-3 pt-2 text-[11px] text-[#8B95A8]">
                   {tConn('pickRelationForLink')}
@@ -581,16 +591,26 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                 className={creating ? 'pointer-events-none opacity-60' : ''}
               >
                 <div className="flex items-start justify-between gap-2 border-b border-[#2A3042] px-3 py-2">
-                  <p className="text-[13px] font-bold leading-tight text-white">
+                  <p className="min-w-0 text-[13px] font-bold leading-tight text-white">
                     {tConn('createHeading', { name: pickDraft.name })}
                   </p>
-                  <button
-                    type="button"
-                    onClick={backFromPickToCreate}
-                    className="shrink-0 text-[12px] text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
-                  >
-                    {tc('back')}
-                  </button>
+                  <div className="flex shrink-0 items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={backFromPickToCreate}
+                      className="text-[12px] text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
+                    >
+                      {tc('back')}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={close}
+                      className="rounded p-1 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                      aria-label={tc('close')}
+                    >
+                      <span className="text-lg leading-none">×</span>
+                    </button>
+                  </div>
                 </div>
                 <div className="max-h-[min(320px,55vh)] space-y-3 overflow-y-auto p-3">
                   <p className="text-[11px] leading-snug text-[#8B95A8]">
@@ -691,16 +711,26 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                 transition={{ duration: 0.2 }}
               >
                 <div className="flex items-start justify-between gap-2 border-b border-[#2A3042] px-3 py-2">
-                  <p className="text-[13px] font-bold leading-tight text-white">
+                  <p className="min-w-0 text-[13px] font-bold leading-tight text-white">
                     {tConn('createHeading', { name: createName })}
                   </p>
-                  <button
-                    type="button"
-                    onClick={backToSearch}
-                    className="shrink-0 text-[12px] text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
-                  >
-                    {tc('back')}
-                  </button>
+                  <div className="flex shrink-0 items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={backToSearch}
+                      className="text-[12px] text-[#8B95A8] transition-colors hover:text-[#E8ECF4]"
+                    >
+                      {tc('back')}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={close}
+                      className="rounded p-1 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                      aria-label={tc('close')}
+                    >
+                      <span className="text-lg leading-none">×</span>
+                    </button>
+                  </div>
                 </div>
                 <div className="space-y-3 p-3">
                   <div>
@@ -791,15 +821,23 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="border-b border-[#2A3042] p-2">
+                <div className="flex items-center gap-1 border-b border-[#2A3042] p-2">
                   <input
                     ref={inputRef}
                     type="search"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder={tConn('searchPlaceholder')}
-                    className="w-full rounded-md border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] placeholder:text-[#8B95A8] outline-none focus:border-[#3B82F6]"
+                    className="min-w-0 flex-1 rounded-md border border-[#2A3042] bg-[#111827] px-3 py-2 text-sm text-[#E8ECF4] placeholder:text-[#8B95A8] outline-none focus:border-[#3B82F6]"
                   />
+                  <button
+                    type="button"
+                    onClick={close}
+                    className="shrink-0 rounded p-1.5 text-[#8B95A8] transition-colors hover:bg-[#2A3042] hover:text-[#E8ECF4]"
+                    aria-label={tc('close')}
+                  >
+                    <span className="text-xl leading-none">×</span>
+                  </button>
                 </div>
                 <ul
                   className="max-h-[min(240px,40vh)] touch-pan-y overscroll-contain py-1"

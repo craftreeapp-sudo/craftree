@@ -85,7 +85,8 @@
     "closePanel": "पैनल बंद करें",
     "backToDetail": "विवरण पर वापस",
     "editInvention": "आविष्कार संपादित करें",
-    "collapseLegend": "किंवदंती संकुचित करें"
+    "collapseLegend": "किंवदंती संकुचित करें",
+    "moreActions": "और क्रियाएँ"
   },
   "legend": {
     "title": "किंवदंती",

@@ -85,7 +85,8 @@
     "closePanel": "Fermer le panneau",
     "backToDetail": "Retour au détail",
     "editInvention": "Modifier l'invention",
-    "collapseLegend": "Replier la légende"
+    "collapseLegend": "Replier la légende",
+    "moreActions": "Plus d’actions"
   },
   "legend": {
     "title": "Légende",

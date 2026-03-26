@@ -85,7 +85,8 @@
     "closePanel": "Close panel",
     "backToDetail": "Back to detail",
     "editInvention": "Edit invention",
-    "collapseLegend": "Collapse legend"
+    "collapseLegend": "Collapse legend",
+    "moreActions": "More actions"
   },
   "legend": {
     "title": "Legend",

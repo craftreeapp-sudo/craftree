@@ -85,7 +85,8 @@
     "closePanel": "关闭面板",
     "backToDetail": "返回详情",
     "editInvention": "编辑发明",
-    "collapseLegend": "收起图例"
+    "collapseLegend": "收起图例",
+    "moreActions": "更多操作"
   },
   "legend": {
     "title": "图例",
