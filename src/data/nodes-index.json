@@ -1657,6 +1657,7 @@
       "type": "tool",
       "era": "prehistoric",
       "year_approx": -1600000,
+      "image_url": "/images/nodes/hache.jpg",
       "complexity_depth": 0
     },
     {
@@ -1666,6 +1667,7 @@
       "type": "process",
       "era": "ancient",
       "year_approx": -4000,
+      "image_url": "/images/nodes/fonderie.jpg",
       "complexity_depth": 0
     },
     {
@@ -1732,6 +1734,7 @@
       "type": "tool",
       "era": "ancient",
       "year_approx": -870,
+      "image_url": "/images/nodes/poulie.jpg",
       "complexity_depth": 0
     },
     {
@@ -1778,6 +1781,7 @@
       "type": "end_product",
       "era": "ancient",
       "year_approx": -2650,
+      "image_url": "/images/nodes/barrage.jpg",
       "complexity_depth": 0
     },
     {
@@ -2319,6 +2323,82 @@
       "era": "industrial",
       "year_approx": 1897,
       "image_url": "/images/nodes/artillerie-moderne.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "acide-sulfurique",
+      "name": "Acide sulfurique",
+      "category": "chemistry",
+      "type": "component",
+      "era": "medieval",
+      "year_approx": 800,
+      "complexity_depth": 0
+    },
+    {
+      "id": "laser",
+      "name": "Laser",
+      "category": "optical",
+      "type": "tool",
+      "era": "modern",
+      "year_approx": 1960,
+      "image_url": "/images/nodes/laser.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "batterie",
+      "name": "Batterie",
+      "category": "electronics",
+      "type": "component",
+      "era": "industrial",
+      "year_approx": 1859,
+      "complexity_depth": 0
+    },
+    {
+      "id": "gps",
+      "name": "GPS",
+      "category": "electronics",
+      "type": "end_product",
+      "era": "digital",
+      "year_approx": 1973,
+      "complexity_depth": 0
+    },
+    {
+      "id": "epee",
+      "name": "Épée",
+      "category": "weapon",
+      "type": "end_product",
+      "era": "ancient",
+      "year_approx": -3100,
+      "image_url": "/images/nodes/epee.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "acide-chlorhydrique",
+      "name": "Acide chlorhydrique",
+      "category": "chemistry",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": 800,
+      "complexity_depth": 0
+    },
+    {
+      "id": "batterie-au-plomb",
+      "name": "Batterie au plomb",
+      "category": "electronics",
+      "type": "component",
+      "era": "industrial",
+      "year_approx": 1859,
+      "image_url": "/images/nodes/batterie-au-plomb.jpg",
+      "complexity_depth": 0
+    },
+    {
+      "id": "explosifs-industriels",
+      "name": "Explosifs industriels",
+      "category": "chemistry",
+      "type": "material",
+      "era": "industrial",
+      "year_approx": 1867,
+      "image_url": "/images/nodes/explosifs-industriels.jpg",
       "complexity_depth": 0
     }
   ]

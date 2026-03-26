@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Geist_Mono, Inter, Space_Grotesk } from 'next/font/google';
+import { Geist_Mono, Inter, Lora, Space_Grotesk } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import './globals.css';
@@ -19,6 +19,12 @@ const geistMono = Geist_Mono({
 
 const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+const lora = Lora({
+  variable: '--font-serif',
   subsets: ['latin'],
   display: 'swap',
 });
@@ -99,7 +105,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${inter.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full bg-[#0A0E17] antialiased`}
+      className={`${inter.variable} ${geistMono.variable} ${spaceGrotesk.variable} ${lora.variable} h-full bg-[#0A0E17] antialiased`}
     >
       <body className="flex min-h-screen min-h-[100dvh] flex-col bg-[#0A0E17] font-sans text-[#E8ECF4] antialiased">
         <script

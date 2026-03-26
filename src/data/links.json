@@ -5948,6 +5948,463 @@
       "relation_type": "knowledge",
       "is_optional": false,
       "notes": null
+    },
+    {
+      "id": "l-cfb484c67cb3",
+      "source_id": "soufre",
+      "target_id": "acide-sulfurique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6722fdfa1135",
+      "source_id": "air",
+      "target_id": "acide-sulfurique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f5c106e308ed",
+      "source_id": "eau",
+      "target_id": "acide-sulfurique",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-201203c98000",
+      "source_id": "distillation",
+      "target_id": "acide-sulfurique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e00c458927e6",
+      "source_id": "four-haute-temp",
+      "target_id": "acide-sulfurique",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-70a5b2fbc4ee",
+      "source_id": "acide-sulfurique",
+      "target_id": "engrais",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-52254eadab74",
+      "source_id": "electricite",
+      "target_id": "laser",
+      "relation_type": "energy",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-001159f0b8dc",
+      "source_id": "verre",
+      "target_id": "laser",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ff2773d133d7",
+      "source_id": "lentille",
+      "target_id": "laser",
+      "relation_type": "component",
+      "quantity_hint": "quelques",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3fbf47597528",
+      "source_id": "laser",
+      "target_id": "fibre-optique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f2d8655028ff",
+      "source_id": "acide-sulfurique",
+      "target_id": "batterie",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8176e58d2d21",
+      "source_id": "caoutchouc",
+      "target_id": "batterie",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a263ce8a4189",
+      "source_id": "verre",
+      "target_id": "batterie",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d4bcd71464e7",
+      "source_id": "electricite",
+      "target_id": "batterie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c8c249cf5d11",
+      "source_id": "chimie-organique",
+      "target_id": "batterie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-882f3717c4aa",
+      "source_id": "batterie",
+      "target_id": "automobile",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7e18bd5b2810",
+      "source_id": "batterie",
+      "target_id": "telephone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-29d294e600d6",
+      "source_id": "batterie",
+      "target_id": "telegraphe",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3301825085a9",
+      "source_id": "batterie",
+      "target_id": "ordinateur",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4d9ba6a00562",
+      "source_id": "batterie",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-da98ff170d83",
+      "source_id": "microprocesseur",
+      "target_id": "gps",
+      "relation_type": "material",
+      "quantity_hint": "plusieurs par satellite",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9ad65a758d1d",
+      "source_id": "antenne-radio",
+      "target_id": "gps",
+      "relation_type": "material",
+      "quantity_hint": "plusieurs",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2080c0f61902",
+      "source_id": "serveur-informatique",
+      "target_id": "gps",
+      "relation_type": "tool",
+      "quantity_hint": "stations de contrôle",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d7d527c73b1a",
+      "source_id": "internet",
+      "target_id": "gps",
+      "relation_type": "knowledge",
+      "quantity_hint": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4aa81b6d6c2f",
+      "source_id": "fusee",
+      "target_id": "gps",
+      "relation_type": "tool",
+      "quantity_hint": "lancement satellites",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8b7c20ee4e9a",
+      "source_id": "electricite",
+      "target_id": "gps",
+      "relation_type": "energy",
+      "quantity_hint": "alimentation",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2e0d885ab2a2",
+      "source_id": "gps",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6ea2961d470a",
+      "source_id": "bronze",
+      "target_id": "epee",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-edde64d00663",
+      "source_id": "fer",
+      "target_id": "epee",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-23a0063187a9",
+      "source_id": "acier",
+      "target_id": "epee",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-26945a8143cc",
+      "source_id": "forge",
+      "target_id": "epee",
+      "relation_type": "tool",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6c16b989a51e",
+      "source_id": "marteau",
+      "target_id": "epee",
+      "relation_type": "tool",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-08d5d5b1b51f",
+      "source_id": "fonderie",
+      "target_id": "epee",
+      "relation_type": "knowledge",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c7f141922d34",
+      "source_id": "sel",
+      "target_id": "acide-chlorhydrique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d74156bb653a",
+      "source_id": "acide-sulfurique",
+      "target_id": "acide-chlorhydrique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bb4b42265caf",
+      "source_id": "acide-chlorhydrique",
+      "target_id": "plastique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-81ba65f1b132",
+      "source_id": "acide-chlorhydrique",
+      "target_id": "medicaments",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b1198dbe4c98",
+      "source_id": "acide-chlorhydrique",
+      "target_id": "acier",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-586d167243fc",
+      "source_id": "acide-sulfurique",
+      "target_id": "batterie-au-plomb",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b9df86dfe737",
+      "source_id": "eau",
+      "target_id": "batterie-au-plomb",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-87a34113a256",
+      "source_id": "electricite",
+      "target_id": "batterie-au-plomb",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1b6706fa46ef",
+      "source_id": "plastique",
+      "target_id": "batterie-au-plomb",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7f43d3efaa3c",
+      "source_id": "batterie-au-plomb",
+      "target_id": "automobile",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ec89cfba9bad",
+      "source_id": "batterie-au-plomb",
+      "target_id": "sous-marin",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8770e590424e",
+      "source_id": "batterie-au-plomb",
+      "target_id": "batterie-li",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ec70115f4edf",
+      "source_id": "salpetre",
+      "target_id": "explosifs-industriels",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-af4e4a87e14a",
+      "source_id": "soufre",
+      "target_id": "explosifs-industriels",
+      "relation_type": "material",
+      "quantity_hint": "un peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-367ef9d7ef2b",
+      "source_id": "charbon-de-bois",
+      "target_id": "explosifs-industriels",
+      "relation_type": "material",
+      "quantity_hint": "un peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8539c7b98e4f",
+      "source_id": "nitroglycerine",
+      "target_id": "explosifs-industriels",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-175371ca1e6f",
+      "source_id": "ammoniac",
+      "target_id": "explosifs-industriels",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8a34c08f61f1",
+      "source_id": "gazole",
+      "target_id": "explosifs-industriels",
+      "relation_type": "material",
+      "quantity_hint": "un peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0e9647984ea7",
+      "source_id": "chimie-organique",
+      "target_id": "explosifs-industriels",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f926f8405e45",
+      "source_id": "explosifs-industriels",
+      "target_id": "tunnel-ferroviaire",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
     }
   ]
 }

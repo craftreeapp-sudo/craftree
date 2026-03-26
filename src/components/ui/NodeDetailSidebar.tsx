@@ -214,6 +214,11 @@ export function NodeDetailSidebar() {
     sidebarImageUrl && sidebarImageBust > 0
       ? `${sidebarImageUrl}${sidebarImageUrl.includes('?') ? '&' : '?'}t=${sidebarImageBust}`
       : sidebarImageUrl;
+  const sidebarImageUnoptimized =
+    Boolean(sidebarImageUrl?.startsWith('/images/')) ||
+    Boolean(sidebarImageUrl?.includes('placehold.co')) ||
+    Boolean(sidebarImageUrl?.startsWith('http://localhost')) ||
+    Boolean(sidebarImageUrl?.startsWith('https://localhost'));
 
   useEffect(() => {
     setSidebarImageError(false);
@@ -222,7 +227,7 @@ export function NodeDetailSidebar() {
   const hasDetailMetaAboveDescription =
     Boolean(yearLine) ||
     Boolean(node?.origin?.trim() || detail?.origin?.trim()) ||
-    Boolean(sidebarImageSrc && !sidebarImageError);
+    Boolean(node);
 
   return (
     <>
@@ -376,22 +381,37 @@ export function NodeDetailSidebar() {
                 </motion.div>
 
                 <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 py-4">
-              {sidebarImageSrc && !sidebarImageError ? (
+              {node ? (
                 <motion.div
                   variants={staggerItem}
                   className="mb-4 w-full shrink-0 overflow-hidden rounded-lg"
                 >
-                  <Image
-                    src={sidebarImageSrc}
-                    alt=""
-                    width={340}
-                    height={200}
-                    className="max-h-[200px] w-full object-cover"
-                    loading="lazy"
-                    placeholder="empty"
-                    unoptimized
-                    onError={() => setSidebarImageError(true)}
-                  />
+                  {sidebarImageSrc && !sidebarImageError ? (
+                    <Image
+                      src={sidebarImageSrc}
+                      alt=""
+                      width={340}
+                      height={200}
+                      className="max-h-[200px] w-full object-cover"
+                      loading="lazy"
+                      placeholder="empty"
+                      unoptimized={sidebarImageUnoptimized}
+                      onError={() => setSidebarImageError(true)}
+                    />
+                  ) : (
+                    <div
+                      className="flex min-h-[120px] w-full items-center justify-center px-4 py-6 text-center text-[15px] font-semibold leading-snug text-white"
+                      style={{ backgroundColor: categoryColor }}
+                    >
+                      <span className="line-clamp-5">
+                        {pickNodeDisplayName(
+                          locale,
+                          node.name,
+                          detail?.name_en
+                        )}
+                      </span>
+                    </div>
+                  )}
                 </motion.div>
               ) : null}
 

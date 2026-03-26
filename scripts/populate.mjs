@@ -6,7 +6,7 @@
  *   node scripts/populate.mjs
  *   node scripts/populate.mjs --expand
  *   node scripts/populate.mjs --deep
- *   node scripts/populate.mjs --images   (images manquantes, sans Claude)
+ *   node scripts/populate.mjs --images   (URLs Wikimedia dans seed-data, sans Claude)
  *
  * Prérequis : .env.local avec ANTHROPIC_API_KEY (sauf --images)
  */
@@ -16,6 +16,10 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { config } from 'dotenv';
+import {
+  fetchWikipediaImageUrl,
+  searchWikipediaImage,
+} from './wikimedia-fetch.mjs';
 
 config({ path: '.env.local' });
 config({ path: '.env' });
@@ -41,9 +45,6 @@ const PAUSE_BETWEEN_BATCHES_MS = 1000;
 const MODEL =
   process.env.ANTHROPIC_MODEL?.trim() || 'claude-sonnet-4-20250514';
 
-const USER_AGENT = 'CivTree/1.0 (educational project; contact: local dev)';
-const NODES_IMG_DIR = path.join(process.cwd(), 'public/images/nodes');
-
 function cleanDescription(text) {
   if (!text) return '';
   return text
@@ -53,14 +54,6 @@ function cleanDescription(text) {
     .replace(/\[\d+\]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
-}
-
-/** @returns {string|null} chemin public /images/nodes/... si un fichier nodeId.* existe */
-function getLocalNodeImagePublicPath(nodeId) {
-  if (!fs.existsSync(NODES_IMG_DIR)) return null;
-  const existingFiles = fs.readdirSync(NODES_IMG_DIR);
-  const match = existingFiles.find((f) => f.startsWith(`${nodeId}.`));
-  return match ? `/images/nodes/${match}` : null;
 }
 
 /** Évite les lectures/écritures concurrentes sur seed-data.json */
@@ -78,116 +71,54 @@ function enqueuePatchNodeImage(nodeId, imageUrl) {
   return seedWriteChain;
 }
 
-/**
- * Télécharge l’image principale Wikipedia (REST summary) et enregistre le fichier + image_url.
- * @returns {Promise<string|null>} chemin public /images/nodes/... ou null
- */
-async function fetchWikipediaImage(wikipediaUrl, nodeId) {
-  if (!wikipediaUrl || typeof wikipediaUrl !== 'string') return null;
-
-  try {
-    const existingLocal = getLocalNodeImagePublicPath(nodeId);
-    if (existingLocal) {
-      await enqueuePatchNodeImage(nodeId, existingLocal);
-      return existingLocal;
-    }
-
-    let urlObj;
-    try {
-      urlObj = new URL(wikipediaUrl);
-    } catch {
-      return null;
-    }
-
-    const host = urlObj.hostname;
-    const parts = host.split('.');
-    const wikiIdx = parts.indexOf('wikipedia');
-    let lang =
-      wikiIdx > 0 ? parts[wikiIdx - 1] : host.split('.')[0] || 'fr';
-    if (lang === 'm') lang = 'en';
-    if (!/^[a-z]{2,3}$/i.test(lang)) lang = 'fr';
-
-    let title = urlObj.pathname.replace(/^\/wiki\//, '');
-    if (!title || /:/.test(title)) return null;
-    title = decodeURIComponent(title.replace(/_/g, ' '));
-
-    const apiUrl = `https://${lang}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
-
-    const response = await fetch(apiUrl, {
-      headers: { 'User-Agent': USER_AGENT },
-    });
-    if (!response.ok) return null;
-
-    const data = await response.json();
-    const imageUrl =
-      data.thumbnail?.source || data.originalimage?.source || null;
-    if (!imageUrl) return null;
-
-    const imageResponse = await fetch(imageUrl, {
-      headers: { 'User-Agent': USER_AGENT },
-    });
-    if (!imageResponse.ok) return null;
-
-    const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
-
-    const extMatch = imageUrl.match(/\.(jpg|jpeg|png|gif|webp)/i);
-    const ext = extMatch ? extMatch[1].toLowerCase().replace('jpeg', 'jpg') : 'jpg';
-    if (ext === 'svg') return null;
-
-    if (imageBuffer.length < 5000) return null;
-
-    if (!fs.existsSync(NODES_IMG_DIR)) {
-      fs.mkdirSync(NODES_IMG_DIR, { recursive: true });
-    }
-
-    const filename = `${nodeId}.${ext}`;
-    const filepath = path.join(NODES_IMG_DIR, filename);
-    fs.writeFileSync(filepath, imageBuffer);
-
-    const publicPath = `/images/nodes/${filename}`;
-    await enqueuePatchNodeImage(nodeId, publicPath);
-    return publicPath;
-  } catch {
-    return null;
-  }
+function needsRemoteImageUrl(node) {
+  const u = node.image_url?.trim();
+  if (!u) return true;
+  if (u.startsWith('/images/nodes/')) return true;
+  return false;
 }
 
 async function runImagesMode() {
-  console.log('🖼️  Mode images : récupération des images manquantes\n');
+  console.log('🖼️  Mode images : URLs Wikimedia (sans téléchargement local)\n');
   const db = readDB();
   let fetched = 0;
   let skipped = 0;
+  const total = db.nodes.length;
+  let idx = 0;
 
   for (const node of db.nodes) {
-    if (!node.wikipedia_url) {
+    idx++;
+    if (!needsRemoteImageUrl(node)) {
       skipped++;
       continue;
     }
 
-    const localPublic = getLocalNodeImagePublicPath(node.id);
-    if (localPublic) {
-      if (node.image_url !== localPublic) {
-        await enqueuePatchNodeImage(node.id, localPublic);
-      }
-      skipped++;
-      continue;
-    }
+    console.log(`[${idx}/${total}] 🖼️  ${node.name}...`);
 
-    console.log(`🖼️  ${node.name}...`);
-    const imageUrl = await fetchWikipediaImage(node.wikipedia_url, node.id);
+    let imageUrl = null;
+    if (node.wikipedia_url?.trim()) {
+      imageUrl = await fetchWikipediaImageUrl(String(node.wikipedia_url).trim());
+    }
+    if (!imageUrl) {
+      imageUrl = await searchWikipediaImage(
+        node.name,
+        node.name_en || node.name
+      );
+    }
 
     if (imageUrl) {
+      await enqueuePatchNodeImage(node.id, imageUrl);
       fetched++;
-      console.log(`   ✅ Image récupérée`);
+      console.log(`   ✅ ${imageUrl.slice(0, 72)}…`);
     } else {
       console.log(`   ⏭️  Pas d’image trouvée`);
     }
 
-    await sleep(500);
+    await sleep(300);
   }
 
   await seedWriteChain;
-  console.log(`\n📊 ${fetched} images récupérées, ${skipped} ignorées`);
+  console.log(`\n📊 ${fetched} URLs enregistrées, ${skipped} déjà à jour ou ignorées`);
 }
 
 function readDB() {
@@ -1096,10 +1027,11 @@ async function main() {
 
     for (const job of batchImageJobs) {
       pendingImagePromises.push(
-        fetchWikipediaImage(job.wikipediaUrl, job.nodeId).then((url) => {
+        fetchWikipediaImageUrl(job.wikipediaUrl).then(async (url) => {
           if (url) {
+            await enqueuePatchNodeImage(job.nodeId, url);
             imagesCount++;
-            console.log(`   🖼️  Image récupérée : ${job.name}`);
+            console.log(`   🖼️  Image URL : ${job.name}`);
           }
         })
       );

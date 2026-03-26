@@ -8,6 +8,7 @@
     "populate:expand": "node scripts/populate.mjs --expand",
     "populate:deep": "node scripts/populate.mjs --deep",
     "populate:images": "node scripts/populate.mjs --images",
+    "fetch:images": "node scripts/fetch-image-urls.mjs",
     "clean:descriptions": "node scripts/clean-descriptions.mjs",
     "translate": "node scripts/translate-descriptions.mjs",
     "dev": "next dev",

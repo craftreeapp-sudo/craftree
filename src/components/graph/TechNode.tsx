@@ -263,6 +263,10 @@ function TechNodeComponent({
       ? `${rawImageUrl}${rawImageUrl.includes('?') ? '&' : '?'}t=${bust}`
       : rawImageUrl;
   const hasImage = Boolean(rawImageUrl);
+
+  useEffect(() => {
+    setImageError(false);
+  }, [rawImageUrl, id]);
   const yearLabel = formatYear(nodeData.year_approx);
   /**
    * Survol /explore : voisins hors focus → opacité 0.
@@ -533,7 +537,8 @@ function TechNodeComponent({
                 unoptimized={
                   Boolean(rawImageUrl?.startsWith('/images/')) ||
                   Boolean(rawImageUrl?.includes('placehold.co')) ||
-                  Boolean(rawImageUrl?.startsWith('http://localhost'))
+                  Boolean(rawImageUrl?.startsWith('http://localhost')) ||
+                  Boolean(rawImageUrl?.startsWith('https://localhost'))
                 }
               />
             ) : (

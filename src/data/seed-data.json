@@ -16,7 +16,8 @@
         "énergie"
       ],
       "origin": "Nature",
-      "description_en": "Combustion allowing the transformation of materials through heat."
+      "description_en": "Combustion allowing the transformation of materials through heat.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/FIRE_01.JPG/600px-FIRE_01.JPG"
     },
     {
       "id": "eau",
@@ -34,7 +35,8 @@
         "hydratation"
       ],
       "origin": "Nature",
-      "description_en": "Essential chemical compound for life and many transformations."
+      "description_en": "Essential chemical compound for life and many transformations.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Pvs%2Ceau%2C348-647K.svg/600px-Pvs%2Ceau%2C348-647K.svg.png"
     },
     {
       "id": "air",
@@ -51,7 +53,8 @@
         "combustion"
       ],
       "origin": "Nature",
-      "description_en": "Gaseous mixture necessary for combustion and respiration."
+      "description_en": "Gaseous mixture necessary for combustion and respiration.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Meteotek08_atmosfera10.jpg/600px-Meteotek08_atmosfera10.jpg"
     },
     {
       "id": "sable",
@@ -70,7 +73,8 @@
         "électronique"
       ],
       "origin": "Nature",
-      "description_en": "Silica particles (SiO₂) used for glass and concrete."
+      "description_en": "Silica particles (SiO₂) used for glass and concrete.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Dunes5.JPG/600px-Dunes5.JPG"
     },
     {
       "id": "charbon",
@@ -88,7 +92,8 @@
         "énergie"
       ],
       "origin": "Nature",
-      "description_en": "Fossil fuel used for heat and ore reduction."
+      "description_en": "Fossil fuel used for heat and ore reduction.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Anthrazit.jpg/600px-Anthrazit.jpg"
     },
     {
       "id": "cuivre",
@@ -106,7 +111,8 @@
         "électricité"
       ],
       "origin": "Nature",
-      "description_en": "Ductile metal excellent conductor of electricity."
+      "description_en": "Ductile metal excellent conductor of electricity.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/NatCopper.jpg/600px-NatCopper.jpg"
     },
     {
       "id": "minerai-fer",
@@ -124,7 +130,8 @@
         "minéral"
       ],
       "origin": "Nature",
-      "description_en": "Rock containing iron to be reduced in a furnace."
+      "description_en": "Rock containing iron to be reduced in a furnace.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Black-band_ironstone_%28aka%29.jpg/600px-Black-band_ironstone_%28aka%29.jpg"
     },
     {
       "id": "calcaire",
@@ -142,7 +149,8 @@
         "chaux"
       ],
       "origin": "Nature",
-      "description_en": "Sedimentary rock rich in calcium carbonate."
+      "description_en": "Sedimentary rock rich in calcium carbonate.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Kalksteenrots_met_in_het_midden_een_breccie._10-09-2019._%28actm.%29_02.jpg/600px-Kalksteenrots_met_in_het_midden_een_breccie._10-09-2019._%28actm.%29_02.jpg"
     },
     {
       "id": "argile",
@@ -160,7 +168,8 @@
         "construction"
       ],
       "origin": "Nature",
-      "description_en": "Plastic sedimentary rock used for ceramics and cement."
+      "description_en": "Plastic sedimentary rock used for ceramics and cement.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Clay-ss-2005.jpg/600px-Clay-ss-2005.jpg"
     },
     {
       "id": "bois",
@@ -178,7 +187,8 @@
         "combustible"
       ],
       "origin": "Nature",
-      "description_en": "Woody tissue of trees, universal construction material."
+      "description_en": "Woody tissue of trees, universal construction material.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Wood_grain.jpg/600px-Wood_grain.jpg"
     },
     {
       "id": "sel",
@@ -195,7 +205,8 @@
         "alimentation"
       ],
       "origin": "Nature",
-      "description_en": "Sodium chloride, preservative and flavor enhancer."
+      "description_en": "Sodium chloride, preservative and flavor enhancer.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Table_salt_with_salt_shaker_V1.jpg/600px-Table_salt_with_salt_shaker_V1.jpg"
     },
     {
       "id": "ble",
@@ -213,7 +224,8 @@
         "pain"
       ],
       "origin": "Nature",
-      "description_en": "Cultivated cereal, the basis of bread-based nutrition."
+      "description_en": "Cultivated cereal, the basis of bread-based nutrition.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/%C3%89pi_de_bl%C3%A9.jpg/600px-%C3%89pi_de_bl%C3%A9.jpg"
     },
     {
       "id": "raisin",
@@ -231,7 +243,8 @@
         "fruit"
       ],
       "origin": "Nature",
-      "description_en": "Fruit of the vine, fermented to produce wine."
+      "description_en": "Fruit of the vine, fermented to produce wine.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Grapes%2C_Dry_Creek_Valley-7705.jpg/600px-Grapes%2C_Dry_Creek_Valley-7705.jpg"
     },
     {
       "id": "lait",
@@ -249,7 +262,8 @@
         "protéine"
       ],
       "origin": "Nature",
-      "description_en": "Mammalian secretion transformed into cheese."
+      "description_en": "Mammalian secretion transformed into cheese.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Milk_glass.jpg/600px-Milk_glass.jpg"
     },
     {
       "id": "levure",
@@ -267,7 +281,8 @@
         "vin"
       ],
       "origin": "Nature",
-      "description_en": "Unicellular fungus causing fermentation."
+      "description_en": "Unicellular fungus causing fermentation.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/S_cerevisiae_under_DIC_microscopy.jpg/600px-S_cerevisiae_under_DIC_microscopy.jpg"
     },
     {
       "id": "presure",
@@ -284,7 +299,8 @@
         "coagulation"
       ],
       "origin": "Nature",
-      "description_en": "Coagulating enzyme extracted from the stomach of ruminants."
+      "description_en": "Coagulating enzyme extracted from the stomach of ruminants.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Pr%C3%A9sure-p%C3%A8ral_feda_presura.JPG/600px-Pr%C3%A9sure-p%C3%A8ral_feda_presura.JPG"
     },
     {
       "id": "plantes-medicinales",
@@ -302,7 +318,8 @@
         "thérapeutique"
       ],
       "origin": "Nature",
-      "description_en": "Plants containing therapeutic active ingredients."
+      "description_en": "Plants containing therapeutic active ingredients.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/20120726Lythrum_salicaria2.jpg/600px-20120726Lythrum_salicaria2.jpg"
     },
     {
       "id": "petrole",
@@ -320,7 +337,8 @@
         "carburant"
       ],
       "origin": "Nature",
-      "description_en": "Fossil hydrocarbon, foundation of modern organic chemistry."
+      "description_en": "Fossil hydrocarbon, foundation of modern organic chemistry.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Petroleum_sample.jpg/600px-Petroleum_sample.jpg"
     },
     {
       "id": "four",
@@ -337,7 +355,8 @@
         "cuisson",
         "métallurgie"
       ],
-      "description_en": "Heated enclosure for cooking, melting or transforming materials."
+      "description_en": "Heated enclosure for cooking, melting or transforming materials.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Oven.jpg/600px-Oven.jpg"
     },
     {
       "id": "four-haute-temp",
@@ -354,7 +373,8 @@
         "acier",
         "industrie"
       ],
-      "description_en": "Industrial furnace reaching 1500°C for iron reduction."
+      "description_en": "Industrial furnace reaching 1500°C for iron reduction.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/FourSolaire2.JPG/600px-FourSolaire2.JPG"
     },
     {
       "id": "soude",
@@ -371,7 +391,8 @@
         "chimie",
         "fondant"
       ],
-      "description_en": "Sodium carbonate, flux for silica."
+      "description_en": "Sodium carbonate, flux for silica.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Sodium-hydroxide-crystal-3D-vdW.png/600px-Sodium-hydroxide-crystal-3D-vdW.png"
     },
     {
       "id": "verre",
@@ -388,7 +409,8 @@
         "optique",
         "électronique"
       ],
-      "description_en": "Amorphous material resulting from the fusion of sand and soda."
+      "description_en": "Amorphous material resulting from the fusion of sand and soda.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Colorful_bottle.jpg/600px-Colorful_bottle.jpg"
     },
     {
       "id": "silicium",
@@ -405,7 +427,8 @@
         "électronique",
         "purification"
       ],
-      "description_en": "Semiconductor element purified from silica."
+      "description_en": "Semiconductor element purified from silica.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Silicon2.jpg/600px-Silicon2.jpg"
     },
     {
       "id": "wafer-silicium",
@@ -422,7 +445,8 @@
         "semi-conducteur",
         "photolithographie"
       ],
-      "description_en": "Monocrystalline silicon wafer for integrated circuits."
+      "description_en": "Monocrystalline silicon wafer for integrated circuits.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Etchedwafer.jpg"
     },
     {
       "id": "acide-gravure",
@@ -439,7 +463,8 @@
         "circuit",
         "chimie"
       ],
-      "description_en": "Chemical solution for etching circuits on silicon."
+      "description_en": "Chemical solution for etching circuits on silicon.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Rembrandt_The_Hundred_Guilder_Print.jpg/600px-Rembrandt_The_Hundred_Guilder_Print.jpg"
     },
     {
       "id": "photolithographie",
@@ -456,7 +481,8 @@
         "masque",
         "UV"
       ],
-      "description_en": "UV lithography process for printing circuits using mask and UV light."
+      "description_en": "UV lithography process for printing circuits using mask and UV light.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Wafer-trasparente.png/600px-Wafer-trasparente.png"
     },
     {
       "id": "resine-epoxy",
@@ -473,7 +499,8 @@
         "isolant",
         "circuit"
       ],
-      "description_en": "Thermosetting polymer derived from petroleum."
+      "description_en": "Thermosetting polymer derived from petroleum.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Epoxide_generic.svg/600px-Epoxide_generic.svg.png"
     },
     {
       "id": "fibre-verre",
@@ -490,7 +517,8 @@
         "circuit imprimé",
         "composite"
       ],
-      "description_en": "Glass filament fabric for insulation and support."
+      "description_en": "Glass filament fabric for insulation and support.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Glasfaser_Roving.jpg/600px-Glasfaser_Roving.jpg"
     },
     {
       "id": "circuit-imprime",
@@ -507,7 +535,8 @@
         "cuivre",
         "PCB"
       ],
-      "description_en": "Insulating support with copper conductive tracks."
+      "description_en": "Insulating support with copper conductive tracks.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Aurora_2ch_mixer_board_arrived_%282009-07-28_11.20.55_by_c-g.%29.jpg/600px-Aurora_2ch_mixer_board_arrived_%282009-07-28_11.20.55_by_c-g.%29.jpg"
     },
     {
       "id": "transistor",
@@ -524,7 +553,8 @@
         "amplification",
         "numérique"
       ],
-      "description_en": "Semiconductor component amplifier and switch."
+      "description_en": "Semiconductor component amplifier and switch.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Transistors.agr.jpg/600px-Transistors.agr.jpg"
     },
     {
       "id": "circuit-integre",
@@ -541,7 +571,8 @@
         "microprocesseur",
         "électronique"
       ],
-      "description_en": "Thousands of transistors etched on a silicon chip."
+      "description_en": "Thousands of transistors etched on a silicon chip.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/NXP_PCF8577C_LCD_driver_with_I%C2%B2C_%28Colour_Corrected%29.jpg/600px-NXP_PCF8577C_LCD_driver_with_I%C2%B2C_%28Colour_Corrected%29.jpg"
     },
     {
       "id": "microprocesseur",
@@ -558,7 +589,8 @@
         "ordinateur",
         "calcul"
       ],
-      "description_en": "Integrated circuit containing the central processing unit."
+      "description_en": "Integrated circuit containing the central processing unit.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Ic-photo-Motorola--XPC750PRX333SE--%28PowerPC-CPU%29.png/600px-Ic-photo-Motorola--XPC750PRX333SE--%28PowerPC-CPU%29.png"
     },
     {
       "id": "fer",
@@ -575,7 +607,8 @@
         "métallurgie",
         "construction"
       ],
-      "description_en": "Metal obtained by reduction of ore in a blast furnace."
+      "description_en": "Metal obtained by reduction of ore in a blast furnace.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Iron_electrolytic_and_1cm3_cube.jpg/600px-Iron_electrolytic_and_1cm3_cube.jpg"
     },
     {
       "id": "acier",
@@ -592,7 +625,8 @@
         "alliance",
         "construction"
       ],
-      "description_en": "Alloy of iron and carbon, stronger than pure iron."
+      "description_en": "Alloy of iron and carbon, stronger than pure iron.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Kaltbandcoils.jpg"
     },
     {
       "id": "poutre-acier",
@@ -609,7 +643,8 @@
         "charpente",
         "immeuble"
       ],
-      "description_en": "Metallic profile for framework and structure."
+      "description_en": "Metallic profile for framework and structure.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/DeTomasoPanteraBlack.jpg/600px-DeTomasoPanteraBlack.jpg"
     },
     {
       "id": "structure-metallique",
@@ -643,7 +678,8 @@
         "béton",
         "liant"
       ],
-      "description_en": "Hydraulic binder obtained by firing limestone and clay."
+      "description_en": "Hydraulic binder obtained by firing limestone and clay.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/USMC-110806-M-IX060-148.jpg/600px-USMC-110806-M-IX060-148.jpg"
     },
     {
       "id": "beton",
@@ -660,7 +696,8 @@
         "fondation",
         "armé"
       ],
-      "description_en": "Mixture of cement, sand, gravel and water."
+      "description_en": "Mixture of cement, sand, gravel and water.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Metre-cube-beton-p1040192.jpg/600px-Metre-cube-beton-p1040192.jpg"
     },
     {
       "id": "fondations",
@@ -694,7 +731,8 @@
         "bois",
         "cellulose"
       ],
-      "description_en": "Defibrillated and bleached wood fibers."
+      "description_en": "Defibrillated and bleached wood fibers.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Bergisch_Gladbach_-_Papierm%C3%BChle_Alte_Dombach_13_ies.jpg/600px-Bergisch_Gladbach_-_Papierm%C3%BChle_Alte_Dombach_13_ies.jpg"
     },
     {
       "id": "papier",
@@ -711,7 +749,8 @@
         "impression",
         "support"
       ],
-      "description_en": "Sheet of dried and pressed cellulosic fibers."
+      "description_en": "Sheet of dried and pressed cellulosic fibers.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/FileStack_retouched.jpg/600px-FileStack_retouched.jpg"
     },
     {
       "id": "encre",
@@ -728,7 +767,8 @@
         "écriture",
         "pigment"
       ],
-      "description_en": "Pigment or colorant in suspension for writing and printing."
+      "description_en": "Pigment or colorant in suspension for writing and printing.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/BlackInkBottle.JPG/600px-BlackInkBottle.JPG"
     },
     {
       "id": "presse-imprimer",
@@ -745,7 +785,8 @@
         "Gutenberg",
         "livre"
       ],
-      "description_en": "Mechanical machine reproducing text and images on paper."
+      "description_en": "Mechanical machine reproducing text and images on paper.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Gutenberg_MAME.jpg/600px-Gutenberg_MAME.jpg"
     },
     {
       "id": "livre",
@@ -762,7 +803,8 @@
         "impression",
         "lecture"
       ],
-      "description_en": "Collection of printed and bound sheets."
+      "description_en": "Collection of printed and bound sheets.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Latin_dictionary.jpg/600px-Latin_dictionary.jpg"
     },
     {
       "id": "fil-cuivre",
@@ -779,7 +821,8 @@
         "conducteur",
         "transmission"
       ],
-      "description_en": "Conductive metal wire for transmitting electricity."
+      "description_en": "Conductive metal wire for transmitting electricity.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Wire.agr.jpg/600px-Wire.agr.jpg"
     },
     {
       "id": "cable-electrique",
@@ -796,7 +839,8 @@
         "réseau",
         "isolation"
       ],
-      "description_en": "Insulated copper wire for carrying current."
+      "description_en": "Insulated copper wire for carrying current.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Large_Voltage_Electrical_Cable.jpg"
     },
     {
       "id": "generateur",
@@ -813,7 +857,8 @@
         "Faraday",
         "courant"
       ],
-      "description_en": "Machine converting mechanical energy into electricity."
+      "description_en": "Machine converting mechanical energy into electricity.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm/600px--Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm.jpg"
     },
     {
       "id": "electricite",
@@ -1561,7 +1606,8 @@
         "monument"
       ],
       "origin": "Nature",
-      "description_en": "Extracted and sometimes squared rock block for masonry."
+      "description_en": "Extracted and sometimes squared rock block for masonry.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Pierres_de_taille_livr%C3%A9es_par_la_carri%C3%A8re.JPG/600px-Pierres_de_taille_livr%C3%A9es_par_la_carri%C3%A8re.JPG"
     },
     {
       "id": "taille-pierre",
@@ -2662,7 +2708,8 @@
         "pétrole",
         "transport"
       ],
-      "description_en": "Roadway bound with petroleum bitumen for motorized traffic."
+      "description_en": "Roadway bound with petroleum bitumen for motorized traffic.",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Transfagaras.jpg/600px-Transfagaras.jpg"
     },
     {
       "id": "bitume",
@@ -2769,7 +2816,7 @@
       "era": "ancient",
       "year_approx": -3000,
       "origin": "Égypte antique",
-      "image_url": "/images/nodes/pierre-de-taille.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Paris_%28France%29%2C_Rue_R%C3%A9aumur.JPG/600px-Paris_%28France%29%2C_Rue_R%C3%A9aumur.JPG",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Pierre_de_taille",
       "tags": [
         "construction",
@@ -2813,7 +2860,7 @@
       "era": "ancient",
       "year_approx": -3500,
       "origin": "Proche-Orient (Anatolie/Mésopotamie)",
-      "image_url": "/images/nodes/bronze.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Bronze_Marcus_Aurelius_Louvre_Br45.jpg/600px-Bronze_Marcus_Aurelius_Louvre_Br45.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Bronze",
       "tags": [
         "alliage",
@@ -2837,7 +2884,7 @@
       "era": "ancient",
       "year_approx": -3000,
       "origin": "Mésopotamie",
-      "image_url": "/images/nodes/brique.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Colors_and_texture_of_a_brick_ground_artlibre_jnl.png/600px-Colors_and_texture_of_a_brick_ground_artlibre_jnl.png",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Brique_(mat%C3%A9riau)",
       "tags": [
         "construction",
@@ -2882,7 +2929,7 @@
       "era": "modern",
       "year_approx": 1942,
       "origin": "Enrico Fermi (première réaction en chaîne contrôlée, Chicago Pile-1)",
-      "image_url": "/images/nodes/energie-nucleaire.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/HEUraniumC.jpg/600px-HEUraniumC.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/%C3%89nergie_nucl%C3%A9aire",
       "tags": [
         "fission",
@@ -3057,7 +3104,7 @@
       "era": "ancient",
       "year_approx": -3000,
       "origin": "Mésopotamie",
-      "image_url": "/images/nodes/forge.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Andrea_pisano%2C_tubalcain_ovvero_la_metallurgia%2C_1334-43%2C_dal_lato_ovest_del_campanile_01.JPG/600px-Andrea_pisano%2C_tubalcain_ovvero_la_metallurgia%2C_1334-43%2C_dal_lato_ovest_del_campanile_01.JPG",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Forge_(métallurgie)",
       "tags": [
         "métallurgie",
@@ -3215,7 +3262,7 @@
       "era": "ancient",
       "year_approx": -400,
       "origin": null,
-      "image_url": "/images/nodes/clou.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nails.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Clou",
       "tags": [
         "fixation",
@@ -3300,7 +3347,7 @@
       "era": "renaissance",
       "year_approx": 1500,
       "origin": "Renaissance européenne",
-      "image_url": "/images/nodes/vis.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Screws.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Vis_de_fixation",
       "tags": [
         "fixation",
@@ -3452,7 +3499,7 @@
       "era": "prehistoric",
       "year_approx": -3000,
       "origin": null,
-      "image_url": "/images/nodes/moule.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Bronze_spearhead_mold.JPG/600px-Bronze_spearhead_mold.JPG",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Moule_(outil)",
       "tags": [
         "fonderie",
@@ -3625,7 +3672,7 @@
       "era": "ancient",
       "year_approx": -1800,
       "origin": "Égypte antique",
-      "image_url": "/images/nodes/scie.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/S%C3%A5gkamraten.jpg/600px-S%C3%A5gkamraten.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Scie",
       "tags": [
         "découpe",
@@ -3704,7 +3751,7 @@
       "era": "prehistoric",
       "year_approx": -1600000,
       "origin": null,
-      "image_url": null,
+      "image_url": "/images/nodes/hache.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Hache",
       "tags": [
         "outil",
@@ -3785,7 +3832,7 @@
       "era": "ancient",
       "year_approx": -4000,
       "origin": "Anatolie",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Fonderie_Rosini_-_L%27art_et_le_savoir_faire..webm/600px--Fonderie_Rosini_-_L%27art_et_le_savoir_faire..webm.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Fonderie",
       "tags": [
         "metallurgie",
@@ -3989,7 +4036,7 @@
       "era": "prehistoric",
       "year_approx": -11000,
       "origin": null,
-      "image_url": "/images/nodes/fermentation.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Fermenting.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Fermentation",
       "tags": [
         "biotechnologie",
@@ -4168,7 +4215,7 @@
       "era": "industrial",
       "year_approx": 1800,
       "origin": "William Nicholson et Sir Anthony Carlisle, Royaume-Uni",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Symbole_electrolyseur.png",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Électrolyse",
       "tags": [
         "chimie",
@@ -4404,7 +4451,7 @@
       "era": "ancient",
       "year_approx": -870,
       "origin": "Assyrie (Mésopotamie)",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/%D0%98%D0%BB%D0%BB%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F_%D0%BA_%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B5_%C2%AB%D0%91%D0%BB%D0%BE%D0%BA%C2%BB._%D0%92%D0%BE%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F_%D1%8D%D0%BD%D1%86%D0%B8%D0%BA%D0%BB%D0%BE%D0%BF%D0%B5%D0%B4%D0%B8%D1%8F_%D0%A1%D1%8B%D1%82%D0%B8%D0%BD%D0%B0_%28%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3%2C_1911-1915%29.jpg/600px-%D0%98%D0%BB%D0%BB%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F_%D0%BA_%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B5_%C2%AB%D0%91%D0%BB%D0%BE%D0%BA%C2%BB._%D0%92%D0%BE%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F_%D1%8D%D0%BD%D1%86%D0%B8%D0%BA%D0%BB%D0%BE%D0%BF%D0%B5%D0%B4%D0%B8%D1%8F_%D0%A1%D1%8B%D1%82%D0%B8%D0%BD%D0%B0_%28%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3%2C_1911-1915%29.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Poulie",
       "tags": [
         "levage",
@@ -4576,7 +4623,7 @@
       "era": "ancient",
       "year_approx": -280,
       "origin": "Ctésibius d'Alexandrie",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Pompe_%C3%A0_eau_de_Fixin.jpg/600px-Pompe_%C3%A0_eau_de_Fixin.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Pompe",
       "tags": [
         "hydraulique",
@@ -4739,7 +4786,7 @@
       "era": "industrial",
       "year_approx": 1885,
       "origin": "William Le Baron Jenney, Chicago, États-Unis",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Taipei101.portrait.altonthompson.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Gratte-ciel",
       "tags": [
         "architecture",
@@ -4824,7 +4871,7 @@
       "era": "ancient",
       "year_approx": -2650,
       "origin": "Égypte ancienne (barrage de Sadd el-Kafara)",
-      "image_url": null,
+      "image_url": "/images/nodes/barrage.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Barrage",
       "tags": [
         "hydraulique",
@@ -4917,7 +4964,7 @@
       "era": "ancient",
       "year_approx": -2570,
       "origin": "Chine",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Khmersilk.JPG/600px-Khmersilk.JPG",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Soie",
       "tags": [
         "textile",
@@ -5097,7 +5144,7 @@
       "era": "industrial",
       "year_approx": 1837,
       "origin": "Stanislas Sorel (France)",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Galvanized_surface.jpg/600px-Galvanized_surface.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Galvanisation",
       "tags": [
         "anticorrosion",
@@ -5272,7 +5319,7 @@
       "era": "industrial",
       "year_approx": 1839,
       "origin": "Charles Goodyear (États-Unis), breveté par Thomas Hancock (Royaume-Uni)",
-      "image_url": "/images/nodes/vulcanisation.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/VulcanizationMold1941.jpg/600px-VulcanizationMold1941.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Vulcanisation",
       "tags": [
         "chimie",
@@ -5442,7 +5489,7 @@
       "era": "industrial",
       "year_approx": 1794,
       "origin": "Philip Vaughan (Angleterre)",
-      "image_url": "/images/nodes/roulement-a-billes.gif",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/30/BallBearing.gif",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Roulement_m%C3%A9canique",
       "tags": [
         "mécanique",
@@ -5592,7 +5639,7 @@
       "era": "industrial",
       "year_approx": 1769,
       "origin": "James Watt (perfection), Thomas Newcomen (1712), Denis Papin (précurseur 1690)",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Mulhouse%2C_Electropolis.JPG/600px-Mulhouse%2C_Electropolis.JPG",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Machine_%C3%A0_vapeur",
       "tags": [
         "vapeur",
@@ -5784,7 +5831,7 @@
       "era": "prehistoric",
       "year_approx": -3500,
       "origin": "Mésopotamie (actuel Irak)",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Bateaugoelette.jpg/600px-Bateaugoelette.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Voilier",
       "tags": [
         "navigation",
@@ -5972,7 +6019,7 @@
       "era": "ancient",
       "year_approx": -2000,
       "origin": null,
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Metrobaan_Duikerlaan_-_panoramio.jpg/600px-Metrobaan_Duikerlaan_-_panoramio.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Pont",
       "tags": [
         "infrastructure",
@@ -6140,7 +6187,7 @@
       "era": "ancient",
       "year_approx": -3000,
       "origin": null,
-      "image_url": "/images/nodes/teinture.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Hue_Vietnam_Citadel-of-Hu%E1%BA%BF-21.jpg/600px-Hue_Vietnam_Citadel-of-Hu%E1%BA%BF-21.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Teinture",
       "tags": [
         "textile",
@@ -6292,7 +6339,7 @@
       "era": "industrial",
       "year_approx": 1816,
       "origin": "René Laennec, France",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/2023_Stetoskop.jpg/600px-2023_Stetoskop.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Stéthoscope",
       "tags": [
         "auscultation",
@@ -6453,7 +6500,7 @@
       "era": "prehistoric",
       "year_approx": -3000,
       "origin": "Égypte antique",
-      "image_url": "/images/nodes/prothese.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Prosthetic_toe.jpg/600px-Prosthetic_toe.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Prothèse_(médecine)",
       "tags": [
         "medical",
@@ -6638,7 +6685,7 @@
       "era": "industrial",
       "year_approx": 1775,
       "origin": "David Bushnell (États-Unis)",
-      "image_url": "/images/nodes/sous-marin.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Virginia_class_submarine.jpg/600px-Virginia_class_submarine.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Sous-marin",
       "tags": [
         "naval",
@@ -6820,7 +6867,7 @@
       "era": "ancient",
       "year_approx": -2750,
       "origin": "Égypte antique",
-      "image_url": "/images/nodes/tuyau.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/2006-02-15_Piping.jpg/600px-2006-02-15_Piping.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Tuyau",
       "tags": [
         "conduite",
@@ -6979,7 +7026,7 @@
       "era": "prehistoric",
       "year_approx": -6000,
       "origin": "Bassin méditerranéen, Proche-Orient",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Huile_d%27olive_04.jpg/600px-Huile_d%27olive_04.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Huile_d'olive",
       "tags": [
         "méditerranée",
@@ -7154,7 +7201,7 @@
       "era": "modern",
       "year_approx": 1796,
       "origin": "Edward Jenner (Angleterre)",
-      "image_url": "/images/nodes/vaccin.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Smallpox_vaccine.jpg/600px-Smallpox_vaccine.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Vaccin",
       "tags": [
         "immunologie",
@@ -7325,7 +7372,7 @@
       "era": "industrial",
       "year_approx": 1846,
       "origin": "William Thomas Morton (États-Unis)",
-      "image_url": "/images/nodes/anesthesie.png",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Anesthesia_-_The_Noun_Project.svg/600px-Anesthesia_-_The_Noun_Project.svg.png",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Anesthésie",
       "tags": [
         "médecine",
@@ -7461,7 +7508,7 @@
       "era": "industrial",
       "year_approx": 1839,
       "origin": "Louis Daguerre (France)",
-      "image_url": "/images/nodes/appareil-photo.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Many_cameras.jpg/600px-Many_cameras.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Appareil_photographique",
       "tags": [
         "photographie",
@@ -7625,7 +7672,7 @@
       "era": "medieval",
       "year_approx": 1313,
       "origin": "Europe (Gand), développé à partir des innovations chinoises",
-      "image_url": "/images/nodes/canon.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cannon%2C_Ch%C3%A2teau_du_Haut-Koenigsbourg%2C_France.jpg/600px-Cannon%2C_Ch%C3%A2teau_du_Haut-Koenigsbourg%2C_France.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Canon_(artillerie)",
       "tags": [
         "artillerie",
@@ -7820,7 +7867,7 @@
       "era": "ancient",
       "year_approx": -2800,
       "origin": "Mésopotamie (Sumériens), puis perfectionnement par les Gaulois selon Pline l'Ancien",
-      "image_url": "/images/nodes/savon.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Handmade_soap.jpg/600px-Handmade_soap.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Savon",
       "tags": [
         "hygiène",
@@ -8003,7 +8050,7 @@
       "era": "modern",
       "year_approx": 1950,
       "origin": "Elizabeth David (conceptualisation moderne)",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Gazpacho_ingredients.jpg/600px-Gazpacho_ingredients.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Cuisine_méditerranéenne",
       "tags": [
         "alimentation",
@@ -8148,7 +8195,7 @@
       "era": "modern",
       "year_approx": 1942,
       "origin": "DuPont et Pioneer Parachute Company (États-Unis)",
-      "image_url": "/images/nodes/parachute-en-nylon.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/USMC_Paratrooper.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Parachute",
       "tags": [
         "sécurité",
@@ -8305,7 +8352,7 @@
       "era": "ancient",
       "year_approx": -400,
       "origin": "Hippocrate (Grèce antique)",
-      "image_url": "/images/nodes/anatomie-humaine.png",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Human_body_features-fr.svg/600px-Human_body_features-fr.svg.png",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Anatomie_humaine",
       "tags": [
         "médecine",
@@ -8485,7 +8532,7 @@
       "era": "modern",
       "year_approx": 1854,
       "origin": "John Snow (Angleterre)",
-      "image_url": "/images/nodes/epidemiologie.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/3548786222_7a3d3208d3_bInfluenzaGrippe.jpg/600px-3548786222_7a3d3208d3_bInfluenzaGrippe.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Épidémiologie",
       "tags": [
         "santé publique",
@@ -8645,7 +8692,7 @@
       "era": "modern",
       "year_approx": 1943,
       "origin": "Albert Schatz et Selman Waksman (Université Rutgers, États-Unis)",
-      "image_url": "/images/nodes/streptomycine.png",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Streptomycin_structure.svg/600px-Streptomycin_structure.svg.png",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Streptomycine",
       "tags": [
         "antibiotique",
@@ -8796,7 +8843,7 @@
       "era": "industrial",
       "year_approx": 1847,
       "origin": "Ascanio Sobrero",
-      "image_url": "/images/nodes/nitroglycerine.png",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Nitroglycerin.svg/600px-Nitroglycerin.svg.png",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Nitroglyc%C3%A9rine",
       "tags": [
         "explosif",
@@ -8971,7 +9018,7 @@
       "era": "industrial",
       "year_approx": 1875,
       "origin": "Alfred Nobel (Suède)",
-      "image_url": "/images/nodes/geligniite.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Gelingnite_general_view.jpg/600px-Gelingnite_general_view.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/G%C3%A9lignite",
       "tags": [
         "explosif",
@@ -9102,7 +9149,7 @@
       "era": "ancient",
       "year_approx": -4000,
       "origin": "Région de Judée (mer Morte)",
-      "image_url": "/images/nodes/bitume-de-judee.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Bitumen.jpg/600px-Bitumen.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Bitume_(pigment)",
       "tags": [
         "hydrocarbure",
@@ -9237,7 +9284,7 @@
       "era": "modern",
       "year_approx": 1956,
       "origin": "Reynold Johnson (IBM)",
-      "image_url": "/images/nodes/disque-dur.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Hard_disk_platter_reflection.jpg/600px-Hard_disk_platter_reflection.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Disque_dur",
       "tags": [
         "stockage",
@@ -9386,7 +9433,7 @@
       "era": "ancient",
       "year_approx": -400,
       "origin": "Chine",
-      "image_url": "/images/nodes/arbalete.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Une_arbal%C3%A8te_classique.jpg/600px-Une_arbal%C3%A8te_classique.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Arbal%C3%A8te",
       "tags": [
         "tir",
@@ -9561,6 +9608,716 @@
         }
       ],
       "description_en": "Modern artillery refers to the revolutionary evolution of the military art of firearms between 1850 and 1950, characterized by the introduction of breech-loading, rifled barrels, smokeless powder, and rapid-fire systems. This major technological transformation made artillery pieces more accurate, more powerful, and more mobile."
+    },
+    {
+      "id": "acide-sulfurique",
+      "name": "Acide sulfurique",
+      "name_en": "Sulfuric acid",
+      "description": "Composé chimique de formule H2SO4, appelé jadis huile de vitriol. C'est un acide minéral très fort, miscible à l'eau en toutes proportions. Il est le produit chimique le plus fabriqué au monde et sert dans de nombreuses industries notamment pour les engrais, les batteries, et les synthèses chimiques.",
+      "description_en": "Chemical compound with formula H2SO4, formerly called oil of vitriol. It is a very strong mineral acid, miscible with water in all proportions. It is the most manufactured chemical product in the world and is used in many industries including fertilizers, batteries, and chemical synthesis.",
+      "category": "chemistry",
+      "type": "component",
+      "era": "medieval",
+      "year_approx": 800,
+      "origin": "Jabir ibn Hayyan (monde arabo-musulman)",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Sulfuric-acid-2D-dimensions.svg/600px-Sulfuric-acid-2D-dimensions.svg.png",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Acide_sulfurique",
+      "tags": [
+        "acide",
+        "chimie",
+        "industrie",
+        "vitriol"
+      ],
+      "complexity_depth": 0,
+      "_ai_built_upon": [
+        {
+          "id": "soufre",
+          "name": "Soufre",
+          "relation_type": "material",
+          "quantity_hint": "beaucoup",
+          "exists": true
+        },
+        {
+          "id": "air",
+          "name": "Air",
+          "relation_type": "material",
+          "quantity_hint": "beaucoup",
+          "exists": true
+        },
+        {
+          "id": "eau",
+          "name": "Eau",
+          "relation_type": "material",
+          "quantity_hint": "modéré",
+          "exists": true
+        },
+        {
+          "id": "distillation",
+          "name": "Distillation",
+          "relation_type": "knowledge",
+          "quantity_hint": null,
+          "exists": true
+        },
+        {
+          "id": "four-haute-temp",
+          "name": "Four à haute température",
+          "relation_type": "tool",
+          "quantity_hint": "un",
+          "exists": true
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "engrais",
+          "name": "Engrais azoté",
+          "exists": true
+        },
+        {
+          "id": "acide-nitrique",
+          "name": "Acide nitrique",
+          "exists": false
+        },
+        {
+          "id": "acide-chlorhydrique",
+          "name": "Acide chlorhydrique",
+          "exists": false
+        },
+        {
+          "id": "batterie-plomb",
+          "name": "Batterie au plomb",
+          "exists": false
+        },
+        {
+          "id": "explosifs-industriels",
+          "name": "Explosifs industriels",
+          "exists": false
+        }
+      ]
+    },
+    {
+      "id": "laser",
+      "name": "Laser",
+      "name_en": "Laser",
+      "description": "Dispositif émettant un faisceau lumineux cohérent et intensément concentré par émission stimulée de rayonnement. Le premier laser opérationnel fut développé par Theodore Maiman en 1960 en utilisant un cristal de rubis. Le laser révolutionne de nombreux domaines par sa précision et sa polyvalence.",
+      "description_en": "Device that emits a coherent and intensely concentrated light beam through stimulated emission of radiation. The first operational laser was developed by Theodore Maiman in 1960 using a ruby crystal. Laser revolutionizes many fields through its precision and versatility.",
+      "category": "optical",
+      "type": "tool",
+      "era": "modern",
+      "year_approx": 1960,
+      "origin": "Theodore Maiman, États-Unis",
+      "image_url": "/images/nodes/laser.jpg",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Laser",
+      "tags": [
+        "optique",
+        "physique",
+        "amplification",
+        "lumière",
+        "technologie"
+      ],
+      "complexity_depth": 0,
+      "_ai_built_upon": [
+        {
+          "id": "electricite",
+          "name": "Électricité",
+          "relation_type": "energy",
+          "quantity_hint": "beaucoup",
+          "exists": true
+        },
+        {
+          "id": "verre",
+          "name": "Verre",
+          "relation_type": "material",
+          "quantity_hint": "peu",
+          "exists": true
+        },
+        {
+          "id": "lentille",
+          "name": "Lentille optique",
+          "relation_type": "component",
+          "quantity_hint": "quelques",
+          "exists": true
+        },
+        {
+          "id": "cristal-rubis",
+          "name": "Cristal de rubis",
+          "relation_type": "material",
+          "quantity_hint": "peu",
+          "exists": false
+        },
+        {
+          "id": "miroir",
+          "name": "Miroir",
+          "relation_type": "component",
+          "quantity_hint": "quelques",
+          "exists": false
+        },
+        {
+          "id": "optique-quantique",
+          "name": "Optique quantique",
+          "relation_type": "knowledge",
+          "quantity_hint": null,
+          "exists": false
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "fibre-optique",
+          "name": "Fibre optique",
+          "exists": true
+        },
+        {
+          "id": "gravure-laser",
+          "name": "Gravure laser",
+          "exists": false
+        },
+        {
+          "id": "chirurgie-laser",
+          "name": "Chirurgie laser",
+          "exists": false
+        },
+        {
+          "id": "lecteur-cd",
+          "name": "Lecteur CD",
+          "exists": false
+        },
+        {
+          "id": "decoupe-laser",
+          "name": "Découpe laser",
+          "exists": false
+        },
+        {
+          "id": "holographie",
+          "name": "Holographie",
+          "exists": false
+        }
+      ]
+    },
+    {
+      "id": "batterie",
+      "name": "Batterie",
+      "name_en": "Battery",
+      "description": "Système de stockage d'énergie électrique composé d'électrodes et d'un électrolyte permettant la conversion d'énergie chimique en énergie électrique. Invention révolutionnaire qui a permis le développement de l'électronique portable et des véhicules électriques modernes.",
+      "description_en": "Electrical energy storage system composed of electrodes and an electrolyte that enables the conversion of chemical energy into electrical energy. Revolutionary invention that enabled the development of portable electronics and modern electric vehicles.",
+      "category": "electronics",
+      "type": "component",
+      "era": "industrial",
+      "year_approx": 1859,
+      "origin": "Gaston Planté",
+      "image_url": null,
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Batterie_(électricité)",
+      "tags": [
+        "électricité",
+        "stockage",
+        "énergie",
+        "rechargeable",
+        "plomb",
+        "acide"
+      ],
+      "complexity_depth": 0,
+      "_ai_built_upon": [
+        {
+          "id": "plomb",
+          "name": "Plomb",
+          "relation_type": "material",
+          "quantity_hint": "beaucoup",
+          "exists": false
+        },
+        {
+          "id": "acide-sulfurique",
+          "name": "Acide sulfurique",
+          "relation_type": "material",
+          "quantity_hint": "modéré",
+          "exists": false
+        },
+        {
+          "id": "caoutchouc",
+          "name": "Caoutchouc",
+          "relation_type": "material",
+          "quantity_hint": "peu",
+          "exists": true
+        },
+        {
+          "id": "verre",
+          "name": "Verre",
+          "relation_type": "material",
+          "quantity_hint": "peu",
+          "exists": true
+        },
+        {
+          "id": "electricite",
+          "name": "Électricité",
+          "relation_type": "knowledge",
+          "quantity_hint": null,
+          "exists": true
+        },
+        {
+          "id": "chimie-organique",
+          "name": "Chimie organique",
+          "relation_type": "knowledge",
+          "quantity_hint": null,
+          "exists": true
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "automobile",
+          "name": "Automobile",
+          "exists": true
+        },
+        {
+          "id": "telephone",
+          "name": "Téléphone",
+          "exists": true
+        },
+        {
+          "id": "telegraphe",
+          "name": "Télégraphe",
+          "exists": true
+        },
+        {
+          "id": "ordinateur",
+          "name": "Ordinateur",
+          "exists": true
+        },
+        {
+          "id": "smartphone",
+          "name": "Smartphone",
+          "exists": true
+        },
+        {
+          "id": "vehicule-electrique",
+          "name": "Véhicule électrique",
+          "exists": false
+        }
+      ]
+    },
+    {
+      "id": "gps",
+      "name": "GPS",
+      "name_en": "Global Positioning System",
+      "description": "Système de positionnement global basé sur une constellation de satellites équipés d'horloges atomiques ultra-précises. Permet de déterminer la position, la vitesse et l'heure avec une grande précision n'importe où sur Terre grâce à la triangulation des signaux satellites. Initialement développé pour des applications militaires, il est devenu indispensable pour la navigation civile, les smartphones et de nombreuses applications modernes.",
+      "description_en": "Global positioning system based on a constellation of satellites equipped with ultra-precise atomic clocks. Enables determination of position, velocity and time with high precision anywhere on Earth through satellite signal triangulation. Initially developed for military applications, it has become essential for civilian navigation, smartphones and many modern applications.",
+      "category": "electronics",
+      "type": "end_product",
+      "era": "digital",
+      "year_approx": 1973,
+      "origin": "États-Unis (Département de la Défense)",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Navstar.jpg",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Global_Positioning_System",
+      "tags": [
+        "satellite",
+        "navigation",
+        "positionnement",
+        "temps",
+        "militaire"
+      ],
+      "complexity_depth": 0,
+      "_ai_built_upon": [
+        {
+          "id": "microprocesseur",
+          "name": "Microprocesseur",
+          "relation_type": "material",
+          "quantity_hint": "plusieurs par satellite",
+          "exists": true
+        },
+        {
+          "id": "antenne-radio",
+          "name": "Antenne radio",
+          "relation_type": "material",
+          "quantity_hint": "plusieurs",
+          "exists": true
+        },
+        {
+          "id": "serveur-informatique",
+          "name": "Serveur informatique",
+          "relation_type": "tool",
+          "quantity_hint": "stations de contrôle",
+          "exists": true
+        },
+        {
+          "id": "internet",
+          "name": "Internet",
+          "relation_type": "knowledge",
+          "quantity_hint": "infrastructure",
+          "exists": true
+        },
+        {
+          "id": "horloge-atomique",
+          "name": "Horloge atomique",
+          "relation_type": "material",
+          "quantity_hint": "plusieurs par satellite",
+          "exists": false
+        },
+        {
+          "id": "fusee",
+          "name": "Fusée",
+          "relation_type": "tool",
+          "quantity_hint": "lancement satellites",
+          "exists": true
+        },
+        {
+          "id": "electricite",
+          "name": "Électricité",
+          "relation_type": "energy",
+          "quantity_hint": "alimentation",
+          "exists": true
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "smartphone",
+          "name": "Smartphone",
+          "exists": true
+        },
+        {
+          "id": "navigation-automobile",
+          "name": "Navigation automobile",
+          "exists": false
+        },
+        {
+          "id": "drones-civils",
+          "name": "Drones civils",
+          "exists": false
+        },
+        {
+          "id": "geolocalisation-mobile",
+          "name": "Géolocalisation mobile",
+          "exists": false
+        }
+      ]
+    },
+    {
+      "id": "epee",
+      "name": "Épée",
+      "name_en": "Sword",
+      "description": "Arme blanche à double tranchant composée d'une lame droite en métal, d'une poignée et parfois d'une garde et d'un pommeau. Première arme spécifiquement conçue pour le combat entre humains, l'épée évolue du bronze vers le fer puis l'acier. Elle devient l'arme emblématique des guerriers et chevaliers médiévaux.",
+      "description_en": "A double-edged bladed weapon consisting of a straight metal blade, a handle and sometimes a guard and pommel. The first weapon specifically designed for human-to-human combat, the sword evolved from bronze to iron then steel. It became the emblematic weapon of medieval warriors and knights.",
+      "category": "weapon",
+      "type": "end_product",
+      "era": "ancient",
+      "year_approx": -3100,
+      "origin": "Turquie (Arslantepe)",
+      "image_url": "/images/nodes/epee.jpg",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Épée",
+      "tags": [
+        "arme",
+        "combat",
+        "métal",
+        "guerre",
+        "chevalerie"
+      ],
+      "complexity_depth": 0,
+      "_ai_built_upon": [
+        {
+          "id": "bronze",
+          "name": "Bronze",
+          "relation_type": "material",
+          "quantity_hint": "beaucoup",
+          "exists": true
+        },
+        {
+          "id": "fer",
+          "name": "Fer",
+          "relation_type": "material",
+          "quantity_hint": "beaucoup",
+          "exists": true
+        },
+        {
+          "id": "acier",
+          "name": "Acier",
+          "relation_type": "material",
+          "quantity_hint": "beaucoup",
+          "exists": true
+        },
+        {
+          "id": "forge",
+          "name": "Forge",
+          "relation_type": "tool",
+          "quantity_hint": "1",
+          "exists": true
+        },
+        {
+          "id": "marteau",
+          "name": "Marteau",
+          "relation_type": "tool",
+          "quantity_hint": "1",
+          "exists": true
+        },
+        {
+          "id": "fonderie",
+          "name": "Fonderie",
+          "relation_type": "knowledge",
+          "quantity_hint": "1",
+          "exists": true
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "rapiere",
+          "name": "Rapière",
+          "exists": false
+        },
+        {
+          "id": "sabre",
+          "name": "Sabre",
+          "exists": false
+        },
+        {
+          "id": "epee-escrime",
+          "name": "Épée d'escrime",
+          "exists": false
+        },
+        {
+          "id": "duel",
+          "name": "Duel",
+          "exists": false
+        }
+      ]
+    },
+    {
+      "id": "acide-chlorhydrique",
+      "name": "Acide chlorhydrique",
+      "name_en": "Hydrochloric acid",
+      "description": "Solution aqueuse de chlorure d'hydrogène, acide fort et très corrosif découvert vers l'an 800. Réactif chimique industriel majeur utilisé dans de nombreux secteurs.",
+      "description_en": "Aqueous solution of hydrogen chloride, strong and highly corrosive acid discovered around 800 AD. Major industrial chemical reagent used in numerous sectors.",
+      "category": "chemistry",
+      "type": "material",
+      "era": "ancient",
+      "year_approx": 800,
+      "origin": "Jabir ibn Hayyan",
+      "image_url": null,
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Acide_chlorhydrique",
+      "tags": [
+        "chimie",
+        "acide",
+        "industriel",
+        "corrosif",
+        "reactif"
+      ],
+      "complexity_depth": 0,
+      "_ai_built_upon": [
+        {
+          "id": "sel",
+          "name": "Sel",
+          "relation_type": "material",
+          "quantity_hint": "beaucoup",
+          "exists": true
+        },
+        {
+          "id": "acide-sulfurique",
+          "name": "Acide sulfurique",
+          "relation_type": "material",
+          "quantity_hint": "beaucoup",
+          "exists": true
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "plastique",
+          "name": "Plastique",
+          "exists": true
+        },
+        {
+          "id": "medicaments",
+          "name": "Médicaments",
+          "exists": true
+        },
+        {
+          "id": "acier",
+          "name": "Acier",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "id": "batterie-au-plomb",
+      "name": "Batterie au plomb",
+      "name_en": "Lead-acid battery",
+      "description": "Premier accumulateur électrochimique rechargeable inventé en 1859 par Gaston Planté. Composée d'électrodes de plomb et d'oxyde de plomb immergées dans un électrolyte d'acide sulfurique, elle stocke et restitue l'énergie électrique par réactions d'oxydo-réduction. Largement utilisée pour le démarrage des véhicules automobiles et les systèmes de secours industriels.",
+      "description_en": "First rechargeable electrochemical accumulator invented in 1859 by Gaston Planté. Composed of lead and lead oxide electrodes immersed in sulfuric acid electrolyte, it stores and delivers electrical energy through oxidation-reduction reactions. Widely used for automotive vehicle starting and industrial backup systems.",
+      "category": "electronics",
+      "type": "component",
+      "era": "industrial",
+      "year_approx": 1859,
+      "origin": "Gaston Planté (France)",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Photo-CarBattery.jpg/600px-Photo-CarBattery.jpg",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Batterie_au_plomb",
+      "tags": [
+        "énergie",
+        "électricité",
+        "stockage",
+        "rechargeable",
+        "automobile",
+        "démarrage"
+      ],
+      "complexity_depth": 0,
+      "_ai_built_upon": [
+        {
+          "id": "plomb",
+          "name": "Plomb",
+          "relation_type": "material",
+          "quantity_hint": "beaucoup",
+          "exists": false
+        },
+        {
+          "id": "acide-sulfurique",
+          "name": "Acide sulfurique",
+          "relation_type": "material",
+          "quantity_hint": "modéré",
+          "exists": true
+        },
+        {
+          "id": "eau",
+          "name": "Eau",
+          "relation_type": "material",
+          "quantity_hint": "modéré",
+          "exists": true
+        },
+        {
+          "id": "electricite",
+          "name": "Électricité",
+          "relation_type": "knowledge",
+          "quantity_hint": null,
+          "exists": true
+        },
+        {
+          "id": "plastique",
+          "name": "Plastique",
+          "relation_type": "material",
+          "quantity_hint": "peu",
+          "exists": true
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "demarreur-electrique",
+          "name": "Démarreur électrique",
+          "exists": false
+        },
+        {
+          "id": "automobile",
+          "name": "Automobile",
+          "exists": true
+        },
+        {
+          "id": "ups",
+          "name": "Alimentation de secours",
+          "exists": false
+        },
+        {
+          "id": "sous-marin",
+          "name": "Sous-marin",
+          "exists": true
+        },
+        {
+          "id": "batterie-li",
+          "name": "Batterie Li-ion",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "id": "explosifs-industriels",
+      "name": "Explosifs industriels",
+      "name_en": "Industrial explosives",
+      "description": "Les explosifs industriels sont des substances ou mélanges chimiques conçus pour libérer une grande quantité d'énergie sous forme d'explosion contrôlée. Développés à partir de la dynamite d'Alfred Nobel en 1867, ils incluent aujourd'hui principalement l'ANFO et les émulsions explosives. Ces matériaux sont essentiels pour l'extraction minière, la construction de tunnels et les travaux de terrassement.",
+      "description_en": "Industrial explosives are chemical substances or mixtures designed to release large amounts of energy in a controlled explosion. Developed from Alfred Nobel's dynamite in 1867, they now primarily include ANFO and explosive emulsions. These materials are essential for mining operations, tunnel construction and earthworks.",
+      "category": "chemistry",
+      "type": "material",
+      "era": "industrial",
+      "year_approx": 1867,
+      "origin": "Alfred Nobel, Suède",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Explosions.jpg/600px-Explosions.jpg",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Explosif",
+      "tags": [
+        "explosifs",
+        "mines",
+        "carrières",
+        "construction",
+        "tunnels",
+        "démolition",
+        "ANFO",
+        "dynamite"
+      ],
+      "complexity_depth": 0,
+      "_ai_built_upon": [
+        {
+          "id": "salpetre",
+          "name": "Salpêtre",
+          "relation_type": "material",
+          "quantity_hint": "beaucoup",
+          "exists": true
+        },
+        {
+          "id": "soufre",
+          "name": "Soufre",
+          "relation_type": "material",
+          "quantity_hint": "un peu",
+          "exists": true
+        },
+        {
+          "id": "charbon-de-bois",
+          "name": "Charbon de bois",
+          "relation_type": "material",
+          "quantity_hint": "un peu",
+          "exists": true
+        },
+        {
+          "id": "nitroglycerine",
+          "name": "Nitroglycérine",
+          "relation_type": "material",
+          "quantity_hint": "beaucoup",
+          "exists": true
+        },
+        {
+          "id": "ammoniac",
+          "name": "Ammoniac",
+          "relation_type": "material",
+          "quantity_hint": "beaucoup",
+          "exists": true
+        },
+        {
+          "id": "gazole",
+          "name": "Gazole",
+          "relation_type": "material",
+          "quantity_hint": "un peu",
+          "exists": true
+        },
+        {
+          "id": "chimie-organique",
+          "name": "Chimie organique",
+          "relation_type": "knowledge",
+          "quantity_hint": null,
+          "exists": true
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "tunnel-ferroviaire",
+          "name": "Tunnel ferroviaire",
+          "exists": true
+        },
+        {
+          "id": "mine-moderne",
+          "name": "Mine moderne",
+          "exists": false
+        },
+        {
+          "id": "carriere-industrielle",
+          "name": "Carrière industrielle",
+          "exists": false
+        },
+        {
+          "id": "demolition-controlee",
+          "name": "Démolition contrôlée",
+          "exists": false
+        },
+        {
+          "id": "terrassement-moderne",
+          "name": "Terrassement moderne",
+          "exists": false
+        }
+      ]
     }
   ],
   "links": [
@@ -15510,6 +16267,463 @@
       "source_id": "canon",
       "target_id": "artillerie-moderne",
       "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cfb484c67cb3",
+      "source_id": "soufre",
+      "target_id": "acide-sulfurique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6722fdfa1135",
+      "source_id": "air",
+      "target_id": "acide-sulfurique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f5c106e308ed",
+      "source_id": "eau",
+      "target_id": "acide-sulfurique",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-201203c98000",
+      "source_id": "distillation",
+      "target_id": "acide-sulfurique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e00c458927e6",
+      "source_id": "four-haute-temp",
+      "target_id": "acide-sulfurique",
+      "relation_type": "tool",
+      "quantity_hint": "un",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-70a5b2fbc4ee",
+      "source_id": "acide-sulfurique",
+      "target_id": "engrais",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-52254eadab74",
+      "source_id": "electricite",
+      "target_id": "laser",
+      "relation_type": "energy",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-001159f0b8dc",
+      "source_id": "verre",
+      "target_id": "laser",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ff2773d133d7",
+      "source_id": "lentille",
+      "target_id": "laser",
+      "relation_type": "component",
+      "quantity_hint": "quelques",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3fbf47597528",
+      "source_id": "laser",
+      "target_id": "fibre-optique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f2d8655028ff",
+      "source_id": "acide-sulfurique",
+      "target_id": "batterie",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8176e58d2d21",
+      "source_id": "caoutchouc",
+      "target_id": "batterie",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a263ce8a4189",
+      "source_id": "verre",
+      "target_id": "batterie",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d4bcd71464e7",
+      "source_id": "electricite",
+      "target_id": "batterie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c8c249cf5d11",
+      "source_id": "chimie-organique",
+      "target_id": "batterie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-882f3717c4aa",
+      "source_id": "batterie",
+      "target_id": "automobile",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7e18bd5b2810",
+      "source_id": "batterie",
+      "target_id": "telephone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-29d294e600d6",
+      "source_id": "batterie",
+      "target_id": "telegraphe",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3301825085a9",
+      "source_id": "batterie",
+      "target_id": "ordinateur",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4d9ba6a00562",
+      "source_id": "batterie",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-da98ff170d83",
+      "source_id": "microprocesseur",
+      "target_id": "gps",
+      "relation_type": "material",
+      "quantity_hint": "plusieurs par satellite",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9ad65a758d1d",
+      "source_id": "antenne-radio",
+      "target_id": "gps",
+      "relation_type": "material",
+      "quantity_hint": "plusieurs",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2080c0f61902",
+      "source_id": "serveur-informatique",
+      "target_id": "gps",
+      "relation_type": "tool",
+      "quantity_hint": "stations de contrôle",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d7d527c73b1a",
+      "source_id": "internet",
+      "target_id": "gps",
+      "relation_type": "knowledge",
+      "quantity_hint": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4aa81b6d6c2f",
+      "source_id": "fusee",
+      "target_id": "gps",
+      "relation_type": "tool",
+      "quantity_hint": "lancement satellites",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8b7c20ee4e9a",
+      "source_id": "electricite",
+      "target_id": "gps",
+      "relation_type": "energy",
+      "quantity_hint": "alimentation",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2e0d885ab2a2",
+      "source_id": "gps",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6ea2961d470a",
+      "source_id": "bronze",
+      "target_id": "epee",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-edde64d00663",
+      "source_id": "fer",
+      "target_id": "epee",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-23a0063187a9",
+      "source_id": "acier",
+      "target_id": "epee",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-26945a8143cc",
+      "source_id": "forge",
+      "target_id": "epee",
+      "relation_type": "tool",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6c16b989a51e",
+      "source_id": "marteau",
+      "target_id": "epee",
+      "relation_type": "tool",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-08d5d5b1b51f",
+      "source_id": "fonderie",
+      "target_id": "epee",
+      "relation_type": "knowledge",
+      "quantity_hint": "1",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c7f141922d34",
+      "source_id": "sel",
+      "target_id": "acide-chlorhydrique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d74156bb653a",
+      "source_id": "acide-sulfurique",
+      "target_id": "acide-chlorhydrique",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bb4b42265caf",
+      "source_id": "acide-chlorhydrique",
+      "target_id": "plastique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-81ba65f1b132",
+      "source_id": "acide-chlorhydrique",
+      "target_id": "medicaments",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b1198dbe4c98",
+      "source_id": "acide-chlorhydrique",
+      "target_id": "acier",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-586d167243fc",
+      "source_id": "acide-sulfurique",
+      "target_id": "batterie-au-plomb",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b9df86dfe737",
+      "source_id": "eau",
+      "target_id": "batterie-au-plomb",
+      "relation_type": "material",
+      "quantity_hint": "modéré",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-87a34113a256",
+      "source_id": "electricite",
+      "target_id": "batterie-au-plomb",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1b6706fa46ef",
+      "source_id": "plastique",
+      "target_id": "batterie-au-plomb",
+      "relation_type": "material",
+      "quantity_hint": "peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7f43d3efaa3c",
+      "source_id": "batterie-au-plomb",
+      "target_id": "automobile",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ec89cfba9bad",
+      "source_id": "batterie-au-plomb",
+      "target_id": "sous-marin",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8770e590424e",
+      "source_id": "batterie-au-plomb",
+      "target_id": "batterie-li",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ec70115f4edf",
+      "source_id": "salpetre",
+      "target_id": "explosifs-industriels",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-af4e4a87e14a",
+      "source_id": "soufre",
+      "target_id": "explosifs-industriels",
+      "relation_type": "material",
+      "quantity_hint": "un peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-367ef9d7ef2b",
+      "source_id": "charbon-de-bois",
+      "target_id": "explosifs-industriels",
+      "relation_type": "material",
+      "quantity_hint": "un peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8539c7b98e4f",
+      "source_id": "nitroglycerine",
+      "target_id": "explosifs-industriels",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-175371ca1e6f",
+      "source_id": "ammoniac",
+      "target_id": "explosifs-industriels",
+      "relation_type": "material",
+      "quantity_hint": "beaucoup",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8a34c08f61f1",
+      "source_id": "gazole",
+      "target_id": "explosifs-industriels",
+      "relation_type": "material",
+      "quantity_hint": "un peu",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0e9647984ea7",
+      "source_id": "chimie-organique",
+      "target_id": "explosifs-industriels",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f926f8405e45",
+      "source_id": "explosifs-industriels",
+      "target_id": "tunnel-ferroviaire",
+      "relation_type": "material",
       "is_optional": false,
       "notes": null
     }
