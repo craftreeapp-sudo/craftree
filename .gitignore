@@ -25,7 +25,7 @@
 *.pem
 
 # Images uploadées (lourdes, locales)
-public/images/nodes/*
+public/images/nodes/
 !public/images/nodes/.gitkeep
 
 # debug
@@ -35,6 +35,8 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
+.env.local
+.env
 .env*
 
 # vercel
