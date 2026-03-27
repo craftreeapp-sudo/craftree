@@ -27,6 +27,7 @@ import { useNodeDetailsStore } from '@/stores/node-details-store';
 interface RawNode {
   id: string;
   name: string;
+  name_en?: string;
   category: string;
   type: string;
   era: string;
@@ -47,6 +48,31 @@ interface RawLink {
 }
 
 const detailsMemoryCache = new Map<string, TechNodeDetails | null>();
+
+/** Mise à jour légère des données affichées sur les nœuds Flow (sans recalcul dagre). */
+function applyVisualPatchToExploreFlowNodes(
+  flowNodes: Node[],
+  nodeId: string,
+  patch: Partial<TechNodeBasic>
+): Node[] {
+  return flowNodes.map((n) => {
+    if (n.id !== nodeId || n.type !== 'tech') return n;
+    const d = (n.data ?? {}) as Record<string, unknown>;
+    const next: Record<string, unknown> = { ...d };
+    if (patch.image_url !== undefined) next.image_url = patch.image_url;
+    if (patch.name !== undefined) next.name = patch.name;
+    if (patch.tags !== undefined) next.tags = patch.tags;
+    if (patch.origin !== undefined) next.origin = patch.origin;
+    return { ...n, data: next };
+  });
+}
+
+function patchNeedsFullLayout(patch: Partial<TechNodeBasic>): boolean {
+  return Object.keys(patch).some(
+    (k) =>
+      !['image_url', 'tags', 'origin', 'name'].includes(k)
+  );
+}
 
 /** Détails d’un nœud : cache mémoire + GET /api/nodes/[id] (priorité au store hydraté). */
 export async function getNodeDetails(id: string): Promise<TechNodeDetails | null> {
@@ -81,6 +107,9 @@ function normalizeNode(raw: RawNode): TechNodeBasic {
   return {
     id: raw.id,
     name: raw.name,
+    ...(raw.name_en !== undefined && raw.name_en !== ''
+      ? { name_en: raw.name_en }
+      : {}),
     category: raw.category as NodeCategory,
     type: raw.type as TechNodeType,
     era: raw.era as Era,
@@ -240,6 +269,7 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
     const rawNodes: RawNode[] = seedNodes.map((n) => ({
       id: n.id,
       name: n.name,
+      name_en: n.name_en,
       category: n.category,
       type: n.type,
       era: n.era,
@@ -320,6 +350,19 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
       if (patch.image_url !== undefined) {
         nextBust[nodeId] = (nextBust[nodeId] ?? 0) + 1;
       }
+
+      if (!patchNeedsFullLayout(patch)) {
+        return {
+          nodes: nextNodes,
+          imageBustByNodeId: nextBust,
+          exploreFlowNodes: applyVisualPatchToExploreFlowNodes(
+            s.exploreFlowNodes,
+            nodeId,
+            patch
+          ),
+        };
+      }
+
       const next = buildGraphState({
         nodes: nodesToRaw(nextNodes),
         links: linksToRaw(s.edges),

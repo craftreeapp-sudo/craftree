@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, memo } from 'react';
 import {
   getBezierPath,
   getSmoothStepPath,
@@ -80,9 +80,40 @@ function resolveEdgeStyleKey(
   return RelationType.MATERIAL;
 }
 
+function techEdgeDataEqual(
+  a: TechEdgeData | undefined,
+  b: TechEdgeData | undefined
+): boolean {
+  if (a === b) return true;
+  if (!a || !b) return false;
+  const keys = new Set([
+    ...Object.keys(a),
+    ...Object.keys(b),
+  ]) as Set<keyof TechEdgeData>;
+  for (const k of keys) {
+    if (a[k] !== b[k]) return false;
+  }
+  return true;
+}
+
+function techEdgeAreEqual(prev: EdgeProps, next: EdgeProps): boolean {
+  if (prev.id !== next.id) return false;
+  if (prev.source !== next.source) return false;
+  if (prev.target !== next.target) return false;
+  if (prev.selected !== next.selected) return false;
+  if (prev.sourceX !== next.sourceX) return false;
+  if (prev.sourceY !== next.sourceY) return false;
+  if (prev.targetX !== next.targetX) return false;
+  if (prev.targetY !== next.targetY) return false;
+  if (prev.sourcePosition !== next.sourcePosition) return false;
+  if (prev.targetPosition !== next.targetPosition) return false;
+  return techEdgeDataEqual(
+    prev.data as TechEdgeData | undefined,
+    next.data as TechEdgeData | undefined
+  );
+}
+
 function TechEdgeComponent({
-  source,
-  target,
   sourceX,
   sourceY,
   targetX,
@@ -96,10 +127,6 @@ function TechEdgeComponent({
   const relationKey = resolveEdgeStyleKey(edgeData?.relationType);
   const style = EDGE_STYLES[relationKey];
 
-  const exploreHoveredNodeId = useUIStore((s) => s.exploreHoveredNodeId);
-  const exploreFocusLayout = useUIStore(
-    (s) => Boolean(s.isSidebarOpen && s.selectedNodeId)
-  );
   const edgeStyle = useUIStore((s) => s.edgeStyle);
   const focusTransitionAnimating = useUIStore((s) => s.isAnimating);
 
@@ -109,17 +136,8 @@ function TechEdgeComponent({
       : style.stroke;
 
   const filterDimmed = edgeData?.filterDimmed === true;
-  const hoverEdge = useMemo(() => {
-    if (exploreFocusLayout || !exploreHoveredNodeId) return null;
-    const em =
-      source === exploreHoveredNodeId || target === exploreHoveredNodeId;
-    return { dimmed: !em, emphasized: em };
-  }, [exploreFocusLayout, exploreHoveredNodeId, source, target]);
-
-  const dimmed =
-    hoverEdge !== null ? hoverEdge.dimmed : edgeData?.dimmed === true;
-  const emphasized =
-    hoverEdge !== null ? hoverEdge.emphasized : edgeData?.emphasized === true;
+  const dimmed = edgeData?.dimmed === true;
+  const emphasized = edgeData?.emphasized === true;
   const focusMuted = edgeData?.focusMuted === true;
   const globalRevealEdgeMuted = edgeData?.globalRevealEdgeMuted === true;
   const strokeW = style.strokeWidth + (emphasized ? 0.5 : 0);
@@ -127,8 +145,7 @@ function TechEdgeComponent({
   const introOpacityRaw = edgeData?.introOpacity ?? 1;
   const flowParticles = edgeData?.flowParticles === true;
   /** Arête mise en avant au survol : ne pas appliquer le grisage filtre (sinon liens presque invisibles). */
-  const dimFactor =
-    hoverEdge !== null && hoverEdge.emphasized
+  const dimFactor = emphasized
       ? 1
       : filterDimmed
         ? 0.32
@@ -283,4 +300,6 @@ function TechEdgeComponent({
   );
 }
 
-export const TechEdge = TechEdgeComponent;
+TechEdgeComponent.displayName = 'TechEdge';
+
+export const TechEdge = memo(TechEdgeComponent, techEdgeAreEqual);

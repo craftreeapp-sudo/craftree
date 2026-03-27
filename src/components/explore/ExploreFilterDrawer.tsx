@@ -39,6 +39,7 @@ export function ExploreFilterDrawer() {
   const setAllCategories = useUIStore((s) => s.setAllCategories);
   const setAllEras = useUIStore((s) => s.setAllEras);
   const user = useAuthStore((s) => s.user);
+  const isAdmin = useAuthStore((s) => s.isAdmin);
 
   return (
     <>
@@ -82,7 +83,7 @@ export function ExploreFilterDrawer() {
                 {tAuth('myProfile')}
               </Link>
             ) : null}
-            {user ? (
+            {user && isAdmin ? (
               <Link
                 href="/editor"
                 className="rounded-md px-2 py-2 text-sm text-foreground transition-colors hover:bg-surface-elevated hover:text-accent"

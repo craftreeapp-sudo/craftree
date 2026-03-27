@@ -290,6 +290,13 @@ export async function applyApprovedSuggestion(
       notes: null,
     });
     if (lErr) throw lErr;
+  } else if (type === 'delete_link') {
+    const linkId = String(data.link_id ?? '');
+    if (!linkId) throw new Error('link_id manquant');
+    const { error: delErr } = await sb.from('links').delete().eq('id', linkId);
+    if (delErr) throw delErr;
+  } else if (type === 'anonymous_feedback') {
+    /* Pas d’application automatique : l’admin interprète le message. */
   } else {
     throw new Error(`Type de suggestion inconnu: ${type}`);
   }

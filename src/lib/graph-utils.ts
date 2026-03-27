@@ -468,7 +468,7 @@ export function getLayoutedElements(
 
 // ─── Layout Tree : couches horizontales par profondeur (vue /explore) ───────
 
-/** Boîte de layout dagre / placement (carte 150×220 + marge ~20 px). */
+/** Boîte de layout dagre / placement (carte 150×228 + marge ~12 px). */
 export const EXPLORE_LAYOUT_NODE_W = 170;
 export const EXPLORE_LAYOUT_NODE_H = 240;
 export const EXPLORE_NODESEP = 25;
@@ -489,7 +489,7 @@ export const EXPLORE_LAYER_MIN_GAP_X = 24;
 
 /** Dimensions visuelles des cartes (TechNode). */
 export const EXPLORE_CARD_W = 150;
-export const EXPLORE_CARD_H = 220;
+export const EXPLORE_CARD_H = 228;
 
 /** Nœud avec profondeur pour placement en bandes */
 export interface DepthLayoutNode extends LayoutNode {

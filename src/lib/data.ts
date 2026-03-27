@@ -5,6 +5,44 @@ import {
   getLinksForMetadata as getLinksForMetadataFromSeed,
 } from '@/lib/seed-merge';
 import type { CraftingLink, SeedNode } from '@/lib/types';
+import { getEraFromYear } from '@/lib/utils';
+
+/** Colonnes minimales pour le graphe /explore (pas de textes longs). */
+export const GRAPH_NODES_SELECT =
+  'id, name, name_en, category, type, era, year_approx, image_url, complexity_depth';
+
+/** Liens : champs nécessaires au rendu et à l’éditeur (pas de métadonnées inutiles). */
+export const GRAPH_LINKS_SELECT =
+  'id, source_id, target_id, relation_type, is_optional, notes';
+
+/**
+ * Projection graphe → SeedNode : champs lourds vides jusqu’à chargement détail / ?full=1.
+ */
+export function mapGraphNodeRowToSeedNode(row: Record<string, unknown>): SeedNode {
+  const year =
+    row.year_approx === null || row.year_approx === undefined
+      ? undefined
+      : Number(row.year_approx);
+  const eraFromDb = row.era != null && String(row.era).trim() !== ''
+    ? String(row.era)
+    : String(getEraFromYear(year ?? null));
+  return {
+    id: String(row.id),
+    name: String(row.name),
+    name_en: row.name_en != null ? String(row.name_en) : '',
+    description: '',
+    description_en: undefined,
+    category: String(row.category),
+    type: String(row.type),
+    era: eraFromDb,
+    year_approx: year,
+    complexity_depth: Number(row.complexity_depth ?? 0),
+    tags: [],
+    origin: undefined,
+    image_url: row.image_url != null ? String(row.image_url) : undefined,
+    wikipedia_url: undefined,
+  };
+}
 
 /** Mappe une ligne `nodes` Supabase vers le format SeedNode attendu par l’app. */
 export function mapNodeRowToSeedNode(row: Record<string, unknown>): SeedNode {
@@ -51,12 +89,12 @@ export async function getAllNodes(): Promise<SeedNode[]> {
   const supabase = createSupabaseServerReadClient();
   const { data, error } = await supabase
     .from('nodes')
-    .select(
-      'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth'
-    )
+    .select(GRAPH_NODES_SELECT)
     .order('name');
   if (error) throw error;
-  return (data ?? []).map((r) => mapNodeRowToSeedNode(r as Record<string, unknown>));
+  return (data ?? []).map((r) =>
+    mapGraphNodeRowToSeedNode(r as Record<string, unknown>)
+  );
 }
 
 export async function getNodeDetailsRow(id: string) {
@@ -81,7 +119,7 @@ export async function getAllLinks(): Promise<CraftingLink[]> {
     return readSeedData().links;
   }
   const supabase = createSupabaseServerReadClient();
-  const { data, error } = await supabase.from('links').select('*');
+  const { data, error } = await supabase.from('links').select(GRAPH_LINKS_SELECT);
   if (error) throw error;
   return (data ?? []).map((r) => mapLinkRowToCraftingLink(r as Record<string, unknown>));
 }
@@ -95,7 +133,7 @@ export async function getLinksForNode(nodeId: string): Promise<CraftingLink[]> {
   const supabase = createSupabaseServerReadClient();
   const { data, error } = await supabase
     .from('links')
-    .select('*')
+    .select(GRAPH_LINKS_SELECT)
     .or(`source_id.eq.${nodeId},target_id.eq.${nodeId}`);
   if (error) throw error;
   return (data ?? []).map((r) => mapLinkRowToCraftingLink(r as Record<string, unknown>));

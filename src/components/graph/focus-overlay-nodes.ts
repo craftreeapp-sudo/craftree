@@ -30,7 +30,7 @@ export function buildFocusOverlayNodes(
   /** Centre horizontal de la carte = centre de la boîte nœud (170×240), pas seulement 150px. */
   const cardCenterX = selected.position.x + EXPLORE_LAYOUT_NODE_W / 2;
   const iy = selected.position.y;
-  /** Bords verticaux de la carte visible (150×220) centrée dans la boîte 170×240. */
+  /** Bords verticaux de la carte visible (150×228) centrée dans la boîte 170×240. */
   const padY = (EXPLORE_LAYOUT_NODE_H - EXPLORE_CARD_H) / 2;
   const visualTop = iy + padY;
   const visualBottom = visualTop + EXPLORE_CARD_H;

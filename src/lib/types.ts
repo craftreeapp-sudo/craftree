@@ -60,6 +60,8 @@ export type TechNodeType =
 export interface TechNodeBasic {
   id: string;
   name: string;
+  /** Présent quand la projection graphe l’inclut (recherche Fuse, affichage). */
+  name_en?: string;
   category: NodeCategory;
   type: TechNodeType;
   era: Era;

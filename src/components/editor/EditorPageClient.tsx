@@ -103,7 +103,7 @@ export function EditorPageClient() {
     setLoading(true);
     try {
       const [nr, lr] = await Promise.all([
-        fetch('/api/nodes'),
+        fetch('/api/nodes?full=1'),
         fetch('/api/links'),
       ]);
       const nj = await nr.json();

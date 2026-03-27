@@ -42,7 +42,7 @@ import {
 } from '@/lib/graph-adjacency';
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 import { useUIStore } from '@/stores/ui-store';
-import { useGraphStore } from '@/stores/graph-store';
+import { useGraphStore, getNodeDetails } from '@/stores/graph-store';
 import { useAuthStore } from '@/stores/auth-store';
 import type {
   CraftingLink,
@@ -64,6 +64,7 @@ import {
 import { useFocusLinkEditStore } from '@/stores/focus-link-edit-store';
 import { useExploreFocusTransitionStore } from '@/stores/explore-focus-transition-store';
 import { GraphControls } from './GraphControls';
+import { BatchedDimEdgesOverlay } from './BatchedDimEdgesOverlay';
 
 const nodeTypes = {
   tech: TechNode,
@@ -281,6 +282,8 @@ export function decorateNodesAndEdges(
     exploreFullVisibility?: boolean;
     /** Vue /explore globale : masquer les arêtes non reliées au nœud survolé. */
     exploreHoveredNodeId?: string | null;
+    /** Pour memo TechNode : icônes édition / suggestion alignées sur le rôle. */
+    isAdmin?: boolean;
   }
 ): { nodes: Node[]; edges: Edge[] } {
   const {
@@ -300,6 +303,7 @@ export function decorateNodesAndEdges(
     markIsolatedNodes = false,
     exploreFullVisibility = false,
     exploreHoveredNodeId: exploreHoveredNodeIdOpt = null,
+    isAdmin = false,
   } = opts;
 
   const nodeDataById = new Map(
@@ -347,6 +351,9 @@ export function decorateNodesAndEdges(
     exploreFullVisibility &&
     !exploreFocus &&
     !areAllFiltersActive(activeCategories, activeEras, activeTypes);
+
+  const effectiveHoverId = hoveredNodeId ?? exploreHoveredNodeIdOpt;
+  const hoverInteractionActive = !exploreFocus && Boolean(effectiveHoverId);
 
   const nodes: Node[] = nds.map((n) => {
     if (n.type === 'layerLabel') {
@@ -432,14 +439,18 @@ export function decorateNodesAndEdges(
       }
     }
 
-    /** Timeline / autres vues : passent `hoveredNodeId`. /explore : null (store dans TechNode). */
-    if (!hidden && !exploreFocus && hoveredNodeId) {
-      const preds = getDirectPredecessors(hoveredNodeId, craftEdges);
-      const succs = getDirectSuccessors(hoveredNodeId, craftEdges);
-      const related = new Set<string>([hoveredNodeId, ...preds, ...succs]);
+    /** Timeline : `hoveredNodeId`. /explore : `exploreHoveredNodeIdOpt`. */
+    if (!hidden && !exploreFocus && effectiveHoverId) {
+      const preds = getDirectPredecessors(effectiveHoverId, craftEdges);
+      const succs = getDirectSuccessors(effectiveHoverId, craftEdges);
+      const related = new Set<string>([
+        effectiveHoverId,
+        ...preds,
+        ...succs,
+      ]);
       dimmed = !related.has(n.id);
-      neighborHighlight = related.has(n.id) && n.id !== hoveredNodeId;
-      hoverCenter = n.id === hoveredNodeId;
+      neighborHighlight = related.has(n.id) && n.id !== effectiveHoverId;
+      hoverCenter = n.id === effectiveHoverId;
     }
 
     const bust = imageBustByNodeId[n.id] ?? 0;
@@ -458,6 +469,8 @@ export function decorateNodesAndEdges(
         ? { focusExploreNeighbor: true, focusLinkId }
         : {}),
       ...(isolatedNoLinks ? { isolatedNoLinks: true } : {}),
+      ...(hoverInteractionActive ? { hoverInteractionActive: true } : {}),
+      showAdminIcons: isAdmin,
     };
 
     return {
@@ -710,6 +723,7 @@ function TechGraphInner() {
 
   const craftEdges = useGraphStore((s) => s.edges);
   const user = useAuthStore((s) => s.user);
+  const isAdmin = useAuthStore((s) => s.isAdmin);
   /** Invités : pas d’ajout de liens depuis le graphe (uniquement suggestion depuis la fiche). */
   const allowFocusAddLinks = Boolean(user);
   const graphNodes = useGraphStore((s) => s.nodes);
@@ -744,6 +758,9 @@ function TechGraphInner() {
   );
   /** Vue large /explore uniquement : masque les arêtes sans affecter /tree/[id]. */
   const [showConnections, setShowConnections] = useState(true);
+  /** Arêtes « dimmed » rendues en un seul path SVG (voir BatchedDimEdgesOverlay). */
+  const [batchedDimEdges, setBatchedDimEdges] = useState<Edge[]>([]);
+  const prefetchHoverRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const focusLayoutActive = Boolean(isSidebarOpen && selectedNodeId);
 
@@ -882,7 +899,7 @@ function TechGraphInner() {
       if (!p) return;
       for (const t of transitionTimersRef.current) clearTimeout(t);
       transitionTimersRef.current = [];
-      const { fromId, toId, openEdit } = p;
+      const { fromId, toId, openEdit, openSuggest } = p;
       beginTransition(fromId, toId);
       focusTransitionStartedAtRef.current = performance.now();
 
@@ -903,6 +920,7 @@ function TechGraphInner() {
             center: false,
             skipFocusTransition: true,
             openEdit,
+            openSuggest,
           });
           focusTransitionStartedAtRef.current = null;
           resetTransition();
@@ -1033,6 +1051,7 @@ function TechGraphInner() {
               center: false,
               skipFocusTransition: true,
               openEdit,
+              openSuggest,
             });
             appearOrder.forEach((nid, i) => {
               pushT(
@@ -1161,8 +1180,30 @@ function TechGraphInner() {
         imageBustByNodeId,
         markIsolatedNodes: true,
         exploreFullVisibility: !focusLayoutActive,
+        isAdmin,
       }
     );
+
+    let rfEdges = nextEdges;
+    if (!focusLayoutActive && showConnections && nextEdges.length > 300) {
+      const dim: Edge[] = [];
+      const rest: Edge[] = [];
+      for (const e of nextEdges) {
+        const ed = e.data as unknown as TechEdgeData | undefined;
+        if (ed?.dimmed && !ed?.emphasized) dim.push(e);
+        else rest.push(e);
+      }
+      if (dim.length >= 40) {
+        rfEdges = rest;
+        setBatchedDimEdges(dim);
+      } else {
+        setBatchedDimEdges([]);
+      }
+    } else {
+      setBatchedDimEdges([]);
+    }
+
+    const edgesForFlow = focusLayoutActive ? nextEdges : rfEdges;
 
     let mergedNodes = nextNodes;
     focusPositionsAppliedRef.current = false;
@@ -1260,10 +1301,15 @@ function TechGraphInner() {
       }
     }
 
-    let outEdges = nextEdges.map((e) => ({
-      ...e,
-      hidden: Boolean(e.hidden) || !showConnections,
-    }));
+    let outEdges: Edge[];
+    if (!showConnections) {
+      outEdges = [];
+    } else {
+      outEdges = edgesForFlow.map((e) => ({
+        ...e,
+        hidden: Boolean(e.hidden),
+      }));
+    }
 
     const tf2 = useExploreFocusTransitionStore.getState();
     if (
@@ -1343,6 +1389,7 @@ function TechGraphInner() {
     transitionToId,
     getCategoryForFocus,
     allowFocusAddLinks,
+    isAdmin,
   ]);
 
   /**
@@ -1558,13 +1605,30 @@ function TechGraphInner() {
       if (node.type === 'layerLabel') return;
       if (focusLayoutActive) return;
       setExploreHoveredNodeId(node.id);
+      if (node.type === 'tech' && node.id) {
+        if (prefetchHoverRef.current) clearTimeout(prefetchHoverRef.current);
+        prefetchHoverRef.current = setTimeout(() => {
+          prefetchHoverRef.current = null;
+          void getNodeDetails(node.id);
+        }, 200);
+      }
     },
     [focusLayoutActive, setExploreHoveredNodeId]
   );
 
   const onNodeMouseLeave: NodeMouseHandler = useCallback(() => {
+    if (prefetchHoverRef.current) {
+      clearTimeout(prefetchHoverRef.current);
+      prefetchHoverRef.current = null;
+    }
     setExploreHoveredNodeId(null);
   }, [setExploreHoveredNodeId]);
+
+  useEffect(() => {
+    return () => {
+      if (prefetchHoverRef.current) clearTimeout(prefetchHoverRef.current);
+    };
+  }, []);
 
   const onPaneClick = useCallback(() => {
     if (clickTimerRef.current) {
@@ -1617,11 +1681,15 @@ function TechGraphInner() {
         proOptions={{ hideAttribution: true }}
         minZoom={0.02}
         maxZoom={1.8}
+        onlyRenderVisibleElements
       >
         {!focusLayoutActive ? (
           <TreeLayerChrome layerMetas={layerMetas} bounds={graphBounds} />
         ) : null}
         <Background color="var(--graph-bg-dot)" gap={16} size={1} />
+        {showConnections && batchedDimEdges.length > 0 ? (
+          <BatchedDimEdgesOverlay edges={batchedDimEdges} nodes={nodes} />
+        ) : null}
         <GraphControls
           showConnections={showConnections}
           onToggleConnections={() => setShowConnections((v) => !v)}

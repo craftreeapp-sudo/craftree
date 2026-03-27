@@ -15,11 +15,13 @@ interface ExploreFocusTransitionStore {
     toId: string;
     /** Ouvrir l’éditeur après la transition (ex. crayon sur une carte voisine). */
     openEdit: boolean;
+    /** Contributeur : ouvrir suggestion pré-remplie pour la carte cible. */
+    openSuggest: boolean;
   } | null;
   requestTransition: (
     fromId: string,
     toId: string,
-    opts?: { openEdit?: boolean }
+    opts?: { openEdit?: boolean; openSuggest?: boolean }
   ) => void;
   clearPendingTransition: () => void;
   beginTransition: (fromId: string, toId: string) => void;
@@ -38,7 +40,8 @@ export const useExploreFocusTransitionStore =
         pendingTransition: {
           fromId,
           toId,
-          openEdit: opts?.openEdit === true,
+          openEdit: opts?.openEdit === true && opts?.openSuggest !== true,
+          openSuggest: opts?.openSuggest === true,
         },
       }),
 

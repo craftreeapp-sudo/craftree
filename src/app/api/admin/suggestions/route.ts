@@ -22,6 +22,19 @@ function collectNodeIdsFromSuggestions(
       if (link?.source_id) ids.push(link.source_id);
       if (link?.target_id) ids.push(link.target_id);
     }
+    if (r.suggestion_type === 'delete_link') {
+      if (typeof d.source_id === 'string') ids.push(d.source_id);
+      if (typeof d.target_id === 'string') ids.push(d.target_id);
+    }
+    if (r.suggestion_type === 'anonymous_feedback') {
+      const nid =
+        typeof d.node_id === 'string'
+          ? d.node_id
+          : typeof r.node_id === 'string'
+            ? r.node_id
+            : '';
+      if (nid) ids.push(nid);
+    }
   }
   return ids;
 }

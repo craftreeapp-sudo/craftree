@@ -26,6 +26,7 @@ import { TechEdge } from './TechEdge';
 import { decorateNodesAndEdges } from './TechGraph';
 import { useUIStore } from '@/stores/ui-store';
 import { useGraphStore } from '@/stores/graph-store';
+import { useAuthStore } from '@/stores/auth-store';
 import {
   buildTimelineElements,
   LAYOUT_MAX_YEAR,
@@ -154,6 +155,7 @@ function TechTimelineInner() {
   const graphNodes = useGraphStore((s) => s.nodes);
   const craftEdges = useGraphStore((s) => s.edges);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
+  const isAdmin = useAuthStore((s) => s.isAdmin);
 
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const [pixelsPerYear, setPixelsPerYear] = useState(0.32);
@@ -194,6 +196,7 @@ function TechTimelineInner() {
         isSidebarOpen: false,
         focusLayoutActive: false,
         imageBustByNodeId,
+        isAdmin,
       }
     );
     setNodes([...eraNodes, ...decoratedTech]);
@@ -209,6 +212,7 @@ function TechTimelineInner() {
     craftEdges,
     eraNodes,
     imageBustByNodeId,
+    isAdmin,
     setNodes,
     setEdges,
   ]);

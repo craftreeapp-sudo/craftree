@@ -1,8 +1,23 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { TechGraph } from '@/components/graph/TechGraph';
+
+const TechGraph = dynamic(
+  () =>
+    import('@/components/graph/TechGraph').then((m) => ({ default: m.TechGraph })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="graph-skeleton flex min-h-0 flex-1 flex-col items-center justify-center">
+        <span className="text-sm" style={{ color: '#5A6175' }}>
+          Chargement…
+        </span>
+      </div>
+    ),
+  }
+);
 import { ExploreCategoryPanel } from '@/components/explore/ExploreCategoryPanel';
 import { ExploreMobile } from '@/components/explore/ExploreMobile';
 import { NodeDetailSidebar } from '@/components/ui/NodeDetailSidebar';
@@ -38,6 +53,18 @@ function ExploreInner({
       queueMicrotask(() => setDataReady(true))
     );
   }, [refreshData, hydrateFromRaw, initialGraph]);
+
+  useEffect(() => {
+    if (!dataReady) return;
+    const log =
+      process.env.NEXT_PUBLIC_PERF_LOG === '1' ||
+      process.env.NODE_ENV === 'development';
+    if (!log) return;
+    const st = useGraphStore.getState();
+    console.log(
+      `[perf] explore client graph ready nodes=${st.nodes.length} edges=${st.edges.length}`
+    );
+  }, [dataReady]);
 
   useEffect(() => {
     if (!toast) return;

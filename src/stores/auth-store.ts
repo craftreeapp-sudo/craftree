@@ -7,6 +7,8 @@ import { isAdminEmail } from '@/lib/auth-utils';
 
 interface AuthStore {
   user: User | null;
+  /** Compte connecté (non anonyme). */
+  isLoggedIn: boolean;
   isAdmin: boolean;
   isLoading: boolean;
   initialized: boolean;
@@ -16,6 +18,7 @@ interface AuthStore {
 function applyUser(user: User | null, set: (p: Partial<AuthStore>) => void) {
   set({
     user,
+    isLoggedIn: user !== null,
     isAdmin: isAdminEmail(user?.email),
     isLoading: false,
   });
@@ -23,6 +26,7 @@ function applyUser(user: User | null, set: (p: Partial<AuthStore>) => void) {
 
 export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
+  isLoggedIn: false,
   isAdmin: false,
   isLoading: true,
   initialized: false,

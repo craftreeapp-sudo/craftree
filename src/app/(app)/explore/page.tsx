@@ -77,10 +77,21 @@ export async function generateMetadata({
   };
 }
 
+const explorePerfLog =
+  process.env.NEXT_PUBLIC_PERF_LOG === '1' ||
+  process.env.NODE_ENV === 'development';
+
 export default async function ExplorePage() {
   let initialGraph: { nodes: SeedNode[]; links: CraftingLink[] } | null = null;
   if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
+    const t0 = Date.now();
     const [nodes, links] = await Promise.all([getAllNodes(), getAllLinks()]);
+    if (explorePerfLog) {
+      const ms = Date.now() - t0;
+      console.log(
+        `[perf] explore SSR getAllNodes+getAllLinks ${ms}ms nodes=${nodes.length} links=${links.length}`
+      );
+    }
     initialGraph = { nodes, links };
   }
 

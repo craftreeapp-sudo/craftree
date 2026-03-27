@@ -102,6 +102,10 @@ CREATE POLICY "profiles_update_own" ON profiles FOR UPDATE USING (auth.uid() = i
 DROP POLICY IF EXISTS "suggestions_insert" ON suggestions;
 CREATE POLICY "suggestions_insert" ON suggestions FOR INSERT WITH CHECK (auth.uid() = user_id);
 
+-- Insertion côté client anonyme (ex. retours sans compte) — lecture / mise à jour restent restreintes
+DROP POLICY IF EXISTS "suggestions_anonymous_insert" ON suggestions;
+CREATE POLICY "suggestions_anonymous_insert" ON suggestions FOR INSERT WITH CHECK (true);
+
 DROP POLICY IF EXISTS "suggestions_read_own" ON suggestions;
 CREATE POLICY "suggestions_read_own" ON suggestions FOR SELECT USING (
   auth.uid() = user_id OR (auth.jwt() ->> 'email') = 'craftree.app@gmail.com'

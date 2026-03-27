@@ -24,6 +24,7 @@ export function useExploreNavigation() {
         center?: boolean;
         exploreMode?: 'root' | 'push';
         openEdit?: boolean;
+        openSuggest?: boolean;
         /** Forcer navigation immédiate (ex. fin d’animation focus) */
         skipFocusTransition?: boolean;
         /** Même animation que voisin direct (ex. panneau « même catégorie ») */
@@ -49,7 +50,10 @@ export function useExploreNavigation() {
           useExploreFocusTransitionStore.getState().requestTransition(
             selected,
             id,
-            { openEdit: opts?.openEdit === true }
+            {
+              openEdit: opts?.openEdit === true,
+              openSuggest: opts?.openSuggest === true,
+            }
           );
           return;
         }
@@ -60,6 +64,7 @@ export function useExploreNavigation() {
         center: opts?.center === true,
         exploreMode: opts?.exploreMode,
         openEdit: opts?.openEdit === true,
+        openSuggest: opts?.openSuggest === true,
       });
     },
     [router, selectNode]

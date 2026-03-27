@@ -9,6 +9,8 @@ export interface SelectNodeOptions {
   exploreMode?: 'root' | 'push';
   /** /explore : ouvrir directement le formulaire d’édition dans la sidebar */
   openEdit?: boolean;
+  /** /explore contributeur : ouvrir le mode suggestion (pré-rempli) pour ce nœud */
+  openSuggest?: boolean;
 }
 
 const ALL_CATEGORIES = new Set(Object.values(NC) as NodeCategory[]);
@@ -48,6 +50,9 @@ interface UIStore {
   /** /explore : consommé par NodeDetailSidebar pour ouvrir le mode édition une fois */
   pendingExploreEdit: boolean;
   clearPendingExploreEdit: () => void;
+  /** /explore contributeur : consommé pour ouvrir « Suggérer une correction » pré-ciblé */
+  pendingExploreSuggest: boolean;
+  clearPendingExploreSuggest: () => void;
 
   /** Panneau filtres gauche (vue /explore wireframe) */
   filterDrawerOpen: boolean;
@@ -113,6 +118,9 @@ export const useUIStore = create<UIStore>((set) => ({
   pendingExploreEdit: false,
   clearPendingExploreEdit: () => set({ pendingExploreEdit: false }),
 
+  pendingExploreSuggest: false,
+  clearPendingExploreSuggest: () => set({ pendingExploreSuggest: false }),
+
   filterDrawerOpen: false,
   setFilterDrawerOpen: (open) => set({ filterDrawerOpen: open }),
   toggleFilterDrawer: () =>
@@ -137,7 +145,9 @@ export const useUIStore = create<UIStore>((set) => ({
         exploreFocusExitCenterId: null,
         exploreNeighborhoodFitId: null,
         exploreStack: nextStack,
-        pendingExploreEdit: options?.openEdit === true,
+        pendingExploreEdit:
+          options?.openEdit === true && options?.openSuggest !== true,
+        pendingExploreSuggest: options?.openSuggest === true,
       };
     }),
 
@@ -155,6 +165,7 @@ export const useUIStore = create<UIStore>((set) => ({
         exploreNeighborhoodFitId: null,
         exploreStack: [],
         pendingExploreEdit: false,
+        pendingExploreSuggest: false,
         categoryPanelOpen: true,
       };
     }),
@@ -167,6 +178,7 @@ export const useUIStore = create<UIStore>((set) => ({
       exploreFocusExitCenterId: null,
       exploreStack: [],
       pendingExploreEdit: false,
+      pendingExploreSuggest: false,
       categoryPanelOpen: true,
     }),
 
@@ -182,6 +194,7 @@ export const useUIStore = create<UIStore>((set) => ({
           exploreNeighborhoodFitId: null,
           exploreStack: [],
           pendingExploreEdit: false,
+          pendingExploreSuggest: false,
           categoryPanelOpen: true,
         };
       }
@@ -196,6 +209,8 @@ export const useUIStore = create<UIStore>((set) => ({
         centerOnNodeId: null,
         exploreFocusExitCenterId: nextId === null ? poppedId : null,
         exploreNeighborhoodFitId: null,
+        pendingExploreEdit: false,
+        pendingExploreSuggest: false,
       };
     }),
 

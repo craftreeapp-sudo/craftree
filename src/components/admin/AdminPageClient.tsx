@@ -57,7 +57,13 @@ type ContributorRow = {
   total_suggestions: number;
 };
 
-type FilterKey = 'all' | 'edit_node' | 'add_link' | 'new_node';
+type FilterKey =
+  | 'all'
+  | 'edit_node'
+  | 'add_link'
+  | 'new_node'
+  | 'delete_link'
+  | 'anonymous_feedback';
 
 const FIELD_LABELS: Record<string, string> = {
   name: 'Nom',
@@ -436,6 +442,8 @@ export function AdminPageClient() {
               ['edit_node', 'Corrections'],
               ['add_link', 'Nouveaux liens'],
               ['new_node', 'Nouvelles inventions'],
+              ['delete_link', 'Suppressions liens'],
+              ['anonymous_feedback', 'Retours anonymes'],
             ] as const
           ).map(([key, label]) => (
             <button
@@ -666,6 +674,9 @@ function SuggestionCard({
   tAuth: (k: string) => string;
   dateIso: string;
 }) {
+  const canEditApprove =
+    row.suggestion_type !== 'delete_link' &&
+    row.suggestion_type !== 'anonymous_feedback';
   const p = row.user_id ? profiles[row.user_id] : undefined;
   const uid = row.user_id ?? '';
 
@@ -715,6 +726,14 @@ function SuggestionCard({
             </p>
           </div>
         </div>
+      ) : row.suggestion_type === 'anonymous_feedback' ? (
+        <div className="mb-3 flex items-center gap-2">
+          <span
+            className="inline-flex rounded-full bg-slate-500/20 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground"
+          >
+            {t('anonymousBadge')}
+          </span>
+        </div>
       ) : row.contributor_ip ? (
         <div className="mb-3 flex items-start gap-2">
           <div
@@ -759,13 +778,15 @@ function SuggestionCard({
           >
             {t('approve')}
           </button>
-          <button
-            type="button"
-            onClick={onStartEdit}
-            className="rounded-[6px] border border-accent bg-transparent px-4 py-[7px] text-[12px] font-medium text-accent"
-          >
-            {t('editApprove')}
-          </button>
+          {canEditApprove ? (
+            <button
+              type="button"
+              onClick={onStartEdit}
+              className="rounded-[6px] border border-accent bg-transparent px-4 py-[7px] text-[12px] font-medium text-accent"
+            >
+              {t('editApprove')}
+            </button>
+          ) : null}
           <button
             type="button"
             onClick={onRejectOpen}
@@ -853,13 +874,23 @@ function TypeBadge({ type, t }: { type: string; t: (k: string) => string }) {
         ? t('typeAddLink')
         : type === 'new_node'
           ? t('typeNewNode')
-          : type;
+          : type === 'delete_link'
+            ? t('typeDeleteLink')
+            : type === 'anonymous_feedback'
+              ? t('typeAnonymousFeedback')
+              : type;
   const cls =
     type === 'edit_node'
       ? 'bg-amber-500/15 text-amber-700'
       : type === 'add_link'
         ? 'bg-emerald-500/15 text-emerald-600'
-        : 'bg-violet-500/15 text-violet-600';
+        : type === 'new_node'
+          ? 'bg-violet-500/15 text-violet-600'
+          : type === 'delete_link'
+            ? 'bg-rose-500/15 text-rose-600'
+            : type === 'anonymous_feedback'
+              ? 'bg-slate-500/15 text-slate-600'
+              : 'bg-violet-500/15 text-violet-600';
   return (
     <span
       className={`inline-block rounded px-2 py-[2px] text-[9px] font-semibold ${cls}`}
@@ -1269,6 +1300,63 @@ function SuggestionBody({
             ({RELATION_LABELS_FR[d.link.relation_type] ?? d.link.relation_type})
           </span>
         </div>
+      </div>
+    );
+  }
+
+  if (row.suggestion_type === 'delete_link') {
+    const d = data as {
+      link_id?: string;
+      source_id?: string;
+      target_id?: string;
+    };
+    const srcName = nodeNames[d.source_id ?? ''] ?? d.source_id ?? '—';
+    const tgtName = nodeNames[d.target_id ?? ''] ?? d.target_id ?? '—';
+    return (
+      <div className="space-y-2">
+        <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+          Lien à supprimer
+        </p>
+        <div className="flex flex-wrap items-center gap-2 rounded-[6px] bg-surface px-3 py-2.5">
+          <span className="rounded px-2.5 py-1 text-[12px] font-bold text-foreground bg-surface-elevated">
+            {srcName}
+          </span>
+          <span className="text-muted-foreground">→</span>
+          <span className="rounded px-2.5 py-1 text-[12px] font-bold text-foreground bg-surface-elevated">
+            {tgtName}
+          </span>
+        </div>
+        {d.link_id ? (
+          <p className="text-[10px] font-mono text-muted-foreground">
+            {d.link_id}
+          </p>
+        ) : null}
+      </div>
+    );
+  }
+
+  if (row.suggestion_type === 'anonymous_feedback') {
+    const d = data as {
+      message?: string;
+      email?: string | null;
+      node_id?: string;
+    };
+    const nid = d.node_id ?? row.node_id ?? '';
+    const nName = (nodeNames[nid] ?? nid) || '—';
+    return (
+      <div className="space-y-2">
+        <p className="text-[12px] text-muted-foreground">
+          Invention :{' '}
+          <span className="font-medium text-foreground">{nName}</span>
+        </p>
+        <div className="whitespace-pre-wrap rounded-[6px] bg-surface px-3 py-2.5 text-[12px] text-foreground">
+          {d.message ?? ''}
+        </div>
+        {d.email ? (
+          <p className="text-[11px] text-muted-foreground">
+            Email : {d.email}
+          </p>
+        ) : null}
       </div>
     );
   }

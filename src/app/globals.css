@@ -98,6 +98,12 @@ body {
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
+/* Squelette chargement graphe (dynamic import TechGraph) */
+.graph-skeleton {
+  min-height: 100%;
+  background: #0a0e17;
+}
+
 /* Titres — Space Grotesk (corps : Inter via body) */
 h1,
 h2,

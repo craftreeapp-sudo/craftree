@@ -7,7 +7,11 @@ import {
   createSupabaseServiceRoleClient,
 } from '@/lib/supabase-server';
 import { requireAdminFromRequest } from '@/lib/auth-server';
-import { mapNodeRowToSeedNode } from '@/lib/data';
+import {
+  GRAPH_NODES_SELECT,
+  mapGraphNodeRowToSeedNode,
+  mapNodeRowToSeedNode,
+} from '@/lib/data';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 function uniqueIdFromName(base: string, existingIds: Set<string>): string {
@@ -19,22 +23,29 @@ function uniqueIdFromName(base: string, existingIds: Set<string>): string {
   return `${id}-${n}`;
 }
 
-export async function GET() {
+const FULL_NODES_SELECT =
+  'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth';
+
+export async function GET(request: Request) {
   try {
     if (!isSupabaseConfigured()) {
       const data = readSeedData();
       return NextResponse.json({ nodes: data.nodes });
     }
+    const { searchParams } = new URL(request.url);
+    const full =
+      searchParams.get('full') === '1' || searchParams.get('full') === 'true';
     const supabase = createSupabaseServerReadClient();
+    const sel = full ? FULL_NODES_SELECT : GRAPH_NODES_SELECT;
     const { data, error } = await supabase
       .from('nodes')
-      .select(
-        'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth'
-      )
+      // Colonnes alignées sur le schéma ; assertion pour éviter les unions trop strictes du client.
+      .select(sel as never)
       .order('name');
     if (error) throw error;
-    const nodes = (data ?? []).map((r) =>
-      mapNodeRowToSeedNode(r as Record<string, unknown>)
+    const rows = (data ?? []) as unknown as Record<string, unknown>[];
+    const nodes = rows.map((r) =>
+      full ? mapNodeRowToSeedNode(r) : mapGraphNodeRowToSeedNode(r)
     );
     return NextResponse.json({ nodes });
   } catch (e) {

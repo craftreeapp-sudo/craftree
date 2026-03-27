@@ -18,6 +18,7 @@ import { getNameEnForNode } from '@/lib/name-en-lookup';
 interface SearchNode {
   id: string;
   name: string;
+  name_en?: string;
   category: string;
   era: string;
   type: string;
@@ -56,6 +57,7 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
       graphNodes.map((n) => ({
         id: n.id,
         name: n.name,
+        name_en: n.name_en?.trim() || getNameEnForNode(n.id),
         category: n.category,
         era: n.era,
         type: n.type,
@@ -103,7 +105,7 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
   );
 
   useEffect(() => {
-    const timer = setTimeout(() => search(query), 100);
+    const timer = setTimeout(() => search(query), 150);
     return () => clearTimeout(timer);
   }, [query, search]);
 

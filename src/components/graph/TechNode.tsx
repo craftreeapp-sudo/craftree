@@ -6,6 +6,7 @@ import {
   useCallback,
   useRef,
   useEffect,
+  memo,
   type MouseEvent,
 } from 'react';
 import { createPortal } from 'react-dom';
@@ -17,10 +18,6 @@ import { useLocale, useTranslations } from 'next-intl';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
 import { getNameEnForNode } from '@/lib/name-en-lookup';
 import { formatYear } from '@/lib/utils';
-import {
-  getDirectPredecessors,
-  getDirectSuccessors,
-} from '@/lib/graph-adjacency';
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 import { useGraphStore } from '@/stores/graph-store';
 import { useUIStore } from '@/stores/ui-store';
@@ -35,6 +32,7 @@ import { getNodeDetails } from '@/stores/graph-store';
 import { useNodeDetailsStore } from '@/stores/node-details-store';
 import { useAuthStore } from '@/stores/auth-store';
 import { useThemeStore } from '@/stores/theme-store';
+import { useToastStore } from '@/stores/toast-store';
 import type { Era, NodeCategory, TechNodeDetails, TechNodeType } from '@/lib/types';
 
 const BORDER_DEFAULT = 'var(--border)';
@@ -235,6 +233,31 @@ export interface TechNodeData {
   explosionRevealed?: boolean;
   /** Vue /explore globale : aucun lien entrant ni sortant */
   isolatedNoLinks?: boolean;
+  /** Survol actif (timeline ou explore) : distingue grisage survol vs filtre */
+  hoverInteractionActive?: boolean;
+  /** Rôle admin injecté par decorate (pour memo + icônes). */
+  showAdminIcons?: boolean;
+}
+
+function techNodeDataEqual(a: TechNodeData, b: TechNodeData): boolean {
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  for (const k of keys) {
+    const key = k as keyof TechNodeData;
+    if (a[key] !== b[key]) return false;
+  }
+  return true;
+}
+
+function techNodeAreEqual(prev: NodeProps, next: NodeProps): boolean {
+  if (prev.id !== next.id) return false;
+  if (prev.selected !== next.selected) return false;
+  if (prev.dragging !== next.dragging) return false;
+  if (prev.sourcePosition !== next.sourcePosition) return false;
+  if (prev.targetPosition !== next.targetPosition) return false;
+  return techNodeDataEqual(
+    prev.data as unknown as TechNodeData,
+    next.data as unknown as TechNodeData
+  );
 }
 
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -262,41 +285,19 @@ function TechNodeComponent({
   }, [locale, nodeData.name, nodeData.name_en, id, detailNameEn]);
   const categoryBadge = tCat(nodeData.category);
   const categoryColor = getCategoryColor(nodeData.category);
-  const exploreHoveredNodeId = useUIStore((s) => s.exploreHoveredNodeId);
-  const exploreFocusLayout = useUIStore(
-    (s) => Boolean(s.isSidebarOpen && s.selectedNodeId)
-  );
   const focusTransitionAnimating = useUIStore((s) => s.isAnimating);
   const craftEdges = useGraphStore((s) => s.edges);
   const setEdgesAndRecompute = useGraphStore((s) => s.setEdgesAndRecompute);
   const { navigateToNode } = useExploreNavigation();
-  const isAdmin = useAuthStore((s) => s.isAdmin);
+  const user = useAuthStore((s) => s.user);
+  const isAdmin = nodeData.showAdminIcons ?? false;
+  const getNodeById = useGraphStore((s) => s.getNodeById);
+  const pushToast = useToastStore((s) => s.pushToast);
+  const tAuth = useTranslations('auth');
   const themeMode = useThemeStore((s) => s.theme);
 
-  const hoverVisual = useMemo(() => {
-    if (exploreFocusLayout || !exploreHoveredNodeId) {
-      return null;
-    }
-    const preds = getDirectPredecessors(exploreHoveredNodeId, craftEdges);
-    const succs = getDirectSuccessors(exploreHoveredNodeId, craftEdges);
-    const related = new Set<string>([
-      exploreHoveredNodeId,
-      ...preds,
-      ...succs,
-    ]);
-    return {
-      dimmed: !related.has(id),
-      neighborHighlight: related.has(id) && id !== exploreHoveredNodeId,
-      hoverCenter: id === exploreHoveredNodeId,
-    };
-  }, [exploreFocusLayout, exploreHoveredNodeId, craftEdges, id]);
-
-  const neighborHighlight =
-    hoverVisual !== null
-      ? hoverVisual.neighborHighlight
-      : nodeData.neighborHighlight === true;
-  const hoverCenter =
-    hoverVisual !== null ? hoverVisual.hoverCenter : nodeData.hoverCenter === true;
+  const neighborHighlight = nodeData.neighborHighlight === true;
+  const hoverCenter = nodeData.hoverCenter === true;
   const focusSelected = nodeData.focusSelected === true;
   const focusPred = nodeData.focusPred === true;
   const focusExploreNeighbor = nodeData.focusExploreNeighbor === true;
@@ -309,6 +310,11 @@ function TechNodeComponent({
   const [pendingFocusDelete, setPendingFocusDelete] = useState(false);
   const pendingFocusDeleteRef = useRef(false);
   const deleteAnimDoneRef = useRef(false);
+  const [deleteLinkModal, setDeleteLinkModal] = useState<{
+    linkId: string;
+    sourceLabel: string;
+    targetLabel: string;
+  } | null>(null);
   const centralityNorm = nodeData.centralityNorm ?? 0;
   const introDelayMs = nodeData.introDelayMs;
   const explosionMode = nodeData.explosionMode === true;
@@ -354,16 +360,74 @@ function TechNodeComponent({
   const onPencilClick = useCallback(
     (e: MouseEvent) => {
       e.stopPropagation();
-      navigateToNode(id, { center: true, openEdit: true });
+      if (isAdmin) {
+        navigateToNode(id, { center: true, openEdit: true });
+      } else {
+        navigateToNode(id, { center: true, openSuggest: true });
+      }
     },
-    [id, navigateToNode]
+    [id, navigateToNode, isAdmin]
   );
 
-  const onRemoveLinkClick = useCallback((e: MouseEvent) => {
-    e.stopPropagation();
-    deleteAnimDoneRef.current = false;
-    setPendingFocusDelete(true);
-  }, []);
+  const onRemoveLinkClick = useCallback(
+    (e: MouseEvent) => {
+      e.stopPropagation();
+      if (!focusLinkId) return;
+      if (isAdmin) {
+        deleteAnimDoneRef.current = false;
+        setPendingFocusDelete(true);
+        return;
+      }
+      const link = craftEdges.find((l) => l.id === focusLinkId);
+      if (!link) return;
+      setDeleteLinkModal({
+        linkId: link.id,
+        sourceLabel:
+          getNodeById(link.source_id)?.name ?? link.source_id,
+        targetLabel:
+          getNodeById(link.target_id)?.name ?? link.target_id,
+      });
+    },
+    [isAdmin, focusLinkId, craftEdges, getNodeById, setDeleteLinkModal]
+  );
+
+  const confirmDeleteLinkSuggestion = useCallback(async () => {
+    if (!deleteLinkModal || !user) return;
+    const link = craftEdges.find((l) => l.id === deleteLinkModal.linkId);
+    if (!link) {
+      setDeleteLinkModal(null);
+      return;
+    }
+    const res = await fetch('/api/suggestions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        suggestion_type: 'delete_link',
+        node_id: null,
+        data: {
+          link_id: link.id,
+          source_id: link.source_id,
+          target_id: link.target_id,
+        },
+      }),
+    });
+    if (!res.ok) {
+      pushToast(
+        String((await res.json().catch(() => ({})))?.error ?? 'Erreur'),
+        'error'
+      );
+      return;
+    }
+    pushToast(tAuth('suggestionSentReview'), 'success');
+    setDeleteLinkModal(null);
+  }, [
+    deleteLinkModal,
+    user,
+    craftEdges,
+    pushToast,
+    tAuth,
+    setDeleteLinkModal,
+  ]);
 
   useEffect(() => {
     deleteAnimDoneRef.current = false;
@@ -387,9 +451,10 @@ function TechNodeComponent({
    * Survol /explore : voisins hors focus → opacité 0.
    * Filtres globaux (dimmed dans les données) → opacité réduite mais carte lisible.
    */
-  const isHoverDimmed = hoverVisual !== null && hoverVisual.dimmed;
+  const isHoverDimmed =
+    nodeData.hoverInteractionActive === true && nodeData.dimmed === true;
   const isFilterDimmed =
-    hoverVisual === null && nodeData.dimmed === true;
+    nodeData.hoverInteractionActive !== true && nodeData.dimmed === true;
   const baseOpacity = isHoverDimmed ? 0 : isFilterDimmed ? 0.38 : 1;
 
   const exploreIntro =
@@ -558,6 +623,11 @@ function TechNodeComponent({
 
   const nameSize = explosionMode ? `${13 + centralityNorm * 1}px` : '14px';
 
+  const layerNum = Math.max(
+    0,
+    nodeData.treeLayer ?? nodeData.complexity_depth ?? 0
+  );
+
   const tooltip = `${displayName} · ${categoryBadge}${
     isolatedNoLinks ? ' · Aucun lien entrant ni sortant' : ''
   }`;
@@ -611,7 +681,7 @@ function TechNodeComponent({
         {focusExploreNeighbor &&
         focusLinkId &&
         !focusTransitionAnimating &&
-        isAdmin ? (
+        user ? (
           <div
             className="pointer-events-none absolute right-0 z-[60] flex opacity-0 transition-opacity duration-150 group-hover:opacity-100"
             style={{
@@ -723,7 +793,7 @@ function TechNodeComponent({
                 loading="lazy"
                 placeholder="empty"
                 className="h-full w-full object-cover"
-                sizes="150px"
+                sizes="140px"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   setImageError(true);
@@ -752,21 +822,36 @@ function TechNodeComponent({
 
           {/* Moitié basse — titre sur 2 lignes + méta */}
           <div
-            className="flex min-h-0 w-full flex-[1_1_56%] flex-col items-stretch justify-start overflow-hidden p-3 text-left"
+            className="flex min-h-0 w-full flex-[1_1_56%] flex-col items-stretch justify-start overflow-hidden px-3 pt-3 pb-4 text-left"
             style={{
               backgroundColor: 'var(--surface-elevated)',
               borderRadius: '0 0 8px 8px',
             }}
           >
-            <span
-              className="line-clamp-2 min-h-[2lh] shrink-0 break-words font-bold leading-snug text-foreground"
-              style={{
-                fontSize: nameSize,
-                marginBottom: 6,
-              }}
+            <div
+              className="flex min-h-[2lh] shrink-0 items-start justify-between gap-1.5"
+              style={{ marginBottom: 6 }}
             >
-              {displayName}
-            </span>
+              <span
+                className="line-clamp-2 min-w-0 flex-1 break-words font-bold leading-snug text-foreground"
+                style={{
+                  fontSize: nameSize,
+                }}
+              >
+                {displayName}
+              </span>
+              <span
+                className="shrink-0 rounded border px-1.5 py-0.5 text-[11px] font-semibold tabular-nums leading-none text-muted-foreground"
+                style={{
+                  borderColor: hexToRgba(categoryColor, 0.45),
+                  backgroundColor: hexToRgba(categoryColor, 0.08),
+                }}
+                title={tExplore('layerBadgeTitle', { layer: layerNum })}
+                aria-label={tExplore('layerBadgeTitle', { layer: layerNum })}
+              >
+                {layerNum}
+              </span>
+            </div>
             {yearLabel ? (
               <span
                 className="inline-block w-fit rounded px-2 py-1 text-[11px] text-muted-foreground"
@@ -804,14 +889,58 @@ function TechNodeComponent({
           document.body
         )
       : null}
+    {deleteLinkModal && typeof document !== 'undefined'
+      ? createPortal(
+          <div
+            className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/55 p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="delete-link-suggest-title"
+          >
+            <div
+              className="w-full max-w-[360px] rounded-lg border border-border bg-surface-elevated p-4 shadow-xl"
+              onPointerDown={(e) => e.stopPropagation()}
+            >
+              <p
+                id="delete-link-suggest-title"
+                className="text-[14px] font-semibold leading-snug text-foreground"
+              >
+                {tExplore('suggestDeleteLinkTitle', {
+                  source: deleteLinkModal.sourceLabel,
+                  target: deleteLinkModal.targetLabel,
+                })}
+              </p>
+              <div className="mt-4 flex flex-wrap justify-end gap-2">
+                <button
+                  type="button"
+                  className="rounded-md border border-border px-3 py-2 text-[13px] text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
+                  onClick={() => setDeleteLinkModal(null)}
+                >
+                  {tAuth('cancel')}
+                </button>
+                <button
+                  type="button"
+                  className="rounded-md bg-amber-600 px-3 py-2 text-[13px] font-medium text-white transition-colors hover:bg-amber-500"
+                  onClick={() => void confirmDeleteLinkSuggestion()}
+                >
+                  {tExplore('suggestDeleteLinkSend')}
+                </button>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )
+      : null}
     </>
   );
 }
 
 TechNodeComponent.displayName = 'TechNode';
 
-/** Pas de memo ici : le rôle admin (store auth) doit mettre à jour les icônes sans changement de props Flow. */
-export const TechNode = TechNodeComponent;
+export const TechNode = memo(
+  TechNodeComponent,
+  techNodeAreEqual
+) as typeof TechNodeComponent;
 
 /** Alias — carte invention React Flow (Tree / Explore). */
 export const TechNodeCard = TechNode;

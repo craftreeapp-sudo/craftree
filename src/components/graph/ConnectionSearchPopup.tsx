@@ -257,7 +257,7 @@ export function ConnectionSearchPopup(props: NodeProps) {
         );
         return;
       }
-      pushToast(tAuth('linkSuggestionSent'), 'success');
+      pushToast(tAuth('suggestionSentReview'), 'success');
       setPendingExisting(null);
       close();
     },
@@ -376,7 +376,7 @@ export function ConnectionSearchPopup(props: NodeProps) {
             setCreating(false);
             return;
           }
-          pushToast(tAuth('newNodeSuggestionSent'), 'success');
+          pushToast(tAuth('suggestionSentReview'), 'success');
           setPopupState({ mode: 'search' });
           close();
         } catch {

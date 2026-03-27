@@ -169,8 +169,16 @@ export function GraphControls({
   const focused = Boolean(selectedNodeId && isSidebarOpen);
   const [fs, setFs] = useState(false);
 
+  /**
+   * En plein écran, seul le canvas graphe est en fullscreen : la sidebar n’y est pas.
+   * Ne pas réserver SIDEBAR_W à droite (sinon la barre d’outils est décalée et
+   * recouvre les cartes voisines + bloque le survol des boutons admin).
+   */
+  const rightInset = fs ? 20 : focused ? SIDEBAR_W + SIDEBAR_GAP : 20;
+
   useEffect(() => {
     const onFs = () => setFs(Boolean(document.fullscreenElement));
+    onFs();
     document.addEventListener('fullscreenchange', onFs);
     return () => document.removeEventListener('fullscreenchange', onFs);
   }, []);
@@ -236,17 +244,15 @@ export function GraphControls({
       >
         <ConnectionsIcon on={showConnections} />
       </button>
-      {!focused ? (
-        <button
-          type="button"
-          className={BTN}
-          onClick={toggleFullscreen}
-          aria-label={fs ? tg('exitFullscreen') : tg('fullscreen')}
-          title={fs ? tg('exitFullscreen') : tg('fullscreen')}
-        >
-          <FullscreenIcon exit={fs} />
-        </button>
-      ) : null}
+      <button
+        type="button"
+        className={BTN}
+        onClick={toggleFullscreen}
+        aria-label={fs ? tg('exitFullscreen') : tg('fullscreen')}
+        title={fs ? tg('exitFullscreen') : tg('fullscreen')}
+      >
+        <FullscreenIcon exit={fs} />
+      </button>
       <button
         type="button"
         className={BTN}
@@ -270,7 +276,7 @@ export function GraphControls({
       className="pointer-events-auto absolute z-[45] flex flex-row flex-nowrap items-end justify-end gap-2 transition-[right] duration-300 ease-out"
       style={{
         bottom: 20,
-        right: focused ? SIDEBAR_W + SIDEBAR_GAP : 20,
+        right: rightInset,
       }}
     >
       {/*

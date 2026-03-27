@@ -10,7 +10,7 @@ import {
   createSupabaseServiceRoleClient,
 } from '@/lib/supabase-server';
 import { requireAdminFromRequest } from '@/lib/auth-server';
-import { mapLinkRowToCraftingLink } from '@/lib/data';
+import { GRAPH_LINKS_SELECT, mapLinkRowToCraftingLink } from '@/lib/data';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 function nextLinkId(links: CraftingLink[]): string {
@@ -41,7 +41,9 @@ export async function GET() {
       return NextResponse.json({ links: data.links });
     }
     const supabase = createSupabaseServerReadClient();
-    const { data, error } = await supabase.from('links').select('*');
+    const { data, error } = await supabase
+      .from('links')
+      .select(GRAPH_LINKS_SELECT);
     if (error) throw error;
     const links = (data ?? []).map((r) =>
       mapLinkRowToCraftingLink(r as Record<string, unknown>)
