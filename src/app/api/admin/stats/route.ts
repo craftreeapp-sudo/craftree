@@ -1,14 +1,11 @@
 import { NextResponse } from 'next/server';
 import { createSupabaseRouteHandlerClient } from '@/lib/supabase-route';
 import { requireAdminFromRequest } from '@/lib/auth-server';
-
-function useSupabase(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
-}
+import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 export async function GET() {
   try {
-    if (!useSupabase()) {
+    if (!isSupabaseConfigured()) {
       return NextResponse.json({
         pending: 0,
         approved: 0,

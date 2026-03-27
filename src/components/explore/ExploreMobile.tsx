@@ -370,6 +370,7 @@ export function ExploreMobile() {
               <button
                 type="button"
                 role="option"
+                aria-selected={selectedNodeId === n.id}
                 onClick={() => onSelectListItem(n.id)}
                 className="flex w-full items-stretch gap-0 overflow-hidden rounded-xl border border-border bg-surface-elevated text-left transition-colors active:bg-[color:var(--panel-row-hover-bg)]"
               >

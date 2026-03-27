@@ -230,7 +230,7 @@ export function ExploreCategoryPanel() {
   }, []);
 
   useEffect(() => {
-    clearTooltip();
+    queueMicrotask(() => clearTooltip());
   }, [selectedNodeId, categoryPanelOpen, clearTooltip]);
 
   if (!focusActive) return null;

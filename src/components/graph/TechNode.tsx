@@ -237,49 +237,6 @@ export interface TechNodeData {
   isolatedNoLinks?: boolean;
 }
 
-function techNodeVisualKey(d: TechNodeData): string {
-  return [
-    d.dimmed === true ? '1' : '0',
-    d.neighborHighlight === true ? '1' : '0',
-    d.hoverCenter === true ? '1' : '0',
-    d.focusSelected === true ? '1' : '0',
-    d.focusPred === true ? '1' : '0',
-    d.focusExploreNeighbor === true ? '1' : '0',
-    d.focusLinkId ?? '',
-    d.focusInnerClass ?? '',
-    String(d.focusStaggerDelayMs ?? ''),
-    d.focusSlideBorder === true ? '1' : '0',
-    d.focusSlideActive === true ? '1' : '0',
-    d.focusWillChange === true ? '1' : '0',
-    d.name,
-    String(d.year_approx ?? ''),
-    String(d.category),
-    String(d.introDelayMs ?? ''),
-    d.explosionMode === true ? '1' : '0',
-    d.explosionRevealed === true ? '1' : '0',
-    String(d.centralityNorm ?? ''),
-    d.isolatedNoLinks === true ? '1' : '0',
-  ].join('|');
-}
-
-type TechNodeFlowProps = {
-  position?: { x?: number; y?: number };
-  xPos?: number;
-  yPos?: number;
-  id: string;
-  selected?: boolean;
-  className?: string;
-  data: Record<string, unknown>;
-};
-
-/** React Flow peut ne pas fournir `position` au premier rendu ; les coords passent parfois par xPos/yPos. */
-function getFlowNodeXY(n: NodeProps): { x: number; y: number } {
-  const raw = n as unknown as TechNodeFlowProps;
-  const x = raw.position?.x ?? raw.xPos ?? 0;
-  const y = raw.position?.y ?? raw.yPos ?? 0;
-  return { x, y };
-}
-
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const easeOutBack: [number, number, number, number] = [0.34, 1.56, 0.64, 1];
 
@@ -334,8 +291,6 @@ function TechNodeComponent({
     };
   }, [exploreFocusLayout, exploreHoveredNodeId, craftEdges, id]);
 
-  const dimmed =
-    hoverVisual !== null ? hoverVisual.dimmed : nodeData.dimmed === true;
   const neighborHighlight =
     hoverVisual !== null
       ? hoverVisual.neighborHighlight
@@ -413,7 +368,7 @@ function TechNodeComponent({
   useEffect(() => {
     deleteAnimDoneRef.current = false;
     pendingFocusDeleteRef.current = false;
-    setPendingFocusDelete(false);
+    queueMicrotask(() => setPendingFocusDelete(false));
   }, [focusLinkId, id]);
 
   const rawImageUrl = nodeData.image_url?.trim();
@@ -425,7 +380,7 @@ function TechNodeComponent({
   const hasImage = Boolean(rawImageUrl);
 
   useEffect(() => {
-    setImageError(false);
+    queueMicrotask(() => setImageError(false));
   }, [rawImageUrl, id]);
   const yearLabel = formatYear(nodeData.year_approx);
   /**
@@ -534,7 +489,7 @@ function TechNodeComponent({
         clearTimeout(focusDescTimerRef.current);
         focusDescTimerRef.current = null;
       }
-      setFocusDescTooltip(null);
+      queueMicrotask(() => setFocusDescTooltip(null));
     }
   }, [canShowFocusDescTooltip]);
 

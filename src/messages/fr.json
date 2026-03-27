@@ -420,7 +420,8 @@
     "tree": "Tree",
     "breadcrumbAria": "Fil d'Ariane",
     "dependencyTree": "Arbre de dépendances",
-    "openFilters": "Ouvrir les filtres"
+    "openFilters": "Ouvrir les filtres",
+    "secondaryNav": "Liens secondaires"
   },
   "contactPage": {
     "title": "Contact",

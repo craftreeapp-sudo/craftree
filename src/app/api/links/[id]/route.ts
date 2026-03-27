@@ -8,6 +8,7 @@ import {
 import { createSupabaseServiceRoleClient } from '@/lib/supabase-server';
 import { requireAdminFromRequest } from '@/lib/auth-server';
 import { mapLinkRowToCraftingLink } from '@/lib/data';
+import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 const RELATIONS: RelationType[] = [
   RT.MATERIAL,
@@ -23,17 +24,13 @@ function isRelationType(s: string): s is RelationType {
 
 type Ctx = { params: Promise<{ id: string }> };
 
-function useSupabase(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
-}
-
 export async function PUT(request: Request, ctx: Ctx) {
   try {
     const { id } = await ctx.params;
     const decoded = decodeURIComponent(id);
     const body = (await request.json()) as Partial<CraftingLink>;
 
-    if (!useSupabase()) {
+    if (!isSupabaseConfigured()) {
       const data = readSeedData();
       const idx = data.links.findIndex((l) => l.id === decoded);
       if (idx === -1) {
@@ -135,7 +132,7 @@ export async function DELETE(_request: Request, ctx: Ctx) {
     const { id } = await ctx.params;
     const decoded = decodeURIComponent(id);
 
-    if (!useSupabase()) {
+    if (!isSupabaseConfigured()) {
       const data = readSeedData();
       const before = data.links.length;
       data.links = data.links.filter((l) => l.id !== decoded);

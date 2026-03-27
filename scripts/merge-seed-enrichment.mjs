@@ -252,6 +252,6 @@ fs.writeFileSync(path.join(root, 'src/data/seed-data.json'), JSON.stringify(data
 
 try {
   execSync('node scripts/split-seed-data.mjs', { cwd: root, stdio: 'inherit' });
-} catch (e) {
+} catch {
   console.warn('split-seed-data.mjs a échoué — lancez npm run split-data manuellement.');
 }

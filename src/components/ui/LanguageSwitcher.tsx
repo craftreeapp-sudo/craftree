@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocale } from 'next-intl';
-import { locales, type AppLocale } from '@/lib/i18n-config';
+import type { AppLocale } from '@/lib/i18n-config';
 
 const OPTIONS: {
   locale: AppLocale;

@@ -1,13 +1,10 @@
 import { createSupabaseServerReadClient } from '@/lib/supabase-server';
+import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 import {
   getExploreMetadataNodes as getExploreMetadataNodesFromSeed,
   getLinksForMetadata as getLinksForMetadataFromSeed,
 } from '@/lib/seed-merge';
 import type { CraftingLink, SeedNode } from '@/lib/types';
-
-function useSupabaseEnv(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
-}
 
 /** Mappe une ligne `nodes` Supabase vers le format SeedNode attendu par l’app. */
 export function mapNodeRowToSeedNode(row: Record<string, unknown>): SeedNode {
@@ -47,7 +44,7 @@ export function mapLinkRowToCraftingLink(
 }
 
 export async function getAllNodes(): Promise<SeedNode[]> {
-  if (!useSupabaseEnv()) {
+  if (!isSupabaseConfigured()) {
     const { readSeedData } = await import('@/lib/seed-data-fs');
     return readSeedData().nodes;
   }
@@ -63,7 +60,7 @@ export async function getAllNodes(): Promise<SeedNode[]> {
 }
 
 export async function getNodeDetailsRow(id: string) {
-  if (!useSupabaseEnv()) {
+  if (!isSupabaseConfigured()) {
     const { readSeedData } = await import('@/lib/seed-data-fs');
     const n = readSeedData().nodes.find((x) => x.id === id);
     return n ?? null;
@@ -79,7 +76,7 @@ export async function getNodeDetailsRow(id: string) {
 }
 
 export async function getAllLinks(): Promise<CraftingLink[]> {
-  if (!useSupabaseEnv()) {
+  if (!isSupabaseConfigured()) {
     const { readSeedData } = await import('@/lib/seed-data-fs');
     return readSeedData().links;
   }
@@ -90,7 +87,7 @@ export async function getAllLinks(): Promise<CraftingLink[]> {
 }
 
 export async function getLinksForNode(nodeId: string): Promise<CraftingLink[]> {
-  if (!useSupabaseEnv()) {
+  if (!isSupabaseConfigured()) {
     return (await getAllLinks()).filter(
       (l) => l.source_id === nodeId || l.target_id === nodeId
     );
@@ -108,7 +105,7 @@ export async function getLinksForNode(nodeId: string): Promise<CraftingLink[]> {
 export async function getExploreMetadataNodes(): Promise<
   { id: string; name: string; description?: string }[]
 > {
-  if (!useSupabaseEnv()) {
+  if (!isSupabaseConfigured()) {
     return getExploreMetadataNodesFromSeed();
   }
   const supabase = createSupabaseServerReadClient();
@@ -128,7 +125,7 @@ export async function getExploreMetadataNodes(): Promise<
 export async function getExploreMetadataLinks(): Promise<
   Pick<CraftingLink, 'source_id' | 'target_id'>[]
 > {
-  if (!useSupabaseEnv()) {
+  if (!isSupabaseConfigured()) {
     return getLinksForMetadataFromSeed();
   }
   const links = await getAllLinks();

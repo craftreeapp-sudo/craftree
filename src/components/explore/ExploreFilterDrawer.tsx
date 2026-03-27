@@ -22,13 +22,13 @@ const INVENTION_COUNT = nodesIndexJson.nodes.length;
 export function ExploreFilterDrawer() {
   const locale = useLocale();
   const isRtl = isRtlLocale(locale);
-  const tAdmin = useTranslations('admin');
   const tNav = useTranslations('nav');
   const t = useTranslations('filters');
   const tc = useTranslations('common');
   const tCat = useTranslations('categories');
   const tEra = useTranslations('eras');
   const tAuth = useTranslations('auth');
+  const tFooter = useTranslations('footer');
   const [showAllCategories, setShowAllCategories] = useState(false);
   const open = useUIStore((s) => s.filterDrawerOpen);
   const setOpen = useUIStore((s) => s.setFilterDrawerOpen);
@@ -39,7 +39,6 @@ export function ExploreFilterDrawer() {
   const setAllCategories = useUIStore((s) => s.setAllCategories);
   const setAllEras = useUIStore((s) => s.setAllEras);
   const user = useAuthStore((s) => s.user);
-  const isAdmin = useAuthStore((s) => s.isAdmin);
 
   return (
     <>
@@ -99,18 +98,22 @@ export function ExploreFilterDrawer() {
             >
               {tc('about')}
             </Link>
-            {isAdmin ? (
-              <>
-                <div className="my-2 border-t border-border" />
-                <Link
-                  href="/admin"
-                  className="rounded-md px-2 py-2 text-sm text-[#EF4444] transition-colors hover:bg-surface-elevated hover:underline"
-                  onClick={() => setOpen(false)}
-                >
-                  {tAdmin('navLink')}
-                </Link>
-              </>
-            ) : null}
+            <a
+              href="https://github.com/craftreeapp-sudo/craftree"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-md px-2 py-2 text-sm text-foreground transition-colors hover:bg-surface-elevated hover:text-accent"
+              onClick={() => setOpen(false)}
+            >
+              {tFooter('github')}
+            </a>
+            <Link
+              href="/contact"
+              className="rounded-md px-2 py-2 text-sm text-foreground transition-colors hover:bg-surface-elevated hover:text-accent"
+              onClick={() => setOpen(false)}
+            >
+              {tFooter('contact')}
+            </Link>
           </nav>
         </div>
         <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">

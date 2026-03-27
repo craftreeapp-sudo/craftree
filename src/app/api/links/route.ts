@@ -11,6 +11,7 @@ import {
 } from '@/lib/supabase-server';
 import { requireAdminFromRequest } from '@/lib/auth-server';
 import { mapLinkRowToCraftingLink } from '@/lib/data';
+import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 function nextLinkId(links: CraftingLink[]): string {
   let max = 0;
@@ -33,13 +34,9 @@ function isRelationType(s: string): s is RelationType {
   return RELATIONS.includes(s as RelationType);
 }
 
-function useSupabase(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
-}
-
 export async function GET() {
   try {
-    if (!useSupabase()) {
+    if (!isSupabaseConfigured()) {
       const data = readSeedData();
       return NextResponse.json({ links: data.links });
     }
@@ -85,7 +82,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!useSupabase()) {
+    if (!isSupabaseConfigured()) {
       const data = readSeedData();
       const nodeIds = new Set(data.nodes.map((n) => n.id));
       if (!nodeIds.has(source_id) || !nodeIds.has(target_id)) {

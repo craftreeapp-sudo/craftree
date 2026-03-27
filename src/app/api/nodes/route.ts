@@ -8,6 +8,7 @@ import {
 } from '@/lib/supabase-server';
 import { requireAdminFromRequest } from '@/lib/auth-server';
 import { mapNodeRowToSeedNode } from '@/lib/data';
+import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 function uniqueIdFromName(base: string, existingIds: Set<string>): string {
   let id = slugify(base);
@@ -18,13 +19,9 @@ function uniqueIdFromName(base: string, existingIds: Set<string>): string {
   return `${id}-${n}`;
 }
 
-function useSupabase(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
-}
-
 export async function GET() {
   try {
-    if (!useSupabase()) {
+    if (!isSupabaseConfigured()) {
       const data = readSeedData();
       return NextResponse.json({ nodes: data.nodes });
     }
@@ -69,7 +66,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!useSupabase()) {
+    if (!isSupabaseConfigured()) {
       const data = readSeedData();
       const existingIds = new Set(data.nodes.map((n) => n.id));
       const normName = normalizeInventionName(name);

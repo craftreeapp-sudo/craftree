@@ -1,14 +1,11 @@
 import { NextResponse } from 'next/server';
 import { requireAdminFromRequest } from '@/lib/auth-server';
 import { applyApprovedSuggestion } from '@/lib/admin-approve-suggestion';
-
-function useSupabase(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
-}
+import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 export async function POST(request: Request) {
   try {
-    if (!useSupabase()) {
+    if (!isSupabaseConfigured()) {
       return NextResponse.json({ error: 'Supabase required' }, { status: 503 });
     }
 

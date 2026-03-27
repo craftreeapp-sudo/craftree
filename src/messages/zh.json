@@ -420,7 +420,8 @@
     "tree": "树",
     "breadcrumbAria": "面包屑",
     "dependencyTree": "依赖树",
-    "openFilters": "打开筛选"
+    "openFilters": "打开筛选",
+    "secondaryNav": "辅助链接"
   },
   "contactPage": {
     "title": "联系",

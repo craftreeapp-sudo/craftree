@@ -31,10 +31,12 @@ function ExploreInner({
   useEffect(() => {
     if (initialGraph) {
       hydrateFromRaw(initialGraph.nodes, initialGraph.links);
-      setDataReady(true);
+      queueMicrotask(() => setDataReady(true));
       return;
     }
-    void refreshData().then(() => setDataReady(true));
+    void refreshData().then(() =>
+      queueMicrotask(() => setDataReady(true))
+    );
   }, [refreshData, hydrateFromRaw, initialGraph]);
 
   useEffect(() => {
@@ -59,7 +61,7 @@ function ExploreInner({
 
     const found = useGraphStore.getState().getNodeById(node);
     if (!found) {
-      setToast('Invention non trouvée');
+      queueMicrotask(() => setToast('Invention non trouvée'));
       router.replace('/explore');
       closeSidebar();
       return;

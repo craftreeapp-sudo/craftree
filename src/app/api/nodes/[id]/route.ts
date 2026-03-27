@@ -8,19 +8,16 @@ import {
 import { requireAdminFromRequest } from '@/lib/auth-server';
 import { mapNodeRowToSeedNode } from '@/lib/data';
 import { nodeRowToTechNodeDetails } from '@/lib/db-map';
+import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 type Ctx = { params: Promise<{ id: string }> };
-
-function useSupabase(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
-}
 
 export async function GET(_request: Request, ctx: Ctx) {
   try {
     const { id } = await ctx.params;
     const decoded = decodeURIComponent(id);
 
-    if (!useSupabase()) {
+    if (!isSupabaseConfigured()) {
       const data = readSeedData();
       const n = data.nodes.find((x) => x.id === decoded);
       if (!n) {
@@ -65,7 +62,7 @@ export async function PUT(request: Request, ctx: Ctx) {
     const decoded = decodeURIComponent(id);
     const body = (await request.json()) as Record<string, unknown>;
 
-    if (!useSupabase()) {
+    if (!isSupabaseConfigured()) {
       const data = readSeedData();
       const idx = data.nodes.findIndex((n) => n.id === decoded);
       if (idx === -1) {
@@ -184,7 +181,7 @@ export async function DELETE(_request: Request, ctx: Ctx) {
     const { id } = await ctx.params;
     const decoded = decodeURIComponent(id);
 
-    if (!useSupabase()) {
+    if (!isSupabaseConfigured()) {
       const data = readSeedData();
       const before = data.nodes.length;
       data.nodes = data.nodes.filter((n) => n.id !== decoded);

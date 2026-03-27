@@ -1,9 +1,9 @@
 import { Header } from '@/components/layout/Header';
-import { SiteFooter } from '@/components/layout/SiteFooter';
+import { ConditionalFooter } from '@/components/layout/ConditionalFooter';
 
 /**
  * Routes avec barre globale (recherche, filtres) : graphe, vues dérivées.
- * Timeline, Stats et navigation secondaire dans le pied de page, pas dans la barre du haut.
+ * Sur /explore, pas de pied de page (liens secondaires dans ExploreWireframeHeader).
  */
 export default function AppShellLayout({
   children,
@@ -14,7 +14,7 @@ export default function AppShellLayout({
     <div className="flex min-h-screen min-h-[100dvh] flex-col bg-page text-foreground">
       <Header />
       <div className="flex min-h-0 flex-1 flex-col">{children}</div>
-      <SiteFooter />
+      <ConditionalFooter />
     </div>
   );
 }

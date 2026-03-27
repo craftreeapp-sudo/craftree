@@ -10,8 +10,9 @@ import { signInWithGoogle, signOut } from '@/lib/auth-client';
 
 export function HeaderAuth() {
   const t = useTranslations('auth');
+  const tAdmin = useTranslations('admin');
   const pushToast = useToastStore((s) => s.pushToast);
-  const { user, isLoading } = useAuthStore();
+  const { user, isLoading, isAdmin } = useAuthStore();
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
 
@@ -112,9 +113,19 @@ export function HeaderAuth() {
           >
             {t('myProfile')}
           </Link>
+          {isAdmin ? (
+            <Link
+              href="/admin"
+              className="block px-3 py-2 text-[13px] text-white hover:bg-surface"
+              role="menuitem"
+              onClick={() => setOpen(false)}
+            >
+              {tAdmin('navLink')}
+            </Link>
+          ) : null}
           <button
             type="button"
-            className="w-full px-3 py-2 text-start text-[13px] text-foreground hover:bg-surface"
+            className="w-full px-3 py-2 text-start text-[13px] text-red-500 hover:bg-surface"
             role="menuitem"
             onClick={onSignOut}
           >

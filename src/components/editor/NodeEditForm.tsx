@@ -184,7 +184,7 @@ export function NodeEditForm({
       setBuiltRel(RT.MATERIAL);
       await onRefreshData();
     }
-  }, [editingId, builtSource, builtRel, onRefreshData]);
+  }, [editingId, builtSource, builtRel, onRefreshData, setBuiltSource, setBuiltRel]);
 
   const addLedTo = useCallback(async () => {
     if (!editingId || !ledTarget || ledTarget === editingId) return;
@@ -202,7 +202,7 @@ export function NodeEditForm({
       setLedRel(RT.MATERIAL);
       await onRefreshData();
     }
-  }, [editingId, ledTarget, ledRel, onRefreshData]);
+  }, [editingId, ledTarget, ledRel, onRefreshData, setLedTarget, setLedRel]);
 
   const removeLink = useCallback(
     async (linkId: string) => {

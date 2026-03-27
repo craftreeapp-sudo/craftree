@@ -420,7 +420,8 @@
     "tree": "الشجرة",
     "breadcrumbAria": "مسار التنقل",
     "dependencyTree": "شجرة الاعتماد",
-    "openFilters": "فتح عوامل التصفية"
+    "openFilters": "فتح عوامل التصفية",
+    "secondaryNav": "روابط ثانوية"
   },
   "contactPage": {
     "title": "اتصل",

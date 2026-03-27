@@ -26,7 +26,6 @@ function edgePath(
   const ar = a.left + CARD_W;
   const al = a.left;
   const ab = a.top + CARD_H;
-  const at = a.top;
   const acx = a.left + CARD_W / 2;
   const bcx = b.left + CARD_W / 2;
   const bt = b.top;

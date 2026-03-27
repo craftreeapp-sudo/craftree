@@ -25,10 +25,7 @@ import {
   seedNodeToFormState,
   type NodeEditFormState,
 } from './NodeEditForm';
-import {
-  cleanRawMaterialLinks,
-  filterValidCraftingLinks,
-} from '@/lib/graph-utils';
+import { filterValidCraftingLinks } from '@/lib/graph-utils';
 import { useGraphStore } from '@/stores/graph-store';
 import { useAuthStore } from '@/stores/auth-store';
 
@@ -118,7 +115,7 @@ export function EditorPageClient() {
     } finally {
       setLoading(false);
     }
-  }, [push]);
+  }, [push, te]);
 
   useEffect(() => {
     void loadAll();
@@ -129,15 +126,14 @@ export function EditorPageClient() {
     [nodes]
   );
 
-  /** Même pipeline que le graphe /explore (store) : liens valides + sans intrant vers matière première. */
+  /** Même pipeline que le graphe /explore (store) : liens dont les deux extrémités existent. */
   const graphModelEdges = useMemo(() => {
     if (nodes.length === 0) return [];
     const forGraph = nodes.map((n) => ({
       id: n.id,
       type: n.type as TechNodeType,
     }));
-    const valid = filterValidCraftingLinks(forGraph, links);
-    return cleanRawMaterialLinks(forGraph, valid);
+    return filterValidCraftingLinks(forGraph, links);
   }, [nodes, links]);
 
   const nodeOptions: SearchableOption[] = useMemo(

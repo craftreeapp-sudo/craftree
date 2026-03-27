@@ -105,7 +105,8 @@ function stripTechNodePointerEventsStyle(nodes: Node[]): Node[] {
     if (n.type !== 'tech' || !n.style) return n;
     const st = n.style as Record<string, unknown>;
     if (!('pointerEvents' in st)) return n;
-    const { pointerEvents: _p, ...rest } = st;
+    const rest = { ...st };
+    delete rest.pointerEvents;
     return {
       ...n,
       style: Object.keys(rest).length > 0 ? rest : undefined,
@@ -735,6 +736,12 @@ function TechGraphInner() {
   const clearExploreNeighborhoodFit = useUIStore(
     (s) => s.clearExploreNeighborhoodFit
   );
+  const exploreFocusExitCenterId = useUIStore(
+    (s) => s.exploreFocusExitCenterId
+  );
+  const clearExploreFocusExitCenter = useUIStore(
+    (s) => s.clearExploreFocusExitCenter
+  );
   /** Vue large /explore uniquement : masque les arêtes sans affecter /tree/[id]. */
   const [showConnections, setShowConnections] = useState(true);
 
@@ -804,6 +811,50 @@ function TechGraphInner() {
       cancelled = true;
     };
   }, [exploreNeighborhoodFitId, craftEdges, clearExploreNeighborhoodFit]);
+
+  /**
+   * Après sortie de la vue focalisée (ou retour pile mobile), recentre la carte
+   * sur le nœud concerné dans la vue globale avec une animation fluide.
+   */
+  useEffect(() => {
+    if (!exploreFocusExitCenterId) return;
+    if (focusLayoutActive) return;
+
+    let cancelled = false;
+    let attempts = 0;
+    const id = exploreFocusExitCenterId;
+    const tryFit = () => {
+      if (cancelled) return;
+      const rf = reactFlowRef.current;
+      if (!rf?.viewportInitialized) {
+        if (attempts++ < 48) requestAnimationFrame(tryFit);
+        else clearExploreFocusExitCenter();
+        return;
+      }
+      const flowNode = rf.getNode(id);
+      if (!flowNode) {
+        clearExploreFocusExitCenter();
+        return;
+      }
+      void rf.fitView({
+        nodes: [{ id }],
+        padding: 0.2,
+        duration: 640,
+        minZoom: 0.02,
+        maxZoom: 1.65,
+      });
+      clearExploreFocusExitCenter();
+    };
+
+    const t = window.setTimeout(() => {
+      requestAnimationFrame(() => requestAnimationFrame(tryFit));
+    }, 100);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(t);
+    };
+  }, [exploreFocusExitCenterId, focusLayoutActive, clearExploreFocusExitCenter]);
 
   const transitionFromId = useExploreFocusTransitionStore((s) => s.fromId);
   const transitionToId = useExploreFocusTransitionStore((s) => s.toId);
@@ -1271,6 +1322,7 @@ function TechGraphInner() {
   }, [
     selectedNodeId,
     graphLayoutHoverDep,
+    exploreHoveredNodeId,
     activeCategories,
     activeEras,
     activeTypes,

@@ -148,20 +148,20 @@ function TechEdgeComponent({
 
   useEffect(() => {
     if (!focusEdgeFadeOut) {
-      setFocusFadeMul(1);
+      queueMicrotask(() => setFocusFadeMul(1));
       return;
     }
-    setFocusFadeMul(0.6);
+    queueMicrotask(() => setFocusFadeMul(0.6));
     const t = window.setTimeout(() => setFocusFadeMul(0), 200);
     return () => clearTimeout(t);
   }, [focusEdgeFadeOut]);
 
   useEffect(() => {
     if (focusEdgeRevealDelayMs == null) {
-      setFocusRevealMul(1);
+      queueMicrotask(() => setFocusRevealMul(1));
       return;
     }
-    setFocusRevealMul(0);
+    queueMicrotask(() => setFocusRevealMul(0));
     const t = window.setTimeout(
       () => setFocusRevealMul(1),
       focusEdgeRevealDelayMs

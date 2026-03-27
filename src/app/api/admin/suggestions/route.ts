@@ -1,10 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createSupabaseRouteHandlerClient } from '@/lib/supabase-route';
 import { requireAdminFromRequest } from '@/lib/auth-server';
-
-function useSupabase(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
-}
+import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 function collectNodeIdsFromSuggestions(
   rows: { suggestion_type: string; node_id: unknown; data: unknown }[]
@@ -31,7 +28,7 @@ function collectNodeIdsFromSuggestions(
 
 export async function GET(request: Request) {
   try {
-    if (!useSupabase()) {
+    if (!isSupabaseConfigured()) {
       return NextResponse.json({
         suggestions: [],
         profiles: {},

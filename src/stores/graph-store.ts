@@ -13,7 +13,6 @@ import type {
 import {
   computeComplexityDepth,
   computeCentrality,
-  cleanRawMaterialLinks,
   filterValidCraftingLinks,
   warnOrphanNodes,
   getDepthLayerLayoutedElements,
@@ -134,7 +133,6 @@ function buildGraphState(data: { nodes: RawNode[]; links: RawLink[] }) {
   const initialNodes = data.nodes.map(normalizeNode);
   let initialEdges = data.links.map(normalizeLink);
   initialEdges = filterValidCraftingLinks(initialNodes, initialEdges);
-  initialEdges = cleanRawMaterialLinks(initialNodes, initialEdges);
   if (typeof window !== 'undefined') {
     warnOrphanNodes(initialNodes, initialEdges);
   }

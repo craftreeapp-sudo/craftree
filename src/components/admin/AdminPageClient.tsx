@@ -93,7 +93,8 @@ function formatLinkSnapLine(s: LinkSnap): string {
 }
 
 function stripLinkEditsFromPayload(o: Record<string, unknown>) {
-  const { linkEdits: _l, ...rest } = o;
+  const rest = { ...o };
+  delete rest.linkEdits;
   return rest;
 }
 

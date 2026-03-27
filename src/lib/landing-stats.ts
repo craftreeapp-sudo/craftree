@@ -1,10 +1,6 @@
 import nodesIndex from '@/data/nodes-index.json';
 import linksJson from '@/data/links.json';
-import {
-  cleanRawMaterialLinks,
-  computeComplexityDepth,
-  filterValidCraftingLinks,
-} from '@/lib/graph-utils';
+import { computeComplexityDepth, filterValidCraftingLinks } from '@/lib/graph-utils';
 import type { CraftingLink, TechNodeBasic } from '@/lib/types';
 
 export interface LandingStats {
@@ -23,10 +19,7 @@ export function getLandingStats(): LandingStats {
     tags: [] as string[],
   })) as TechNodeBasic[];
   const dataLinks = linksJson.links as CraftingLink[];
-  const links = cleanRawMaterialLinks(
-    nodes,
-    filterValidCraftingLinks(nodes, dataLinks)
-  );
+  const links = filterValidCraftingLinks(nodes, dataLinks);
 
   const rawMaterialCount = nodes.filter((n) => n.type === 'raw_material').length;
   const depthMap = computeComplexityDepth(nodes, links);

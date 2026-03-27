@@ -10,8 +10,6 @@ import type { NodeCategory } from '@/lib/types';
 
 const DRAWER_W_PX = 280;
 const LEGEND_MARGIN_PX = 20;
-/** Marge droite (LTR) / gauche (RTL) pour ne pas toucher au bord de l’écran. */
-const LEGEND_EXPANDED_EDGE_MARGIN_PX = 20;
 
 function LegendHelpIcon() {
   return (

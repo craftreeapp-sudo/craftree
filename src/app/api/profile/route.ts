@@ -118,7 +118,7 @@ export async function GET() {
       }
     }
 
-    let nodesById = new Map<string, { name: string; category: string }>();
+    const nodesById = new Map<string, { name: string; category: string }>();
     if (ids.size > 0) {
       const { data: nodes } = await supabase
         .from('nodes')

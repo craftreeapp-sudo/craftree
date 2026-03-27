@@ -10,6 +10,7 @@ import { useUIStore } from '@/stores/ui-store';
 
 export function ExploreWireframeHeader() {
   const t = useTranslations('nav');
+  const tFooter = useTranslations('footer');
 
   const toggleFilterDrawer = useUIStore((s) => s.toggleFilterDrawer);
 
@@ -35,6 +36,38 @@ export function ExploreWireframeHeader() {
       >
         Craft<span className="text-accent">ree</span>
       </Link>
+
+      <nav
+        className="flex min-w-0 max-w-[min(52vw,220px)] shrink-0 items-center gap-x-1.5 overflow-x-auto whitespace-nowrap text-[10px] text-muted-foreground [-ms-overflow-style:none] [scrollbar-width:none] sm:max-w-none md:gap-x-3 md:text-xs [&::-webkit-scrollbar]:hidden"
+        aria-label={t('secondaryNav')}
+      >
+        <Link
+          href="/about"
+          className="shrink-0 whitespace-nowrap transition-colors hover:text-accent"
+        >
+          {tFooter('about')}
+        </Link>
+        <span className="text-border/80" aria-hidden>
+          ·
+        </span>
+        <a
+          href="https://github.com/craftreeapp-sudo/craftree"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="shrink-0 whitespace-nowrap transition-colors hover:text-accent"
+        >
+          {tFooter('github')}
+        </a>
+        <span className="text-border/80" aria-hidden>
+          ·
+        </span>
+        <Link
+          href="/contact"
+          className="shrink-0 whitespace-nowrap transition-colors hover:text-accent"
+        >
+          {tFooter('contact')}
+        </Link>
+      </nav>
 
       <div className="flex min-w-0 flex-1 justify-center px-2">
         <div className="w-full max-w-xl">

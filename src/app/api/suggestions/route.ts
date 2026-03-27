@@ -3,14 +3,11 @@ import { createSupabaseRouteHandlerClient } from '@/lib/supabase-route';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase-server';
 import { getClientIpFromHeaders } from '@/lib/request-ip';
 import { notifyAdminNewSuggestion } from '@/lib/notify-admin-suggestion';
-
-function useSupabase(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
-}
+import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 export async function POST(request: Request) {
   try {
-    if (!useSupabase()) {
+    if (!isSupabaseConfigured()) {
       return NextResponse.json(
         { error: 'Suggestions require Supabase' },
         { status: 503 }

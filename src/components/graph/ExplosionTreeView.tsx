@@ -95,7 +95,7 @@ function ExplosionTreeInner({ rootId }: { rootId: string }) {
   const [wave, setWave] = useState(-1);
 
   useEffect(() => {
-    setWave(-1);
+    queueMicrotask(() => setWave(-1));
     const t0 = window.setTimeout(() => setWave(0), 80);
     return () => clearTimeout(t0);
   }, [rootId, baseNodes.length]);

@@ -33,8 +33,11 @@ interface UIStore {
   /** /explore : survol sans remplacer les nœuds React Flow (évite le clignotement) */
   exploreHoveredNodeId: string | null;
   setExploreHoveredNodeId: (id: string | null) => void;
-  /** Consommé par TechGraph pour fitView, puis remis à null */
+  /** Consommé par TechTimeline / recherche pour fitView, puis remis à null */
   centerOnNodeId: string | null;
+  /** Consommé par TechGraph : recentrage animé après sortie de la vue focalisée /explore. */
+  exploreFocusExitCenterId: string | null;
+  clearExploreFocusExitCenter: () => void;
   /** Un coup : ajuster la vue sur le voisinage direct (recherche / arbre). */
   exploreNeighborhoodFitId: string | null;
   requestExploreNeighborhoodFit: (nodeId: string) => void;
@@ -97,6 +100,7 @@ export const useUIStore = create<UIStore>((set) => ({
   exploreHoveredNodeId: null,
   setExploreHoveredNodeId: (id) => set({ exploreHoveredNodeId: id }),
   centerOnNodeId: null,
+  exploreFocusExitCenterId: null,
   exploreNeighborhoodFitId: null,
 
   requestExploreNeighborhoodFit: (nodeId) =>
@@ -130,6 +134,7 @@ export const useUIStore = create<UIStore>((set) => ({
         selectedNodeId: id,
         isSidebarOpen: true,
         centerOnNodeId: options?.center === true ? id : null,
+        exploreFocusExitCenterId: null,
         exploreNeighborhoodFitId: null,
         exploreStack: nextStack,
         pendingExploreEdit: options?.openEdit === true,
@@ -137,15 +142,21 @@ export const useUIStore = create<UIStore>((set) => ({
     }),
 
   closeSidebar: () =>
-    set({
-      isSidebarOpen: false,
-      selectedNodeId: null,
-      exploreHoveredNodeId: null,
-      centerOnNodeId: null,
-      exploreNeighborhoodFitId: null,
-      exploreStack: [],
-      pendingExploreEdit: false,
-      categoryPanelOpen: true,
+    set((s) => {
+      const lastSelected = s.selectedNodeId;
+      const centerAfterExit =
+        s.isSidebarOpen && lastSelected !== null ? lastSelected : null;
+      return {
+        isSidebarOpen: false,
+        selectedNodeId: null,
+        exploreHoveredNodeId: null,
+        centerOnNodeId: null,
+        exploreFocusExitCenterId: centerAfterExit,
+        exploreNeighborhoodFitId: null,
+        exploreStack: [],
+        pendingExploreEdit: false,
+        categoryPanelOpen: true,
+      };
     }),
 
   closeSidebarKeepGraphHover: () =>
@@ -153,6 +164,7 @@ export const useUIStore = create<UIStore>((set) => ({
       isSidebarOpen: false,
       selectedNodeId: null,
       centerOnNodeId: null,
+      exploreFocusExitCenterId: null,
       exploreStack: [],
       pendingExploreEdit: false,
       categoryPanelOpen: true,
@@ -166,12 +178,14 @@ export const useUIStore = create<UIStore>((set) => ({
           selectedNodeId: null,
           exploreHoveredNodeId: null,
           centerOnNodeId: null,
+          exploreFocusExitCenterId: null,
           exploreNeighborhoodFitId: null,
           exploreStack: [],
           pendingExploreEdit: false,
           categoryPanelOpen: true,
         };
       }
+      const poppedId = s.exploreStack[s.exploreStack.length - 1]!;
       const nextStack = s.exploreStack.slice(0, -1);
       const nextId =
         nextStack.length > 0 ? nextStack[nextStack.length - 1]! : null;
@@ -180,11 +194,15 @@ export const useUIStore = create<UIStore>((set) => ({
         selectedNodeId: nextId,
         isSidebarOpen: nextId !== null,
         centerOnNodeId: null,
+        exploreFocusExitCenterId: nextId === null ? poppedId : null,
         exploreNeighborhoodFitId: null,
       };
     }),
 
   clearCenterTarget: () => set({ centerOnNodeId: null }),
+
+  clearExploreFocusExitCenter: () =>
+    set({ exploreFocusExitCenterId: null }),
 
   toggleCategory: (category) =>
     set((s) => {

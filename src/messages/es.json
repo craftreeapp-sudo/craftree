@@ -420,7 +420,8 @@
     "tree": "Árbol",
     "breadcrumbAria": "Miga de pan",
     "dependencyTree": "Árbol de dependencias",
-    "openFilters": "Abrir filtros"
+    "openFilters": "Abrir filtros",
+    "secondaryNav": "Enlaces secundarios"
   },
   "contactPage": {
     "title": "Contacto",

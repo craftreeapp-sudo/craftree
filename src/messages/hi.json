@@ -420,7 +420,8 @@
     "tree": "वृक्ष",
     "breadcrumbAria": "ब्रेडक्रम्ब",
     "dependencyTree": "निर्भरता वृक्ष",
-    "openFilters": "फ़िल्टर खोलें"
+    "openFilters": "फ़िल्टर खोलें",
+    "secondaryNav": "अतिरिक्त लिंक"
   },
   "contactPage": {
     "title": "संपर्क",

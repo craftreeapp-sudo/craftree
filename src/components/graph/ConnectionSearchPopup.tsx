@@ -101,7 +101,8 @@ function parseYearString(raw: string): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
-export function ConnectionSearchPopup(_props: NodeProps) {
+export function ConnectionSearchPopup(props: NodeProps) {
+  void props;
   const selectedNodeId = useUIStore((s) => s.selectedNodeId);
   const isAdmin = useAuthStore((s) => s.isAdmin);
   const user = useAuthStore((s) => s.user);
