@@ -35,9 +35,19 @@ export const useAuthStore = create<AuthStore>((set) => ({
     if (useAuthStore.getState().initialized) return;
     set({ initialized: true });
 
-    void supabase.auth.getSession().then(({ data: { session } }) => {
-      applyUser(session?.user ?? null, set);
-    });
+    void supabase.auth
+      .getSession()
+      .then(({ data: { session } }) => {
+        applyUser(session?.user ?? null, set);
+      })
+      .catch(() => {
+        set({
+          user: null,
+          isLoggedIn: false,
+          isAdmin: false,
+          isLoading: false,
+        });
+      });
 
     supabase.auth.onAuthStateChange((_event, session) => {
       applyUser(session?.user ?? null, set);

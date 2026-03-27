@@ -343,6 +343,10 @@
     "suggestionSent": "सुझाव भेजा गया!",
     "suggestionSentReview": "सुझाव भेजा गया! इसकी समीक्षा होगी।",
     "suggestionSentAnonymous": "सुझाव भेजा गया! आपके योगदान के लिए धन्यवाद।",
+    "suggestionNothingToSubmit": "भेजने से पहले एक नोट जोड़ें, फ़ील्ड बदलें या लिंक संपादित करें।",
+    "suggestionContributorNoteLabel": "मॉडरेटरों के लिए संदेश (वैकल्पिक)",
+    "suggestionContributorNotePlaceholder": "संदर्भ, स्रोत, या समीक्षा में मदद करने वाली कोई बात…",
+    "suggestLinksOnlyWhenLoggedIn": "लिंक बदलने या नए जोड़ने के लिए साइन इन करें।",
     "anonymousFeedbackLabel": "आपका सुझाव",
     "anonymousFeedbackEmail": "ईमेल (वैकल्पिक)",
     "anonymousFeedbackHint": "उत्तर की सूचना के लिए।",
@@ -358,7 +362,9 @@
     "oauthConfigMissing": "Supabase कॉन्फ़िगर नहीं है। .env.local में NEXT_PUBLIC_SUPABASE_URL और NEXT_PUBLIC_SUPABASE_ANON_KEY जोड़ें।",
     "oauthNoUrl": "Google साइन-इन लिंक नहीं मिला। Supabase में प्रदाता और रीडायरेक्ट URL जाँचें।",
     "oauthSignInFailed": "Google साइन-इन शुरू नहीं हो सका। कृपया पुनः प्रयास करें।",
-    "suggestAnonymousNotice": "बिना खाते के, आपका IP सहेजा जाता है और मॉडरेटरों को दिखाई देता है।"
+    "suggestAnonymousNotice": "बिना खाते के, आपका IP सहेजा जाता है और मॉडरेटरों को दिखाई देता है।",
+    "switchAccount": "खाता बदलें",
+    "switchAccountHint": "« खाता बदलें » दूसरा Google खाता चुनने के लिए खोलता है; « साइन आउट » सत्र समाप्त करता है।"
   },
   "profile": {
     "backToTree": "Tree पर वापस",
@@ -399,7 +405,6 @@
   "admin": {
     "navLink": "प्रशासन",
     "title": "Craftree — प्रशासन",
-    "backToTree": "वृक्ष पर वापस →",
     "tabPending": "लंबित",
     "tabHistory": "इतिहास",
     "tabContributors": "योगदानकर्ता",

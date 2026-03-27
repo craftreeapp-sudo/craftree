@@ -11,6 +11,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { AppContentShell } from '@/components/layout/AppContentShell';
+import { BackToExploreLink } from '@/components/layout/BackToExploreLink';
 import { useAuthStore } from '@/stores/auth-store';
 import { useToastStore } from '@/stores/toast-store';
 import { computeDiff } from '@/lib/suggestion-diff';
@@ -385,23 +386,16 @@ export function AdminPageClient() {
   return (
     <AppContentShell className="flex w-full flex-1 flex-col text-foreground">
       <div className="pb-3">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h1
-            className="text-lg font-semibold tracking-tight text-foreground md:text-xl"
-            style={{
-              fontFamily:
-                'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
-            }}
-          >
-            {t('title')}
-          </h1>
-          <Link
-            href="/explore"
-            className="shrink-0 text-sm font-normal text-accent hover:underline"
-          >
-            {t('backToTree')}
-          </Link>
-        </div>
+        <BackToExploreLink />
+        <h1
+          className="text-lg font-semibold tracking-tight text-foreground md:text-xl"
+          style={{
+            fontFamily:
+              'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+          }}
+        >
+          {t('title')}
+        </h1>
       </div>
 
       <div className="border-b border-transparent">

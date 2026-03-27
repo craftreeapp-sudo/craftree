@@ -343,6 +343,10 @@
     "suggestionSent": "¡Sugerencia enviada!",
     "suggestionSentReview": "¡Sugerencia enviada! Será revisada.",
     "suggestionSentAnonymous": "¡Sugerencia enviada! Gracias por tu aporte.",
+    "suggestionNothingToSubmit": "Añade una nota, cambia un campo o los enlaces antes de enviar.",
+    "suggestionContributorNoteLabel": "Mensaje para moderadores (opcional)",
+    "suggestionContributorNotePlaceholder": "Contexto, fuentes o lo que ayude a revisar tu sugerencia…",
+    "suggestLinksOnlyWhenLoggedIn": "Inicia sesión para editar enlaces o sugerir conexiones nuevas.",
     "anonymousFeedbackLabel": "Tu sugerencia",
     "anonymousFeedbackEmail": "Correo (opcional)",
     "anonymousFeedbackHint": "Para recibir una respuesta.",
@@ -358,7 +362,9 @@
     "oauthConfigMissing": "Supabase no está configurado. Añade NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_ANON_KEY en .env.local.",
     "oauthNoUrl": "No se pudo obtener el enlace de Google. Revisa el proveedor y las URLs de redirección en Supabase.",
     "oauthSignInFailed": "No se pudo iniciar el inicio de sesión con Google. Inténtalo de nuevo.",
-    "suggestAnonymousNotice": "Sin cuenta, se guarda tu IP y es visible para los moderadores."
+    "suggestAnonymousNotice": "Sin cuenta, se guarda tu IP y es visible para los moderadores.",
+    "switchAccount": "Cambiar de cuenta",
+    "switchAccountHint": "« Cambiar de cuenta » abre Google para elegir otra cuenta; « Cerrar sesión » termina la sesión."
   },
   "profile": {
     "backToTree": "Volver al Tree",
@@ -399,7 +405,6 @@
   "admin": {
     "navLink": "Administración",
     "title": "Craftree — Administración",
-    "backToTree": "Volver al árbol →",
     "tabPending": "Pendientes",
     "tabHistory": "Historial",
     "tabContributors": "Colaboradores",

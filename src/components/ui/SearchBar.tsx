@@ -79,6 +79,7 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
       new Fuse(nodes, {
         keys: [
           { name: 'name', weight: 2 },
+          { name: 'name_en', weight: 2 },
           { name: 'tags', weight: 1 },
           { name: 'category', weight: 0.8 },
           { name: 'era', weight: 0.35 },

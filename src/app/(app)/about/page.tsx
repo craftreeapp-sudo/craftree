@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { AppContentShell } from '@/components/layout/AppContentShell';
+import { BackToExploreLink } from '@/components/layout/BackToExploreLink';
 import { getPublicGraphStats } from '@/lib/landing-stats';
 
 export const metadata: Metadata = {
@@ -70,6 +71,7 @@ export default async function AboutPage() {
       style={{ fontFamily: 'var(--font-inter), Inter, system-ui, sans-serif' }}
     >
       <article className="pb-20">
+        <BackToExploreLink />
         {/* Hero */}
         <header className="mb-12">
           <h1

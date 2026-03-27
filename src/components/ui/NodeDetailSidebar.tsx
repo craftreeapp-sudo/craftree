@@ -104,7 +104,7 @@ export function NodeDetailSidebar() {
   const getUsagesOfNode = useGraphStore((s) => s.getUsagesOfNode);
   const refreshData = useGraphStore((s) => s.refreshData);
   const pushToast = useToastStore((s) => s.pushToast);
-  const { isAdmin, user, isLoggedIn } = useAuthStore();
+  const { isAdmin, user } = useAuthStore();
   const detailsById = useNodeDetailsStore((s) => s.byId);
 
   const node = selectedNodeId ? getNodeById(selectedNodeId) : undefined;
@@ -145,10 +145,11 @@ export function NodeDetailSidebar() {
   const [editorLinks, setEditorLinks] = useState<CraftingLink[]>([]);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const moreMenuRef = useRef<HTMLDivElement>(null);
-  const [anonymousFeedbackMode, setAnonymousFeedbackMode] = useState(false);
-  const [anonymousMessage, setAnonymousMessage] = useState('');
-  const [anonymousEmail, setAnonymousEmail] = useState('');
-  const [anonymousSubmitting, setAnonymousSubmitting] = useState(false);
+  /** Email optionnel pour les contributeurs non connectés (contact modération). */
+  const [suggestContactEmail, setSuggestContactEmail] = useState('');
+  /** Note libre pour les modérateurs (contexte, remarques). */
+  const [suggestContributorMessage, setSuggestContributorMessage] =
+    useState('');
 
   const loadEditorData = useCallback(async () => {
     const [nr, lr] = await Promise.all([
@@ -186,7 +187,6 @@ export function NodeDetailSidebar() {
     if (!selectedNodeId) {
       setEditMode(false);
       setSuggestMode(false);
-      setAnonymousFeedbackMode(false);
       return;
     }
     const st = useUIStore.getState();
@@ -205,14 +205,9 @@ export function NodeDetailSidebar() {
   }, [selectedNodeId]);
 
   useEffect(() => {
-    setAnonymousFeedbackMode(false);
-    setAnonymousMessage('');
-    setAnonymousEmail('');
+    setSuggestContactEmail('');
+    setSuggestContributorMessage('');
   }, [selectedNodeId]);
-
-  useEffect(() => {
-    if (user) setAnonymousFeedbackMode(false);
-  }, [user]);
 
   const snapshotFromForm = useCallback(
     (f: SuggestNodeFormState, uiLocale: string) => {
@@ -290,6 +285,8 @@ export function NodeDetailSidebar() {
     setSuggestLedToOpen(true);
     setSuggestBuiltUponOpen(true);
     setPendingAddLinks([]);
+    setSuggestContactEmail('');
+    setSuggestContributorMessage('');
 
     setSuggestMode(true);
   }, [node, snapshotFromForm, getUsagesOfNode, getRecipeForNode, locale]);
@@ -300,6 +297,8 @@ export function NodeDetailSidebar() {
     setOriginalLinkEdits(null);
     setSuggestLinkEdits({});
     setPendingAddLinks([]);
+    setSuggestContactEmail('');
+    setSuggestContributorMessage('');
   }, []);
 
   const addPendingPeer = useCallback(
@@ -369,6 +368,23 @@ export function NodeDetailSidebar() {
         section: p.section,
       }));
 
+      const hasNodeChange = Object.keys(diff).length > 0;
+      const hasLinkChange =
+        Object.keys(linkDiff).length > 0 ||
+        removedLinkIds.length > 0 ||
+        proposedAddLinks.length > 0;
+      const contributorNote = suggestContributorMessage.trim();
+      const hasContributorMessage = contributorNote.length > 0;
+      if (!hasNodeChange && !hasLinkChange && !hasContributorMessage) {
+        pushToast(tAuth('suggestionNothingToSubmit'), 'error');
+        return;
+      }
+
+      const contactEmail =
+        !user && suggestContactEmail.trim()
+          ? suggestContactEmail.trim().slice(0, 320)
+          : null;
+
       const linkContext: Record<string, SuggestLinkContextEntry> = {};
       for (const { link, product } of getUsagesOfNode(node.id)) {
         linkContext[link.id] = {
@@ -418,6 +434,10 @@ export function NodeDetailSidebar() {
             linkContext,
             removedLinkIds,
             proposedAddLinks,
+            ...(contactEmail != null ? { contactEmail } : {}),
+            ...(hasContributorMessage
+              ? { contributorMessage: contributorNote.slice(0, 4000) }
+              : {}),
           },
         }),
       });
@@ -428,12 +448,17 @@ export function NodeDetailSidebar() {
         );
         return;
       }
-      pushToast(tAuth('suggestionSentReview'), 'success');
+      pushToast(
+        user ? tAuth('suggestionSentReview') : tAuth('suggestionSentAnonymous'),
+        'success'
+      );
       setSuggestMode(false);
       setOriginalSnapshot(null);
       setOriginalLinkEdits(null);
       setSuggestLinkEdits({});
       setPendingAddLinks([]);
+      setSuggestContactEmail('');
+      setSuggestContributorMessage('');
     } finally {
       setSuggestSubmitting(false);
     }
@@ -452,51 +477,9 @@ export function NodeDetailSidebar() {
     locale,
     detailsById,
     pendingAddLinks,
-  ]);
-
-  const submitAnonymousFeedback = useCallback(async () => {
-    if (!node || user) return;
-    const msg = anonymousMessage.trim();
-    if (!msg || msg.length > 500) {
-      pushToast(tAuth('anonymousFeedbackInvalid'), 'error');
-      return;
-    }
-    setAnonymousSubmitting(true);
-    try {
-      const res = await fetch('/api/suggestions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          suggestion_type: 'anonymous_feedback',
-          node_id: node.id,
-          data: {
-            node_id: node.id,
-            message: msg,
-            email: anonymousEmail.trim() ? anonymousEmail.trim().slice(0, 320) : null,
-          },
-        }),
-      });
-      if (!res.ok) {
-        pushToast(
-          String((await res.json().catch(() => ({})))?.error ?? 'Erreur'),
-          'error'
-        );
-        return;
-      }
-      pushToast(tAuth('suggestionSentAnonymous'), 'success');
-      setAnonymousFeedbackMode(false);
-      setAnonymousMessage('');
-      setAnonymousEmail('');
-    } finally {
-      setAnonymousSubmitting(false);
-    }
-  }, [
-    node,
     user,
-    anonymousMessage,
-    anonymousEmail,
-    pushToast,
-    tAuth,
+    suggestContactEmail,
+    suggestContributorMessage,
   ]);
 
   const saveEdit = useCallback(async () => {
@@ -853,7 +836,7 @@ export function NodeDetailSidebar() {
                   />
                 </div>
               </>
-            ) : suggestMode && isLoggedIn && !isAdmin ? (
+            ) : suggestMode && !isAdmin ? (
               <>
                 <motion.div
                   variants={staggerItem}
@@ -873,6 +856,42 @@ export function NodeDetailSidebar() {
                 </motion.div>
                 <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-4 pt-4">
                   <SuggestionNodeForm form={suggestForm} setForm={setSuggestForm} />
+                  <label className="mt-4 block text-[13px] font-medium text-foreground">
+                    {tAuth('suggestionContributorNoteLabel')}
+                    <textarea
+                      value={suggestContributorMessage}
+                      onChange={(e) =>
+                        setSuggestContributorMessage(e.target.value)
+                      }
+                      maxLength={4000}
+                      rows={4}
+                      className="mt-2 w-full resize-y rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
+                      placeholder={tAuth('suggestionContributorNotePlaceholder')}
+                    />
+                  </label>
+                  <p className="mt-1 text-[11px] text-muted-foreground">
+                    {suggestContributorMessage.length}/4000
+                  </p>
+                  {!user ? (
+                    <>
+                      <label className="mt-4 block text-[13px] font-medium text-foreground">
+                        {tAuth('anonymousFeedbackEmail')}
+                        <input
+                          type="email"
+                          value={suggestContactEmail}
+                          onChange={(e) => setSuggestContactEmail(e.target.value)}
+                          autoComplete="email"
+                          className="mt-2 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
+                        />
+                      </label>
+                      <p className="mt-1 text-[11px] text-muted-foreground">
+                        {tAuth('anonymousFeedbackHint')}
+                      </p>
+                      <p className="mt-3 text-[12px] text-muted-foreground">
+                        {tAuth('suggestAnonymousNotice')}
+                      </p>
+                    </>
+                  ) : null}
                   <SuggestLinkSection
                     sectionTitle={tExplore('ledTo')}
                     count={suggestLedToRows.length}
@@ -915,79 +934,6 @@ export function NodeDetailSidebar() {
                     <button
                       type="button"
                       onClick={cancelSuggestMode}
-                      className="py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {tCommon('cancel')}
-                    </button>
-                  </div>
-                </div>
-              </>
-            ) : anonymousFeedbackMode && !user ? (
-              <>
-                <motion.div
-                  variants={staggerItem}
-                  className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-2 border-b border-border bg-surface-elevated px-4 py-4"
-                >
-                  <h2 className="text-lg font-semibold text-foreground">
-                    {tAuth('suggestCorrection')}
-                  </h2>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setAnonymousFeedbackMode(false);
-                      setAnonymousMessage('');
-                      setAnonymousEmail('');
-                    }}
-                    className="shrink-0 rounded p-1.5 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
-                    aria-label={tSidebar('backToDetail')}
-                  >
-                    <span className="text-xl leading-none">×</span>
-                  </button>
-                </motion.div>
-                <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-4 pt-4">
-                  <label className="block text-[13px] font-medium text-foreground">
-                    {tAuth('anonymousFeedbackLabel')}
-                    <textarea
-                      value={anonymousMessage}
-                      onChange={(e) => setAnonymousMessage(e.target.value)}
-                      maxLength={500}
-                      rows={6}
-                      className="mt-2 w-full resize-y rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
-                      placeholder="…"
-                    />
-                  </label>
-                  <p className="mt-1 text-[11px] text-muted-foreground">
-                    {anonymousMessage.length}/500
-                  </p>
-                  <label className="mt-4 block text-[13px] font-medium text-foreground">
-                    {tAuth('anonymousFeedbackEmail')}
-                    <input
-                      type="email"
-                      value={anonymousEmail}
-                      onChange={(e) => setAnonymousEmail(e.target.value)}
-                      autoComplete="email"
-                      className="mt-2 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
-                    />
-                  </label>
-                  <p className="mt-1 text-[11px] text-muted-foreground">
-                    {tAuth('anonymousFeedbackHint')}
-                  </p>
-                  <div className="mt-6 flex flex-col gap-2">
-                    <button
-                      type="button"
-                      disabled={anonymousSubmitting}
-                      onClick={() => void submitAnonymousFeedback()}
-                      className="rounded-lg bg-[#F59E0B] px-4 py-2.5 text-sm font-medium text-white transition-opacity disabled:opacity-50"
-                    >
-                      {tAuth('sendSuggestion')}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setAnonymousFeedbackMode(false);
-                        setAnonymousMessage('');
-                        setAnonymousEmail('');
-                      }}
                       className="py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
                     >
                       {tCommon('cancel')}
@@ -1121,7 +1067,7 @@ export function NodeDetailSidebar() {
                             </svg>
                             {tCommon('share')}
                           </button>
-                          {isLoggedIn && !isAdmin ? (
+                          {!isAdmin ? (
                             <button
                               type="button"
                               className="flex w-full items-center gap-2 px-3 py-2 text-start text-[13px] text-foreground hover:bg-border"
@@ -1225,11 +1171,11 @@ export function NodeDetailSidebar() {
                 {sidebarDescription}
               </motion.p>
 
-              {!user ? (
+              {!isAdmin ? (
                 <motion.div variants={staggerItem} className="mt-4">
                   <button
                     type="button"
-                    onClick={() => setAnonymousFeedbackMode(true)}
+                    onClick={() => void enterSuggestMode()}
                     className="flex w-full items-center justify-center gap-2 rounded-lg border border-amber-500/45 bg-amber-950/40 px-4 py-2.5 text-sm font-medium text-amber-200 shadow-sm transition-colors hover:border-amber-400/55 hover:bg-amber-950/55"
                   >
                     <svg

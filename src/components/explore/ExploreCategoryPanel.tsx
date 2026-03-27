@@ -33,63 +33,73 @@ const TOOLTIP_GAP_PX = 10;
 const TOOLTIP_MAX_W_PX = 320;
 
 const CATEGORY_TOGGLE_BTN =
-  'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-elevated transition-colors hover:bg-border';
+  'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-elevated text-muted-foreground transition-colors hover:border-border hover:bg-border/60 hover:text-foreground';
 
-/** Icône « déplié » : ouvrir le panneau (barre au bord extérieur + chevron vers l’intérieur). */
-function CategoryPanelIconExpand({ isRtl }: { isRtl: boolean }) {
+/**
+ * Rabattre le panneau : silhouette de colonne + chevron vers le graphe (LTR).
+ * RTL : miroir horizontal pour garder le sens « vers le centre ».
+ */
+function CategoryPanelIconCollapse({ isRtl }: { isRtl: boolean }) {
   return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+    <span
+      className={isRtl ? 'inline-flex scale-x-[-1]' : 'inline-flex'}
       aria-hidden
     >
-      {isRtl ? (
-        <>
-          <path d="m11 9 3 3-3 3" />
-          <line x1="15" y1="5" x2="15" y2="19" />
-        </>
-      ) : (
-        <>
-          <line x1="9" y1="5" x2="9" y2="19" />
-          <path d="m13 9 3 3-3 3" />
-        </>
-      )}
-    </svg>
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect
+          x="4.5"
+          y="5"
+          width="9.5"
+          height="14"
+          rx="2"
+          fill="none"
+          stroke="currentColor"
+        />
+        <path d="M17 9l-4 4 4 4" />
+      </svg>
+    </span>
   );
 }
 
-/** Icône « replié » : rabattre le panneau (chevron vers l’extérieur + barre au bord du graphe). */
-function CategoryPanelIconCollapse({ isRtl }: { isRtl: boolean }) {
+/** Rouvrir le panneau : chevron depuis le bord + espace réservé au panneau. */
+function CategoryPanelIconExpand({ isRtl }: { isRtl: boolean }) {
   return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+    <span
+      className={isRtl ? 'inline-flex scale-x-[-1]' : 'inline-flex'}
       aria-hidden
     >
-      {isRtl ? (
-        <>
-          <line x1="9" y1="5" x2="9" y2="19" />
-          <path d="m13 9 3 3-3 3" />
-        </>
-      ) : (
-        <>
-          <path d="m11 9-3 3 3 3" />
-          <line x1="15" y1="5" x2="15" y2="19" />
-        </>
-      )}
-    </svg>
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M8 9l4 4-4 4" />
+        <rect
+          x="14.5"
+          y="5"
+          width="5"
+          height="14"
+          rx="2"
+          stroke="currentColor"
+          className="opacity-40"
+          fill="none"
+        />
+      </svg>
+    </span>
   );
 }
 
@@ -271,7 +281,6 @@ export function ExploreCategoryPanel() {
                 type="button"
                 onClick={() => setCategoryPanelOpen(false)}
                 className={CATEGORY_TOGGLE_BTN}
-                style={{ color: categoryColor }}
                 aria-label={tExplore('categoryPanelCloseAria')}
                 title={tExplore('categoryPanelCloseAria')}
               >
@@ -369,7 +378,6 @@ export function ExploreCategoryPanel() {
               type="button"
               onClick={() => setCategoryPanelOpen(true)}
               className={CATEGORY_TOGGLE_BTN}
-              style={{ color: categoryColor }}
               aria-label={tExplore('categoryPanelReopenAria')}
               title={tExplore('categoryPanelReopen')}
             >

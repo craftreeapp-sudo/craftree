@@ -4,9 +4,18 @@ import { cookies } from 'next/headers';
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
-  const code = url.searchParams.get('code');
+  const oauthError = url.searchParams.get('error');
   const nextPath = url.searchParams.get('next') ?? '/explore';
   const safeNext = nextPath.startsWith('/') ? nextPath : '/explore';
+
+  if (oauthError) {
+    const desc = url.searchParams.get('error_description') ?? oauthError;
+    const target = new URL(safeNext, url.origin);
+    target.searchParams.set('auth_error', desc.slice(0, 200));
+    return NextResponse.redirect(target);
+  }
+
+  const code = url.searchParams.get('code');
 
   if (code) {
     const cookieStore = await cookies();

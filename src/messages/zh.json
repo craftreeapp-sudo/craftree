@@ -343,6 +343,10 @@
     "suggestionSent": "建议已发送！",
     "suggestionSentReview": "建议已发送！将审核。",
     "suggestionSentAnonymous": "建议已发送！感谢您的贡献。",
+    "suggestionNothingToSubmit": "请添加备注、修改字段或链接后再发送。",
+    "suggestionContributorNoteLabel": "给审核人员的说明（可选）",
+    "suggestionContributorNotePlaceholder": "背景、来源或其他有助于审核的信息…",
+    "suggestLinksOnlyWhenLoggedIn": "登录后可编辑链接或建议新的关联。",
     "anonymousFeedbackLabel": "您的建议",
     "anonymousFeedbackEmail": "邮箱（可选）",
     "anonymousFeedbackHint": "以便收到回复通知。",
@@ -358,7 +362,9 @@
     "oauthConfigMissing": "未配置 Supabase。请在 .env.local 中添加 NEXT_PUBLIC_SUPABASE_URL 和 NEXT_PUBLIC_SUPABASE_ANON_KEY。",
     "oauthNoUrl": "无法获取 Google 登录链接。请在 Supabase 中检查 Google 提供方与重定向 URL。",
     "oauthSignInFailed": "无法启动 Google 登录，请重试。",
-    "suggestAnonymousNotice": "未登录时，系统会保存您的 IP 地址并供审核人员查看。"
+    "suggestAnonymousNotice": "未登录时，系统会保存您的 IP 地址并供审核人员查看。",
+    "switchAccount": "切换账号",
+    "switchAccountHint": "「切换账号」会打开 Google 选择账号；「退出」结束当前会话。"
   },
   "profile": {
     "backToTree": "返回 Tree",
@@ -399,7 +405,6 @@
   "admin": {
     "navLink": "管理",
     "title": "Craftree — 管理",
-    "backToTree": "返回树 →",
     "tabPending": "待处理建议",
     "tabHistory": "历史",
     "tabContributors": "贡献者",

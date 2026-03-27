@@ -3,6 +3,7 @@ import { createSupabaseRouteHandlerClient } from '@/lib/supabase-route';
 import { requireAdminFromRequest } from '@/lib/auth-server';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase-server';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
+import { notifyContributorSuggestionResult } from '@/lib/notify-contributor-suggestion';
 
 export async function POST(request: Request) {
   try {
@@ -37,6 +38,16 @@ export async function POST(request: Request) {
     }
 
     const sb = createSupabaseServiceRoleClient();
+    const { data: fullRow, error: fetchFullErr } = await sb
+      .from('suggestions')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (fetchFullErr || !fullRow) {
+      return NextResponse.json({ error: 'Suggestion not found' }, { status: 400 });
+    }
+
     const { error } = await sb
       .from('suggestions')
       .update({
@@ -47,6 +58,25 @@ export async function POST(request: Request) {
       .eq('id', id);
 
     if (error) throw error;
+
+    const fr = fullRow as {
+      id: string;
+      user_id: string | null;
+      suggestion_type: string;
+      node_id: string | null;
+      data: unknown;
+    };
+    void notifyContributorSuggestionResult({
+      status: 'rejected',
+      row: {
+        id: fr.id,
+        user_id: fr.user_id,
+        suggestion_type: fr.suggestion_type,
+        node_id: fr.node_id,
+        data: fr.data,
+      },
+      adminComment: body.admin_comment ?? null,
+    });
 
     return NextResponse.json({ ok: true });
   } catch (e) {

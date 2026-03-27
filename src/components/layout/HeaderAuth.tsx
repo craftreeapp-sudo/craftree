@@ -44,6 +44,22 @@ export function HeaderAuth() {
     void signOut();
   }, []);
 
+  const onSwitchGoogleAccount = useCallback(async () => {
+    setOpen(false);
+    await signOut({ redirectTo: false });
+    const { error, code } = await signInWithGoogle({ promptAccountSelection: true });
+    if (!error) return;
+    if (code === 'missing_config') {
+      pushToast(t('oauthConfigMissing'), 'error');
+      return;
+    }
+    if (code === 'no_oauth_url') {
+      pushToast(t('oauthNoUrl'), 'error');
+      return;
+    }
+    pushToast(error.message || t('oauthSignInFailed'), 'error');
+  }, [pushToast, t]);
+
   if (isLoading) {
     return (
       <div
@@ -123,14 +139,27 @@ export function HeaderAuth() {
               {tAdmin('navLink')}
             </Link>
           ) : null}
-          <button
-            type="button"
-            className="w-full px-3 py-2 text-start text-[13px] text-red-500 hover:bg-surface"
-            role="menuitem"
-            onClick={onSignOut}
-          >
-            {t('signOut')}
-          </button>
+          <div className="border-t border-border pt-1">
+            <button
+              type="button"
+              className="w-full px-3 py-2 text-start text-[13px] text-foreground hover:bg-surface"
+              role="menuitem"
+              onClick={() => void onSwitchGoogleAccount()}
+            >
+              {t('switchAccount')}
+            </button>
+            <button
+              type="button"
+              className="w-full px-3 py-2 text-start text-[13px] text-red-500 hover:bg-surface"
+              role="menuitem"
+              onClick={onSignOut}
+            >
+              {t('signOut')}
+            </button>
+            <p className="px-3 pb-2 text-[11px] leading-snug text-muted-foreground">
+              {t('switchAccountHint')}
+            </p>
+          </div>
         </div>
       ) : null}
     </div>

@@ -9,6 +9,7 @@ import { getCategoryColor } from '@/lib/colors';
 import type { NodeCategory } from '@/lib/types';
 import { signOut } from '@/lib/auth-client';
 import { AppContentShell } from '@/components/layout/AppContentShell';
+import { BackToExploreLink } from '@/components/layout/BackToExploreLink';
 import { useToastStore } from '@/stores/toast-store';
 
 type ProfilePayload = {
@@ -37,30 +38,6 @@ type ProfilePayload = {
   favoriteCategories: Array<{ category: string; count: number; color: string }>;
   isAdmin: boolean;
 };
-
-function ProfileBackLink() {
-  const t = useTranslations('profile');
-  return (
-    <Link
-      href="/explore"
-      className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-accent"
-    >
-      <svg
-        className="size-4 shrink-0 rtl:rotate-180"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden
-      >
-        <path d="M19 12H5M12 19l-7-7 7-7" />
-      </svg>
-      {t('backToTree')}
-    </Link>
-  );
-}
 
 function formatRelativeShort(iso: string, locale: string): string {
   const d = new Date(iso);
@@ -245,7 +222,7 @@ export function ProfilePageClient() {
 
   return (
     <AppContentShell>
-      <ProfileBackLink />
+      <BackToExploreLink />
       <header className="mx-auto mb-10">
         <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start sm:justify-center sm:gap-8">
           <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-border bg-surface-elevated">

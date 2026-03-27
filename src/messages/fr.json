@@ -343,6 +343,10 @@
     "suggestionSent": "Suggestion envoyée ! Elle sera examinée par l'équipe.",
     "suggestionSentReview": "Suggestion envoyée ! Elle sera examinée.",
     "suggestionSentAnonymous": "Suggestion envoyée ! Merci de votre contribution.",
+    "suggestionNothingToSubmit": "Ajoutez une note, modifiez un champ ou les liens avant d’envoyer.",
+    "suggestionContributorNoteLabel": "Message pour les modérateurs (optionnel)",
+    "suggestionContributorNotePlaceholder": "Contexte, sources, ou tout élément utile à la relecture…",
+    "suggestLinksOnlyWhenLoggedIn": "Connectez-vous pour modifier les liens ou en suggérer de nouveaux.",
     "anonymousFeedbackLabel": "Votre suggestion",
     "anonymousFeedbackEmail": "Email (optionnel)",
     "anonymousFeedbackHint": "Pour être notifié de la réponse.",
@@ -358,7 +362,9 @@
     "oauthConfigMissing": "Supabase n’est pas configuré : ajoutez NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY dans .env.local.",
     "oauthNoUrl": "Impossible d’obtenir le lien Google. Vérifiez le provider Google et les URLs de redirection dans Supabase.",
     "oauthSignInFailed": "Impossible de lancer la connexion Google. Réessayez.",
-    "suggestAnonymousNotice": "Sans compte, votre adresse IP est enregistrée et visible des modérateurs."
+    "suggestAnonymousNotice": "Sans compte, votre adresse IP est enregistrée et visible des modérateurs.",
+    "switchAccount": "Changer de compte",
+    "switchAccountHint": "« Changer de compte » ouvre Google pour choisir un autre compte ; « Se déconnecter » termine la session."
   },
   "profile": {
     "backToTree": "Retour au Tree",
@@ -399,7 +405,6 @@
   "admin": {
     "navLink": "Administration",
     "title": "Craftree — Administration",
-    "backToTree": "Retour au Tree →",
     "tabPending": "Suggestions en attente",
     "tabHistory": "Historique",
     "tabContributors": "Contributeurs",

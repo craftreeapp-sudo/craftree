@@ -24,6 +24,8 @@ type CardProps = {
   peerCategory: NodeCategory;
   value: SuggestLinkSnapshot;
   onRemove: (linkId: string) => void;
+  /** Pas de bouton retirer (contributeur non connecté). */
+  readOnly?: boolean;
 };
 
 export function SuggestLinkEditCard({
@@ -32,6 +34,7 @@ export function SuggestLinkEditCard({
   peerCategory,
   value,
   onRemove,
+  readOnly = false,
 }: CardProps) {
   const tRel = useTranslations('relationTypes');
   const tEx = useTranslations('explore');
@@ -43,17 +46,23 @@ export function SuggestLinkEditCard({
       : RELATION_DOT[rel];
 
   return (
-    <li className="relative rounded-md border border-border/80 bg-surface/40 px-2 py-2.5 pr-9 transition-[background-color,border-color,box-shadow] duration-150 hover:border-accent/35 hover:bg-surface/60 hover:shadow-sm">
-      <button
-        type="button"
-        onClick={() => onRemove(linkId)}
-        className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded p-0.5 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
-        aria-label={te('removeLinkAria')}
-      >
-        <span className="text-lg leading-none" aria-hidden>
-          ×
-        </span>
-      </button>
+    <li
+      className={`relative rounded-md border border-border/80 bg-surface/40 px-2 py-2.5 transition-[background-color,border-color,box-shadow] duration-150 hover:border-accent/35 hover:bg-surface/60 hover:shadow-sm ${
+        readOnly ? 'pr-2' : 'pr-9'
+      }`}
+    >
+      {!readOnly ? (
+        <button
+          type="button"
+          onClick={() => onRemove(linkId)}
+          className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded p-0.5 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
+          aria-label={te('removeLinkAria')}
+        >
+          <span className="text-lg leading-none" aria-hidden>
+            ×
+          </span>
+        </button>
+      ) : null}
       <div className="flex gap-3">
         <span
           className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full ring-2 ring-white/10"
@@ -154,6 +163,8 @@ type SectionProps = {
   onRemove: (linkId: string) => void;
   /** Clic sur un résultat de recherche pour proposer un nouveau lien. */
   onAddPeer?: (peerId: string) => void;
+  /** Masque recherche / ajout ; cartes sans bouton retirer. */
+  readOnly?: boolean;
 };
 
 export function SuggestLinkSection({
@@ -170,6 +181,7 @@ export function SuggestLinkSection({
   existingRows,
   onRemove,
   onAddPeer,
+  readOnly = false,
 }: SectionProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const searchInputId = useId();
@@ -230,21 +242,44 @@ export function SuggestLinkSection({
       </button>
       {open ? (
         <>
-          <div className="mb-3">
-            <label className="sr-only" htmlFor={searchInputId}>
-              {tConn('searchPlaceholder')}
-            </label>
-            <input
-              id={searchInputId}
-              type="search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={tConn('searchPlaceholder')}
-              autoComplete="off"
-              className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm font-medium text-foreground shadow-sm outline-none ring-1 ring-border/50 transition-[box-shadow,border-color] placeholder:font-normal placeholder:text-muted-foreground focus:border-accent focus:ring-2 focus:ring-accent/25"
-            />
-          </div>
-          {searchQuery.trim() === '' ? (
+          {readOnly ? (
+            existingRows.length === 0 ? (
+              <p className="text-sm text-muted-foreground">{emptyLabel}</p>
+            ) : (
+              <ul className="space-y-3">
+                {existingRows.map(
+                  ({ linkId, peerLabel, peerCategory, value }) => (
+                    <SuggestLinkEditCard
+                      key={linkId}
+                      linkId={linkId}
+                      peerLabel={peerLabel}
+                      peerCategory={peerCategory}
+                      value={value}
+                      onRemove={onRemove}
+                      readOnly
+                    />
+                  )
+                )}
+              </ul>
+            )
+          ) : null}
+          {!readOnly ? (
+            <div className="mb-3">
+              <label className="sr-only" htmlFor={searchInputId}>
+                {tConn('searchPlaceholder')}
+              </label>
+              <input
+                id={searchInputId}
+                type="search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={tConn('searchPlaceholder')}
+                autoComplete="off"
+                className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm font-medium text-foreground shadow-sm outline-none ring-1 ring-border/50 transition-[box-shadow,border-color] placeholder:font-normal placeholder:text-muted-foreground focus:border-accent focus:ring-2 focus:ring-accent/25"
+              />
+            </div>
+          ) : null}
+          {!readOnly && searchQuery.trim() === '' ? (
             existingRows.length === 0 ? (
               <p className="text-sm text-muted-foreground">{emptyLabel}</p>
             ) : (
@@ -263,38 +298,41 @@ export function SuggestLinkSection({
                 )}
               </ul>
             )
-          ) : globalMatches.length === 0 ? (
-            <p className="text-sm text-muted-foreground">{tCommon('noResults')}</p>
-          ) : (
-            <ul className="max-h-[min(50vh,28rem)] space-y-3 overflow-y-auto pr-0.5">
-              {globalMatches.map((n) => {
-                const row = existingByPeerId.get(n.id);
-                if (row) {
+          ) : null}
+          {!readOnly && searchQuery.trim() !== '' ? (
+            globalMatches.length === 0 ? (
+              <p className="text-sm text-muted-foreground">{tCommon('noResults')}</p>
+            ) : (
+              <ul className="max-h-[min(50vh,28rem)] space-y-3 overflow-y-auto pr-0.5">
+                {globalMatches.map((n) => {
+                  const row = existingByPeerId.get(n.id);
+                  if (row) {
+                    return (
+                      <SuggestLinkEditCard
+                        key={row.linkId}
+                        linkId={row.linkId}
+                        peerLabel={row.peerLabel}
+                        peerCategory={row.peerCategory}
+                        value={row.value}
+                        onRemove={onRemove}
+                      />
+                    );
+                  }
                   return (
-                    <SuggestLinkEditCard
-                      key={row.linkId}
-                      linkId={row.linkId}
-                      peerLabel={row.peerLabel}
-                      peerCategory={row.peerCategory}
-                      value={row.value}
-                      onRemove={onRemove}
+                    <SuggestBrowseReadOnlyCard
+                      key={n.id}
+                      node={n}
+                      locale={locale}
+                      detailsById={detailsById}
+                      onAdd={
+                        onAddPeer ? () => onAddPeer(n.id) : undefined
+                      }
                     />
                   );
-                }
-                return (
-                  <SuggestBrowseReadOnlyCard
-                    key={n.id}
-                    node={n}
-                    locale={locale}
-                    detailsById={detailsById}
-                    onAdd={
-                      onAddPeer ? () => onAddPeer(n.id) : undefined
-                    }
-                  />
-                );
-              })}
-            </ul>
-          )}
+                })}
+              </ul>
+            )
+          ) : null}
         </>
       ) : null}
     </section>

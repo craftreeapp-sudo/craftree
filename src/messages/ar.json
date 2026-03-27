@@ -343,6 +343,10 @@
     "suggestionSent": "تم إرسال الاقتراح!",
     "suggestionSentReview": "تم إرسال الاقتراح! سيتم مراجعته.",
     "suggestionSentAnonymous": "تم إرسال الاقتراح! شكرًا لمشاركتك.",
+    "suggestionNothingToSubmit": "أضف ملاحظة أو عدّل حقلًا أو الروابط قبل الإرسال.",
+    "suggestionContributorNoteLabel": "رسالة للمشرفين (اختياري)",
+    "suggestionContributorNotePlaceholder": "سياق أو مصادر أو ما يساعد على المراجعة…",
+    "suggestLinksOnlyWhenLoggedIn": "سجّل الدخول لتعديل الروابط أو اقتراح روابط جديدة.",
     "anonymousFeedbackLabel": "اقتراحك",
     "anonymousFeedbackEmail": "البريد (اختياري)",
     "anonymousFeedbackHint": "للإشعار بالرد.",
@@ -358,7 +362,9 @@
     "oauthConfigMissing": "لم يُضبط Supabase. أضف NEXT_PUBLIC_SUPABASE_URL و NEXT_PUBLIC_SUPABASE_ANON_KEY في ملف .env.local.",
     "oauthNoUrl": "تعذر الحصول على رابط تسجيل الدخول عبر Google. تحقق من مزود Google وعناوين إعادة التوجيه في Supabase.",
     "oauthSignInFailed": "تعذر بدء تسجيل الدخول عبر Google. حاول مرة أخرى.",
-    "suggestAnonymousNotice": "بدون حساب، يُخزَّن عنوان IP الخاص بك ويظهر للمشرفين."
+    "suggestAnonymousNotice": "بدون حساب، يُخزَّن عنوان IP الخاص بك ويظهر للمشرفين.",
+    "switchAccount": "تبديل الحساب",
+    "switchAccountHint": "« تبديل الحساب » يفتح Google لاختيار حساب آخر؛ « تسجيل الخروج » ينهي الجلسة."
   },
   "profile": {
     "backToTree": "العودة إلى Tree",
@@ -399,7 +405,6 @@
   "admin": {
     "navLink": "الإدارة",
     "title": "Craftree — الإدارة",
-    "backToTree": "العودة إلى الشجرة →",
     "tabPending": "معلّق",
     "tabHistory": "السجل",
     "tabContributors": "المساهمون",

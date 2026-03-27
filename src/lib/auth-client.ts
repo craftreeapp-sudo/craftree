@@ -9,6 +9,25 @@ export type SignInWithGoogleResult = {
   code?: 'missing_config' | 'no_oauth_url';
 };
 
+export type SignInWithGoogleOptions = {
+  /**
+   * Si vrai (défaut), Google affiche le sélecteur de compte (`prompt=select_account`).
+   * Permet de choisir un autre compte Google sans rester bloqué sur la session navigateur.
+   */
+  promptAccountSelection?: boolean;
+  /** Chemin après succès OAuth (défaut : /explore) */
+  nextPath?: string;
+};
+
+export type SignOutOptions = {
+  /**
+   * Redirection après déconnexion.
+   * - défaut : `/`
+   * - `false` : pas de redirection (ex. avant `signInWithGoogle` pour changer de compte)
+   */
+  redirectTo?: string | false;
+};
+
 function hasSupabaseBrowserConfig(): boolean {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim();
@@ -19,7 +38,9 @@ function hasSupabaseBrowserConfig(): boolean {
  * OAuth Google : avec skipBrowserRedirect, Supabase renvoie l’URL ;
  * on redirige explicitement (évite les échecs silencieux selon versions / SSR).
  */
-export async function signInWithGoogle(): Promise<SignInWithGoogleResult> {
+export async function signInWithGoogle(
+  options?: SignInWithGoogleOptions
+): Promise<SignInWithGoogleResult> {
   if (typeof window === 'undefined') {
     return { error: new Error('signInWithGoogle: window unavailable') };
   }
@@ -32,11 +53,19 @@ export async function signInWithGoogle(): Promise<SignInWithGoogleResult> {
   }
 
   const origin = window.location.origin;
+  const nextPath = options?.nextPath ?? '/explore';
+  const safeNext = nextPath.startsWith('/') ? nextPath : '/explore';
+
+  const promptAccountSelection = options?.promptAccountSelection !== false;
+
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${origin}/auth/callback?next=/explore`,
+      redirectTo: `${origin}/auth/callback?next=${encodeURIComponent(safeNext)}`,
       skipBrowserRedirect: true,
+      queryParams: promptAccountSelection
+        ? { prompt: 'select_account' }
+        : undefined,
     },
   });
 
@@ -56,9 +85,16 @@ export async function signInWithGoogle(): Promise<SignInWithGoogleResult> {
   };
 }
 
-export async function signOut() {
-  await supabase.auth.signOut();
-  if (typeof window !== 'undefined') window.location.assign('/');
+/**
+ * Déconnexion complète (session Supabase côté serveur + client).
+ * @param redirectTo - `false` pour ne pas quitter la page (ex. enchaîner avec une nouvelle connexion Google).
+ */
+export async function signOut(options?: SignOutOptions) {
+  await supabase.auth.signOut({ scope: 'global' });
+  if (typeof window === 'undefined') return;
+  if (options?.redirectTo === false) return;
+  const path = typeof options?.redirectTo === 'string' ? options.redirectTo : '/';
+  window.location.assign(path);
 }
 
 export async function getCurrentUser() {

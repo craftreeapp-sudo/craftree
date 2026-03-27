@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { Geist_Mono, Inter, Lora, Space_Grotesk } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
@@ -6,6 +7,7 @@ import './globals.css';
 import { getSiteUrl } from '@/lib/seo';
 import { isRtlLocale } from '@/lib/i18n-config';
 import { AuthInitializer } from '@/components/layout/AuthInitializer';
+import { AuthUrlErrorToast } from '@/components/auth/AuthUrlErrorToast';
 import { ThemeProvider } from '@/components/layout/ThemeProvider';
 import { ToastContainer } from '@/components/ui/ToastContainer';
 import { LoginModal } from '@/components/ui/LoginModal';
@@ -126,6 +128,9 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider>
             <AuthInitializer />
+            <Suspense fallback={null}>
+              <AuthUrlErrorToast />
+            </Suspense>
             <ToastContainer />
             <LoginModal />
             <Header />

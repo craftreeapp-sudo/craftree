@@ -1,4 +1,5 @@
 import { createSupabaseServiceRoleClient } from '@/lib/supabase-server';
+import { notifyContributorSuggestionResult } from '@/lib/notify-contributor-suggestion';
 import { slugify } from '@/lib/utils';
 import type { RelationType } from '@/lib/types';
 
@@ -323,4 +324,16 @@ export async function applyApprovedSuggestion(
       .update({ contributions_count: cur + 1 })
       .eq('id', uid);
   }
+
+  void notifyContributorSuggestionResult({
+    status: 'approved',
+    row: {
+      id: String(row.id),
+      user_id: (row.user_id as string | null) ?? null,
+      suggestion_type: String(row.suggestion_type),
+      node_id: (row.node_id as string | null) ?? null,
+      data: row.data,
+    },
+    adminComment: null,
+  });
 }
