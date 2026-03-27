@@ -53,7 +53,6 @@ export async function PUT(request: Request, ctx: Ctx) {
 
       const merged: CraftingLink = {
         ...cur,
-        ...body,
         id: cur.id,
         source_id: cur.source_id,
         target_id: cur.target_id,
@@ -64,6 +63,12 @@ export async function PUT(request: Request, ctx: Ctx) {
           body.is_optional !== undefined
             ? Boolean(body.is_optional)
             : cur.is_optional,
+        notes:
+          body.notes !== undefined
+            ? typeof body.notes === 'string' && body.notes.trim()
+              ? body.notes.trim()
+              : undefined
+            : cur.notes,
       };
 
       data.links[idx] = merged;
@@ -95,12 +100,6 @@ export async function PUT(request: Request, ctx: Ctx) {
     const patch: Record<string, unknown> = {};
     if (body.relation_type !== undefined) {
       patch.relation_type = body.relation_type;
-    }
-    if (body.quantity_hint !== undefined) {
-      patch.quantity_hint =
-        typeof body.quantity_hint === 'string' && body.quantity_hint.trim()
-          ? body.quantity_hint.trim()
-          : null;
     }
     if (body.is_optional !== undefined) {
       patch.is_optional = Boolean(body.is_optional);

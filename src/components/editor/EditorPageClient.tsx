@@ -337,7 +337,6 @@ export function EditorPageClient() {
   const [linkPanel, setLinkPanel] = useState<CraftingLink | null>(null);
   const [linkForm, setLinkForm] = useState({
     relation_type: RT.MATERIAL as RelationType,
-    quantity_hint: '',
     is_optional: false,
     notes: '',
   });
@@ -446,7 +445,6 @@ export function EditorPageClient() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             relation_type: linkForm.relation_type,
-            quantity_hint: linkForm.quantity_hint.trim() || undefined,
             is_optional: linkForm.is_optional,
             notes: linkForm.notes.trim() || undefined,
           }),
@@ -994,7 +992,6 @@ export function EditorPageClient() {
                               setLinkPanel(l);
                               setLinkForm({
                                 relation_type: l.relation_type,
-                                quantity_hint: l.quantity_hint ?? '',
                                 is_optional: l.is_optional,
                                 notes: l.notes ?? '',
                               });
@@ -1176,19 +1173,6 @@ export function EditorPageClient() {
                     </option>
                   ))}
                 </select>
-              </div>
-              <div>
-                <label className="mb-1 block text-xs text-muted-foreground">
-                  {te('quantityLabel')}
-                </label>
-                <input
-                  value={linkForm.quantity_hint}
-                  onChange={(e) =>
-                    setLinkForm((f) => ({ ...f, quantity_hint: e.target.value }))
-                  }
-                  placeholder={te('quantityPlaceholder')}
-                  className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
-                />
               </div>
               <div className="flex items-center gap-2">
                 <input

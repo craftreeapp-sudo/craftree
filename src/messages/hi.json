@@ -187,8 +187,6 @@
     "yes": "हाँ",
     "no": "नहीं",
     "editLink": "कड़ी संपादित करें",
-    "quantityLabel": "मात्रा",
-    "quantityPlaceholder": "बहुत, नमूना, 1…",
     "optionalCheckbox": "वैकल्पिक",
     "panelNewInvention": "नया आविष्कार",
     "panelEditInvention": "संपादित करें",
@@ -224,6 +222,7 @@
     "builtUponSection": "इस पर आधारित",
     "ledToSection": "इसकी ओर ले गया",
     "removeLinkAria": "कड़ी हटाएँ",
+    "suggestAddLinkAria": "इस आविष्कार को सुझाव में जोड़ें",
     "placeholderInventionSource": "स्रोत आविष्कार",
     "placeholderInventionTarget": "लक्ष्य आविष्कार"
   },
@@ -349,9 +348,11 @@
     "newNodeSuggestionSent": "नवीन आविष्कार सुझाव भेजा गया!",
     "oauthConfigMissing": "Supabase कॉन्फ़िगर नहीं है। .env.local में NEXT_PUBLIC_SUPABASE_URL और NEXT_PUBLIC_SUPABASE_ANON_KEY जोड़ें।",
     "oauthNoUrl": "Google साइन-इन लिंक नहीं मिला। Supabase में प्रदाता और रीडायरेक्ट URL जाँचें।",
-    "oauthSignInFailed": "Google साइन-इन शुरू नहीं हो सका। कृपया पुनः प्रयास करें।"
+    "oauthSignInFailed": "Google साइन-इन शुरू नहीं हो सका। कृपया पुनः प्रयास करें।",
+    "suggestAnonymousNotice": "बिना खाते के, आपका IP सहेजा जाता है और मॉडरेटरों को दिखाई देता है।"
   },
   "profile": {
+    "backToTree": "Tree पर वापस",
     "loading": "प्रोफ़ाइल लोड हो रही है…",
     "loadError": "प्रोफ़ाइल लोड नहीं हो सकी।",
     "saveError": "सहेजा नहीं जा सका।",
@@ -408,7 +409,9 @@
     "saveOverride": "सहेजें और स्वीकृत करें",
     "overrideHint": "फ़ील्ड संपादित करें फिर स्वीकृत करें।",
     "toastApproved": "सुझाव स्वीकृत",
-    "toastRejected": "सुझाव अस्वीकृत"
+    "toastRejected": "सुझाव अस्वीकृत",
+    "anonymousContributor": "अनाम",
+    "contributorUnknown": "अज्ञात योगदानकर्ता"
   },
   "nav": {
     "mainNav": "मुख्य नेविगेशन",

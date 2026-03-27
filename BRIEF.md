@@ -108,7 +108,6 @@ interface CraftingLink {
   source_id: string;             // ID de l'intrant
   target_id: string;             // ID du produit
   relation_type: RelationType;
-  quantity_hint?: string;         // Indication de quantité ("beaucoup", "trace", "1")
   is_optional: boolean;          // Intrant optionnel ou substitut ?
   notes?: string;                // Précision sur le rôle de l'intrant
 }

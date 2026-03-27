@@ -2256,7 +2256,6 @@
       "source_id": "sable",
       "target_id": "verre",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2264,7 +2263,6 @@
       "source_id": "soude",
       "target_id": "verre",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -2294,7 +2292,6 @@
       "source_id": "sable",
       "target_id": "silicium",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2302,7 +2299,6 @@
       "source_id": "charbon",
       "target_id": "silicium",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false,
       "notes": "Réducteur"
     },
@@ -2325,7 +2321,6 @@
       "source_id": "acide-gravure",
       "target_id": "wafer-silicium",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false
     },
     {
@@ -2354,7 +2349,6 @@
       "source_id": "transistor",
       "target_id": "circuit-integre",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2390,7 +2384,6 @@
       "source_id": "cuivre",
       "target_id": "circuit-imprime",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -2412,7 +2405,6 @@
       "source_id": "acide-gravure",
       "target_id": "circuit-imprime",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false
     },
     {
@@ -2434,7 +2426,6 @@
       "source_id": "cuivre",
       "target_id": "ampoule",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false,
       "notes": "Filament et connexions"
     },
@@ -2450,7 +2441,6 @@
       "source_id": "minerai-fer",
       "target_id": "fer",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2458,7 +2448,6 @@
       "source_id": "charbon",
       "target_id": "fer",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": "Réducteur"
     },
@@ -2495,7 +2484,6 @@
       "source_id": "charbon",
       "target_id": "acier",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false,
       "notes": "Carbone pour alliage"
     },
@@ -2518,7 +2506,6 @@
       "source_id": "poutre-acier",
       "target_id": "structure-metallique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2533,7 +2520,6 @@
       "source_id": "calcaire",
       "target_id": "ciment",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2541,7 +2527,6 @@
       "source_id": "argile",
       "target_id": "ciment",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -2563,7 +2548,6 @@
       "source_id": "ciment",
       "target_id": "beton",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -2571,7 +2555,6 @@
       "source_id": "sable",
       "target_id": "beton",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2579,7 +2562,6 @@
       "source_id": "eau",
       "target_id": "beton",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -2587,7 +2569,6 @@
       "source_id": "beton",
       "target_id": "fondations",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2595,7 +2576,6 @@
       "source_id": "acier",
       "target_id": "fondations",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": true,
       "notes": "Béton armé"
     },
@@ -2604,7 +2584,6 @@
       "source_id": "bois",
       "target_id": "pate-papier",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2612,7 +2591,6 @@
       "source_id": "eau",
       "target_id": "pate-papier",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2627,7 +2605,6 @@
       "source_id": "eau",
       "target_id": "papier",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false,
       "notes": "Séchage"
     },
@@ -2636,7 +2613,6 @@
       "source_id": "papier",
       "target_id": "livre",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2644,7 +2620,6 @@
       "source_id": "encre",
       "target_id": "livre",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -2659,7 +2634,6 @@
       "source_id": "bois",
       "target_id": "presse-imprimer",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -2667,7 +2641,6 @@
       "source_id": "fer",
       "target_id": "presse-imprimer",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -2689,7 +2662,6 @@
       "source_id": "resine-epoxy",
       "target_id": "cable-electrique",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": true,
       "notes": "Isolation"
     },
@@ -2726,7 +2698,6 @@
       "source_id": "cable-electrique",
       "target_id": "telegraphe",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2748,7 +2719,6 @@
       "source_id": "cable-electrique",
       "target_id": "telephone",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -2770,7 +2740,6 @@
       "source_id": "circuit-integre",
       "target_id": "serveur-informatique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2778,7 +2747,6 @@
       "source_id": "cable-electrique",
       "target_id": "serveur-informatique",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -2786,7 +2754,6 @@
       "source_id": "fibre-optique",
       "target_id": "serveur-informatique",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -2801,7 +2768,6 @@
       "source_id": "serveur-informatique",
       "target_id": "internet",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2809,7 +2775,6 @@
       "source_id": "fibre-optique",
       "target_id": "internet",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2817,7 +2782,6 @@
       "source_id": "cable-electrique",
       "target_id": "internet",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2825,7 +2789,6 @@
       "source_id": "plantes-medicinales",
       "target_id": "extraits-vegetaux",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2833,7 +2796,6 @@
       "source_id": "eau",
       "target_id": "extraits-vegetaux",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -2856,7 +2818,6 @@
       "source_id": "petrole",
       "target_id": "chimie-organique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2885,7 +2846,6 @@
       "source_id": "principes-actifs",
       "target_id": "medicaments",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false
     },
     {
@@ -2893,7 +2853,6 @@
       "source_id": "gelules",
       "target_id": "medicaments",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": true,
       "notes": "Enrobage des comprimés"
     },
@@ -2902,7 +2861,6 @@
       "source_id": "polymeres",
       "target_id": "medicaments",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": true,
       "notes": "Excipients"
     },
@@ -2911,7 +2869,6 @@
       "source_id": "ble",
       "target_id": "pain",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2919,7 +2876,6 @@
       "source_id": "eau",
       "target_id": "pain",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -2927,7 +2883,6 @@
       "source_id": "levure",
       "target_id": "pain",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false
     },
     {
@@ -2949,7 +2904,6 @@
       "source_id": "lait",
       "target_id": "fromage",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2957,7 +2911,6 @@
       "source_id": "presure",
       "target_id": "fromage",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false
     },
     {
@@ -2965,7 +2918,6 @@
       "source_id": "sel",
       "target_id": "fromage",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false
     },
     {
@@ -2973,7 +2925,6 @@
       "source_id": "raisin",
       "target_id": "vin",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2981,7 +2932,6 @@
       "source_id": "levure",
       "target_id": "vin",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false
     },
     {
@@ -2996,7 +2946,6 @@
       "source_id": "bois",
       "target_id": "tonneau",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -3004,7 +2953,6 @@
       "source_id": "air",
       "target_id": "feu",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": "Oxygène pour la combustion"
     },
@@ -3034,7 +2982,6 @@
       "source_id": "calcaire",
       "target_id": "soude",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -3042,7 +2989,6 @@
       "source_id": "sel",
       "target_id": "soude",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -3057,7 +3003,6 @@
       "source_id": "circuit-imprime",
       "target_id": "serveur-informatique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -3065,7 +3010,6 @@
       "source_id": "microprocesseur",
       "target_id": "serveur-informatique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -3080,7 +3024,6 @@
       "source_id": "verre",
       "target_id": "photolithographie",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": true,
       "notes": "Masques optiques"
     },
@@ -3089,7 +3032,6 @@
       "source_id": "eau",
       "target_id": "acide-gravure",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {

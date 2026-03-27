@@ -3,8 +3,6 @@
 import { useState, useCallback, type MouseEvent } from 'react';
 import type { NodeProps } from '@xyflow/react';
 import { useFocusLinkEditStore } from '@/stores/focus-link-edit-store';
-import { useAuthStore } from '@/stores/auth-store';
-import { useUIStore } from '@/stores/ui-store';
 import { FOCUS_ADD_BTN_PX } from './focus-overlay-nodes';
 
 export type AddButtonData = {
@@ -16,19 +14,13 @@ export function AddConnectionButton({ data }: NodeProps) {
   const d = data as AddButtonData;
   const [hover, setHover] = useState(false);
   const openSearch = useFocusLinkEditStore((s) => s.openSearch);
-  const { user } = useAuthStore();
-  const setLoginModalOpen = useUIStore((s) => s.setLoginModalOpen);
 
   const onBtnClick = useCallback(
     (e: MouseEvent) => {
       e.stopPropagation();
-      if (!user) {
-        setLoginModalOpen(true);
-        return;
-      }
       openSearch(d.variant);
     },
-    [d.variant, openSearch, user, setLoginModalOpen]
+    [d.variant, openSearch]
   );
 
   const bt = FOCUS_ADD_BTN_PX;

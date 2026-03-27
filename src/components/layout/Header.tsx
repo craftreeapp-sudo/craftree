@@ -53,27 +53,29 @@ export function Header() {
         >
           Craft<span style={{ color: 'var(--accent)' }}>ree</span>
         </Link>
-        <nav
-          className="hidden max-w-[42vw] items-center gap-0.5 overflow-x-auto sm:flex md:max-w-none md:gap-1"
-          aria-label="Vues principales"
-        >
-          {NAV_TABS.map((tab) => {
-            const active = tab.match(pathname);
-            return (
-              <Link
-                key={tab.href}
-                href={tab.href}
-                className={`relative shrink-0 border-b-2 px-1.5 py-1 text-xs font-medium transition-colors md:px-2.5 md:text-sm ${
-                  active
-                    ? 'border-accent text-foreground'
-                    : 'border-transparent text-muted-foreground hover:text-foreground/90'
-                }`}
-              >
-                {tab.label}
-              </Link>
-            );
-          })}
-        </nav>
+        {pathname !== '/profile' ? (
+          <nav
+            className="hidden max-w-[42vw] items-center gap-0.5 overflow-x-auto sm:flex md:max-w-none md:gap-1"
+            aria-label="Vues principales"
+          >
+            {NAV_TABS.map((tab) => {
+              const active = tab.match(pathname);
+              return (
+                <Link
+                  key={tab.href}
+                  href={tab.href}
+                  className={`relative shrink-0 border-b-2 px-1.5 py-1 text-xs font-medium transition-colors md:px-2.5 md:text-sm ${
+                    active
+                      ? 'border-accent text-foreground'
+                      : 'border-transparent text-muted-foreground hover:text-foreground/90'
+                  }`}
+                >
+                  {tab.label}
+                </Link>
+              );
+            })}
+          </nav>
+        ) : null}
       </div>
 
       <div className="absolute left-1/2 flex w-full max-w-xl -translate-x-1/2 justify-center px-4">

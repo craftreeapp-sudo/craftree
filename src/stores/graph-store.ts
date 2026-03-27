@@ -43,7 +43,6 @@ interface RawLink {
   source_id: string;
   target_id: string;
   relation_type: string;
-  quantity_hint?: string;
   is_optional?: boolean;
   notes?: string;
 }
@@ -100,7 +99,6 @@ function normalizeLink(raw: RawLink): CraftingLink {
     source_id: raw.source_id,
     target_id: raw.target_id,
     relation_type: raw.relation_type as RelationType,
-    quantity_hint: raw.quantity_hint,
     is_optional: raw.is_optional ?? false,
     notes: raw.notes,
   };
@@ -127,7 +125,6 @@ function linksToRaw(links: CraftingLink[]): RawLink[] {
     source_id: l.source_id,
     target_id: l.target_id,
     relation_type: l.relation_type,
-    quantity_hint: l.quantity_hint,
     is_optional: l.is_optional,
     notes: l.notes,
   }));
@@ -259,7 +256,6 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
       source_id: l.source_id,
       target_id: l.target_id,
       relation_type: l.relation_type,
-      quantity_hint: l.quantity_hint,
       is_optional: l.is_optional,
       notes: l.notes,
     }));

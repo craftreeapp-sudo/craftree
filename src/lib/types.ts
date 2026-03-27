@@ -106,7 +106,6 @@ export interface CraftingLink {
   source_id: string;
   target_id: string;
   relation_type: RelationType;
-  quantity_hint?: string;        // "beaucoup", "trace", "1"
   is_optional: boolean;
   notes?: string;
 }

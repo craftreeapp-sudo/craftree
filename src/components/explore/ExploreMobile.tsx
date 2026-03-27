@@ -431,7 +431,6 @@ function MobileRecipeRow({
         )}
         <p className="mt-0.5 text-xs text-muted-foreground">
           {RELATION_LABELS[rel]}
-          {link.quantity_hint ? ` · ${link.quantity_hint}` : ''}
           {link.is_optional ? ' · optionnel' : ''}
         </p>
         {link.notes ? (

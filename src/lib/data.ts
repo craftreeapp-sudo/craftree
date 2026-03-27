@@ -41,8 +41,6 @@ export function mapLinkRowToCraftingLink(
     source_id: String(row.source_id),
     target_id: String(row.target_id),
     relation_type: row.relation_type as CraftingLink['relation_type'],
-    quantity_hint:
-      row.quantity_hint != null ? String(row.quantity_hint) : undefined,
     is_optional: Boolean(row.is_optional),
     notes: row.notes != null ? String(row.notes) : undefined,
   };

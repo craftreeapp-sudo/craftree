@@ -187,8 +187,6 @@
     "yes": "نعم",
     "no": "لا",
     "editLink": "تعديل الرابط",
-    "quantityLabel": "الكمية",
-    "quantityPlaceholder": "كثير، أثر، 1…",
     "optionalCheckbox": "اختياري",
     "panelNewInvention": "اختراع جديد",
     "panelEditInvention": "تعديل",
@@ -224,6 +222,7 @@
     "builtUponSection": "مبني على",
     "ledToSection": "أدى إلى",
     "removeLinkAria": "إزالة الرابط",
+    "suggestAddLinkAria": "إضافة هذا الاختراع إلى الاقتراح",
     "placeholderInventionSource": "اختراع المصدر",
     "placeholderInventionTarget": "اختراع الهدف"
   },
@@ -349,9 +348,11 @@
     "newNodeSuggestionSent": "تم إرسال اقتراح الاختراع!",
     "oauthConfigMissing": "لم يُضبط Supabase. أضف NEXT_PUBLIC_SUPABASE_URL و NEXT_PUBLIC_SUPABASE_ANON_KEY في ملف .env.local.",
     "oauthNoUrl": "تعذر الحصول على رابط تسجيل الدخول عبر Google. تحقق من مزود Google وعناوين إعادة التوجيه في Supabase.",
-    "oauthSignInFailed": "تعذر بدء تسجيل الدخول عبر Google. حاول مرة أخرى."
+    "oauthSignInFailed": "تعذر بدء تسجيل الدخول عبر Google. حاول مرة أخرى.",
+    "suggestAnonymousNotice": "بدون حساب، يُخزَّن عنوان IP الخاص بك ويظهر للمشرفين."
   },
   "profile": {
+    "backToTree": "العودة إلى Tree",
     "loading": "جاري تحميل الملف الشخصي…",
     "loadError": "تعذر تحميل الملف الشخصي.",
     "saveError": "تعذر الحفظ.",
@@ -408,7 +409,9 @@
     "saveOverride": "حفظ والموافقة",
     "overrideHint": "عدّل الحقول ثم وافق.",
     "toastApproved": "تمت الموافقة",
-    "toastRejected": "تم الرفض"
+    "toastRejected": "تم الرفض",
+    "anonymousContributor": "مجهول",
+    "contributorUnknown": "مساهم غير معروف"
   },
   "nav": {
     "mainNav": "التنقّل الرئيسي",

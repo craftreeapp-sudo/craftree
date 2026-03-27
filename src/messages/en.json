@@ -187,8 +187,6 @@
     "yes": "Yes",
     "no": "No",
     "editLink": "Edit link",
-    "quantityLabel": "Quantity",
-    "quantityPlaceholder": "a lot, trace, 1…",
     "optionalCheckbox": "Optional",
     "panelNewInvention": "New invention",
     "panelEditInvention": "Edit",
@@ -224,6 +222,7 @@
     "builtUponSection": "Built upon",
     "ledToSection": "Leads to",
     "removeLinkAria": "Remove link",
+    "suggestAddLinkAria": "Add this invention to the suggestion",
     "placeholderInventionSource": "Source invention",
     "placeholderInventionTarget": "Target invention"
   },
@@ -349,9 +348,11 @@
     "newNodeSuggestionSent": "Invention suggestion sent!",
     "oauthConfigMissing": "Supabase is not configured. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to .env.local.",
     "oauthNoUrl": "Could not get the Google sign-in link. Check the Google provider and redirect URLs in Supabase.",
-    "oauthSignInFailed": "Could not start Google sign-in. Please try again."
+    "oauthSignInFailed": "Could not start Google sign-in. Please try again.",
+    "suggestAnonymousNotice": "Without an account, your IP address is stored and shown to moderators."
   },
   "profile": {
+    "backToTree": "Back to Tree",
     "loading": "Loading profile…",
     "loadError": "Could not load profile.",
     "saveError": "Could not save.",
@@ -408,7 +409,9 @@
     "saveOverride": "Save and approve",
     "overrideHint": "Edit the proposed fields, then approve.",
     "toastApproved": "Suggestion approved",
-    "toastRejected": "Suggestion rejected"
+    "toastRejected": "Suggestion rejected",
+    "anonymousContributor": "Anonymous",
+    "contributorUnknown": "Unknown contributor"
   },
   "nav": {
     "mainNav": "Main navigation",

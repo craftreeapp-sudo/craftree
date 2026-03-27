@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 import { createSupabaseRouteHandlerClient } from '@/lib/supabase-route';
+import { createSupabaseServiceRoleClient } from '@/lib/supabase-server';
+import { getClientIpFromHeaders } from '@/lib/request-ip';
+import { notifyAdminNewSuggestion } from '@/lib/notify-admin-suggestion';
 
 function useSupabase(): boolean {
   return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
@@ -12,15 +15,6 @@ export async function POST(request: Request) {
         { error: 'Suggestions require Supabase' },
         { status: 503 }
       );
-    }
-
-    const supabase = await createSupabaseRouteHandlerClient();
-    const {
-      data: { user },
-      error: authErr,
-    } = await supabase.auth.getUser();
-    if (authErr || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const body = (await request.json()) as {
@@ -40,18 +34,62 @@ export async function POST(request: Request) {
 
     const allowed = ['edit_node', 'add_link', 'new_node'];
     if (!allowed.includes(suggestion_type)) {
-      return NextResponse.json({ error: 'invalid suggestion_type' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'invalid suggestion_type' },
+        { status: 400 }
+      );
     }
 
+    const supabase = await createSupabaseRouteHandlerClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      const insertRow = {
+        user_id: user.id,
+        suggestion_type,
+        status: 'pending' as const,
+        node_id: body.node_id ?? null,
+        data,
+        contributor_ip: null as string | null,
+      };
+
+      const { data: inserted, error } = await supabase
+        .from('suggestions')
+        .insert(insertRow)
+        .select('id')
+        .single();
+
+      if (error) {
+        console.error(error);
+        return NextResponse.json({ error: error.message }, { status: 500 });
+      }
+
+      const id = inserted?.id as string;
+      void notifyAdminNewSuggestion({
+        suggestionId: id,
+        suggestionType: suggestion_type,
+        isAnonymous: false,
+        contributorIp: null,
+      });
+
+      return NextResponse.json({ id }, { status: 201 });
+    }
+
+    const clientIp = getClientIpFromHeaders(request);
+    const sb = createSupabaseServiceRoleClient();
+
     const insertRow = {
-      user_id: user.id,
+      user_id: null as string | null,
       suggestion_type,
-      status: 'pending',
+      status: 'pending' as const,
       node_id: body.node_id ?? null,
       data,
+      contributor_ip: clientIp,
     };
 
-    const { data: inserted, error } = await supabase
+    const { data: inserted, error } = await sb
       .from('suggestions')
       .insert(insertRow)
       .select('id')
@@ -62,7 +100,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ id: inserted?.id }, { status: 201 });
+    const id = inserted?.id as string;
+    void notifyAdminNewSuggestion({
+      suggestionId: id,
+      suggestionType: suggestion_type,
+      isAnonymous: true,
+      contributorIp: clientIp,
+    });
+
+    return NextResponse.json({ id }, { status: 201 });
   } catch (e) {
     console.error(e);
     return NextResponse.json(

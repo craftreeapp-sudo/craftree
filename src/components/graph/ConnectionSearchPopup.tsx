@@ -104,6 +104,7 @@ function parseYearString(raw: string): number | null {
 export function ConnectionSearchPopup(_props: NodeProps) {
   const selectedNodeId = useUIStore((s) => s.selectedNodeId);
   const isAdmin = useAuthStore((s) => s.isAdmin);
+  const user = useAuthStore((s) => s.user);
   const pushToast = useToastStore((s) => s.pushToast);
   const tAuth = useTranslations('auth');
   const searchMode = useFocusLinkEditStore((s) => s.searchMode);
@@ -571,6 +572,11 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                 <p className="px-3 pt-2 text-[11px] text-muted-foreground">
                   {tConn('pickRelationForLink')}
                 </p>
+                {!user && !isAdmin ? (
+                  <p className="px-3 pt-1 text-[11px] leading-snug text-amber-200/85">
+                    {tAuth('suggestAnonymousNotice')}
+                  </p>
+                ) : null}
                 <RelationTypePicker
                   onPick={(rt) => {
                     void submitContributorLinkSuggestion(
@@ -616,6 +622,11 @@ export function ConnectionSearchPopup(_props: NodeProps) {
                   <p className="text-[11px] leading-snug text-muted-foreground">
                     {tConn('pickHint')}
                   </p>
+                  {!user && !isAdmin ? (
+                    <p className="text-[11px] leading-snug text-amber-200/85">
+                      {tAuth('suggestAnonymousNotice')}
+                    </p>
+                  ) : null}
                   <div>
                     <label className="mb-1 block text-[11px] text-muted-foreground">
                       {te('category')}

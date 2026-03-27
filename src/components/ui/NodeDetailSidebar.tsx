@@ -20,7 +20,6 @@ import {
 import { ImageUploader } from '@/components/ui/ImageUploader';
 import type {
   NodeCategory,
-  RelationType,
   TechNodeType,
   CraftingLink,
   TechNodeBasic,
@@ -28,15 +27,32 @@ import type {
   TechNodeDetails,
   Era,
 } from '@/lib/types';
+import { RelationType } from '@/lib/types';
 import { isRtlLocale } from '@/lib/i18n-config';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
+import { buildPeerSearchBlobMap } from '@/lib/suggest-peer-search';
 import {
   SuggestionNodeForm,
   type SuggestNodeFormState,
 } from '@/components/ui/SuggestionNodeForm';
 import { computeDiff } from '@/lib/suggestion-diff';
+import {
+  craftingLinkToSnapshot,
+  computeLinkSuggestionDiff,
+  computeRemovedLinkIds,
+  type SuggestLinkSnapshot,
+  type SuggestLinkContextEntry,
+} from '@/lib/suggestion-link-snapshot';
+import { SuggestLinkSection } from '@/components/ui/SuggestLinkEditRows';
 import { useToastStore } from '@/stores/toast-store';
 import { NodeCategory as NC, Era as EraEnum } from '@/lib/types';
+
+type PendingAddLink = {
+  tempId: string;
+  peerId: string;
+  section: 'ledTo' | 'builtUpon';
+  relation_type: RelationType;
+};
 
 const RELATION_DOT: Record<RelationType, string> = {
   material: '#94A3B8',
@@ -77,14 +93,15 @@ export function NodeDetailSidebar() {
   const { navigateToNode, closeDetail } = useExploreNavigation();
 
   const getNodeById = useGraphStore((s) => s.getNodeById);
+  const graphNodes = useGraphStore((s) => s.nodes);
   const updateNode = useGraphStore((s) => s.updateNode);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
   const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
   const getUsagesOfNode = useGraphStore((s) => s.getUsagesOfNode);
   const refreshData = useGraphStore((s) => s.refreshData);
-  const setLoginModalOpen = useUIStore((s) => s.setLoginModalOpen);
   const pushToast = useToastStore((s) => s.pushToast);
   const { isAdmin, user } = useAuthStore();
+  const detailsById = useNodeDetailsStore((s) => s.byId);
 
   const node = selectedNodeId ? getNodeById(selectedNodeId) : undefined;
 
@@ -104,9 +121,19 @@ export function NodeDetailSidebar() {
     unknown
   > | null>(null);
   const [suggestSubmitting, setSuggestSubmitting] = useState(false);
+  const [suggestLinkEdits, setSuggestLinkEdits] = useState<
+    Record<string, SuggestLinkSnapshot>
+  >({});
+  const [pendingAddLinks, setPendingAddLinks] = useState<PendingAddLink[]>([]);
+  const [originalLinkEdits, setOriginalLinkEdits] = useState<Record<
+    string,
+    SuggestLinkSnapshot
+  > | null>(null);
   const [sidebarImageError, setSidebarImageError] = useState(false);
   const [ledToOpen, setLedToOpen] = useState(true);
   const [builtUponOpen, setBuiltUponOpen] = useState(true);
+  const [suggestLedToOpen, setSuggestLedToOpen] = useState(true);
+  const [suggestBuiltUponOpen, setSuggestBuiltUponOpen] = useState(true);
   const [form, setForm] = useState<NodeEditFormState>(() =>
     createEmptyFormState()
   );
@@ -209,28 +236,144 @@ export function NodeDetailSidebar() {
       origin: seed.origin ?? '',
     });
     setOriginalSnapshot(snap);
+
+    const ledTo = getUsagesOfNode(node.id);
+    const recipe = getRecipeForNode(node.id);
+    const linkMap: Record<string, SuggestLinkSnapshot> = {};
+    for (const { link } of ledTo) {
+      linkMap[link.id] = craftingLinkToSnapshot(link);
+    }
+    for (const link of recipe) {
+      linkMap[link.id] = craftingLinkToSnapshot(link);
+    }
+    const linkCopy = JSON.parse(
+      JSON.stringify(linkMap)
+    ) as Record<string, SuggestLinkSnapshot>;
+    setOriginalLinkEdits(linkCopy);
+    setSuggestLinkEdits(
+      JSON.parse(JSON.stringify(linkMap)) as Record<string, SuggestLinkSnapshot>
+    );
+    setSuggestLedToOpen(true);
+    setSuggestBuiltUponOpen(true);
+    setPendingAddLinks([]);
+
     setSuggestMode(true);
-  }, [node, snapshotFromForm]);
+  }, [node, snapshotFromForm, getUsagesOfNode, getRecipeForNode]);
 
   const handleSuggestCorrection = useCallback(() => {
-    if (!user) {
-      setLoginModalOpen(true);
-      return;
-    }
     void enterSuggestMode();
-  }, [user, setLoginModalOpen, enterSuggestMode]);
+  }, [enterSuggestMode]);
 
   const cancelSuggestMode = useCallback(() => {
     setSuggestMode(false);
     setOriginalSnapshot(null);
+    setOriginalLinkEdits(null);
+    setSuggestLinkEdits({});
+    setPendingAddLinks([]);
+  }, []);
+
+  const addPendingPeer = useCallback(
+    (section: 'ledTo' | 'builtUpon', peerId: string) => {
+      if (!node) return;
+      setPendingAddLinks((prev) => {
+        if (prev.some((p) => p.section === section && p.peerId === peerId)) {
+          return prev;
+        }
+        if (section === 'ledTo') {
+          const already = getUsagesOfNode(node.id).some(
+            ({ product }) => product.id === peerId
+          );
+          if (already) return prev;
+        } else {
+          const already = getRecipeForNode(node.id).some(
+            (l) => l.source_id === peerId
+          );
+          if (already) return prev;
+        }
+        return [
+          ...prev,
+          {
+            tempId: `pending-${crypto.randomUUID()}`,
+            peerId,
+            section,
+            relation_type: RelationType.MATERIAL,
+          },
+        ];
+      });
+    },
+    [node, getUsagesOfNode, getRecipeForNode]
+  );
+
+  const onSuggestLinkRemove = useCallback((linkId: string) => {
+    if (linkId.startsWith('pending-')) {
+      setPendingAddLinks((prev) => prev.filter((p) => p.tempId !== linkId));
+      return;
+    }
+    setSuggestLinkEdits((prev) => {
+      if (!prev[linkId]) return prev;
+      const next = { ...prev };
+      delete next[linkId];
+      return next;
+    });
   }, []);
 
   const submitSuggestion = useCallback(async () => {
-    if (!node || !originalSnapshot) return;
+    if (!node || !originalSnapshot || !originalLinkEdits) return;
     setSuggestSubmitting(true);
     try {
-      const proposed = snapshotFromForm(suggestForm);
-      const diff = computeDiff(originalSnapshot, proposed);
+      const proposedNode = snapshotFromForm(suggestForm);
+      const diff = computeDiff(originalSnapshot, proposedNode);
+      const linkDiff = computeLinkSuggestionDiff(
+        originalLinkEdits,
+        suggestLinkEdits
+      );
+      const removedLinkIds = computeRemovedLinkIds(
+        originalLinkEdits,
+        suggestLinkEdits
+      );
+
+      const proposedAddLinks = pendingAddLinks.map((p) => ({
+        source_id: p.section === 'ledTo' ? node.id : p.peerId,
+        target_id: p.section === 'ledTo' ? p.peerId : node.id,
+        relation_type: p.relation_type,
+        section: p.section,
+      }));
+
+      const linkContext: Record<string, SuggestLinkContextEntry> = {};
+      for (const { link, product } of getUsagesOfNode(node.id)) {
+        linkContext[link.id] = {
+          peerId: product.id,
+          peerName: pickNodeDisplayName(
+            locale,
+            product.name,
+            detailsById[product.id]?.name_en
+          ),
+          section: 'ledTo',
+        };
+      }
+      for (const link of getRecipeForNode(node.id)) {
+        const input = getNodeById(link.source_id);
+        if (!input) continue;
+        linkContext[link.id] = {
+          peerId: input.id,
+          peerName: pickNodeDisplayName(
+            locale,
+            input.name,
+            detailsById[input.id]?.name_en
+          ),
+          section: 'builtUpon',
+        };
+      }
+
+      const proposed = {
+        ...proposedNode,
+        linkEdits: suggestLinkEdits,
+      };
+      const originalPayload = {
+        ...originalSnapshot,
+        linkEdits: originalLinkEdits,
+      };
+
       const res = await fetch('/api/suggestions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -238,9 +381,13 @@ export function NodeDetailSidebar() {
           suggestion_type: 'edit_node',
           node_id: node.id,
           data: {
-            original: originalSnapshot,
+            original: originalPayload,
             proposed,
             diff,
+            linkDiff,
+            linkContext,
+            removedLinkIds,
+            proposedAddLinks,
           },
         }),
       });
@@ -254,16 +401,27 @@ export function NodeDetailSidebar() {
       pushToast(tAuth('suggestionSent'), 'success');
       setSuggestMode(false);
       setOriginalSnapshot(null);
+      setOriginalLinkEdits(null);
+      setSuggestLinkEdits({});
+      setPendingAddLinks([]);
     } finally {
       setSuggestSubmitting(false);
     }
   }, [
     node,
     originalSnapshot,
+    originalLinkEdits,
     suggestForm,
+    suggestLinkEdits,
     snapshotFromForm,
     pushToast,
     tAuth,
+    getUsagesOfNode,
+    getRecipeForNode,
+    getNodeById,
+    locale,
+    detailsById,
+    pendingAddLinks,
   ]);
 
   const saveEdit = useCallback(async () => {
@@ -304,7 +462,6 @@ export function NodeDetailSidebar() {
     [node, getUsagesOfNode]
   );
 
-  const detailsById = useNodeDetailsStore((s) => s.byId);
   const patchDetail = useNodeDetailsStore((s) => s.patchDetail);
   const mergeDetail = useNodeDetailsStore((s) => s.mergeDetail);
   const getNodeDetails = useGraphStore((s) => s.getNodeDetails);
@@ -343,6 +500,164 @@ export function NodeDetailSidebar() {
   }, [selectedNodeId]);
 
   const detail = node ? detailsById[node.id] : undefined;
+
+  const peerSearchBlobMap = useMemo(
+    () => buildPeerSearchBlobMap(graphNodes, detailsById),
+    [graphNodes, detailsById]
+  );
+
+  const suggestLedToRows = useMemo(() => {
+    if (!node || !suggestMode) return [];
+    const base = getUsagesOfNode(node.id)
+      .map(({ link, product }) => {
+        const v = suggestLinkEdits[link.id];
+        if (!v) return null;
+        const peerId = product.id;
+        return {
+          linkId: link.id,
+          peerId,
+          peerLabel: pickNodeDisplayName(
+            locale,
+            product.name,
+            detailsById[product.id]?.name_en
+          ),
+          peerCategory: product.category as NodeCategory,
+          value: v,
+        };
+      })
+      .filter(
+        (
+          x
+        ): x is {
+          linkId: string;
+          peerId: string;
+          peerLabel: string;
+          peerCategory: NodeCategory;
+          value: SuggestLinkSnapshot;
+        } => x !== null
+      );
+    const pendingRows = pendingAddLinks
+      .filter((p) => p.section === 'ledTo')
+      .map((p) => {
+        const peer = getNodeById(p.peerId);
+        if (!peer) return null;
+        const value: SuggestLinkSnapshot = {
+          id: p.tempId,
+          relation_type: p.relation_type,
+          notes: '',
+          is_optional: false,
+        };
+        return {
+          linkId: p.tempId,
+          peerId: p.peerId,
+          peerLabel: pickNodeDisplayName(
+            locale,
+            peer.name,
+            detailsById[peer.id]?.name_en
+          ),
+          peerCategory: peer.category as NodeCategory,
+          value,
+        };
+      })
+      .filter(
+        (
+          x
+        ): x is {
+          linkId: string;
+          peerId: string;
+          peerLabel: string;
+          peerCategory: NodeCategory;
+          value: SuggestLinkSnapshot;
+        } => x !== null
+      );
+    return [...base, ...pendingRows];
+  }, [
+    node,
+    suggestMode,
+    getUsagesOfNode,
+    getNodeById,
+    suggestLinkEdits,
+    pendingAddLinks,
+    locale,
+    detailsById,
+  ]);
+
+  const suggestRecipeRows = useMemo(() => {
+    if (!node || !suggestMode) return [];
+    const base = getRecipeForNode(node.id)
+      .map((link) => {
+        const input = getNodeById(link.source_id);
+        const v = suggestLinkEdits[link.id];
+        if (!input || !v) return null;
+        const peerId = input.id;
+        return {
+          linkId: link.id,
+          peerId,
+          peerLabel: pickNodeDisplayName(
+            locale,
+            input.name,
+            detailsById[input.id]?.name_en
+          ),
+          peerCategory: input.category as NodeCategory,
+          value: v,
+        };
+      })
+      .filter(
+        (
+          x
+        ): x is {
+          linkId: string;
+          peerId: string;
+          peerLabel: string;
+          peerCategory: NodeCategory;
+          value: SuggestLinkSnapshot;
+        } => x !== null
+      );
+    const pendingRows = pendingAddLinks
+      .filter((p) => p.section === 'builtUpon')
+      .map((p) => {
+        const peer = getNodeById(p.peerId);
+        if (!peer) return null;
+        const value: SuggestLinkSnapshot = {
+          id: p.tempId,
+          relation_type: p.relation_type,
+          notes: '',
+          is_optional: false,
+        };
+        return {
+          linkId: p.tempId,
+          peerId: p.peerId,
+          peerLabel: pickNodeDisplayName(
+            locale,
+            peer.name,
+            detailsById[peer.id]?.name_en
+          ),
+          peerCategory: peer.category as NodeCategory,
+          value,
+        };
+      })
+      .filter(
+        (
+          x
+        ): x is {
+          linkId: string;
+          peerId: string;
+          peerLabel: string;
+          peerCategory: NodeCategory;
+          value: SuggestLinkSnapshot;
+        } => x !== null
+      );
+    return [...base, ...pendingRows];
+  }, [
+    node,
+    suggestMode,
+    getRecipeForNode,
+    getNodeById,
+    suggestLinkEdits,
+    pendingAddLinks,
+    locale,
+    detailsById,
+  ]);
 
   const sidebarDescription = useMemo(() => {
     if (!detail) return '—';
@@ -482,6 +797,41 @@ export function NodeDetailSidebar() {
                 </motion.div>
                 <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-4 pt-4">
                   <SuggestionNodeForm form={suggestForm} setForm={setSuggestForm} />
+                  {!user ? (
+                    <p className="mt-3 text-[11px] leading-snug text-amber-200/80">
+                      {tAuth('suggestAnonymousNotice')}
+                    </p>
+                  ) : null}
+                  <SuggestLinkSection
+                    sectionTitle={tExplore('ledTo')}
+                    count={suggestLedToRows.length}
+                    open={suggestLedToOpen}
+                    onToggleOpen={() => setSuggestLedToOpen((v) => !v)}
+                    emptyLabel={tExplore('noDownstream')}
+                    currentNodeId={node.id}
+                    locale={locale}
+                    graphNodes={graphNodes}
+                    peerSearchBlobMap={peerSearchBlobMap}
+                    detailsById={detailsById}
+                    existingRows={suggestLedToRows}
+                    onRemove={onSuggestLinkRemove}
+                    onAddPeer={(peerId) => addPendingPeer('ledTo', peerId)}
+                  />
+                  <SuggestLinkSection
+                    sectionTitle={tExplore('builtUpon')}
+                    count={suggestRecipeRows.length}
+                    open={suggestBuiltUponOpen}
+                    onToggleOpen={() => setSuggestBuiltUponOpen((v) => !v)}
+                    emptyLabel={tExplore('noUpstream')}
+                    currentNodeId={node.id}
+                    locale={locale}
+                    graphNodes={graphNodes}
+                    peerSearchBlobMap={peerSearchBlobMap}
+                    detailsById={detailsById}
+                    existingRows={suggestRecipeRows}
+                    onRemove={onSuggestLinkRemove}
+                    onAddPeer={(peerId) => addPendingPeer('builtUpon', peerId)}
+                  />
                   <div className="mt-6 flex flex-col gap-2">
                     <button
                       type="button"
@@ -885,7 +1235,6 @@ function LedToRow({
         </button>
         <p className="mt-0.5 text-xs text-muted-foreground">
           {relLabel}
-          {link.quantity_hint ? ` · ${link.quantity_hint}` : ''}
           {link.is_optional ? ` · ${tEx('optional')}` : ''}
         </p>
         {link.notes ? (
@@ -947,7 +1296,6 @@ function RecipeRow({
         )}
         <p className="mt-0.5 text-xs text-muted-foreground">
           {relLabel}
-          {link.quantity_hint ? ` · ${link.quantity_hint}` : ''}
           {link.is_optional ? ` · ${tEx('optional')}` : ''}
         </p>
         {link.notes && (

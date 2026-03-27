@@ -187,8 +187,6 @@
     "yes": "是",
     "no": "否",
     "editLink": "编辑链接",
-    "quantityLabel": "数量",
-    "quantityPlaceholder": "大量、微量、1…",
     "optionalCheckbox": "可选",
     "panelNewInvention": "新发明",
     "panelEditInvention": "编辑",
@@ -224,6 +222,7 @@
     "builtUponSection": "基于",
     "ledToSection": "导向",
     "removeLinkAria": "删除链接",
+    "suggestAddLinkAria": "将此发明加入建议",
     "placeholderInventionSource": "上游发明",
     "placeholderInventionTarget": "下游发明"
   },
@@ -349,9 +348,11 @@
     "newNodeSuggestionSent": "新发明建议已发送！",
     "oauthConfigMissing": "未配置 Supabase。请在 .env.local 中添加 NEXT_PUBLIC_SUPABASE_URL 和 NEXT_PUBLIC_SUPABASE_ANON_KEY。",
     "oauthNoUrl": "无法获取 Google 登录链接。请在 Supabase 中检查 Google 提供方与重定向 URL。",
-    "oauthSignInFailed": "无法启动 Google 登录，请重试。"
+    "oauthSignInFailed": "无法启动 Google 登录，请重试。",
+    "suggestAnonymousNotice": "未登录时，系统会保存您的 IP 地址并供审核人员查看。"
   },
   "profile": {
+    "backToTree": "返回 Tree",
     "loading": "正在加载个人资料…",
     "loadError": "无法加载个人资料。",
     "saveError": "保存失败。",
@@ -408,7 +409,9 @@
     "saveOverride": "保存并批准",
     "overrideHint": "编辑建议字段后批准。",
     "toastApproved": "建议已批准",
-    "toastRejected": "建议已拒绝"
+    "toastRejected": "建议已拒绝",
+    "anonymousContributor": "匿名",
+    "contributorUnknown": "未知贡献者"
   },
   "nav": {
     "mainNav": "主导航",

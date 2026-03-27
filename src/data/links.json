@@ -5,7 +5,6 @@
       "source_id": "sable",
       "target_id": "verre",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -13,7 +12,6 @@
       "source_id": "soude",
       "target_id": "verre",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -43,7 +41,6 @@
       "source_id": "sable",
       "target_id": "silicium",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -51,7 +48,6 @@
       "source_id": "charbon",
       "target_id": "silicium",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false,
       "notes": "Réducteur"
     },
@@ -74,7 +70,6 @@
       "source_id": "acide-gravure",
       "target_id": "wafer-silicium",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false
     },
     {
@@ -103,7 +98,6 @@
       "source_id": "transistor",
       "target_id": "circuit-integre",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -139,7 +133,6 @@
       "source_id": "cuivre",
       "target_id": "circuit-imprime",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -161,7 +154,6 @@
       "source_id": "acide-gravure",
       "target_id": "circuit-imprime",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false
     },
     {
@@ -183,7 +175,6 @@
       "source_id": "cuivre",
       "target_id": "ampoule",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false,
       "notes": "Filament et connexions"
     },
@@ -199,7 +190,6 @@
       "source_id": "minerai-fer",
       "target_id": "fer",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -207,7 +197,6 @@
       "source_id": "charbon",
       "target_id": "fer",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": "Réducteur"
     },
@@ -244,7 +233,6 @@
       "source_id": "charbon",
       "target_id": "acier",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false,
       "notes": "Carbone pour alliage"
     },
@@ -267,7 +255,6 @@
       "source_id": "poutre-acier",
       "target_id": "structure-metallique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -282,7 +269,6 @@
       "source_id": "calcaire",
       "target_id": "ciment",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -290,7 +276,6 @@
       "source_id": "argile",
       "target_id": "ciment",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -312,7 +297,6 @@
       "source_id": "ciment",
       "target_id": "beton",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -320,7 +304,6 @@
       "source_id": "sable",
       "target_id": "beton",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -328,7 +311,6 @@
       "source_id": "eau",
       "target_id": "beton",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -336,7 +318,6 @@
       "source_id": "beton",
       "target_id": "fondations",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -344,7 +325,6 @@
       "source_id": "acier",
       "target_id": "fondations",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": true,
       "notes": "Béton armé"
     },
@@ -353,7 +333,6 @@
       "source_id": "bois",
       "target_id": "pate-papier",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -361,7 +340,6 @@
       "source_id": "eau",
       "target_id": "pate-papier",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -376,7 +354,6 @@
       "source_id": "eau",
       "target_id": "papier",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false,
       "notes": "Séchage"
     },
@@ -385,7 +362,6 @@
       "source_id": "papier",
       "target_id": "livre",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -393,7 +369,6 @@
       "source_id": "encre",
       "target_id": "livre",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -408,7 +383,6 @@
       "source_id": "bois",
       "target_id": "presse-imprimer",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -416,7 +390,6 @@
       "source_id": "fer",
       "target_id": "presse-imprimer",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -438,7 +411,6 @@
       "source_id": "resine-epoxy",
       "target_id": "cable-electrique",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": true,
       "notes": "Isolation"
     },
@@ -475,7 +447,6 @@
       "source_id": "cable-electrique",
       "target_id": "telegraphe",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -497,7 +468,6 @@
       "source_id": "cable-electrique",
       "target_id": "telephone",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -519,7 +489,6 @@
       "source_id": "circuit-integre",
       "target_id": "serveur-informatique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -527,7 +496,6 @@
       "source_id": "cable-electrique",
       "target_id": "serveur-informatique",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -535,7 +503,6 @@
       "source_id": "fibre-optique",
       "target_id": "serveur-informatique",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -550,7 +517,6 @@
       "source_id": "serveur-informatique",
       "target_id": "internet",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -558,7 +524,6 @@
       "source_id": "fibre-optique",
       "target_id": "internet",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -566,7 +531,6 @@
       "source_id": "cable-electrique",
       "target_id": "internet",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -574,7 +538,6 @@
       "source_id": "plantes-medicinales",
       "target_id": "extraits-vegetaux",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -582,7 +545,6 @@
       "source_id": "eau",
       "target_id": "extraits-vegetaux",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -605,7 +567,6 @@
       "source_id": "petrole",
       "target_id": "chimie-organique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -634,7 +595,6 @@
       "source_id": "principes-actifs",
       "target_id": "medicaments",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false
     },
     {
@@ -642,7 +602,6 @@
       "source_id": "gelules",
       "target_id": "medicaments",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": true,
       "notes": "Enrobage des comprimés"
     },
@@ -651,7 +610,6 @@
       "source_id": "polymeres",
       "target_id": "medicaments",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": true,
       "notes": "Excipients"
     },
@@ -660,7 +618,6 @@
       "source_id": "ble",
       "target_id": "pain",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -668,7 +625,6 @@
       "source_id": "eau",
       "target_id": "pain",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -676,7 +632,6 @@
       "source_id": "levure",
       "target_id": "pain",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false
     },
     {
@@ -698,7 +653,6 @@
       "source_id": "lait",
       "target_id": "fromage",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -706,7 +660,6 @@
       "source_id": "presure",
       "target_id": "fromage",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false
     },
     {
@@ -714,7 +667,6 @@
       "source_id": "sel",
       "target_id": "fromage",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false
     },
     {
@@ -722,7 +674,6 @@
       "source_id": "raisin",
       "target_id": "vin",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -730,7 +681,6 @@
       "source_id": "levure",
       "target_id": "vin",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": false
     },
     {
@@ -745,7 +695,6 @@
       "source_id": "bois",
       "target_id": "tonneau",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -753,7 +702,6 @@
       "source_id": "air",
       "target_id": "feu",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": "Oxygène pour la combustion"
     },
@@ -783,7 +731,6 @@
       "source_id": "calcaire",
       "target_id": "soude",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -791,7 +738,6 @@
       "source_id": "sel",
       "target_id": "soude",
       "relation_type": "material",
-      "quantity_hint": "1",
       "is_optional": false
     },
     {
@@ -806,7 +752,6 @@
       "source_id": "circuit-imprime",
       "target_id": "serveur-informatique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -814,7 +759,6 @@
       "source_id": "microprocesseur",
       "target_id": "serveur-informatique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -829,7 +773,6 @@
       "source_id": "verre",
       "target_id": "photolithographie",
       "relation_type": "material",
-      "quantity_hint": "trace",
       "is_optional": true,
       "notes": "Masques optiques"
     },
@@ -838,7 +781,6 @@
       "source_id": "eau",
       "target_id": "acide-gravure",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false
     },
     {
@@ -2143,7 +2085,6 @@
       "source_id": "eau",
       "target_id": "minerai-de-cuivre",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2160,7 +2101,6 @@
       "source_id": "cuivre",
       "target_id": "bronze",
       "relation_type": "material",
-      "quantity_hint": "beaucoup (90%)",
       "is_optional": false,
       "notes": null
     },
@@ -2169,7 +2109,6 @@
       "source_id": "four-haute-temp",
       "target_id": "bronze",
       "relation_type": "tool",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -2178,7 +2117,6 @@
       "source_id": "feu",
       "target_id": "bronze",
       "relation_type": "energy",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2187,7 +2125,6 @@
       "source_id": "charbon-de-bois",
       "target_id": "bronze",
       "relation_type": "energy",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2196,7 +2133,6 @@
       "source_id": "argile",
       "target_id": "brique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2205,7 +2141,6 @@
       "source_id": "eau",
       "target_id": "brique",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -2214,7 +2149,6 @@
       "source_id": "sable",
       "target_id": "brique",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -2223,7 +2157,6 @@
       "source_id": "four",
       "target_id": "brique",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -2232,7 +2165,6 @@
       "source_id": "feu",
       "target_id": "brique",
       "relation_type": "energy",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -2249,7 +2181,6 @@
       "source_id": "charbon",
       "target_id": "titane",
       "relation_type": "material",
-      "quantity_hint": "modérément",
       "is_optional": false,
       "notes": null
     },
@@ -2266,7 +2197,6 @@
       "source_id": "electricite",
       "target_id": "titane",
       "relation_type": "energy",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2275,7 +2205,6 @@
       "source_id": "uranium",
       "target_id": "energie-nucleaire",
       "relation_type": "material",
-      "quantity_hint": "combustible principal",
       "is_optional": false,
       "notes": null
     },
@@ -2284,7 +2213,6 @@
       "source_id": "reacteur-nucleaire",
       "target_id": "energie-nucleaire",
       "relation_type": "tool",
-      "quantity_hint": "installation",
       "is_optional": false,
       "notes": null
     },
@@ -2293,7 +2221,6 @@
       "source_id": "eau-lourde",
       "target_id": "energie-nucleaire",
       "relation_type": "material",
-      "quantity_hint": "modérateur",
       "is_optional": false,
       "notes": null
     },
@@ -2302,7 +2229,6 @@
       "source_id": "four-haute-temp",
       "target_id": "energie-nucleaire",
       "relation_type": "tool",
-      "quantity_hint": "traitement combustible",
       "is_optional": false,
       "notes": null
     },
@@ -2311,7 +2237,6 @@
       "source_id": "turbine-vapeur",
       "target_id": "energie-nucleaire",
       "relation_type": "tool",
-      "quantity_hint": "conversion énergie",
       "is_optional": false,
       "notes": null
     },
@@ -2328,7 +2253,6 @@
       "source_id": "silicium",
       "target_id": "energie-solaire",
       "relation_type": "material",
-      "quantity_hint": "principale",
       "is_optional": false,
       "notes": null
     },
@@ -2337,7 +2261,6 @@
       "source_id": "verre",
       "target_id": "energie-solaire",
       "relation_type": "material",
-      "quantity_hint": "protection",
       "is_optional": false,
       "notes": null
     },
@@ -2346,7 +2269,6 @@
       "source_id": "aluminium",
       "target_id": "energie-solaire",
       "relation_type": "material",
-      "quantity_hint": "cadre",
       "is_optional": false,
       "notes": null
     },
@@ -2355,7 +2277,6 @@
       "source_id": "cuivre",
       "target_id": "energie-solaire",
       "relation_type": "material",
-      "quantity_hint": "connexions",
       "is_optional": false,
       "notes": null
     },
@@ -2364,7 +2285,6 @@
       "source_id": "electricite",
       "target_id": "energie-solaire",
       "relation_type": "knowledge",
-      "quantity_hint": "concepts",
       "is_optional": false,
       "notes": null
     },
@@ -2389,7 +2309,6 @@
       "source_id": "feu",
       "target_id": "forge",
       "relation_type": "energy",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2398,7 +2317,6 @@
       "source_id": "charbon-de-bois",
       "target_id": "forge",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2407,7 +2325,6 @@
       "source_id": "fer",
       "target_id": "forge",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2416,7 +2333,6 @@
       "source_id": "pierre",
       "target_id": "marteau",
       "relation_type": "material",
-      "quantity_hint": "modérément",
       "is_optional": false,
       "notes": null
     },
@@ -2425,7 +2341,6 @@
       "source_id": "bois",
       "target_id": "marteau",
       "relation_type": "material",
-      "quantity_hint": "modérément",
       "is_optional": false,
       "notes": null
     },
@@ -2442,7 +2357,6 @@
       "source_id": "bronze",
       "target_id": "clou",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -2451,7 +2365,6 @@
       "source_id": "fer",
       "target_id": "clou",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2460,7 +2373,6 @@
       "source_id": "forge",
       "target_id": "clou",
       "relation_type": "tool",
-      "quantity_hint": "une",
       "is_optional": false,
       "notes": null
     },
@@ -2469,7 +2381,6 @@
       "source_id": "marteau",
       "target_id": "clou",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -2500,7 +2411,6 @@
       "source_id": "fer",
       "target_id": "vis",
       "relation_type": "material",
-      "quantity_hint": "principal",
       "is_optional": false,
       "notes": null
     },
@@ -2509,7 +2419,6 @@
       "source_id": "acier",
       "target_id": "vis",
       "relation_type": "material",
-      "quantity_hint": "principal",
       "is_optional": false,
       "notes": null
     },
@@ -2518,7 +2427,6 @@
       "source_id": "forge",
       "target_id": "vis",
       "relation_type": "tool",
-      "quantity_hint": "une",
       "is_optional": false,
       "notes": null
     },
@@ -2527,7 +2435,6 @@
       "source_id": "marteau",
       "target_id": "vis",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -2536,7 +2443,6 @@
       "source_id": "fer",
       "target_id": "tour",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2545,7 +2451,6 @@
       "source_id": "acier",
       "target_id": "tour",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -2594,7 +2499,6 @@
       "source_id": "argile",
       "target_id": "moule",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2603,7 +2507,6 @@
       "source_id": "feu",
       "target_id": "moule",
       "relation_type": "energy",
-      "quantity_hint": "pour cuisson",
       "is_optional": false,
       "notes": null
     },
@@ -2612,7 +2515,6 @@
       "source_id": "sable",
       "target_id": "moule",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2621,7 +2523,6 @@
       "source_id": "pierre",
       "target_id": "moule",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -2678,7 +2579,6 @@
       "source_id": "fer",
       "target_id": "presse-hydraulique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2687,7 +2587,6 @@
       "source_id": "acier",
       "target_id": "presse-hydraulique",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -2696,7 +2595,6 @@
       "source_id": "eau",
       "target_id": "presse-hydraulique",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -2705,7 +2603,6 @@
       "source_id": "fer",
       "target_id": "scie",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -2714,7 +2611,6 @@
       "source_id": "acier",
       "target_id": "scie",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -2763,7 +2659,6 @@
       "source_id": "pierre",
       "target_id": "hache",
       "relation_type": "material",
-      "quantity_hint": "une lame",
       "is_optional": false,
       "notes": null
     },
@@ -2772,7 +2667,6 @@
       "source_id": "bois",
       "target_id": "hache",
       "relation_type": "material",
-      "quantity_hint": "un manche",
       "is_optional": false,
       "notes": null
     },
@@ -2781,7 +2675,6 @@
       "source_id": "feu",
       "target_id": "fonderie",
       "relation_type": "energy",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2790,7 +2683,6 @@
       "source_id": "four",
       "target_id": "fonderie",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -2799,7 +2691,6 @@
       "source_id": "cuivre",
       "target_id": "fonderie",
       "relation_type": "material",
-      "quantity_hint": "variable",
       "is_optional": false,
       "notes": null
     },
@@ -2808,7 +2699,6 @@
       "source_id": "bronze",
       "target_id": "fonderie",
       "relation_type": "material",
-      "quantity_hint": "variable",
       "is_optional": false,
       "notes": null
     },
@@ -2817,7 +2707,6 @@
       "source_id": "fer",
       "target_id": "fonderie",
       "relation_type": "material",
-      "quantity_hint": "variable",
       "is_optional": false,
       "notes": null
     },
@@ -2826,7 +2715,6 @@
       "source_id": "charbon-de-bois",
       "target_id": "fonderie",
       "relation_type": "energy",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2835,7 +2723,6 @@
       "source_id": "sable",
       "target_id": "fonderie",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2844,7 +2731,6 @@
       "source_id": "argile",
       "target_id": "fonderie",
       "relation_type": "material",
-      "quantity_hint": "variable",
       "is_optional": false,
       "notes": null
     },
@@ -2901,7 +2787,6 @@
       "source_id": "feu",
       "target_id": "distillation",
       "relation_type": "energy",
-      "quantity_hint": "nécessaire",
       "is_optional": false,
       "notes": null
     },
@@ -2910,7 +2795,6 @@
       "source_id": "eau",
       "target_id": "distillation",
       "relation_type": "material",
-      "quantity_hint": "pour refroidissement",
       "is_optional": false,
       "notes": null
     },
@@ -2919,7 +2803,6 @@
       "source_id": "four",
       "target_id": "distillation",
       "relation_type": "tool",
-      "quantity_hint": "source de chaleur",
       "is_optional": false,
       "notes": null
     },
@@ -2928,7 +2811,6 @@
       "source_id": "cuivre",
       "target_id": "distillation",
       "relation_type": "material",
-      "quantity_hint": "pour alambics",
       "is_optional": false,
       "notes": null
     },
@@ -2953,7 +2835,6 @@
       "source_id": "levure",
       "target_id": "fermentation",
       "relation_type": "catalyst",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -2962,7 +2843,6 @@
       "source_id": "sucre",
       "target_id": "fermentation",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2971,7 +2851,6 @@
       "source_id": "eau",
       "target_id": "fermentation",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2980,7 +2859,6 @@
       "source_id": "raisin",
       "target_id": "fermentation",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -2989,7 +2867,6 @@
       "source_id": "ble",
       "target_id": "fermentation",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -3030,7 +2907,6 @@
       "source_id": "feu",
       "target_id": "soudure",
       "relation_type": "energy",
-      "quantity_hint": "nécessaire",
       "is_optional": false,
       "notes": null
     },
@@ -3039,7 +2915,6 @@
       "source_id": "fer",
       "target_id": "soudure",
       "relation_type": "material",
-      "quantity_hint": "principal",
       "is_optional": false,
       "notes": null
     },
@@ -3048,7 +2923,6 @@
       "source_id": "bronze",
       "target_id": "soudure",
       "relation_type": "material",
-      "quantity_hint": "principal",
       "is_optional": false,
       "notes": null
     },
@@ -3057,7 +2931,6 @@
       "source_id": "forge",
       "target_id": "soudure",
       "relation_type": "tool",
-      "quantity_hint": "nécessaire",
       "is_optional": false,
       "notes": null
     },
@@ -3066,7 +2939,6 @@
       "source_id": "marteau",
       "target_id": "soudure",
       "relation_type": "tool",
-      "quantity_hint": "nécessaire",
       "is_optional": false,
       "notes": null
     },
@@ -3083,7 +2955,6 @@
       "source_id": "eau",
       "target_id": "electrolyse",
       "relation_type": "material",
-      "quantity_hint": "principale",
       "is_optional": false,
       "notes": null
     },
@@ -3092,7 +2963,6 @@
       "source_id": "electricite",
       "target_id": "electrolyse",
       "relation_type": "energy",
-      "quantity_hint": "nécessaire",
       "is_optional": false,
       "notes": null
     },
@@ -3101,7 +2971,6 @@
       "source_id": "sel",
       "target_id": "electrolyse",
       "relation_type": "catalyst",
-      "quantity_hint": "pour électrolyte",
       "is_optional": false,
       "notes": null
     },
@@ -3110,7 +2979,6 @@
       "source_id": "cuivre",
       "target_id": "electrolyse",
       "relation_type": "material",
-      "quantity_hint": "pour électrodes",
       "is_optional": false,
       "notes": null
     },
@@ -3135,7 +3003,6 @@
       "source_id": "bois",
       "target_id": "ressort",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -3144,7 +3011,6 @@
       "source_id": "acier",
       "target_id": "ressort",
       "relation_type": "material",
-      "quantity_hint": "moyen",
       "is_optional": false,
       "notes": null
     },
@@ -3153,7 +3019,6 @@
       "source_id": "cuivre",
       "target_id": "ressort",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -3170,7 +3035,6 @@
       "source_id": "acier",
       "target_id": "boulon",
       "relation_type": "material",
-      "quantity_hint": "principal",
       "is_optional": false,
       "notes": null
     },
@@ -3179,7 +3043,6 @@
       "source_id": "vis",
       "target_id": "boulon",
       "relation_type": "knowledge",
-      "quantity_hint": "technique",
       "is_optional": false,
       "notes": null
     },
@@ -3188,7 +3051,6 @@
       "source_id": "forge",
       "target_id": "boulon",
       "relation_type": "tool",
-      "quantity_hint": "pour fabrication",
       "is_optional": false,
       "notes": null
     },
@@ -3197,7 +3059,6 @@
       "source_id": "tour",
       "target_id": "boulon",
       "relation_type": "tool",
-      "quantity_hint": "pour usinage",
       "is_optional": false,
       "notes": null
     },
@@ -3214,7 +3075,6 @@
       "source_id": "bois",
       "target_id": "poulie",
       "relation_type": "material",
-      "quantity_hint": "moyen",
       "is_optional": false,
       "notes": null
     },
@@ -3223,7 +3083,6 @@
       "source_id": "bronze",
       "target_id": "poulie",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -3232,7 +3091,6 @@
       "source_id": "fer",
       "target_id": "poulie",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -3249,7 +3107,6 @@
       "source_id": "electricite",
       "target_id": "moteur-electrique",
       "relation_type": "energy",
-      "quantity_hint": "source d'énergie",
       "is_optional": false,
       "notes": null
     },
@@ -3258,7 +3115,6 @@
       "source_id": "fer",
       "target_id": "moteur-electrique",
       "relation_type": "material",
-      "quantity_hint": "noyaux magnétiques",
       "is_optional": false,
       "notes": null
     },
@@ -3267,7 +3123,6 @@
       "source_id": "fil-cuivre",
       "target_id": "moteur-electrique",
       "relation_type": "material",
-      "quantity_hint": "bobinages",
       "is_optional": false,
       "notes": null
     },
@@ -3276,7 +3131,6 @@
       "source_id": "acier",
       "target_id": "moteur-electrique",
       "relation_type": "material",
-      "quantity_hint": "structure",
       "is_optional": false,
       "notes": null
     },
@@ -3285,7 +3139,6 @@
       "source_id": "bronze",
       "target_id": "pompe",
       "relation_type": "material",
-      "quantity_hint": "pour les cylindres",
       "is_optional": false,
       "notes": null
     },
@@ -3294,7 +3147,6 @@
       "source_id": "eau",
       "target_id": "pompe",
       "relation_type": "material",
-      "quantity_hint": "fluide pompé",
       "is_optional": false,
       "notes": null
     },
@@ -3303,7 +3155,6 @@
       "source_id": "cuivre",
       "target_id": "pompe",
       "relation_type": "material",
-      "quantity_hint": "pour les tuyaux",
       "is_optional": false,
       "notes": null
     },
@@ -3312,7 +3163,6 @@
       "source_id": "bois",
       "target_id": "pompe",
       "relation_type": "material",
-      "quantity_hint": "pour mécanismes",
       "is_optional": false,
       "notes": null
     },
@@ -3321,7 +3171,6 @@
       "source_id": "acier",
       "target_id": "velo",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -3330,7 +3179,6 @@
       "source_id": "roue",
       "target_id": "velo",
       "relation_type": "component",
-      "quantity_hint": "deux",
       "is_optional": false,
       "notes": null
     },
@@ -3339,7 +3187,6 @@
       "source_id": "caoutchouc",
       "target_id": "velo",
       "relation_type": "material",
-      "quantity_hint": "moyen",
       "is_optional": false,
       "notes": null
     },
@@ -3372,7 +3219,6 @@
       "source_id": "acier",
       "target_id": "gratte-ciel",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -3381,7 +3227,6 @@
       "source_id": "beton-arme",
       "target_id": "gratte-ciel",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -3390,7 +3235,6 @@
       "source_id": "verre",
       "target_id": "gratte-ciel",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -3399,7 +3243,6 @@
       "source_id": "electricite",
       "target_id": "gratte-ciel",
       "relation_type": "energy",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -3408,7 +3251,6 @@
       "source_id": "fondations",
       "target_id": "gratte-ciel",
       "relation_type": "knowledge",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -3417,7 +3259,6 @@
       "source_id": "structure-metallique",
       "target_id": "gratte-ciel",
       "relation_type": "knowledge",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -3426,7 +3267,6 @@
       "source_id": "pierre",
       "target_id": "barrage",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -3435,7 +3275,6 @@
       "source_id": "beton",
       "target_id": "barrage",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -3444,7 +3283,6 @@
       "source_id": "ciment",
       "target_id": "barrage",
       "relation_type": "material",
-      "quantity_hint": "moyennement",
       "is_optional": false,
       "notes": null
     },
@@ -3453,7 +3291,6 @@
       "source_id": "argile",
       "target_id": "barrage",
       "relation_type": "material",
-      "quantity_hint": "moyennement",
       "is_optional": false,
       "notes": null
     },
@@ -3462,7 +3299,6 @@
       "source_id": "taille-pierre",
       "target_id": "barrage",
       "relation_type": "knowledge",
-      "quantity_hint": "technique",
       "is_optional": false,
       "notes": null
     },
@@ -3471,7 +3307,6 @@
       "source_id": "ver-a-soie",
       "target_id": "soie",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -3480,7 +3315,6 @@
       "source_id": "mulberry",
       "target_id": "soie",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -3489,7 +3323,6 @@
       "source_id": "eau",
       "target_id": "soie",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -3498,7 +3331,6 @@
       "source_id": "feu",
       "target_id": "soie",
       "relation_type": "energy",
-      "quantity_hint": "moyennement",
       "is_optional": false,
       "notes": null
     },
@@ -3507,7 +3339,6 @@
       "source_id": "four",
       "target_id": "soie",
       "relation_type": "tool",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -3516,7 +3347,6 @@
       "source_id": "filature",
       "target_id": "soie",
       "relation_type": "process",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -3549,7 +3379,6 @@
       "source_id": "bois",
       "target_id": "presse",
       "relation_type": "material",
-      "quantity_hint": "structure",
       "is_optional": false,
       "notes": null
     },
@@ -3558,7 +3387,6 @@
       "source_id": "acier",
       "target_id": "presse",
       "relation_type": "material",
-      "quantity_hint": "mécanisme",
       "is_optional": false,
       "notes": null
     },
@@ -3567,7 +3395,6 @@
       "source_id": "vis",
       "target_id": "presse",
       "relation_type": "component",
-      "quantity_hint": "système",
       "is_optional": false,
       "notes": null
     },
@@ -3616,7 +3443,6 @@
       "source_id": "acier",
       "target_id": "galvanisation",
       "relation_type": "material",
-      "quantity_hint": "pièces",
       "is_optional": false,
       "notes": null
     },
@@ -3625,7 +3451,6 @@
       "source_id": "four-haute-temp",
       "target_id": "galvanisation",
       "relation_type": "tool",
-      "quantity_hint": "chauffage",
       "is_optional": false,
       "notes": null
     },
@@ -3634,7 +3459,6 @@
       "source_id": "soude",
       "target_id": "galvanisation",
       "relation_type": "material",
-      "quantity_hint": "nettoyage",
       "is_optional": false,
       "notes": null
     },
@@ -3643,7 +3467,6 @@
       "source_id": "electricite",
       "target_id": "galvanisation",
       "relation_type": "energy",
-      "quantity_hint": "électrozingage",
       "is_optional": false,
       "notes": null
     },
@@ -3652,7 +3475,6 @@
       "source_id": "four",
       "target_id": "pasteurisation",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -3661,7 +3483,6 @@
       "source_id": "eau",
       "target_id": "pasteurisation",
       "relation_type": "material",
-      "quantity_hint": "pour refroidissement",
       "is_optional": false,
       "notes": null
     },
@@ -3670,7 +3491,6 @@
       "source_id": "feu",
       "target_id": "pasteurisation",
       "relation_type": "energy",
-      "quantity_hint": "pour chauffage",
       "is_optional": false,
       "notes": null
     },
@@ -3679,7 +3499,6 @@
       "source_id": "vin",
       "target_id": "pasteurisation",
       "relation_type": "material",
-      "quantity_hint": "produit d'origine",
       "is_optional": false,
       "notes": null
     },
@@ -3688,7 +3507,6 @@
       "source_id": "lait",
       "target_id": "pasteurisation",
       "relation_type": "material",
-      "quantity_hint": "application principale",
       "is_optional": false,
       "notes": null
     },
@@ -3697,7 +3515,6 @@
       "source_id": "fermentation",
       "target_id": "pasteurisation",
       "relation_type": "knowledge",
-      "quantity_hint": "compréhension",
       "is_optional": false,
       "notes": null
     },
@@ -3706,7 +3523,6 @@
       "source_id": "caoutchouc",
       "target_id": "vulcanisation",
       "relation_type": "material",
-      "quantity_hint": "principal",
       "is_optional": false,
       "notes": null
     },
@@ -3715,7 +3531,6 @@
       "source_id": "soufre",
       "target_id": "vulcanisation",
       "relation_type": "material",
-      "quantity_hint": "faible",
       "is_optional": false,
       "notes": null
     },
@@ -3748,7 +3563,6 @@
       "source_id": "roue",
       "target_id": "engrenage",
       "relation_type": "knowledge",
-      "quantity_hint": "concept de base",
       "is_optional": false,
       "notes": null
     },
@@ -3757,7 +3571,6 @@
       "source_id": "bronze",
       "target_id": "engrenage",
       "relation_type": "material",
-      "quantity_hint": "pour les premières roues dentées",
       "is_optional": false,
       "notes": null
     },
@@ -3766,7 +3579,6 @@
       "source_id": "bois",
       "target_id": "engrenage",
       "relation_type": "material",
-      "quantity_hint": "pour les engrenages médiévaux",
       "is_optional": false,
       "notes": null
     },
@@ -3775,7 +3587,6 @@
       "source_id": "fer",
       "target_id": "engrenage",
       "relation_type": "material",
-      "quantity_hint": "pour les engrenages plus résistants",
       "is_optional": false,
       "notes": null
     },
@@ -3784,7 +3595,6 @@
       "source_id": "tour",
       "target_id": "engrenage",
       "relation_type": "tool",
-      "quantity_hint": "pour tailler les dents",
       "is_optional": false,
       "notes": null
     },
@@ -3793,7 +3603,6 @@
       "source_id": "acier",
       "target_id": "roulement-a-billes",
       "relation_type": "material",
-      "quantity_hint": "pour les bagues et billes",
       "is_optional": false,
       "notes": null
     },
@@ -3802,7 +3611,6 @@
       "source_id": "forge",
       "target_id": "roulement-a-billes",
       "relation_type": "tool",
-      "quantity_hint": "forgeage des billes",
       "is_optional": false,
       "notes": null
     },
@@ -3811,7 +3619,6 @@
       "source_id": "tour",
       "target_id": "roulement-a-billes",
       "relation_type": "tool",
-      "quantity_hint": "usinage des bagues",
       "is_optional": false,
       "notes": null
     },
@@ -3820,7 +3627,6 @@
       "source_id": "four-haute-temp",
       "target_id": "roulement-a-billes",
       "relation_type": "tool",
-      "quantity_hint": "traitement thermique",
       "is_optional": false,
       "notes": null
     },
@@ -3853,7 +3659,6 @@
       "source_id": "bois",
       "target_id": "levier",
       "relation_type": "material",
-      "quantity_hint": "modérée",
       "is_optional": false,
       "notes": null
     },
@@ -3862,7 +3667,6 @@
       "source_id": "pierre",
       "target_id": "levier",
       "relation_type": "material",
-      "quantity_hint": "faible",
       "is_optional": false,
       "notes": null
     },
@@ -3879,7 +3683,6 @@
       "source_id": "eau",
       "target_id": "machine-a-vapeur",
       "relation_type": "material",
-      "quantity_hint": "modérée",
       "is_optional": false,
       "notes": null
     },
@@ -3888,7 +3691,6 @@
       "source_id": "charbon",
       "target_id": "machine-a-vapeur",
       "relation_type": "energy",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -3897,7 +3699,6 @@
       "source_id": "fer",
       "target_id": "machine-a-vapeur",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -3906,7 +3707,6 @@
       "source_id": "cuivre",
       "target_id": "machine-a-vapeur",
       "relation_type": "material",
-      "quantity_hint": "modérée",
       "is_optional": false,
       "notes": null
     },
@@ -3915,7 +3715,6 @@
       "source_id": "four",
       "target_id": "machine-a-vapeur",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -3924,7 +3723,6 @@
       "source_id": "fonderie",
       "target_id": "machine-a-vapeur",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -3949,7 +3747,6 @@
       "source_id": "eau",
       "target_id": "turbine",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -3958,7 +3755,6 @@
       "source_id": "fer",
       "target_id": "turbine",
       "relation_type": "material",
-      "quantity_hint": "moyennement",
       "is_optional": false,
       "notes": null
     },
@@ -3967,7 +3763,6 @@
       "source_id": "fonderie",
       "target_id": "turbine",
       "relation_type": "tool",
-      "quantity_hint": "une",
       "is_optional": false,
       "notes": null
     },
@@ -3976,7 +3771,6 @@
       "source_id": "forge",
       "target_id": "turbine",
       "relation_type": "tool",
-      "quantity_hint": "une",
       "is_optional": false,
       "notes": null
     },
@@ -3985,7 +3779,6 @@
       "source_id": "acier",
       "target_id": "turbine",
       "relation_type": "material",
-      "quantity_hint": "moyennement",
       "is_optional": false,
       "notes": null
     },
@@ -3994,7 +3787,6 @@
       "source_id": "tour",
       "target_id": "turbine",
       "relation_type": "tool",
-      "quantity_hint": "une",
       "is_optional": false,
       "notes": null
     },
@@ -4027,7 +3819,6 @@
       "source_id": "bois",
       "target_id": "bateau-a-voile",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4036,7 +3827,6 @@
       "source_id": "tissu",
       "target_id": "bateau-a-voile",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -4045,7 +3835,6 @@
       "source_id": "air",
       "target_id": "bateau-a-voile",
       "relation_type": "energy",
-      "quantity_hint": "continu",
       "is_optional": false,
       "notes": null
     },
@@ -4062,7 +3851,6 @@
       "source_id": "acier",
       "target_id": "locomotive",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4071,7 +3859,6 @@
       "source_id": "fer",
       "target_id": "locomotive",
       "relation_type": "material",
-      "quantity_hint": "moyen",
       "is_optional": false,
       "notes": null
     },
@@ -4080,7 +3867,6 @@
       "source_id": "cuivre",
       "target_id": "locomotive",
       "relation_type": "material",
-      "quantity_hint": "moyen",
       "is_optional": false,
       "notes": null
     },
@@ -4089,7 +3875,6 @@
       "source_id": "machine-a-vapeur",
       "target_id": "locomotive",
       "relation_type": "knowledge",
-      "quantity_hint": "fondamental",
       "is_optional": false,
       "notes": null
     },
@@ -4098,7 +3883,6 @@
       "source_id": "roue",
       "target_id": "locomotive",
       "relation_type": "component",
-      "quantity_hint": "plusieurs",
       "is_optional": false,
       "notes": null
     },
@@ -4107,7 +3891,6 @@
       "source_id": "charbon",
       "target_id": "locomotive",
       "relation_type": "energy",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4116,7 +3899,6 @@
       "source_id": "four",
       "target_id": "locomotive",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -4125,7 +3907,6 @@
       "source_id": "soudure",
       "target_id": "locomotive",
       "relation_type": "knowledge",
-      "quantity_hint": "technique",
       "is_optional": false,
       "notes": null
     },
@@ -4134,7 +3915,6 @@
       "source_id": "pierre",
       "target_id": "pont",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4143,7 +3923,6 @@
       "source_id": "bois",
       "target_id": "pont",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4152,7 +3931,6 @@
       "source_id": "mortier",
       "target_id": "pont",
       "relation_type": "material",
-      "quantity_hint": "moyen",
       "is_optional": false,
       "notes": null
     },
@@ -4161,7 +3939,6 @@
       "source_id": "acier",
       "target_id": "pont",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4170,7 +3947,6 @@
       "source_id": "beton",
       "target_id": "pont",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4179,7 +3955,6 @@
       "source_id": "beton-arme",
       "target_id": "pont",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4188,7 +3963,6 @@
       "source_id": "pierre-de-taille",
       "target_id": "arche",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4197,7 +3971,6 @@
       "source_id": "brique",
       "target_id": "arche",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4206,7 +3979,6 @@
       "source_id": "mortier",
       "target_id": "arche",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -4231,7 +4003,6 @@
       "source_id": "eau",
       "target_id": "teinture",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4240,7 +4011,6 @@
       "source_id": "four",
       "target_id": "teinture",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -4249,7 +4019,6 @@
       "source_id": "plantes-teinture",
       "target_id": "teinture",
       "relation_type": "material",
-      "quantity_hint": "variable",
       "is_optional": false,
       "notes": null
     },
@@ -4258,7 +4027,6 @@
       "source_id": "mordant",
       "target_id": "teinture",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -4283,7 +4051,6 @@
       "source_id": "fer",
       "target_id": "machine-a-coudre",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4292,7 +4059,6 @@
       "source_id": "engrenage",
       "target_id": "machine-a-coudre",
       "relation_type": "tool",
-      "quantity_hint": "plusieurs",
       "is_optional": false,
       "notes": null
     },
@@ -4301,7 +4067,6 @@
       "source_id": "ressort",
       "target_id": "machine-a-coudre",
       "relation_type": "material",
-      "quantity_hint": "plusieurs",
       "is_optional": false,
       "notes": null
     },
@@ -4310,7 +4075,6 @@
       "source_id": "fil-de-coton",
       "target_id": "machine-a-coudre",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4319,7 +4083,6 @@
       "source_id": "moteur-electrique",
       "target_id": "machine-a-coudre",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -4328,7 +4091,6 @@
       "source_id": "bois",
       "target_id": "stethoscope",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -4337,7 +4099,6 @@
       "source_id": "papier",
       "target_id": "stethoscope",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -4354,7 +4115,6 @@
       "source_id": "electricite",
       "target_id": "rayons-x",
       "relation_type": "energy",
-      "quantity_hint": "haute tension",
       "is_optional": false,
       "notes": null
     },
@@ -4363,7 +4123,6 @@
       "source_id": "verre",
       "target_id": "rayons-x",
       "relation_type": "material",
-      "quantity_hint": "tube",
       "is_optional": false,
       "notes": null
     },
@@ -4372,7 +4131,6 @@
       "source_id": "cuivre",
       "target_id": "rayons-x",
       "relation_type": "material",
-      "quantity_hint": "électrodes",
       "is_optional": false,
       "notes": null
     },
@@ -4381,7 +4139,6 @@
       "source_id": "bois",
       "target_id": "prothese",
       "relation_type": "material",
-      "quantity_hint": "principal",
       "is_optional": false,
       "notes": null
     },
@@ -4390,7 +4147,6 @@
       "source_id": "cuivre",
       "target_id": "prothese",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -4399,7 +4155,6 @@
       "source_id": "fer",
       "target_id": "prothese",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -4408,7 +4163,6 @@
       "source_id": "plastique",
       "target_id": "prothese",
       "relation_type": "material",
-      "quantity_hint": "principal",
       "is_optional": false,
       "notes": null
     },
@@ -4417,7 +4171,6 @@
       "source_id": "acier",
       "target_id": "prothese",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -4426,7 +4179,6 @@
       "source_id": "titane",
       "target_id": "prothese",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -4451,7 +4203,6 @@
       "source_id": "poudre-a-canon",
       "target_id": "fusee",
       "relation_type": "knowledge",
-      "quantity_hint": "principe historique",
       "is_optional": false,
       "notes": null
     },
@@ -4460,7 +4211,6 @@
       "source_id": "aluminium",
       "target_id": "fusee",
       "relation_type": "material",
-      "quantity_hint": "structure principale",
       "is_optional": false,
       "notes": null
     },
@@ -4469,7 +4219,6 @@
       "source_id": "acier",
       "target_id": "fusee",
       "relation_type": "material",
-      "quantity_hint": "moteur et tuyères",
       "is_optional": false,
       "notes": null
     },
@@ -4478,7 +4227,6 @@
       "source_id": "essence",
       "target_id": "fusee",
       "relation_type": "material",
-      "quantity_hint": "ergol liquide",
       "is_optional": false,
       "notes": null
     },
@@ -4487,7 +4235,6 @@
       "source_id": "moteur-explosion",
       "target_id": "fusee",
       "relation_type": "knowledge",
-      "quantity_hint": "principe propulsion",
       "is_optional": false,
       "notes": null
     },
@@ -4496,7 +4243,6 @@
       "source_id": "acier",
       "target_id": "sous-marin",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4505,7 +4251,6 @@
       "source_id": "cuivre",
       "target_id": "sous-marin",
       "relation_type": "material",
-      "quantity_hint": "modérément",
       "is_optional": false,
       "notes": null
     },
@@ -4514,7 +4259,6 @@
       "source_id": "moteur-electrique",
       "target_id": "sous-marin",
       "relation_type": "tool",
-      "quantity_hint": "quelques-uns",
       "is_optional": false,
       "notes": null
     },
@@ -4523,7 +4267,6 @@
       "source_id": "electricite",
       "target_id": "sous-marin",
       "relation_type": "energy",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4540,7 +4283,6 @@
       "source_id": "bois",
       "target_id": "charpente",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4549,7 +4291,6 @@
       "source_id": "fer",
       "target_id": "charpente",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -4558,7 +4299,6 @@
       "source_id": "scie",
       "target_id": "charpente",
       "relation_type": "tool",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -4567,7 +4307,6 @@
       "source_id": "hache",
       "target_id": "charpente",
       "relation_type": "tool",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -4576,7 +4315,6 @@
       "source_id": "marteau",
       "target_id": "charpente",
       "relation_type": "tool",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -4585,7 +4323,6 @@
       "source_id": "clou",
       "target_id": "charpente",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4618,7 +4355,6 @@
       "source_id": "argile",
       "target_id": "tuyau",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4627,7 +4363,6 @@
       "source_id": "cuivre",
       "target_id": "tuyau",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -4636,7 +4371,6 @@
       "source_id": "four",
       "target_id": "tuyau",
       "relation_type": "tool",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -4645,7 +4379,6 @@
       "source_id": "forge",
       "target_id": "tuyau",
       "relation_type": "tool",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -4662,7 +4395,6 @@
       "source_id": "feu",
       "target_id": "conserve",
       "relation_type": "energy",
-      "quantity_hint": "nécessaire",
       "is_optional": false,
       "notes": null
     },
@@ -4671,7 +4403,6 @@
       "source_id": "eau",
       "target_id": "conserve",
       "relation_type": "tool",
-      "quantity_hint": "bain-marie",
       "is_optional": false,
       "notes": null
     },
@@ -4680,7 +4411,6 @@
       "source_id": "verre",
       "target_id": "conserve",
       "relation_type": "material",
-      "quantity_hint": "récipient initial",
       "is_optional": false,
       "notes": null
     },
@@ -4689,7 +4419,6 @@
       "source_id": "fer",
       "target_id": "conserve",
       "relation_type": "material",
-      "quantity_hint": "boîtes métalliques",
       "is_optional": false,
       "notes": null
     },
@@ -4698,7 +4427,6 @@
       "source_id": "etain",
       "target_id": "conserve",
       "relation_type": "material",
-      "quantity_hint": "revêtement fer-blanc",
       "is_optional": false,
       "notes": null
     },
@@ -4721,7 +4449,6 @@
       "source_id": "eau",
       "target_id": "huile-d-olive",
       "relation_type": "tool",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -4730,7 +4457,6 @@
       "source_id": "presse",
       "target_id": "huile-d-olive",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -4739,7 +4465,6 @@
       "source_id": "pierre",
       "target_id": "huile-d-olive",
       "relation_type": "material",
-      "quantity_hint": "quelques",
       "is_optional": false,
       "notes": null
     },
@@ -4748,7 +4473,6 @@
       "source_id": "petrole",
       "target_id": "nylon",
       "relation_type": "material",
-      "quantity_hint": "moyennement",
       "is_optional": false,
       "notes": null
     },
@@ -4789,7 +4513,6 @@
       "source_id": "plantes-medicinales",
       "target_id": "vaccin",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -4798,7 +4521,6 @@
       "source_id": "lait",
       "target_id": "vaccin",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -4807,7 +4529,6 @@
       "source_id": "microscope",
       "target_id": "vaccin",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -4816,7 +4537,6 @@
       "source_id": "plantes-medicinales",
       "target_id": "antibiotique",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -4865,7 +4585,6 @@
       "source_id": "soude",
       "target_id": "dynamite",
       "relation_type": "material",
-      "quantity_hint": "stabilisant",
       "is_optional": false,
       "notes": null
     },
@@ -4874,7 +4593,6 @@
       "source_id": "lentille",
       "target_id": "appareil-photo",
       "relation_type": "material",
-      "quantity_hint": "plusieurs",
       "is_optional": false,
       "notes": null
     },
@@ -4883,7 +4601,6 @@
       "source_id": "verre",
       "target_id": "appareil-photo",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4892,7 +4609,6 @@
       "source_id": "acier",
       "target_id": "appareil-photo",
       "relation_type": "material",
-      "quantity_hint": "moyen",
       "is_optional": false,
       "notes": null
     },
@@ -4901,7 +4617,6 @@
       "source_id": "cuivre",
       "target_id": "appareil-photo",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -4910,7 +4625,6 @@
       "source_id": "silicium",
       "target_id": "memoire-ram",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4919,7 +4633,6 @@
       "source_id": "transistor",
       "target_id": "memoire-ram",
       "relation_type": "material",
-      "quantity_hint": "plusieurs",
       "is_optional": false,
       "notes": null
     },
@@ -4928,7 +4641,6 @@
       "source_id": "circuit-imprime",
       "target_id": "memoire-ram",
       "relation_type": "material",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -4937,7 +4649,6 @@
       "source_id": "electricite",
       "target_id": "memoire-ram",
       "relation_type": "energy",
-      "quantity_hint": "constante",
       "is_optional": false,
       "notes": null
     },
@@ -4978,7 +4689,6 @@
       "source_id": "poudre-a-canon",
       "target_id": "canon",
       "relation_type": "material",
-      "quantity_hint": "modérée",
       "is_optional": false,
       "notes": null
     },
@@ -4987,7 +4697,6 @@
       "source_id": "fer",
       "target_id": "canon",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -4996,7 +4705,6 @@
       "source_id": "bronze",
       "target_id": "canon",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5021,7 +4729,6 @@
       "source_id": "acier",
       "target_id": "fusil",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5030,7 +4737,6 @@
       "source_id": "bois",
       "target_id": "fusil",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -5039,7 +4745,6 @@
       "source_id": "poudre-a-canon",
       "target_id": "fusil",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -5048,7 +4753,6 @@
       "source_id": "fer",
       "target_id": "fusil",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5073,7 +4777,6 @@
       "source_id": "soude",
       "target_id": "savon",
       "relation_type": "material",
-      "quantity_hint": "nécessaire",
       "is_optional": false,
       "notes": null
     },
@@ -5082,7 +4785,6 @@
       "source_id": "eau",
       "target_id": "savon",
       "relation_type": "material",
-      "quantity_hint": "modérée",
       "is_optional": false,
       "notes": null
     },
@@ -5091,7 +4793,6 @@
       "source_id": "four",
       "target_id": "savon",
       "relation_type": "tool",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -5100,7 +4801,6 @@
       "source_id": "eau",
       "target_id": "cosmetique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5109,7 +4809,6 @@
       "source_id": "extraits-vegetaux",
       "target_id": "cosmetique",
       "relation_type": "material",
-      "quantity_hint": "moyen",
       "is_optional": false,
       "notes": null
     },
@@ -5118,7 +4817,6 @@
       "source_id": "argile",
       "target_id": "cosmetique",
       "relation_type": "material",
-      "quantity_hint": "moyen",
       "is_optional": false,
       "notes": null
     },
@@ -5127,7 +4825,6 @@
       "source_id": "feu",
       "target_id": "cosmetique",
       "relation_type": "energy",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -5136,7 +4833,6 @@
       "source_id": "lait",
       "target_id": "cosmetique",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -5153,7 +4849,6 @@
       "source_id": "huile-d-olive",
       "target_id": "cuisine-mediterraneenne",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5162,7 +4857,6 @@
       "source_id": "ble",
       "target_id": "cuisine-mediterraneenne",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5171,7 +4865,6 @@
       "source_id": "raisin",
       "target_id": "cuisine-mediterraneenne",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5180,7 +4873,6 @@
       "source_id": "four",
       "target_id": "cuisine-mediterraneenne",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -5197,7 +4889,6 @@
       "source_id": "feu",
       "target_id": "conservation-des-aliments",
       "relation_type": "energy",
-      "quantity_hint": "selon technique",
       "is_optional": false,
       "notes": null
     },
@@ -5206,7 +4897,6 @@
       "source_id": "sel",
       "target_id": "conservation-des-aliments",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5215,7 +4905,6 @@
       "source_id": "air",
       "target_id": "conservation-des-aliments",
       "relation_type": "material",
-      "quantity_hint": "selon technique",
       "is_optional": false,
       "notes": null
     },
@@ -5224,7 +4913,6 @@
       "source_id": "eau",
       "target_id": "conservation-des-aliments",
       "relation_type": "material",
-      "quantity_hint": "selon technique",
       "is_optional": false,
       "notes": null
     },
@@ -5273,7 +4961,6 @@
       "source_id": "nylon",
       "target_id": "parachute-en-nylon",
       "relation_type": "material",
-      "quantity_hint": "plusieurs mètres carrés",
       "is_optional": false,
       "notes": null
     },
@@ -5290,7 +4977,6 @@
       "source_id": "acier-inox",
       "target_id": "seringue",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -5299,7 +4985,6 @@
       "source_id": "verre",
       "target_id": "seringue",
       "relation_type": "material",
-      "quantity_hint": "modérément",
       "is_optional": false,
       "notes": null
     },
@@ -5308,7 +4993,6 @@
       "source_id": "plastique",
       "target_id": "seringue",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5317,7 +5001,6 @@
       "source_id": "caoutchouc",
       "target_id": "seringue",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -5326,7 +5009,6 @@
       "source_id": "forge",
       "target_id": "seringue",
       "relation_type": "tool",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -5335,7 +5017,6 @@
       "source_id": "four",
       "target_id": "seringue",
       "relation_type": "tool",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -5376,7 +5057,6 @@
       "source_id": "plantes-medicinales",
       "target_id": "anatomie-humaine",
       "relation_type": "knowledge",
-      "quantity_hint": "quelques",
       "is_optional": false,
       "notes": null
     },
@@ -5417,7 +5097,6 @@
       "source_id": "anatomie-humaine",
       "target_id": "immunologie",
       "relation_type": "knowledge",
-      "quantity_hint": "essentiel",
       "is_optional": false,
       "notes": null
     },
@@ -5426,7 +5105,6 @@
       "source_id": "microscope",
       "target_id": "immunologie",
       "relation_type": "tool",
-      "quantity_hint": "indispensable",
       "is_optional": false,
       "notes": null
     },
@@ -5435,7 +5113,6 @@
       "source_id": "vaccin",
       "target_id": "immunologie",
       "relation_type": "knowledge",
-      "quantity_hint": "précurseur",
       "is_optional": false,
       "notes": null
     },
@@ -5444,7 +5121,6 @@
       "source_id": "chimie-organique",
       "target_id": "immunologie",
       "relation_type": "knowledge",
-      "quantity_hint": "nécessaire",
       "is_optional": false,
       "notes": null
     },
@@ -5461,7 +5137,6 @@
       "source_id": "anatomie-humaine",
       "target_id": "epidemiologie",
       "relation_type": "knowledge",
-      "quantity_hint": "nécessaire",
       "is_optional": false,
       "notes": null
     },
@@ -5470,7 +5145,6 @@
       "source_id": "papier",
       "target_id": "epidemiologie",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5479,7 +5153,6 @@
       "source_id": "encre",
       "target_id": "epidemiologie",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -5496,7 +5169,6 @@
       "source_id": "eau",
       "target_id": "moisissures",
       "relation_type": "material",
-      "quantity_hint": "essentielle",
       "is_optional": false,
       "notes": null
     },
@@ -5505,7 +5177,6 @@
       "source_id": "air",
       "target_id": "moisissures",
       "relation_type": "material",
-      "quantity_hint": "modérée",
       "is_optional": false,
       "notes": null
     },
@@ -5546,7 +5217,6 @@
       "source_id": "moisissures",
       "target_id": "streptomycine",
       "relation_type": "material",
-      "quantity_hint": "cultures",
       "is_optional": false,
       "notes": null
     },
@@ -5555,7 +5225,6 @@
       "source_id": "chimie-organique",
       "target_id": "streptomycine",
       "relation_type": "knowledge",
-      "quantity_hint": "principes",
       "is_optional": false,
       "notes": null
     },
@@ -5564,7 +5233,6 @@
       "source_id": "fermentation",
       "target_id": "streptomycine",
       "relation_type": "tool",
-      "quantity_hint": "procédé",
       "is_optional": false,
       "notes": null
     },
@@ -5573,7 +5241,6 @@
       "source_id": "principes-actifs",
       "target_id": "streptomycine",
       "relation_type": "knowledge",
-      "quantity_hint": "extraction",
       "is_optional": false,
       "notes": null
     },
@@ -5582,7 +5249,6 @@
       "source_id": "plantes-medicinales",
       "target_id": "anesthesie-locale",
       "relation_type": "material",
-      "quantity_hint": "base",
       "is_optional": false,
       "notes": null
     },
@@ -5591,7 +5257,6 @@
       "source_id": "principes-actifs",
       "target_id": "anesthesie-locale",
       "relation_type": "material",
-      "quantity_hint": "essence",
       "is_optional": false,
       "notes": null
     },
@@ -5600,7 +5265,6 @@
       "source_id": "seringue",
       "target_id": "anesthesie-locale",
       "relation_type": "tool",
-      "quantity_hint": "instrument",
       "is_optional": false,
       "notes": null
     },
@@ -5609,7 +5273,6 @@
       "source_id": "anatomie-humaine",
       "target_id": "anesthesie-locale",
       "relation_type": "knowledge",
-      "quantity_hint": "fondamental",
       "is_optional": false,
       "notes": null
     },
@@ -5618,7 +5281,6 @@
       "source_id": "chimie-organique",
       "target_id": "anesthesie-locale",
       "relation_type": "knowledge",
-      "quantity_hint": "base",
       "is_optional": false,
       "notes": null
     },
@@ -5635,7 +5297,6 @@
       "source_id": "four",
       "target_id": "nitroglycerine",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -5660,7 +5321,6 @@
       "source_id": "acier",
       "target_id": "tunnel-ferroviaire",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -5669,7 +5329,6 @@
       "source_id": "pierre",
       "target_id": "tunnel-ferroviaire",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5678,7 +5337,6 @@
       "source_id": "ciment",
       "target_id": "tunnel-ferroviaire",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -5687,7 +5345,6 @@
       "source_id": "locomotive",
       "target_id": "tunnel-ferroviaire",
       "relation_type": "knowledge",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -5696,7 +5353,6 @@
       "source_id": "nitroglycerine",
       "target_id": "geligniite",
       "relation_type": "material",
-      "quantity_hint": "60-75%",
       "is_optional": false,
       "notes": null
     },
@@ -5705,7 +5361,6 @@
       "source_id": "salpetre",
       "target_id": "geligniite",
       "relation_type": "material",
-      "quantity_hint": "25-35%",
       "is_optional": false,
       "notes": null
     },
@@ -5730,7 +5385,6 @@
       "source_id": "petrole",
       "target_id": "bitume-de-judee",
       "relation_type": "material",
-      "quantity_hint": "dérivé naturel",
       "is_optional": false,
       "notes": null
     },
@@ -5739,7 +5393,6 @@
       "source_id": "rayons-x",
       "target_id": "radiographie",
       "relation_type": "tool",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -5748,7 +5401,6 @@
       "source_id": "electricite",
       "target_id": "radiographie",
       "relation_type": "energy",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5765,7 +5417,6 @@
       "source_id": "aluminium",
       "target_id": "disque-dur",
       "relation_type": "material",
-      "quantity_hint": "substrat des plateaux",
       "is_optional": false,
       "notes": null
     },
@@ -5774,7 +5425,6 @@
       "source_id": "verre",
       "target_id": "disque-dur",
       "relation_type": "material",
-      "quantity_hint": "substrat moderne",
       "is_optional": false,
       "notes": null
     },
@@ -5783,7 +5433,6 @@
       "source_id": "cuivre",
       "target_id": "disque-dur",
       "relation_type": "material",
-      "quantity_hint": "bobinages têtes",
       "is_optional": false,
       "notes": null
     },
@@ -5792,7 +5441,6 @@
       "source_id": "moteur-electrique",
       "target_id": "disque-dur",
       "relation_type": "tool",
-      "quantity_hint": "rotation plateaux",
       "is_optional": false,
       "notes": null
     },
@@ -5801,7 +5449,6 @@
       "source_id": "circuit-imprime",
       "target_id": "disque-dur",
       "relation_type": "tool",
-      "quantity_hint": "contrôleur",
       "is_optional": false,
       "notes": null
     },
@@ -5826,7 +5473,6 @@
       "source_id": "bois",
       "target_id": "arc",
       "relation_type": "material",
-      "quantity_hint": "principal",
       "is_optional": false,
       "notes": null
     },
@@ -5835,7 +5481,6 @@
       "source_id": "bois",
       "target_id": "arbalete",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5844,7 +5489,6 @@
       "source_id": "acier",
       "target_id": "arbalete",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -5853,7 +5497,6 @@
       "source_id": "bronze",
       "target_id": "arbalete",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -5878,7 +5521,6 @@
       "source_id": "ressort",
       "target_id": "arbalete",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -5895,7 +5537,6 @@
       "source_id": "acier",
       "target_id": "artillerie-moderne",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5904,7 +5545,6 @@
       "source_id": "poudre-a-canon",
       "target_id": "artillerie-moderne",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -5913,7 +5553,6 @@
       "source_id": "bronze",
       "target_id": "artillerie-moderne",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -5954,7 +5593,6 @@
       "source_id": "soufre",
       "target_id": "acide-sulfurique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5963,7 +5601,6 @@
       "source_id": "air",
       "target_id": "acide-sulfurique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -5972,7 +5609,6 @@
       "source_id": "eau",
       "target_id": "acide-sulfurique",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -5989,7 +5625,6 @@
       "source_id": "four-haute-temp",
       "target_id": "acide-sulfurique",
       "relation_type": "tool",
-      "quantity_hint": "un",
       "is_optional": false,
       "notes": null
     },
@@ -6006,7 +5641,6 @@
       "source_id": "electricite",
       "target_id": "laser",
       "relation_type": "energy",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -6015,7 +5649,6 @@
       "source_id": "verre",
       "target_id": "laser",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -6024,7 +5657,6 @@
       "source_id": "lentille",
       "target_id": "laser",
       "relation_type": "component",
-      "quantity_hint": "quelques",
       "is_optional": false,
       "notes": null
     },
@@ -6041,7 +5673,6 @@
       "source_id": "acide-sulfurique",
       "target_id": "batterie",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -6050,7 +5681,6 @@
       "source_id": "caoutchouc",
       "target_id": "batterie",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -6059,7 +5689,6 @@
       "source_id": "verre",
       "target_id": "batterie",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -6124,7 +5753,6 @@
       "source_id": "microprocesseur",
       "target_id": "gps",
       "relation_type": "material",
-      "quantity_hint": "plusieurs par satellite",
       "is_optional": false,
       "notes": null
     },
@@ -6133,7 +5761,6 @@
       "source_id": "antenne-radio",
       "target_id": "gps",
       "relation_type": "material",
-      "quantity_hint": "plusieurs",
       "is_optional": false,
       "notes": null
     },
@@ -6142,7 +5769,6 @@
       "source_id": "serveur-informatique",
       "target_id": "gps",
       "relation_type": "tool",
-      "quantity_hint": "stations de contrôle",
       "is_optional": false,
       "notes": null
     },
@@ -6151,7 +5777,6 @@
       "source_id": "internet",
       "target_id": "gps",
       "relation_type": "knowledge",
-      "quantity_hint": "infrastructure",
       "is_optional": false,
       "notes": null
     },
@@ -6160,7 +5785,6 @@
       "source_id": "fusee",
       "target_id": "gps",
       "relation_type": "tool",
-      "quantity_hint": "lancement satellites",
       "is_optional": false,
       "notes": null
     },
@@ -6169,7 +5793,6 @@
       "source_id": "electricite",
       "target_id": "gps",
       "relation_type": "energy",
-      "quantity_hint": "alimentation",
       "is_optional": false,
       "notes": null
     },
@@ -6186,7 +5809,6 @@
       "source_id": "bronze",
       "target_id": "epee",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -6195,7 +5817,6 @@
       "source_id": "fer",
       "target_id": "epee",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -6204,7 +5825,6 @@
       "source_id": "acier",
       "target_id": "epee",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -6213,7 +5833,6 @@
       "source_id": "forge",
       "target_id": "epee",
       "relation_type": "tool",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -6222,7 +5841,6 @@
       "source_id": "marteau",
       "target_id": "epee",
       "relation_type": "tool",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -6231,7 +5849,6 @@
       "source_id": "fonderie",
       "target_id": "epee",
       "relation_type": "knowledge",
-      "quantity_hint": "1",
       "is_optional": false,
       "notes": null
     },
@@ -6240,7 +5857,6 @@
       "source_id": "sel",
       "target_id": "acide-chlorhydrique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -6249,7 +5865,6 @@
       "source_id": "acide-sulfurique",
       "target_id": "acide-chlorhydrique",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -6282,7 +5897,6 @@
       "source_id": "acide-sulfurique",
       "target_id": "batterie-au-plomb",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -6291,7 +5905,6 @@
       "source_id": "eau",
       "target_id": "batterie-au-plomb",
       "relation_type": "material",
-      "quantity_hint": "modéré",
       "is_optional": false,
       "notes": null
     },
@@ -6308,7 +5921,6 @@
       "source_id": "plastique",
       "target_id": "batterie-au-plomb",
       "relation_type": "material",
-      "quantity_hint": "peu",
       "is_optional": false,
       "notes": null
     },
@@ -6341,7 +5953,6 @@
       "source_id": "salpetre",
       "target_id": "explosifs-industriels",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -6350,7 +5961,6 @@
       "source_id": "soufre",
       "target_id": "explosifs-industriels",
       "relation_type": "material",
-      "quantity_hint": "un peu",
       "is_optional": false,
       "notes": null
     },
@@ -6359,7 +5969,6 @@
       "source_id": "charbon-de-bois",
       "target_id": "explosifs-industriels",
       "relation_type": "material",
-      "quantity_hint": "un peu",
       "is_optional": false,
       "notes": null
     },
@@ -6368,7 +5977,6 @@
       "source_id": "nitroglycerine",
       "target_id": "explosifs-industriels",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -6377,7 +5985,6 @@
       "source_id": "ammoniac",
       "target_id": "explosifs-industriels",
       "relation_type": "material",
-      "quantity_hint": "beaucoup",
       "is_optional": false,
       "notes": null
     },
@@ -6386,7 +5993,6 @@
       "source_id": "gazole",
       "target_id": "explosifs-industriels",
       "relation_type": "material",
-      "quantity_hint": "un peu",
       "is_optional": false,
       "notes": null
     },

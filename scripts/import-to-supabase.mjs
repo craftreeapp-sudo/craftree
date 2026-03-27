@@ -55,7 +55,6 @@ async function importData() {
       source_id: link.source_id,
       target_id: link.target_id,
       relation_type: link.relation_type,
-      quantity_hint: link.quantity_hint || null,
       is_optional: link.is_optional || false,
       notes: link.notes || null,
     }));

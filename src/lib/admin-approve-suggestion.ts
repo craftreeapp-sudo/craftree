@@ -30,6 +30,13 @@ async function uniqueNodeId(
   return `${id}-${n}`;
 }
 
+type SuggestLinkSnapshot = {
+  id: string;
+  relation_type: string;
+  notes: string;
+  is_optional: boolean;
+};
+
 type EditNodeData = {
   original: Record<string, unknown>;
   proposed: Record<string, unknown>;
@@ -69,6 +76,13 @@ export async function applyApprovedSuggestion(
       proposed = { ...proposed, ...options.overrideProposed };
     }
 
+    const linkEdits = proposed.linkEdits as
+      | Record<string, SuggestLinkSnapshot>
+      | undefined;
+    if (proposed.linkEdits !== undefined) {
+      delete proposed.linkEdits;
+    }
+
     const patch: Record<string, unknown> = {
       updated_at: new Date().toISOString(),
     };
@@ -89,28 +103,122 @@ export async function applyApprovedSuggestion(
 
     const { error: upErr } = await sb.from('nodes').update(patch).eq('id', nodeId);
     if (upErr) throw upErr;
+
+    const removedLinkIds = Array.isArray(
+      (data as { removedLinkIds?: unknown }).removedLinkIds
+    )
+      ? ((data as { removedLinkIds: string[] }).removedLinkIds as string[])
+      : [];
+
+    for (const linkId of removedLinkIds) {
+      const { data: linkRow, error: linkFetchErr } = await sb
+        .from('links')
+        .select('source_id, target_id')
+        .eq('id', linkId)
+        .maybeSingle();
+      if (linkFetchErr || !linkRow) continue;
+      const lr = linkRow as { source_id: string; target_id: string };
+      if (lr.source_id !== nodeId && lr.target_id !== nodeId) continue;
+      const { error: delErr } = await sb.from('links').delete().eq('id', linkId);
+      if (delErr) throw delErr;
+    }
+
+    if (linkEdits && typeof linkEdits === 'object') {
+      for (const [linkId, snap] of Object.entries(linkEdits)) {
+        const s = snap as SuggestLinkSnapshot;
+        if (!s?.id || s.id !== linkId) continue;
+        const { data: linkRow, error: linkFetchErr } = await sb
+          .from('links')
+          .select('source_id, target_id')
+          .eq('id', linkId)
+          .maybeSingle();
+        if (linkFetchErr || !linkRow) continue;
+        const lr = linkRow as { source_id: string; target_id: string };
+        if (lr.source_id !== nodeId && lr.target_id !== nodeId) continue;
+
+        const n =
+          typeof s.notes === 'string' && s.notes.trim() === ''
+            ? null
+            : (s.notes ?? null);
+
+        const { error: luErr } = await sb
+          .from('links')
+          .update({
+            relation_type: s.relation_type,
+            is_optional: Boolean(s.is_optional),
+            notes: n,
+          })
+          .eq('id', linkId);
+        if (luErr) throw luErr;
+      }
+    }
+
+    const proposedAddRaw = (data as { proposedAddLinks?: unknown })
+      .proposedAddLinks;
+    const proposedAddLinks = Array.isArray(proposedAddRaw)
+      ? (proposedAddRaw as {
+          source_id: string;
+          target_id: string;
+          relation_type: RelationType;
+        }[])
+      : [];
+
+    const validRelations = new Set<string>([
+      'material',
+      'tool',
+      'energy',
+      'knowledge',
+      'catalyst',
+    ]);
+
+    for (const add of proposedAddLinks) {
+      if (!add?.source_id || !add?.target_id) continue;
+      if (add.source_id !== nodeId && add.target_id !== nodeId) continue;
+      const rel = String(add.relation_type ?? '');
+      if (!validRelations.has(rel)) continue;
+
+      const { data: dup } = await sb
+        .from('links')
+        .select('id')
+        .eq('source_id', add.source_id)
+        .eq('target_id', add.target_id)
+        .maybeSingle();
+      if (dup) continue;
+
+      const newId = await nextLinkId(sb);
+      const { error: insNewErr } = await sb.from('links').insert({
+        id: newId,
+        source_id: add.source_id,
+        target_id: add.target_id,
+        relation_type: rel as RelationType,
+        is_optional: false,
+        notes: null,
+      });
+      if (insNewErr) throw insNewErr;
+    }
   } else if (type === 'add_link') {
-    const d = data as {
+    let d = data as {
       source_id: string;
       target_id: string;
       relation_type: RelationType;
-      quantity_hint?: string | null;
       is_optional?: boolean;
       notes?: string | null;
     };
+    if (options?.overrideProposed && typeof options.overrideProposed === 'object') {
+      d = { ...d, ...(options.overrideProposed as typeof d) };
+    }
     const id = await nextLinkId(sb);
     const { error: insErr } = await sb.from('links').insert({
       id,
       source_id: d.source_id,
       target_id: d.target_id,
       relation_type: d.relation_type,
-      quantity_hint: d.quantity_hint ?? null,
       is_optional: d.is_optional ?? false,
       notes: d.notes ?? null,
     });
     if (insErr) throw insErr;
   } else if (type === 'new_node') {
-    const d = data as {
+    type NewNodePayload = {
       node: {
         name: string;
         category: string;
@@ -127,6 +235,15 @@ export async function applyApprovedSuggestion(
         relation_type: RelationType;
       };
     };
+
+    let d = data as unknown as NewNodePayload;
+    if (options?.overrideProposed && typeof options.overrideProposed === 'object') {
+      const o = options.overrideProposed as Partial<NewNodePayload>;
+      d = {
+        node: { ...d.node, ...(o.node ?? {}) },
+        link: { ...d.link, ...(o.link ?? {}) },
+      };
+    }
 
     let nodeId =
       (d.node.proposed_id && d.node.proposed_id.trim()) ||
@@ -169,7 +286,6 @@ export async function applyApprovedSuggestion(
       source_id: src,
       target_id: tgt,
       relation_type: d.link.relation_type,
-      quantity_hint: null,
       is_optional: false,
       notes: null,
     });

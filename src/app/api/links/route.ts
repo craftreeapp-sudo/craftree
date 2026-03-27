@@ -114,10 +114,6 @@ export async function POST(request: Request) {
         source_id,
         target_id,
         relation_type: relation_type as RelationType,
-        quantity_hint:
-          typeof body.quantity_hint === 'string' && body.quantity_hint.trim()
-            ? body.quantity_hint.trim()
-            : undefined,
         is_optional: Boolean(body.is_optional),
         notes:
           typeof body.notes === 'string' && body.notes.trim()
@@ -170,10 +166,6 @@ export async function POST(request: Request) {
       source_id,
       target_id,
       relation_type,
-      quantity_hint:
-        typeof body.quantity_hint === 'string' && body.quantity_hint.trim()
-          ? body.quantity_hint.trim()
-          : null,
       is_optional: Boolean(body.is_optional),
       notes:
         typeof body.notes === 'string' && body.notes.trim()

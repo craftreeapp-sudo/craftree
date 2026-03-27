@@ -37,6 +37,30 @@ type ProfilePayload = {
   isAdmin: boolean;
 };
 
+function ProfileBackLink() {
+  const t = useTranslations('profile');
+  return (
+    <Link
+      href="/explore"
+      className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-accent"
+    >
+      <svg
+        className="size-4 shrink-0 rtl:rotate-180"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden
+      >
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </svg>
+      {t('backToTree')}
+    </Link>
+  );
+}
+
 function formatRelativeShort(iso: string, locale: string): string {
   const d = new Date(iso);
   const diffSec = Math.round((Date.now() - d.getTime()) / 1000);
@@ -221,6 +245,7 @@ export function ProfilePageClient() {
 
   return (
     <div className="mx-auto max-w-[720px] bg-page px-8 pb-24 pt-28 sm:px-10">
+      <ProfileBackLink />
       <header className="mx-auto mb-10 max-w-[720px]">
         <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start sm:justify-center sm:gap-8">
           <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-border bg-surface-elevated">

@@ -187,8 +187,6 @@
     "yes": "Sí",
     "no": "No",
     "editLink": "Editar enlace",
-    "quantityLabel": "Cantidad",
-    "quantityPlaceholder": "mucho, traza, 1…",
     "optionalCheckbox": "Opcional",
     "panelNewInvention": "Nueva invención",
     "panelEditInvention": "Editar",
@@ -224,6 +222,7 @@
     "builtUponSection": "Obtenido gracias a",
     "ledToSection": "Conduce a",
     "removeLinkAria": "Eliminar enlace",
+    "suggestAddLinkAria": "Añadir esta invención a la propuesta",
     "placeholderInventionSource": "Invención origen",
     "placeholderInventionTarget": "Invención destino"
   },
@@ -349,9 +348,11 @@
     "newNodeSuggestionSent": "¡Sugerencia de invento enviada!",
     "oauthConfigMissing": "Supabase no está configurado. Añade NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_ANON_KEY en .env.local.",
     "oauthNoUrl": "No se pudo obtener el enlace de Google. Revisa el proveedor y las URLs de redirección en Supabase.",
-    "oauthSignInFailed": "No se pudo iniciar el inicio de sesión con Google. Inténtalo de nuevo."
+    "oauthSignInFailed": "No se pudo iniciar el inicio de sesión con Google. Inténtalo de nuevo.",
+    "suggestAnonymousNotice": "Sin cuenta, se guarda tu IP y es visible para los moderadores."
   },
   "profile": {
+    "backToTree": "Volver al Tree",
     "loading": "Cargando perfil…",
     "loadError": "No se pudo cargar el perfil.",
     "saveError": "No se pudo guardar.",
@@ -408,7 +409,9 @@
     "saveOverride": "Guardar y aprobar",
     "overrideHint": "Edita los campos y aprueba.",
     "toastApproved": "Sugerencia aprobada",
-    "toastRejected": "Sugerencia rechazada"
+    "toastRejected": "Sugerencia rechazada",
+    "anonymousContributor": "Anónimo",
+    "contributorUnknown": "Colaborador desconocido"
   },
   "nav": {
     "mainNav": "Navegación principal",

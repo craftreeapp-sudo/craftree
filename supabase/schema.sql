@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS links (
   source_id TEXT NOT NULL REFERENCES nodes(id) ON DELETE CASCADE,
   target_id TEXT NOT NULL REFERENCES nodes(id) ON DELETE CASCADE,
   relation_type TEXT NOT NULL,
-  quantity_hint TEXT,
   is_optional BOOLEAN DEFAULT FALSE,
   notes TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -53,9 +52,13 @@ CREATE TABLE IF NOT EXISTS suggestions (
   node_id TEXT,
   data JSONB NOT NULL,
   admin_comment TEXT,
+  contributor_ip TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   reviewed_at TIMESTAMP WITH TIME ZONE
 );
+
+-- Bases déjà créées : ajouter la colonne IP (contributions anonymes)
+ALTER TABLE suggestions ADD COLUMN IF NOT EXISTS contributor_ip TEXT;
 
 -- Index
 CREATE INDEX IF NOT EXISTS idx_links_source ON links(source_id);
@@ -132,3 +135,6 @@ DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
 CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
+
+-- Bases existantes : supprime la colonne obsolète (quantité sur les liens)
+ALTER TABLE links DROP COLUMN IF EXISTS quantity_hint;

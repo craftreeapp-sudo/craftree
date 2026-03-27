@@ -6,10 +6,38 @@ function useSupabase(): boolean {
   return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
 }
 
+function collectNodeIdsFromSuggestions(
+  rows: { suggestion_type: string; node_id: unknown; data: unknown }[]
+): string[] {
+  const ids: string[] = [];
+  for (const r of rows) {
+    if (r.node_id && typeof r.node_id === 'string') ids.push(r.node_id);
+    const d = r.data as Record<string, unknown> | null;
+    if (!d) continue;
+    if (r.suggestion_type === 'add_link') {
+      if (typeof d.source_id === 'string') ids.push(d.source_id);
+      if (typeof d.target_id === 'string') ids.push(d.target_id);
+    }
+    if (r.suggestion_type === 'new_node') {
+      const link = d.link as
+        | { source_id?: string; target_id?: string }
+        | undefined;
+      if (link?.source_id) ids.push(link.source_id);
+      if (link?.target_id) ids.push(link.target_id);
+    }
+  }
+  return ids;
+}
+
 export async function GET(request: Request) {
   try {
     if (!useSupabase()) {
-      return NextResponse.json({ suggestions: [] });
+      return NextResponse.json({
+        suggestions: [],
+        profiles: {},
+        nodeNames: {},
+        suggestionCountByUser: {},
+      });
     }
 
     const admin = await requireAdminFromRequest();
@@ -22,20 +50,59 @@ export async function GET(request: Request) {
 
     const supabase = await createSupabaseRouteHandlerClient();
 
-    let q = supabase.from('suggestions').select('*').order('created_at', { ascending: false });
+    let q = supabase.from('suggestions').select('*');
 
     if (status === 'pending') {
-      q = q.eq('status', 'pending');
+      q = q.eq('status', 'pending').order('created_at', { ascending: false });
     } else if (status === 'history') {
-      q = q.in('status', ['approved', 'rejected']);
+      q = q
+        .in('status', ['approved', 'rejected'])
+        .order('reviewed_at', { ascending: false });
+    } else {
+      q = q.order('created_at', { ascending: false });
     }
 
     const { data: rows, error } = await q;
     if (error) throw error;
 
+    const list = rows ?? [];
+
+    const { data: allForCounts } = await supabase
+      .from('suggestions')
+      .select('user_id, contributor_ip');
+    const suggestionCountByUser: Record<string, number> = {};
+    for (const r of allForCounts ?? []) {
+      const row = r as {
+        user_id: string | null;
+        contributor_ip: string | null;
+      };
+      if (row.user_id) {
+        suggestionCountByUser[row.user_id] =
+          (suggestionCountByUser[row.user_id] ?? 0) + 1;
+      } else if (row.contributor_ip) {
+        const k = `anon:${row.contributor_ip}`;
+        suggestionCountByUser[k] = (suggestionCountByUser[k] ?? 0) + 1;
+      }
+    }
+
+    const nodeIds = [...new Set(collectNodeIdsFromSuggestions(list))];
+    const nodeNames: Record<string, string> = {};
+
+    if (nodeIds.length > 0) {
+      const { data: nodes, error: nErr } = await supabase
+        .from('nodes')
+        .select('id, name')
+        .in('id', nodeIds);
+      if (nErr) throw nErr;
+      for (const n of nodes ?? []) {
+        const row = n as { id: string; name: string };
+        nodeNames[row.id] = row.name;
+      }
+    }
+
     const userIds = [
       ...new Set(
-        (rows ?? [])
+        list
           .map((r) => r.user_id as string | null)
           .filter((x): x is string => Boolean(x))
       ),
@@ -43,7 +110,12 @@ export async function GET(request: Request) {
 
     const profileMap: Record<
       string,
-      { email: string | null; display_name: string | null; avatar_url: string | null; contributions_count: number }
+      {
+        email: string | null;
+        display_name: string | null;
+        avatar_url: string | null;
+        contributions_count: number;
+      }
     > = {};
 
     if (userIds.length > 0) {
@@ -69,8 +141,10 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json({
-      suggestions: rows ?? [],
+      suggestions: list,
       profiles: profileMap,
+      nodeNames,
+      suggestionCountByUser,
     });
   } catch (e) {
     console.error(e);

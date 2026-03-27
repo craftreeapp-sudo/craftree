@@ -1740,35 +1740,30 @@
         "id": "uranium",
         "name": "Uranium",
         "relation_type": "material",
-        "quantity_hint": "combustible principal",
         "exists": true
       },
       {
         "id": "reacteur-nucleaire",
         "name": "Réacteur nucléaire",
         "relation_type": "tool",
-        "quantity_hint": "installation",
         "exists": true
       },
       {
         "id": "eau-lourde",
         "name": "Eau lourde",
         "relation_type": "material",
-        "quantity_hint": "modérateur",
         "exists": true
       },
       {
         "id": "four-haute-temp",
         "name": "Four à haute température",
         "relation_type": "tool",
-        "quantity_hint": "traitement combustible",
         "exists": true
       },
       {
         "id": "turbine-vapeur",
         "name": "Turbine à vapeur",
         "relation_type": "tool",
-        "quantity_hint": "conversion énergie",
         "exists": true
       }
     ],
@@ -1813,42 +1808,36 @@
         "id": "silicium",
         "name": "Silicium",
         "relation_type": "material",
-        "quantity_hint": "principale",
         "exists": true
       },
       {
         "id": "verre",
         "name": "Verre",
         "relation_type": "material",
-        "quantity_hint": "protection",
         "exists": true
       },
       {
         "id": "aluminium",
         "name": "Aluminium",
         "relation_type": "material",
-        "quantity_hint": "cadre",
         "exists": true
       },
       {
         "id": "cuivre",
         "name": "Cuivre",
         "relation_type": "material",
-        "quantity_hint": "connexions",
         "exists": true
       },
       {
         "id": "electricite",
         "name": "Électricité",
         "relation_type": "knowledge",
-        "quantity_hint": "concepts",
         "exists": true
       },
       {
         "id": "electronique",
         "name": "Électronique",
         "relation_type": "knowledge",
-        "quantity_hint": "semi-conducteurs",
         "exists": false
       }
     ],
@@ -1899,42 +1888,36 @@
         "id": "feu",
         "name": "Feu",
         "relation_type": "energy",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "charbon-de-bois",
         "name": "Charbon de bois",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "enclume",
         "name": "Enclume",
         "relation_type": "tool",
-        "quantity_hint": "une",
         "exists": false
       },
       {
         "id": "marteau-forge",
         "name": "Marteau de forge",
         "relation_type": "tool",
-        "quantity_hint": "plusieurs",
         "exists": false
       },
       {
         "id": "tenailles",
         "name": "Tenailles",
         "relation_type": "tool",
-        "quantity_hint": "plusieurs",
         "exists": false
       }
     ],
@@ -1985,14 +1968,12 @@
         "id": "pierre",
         "name": "Pierre",
         "relation_type": "material",
-        "quantity_hint": "modérément",
         "exists": false
       },
       {
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "modérément",
         "exists": true
       }
     ],
@@ -2042,28 +2023,24 @@
         "id": "bronze",
         "name": "Bronze",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": "une",
         "exists": true
       },
       {
         "id": "marteau",
         "name": "Marteau",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": true
       }
     ],
@@ -2113,28 +2090,24 @@
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "principal",
         "exists": true
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "principal",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": "une",
         "exists": true
       },
       {
         "id": "marteau",
         "name": "Marteau",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": true
       }
     ],
@@ -2179,28 +2152,24 @@
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "marteau",
         "name": "Marteau",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -2251,28 +2220,24 @@
         "id": "argile",
         "name": "Argile",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "feu",
         "name": "Feu",
         "relation_type": "energy",
-        "quantity_hint": "pour cuisson",
         "exists": true
       },
       {
         "id": "sable",
         "name": "Sable",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "pierre",
         "name": "Pierre de taille",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       }
     ],
@@ -2329,42 +2294,36 @@
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "joint-hydraulique",
         "name": "Joint hydraulique",
         "relation_type": "component",
-        "quantity_hint": "peu",
         "exists": false
       },
       {
         "id": "cylindre-metal",
         "name": "Cylindre métallique",
         "relation_type": "component",
-        "quantity_hint": "peu",
         "exists": false
       },
       {
         "id": "piston",
         "name": "Piston",
         "relation_type": "component",
-        "quantity_hint": "peu",
         "exists": false
       }
     ],
@@ -2410,28 +2369,24 @@
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "marteau",
         "name": "Marteau",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -2484,28 +2439,24 @@
         "id": "pierre",
         "name": "Pierre",
         "relation_type": "material",
-        "quantity_hint": "une lame",
         "exists": false
       },
       {
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "un manche",
         "exists": true
       },
       {
         "id": "silex",
         "name": "Silex",
         "relation_type": "material",
-        "quantity_hint": "pour la lame",
         "exists": false
       },
       {
         "id": "corde",
         "name": "Corde",
         "relation_type": "material",
-        "quantity_hint": "pour la fixation",
         "exists": false
       }
     ],
@@ -2555,56 +2506,48 @@
         "id": "feu",
         "name": "Feu",
         "relation_type": "energy",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "four",
         "name": "Four",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": true
       },
       {
         "id": "cuivre",
         "name": "Cuivre",
         "relation_type": "material",
-        "quantity_hint": "variable",
         "exists": true
       },
       {
         "id": "bronze",
         "name": "Bronze",
         "relation_type": "material",
-        "quantity_hint": "variable",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "variable",
         "exists": true
       },
       {
         "id": "charbon-de-bois",
         "name": "Charbon de bois",
         "relation_type": "energy",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "sable",
         "name": "Sable",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "argile",
         "name": "Argile",
         "relation_type": "material",
-        "quantity_hint": "variable",
         "exists": true
       }
     ],
@@ -2661,35 +2604,30 @@
         "id": "feu",
         "name": "Feu",
         "relation_type": "energy",
-        "quantity_hint": "nécessaire",
         "exists": true
       },
       {
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "pour refroidissement",
         "exists": true
       },
       {
         "id": "four",
         "name": "Four",
         "relation_type": "tool",
-        "quantity_hint": "source de chaleur",
         "exists": true
       },
       {
         "id": "cuivre",
         "name": "Cuivre",
         "relation_type": "material",
-        "quantity_hint": "pour alambics",
         "exists": true
       },
       {
         "id": "alambic",
         "name": "Alambic",
         "relation_type": "tool",
-        "quantity_hint": "appareil principal",
         "exists": false
       }
     ],
@@ -2746,35 +2684,30 @@
         "id": "levure",
         "name": "Levure",
         "relation_type": "catalyst",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "sucre",
         "name": "Sucre de canne",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "raisin",
         "name": "Raisin",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "ble",
         "name": "Blé",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       }
     ],
@@ -2831,35 +2764,30 @@
         "id": "feu",
         "name": "Feu",
         "relation_type": "energy",
-        "quantity_hint": "nécessaire",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "principal",
         "exists": true
       },
       {
         "id": "bronze",
         "name": "Bronze",
         "relation_type": "material",
-        "quantity_hint": "principal",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": "nécessaire",
         "exists": true
       },
       {
         "id": "marteau",
         "name": "Marteau",
         "relation_type": "tool",
-        "quantity_hint": "nécessaire",
         "exists": true
       }
     ],
@@ -2910,28 +2838,24 @@
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "principale",
         "exists": true
       },
       {
         "id": "electricite",
         "name": "Électricité",
         "relation_type": "energy",
-        "quantity_hint": "nécessaire",
         "exists": true
       },
       {
         "id": "sel",
         "name": "Sel",
         "relation_type": "catalyst",
-        "quantity_hint": "pour électrolyte",
         "exists": true
       },
       {
         "id": "cuivre",
         "name": "Cuivre",
         "relation_type": "material",
-        "quantity_hint": "pour électrodes",
         "exists": true
       }
     ],
@@ -2981,28 +2905,24 @@
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "moyen",
         "exists": true
       },
       {
         "id": "cuivre",
         "name": "Cuivre",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -3057,28 +2977,24 @@
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "principal",
         "exists": true
       },
       {
         "id": "vis",
         "name": "Vis",
         "relation_type": "knowledge",
-        "quantity_hint": "technique",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": "pour fabrication",
         "exists": true
       },
       {
         "id": "tour",
         "name": "Tour",
         "relation_type": "tool",
-        "quantity_hint": "pour usinage",
         "exists": true
       }
     ],
@@ -3123,28 +3039,24 @@
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "moyen",
         "exists": true
       },
       {
         "id": "bronze",
         "name": "Bronze",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "roue",
         "name": "Roue",
         "relation_type": "knowledge",
-        "quantity_hint": "",
         "exists": true
       }
     ],
@@ -3196,42 +3108,36 @@
         "id": "electricite",
         "name": "Électricité",
         "relation_type": "energy",
-        "quantity_hint": "source d'énergie",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "noyaux magnétiques",
         "exists": true
       },
       {
         "id": "fil-cuivre",
         "name": "Fil de cuivre",
         "relation_type": "material",
-        "quantity_hint": "bobinages",
         "exists": true
       },
       {
         "id": "aimant",
         "name": "Aimant",
         "relation_type": "material",
-        "quantity_hint": "champ magnétique",
         "exists": false
       },
       {
         "id": "roulement",
         "name": "Roulement",
         "relation_type": "component",
-        "quantity_hint": "support du rotor",
         "exists": false
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "structure",
         "exists": true
       }
     ],
@@ -3282,42 +3188,36 @@
         "id": "bronze",
         "name": "Bronze",
         "relation_type": "material",
-        "quantity_hint": "pour les cylindres",
         "exists": false
       },
       {
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "fluide pompé",
         "exists": true
       },
       {
         "id": "cuivre",
         "name": "Cuivre",
         "relation_type": "material",
-        "quantity_hint": "pour les tuyaux",
         "exists": true
       },
       {
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "pour mécanismes",
         "exists": true
       },
       {
         "id": "force-humaine",
         "name": "Force humaine",
         "relation_type": "energy",
-        "quantity_hint": "actionner",
         "exists": false
       },
       {
         "id": "principes-hydraulique",
         "name": "Principes hydrauliques",
         "relation_type": "knowledge",
-        "quantity_hint": "aspiration/refoulement",
         "exists": false
       }
     ],
@@ -3361,35 +3261,30 @@
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "roue",
         "name": "Roue",
         "relation_type": "component",
-        "quantity_hint": "deux",
         "exists": true
       },
       {
         "id": "caoutchouc",
         "name": "Caoutchouc",
         "relation_type": "material",
-        "quantity_hint": "moyen",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "soudure",
         "name": "Soudure",
         "relation_type": "process",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -3430,49 +3325,42 @@
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "beton-arme",
         "name": "Béton armé",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "verre",
         "name": "Verre",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "ascenseur",
         "name": "Ascenseur",
         "relation_type": "tool",
-        "quantity_hint": "plusieurs",
         "exists": false
       },
       {
         "id": "electricite",
         "name": "Électricité",
         "relation_type": "energy",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "fondations",
         "name": "Fondations",
         "relation_type": "knowledge",
-        "quantity_hint": "1",
         "exists": true
       },
       {
         "id": "structure-metallique",
         "name": "Structure métallique",
         "relation_type": "knowledge",
-        "quantity_hint": "1",
         "exists": true
       }
     ],
@@ -3508,42 +3396,36 @@
         "id": "pierre",
         "name": "Pierre de taille",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "terre",
         "name": "Terre",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": false
       },
       {
         "id": "beton",
         "name": "Béton",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "ciment",
         "name": "Ciment",
         "relation_type": "material",
-        "quantity_hint": "moyennement",
         "exists": true
       },
       {
         "id": "argile",
         "name": "Argile",
         "relation_type": "material",
-        "quantity_hint": "moyennement",
         "exists": true
       },
       {
         "id": "taille-pierre",
         "name": "Taille de pierre",
         "relation_type": "knowledge",
-        "quantity_hint": "technique",
         "exists": true
       }
     ],
@@ -3595,42 +3477,36 @@
         "id": "ver-a-soie",
         "name": "Ver à soie",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "mulberry",
         "name": "Mûrier",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "feu",
         "name": "Feu",
         "relation_type": "energy",
-        "quantity_hint": "moyennement",
         "exists": true
       },
       {
         "id": "four",
         "name": "Four",
         "relation_type": "tool",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "filature",
         "name": "Filature",
         "relation_type": "process",
-        "quantity_hint": "peu",
         "exists": false
       }
     ],
@@ -3681,35 +3557,30 @@
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "structure",
         "exists": true
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "mécanisme",
         "exists": true
       },
       {
         "id": "vis",
         "name": "Vis",
         "relation_type": "component",
-        "quantity_hint": "système",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "tour",
         "name": "Tour",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -3759,35 +3630,30 @@
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "pièces",
         "exists": true
       },
       {
         "id": "zinc",
         "name": "Zinc",
         "relation_type": "material",
-        "quantity_hint": "revêtement",
         "exists": false
       },
       {
         "id": "four-haute-temp",
         "name": "Four à haute température",
         "relation_type": "tool",
-        "quantity_hint": "chauffage",
         "exists": true
       },
       {
         "id": "soude",
         "name": "Soude",
         "relation_type": "material",
-        "quantity_hint": "nettoyage",
         "exists": true
       },
       {
         "id": "electricite",
         "name": "Électricité",
         "relation_type": "energy",
-        "quantity_hint": "électrozingage",
         "exists": true
       }
     ],
@@ -3827,49 +3693,42 @@
         "id": "four",
         "name": "Four",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": true
       },
       {
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "pour refroidissement",
         "exists": true
       },
       {
         "id": "feu",
         "name": "Feu",
         "relation_type": "energy",
-        "quantity_hint": "pour chauffage",
         "exists": true
       },
       {
         "id": "vin",
         "name": "Vin",
         "relation_type": "material",
-        "quantity_hint": "produit d'origine",
         "exists": true
       },
       {
         "id": "lait",
         "name": "Lait",
         "relation_type": "material",
-        "quantity_hint": "application principale",
         "exists": true
       },
       {
         "id": "thermometre",
         "name": "Thermomètre",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": false
       },
       {
         "id": "fermentation",
         "name": "Fermentation",
         "relation_type": "knowledge",
-        "quantity_hint": "compréhension",
         "exists": true
       }
     ],
@@ -3920,28 +3779,24 @@
         "id": "caoutchouc",
         "name": "Caoutchouc",
         "relation_type": "material",
-        "quantity_hint": "principal",
         "exists": true
       },
       {
         "id": "soufre",
         "name": "Soufre",
         "relation_type": "material",
-        "quantity_hint": "faible",
         "exists": true
       },
       {
         "id": "four-haute-temp",
         "name": "Four à haute température",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "chimie-organique",
         "name": "Chimie organique",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -3991,35 +3846,30 @@
         "id": "roue",
         "name": "Roue",
         "relation_type": "knowledge",
-        "quantity_hint": "concept de base",
         "exists": true
       },
       {
         "id": "bronze",
         "name": "Bronze",
         "relation_type": "material",
-        "quantity_hint": "pour les premières roues dentées",
         "exists": true
       },
       {
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "pour les engrenages médiévaux",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "pour les engrenages plus résistants",
         "exists": true
       },
       {
         "id": "tour",
         "name": "Tour",
         "relation_type": "tool",
-        "quantity_hint": "pour tailler les dents",
         "exists": true
       }
     ],
@@ -4075,35 +3925,30 @@
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "pour les bagues et billes",
         "exists": true
       },
       {
         "id": "chrome",
         "name": "Chrome",
         "relation_type": "material",
-        "quantity_hint": "alliage 100Cr6",
         "exists": false
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": "forgeage des billes",
         "exists": true
       },
       {
         "id": "tour",
         "name": "Tour",
         "relation_type": "tool",
-        "quantity_hint": "usinage des bagues",
         "exists": true
       },
       {
         "id": "four-haute-temp",
         "name": "Four à haute température",
         "relation_type": "tool",
-        "quantity_hint": "traitement thermique",
         "exists": true
       }
     ],
@@ -4152,14 +3997,12 @@
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "modérée",
         "exists": true
       },
       {
         "id": "pierre",
         "name": "Pierre de taille",
         "relation_type": "material",
-        "quantity_hint": "faible",
         "exists": true
       }
     ],
@@ -4210,42 +4053,36 @@
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "modérée",
         "exists": true
       },
       {
         "id": "charbon",
         "name": "Charbon",
         "relation_type": "energy",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "cuivre",
         "name": "Cuivre",
         "relation_type": "material",
-        "quantity_hint": "modérée",
         "exists": true
       },
       {
         "id": "four",
         "name": "Four",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": true
       },
       {
         "id": "fonderie",
         "name": "Fonderie",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": true
       }
     ],
@@ -4296,42 +4133,36 @@
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "moyennement",
         "exists": true
       },
       {
         "id": "fonderie",
         "name": "Fonderie",
         "relation_type": "tool",
-        "quantity_hint": "une",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": "une",
         "exists": true
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "moyennement",
         "exists": true
       },
       {
         "id": "tour",
         "name": "Tour",
         "relation_type": "tool",
-        "quantity_hint": "une",
         "exists": true
       }
     ],
@@ -4387,35 +4218,30 @@
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "tissu",
         "name": "Tissu",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "air",
         "name": "Air",
         "relation_type": "energy",
-        "quantity_hint": "continu",
         "exists": true
       },
       {
         "id": "roue",
         "name": "Roue",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "corde",
         "name": "Corde",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": false
       }
     ],
@@ -4460,56 +4286,48 @@
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "moyen",
         "exists": true
       },
       {
         "id": "cuivre",
         "name": "Cuivre",
         "relation_type": "material",
-        "quantity_hint": "moyen",
         "exists": true
       },
       {
         "id": "machine-a-vapeur",
         "name": "Machine à vapeur",
         "relation_type": "knowledge",
-        "quantity_hint": "fondamental",
         "exists": true
       },
       {
         "id": "roue",
         "name": "Roue",
         "relation_type": "component",
-        "quantity_hint": "plusieurs",
         "exists": true
       },
       {
         "id": "charbon",
         "name": "Charbon",
         "relation_type": "energy",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "four",
         "name": "Four",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": true
       },
       {
         "id": "soudure",
         "name": "Soudure",
         "relation_type": "knowledge",
-        "quantity_hint": "technique",
         "exists": true
       }
     ],
@@ -4559,42 +4377,36 @@
         "id": "pierre",
         "name": "Pierre de taille",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "mortier",
         "name": "Mortier",
         "relation_type": "material",
-        "quantity_hint": "moyen",
         "exists": true
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "beton",
         "name": "Béton",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "beton-arme",
         "name": "Béton armé",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": false
       }
     ],
@@ -4639,35 +4451,30 @@
         "id": "pierre-de-taille",
         "name": "Pierre de taille",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "brique",
         "name": "Brique",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "mortier",
         "name": "Mortier",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "taille-pierre",
         "name": "Taille de pierre",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "cintre",
         "name": "Cintre",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": false
       }
     ],
@@ -4712,28 +4519,24 @@
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "four",
         "name": "Four",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": true
       },
       {
         "id": "plantes-teinture",
         "name": "Plantes tinctoriales",
         "relation_type": "material",
-        "quantity_hint": "variable",
         "exists": true
       },
       {
         "id": "mordant",
         "name": "Mordant",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       }
     ],
@@ -4769,42 +4572,36 @@
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "engrenage",
         "name": "Engrenage",
         "relation_type": "tool",
-        "quantity_hint": "plusieurs",
         "exists": true
       },
       {
         "id": "ressort",
         "name": "Ressort",
         "relation_type": "material",
-        "quantity_hint": "plusieurs",
         "exists": true
       },
       {
         "id": "fil-de-coton",
         "name": "Fil de coton",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "aiguille-coudre",
         "name": "Aiguille à coudre",
         "relation_type": "tool",
-        "quantity_hint": "peu",
         "exists": false
       },
       {
         "id": "moteur-electrique",
         "name": "Moteur électrique",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": false
       }
     ],
@@ -4850,28 +4647,24 @@
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "papier",
         "name": "Papier",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "principes-actifs",
         "name": "Principes actifs",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "anatomie-humaine",
         "name": "Anatomie humaine",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": false
       }
     ],
@@ -4918,35 +4711,30 @@
         "id": "electricite",
         "name": "Électricité",
         "relation_type": "energy",
-        "quantity_hint": "haute tension",
         "exists": true
       },
       {
         "id": "verre",
         "name": "Verre",
         "relation_type": "material",
-        "quantity_hint": "tube",
         "exists": true
       },
       {
         "id": "tube-crookes",
         "name": "Tube de Crookes",
         "relation_type": "tool",
-        "quantity_hint": "dispositif",
         "exists": false
       },
       {
         "id": "cuivre",
         "name": "Cuivre",
         "relation_type": "material",
-        "quantity_hint": "électrodes",
         "exists": true
       },
       {
         "id": "tungstene",
         "name": "Tungstène",
         "relation_type": "material",
-        "quantity_hint": "anode",
         "exists": false
       }
     ],
@@ -4997,56 +4785,48 @@
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "principal",
         "exists": true
       },
       {
         "id": "cuivre",
         "name": "Cuivre",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "plastique",
         "name": "Plastique",
         "relation_type": "material",
-        "quantity_hint": "principal",
         "exists": true
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "titane",
         "name": "Titane",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "tour",
         "name": "Tour",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -5091,42 +4871,36 @@
         "id": "poudre-a-canon",
         "name": "Poudre à canon",
         "relation_type": "knowledge",
-        "quantity_hint": "principe historique",
         "exists": true
       },
       {
         "id": "aluminium",
         "name": "Aluminium",
         "relation_type": "material",
-        "quantity_hint": "structure principale",
         "exists": true
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "moteur et tuyères",
         "exists": true
       },
       {
         "id": "essence",
         "name": "Essence",
         "relation_type": "material",
-        "quantity_hint": "ergol liquide",
         "exists": true
       },
       {
         "id": "oxygene-liquide",
         "name": "Oxygène liquide",
         "relation_type": "material",
-        "quantity_hint": "comburant",
         "exists": false
       },
       {
         "id": "moteur-explosion",
         "name": "Moteur à explosion",
         "relation_type": "knowledge",
-        "quantity_hint": "principe propulsion",
         "exists": true
       }
     ],
@@ -5166,49 +4940,42 @@
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "cuivre",
         "name": "Cuivre",
         "relation_type": "material",
-        "quantity_hint": "modérément",
         "exists": true
       },
       {
         "id": "moteur-electrique",
         "name": "Moteur électrique",
         "relation_type": "tool",
-        "quantity_hint": "quelques-uns",
         "exists": true
       },
       {
         "id": "helice",
         "name": "Hélice",
         "relation_type": "component",
-        "quantity_hint": "une ou deux",
         "exists": false
       },
       {
         "id": "ballast",
         "name": "Ballast",
         "relation_type": "component",
-        "quantity_hint": "plusieurs",
         "exists": false
       },
       {
         "id": "electricite",
         "name": "Électricité",
         "relation_type": "energy",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "soudure",
         "name": "Soudure",
         "relation_type": "knowledge",
-        "quantity_hint": "",
         "exists": true
       }
     ],
@@ -5249,42 +5016,36 @@
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "scie",
         "name": "Scie",
         "relation_type": "tool",
-        "quantity_hint": "1",
         "exists": true
       },
       {
         "id": "hache",
         "name": "Hache",
         "relation_type": "tool",
-        "quantity_hint": "1",
         "exists": true
       },
       {
         "id": "marteau",
         "name": "Marteau",
         "relation_type": "tool",
-        "quantity_hint": "1",
         "exists": true
       },
       {
         "id": "clou",
         "name": "Clou",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       }
     ],
@@ -5335,28 +5096,24 @@
         "id": "argile",
         "name": "Argile",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "cuivre",
         "name": "Cuivre",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "four",
         "name": "Four",
         "relation_type": "tool",
-        "quantity_hint": "1",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": "1",
         "exists": true
       }
     ],
@@ -5405,35 +5162,30 @@
         "id": "feu",
         "name": "Feu",
         "relation_type": "energy",
-        "quantity_hint": "nécessaire",
         "exists": true
       },
       {
         "id": "eau",
         "name": "Eau",
         "relation_type": "tool",
-        "quantity_hint": "bain-marie",
         "exists": true
       },
       {
         "id": "verre",
         "name": "Verre",
         "relation_type": "material",
-        "quantity_hint": "récipient initial",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "boîtes métalliques",
         "exists": true
       },
       {
         "id": "etain",
         "name": "Étain",
         "relation_type": "material",
-        "quantity_hint": "revêtement fer-blanc",
         "exists": true
       }
     ],
@@ -5480,35 +5232,30 @@
         "id": "olive",
         "name": "Olive",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": false
       },
       {
         "id": "eau",
         "name": "Eau",
         "relation_type": "tool",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "presse",
         "name": "Presse",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": true
       },
       {
         "id": "pierre",
         "name": "Pierre de taille",
         "relation_type": "material",
-        "quantity_hint": "quelques",
         "exists": true
       },
       {
         "id": "moulin",
         "name": "Moulin",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": false
       }
     ],
@@ -5558,42 +5305,36 @@
         "id": "petrole",
         "name": "Pétrole",
         "relation_type": "material",
-        "quantity_hint": "moyennement",
         "exists": true
       },
       {
         "id": "chimie-organique",
         "name": "Chimie organique",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "polymeres",
         "name": "Polymères",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "four-haute-temp",
         "name": "Four à haute température",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "acide-adipique",
         "name": "Acide adipique",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": false
       },
       {
         "id": "hexamethylenediamine",
         "name": "Hexaméthylènediamine",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": false
       }
     ],
@@ -5638,42 +5379,36 @@
         "id": "plantes-medicinales",
         "name": "Plantes médicinales",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "lait",
         "name": "Lait",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "seringue",
         "name": "Seringue",
         "relation_type": "tool",
-        "quantity_hint": "une",
         "exists": false
       },
       {
         "id": "microscope",
         "name": "Microscope",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": true
       },
       {
         "id": "culture-microbienne",
         "name": "Culture microbienne",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": false
       },
       {
         "id": "anatomie-humaine",
         "name": "Anatomie humaine",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": false
       }
     ],
@@ -5722,35 +5457,30 @@
         "id": "plantes-medicinales",
         "name": "Plantes médicinales",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "chimie-organique",
         "name": "Chimie organique",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "moisissures",
         "name": "Moisissures",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": false
       },
       {
         "id": "microscope",
         "name": "Microscope",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "fermentation",
         "name": "Fermentation",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -5796,21 +5526,18 @@
         "id": "ether-sulfurique",
         "name": "Éther sulfurique",
         "relation_type": "material",
-        "quantity_hint": "petite quantité",
         "exists": false
       },
       {
         "id": "plantes-medicinales",
         "name": "Plantes médicinales",
         "relation_type": "knowledge",
-        "quantity_hint": "",
         "exists": true
       },
       {
         "id": "chimie-organique",
         "name": "Chimie organique",
         "relation_type": "knowledge",
-        "quantity_hint": "",
         "exists": true
       }
     ],
@@ -5851,28 +5578,24 @@
         "id": "nitroglycerine",
         "name": "Nitroglycérine",
         "relation_type": "material",
-        "quantity_hint": "75%",
         "exists": false
       },
       {
         "id": "terre-diatomee",
         "name": "Terre de diatomée",
         "relation_type": "material",
-        "quantity_hint": "25%",
         "exists": false
       },
       {
         "id": "soude",
         "name": "Soude",
         "relation_type": "material",
-        "quantity_hint": "stabilisant",
         "exists": true
       },
       {
         "id": "detonateur",
         "name": "Détonateur",
         "relation_type": "tool",
-        "quantity_hint": "un par bâton",
         "exists": false
       }
     ],
@@ -5917,49 +5640,42 @@
         "id": "lentille",
         "name": "Lentille optique",
         "relation_type": "material",
-        "quantity_hint": "plusieurs",
         "exists": true
       },
       {
         "id": "verre",
         "name": "Verre",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "moyen",
         "exists": true
       },
       {
         "id": "cuivre",
         "name": "Cuivre",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "argent",
         "name": "Argent",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": false
       },
       {
         "id": "bitume-judee",
         "name": "Bitume de Judée",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": false
       },
       {
         "id": "chambre-noire",
         "name": "Chambre noire",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": false
       }
     ],
@@ -5999,35 +5715,30 @@
         "id": "silicium",
         "name": "Silicium",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "transistor",
         "name": "Transistor",
         "relation_type": "material",
-        "quantity_hint": "plusieurs",
         "exists": true
       },
       {
         "id": "circuit-imprime",
         "name": "Circuit imprimé",
         "relation_type": "material",
-        "quantity_hint": "un",
         "exists": true
       },
       {
         "id": "electricite",
         "name": "Électricité",
         "relation_type": "energy",
-        "quantity_hint": "constante",
         "exists": true
       },
       {
         "id": "photolithographie",
         "name": "Photolithographie",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -6070,35 +5781,30 @@
         "id": "poudre-a-canon",
         "name": "Poudre à canon",
         "relation_type": "material",
-        "quantity_hint": "modérée",
         "exists": false
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "bronze",
         "name": "Bronze",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "fonderie",
         "name": "Fonderie",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -6144,56 +5850,48 @@
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "poudre-a-canon",
         "name": "Poudre à canon",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "marteau",
         "name": "Marteau",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "mousquet",
         "name": "Mousquet",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": false
       },
       {
         "id": "arquebuse",
         "name": "Arquebuse",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": false
       }
     ],
@@ -6250,35 +5948,30 @@
         "id": "huile-vegetale",
         "name": "Huile végétale",
         "relation_type": "material",
-        "quantity_hint": "principale",
         "exists": false
       },
       {
         "id": "soude",
         "name": "Soude",
         "relation_type": "material",
-        "quantity_hint": "nécessaire",
         "exists": true
       },
       {
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "modérée",
         "exists": true
       },
       {
         "id": "four",
         "name": "Four",
         "relation_type": "tool",
-        "quantity_hint": "1",
         "exists": true
       },
       {
         "id": "cendres-alcalines",
         "name": "Cendres alcalines",
         "relation_type": "material",
-        "quantity_hint": "historique",
         "exists": false
       }
     ],
@@ -6325,49 +6018,42 @@
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "extraits-vegetaux",
         "name": "Extraits végétaux",
         "relation_type": "material",
-        "quantity_hint": "moyen",
         "exists": true
       },
       {
         "id": "argile",
         "name": "Argile",
         "relation_type": "material",
-        "quantity_hint": "moyen",
         "exists": true
       },
       {
         "id": "feu",
         "name": "Feu",
         "relation_type": "energy",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "lait",
         "name": "Lait",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "huiles-vegetales",
         "name": "Huiles végétales",
         "relation_type": "material",
-        "quantity_hint": "moyen",
         "exists": false
       },
       {
         "id": "cire-abeille",
         "name": "Cire d'abeille",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": false
       }
     ],
@@ -6418,35 +6104,30 @@
         "id": "huile-d-olive",
         "name": "Huile d'olive",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "ble",
         "name": "Blé",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "raisin",
         "name": "Raisin",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "four",
         "name": "Four",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": true
       },
       {
         "id": "fermentation",
         "name": "Fermentation",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -6476,28 +6157,24 @@
         "id": "feu",
         "name": "Feu",
         "relation_type": "energy",
-        "quantity_hint": "selon technique",
         "exists": true
       },
       {
         "id": "sel",
         "name": "Sel",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "air",
         "name": "Air",
         "relation_type": "material",
-        "quantity_hint": "selon technique",
         "exists": true
       },
       {
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "selon technique",
         "exists": true
       }
     ],
@@ -6548,28 +6225,24 @@
         "id": "nylon",
         "name": "Nylon",
         "relation_type": "material",
-        "quantity_hint": "plusieurs mètres carrés",
         "exists": true
       },
       {
         "id": "parachute-soie",
         "name": "Parachute en soie",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": false
       },
       {
         "id": "machine-a-coudre",
         "name": "Machine à coudre",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "fil-de-nylon",
         "name": "Fil de nylon",
         "relation_type": "material",
-        "quantity_hint": "bobines",
         "exists": false
       }
     ],
@@ -6610,42 +6283,36 @@
         "id": "acier-inox",
         "name": "Acier inoxydable",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": false
       },
       {
         "id": "verre",
         "name": "Verre",
         "relation_type": "material",
-        "quantity_hint": "modérément",
         "exists": true
       },
       {
         "id": "plastique",
         "name": "Plastique",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "caoutchouc",
         "name": "Caoutchouc",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": "1",
         "exists": true
       },
       {
         "id": "four",
         "name": "Four",
         "relation_type": "tool",
-        "quantity_hint": "1",
         "exists": true
       }
     ],
@@ -6691,35 +6358,30 @@
         "id": "plantes-medicinales",
         "name": "Plantes médicinales",
         "relation_type": "knowledge",
-        "quantity_hint": "quelques",
         "exists": true
       },
       {
         "id": "observation-directe",
         "name": "Observation directe",
         "relation_type": "knowledge",
-        "quantity_hint": "beaucoup",
         "exists": false
       },
       {
         "id": "dissection-animale",
         "name": "Dissection animale",
         "relation_type": "knowledge",
-        "quantity_hint": "beaucoup",
         "exists": false
       },
       {
         "id": "cadavre-humain",
         "name": "Cadavre humain",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": false
       },
       {
         "id": "outils-dissection",
         "name": "Outils de dissection",
         "relation_type": "tool",
-        "quantity_hint": "quelques",
         "exists": false
       }
     ],
@@ -6777,35 +6439,30 @@
         "id": "anatomie-humaine",
         "name": "Anatomie humaine",
         "relation_type": "knowledge",
-        "quantity_hint": "essentiel",
         "exists": true
       },
       {
         "id": "microscope",
         "name": "Microscope",
         "relation_type": "tool",
-        "quantity_hint": "indispensable",
         "exists": true
       },
       {
         "id": "vaccin",
         "name": "Vaccin",
         "relation_type": "knowledge",
-        "quantity_hint": "précurseur",
         "exists": true
       },
       {
         "id": "chimie-organique",
         "name": "Chimie organique",
         "relation_type": "knowledge",
-        "quantity_hint": "nécessaire",
         "exists": true
       },
       {
         "id": "microbiologie",
         "name": "Microbiologie",
         "relation_type": "knowledge",
-        "quantity_hint": "fondamentale",
         "exists": false
       }
     ],
@@ -6857,42 +6514,36 @@
         "id": "anatomie-humaine",
         "name": "Anatomie humaine",
         "relation_type": "knowledge",
-        "quantity_hint": "nécessaire",
         "exists": true
       },
       {
         "id": "mathematiques",
         "name": "Mathématiques",
         "relation_type": "knowledge",
-        "quantity_hint": "beaucoup",
         "exists": false
       },
       {
         "id": "statistiques",
         "name": "Statistiques",
         "relation_type": "knowledge",
-        "quantity_hint": "beaucoup",
         "exists": false
       },
       {
         "id": "papier",
         "name": "Papier",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "encre",
         "name": "Encre",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "observation-medicale",
         "name": "Observation médicale",
         "relation_type": "knowledge",
-        "quantity_hint": "nécessaire",
         "exists": false
       }
     ],
@@ -6943,21 +6594,18 @@
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "essentielle",
         "exists": true
       },
       {
         "id": "air",
         "name": "Air",
         "relation_type": "material",
-        "quantity_hint": "modérée",
         "exists": true
       },
       {
         "id": "matiere-organique",
         "name": "Matière organique",
         "relation_type": "material",
-        "quantity_hint": "variable",
         "exists": false
       }
     ],
@@ -7004,28 +6652,24 @@
         "id": "moisissures",
         "name": "Moisissures",
         "relation_type": "material",
-        "quantity_hint": "cultures",
         "exists": true
       },
       {
         "id": "chimie-organique",
         "name": "Chimie organique",
         "relation_type": "knowledge",
-        "quantity_hint": "principes",
         "exists": true
       },
       {
         "id": "fermentation",
         "name": "Fermentation",
         "relation_type": "tool",
-        "quantity_hint": "procédé",
         "exists": true
       },
       {
         "id": "principes-actifs",
         "name": "Principes actifs",
         "relation_type": "knowledge",
-        "quantity_hint": "extraction",
         "exists": true
       }
     ],
@@ -7071,35 +6715,30 @@
         "id": "plantes-medicinales",
         "name": "Plantes médicinales",
         "relation_type": "material",
-        "quantity_hint": "base",
         "exists": true
       },
       {
         "id": "principes-actifs",
         "name": "Principes actifs",
         "relation_type": "material",
-        "quantity_hint": "essence",
         "exists": true
       },
       {
         "id": "seringue",
         "name": "Seringue",
         "relation_type": "tool",
-        "quantity_hint": "instrument",
         "exists": true
       },
       {
         "id": "anatomie-humaine",
         "name": "Anatomie humaine",
         "relation_type": "knowledge",
-        "quantity_hint": "fondamental",
         "exists": true
       },
       {
         "id": "chimie-organique",
         "name": "Chimie organique",
         "relation_type": "knowledge",
-        "quantity_hint": "base",
         "exists": true
       }
     ],
@@ -7139,35 +6778,30 @@
         "id": "glycerol",
         "name": "Glycérol",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": false
       },
       {
         "id": "acide-nitrique",
         "name": "Acide nitrique",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": false
       },
       {
         "id": "acide-sulfurique",
         "name": "Acide sulfurique",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": false
       },
       {
         "id": "chimie-organique",
         "name": "Chimie organique",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "four",
         "name": "Four",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": true
       }
     ],
@@ -7213,49 +6847,42 @@
         "id": "explosifs",
         "name": "Explosifs",
         "relation_type": "tool",
-        "quantity_hint": "beaucoup",
         "exists": false
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "pierre",
         "name": "Pierre de taille",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "ciment",
         "name": "Ciment",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "locomotive",
         "name": "Locomotive",
         "relation_type": "knowledge",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "perforatrice-pneumatique",
         "name": "Perforatrice pneumatique",
         "relation_type": "tool",
-        "quantity_hint": "peu",
         "exists": false
       },
       {
         "id": "air-comprime",
         "name": "Air comprimé",
         "relation_type": "energy",
-        "quantity_hint": "beaucoup",
         "exists": false
       }
     ],
@@ -7301,35 +6928,30 @@
         "id": "nitroglycerine",
         "name": "Nitroglycérine",
         "relation_type": "material",
-        "quantity_hint": "60-75%",
         "exists": true
       },
       {
         "id": "nitrocellulose",
         "name": "Nitrocellulose",
         "relation_type": "material",
-        "quantity_hint": "3-5%",
         "exists": false
       },
       {
         "id": "salpetre",
         "name": "Salpêtre",
         "relation_type": "material",
-        "quantity_hint": "25-35%",
         "exists": true
       },
       {
         "id": "pate-bois",
         "name": "Pâte de bois",
         "relation_type": "material",
-        "quantity_hint": "5-10%",
         "exists": false
       },
       {
         "id": "chimie-organique",
         "name": "Chimie organique",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -7419,7 +7041,6 @@
         "id": "petrole",
         "name": "Pétrole",
         "relation_type": "material",
-        "quantity_hint": "dérivé naturel",
         "exists": true
       }
     ],
@@ -7465,35 +7086,30 @@
         "id": "rayons-x",
         "name": "Rayons X",
         "relation_type": "tool",
-        "quantity_hint": "1",
         "exists": true
       },
       {
         "id": "tube-crookes",
         "name": "Tube de Crookes",
         "relation_type": "tool",
-        "quantity_hint": "1",
         "exists": false
       },
       {
         "id": "plaque-photographique",
         "name": "Plaque photographique",
         "relation_type": "material",
-        "quantity_hint": "1",
         "exists": false
       },
       {
         "id": "electricite",
         "name": "Électricité",
         "relation_type": "energy",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "anatomie-humaine",
         "name": "Anatomie humaine",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -7538,42 +7154,36 @@
         "id": "aluminium",
         "name": "Aluminium",
         "relation_type": "material",
-        "quantity_hint": "substrat des plateaux",
         "exists": true
       },
       {
         "id": "verre",
         "name": "Verre",
         "relation_type": "material",
-        "quantity_hint": "substrat moderne",
         "exists": true
       },
       {
         "id": "cuivre",
         "name": "Cuivre",
         "relation_type": "material",
-        "quantity_hint": "bobinages têtes",
         "exists": true
       },
       {
         "id": "moteur-electrique",
         "name": "Moteur électrique",
         "relation_type": "tool",
-        "quantity_hint": "rotation plateaux",
         "exists": true
       },
       {
         "id": "circuit-imprime",
         "name": "Circuit imprimé",
         "relation_type": "tool",
-        "quantity_hint": "contrôleur",
         "exists": true
       },
       {
         "id": "alliage-cobalt-chrome-platine",
         "name": "Alliage cobalt-chrome-platine",
         "relation_type": "material",
-        "quantity_hint": "couche magnétique",
         "exists": false
       }
     ],
@@ -7619,21 +7229,18 @@
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "principal",
         "exists": true
       },
       {
         "id": "tendon-animal",
         "name": "Tendon animal",
         "relation_type": "material",
-        "quantity_hint": "pour corde",
         "exists": false
       },
       {
         "id": "fibres-vegetales",
         "name": "Fibres végétales",
         "relation_type": "material",
-        "quantity_hint": "pour corde",
         "exists": false
       }
     ],
@@ -7675,49 +7282,42 @@
         "id": "bois",
         "name": "Bois",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "corde",
         "name": "Corde",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": false
       },
       {
         "id": "bronze",
         "name": "Bronze",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "scie",
         "name": "Scie",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "ressort",
         "name": "Ressort",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       }
     ],
@@ -7758,49 +7358,42 @@
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "poudre-a-canon",
         "name": "Poudre à canon",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "bronze",
         "name": "Bronze",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "fonderie",
         "name": "Fonderie",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "tour",
         "name": "Tour",
         "relation_type": "tool",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "canon",
         "name": "Canon",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -7845,35 +7438,30 @@
         "id": "soufre",
         "name": "Soufre",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "air",
         "name": "Air",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "distillation",
         "name": "Distillation",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "four-haute-temp",
         "name": "Four à haute température",
         "relation_type": "tool",
-        "quantity_hint": "un",
         "exists": true
       }
     ],
@@ -7924,42 +7512,36 @@
         "id": "electricite",
         "name": "Électricité",
         "relation_type": "energy",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "verre",
         "name": "Verre",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "lentille",
         "name": "Lentille optique",
         "relation_type": "component",
-        "quantity_hint": "quelques",
         "exists": true
       },
       {
         "id": "cristal-rubis",
         "name": "Cristal de rubis",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": false
       },
       {
         "id": "miroir",
         "name": "Miroir",
         "relation_type": "component",
-        "quantity_hint": "quelques",
         "exists": false
       },
       {
         "id": "optique-quantique",
         "name": "Optique quantique",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": false
       }
     ],
@@ -8015,42 +7597,36 @@
         "id": "plomb",
         "name": "Plomb",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": false
       },
       {
         "id": "acide-sulfurique",
         "name": "Acide sulfurique",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": false
       },
       {
         "id": "caoutchouc",
         "name": "Caoutchouc",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "verre",
         "name": "Verre",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       },
       {
         "id": "electricite",
         "name": "Électricité",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "chimie-organique",
         "name": "Chimie organique",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       }
     ],
@@ -8106,49 +7682,42 @@
         "id": "microprocesseur",
         "name": "Microprocesseur",
         "relation_type": "material",
-        "quantity_hint": "plusieurs par satellite",
         "exists": true
       },
       {
         "id": "antenne-radio",
         "name": "Antenne radio",
         "relation_type": "material",
-        "quantity_hint": "plusieurs",
         "exists": true
       },
       {
         "id": "serveur-informatique",
         "name": "Serveur informatique",
         "relation_type": "tool",
-        "quantity_hint": "stations de contrôle",
         "exists": true
       },
       {
         "id": "internet",
         "name": "Internet",
         "relation_type": "knowledge",
-        "quantity_hint": "infrastructure",
         "exists": true
       },
       {
         "id": "horloge-atomique",
         "name": "Horloge atomique",
         "relation_type": "material",
-        "quantity_hint": "plusieurs par satellite",
         "exists": false
       },
       {
         "id": "fusee",
         "name": "Fusée",
         "relation_type": "tool",
-        "quantity_hint": "lancement satellites",
         "exists": true
       },
       {
         "id": "electricite",
         "name": "Électricité",
         "relation_type": "energy",
-        "quantity_hint": "alimentation",
         "exists": true
       }
     ],
@@ -8194,42 +7763,36 @@
         "id": "bronze",
         "name": "Bronze",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "fer",
         "name": "Fer",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "acier",
         "name": "Acier",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "forge",
         "name": "Forge",
         "relation_type": "tool",
-        "quantity_hint": "1",
         "exists": true
       },
       {
         "id": "marteau",
         "name": "Marteau",
         "relation_type": "tool",
-        "quantity_hint": "1",
         "exists": true
       },
       {
         "id": "fonderie",
         "name": "Fonderie",
         "relation_type": "knowledge",
-        "quantity_hint": "1",
         "exists": true
       }
     ],
@@ -8274,14 +7837,12 @@
         "id": "sel",
         "name": "Sel",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "acide-sulfurique",
         "name": "Acide sulfurique",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       }
     ],
@@ -8323,35 +7884,30 @@
         "id": "plomb",
         "name": "Plomb",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": false
       },
       {
         "id": "acide-sulfurique",
         "name": "Acide sulfurique",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "eau",
         "name": "Eau",
         "relation_type": "material",
-        "quantity_hint": "modéré",
         "exists": true
       },
       {
         "id": "electricite",
         "name": "Électricité",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       },
       {
         "id": "plastique",
         "name": "Plastique",
         "relation_type": "material",
-        "quantity_hint": "peu",
         "exists": true
       }
     ],
@@ -8405,49 +7961,42 @@
         "id": "salpetre",
         "name": "Salpêtre",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "soufre",
         "name": "Soufre",
         "relation_type": "material",
-        "quantity_hint": "un peu",
         "exists": true
       },
       {
         "id": "charbon-de-bois",
         "name": "Charbon de bois",
         "relation_type": "material",
-        "quantity_hint": "un peu",
         "exists": true
       },
       {
         "id": "nitroglycerine",
         "name": "Nitroglycérine",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "ammoniac",
         "name": "Ammoniac",
         "relation_type": "material",
-        "quantity_hint": "beaucoup",
         "exists": true
       },
       {
         "id": "gazole",
         "name": "Gazole",
         "relation_type": "material",
-        "quantity_hint": "un peu",
         "exists": true
       },
       {
         "id": "chimie-organique",
         "name": "Chimie organique",
         "relation_type": "knowledge",
-        "quantity_hint": null,
         "exists": true
       }
     ],

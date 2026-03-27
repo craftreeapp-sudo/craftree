@@ -300,7 +300,7 @@ Réponds UNIQUEMENT avec un JSON valide, rien d'autre :
   "wikipedia_url": "https://fr.wikipedia.org/wiki/...",
   "tags": ["tag1", "tag2"],
   "built_upon": [
-    { "id": "acier", "name": "Acier", "relation_type": "material", "quantity_hint": "beaucoup", "exists": true }
+    { "id": "acier", "name": "Acier", "relation_type": "material", "exists": true }
   ],
   "led_to": [
     { "id": "camion", "name": "Camion", "exists": false }
@@ -416,7 +416,6 @@ function addInventionToDB(enriched) {
           source_id: sourceId,
           target_id: id,
           relation_type: rel,
-          quantity_hint: input.quantity_hint || undefined,
           is_optional: false,
           notes: null,
         };
@@ -451,7 +450,6 @@ function addInventionToDB(enriched) {
           source_id: id,
           target_id: targetId,
           relation_type: rel,
-          quantity_hint: output.quantity_hint ?? undefined,
           is_optional: false,
           notes: null,
         };
@@ -521,7 +519,6 @@ function reconcileLinks() {
             source_id: sourceId,
             target_id: node.id,
             relation_type: rel,
-            quantity_hint: input.quantity_hint || undefined,
             is_optional: false,
             notes: null,
           });
@@ -548,7 +545,6 @@ function reconcileLinks() {
             source_id: node.id,
             target_id: targetId,
             relation_type: rel,
-            quantity_hint: output.quantity_hint ?? undefined,
             is_optional: false,
             notes: null,
           });
