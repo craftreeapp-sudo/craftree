@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { AppContentShell } from '@/components/layout/AppContentShell';
-import linksJson from '@/data/links.json';
-import nodesIndex from '@/data/nodes-index.json';
+import { getPublicGraphStats } from '@/lib/landing-stats';
 
 export const metadata: Metadata = {
   title: { absolute: 'À propos — Craftree' },
@@ -61,8 +60,8 @@ function InventionTypeRow({
 
 export default async function AboutPage() {
   const t = await getTranslations('about');
-  const nInventions = nodesIndex.nodes.length;
-  const nLinks = linksJson.links.length;
+  const { nodeCount: nInventions, linkCount: nLinks } =
+    await getPublicGraphStats();
 
   return (
     <AppContentShell

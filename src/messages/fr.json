@@ -403,6 +403,16 @@
     "tabPending": "Suggestions en attente",
     "tabHistory": "Historique",
     "tabContributors": "Contributeurs",
+    "tabAnalytics": "Analytics",
+    "analyticsSessionsToday": "Sessions aujourd'hui",
+    "analyticsClicksToday": "Clics aujourd'hui",
+    "analyticsSearchesToday": "Recherches aujourd'hui",
+    "analyticsSharesToday": "Partages aujourd'hui",
+    "analyticsTopNodes": "Inventions les plus consultées",
+    "analyticsTopSearches": "Recherches populaires",
+    "analyticsPaths": "Chemins de navigation",
+    "analyticsLanguages": "Langues",
+    "analyticsNoData": "Aucune donnée pour l’instant.",
     "badgePending": "en attente",
     "approve": "Approuver",
     "reject": "Rejeter",
@@ -433,7 +443,8 @@
     "breadcrumbAria": "Fil d'Ariane",
     "dependencyTree": "Arbre de dépendances",
     "openFilters": "Ouvrir les filtres",
-    "secondaryNav": "Liens secondaires"
+    "secondaryNav": "Liens secondaires",
+    "logoGlobalView": "Retour à la vue globale"
   },
   "contactPage": {
     "title": "Contact",

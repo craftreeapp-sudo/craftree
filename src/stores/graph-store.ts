@@ -74,14 +74,25 @@ function patchNeedsFullLayout(patch: Partial<TechNodeBasic>): boolean {
   );
 }
 
-/** Détails d’un nœud : cache mémoire + GET /api/nodes/[id] (priorité au store hydraté). */
+/** True si au moins une description FR ou EN est présente (hors espaces). */
+export function nodeDetailsHasReadableDescription(
+  d: TechNodeDetails | undefined
+): boolean {
+  if (!d) return false;
+  return (
+    (d.description?.trim() ?? '') !== '' ||
+    (d.description_en?.trim() ?? '') !== ''
+  );
+}
+
+/** Détails d’un nœud : cache mémoire + GET /api/nodes/[id]. */
 export async function getNodeDetails(id: string): Promise<TechNodeDetails | null> {
-  const fromStore = useNodeDetailsStore.getState().byId[id];
-  if (fromStore !== undefined) {
-    return fromStore;
-  }
   if (detailsMemoryCache.has(id)) {
     return detailsMemoryCache.get(id)!;
+  }
+  const fromStore = useNodeDetailsStore.getState().byId[id];
+  if (fromStore !== undefined && nodeDetailsHasReadableDescription(fromStore)) {
+    return fromStore;
   }
   try {
     const res = await fetch(`/api/nodes/${encodeURIComponent(id)}`);

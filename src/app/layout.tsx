@@ -9,7 +9,10 @@ import { AuthInitializer } from '@/components/layout/AuthInitializer';
 import { ThemeProvider } from '@/components/layout/ThemeProvider';
 import { ToastContainer } from '@/components/ui/ToastContainer';
 import { LoginModal } from '@/components/ui/LoginModal';
+import { Header } from '@/components/layout/Header';
 import { getThemeBootstrapScript } from '@/lib/theme-bootstrap';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -125,9 +128,12 @@ export default async function RootLayout({
             <AuthInitializer />
             <ToastContainer />
             <LoginModal />
+            <Header />
             {children}
           </ThemeProvider>
         </NextIntlClientProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

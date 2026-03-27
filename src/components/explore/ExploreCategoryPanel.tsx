@@ -13,7 +13,11 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { useUIStore } from '@/stores/ui-store';
-import { useGraphStore, getNodeDetails } from '@/stores/graph-store';
+import {
+  useGraphStore,
+  getNodeDetails,
+  nodeDetailsHasReadableDescription,
+} from '@/stores/graph-store';
 import { useNodeDetailsStore } from '@/stores/node-details-store';
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 import { getCategoryColor } from '@/lib/colors';
@@ -161,7 +165,10 @@ export function ExploreCategoryPanel() {
     async (n: TechNodeBasic, anchorEl: HTMLElement | null) => {
       if (!anchorEl || hoveredRowIdRef.current !== n.id) return;
       let detail = useNodeDetailsStore.getState().byId[n.id];
-      if (detail === undefined) {
+      if (
+        detail === undefined ||
+        !nodeDetailsHasReadableDescription(detail)
+      ) {
         const fetched = await getNodeDetails(n.id);
         if (fetched) mergeDetail(n.id, fetched);
         detail = useNodeDetailsStore.getState().byId[n.id];

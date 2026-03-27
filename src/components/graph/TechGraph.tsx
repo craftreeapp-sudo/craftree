@@ -43,6 +43,7 @@ import {
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 import { useUIStore } from '@/stores/ui-store';
 import { useGraphStore, getNodeDetails } from '@/stores/graph-store';
+import { trackEvent } from '@/lib/analytics';
 import { useAuthStore } from '@/stores/auth-store';
 import type {
   CraftingLink,
@@ -764,6 +765,19 @@ function TechGraphInner() {
 
   const focusLayoutActive = Boolean(isSidebarOpen && selectedNodeId);
 
+  const focusViewKeyRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!focusLayoutActive || !selectedNodeId) {
+      focusViewKeyRef.current = null;
+      return;
+    }
+    const k = selectedNodeId;
+    if (focusViewKeyRef.current !== k) {
+      focusViewKeyRef.current = k;
+      trackEvent('focus_view', selectedNodeId);
+    }
+  }, [focusLayoutActive, selectedNodeId]);
+
   /** En vue focalisée, ignorer le survol pour ne pas relancer le layout (évite le recentrage au hover). */
   const graphLayoutHoverDep = focusLayoutActive ? 0 : exploreHoveredNodeId;
 
@@ -1145,12 +1159,24 @@ function TechGraphInner() {
         ? exploreFlowNodes
         : nodesRef.current;
     const baseNodes = stripFocusOverlayNodes(rawBase);
-    const baseEdges =
+    let baseEdges =
       outgoingAnim
         ? edgesRef.current
         : !focusLayoutActive || exploreUpdated
           ? exploreFlowEdges
           : edgesRef.current;
+
+    /**
+     * Masquer les liens fait setEdges([]) : edgesRef devient vide. En vue focalisée on
+     * réutilisait ce ref vide comme base → les liens ne réapparaissaient pas au réaffichage.
+     */
+    if (
+      !outgoingAnim &&
+      baseEdges.length === 0 &&
+      exploreFlowEdges.length > 0
+    ) {
+      baseEdges = exploreFlowEdges;
+    }
 
     if (!focusLayoutActive || exploreUpdated) {
       const m = originalPositionsRef.current;
@@ -1578,11 +1604,14 @@ function TechGraphInner() {
   ]);
 
   const scheduleSingleClick = useCallback(
-    (nodeId: string) => {
+    (nodeId: string, nodeType?: string) => {
       if (useExploreFocusTransitionStore.getState().isAnimating) return;
       if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
       clickTimerRef.current = setTimeout(() => {
         clickTimerRef.current = null;
+        if (nodeType === 'tech') {
+          trackEvent('node_click', nodeId);
+        }
         navigateToNode(nodeId, { center: false });
       }, CLICK_DELAY_MS);
     },
@@ -1595,7 +1624,7 @@ function TechGraphInner() {
         e.stopPropagation();
         return;
       }
-      scheduleSingleClick(node.id);
+      scheduleSingleClick(node.id, node.type ?? undefined);
     },
     [scheduleSingleClick]
   );

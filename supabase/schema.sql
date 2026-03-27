@@ -142,3 +142,27 @@ CREATE TRIGGER on_auth_user_created
 
 -- Bases existantes : supprime la colonne obsolète (quantité sur les liens)
 ALTER TABLE links DROP COLUMN IF EXISTS quantity_hint;
+
+-- Événements analytics (insertion publique, lecture admin uniquement)
+CREATE TABLE IF NOT EXISTS analytics_events (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  event_type TEXT NOT NULL,
+  node_id TEXT,
+  session_id TEXT,
+  metadata JSONB DEFAULT '{}',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_analytics_event_type ON analytics_events(event_type);
+CREATE INDEX IF NOT EXISTS idx_analytics_node_id ON analytics_events(node_id);
+CREATE INDEX IF NOT EXISTS idx_analytics_created_at ON analytics_events(created_at);
+
+ALTER TABLE analytics_events ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "analytics_insert_all" ON analytics_events;
+CREATE POLICY "analytics_insert_all" ON analytics_events FOR INSERT WITH CHECK (true);
+
+DROP POLICY IF EXISTS "analytics_read_admin" ON analytics_events;
+CREATE POLICY "analytics_read_admin" ON analytics_events FOR SELECT USING (
+  (auth.jwt() ->> 'email') = 'craftree.app@gmail.com'
+);

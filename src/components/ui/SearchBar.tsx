@@ -14,6 +14,7 @@ import { useGraphStore } from '@/stores/graph-store';
 import { getTreeLayerDisplayIndex } from '@/lib/tree-layers';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
 import { getNameEnForNode } from '@/lib/name-en-lookup';
+import { trackEvent } from '@/lib/analytics';
 
 interface SearchNode {
   id: string;
@@ -95,6 +96,7 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
         setHighlightedIndex(0);
         return;
       }
+      trackEvent('search', undefined, { query: q.trim() });
       const searchResults = fuse.search(q);
       setResults(
         searchResults.slice(0, MAX_RESULTS).map((r) => r.item)

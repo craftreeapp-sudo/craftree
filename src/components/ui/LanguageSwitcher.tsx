@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocale } from 'next-intl';
 import type { AppLocale } from '@/lib/i18n-config';
+import { trackEvent } from '@/lib/analytics';
 
 const OPTIONS: {
   locale: AppLocale;
@@ -56,7 +57,10 @@ export function LanguageSwitcher({ align = 'end' }: { align?: 'start' | 'end' })
 
   const onPick = useCallback((next: AppLocale) => {
     setOpen(false);
-    if (next !== locale) switchLocale(next);
+    if (next !== locale) {
+      trackEvent('language_change', undefined, { from: locale, to: next });
+      switchLocale(next);
+    }
   }, [locale]);
 
   return (

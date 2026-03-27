@@ -5,13 +5,11 @@ import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 import { SiteFooter } from '@/components/layout/SiteFooter';
-import { HeaderAuth } from '@/components/layout/HeaderAuth';
 import { SearchBar } from '@/components/ui/SearchBar';
-import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
-import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher';
 import { LandingHeroBackground } from '@/components/landing/LandingHeroBackground';
 import { LandingHowDemoTree } from '@/components/landing/LandingHowDemoTree';
 import { useCountUp } from '@/hooks/use-count-up';
+import { trackEvent } from '@/lib/analytics';
 import { useOnceInView } from '@/hooks/use-once-in-view';
 import type { LandingHeroCard } from '@/lib/landing-hero-cards';
 import type { LandingDemoTreeNode } from '@/lib/landing-demo-tree';
@@ -31,7 +29,6 @@ const COUNT_MS = 1500;
 
 export function LandingPage({ stats, feature, heroCards, demoNodes }: Props) {
   const t = useTranslations('landing');
-  const tNav = useTranslations('nav');
   const locale = useLocale();
 
   const nf = useMemo(
@@ -76,28 +73,7 @@ export function LandingPage({ stats, feature, heroCards, demoNodes }: Props) {
 
   return (
     <div className="flex min-h-screen flex-col bg-page">
-      <nav
-        className="absolute left-0 right-0 top-0 z-[100] flex items-center justify-between px-4 py-3 md:px-6 md:py-4"
-        aria-label={tNav('mainNav')}
-      >
-        <Link
-          href="/"
-          className="text-lg font-bold tracking-tight text-foreground"
-          style={{
-            fontFamily:
-              'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
-          }}
-        >
-          Craft<span className="text-accent">ree</span>
-        </Link>
-        <div className="flex items-center gap-3">
-          <HeaderAuth />
-          <ThemeSwitcher align="end" />
-          <LanguageSwitcher align="end" />
-        </div>
-      </nav>
-
-      <section className="relative flex min-h-screen min-h-[100dvh] flex-col items-center justify-center px-5 pb-20 pt-24 text-center md:px-6">
+      <section className="relative flex min-h-screen min-h-[100dvh] flex-col items-center justify-center px-5 pb-20 pt-28 text-center md:px-6">
         {heroCards.length > 0 ? <LandingHeroBackground cards={heroCards} /> : null}
         <div className="relative z-10 mx-auto flex w-full max-w-[960px] flex-col items-center">
           <motion.h1
@@ -140,6 +116,7 @@ export function LandingPage({ stats, feature, heroCards, demoNodes }: Props) {
           >
             <Link
               href="/explore"
+              onClick={() => trackEvent('cta_explore')}
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-10 py-3.5 text-base font-semibold text-white shadow-lg shadow-accent/25 transition-colors hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-page"
             >
               {t('cta')}

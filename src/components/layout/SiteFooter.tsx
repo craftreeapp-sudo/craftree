@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { CONTACT_EMAIL } from '@/lib/contact-email';
 
 type Variant = 'default' | 'landing';
 
@@ -43,12 +44,12 @@ export function SiteFooter({ variant = 'default' }: { variant?: Variant }) {
             <span className="px-1 text-border" aria-hidden>
               ·
             </span>
-            <Link
-              href="/contact"
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
               className="transition-colors hover:text-accent"
             >
-              {t('contact')}
-            </Link>
+              {CONTACT_EMAIL}
+            </a>
           </nav>
         </div>
       </footer>
@@ -85,12 +86,12 @@ export function SiteFooter({ variant = 'default' }: { variant?: Variant }) {
           >
             {t('github')}
           </a>
-          <Link
-            href="/contact"
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
             className="text-muted-foreground transition-colors hover:text-accent"
           >
-            {t('contact')}
-          </Link>
+            {CONTACT_EMAIL}
+          </a>
         </nav>
       </div>
     </footer>

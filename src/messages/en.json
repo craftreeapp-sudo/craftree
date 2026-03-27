@@ -403,6 +403,16 @@
     "tabPending": "Pending suggestions",
     "tabHistory": "History",
     "tabContributors": "Contributors",
+    "tabAnalytics": "Analytics",
+    "analyticsSessionsToday": "Sessions today",
+    "analyticsClicksToday": "Clicks today",
+    "analyticsSearchesToday": "Searches today",
+    "analyticsSharesToday": "Shares today",
+    "analyticsTopNodes": "Most viewed inventions",
+    "analyticsTopSearches": "Popular searches",
+    "analyticsPaths": "Navigation paths",
+    "analyticsLanguages": "Languages",
+    "analyticsNoData": "No data yet.",
     "badgePending": "pending",
     "approve": "Approve",
     "reject": "Reject",
@@ -433,7 +443,8 @@
     "breadcrumbAria": "Breadcrumb",
     "dependencyTree": "Dependency tree",
     "openFilters": "Open filters",
-    "secondaryNav": "Secondary links"
+    "secondaryNav": "Secondary links",
+    "logoGlobalView": "Back to global view"
   },
   "contactPage": {
     "title": "Contact",

@@ -403,6 +403,16 @@
     "tabPending": "लंबित",
     "tabHistory": "इतिहास",
     "tabContributors": "योगदानकर्ता",
+    "tabAnalytics": "Analytics",
+    "analyticsSessionsToday": "आज के सत्र",
+    "analyticsClicksToday": "आज के क्लिक",
+    "analyticsSearchesToday": "आज की खोजें",
+    "analyticsSharesToday": "आज के शेयर",
+    "analyticsTopNodes": "सबसे ज़्यादा देखे गए आविष्कार",
+    "analyticsTopSearches": "लोकप्रिय खोजें",
+    "analyticsPaths": "नेविगेशन पथ",
+    "analyticsLanguages": "भाषाएँ",
+    "analyticsNoData": "अभी कोई डेटा नहीं।",
     "badgePending": "लंबित",
     "approve": "स्वीकृत",
     "reject": "अस्वीकृत",
@@ -433,7 +443,8 @@
     "breadcrumbAria": "ब्रेडक्रम्ब",
     "dependencyTree": "निर्भरता वृक्ष",
     "openFilters": "फ़िल्टर खोलें",
-    "secondaryNav": "अतिरिक्त लिंक"
+    "secondaryNav": "अतिरिक्त लिंक",
+    "logoGlobalView": "वैश्विक दृश्य पर वापस जाएँ"
   },
   "contactPage": {
     "title": "संपर्क",

@@ -28,7 +28,7 @@ import {
   EXPLORE_LAYOUT_NODE_W,
 } from '@/lib/graph-utils';
 import { FOCUS_ADD_BTN_PX } from './focus-overlay-nodes';
-import { getNodeDetails } from '@/stores/graph-store';
+import { getNodeDetails, nodeDetailsHasReadableDescription } from '@/stores/graph-store';
 import { useNodeDetailsStore } from '@/stores/node-details-store';
 import { useAuthStore } from '@/stores/auth-store';
 import { useThemeStore } from '@/stores/theme-store';
@@ -513,7 +513,10 @@ function TechNodeComponent({
   const openFocusDescTooltip = useCallback(async () => {
     if (!cardRef.current || !focusDescHoverActiveRef.current) return;
     const existing = useNodeDetailsStore.getState().byId[id];
-    if (existing === undefined) {
+    if (
+      existing === undefined ||
+      !nodeDetailsHasReadableDescription(existing)
+    ) {
       const fetched = await getNodeDetails(id);
       if (fetched) mergeDetail(id, fetched);
     }

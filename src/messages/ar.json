@@ -403,6 +403,16 @@
     "tabPending": "معلّق",
     "tabHistory": "السجل",
     "tabContributors": "المساهمون",
+    "tabAnalytics": "التحليلات",
+    "analyticsSessionsToday": "جلسات اليوم",
+    "analyticsClicksToday": "نقرات اليوم",
+    "analyticsSearchesToday": "عمليات بحث اليوم",
+    "analyticsSharesToday": "مشاركات اليوم",
+    "analyticsTopNodes": "أكثر الاختراعات مشاهدة",
+    "analyticsTopSearches": "عمليات بحث شائعة",
+    "analyticsPaths": "مسارات التنقل",
+    "analyticsLanguages": "اللغات",
+    "analyticsNoData": "لا توجد بيانات بعد.",
     "badgePending": "معلّق",
     "approve": "موافقة",
     "reject": "رفض",
@@ -433,7 +443,8 @@
     "breadcrumbAria": "مسار التنقل",
     "dependencyTree": "شجرة الاعتماد",
     "openFilters": "فتح عوامل التصفية",
-    "secondaryNav": "روابط ثانوية"
+    "secondaryNav": "روابط ثانوية",
+    "logoGlobalView": "العودة إلى العرض العام"
   },
   "contactPage": {
     "title": "اتصل",

@@ -206,8 +206,7 @@ export function ProfilePageClient() {
 
   const onSignOut = useCallback(async () => {
     await signOut();
-    router.replace('/explore');
-  }, [router]);
+  }, []);
 
   const displayName =
     data?.profile.display_name ??

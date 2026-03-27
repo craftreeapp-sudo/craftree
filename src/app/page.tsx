@@ -5,6 +5,7 @@ import {
   computeLandingPageData,
   type LandingIndexNode,
 } from '@/lib/landing-ssg';
+import { getPublicGraphStats } from '@/lib/landing-stats';
 import { resolveLandingHeroCards } from '@/lib/landing-hero-cards';
 import { getLandingDemoTreeNodes } from '@/lib/landing-demo-tree';
 import nodesIndex from '@/data/nodes-index.json';
@@ -28,10 +29,11 @@ const heroCards = resolveLandingHeroCards(
 export default async function Home() {
   const locale = await getLocale();
   const demoNodes = getLandingDemoTreeNodes(locale);
+  const stats = await getPublicGraphStats();
 
   return (
     <LandingPage
-      stats={landing.stats}
+      stats={stats}
       feature={landing.feature}
       heroCards={heroCards}
       demoNodes={demoNodes}

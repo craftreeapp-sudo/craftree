@@ -57,6 +57,25 @@ type ContributorRow = {
   total_suggestions: number;
 };
 
+type AnalyticsPayload = {
+  summary: {
+    sessionsToday: number;
+    clicksToday: number;
+    searchesToday: number;
+    sharesToday: number;
+  };
+  topNodes: { nodeId: string; name: string; count: number }[];
+  topSearches: { query: string; count: number }[];
+  topPaths: {
+    fromId: string;
+    fromName: string;
+    toId: string;
+    toName: string;
+    count: number;
+  }[];
+  languageDistribution: { locale: string; count: number; percent: number }[];
+};
+
 type FilterKey =
   | 'all'
   | 'edit_node'
@@ -142,9 +161,9 @@ export function AdminPageClient() {
   const pushToast = useToastStore((s) => s.pushToast);
   const { isAdmin, isLoading } = useAuthStore();
 
-  const [tab, setTab] = useState<'pending' | 'history' | 'contributors'>(
-    'pending'
-  );
+  const [tab, setTab] = useState<
+    'pending' | 'history' | 'contributors' | 'analytics'
+  >('pending');
   const [loading, setLoading] = useState(true);
   const [suggestions, setSuggestions] = useState<SuggestionRow[]>([]);
   const [profiles, setProfiles] = useState<Record<string, ProfileLite>>({});
@@ -214,6 +233,21 @@ export function AdminPageClient() {
     }
   }, []);
 
+  const [analyticsPayload, setAnalyticsPayload] =
+    useState<AnalyticsPayload | null>(null);
+
+  const loadAnalytics = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/admin/analytics');
+      if (!res.ok) return;
+      const j = (await res.json()) as AnalyticsPayload;
+      setAnalyticsPayload(j);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     if (isLoading) return;
     if (!isAdmin) {
@@ -222,8 +256,18 @@ export function AdminPageClient() {
     }
     void loadStats();
     if (tab === 'contributors') void loadContributors();
+    else if (tab === 'analytics') void loadAnalytics();
     else void loadSuggestions(tab);
-  }, [isAdmin, isLoading, tab, router, loadSuggestions, loadContributors, loadStats]);
+  }, [
+    isAdmin,
+    isLoading,
+    tab,
+    router,
+    loadSuggestions,
+    loadContributors,
+    loadStats,
+    loadAnalytics,
+  ]);
 
   const removeAfterExit = useCallback((id: string) => {
     setExitingIds((prev) => new Set(prev).add(id));
@@ -406,10 +450,22 @@ export function AdminPageClient() {
               <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent" />
             ) : null}
           </button>
+          <button
+            type="button"
+            onClick={() => setTab('analytics')}
+            className={`relative pb-2 text-sm font-medium ${
+              tab === 'analytics' ? 'text-foreground' : 'text-muted-foreground'
+            }`}
+          >
+            {t('tabAnalytics')}
+            {tab === 'analytics' ? (
+              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent" />
+            ) : null}
+          </button>
         </div>
       </div>
 
-      {tab !== 'contributors' && stats ? (
+      {(tab === 'pending' || tab === 'history') && stats ? (
         <div className="grid w-full min-w-0 grid-cols-1 gap-[10px] py-4 sm:grid-cols-2 lg:grid-cols-4">
           <StatCard
             value={stats.pending}
@@ -466,6 +522,141 @@ export function AdminPageClient() {
       <main className="min-w-0 flex-1 overflow-x-auto py-4">
         {loading ? (
           <p className="text-muted-foreground">…</p>
+        ) : tab === 'analytics' ? (
+          analyticsPayload ? (
+            <div className="flex min-w-0 flex-col gap-8">
+              <div className="grid w-full min-w-0 grid-cols-1 gap-[10px] sm:grid-cols-2 lg:grid-cols-4">
+                <StatCard
+                  value={analyticsPayload.summary.sessionsToday}
+                  color="#6366F1"
+                  label={t('analyticsSessionsToday')}
+                />
+                <StatCard
+                  value={analyticsPayload.summary.clicksToday}
+                  color="#22C55E"
+                  label={t('analyticsClicksToday')}
+                />
+                <StatCard
+                  value={analyticsPayload.summary.searchesToday}
+                  color="#F59E0B"
+                  label={t('analyticsSearchesToday')}
+                />
+                <StatCard
+                  value={analyticsPayload.summary.sharesToday}
+                  color="#EC4899"
+                  label={t('analyticsSharesToday')}
+                />
+              </div>
+              <section>
+                <h2 className="mb-3 text-sm font-semibold text-foreground">
+                  {t('analyticsTopNodes')}
+                </h2>
+                <ol className="list-decimal space-y-2 pl-5 text-sm">
+                  {analyticsPayload.topNodes.length === 0 ? (
+                    <li className="text-muted-foreground">
+                      {t('analyticsNoData')}
+                    </li>
+                  ) : (
+                    analyticsPayload.topNodes.map((row, i) => (
+                      <li
+                        key={row.nodeId}
+                        className="flex items-center justify-between gap-3"
+                      >
+                        <span className="text-muted-foreground">{i + 1}.</span>
+                        <Link
+                          href={`/explore?node=${encodeURIComponent(row.nodeId)}`}
+                          className="min-w-0 flex-1 truncate text-accent hover:underline"
+                        >
+                          {row.name}
+                        </Link>
+                        <span className="shrink-0 text-muted-foreground">
+                          {row.count}
+                        </span>
+                      </li>
+                    ))
+                  )}
+                </ol>
+              </section>
+              <section>
+                <h2 className="mb-3 text-sm font-semibold text-foreground">
+                  {t('analyticsTopSearches')}
+                </h2>
+                <ol className="list-decimal space-y-2 pl-5 text-sm">
+                  {analyticsPayload.topSearches.length === 0 ? (
+                    <li className="text-muted-foreground">
+                      {t('analyticsNoData')}
+                    </li>
+                  ) : (
+                    analyticsPayload.topSearches.map((row, i) => (
+                      <li
+                        key={`${row.query}-${i}`}
+                        className="flex items-center justify-between gap-3"
+                      >
+                        <span className="min-w-0 flex-1 truncate text-foreground">
+                          {row.query}
+                        </span>
+                        <span className="shrink-0 text-muted-foreground">
+                          {row.count}
+                        </span>
+                      </li>
+                    ))
+                  )}
+                </ol>
+              </section>
+              <section>
+                <h2 className="mb-3 text-sm font-semibold text-foreground">
+                  {t('analyticsPaths')}
+                </h2>
+                <ul className="space-y-2 text-sm">
+                  {analyticsPayload.topPaths.length === 0 ? (
+                    <li className="text-muted-foreground">
+                      {t('analyticsNoData')}
+                    </li>
+                  ) : (
+                    analyticsPayload.topPaths.map((p) => (
+                      <li key={`${p.fromId}-${p.toId}`} className="text-foreground">
+                        <span className="font-medium">{p.fromName}</span>
+                        {' → '}
+                        <span className="font-medium">{p.toName}</span>
+                        <span className="ml-2 text-muted-foreground">
+                          ({p.count}×)
+                        </span>
+                      </li>
+                    ))
+                  )}
+                </ul>
+              </section>
+              <section>
+                <h2 className="mb-3 text-sm font-semibold text-foreground">
+                  {t('analyticsLanguages')}
+                </h2>
+                {analyticsPayload.languageDistribution.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">
+                    {t('analyticsNoData')}
+                  </p>
+                ) : (
+                  <ul className="space-y-3">
+                    {analyticsPayload.languageDistribution.map((row) => (
+                      <li key={row.locale}>
+                        <div className="mb-1 flex justify-between text-xs text-muted-foreground">
+                          <span>{row.locale}</span>
+                          <span>{row.percent}%</span>
+                        </div>
+                        <div className="h-2 w-full overflow-hidden rounded-full bg-border">
+                          <div
+                            className="h-full rounded-full bg-accent"
+                            style={{ width: `${Math.min(100, row.percent)}%` }}
+                          />
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+            </div>
+          ) : (
+            <p className="text-muted-foreground">{t('analyticsNoData')}</p>
+          )
         ) : tab === 'contributors' ? (
           <ul className="space-y-2">
             {contributorList.map((p) => (

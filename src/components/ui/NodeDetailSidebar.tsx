@@ -10,6 +10,7 @@ import { useAuthStore } from '@/stores/auth-store';
 import { useNodeDetailsStore } from '@/stores/node-details-store';
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 import { formatYear } from '@/lib/utils';
+import { trackEvent } from '@/lib/analytics';
 import { getCategoryColor } from '@/lib/colors';
 import {
   NodeEditForm,
@@ -553,6 +554,7 @@ export function NodeDetailSidebar() {
 
   const handleShare = useCallback(() => {
     if (!node) return;
+    trackEvent('share', node.id);
     const url = `${window.location.origin}/invention/${encodeURIComponent(node.id)}`;
     void navigator.clipboard.writeText(url);
     pushToast(tCommon('linkCopied'), 'success');
@@ -1289,9 +1291,15 @@ export function NodeDetailSidebar() {
                           product={product}
                           locale={locale}
                           detailsById={detailsById}
-                          onSelectProduct={(id) =>
-                            navigateToNode(id, { center: false })
-                          }
+                          onSelectProduct={(id) => {
+                            if (node) {
+                              trackEvent('navigate_link', id, {
+                                from: node.id,
+                                direction: 'downstream',
+                              });
+                            }
+                            navigateToNode(id, { center: false });
+                          }}
                         />
                       ))}
                     </ul>
@@ -1340,9 +1348,15 @@ export function NodeDetailSidebar() {
                           getNodeById={getNodeById}
                           locale={locale}
                           detailsById={detailsById}
-                          onSelectIngredient={(id) =>
-                            navigateToNode(id, { center: false })
-                          }
+                          onSelectIngredient={(id) => {
+                            if (node) {
+                              trackEvent('navigate_link', id, {
+                                from: node.id,
+                                direction: 'upstream',
+                              });
+                            }
+                            navigateToNode(id, { center: false });
+                          }}
                         />
                       ))}
                     </ul>

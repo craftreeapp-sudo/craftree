@@ -403,6 +403,16 @@
     "tabPending": "待处理建议",
     "tabHistory": "历史",
     "tabContributors": "贡献者",
+    "tabAnalytics": "分析",
+    "analyticsSessionsToday": "今日会话",
+    "analyticsClicksToday": "今日点击",
+    "analyticsSearchesToday": "今日搜索",
+    "analyticsSharesToday": "今日分享",
+    "analyticsTopNodes": "浏览最多的发明",
+    "analyticsTopSearches": "热门搜索",
+    "analyticsPaths": "导航路径",
+    "analyticsLanguages": "语言",
+    "analyticsNoData": "暂无数据。",
     "badgePending": "待处理",
     "approve": "批准",
     "reject": "拒绝",
@@ -433,7 +443,8 @@
     "breadcrumbAria": "面包屑",
     "dependencyTree": "依赖树",
     "openFilters": "打开筛选",
-    "secondaryNav": "辅助链接"
+    "secondaryNav": "辅助链接",
+    "logoGlobalView": "返回全局视图"
   },
   "contactPage": {
     "title": "联系",

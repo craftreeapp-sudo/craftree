@@ -58,7 +58,7 @@ export async function signInWithGoogle(): Promise<SignInWithGoogleResult> {
 
 export async function signOut() {
   await supabase.auth.signOut();
-  if (typeof window !== 'undefined') window.location.reload();
+  if (typeof window !== 'undefined') window.location.assign('/');
 }
 
 export async function getCurrentUser() {
