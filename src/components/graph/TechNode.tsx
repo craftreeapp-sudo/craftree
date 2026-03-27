@@ -143,7 +143,7 @@ function FocusNeighborDescTooltipView({
         transition={{ duration: 0.15, ease: 'easeOut' }}
         className="relative"
         style={{
-          background: '#1A1F2E',
+          background: 'var(--surface-elevated)',
           border: '0.5px solid var(--border)',
           borderRadius: 8,
           padding: '12px 16px',

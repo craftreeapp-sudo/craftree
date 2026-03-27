@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { AppContentShell } from '@/components/layout/AppContentShell';
 import {
   ERA_LABELS_FR,
   ERA_ORDER,
@@ -44,7 +45,11 @@ export function CategoriesPickerClient() {
   };
 
   return (
-    <main className="mx-auto flex min-h-[calc(100dvh-3.5rem)] w-full max-w-6xl flex-1 flex-col px-4 pb-16 pt-20 md:px-6 md:pt-24">
+    <AppContentShell
+      as="main"
+      variant="wide"
+      className="flex min-h-[calc(100dvh-3.5rem)] flex-1 flex-col"
+    >
       <header className="mb-8 text-center md:mb-10">
         <h1
           className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
@@ -190,6 +195,6 @@ export function CategoriesPickerClient() {
           ))}
         </div>
       ) : null}
-    </main>
+    </AppContentShell>
   );
 }

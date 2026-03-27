@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { AppContentShell } from '@/components/layout/AppContentShell';
 import { useAuthStore } from '@/stores/auth-store';
 import { useToastStore } from '@/stores/toast-store';
 import { computeDiff } from '@/lib/suggestion-diff';
@@ -322,79 +323,87 @@ export function AdminPageClient() {
 
   if (isLoading || !isAdmin) {
     return (
-      <div className="flex min-h-[40vh] items-center justify-center bg-[#0B0F18] text-[#5A6175]">
+      <AppContentShell className="flex min-h-[50vh] w-full flex-1 flex-col items-center justify-center text-center text-muted-foreground">
         …
-      </div>
+      </AppContentShell>
     );
   }
 
   const pendingBadge = stats?.pending ?? 0;
 
   return (
-    <div className="min-h-screen bg-[#0B0F18] text-[#E8ECF4]">
-      <header className="flex shrink-0 items-center justify-between px-4 py-4 md:px-8">
-        <h1 className="text-[16px] font-medium text-white">
-          {t('title')}
-        </h1>
-        <Link
-          href="/explore"
-          className="text-[13px] font-normal text-[#3B82F6] hover:underline"
-        >
-          {t('backToTree')}
-        </Link>
-      </header>
+    <AppContentShell className="flex w-full flex-1 flex-col text-foreground">
+      <div className="pb-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h1
+            className="text-lg font-semibold tracking-tight text-foreground md:text-xl"
+            style={{
+              fontFamily:
+                'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+            }}
+          >
+            {t('title')}
+          </h1>
+          <Link
+            href="/explore"
+            className="shrink-0 text-sm font-normal text-accent hover:underline"
+          >
+            {t('backToTree')}
+          </Link>
+        </div>
+      </div>
 
-      <div className="border-b border-transparent px-4 md:px-8">
+      <div className="border-b border-transparent">
         <div className="flex flex-wrap gap-6">
           <button
             type="button"
             onClick={() => setTab('pending')}
             className={`relative pb-2 text-sm font-medium ${
-              tab === 'pending' ? 'text-white' : 'text-[#5A6175]'
+              tab === 'pending' ? 'text-foreground' : 'text-muted-foreground'
             }`}
           >
             {t('tabPending')}
             {pendingBadge > 0 ? (
               <span
-                className="ml-2 inline-block rounded-[8px] bg-[#EF4444] px-[5px] py-[1px] text-[9px] font-semibold leading-tight text-white"
+                className="ml-2 inline-block rounded-[8px] bg-red-500 px-[5px] py-[1px] text-[9px] font-semibold leading-tight text-white"
                 aria-label={`${pendingBadge}`}
               >
                 {pendingBadge}
               </span>
             ) : null}
             {tab === 'pending' ? (
-              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#3B82F6]" />
+              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent" />
             ) : null}
           </button>
           <button
             type="button"
             onClick={() => setTab('history')}
             className={`relative pb-2 text-sm font-medium ${
-              tab === 'history' ? 'text-white' : 'text-[#5A6175]'
+              tab === 'history' ? 'text-foreground' : 'text-muted-foreground'
             }`}
           >
             {t('tabHistory')}
             {tab === 'history' ? (
-              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#3B82F6]" />
+              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent" />
             ) : null}
           </button>
           <button
             type="button"
             onClick={() => setTab('contributors')}
             className={`relative pb-2 text-sm font-medium ${
-              tab === 'contributors' ? 'text-white' : 'text-[#5A6175]'
+              tab === 'contributors' ? 'text-foreground' : 'text-muted-foreground'
             }`}
           >
             {t('tabContributors')}
             {tab === 'contributors' ? (
-              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#3B82F6]" />
+              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent" />
             ) : null}
           </button>
         </div>
       </div>
 
       {tab !== 'contributors' && stats ? (
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-[10px] px-4 py-4 sm:grid-cols-2 lg:grid-cols-4 md:px-8">
+        <div className="grid w-full min-w-0 grid-cols-1 gap-[10px] py-4 sm:grid-cols-2 lg:grid-cols-4">
           <StatCard
             value={stats.pending}
             color="#F59E0B"
@@ -419,7 +428,7 @@ export function AdminPageClient() {
       ) : null}
 
       {tab === 'pending' ? (
-        <div className="mx-auto flex max-w-5xl flex-wrap gap-2 px-4 pb-2 md:px-8">
+        <div className="flex w-full min-w-0 flex-wrap gap-2 pb-2">
           {(
             [
               ['all', 'Tout'],
@@ -434,9 +443,9 @@ export function AdminPageClient() {
               onClick={() => setFilter(key)}
               className={`rounded-[6px] border px-3 py-[5px] text-[11px] ${
                 filter === key
-                  ? 'border-[#3B82F6] text-[#E8ECF4]'
-                  : 'border-[#2A3042] text-[#8B95A8]'
-              } bg-[#111827]`}
+                  ? 'border-accent text-foreground'
+                  : 'border-border text-muted-foreground'
+              } bg-surface`}
               style={{ borderWidth: '0.5px' }}
             >
               {label}
@@ -445,15 +454,15 @@ export function AdminPageClient() {
         </div>
       ) : null}
 
-      <main className="mx-auto max-w-5xl px-4 py-4 md:px-8">
+      <main className="min-w-0 flex-1 overflow-x-auto py-4">
         {loading ? (
-          <p className="text-[#5A6175]">…</p>
+          <p className="text-muted-foreground">…</p>
         ) : tab === 'contributors' ? (
           <ul className="space-y-2">
             {contributorList.map((p) => (
               <li
                 key={p.id}
-                className="flex flex-wrap items-center gap-3 rounded-lg border border-[#2A3042] bg-[#111827] px-4 py-3"
+                className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3"
                 style={{ borderWidth: '0.5px' }}
               >
                 <div
@@ -487,24 +496,24 @@ export function AdminPageClient() {
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-medium text-[#E8ECF4]">
+                  <p className="truncate font-medium text-foreground">
                     {p.display_name ?? p.email ?? p.id}
                   </p>
-                  <p className="truncate text-[12px] text-[#5A6175]">
+                  <p className="truncate text-[12px] text-muted-foreground">
                     {p.email}
                   </p>
                 </div>
-                <span className="rounded-[8px] bg-[#22C55E22] px-2 py-0.5 text-[11px] font-medium text-[#22C55E]">
+                <span className="rounded-[8px] bg-emerald-500/15 px-2 py-0.5 text-[11px] font-medium text-emerald-600">
                   {p.approved_suggestions}{' '}
                   {p.approved_suggestions <= 1
                     ? 'approuvée'
                     : 'approuvées'}
                 </span>
-                <span className="rounded-[6px] bg-[#EF444422] px-1.5 py-0.5 text-[10px] text-[#EF4444]">
+                <span className="rounded-[6px] bg-red-500/15 px-1.5 py-0.5 text-[10px] text-red-600">
                   {p.rejected_suggestions}{' '}
                   {p.rejected_suggestions <= 1 ? 'rejetée' : 'rejetées'}
                 </span>
-                <span className="text-[12px] text-[#5A6175]">
+                <span className="text-[12px] text-muted-foreground">
                   Inscrit le{' '}
                   {new Date(p.created_at).toLocaleDateString('fr-FR')}
                 </span>
@@ -514,7 +523,7 @@ export function AdminPageClient() {
         ) : filteredSuggestions.length === 0 &&
           tab === 'pending' &&
           suggestions.length > 0 ? (
-          <p className="py-8 text-center text-[14px] text-[#5A6175]">
+          <p className="py-8 text-center text-[14px] text-muted-foreground">
             Aucune suggestion pour ce filtre.
           </p>
         ) : filteredSuggestions.length === 0 && tab === 'pending' ? (
@@ -524,7 +533,7 @@ export function AdminPageClient() {
               height={48}
               viewBox="0 0 48 48"
               fill="none"
-              className="text-[#22C55E]"
+              className="text-emerald-600"
               aria-hidden
             >
               <circle cx="24" cy="24" r="22" stroke="currentColor" strokeWidth="2" />
@@ -536,15 +545,15 @@ export function AdminPageClient() {
                 strokeLinejoin="round"
               />
             </svg>
-            <p className="mt-4 text-[16px] text-[#5A6175]">
+            <p className="mt-4 text-[16px] text-muted-foreground">
               Aucune suggestion en attente
             </p>
-            <p className="mt-1 text-center text-[13px] text-[#3D4555]">
+            <p className="mt-1 text-center text-[13px] text-muted-foreground">
               Les nouvelles suggestions des contributeurs apparaîtront ici
             </p>
           </div>
         ) : filteredSuggestions.length === 0 ? (
-          <p className="text-[#5A6175]">{t('noSuggestions')}</p>
+          <p className="text-muted-foreground">{t('noSuggestions')}</p>
         ) : (
           <ul className="space-y-0">
             {filteredSuggestions.map((s) => (
@@ -588,7 +597,7 @@ export function AdminPageClient() {
           </ul>
         )}
       </main>
-    </div>
+    </AppContentShell>
   );
 }
 
@@ -602,11 +611,11 @@ function StatCard({
   label: string;
 }) {
   return (
-    <div className="rounded-[8px] bg-[#111827] px-3 py-3 text-center">
+    <div className="rounded-[8px] bg-surface px-3 py-3 text-center">
       <p className="text-[20px] font-medium" style={{ color }}>
         {value}
       </p>
-      <p className="mt-1 text-[10px] text-[#5A6175]">{label}</p>
+      <p className="mt-1 text-[10px] text-muted-foreground">{label}</p>
     </div>
   );
 }
@@ -661,14 +670,14 @@ function SuggestionCard({
 
   return (
     <li
-      className={`mb-[10px] rounded-[8px] border border-[#2A3042] bg-[#111827] p-4 transition-opacity duration-300 ${
+      className={`mb-[10px] rounded-[8px] border border-border bg-surface p-4 transition-opacity duration-300 ${
         exiting ? 'pointer-events-none opacity-0' : 'opacity-100'
       }`}
       style={{ borderWidth: '0.5px' }}
     >
       <div className="mb-3 flex items-start justify-between gap-2">
         <TypeBadge type={row.suggestion_type} t={t} />
-        <span className="text-[11px] text-[#5A6175]">
+        <span className="text-[11px] text-muted-foreground">
           {formatRelativeFr(dateIso)}
         </span>
       </div>
@@ -697,10 +706,10 @@ function SuggestionCard({
             )}
           </div>
           <div>
-            <p className="text-[12px] text-[#8B95A8]">
+            <p className="text-[12px] text-muted-foreground">
               {p?.display_name ?? p?.email ?? uid}
             </p>
-            <p className="text-[10px] text-[#5A6175]">
+            <p className="text-[10px] text-muted-foreground">
               {suggestionCountByUser[row.user_id] ?? 0} {t('contributions')}
             </p>
           </div>
@@ -708,26 +717,26 @@ function SuggestionCard({
       ) : row.contributor_ip ? (
         <div className="mb-3 flex items-start gap-2">
           <div
-            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1A1F2E] text-[10px] font-bold text-[#8B95A8]"
+            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-surface-elevated text-[10px] font-bold text-muted-foreground"
             style={{ width: 24, height: 24 }}
           >
             ?
           </div>
           <div className="min-w-0">
-            <p className="text-[12px] font-medium text-[#8B95A8]">
+            <p className="text-[12px] font-medium text-muted-foreground">
               {t('anonymousContributor')}
             </p>
-            <p className="font-mono text-[11px] text-[#F59E0B]">
+            <p className="font-mono text-[11px] text-amber-500">
               {row.contributor_ip}
             </p>
-            <p className="text-[10px] text-[#5A6175]">
+            <p className="text-[10px] text-muted-foreground">
               {suggestionCountByUser[`anon:${row.contributor_ip}`] ?? 0}{' '}
               {t('contributions')}
             </p>
           </div>
         </div>
       ) : (
-        <p className="mb-3 text-[12px] text-[#5A6175]">
+        <p className="mb-3 text-[12px] text-muted-foreground">
           {t('contributorUnknown')}
         </p>
       )}
@@ -745,21 +754,21 @@ function SuggestionCard({
           <button
             type="button"
             onClick={onApprove}
-            className="rounded-[6px] bg-[#22C55E] px-4 py-[7px] text-[12px] font-medium text-white"
+            className="rounded-[6px] bg-emerald-600 px-4 py-[7px] text-[12px] font-medium text-white"
           >
             {t('approve')}
           </button>
           <button
             type="button"
             onClick={onStartEdit}
-            className="rounded-[6px] border border-[#3B82F6] bg-transparent px-4 py-[7px] text-[12px] font-medium text-[#3B82F6]"
+            className="rounded-[6px] border border-accent bg-transparent px-4 py-[7px] text-[12px] font-medium text-accent"
           >
             {t('editApprove')}
           </button>
           <button
             type="button"
             onClick={onRejectOpen}
-            className="rounded-[6px] border border-[#EF4444] bg-transparent px-4 py-[7px] text-[12px] font-medium text-[#EF4444]"
+            className="rounded-[6px] border border-red-600 bg-transparent px-4 py-[7px] text-[12px] font-medium text-red-600"
           >
             {t('reject')}
           </button>
@@ -771,14 +780,14 @@ function SuggestionCard({
           <button
             type="button"
             onClick={onApproveEdit}
-            className="rounded-[6px] bg-[#3B82F6] px-4 py-[7px] text-[12px] font-medium text-white"
+            className="rounded-[6px] bg-accent px-4 py-[7px] text-[12px] font-medium text-white"
           >
             Valider les modifications
           </button>
           <button
             type="button"
             onClick={onCancelEdit}
-            className="text-[12px] text-[#8B95A8] hover:text-[#E8ECF4]"
+            className="text-[12px] text-muted-foreground hover:text-foreground"
           >
             {tAuth('cancel')}
           </button>
@@ -792,20 +801,20 @@ function SuggestionCard({
             value={rejectComment}
             onChange={(e) => onRejectCommentChange(e.target.value)}
             placeholder="Raison du rejet (optionnel)"
-            className="w-full rounded-md border border-[#2A3042] bg-[#0A0E17] px-3 py-2 text-sm text-[#E8ECF4] placeholder:text-[#5A6175]"
+            className="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
           />
           <div className="flex gap-2">
             <button
               type="button"
               onClick={onRejectConfirm}
-              className="rounded-[6px] border border-[#EF4444] bg-transparent px-3 py-1.5 text-[12px] text-[#EF4444]"
+              className="rounded-[6px] border border-red-600 bg-transparent px-3 py-1.5 text-[12px] text-red-600"
             >
               Confirmer le rejet
             </button>
             <button
               type="button"
               onClick={onRejectCancel}
-              className="text-[12px] text-[#8B95A8]"
+              className="text-[12px] text-muted-foreground"
             >
               {tAuth('cancel')}
             </button>
@@ -818,14 +827,14 @@ function SuggestionCard({
           <span
             className={`inline-block rounded px-2 py-1 text-[9px] font-semibold ${
               row.status === 'approved'
-                ? 'bg-[#22C55E22] text-[#22C55E]'
-                : 'bg-[#EF444422] text-[#EF4444]'
+                ? 'bg-emerald-500/15 text-emerald-600'
+                : 'bg-red-500/15 text-red-600'
             }`}
           >
             {row.status === 'approved' ? t('approved') : t('rejected')}
           </span>
           {row.status === 'rejected' && row.admin_comment ? (
-            <p className="text-[12px] italic text-[#8B95A8]">
+            <p className="text-[12px] italic text-muted-foreground">
               {row.admin_comment}
             </p>
           ) : null}
@@ -846,10 +855,10 @@ function TypeBadge({ type, t }: { type: string; t: (k: string) => string }) {
           : type;
   const cls =
     type === 'edit_node'
-      ? 'bg-[#F59E0B22] text-[#F59E0B]'
+      ? 'bg-amber-500/15 text-amber-700'
       : type === 'add_link'
-        ? 'bg-[#0F6E5622] text-[#5DCAA5]'
-        : 'bg-[#534AB722] text-[#AFA9EC]';
+        ? 'bg-emerald-500/15 text-emerald-600'
+        : 'bg-violet-500/15 text-violet-600';
   return (
     <span
       className={`inline-block rounded px-2 py-[2px] text-[9px] font-semibold ${cls}`}
@@ -920,15 +929,15 @@ function SuggestionBody({
       const draft = editDraft as Record<string, unknown>;
       return (
         <div className="space-y-2">
-          <p className="text-[13px] font-bold text-[#E8ECF4]">
+          <p className="text-[13px] font-bold text-foreground">
             {nodeName} — correction
           </p>
-          <div className="space-y-2 rounded-[6px] bg-[#0A0E17] px-3 py-2.5">
+          <div className="space-y-2 rounded-[6px] bg-surface px-3 py-2.5">
             {Object.keys(nodeDiff).map((key) => (
-              <label key={key} className="block text-[11px] text-[#5A6175]">
+              <label key={key} className="block text-[11px] text-muted-foreground">
                 {FIELD_LABELS[key] ?? key}
                 <input
-                  className="mt-1 w-full rounded border border-[#2A3042] bg-[#111827] px-2 py-1 text-[12px] text-[#E8ECF4]"
+                  className="mt-1 w-full rounded border border-border bg-surface px-2 py-1 text-[12px] text-foreground"
                   value={String(draft[key] ?? '')}
                   onChange={(e) =>
                     onEditDraftChange({ ...draft, [key]: e.target.value })
@@ -943,33 +952,33 @@ function SuggestionBody({
 
     return (
       <div className="space-y-2">
-        <p className="text-[13px] font-bold text-[#E8ECF4]">
+        <p className="text-[13px] font-bold text-foreground">
           {nodeName} — correction
         </p>
-        <div className="rounded-[6px] bg-[#0A0E17] px-3 py-2.5">
+        <div className="rounded-[6px] bg-surface px-3 py-2.5">
           {Object.entries(nodeDiff).map(([key, ch]) => (
             <div
               key={key}
               className="mb-2 flex flex-wrap items-baseline gap-1 text-[12px] last:mb-0"
             >
               <span
-                className="inline-block w-[70px] shrink-0 text-[11px] text-[#5A6175]"
+                className="inline-block w-[70px] shrink-0 text-[11px] text-muted-foreground"
               >
                 {FIELD_LABELS[key] ?? key}
               </span>
-              <span className="text-[#EF4444] line-through">
+              <span className="text-red-600 line-through">
                 {String((ch as { from: unknown }).from ?? '')}
               </span>
-              <span className="text-[#5A6175]">→</span>
-              <span className="text-[#22C55E]">
+              <span className="text-muted-foreground">→</span>
+              <span className="text-emerald-600">
                 {String((ch as { to: unknown }).to ?? '')}
               </span>
             </div>
           ))}
         </div>
         {Object.keys(linkDiff).length > 0 ? (
-          <div className="rounded-[6px] bg-[#0A0E17] px-3 py-2.5">
-            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-[#5A6175]">
+          <div className="rounded-[6px] bg-surface px-3 py-2.5">
+            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
               Liens (Led to / Built upon)
             </p>
             <ul className="space-y-3">
@@ -983,14 +992,14 @@ function SuggestionBody({
                       : 'Lien';
                 return (
                   <li key={linkId} className="text-[12px]">
-                    <p className="mb-1 text-[11px] text-[#8B95A8]">
+                    <p className="mb-1 text-[11px] text-muted-foreground">
                       {sectionLabel} · {ctx?.peerName ?? linkId}
                     </p>
-                    <p className="text-[#EF4444] line-through">
+                    <p className="text-red-600 line-through">
                       {formatLinkSnapLine(ch.from)}
                     </p>
-                    <p className="text-[#5A6175]">→</p>
-                    <p className="text-[#22C55E]">{formatLinkSnapLine(ch.to)}</p>
+                    <p className="text-muted-foreground">→</p>
+                    <p className="text-emerald-600">{formatLinkSnapLine(ch.to)}</p>
                   </li>
                 );
               })}
@@ -998,8 +1007,8 @@ function SuggestionBody({
           </div>
         ) : null}
         {proposedAddLinks.length > 0 ? (
-          <div className="rounded-[6px] bg-[#0A0E17] px-3 py-2.5">
-            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-[#5A6175]">
+          <div className="rounded-[6px] bg-surface px-3 py-2.5">
+            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
               Liens proposés (nouveaux)
             </p>
             <ul className="space-y-2">
@@ -1016,12 +1025,12 @@ function SuggestionBody({
                   RELATION_LABELS_FR[add.relation_type] ?? add.relation_type;
                 return (
                   <li key={`${add.source_id}-${add.target_id}-${i}`} className="text-[12px]">
-                    <p className="mb-1 text-[11px] text-[#8B95A8]">{sectionLabel}</p>
-                    <p className="text-[#22C55E]">
+                    <p className="mb-1 text-[11px] text-muted-foreground">{sectionLabel}</p>
+                    <p className="text-emerald-600">
                       <span className="font-medium">{srcName}</span>
-                      <span className="text-[#5A6175]"> → </span>
+                      <span className="text-muted-foreground"> → </span>
                       <span className="font-medium">{tgtName}</span>
-                      <span className="text-[#5A6175]"> · </span>
+                      <span className="text-muted-foreground"> · </span>
                       <span>{relLabel}</span>
                     </p>
                   </li>
@@ -1031,8 +1040,8 @@ function SuggestionBody({
           </div>
         ) : null}
         {removedLinkIds.length > 0 ? (
-          <div className="rounded-[6px] bg-[#0A0E17] px-3 py-2.5">
-            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-[#5A6175]">
+          <div className="rounded-[6px] bg-surface px-3 py-2.5">
+            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
               Liens supprimés
             </p>
             <ul className="space-y-2">
@@ -1047,15 +1056,15 @@ function SuggestionBody({
                       : 'Lien';
                 return (
                   <li key={linkId} className="text-[12px]">
-                    <p className="mb-1 text-[11px] text-[#8B95A8]">
+                    <p className="mb-1 text-[11px] text-muted-foreground">
                       {sectionLabel} · {ctx?.peerName ?? linkId}
                     </p>
                     {snap ? (
-                      <p className="text-[#EF4444] line-through">
+                      <p className="text-red-600 line-through">
                         {formatLinkSnapLine(snap)}
                       </p>
                     ) : (
-                      <p className="text-[#8B95A8]">{linkId}</p>
+                      <p className="text-muted-foreground">{linkId}</p>
                     )}
                   </li>
                 );
@@ -1081,18 +1090,18 @@ function SuggestionBody({
     if (isEditing && editDraft) {
       const draft = editDraft as { relation_type?: string };
       return (
-        <div className="rounded-[6px] bg-[#0A0E17] px-3 py-2.5">
+        <div className="rounded-[6px] bg-surface px-3 py-2.5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded px-2.5 py-1 text-[12px] font-bold text-[#E8ECF4] bg-[#1A1F2E]">
+            <span className="rounded px-2.5 py-1 text-[12px] font-bold text-foreground bg-surface-elevated">
               {srcName}
             </span>
-            <span className="text-[#5A6175]">→</span>
-            <span className="rounded px-2.5 py-1 text-[12px] font-bold text-[#E8ECF4] bg-[#1A1F2E]">
+            <span className="text-muted-foreground">→</span>
+            <span className="rounded px-2.5 py-1 text-[12px] font-bold text-foreground bg-surface-elevated">
               {tgtName}
             </span>
           </div>
           <select
-            className="mt-2 w-full rounded border border-[#2A3042] bg-[#111827] px-2 py-1 text-[12px] text-[#E8ECF4]"
+            className="mt-2 w-full rounded border border-border bg-surface px-2 py-1 text-[12px] text-foreground"
             value={draft.relation_type ?? d.relation_type}
             onChange={(e) =>
               onEditDraftChange({
@@ -1112,18 +1121,18 @@ function SuggestionBody({
     }
 
     return (
-      <div className="rounded-[6px] bg-[#0A0E17] px-3 py-2.5">
+      <div className="rounded-[6px] bg-surface px-3 py-2.5">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded px-2.5 py-1 text-[12px] font-bold text-[#E8ECF4] bg-[#1A1F2E]">
+            <span className="rounded px-2.5 py-1 text-[12px] font-bold text-foreground bg-surface-elevated">
               {srcName}
             </span>
-            <span className="text-[#5A6175]">→</span>
-            <span className="rounded px-2.5 py-1 text-[12px] font-bold text-[#E8ECF4] bg-[#1A1F2E]">
+            <span className="text-muted-foreground">→</span>
+            <span className="rounded px-2.5 py-1 text-[12px] font-bold text-foreground bg-surface-elevated">
               {tgtName}
             </span>
           </div>
-          <span className="text-[10px] text-[#5A6175]">{relLabel}</span>
+          <span className="text-[10px] text-muted-foreground">{relLabel}</span>
         </div>
       </div>
     );
@@ -1155,7 +1164,7 @@ function SuggestionBody({
       const l = draft.link ?? {};
       return (
         <div className="space-y-2">
-          <div className="rounded-[6px] bg-[#0A0E17] px-3 py-2.5 space-y-2">
+          <div className="rounded-[6px] bg-surface px-3 py-2.5 space-y-2">
             {(
               [
                 ['name', 'Nom'],
@@ -1165,10 +1174,10 @@ function SuggestionBody({
                 ['year_approx', 'Année'],
               ] as const
             ).map(([k, lab]) => (
-              <label key={k} className="block text-[11px] text-[#5A6175]">
+              <label key={k} className="block text-[11px] text-muted-foreground">
                 {lab}
                 <input
-                  className="mt-0.5 w-full rounded border border-[#2A3042] bg-[#111827] px-2 py-1 text-[12px] text-[#E8ECF4]"
+                  className="mt-0.5 w-full rounded border border-border bg-surface px-2 py-1 text-[12px] text-foreground"
                   value={
                     k === 'year_approx'
                       ? String(n[k] ?? '')
@@ -1191,10 +1200,10 @@ function SuggestionBody({
               </label>
             ))}
           </div>
-          <div className="rounded-[6px] bg-[#0A0E17] px-3 py-2.5">
-            <p className="mb-1 text-[10px] text-[#5A6175]">Lien</p>
+          <div className="rounded-[6px] bg-surface px-3 py-2.5">
+            <p className="mb-1 text-[10px] text-muted-foreground">Lien</p>
             <select
-              className="w-full rounded border border-[#2A3042] bg-[#111827] px-2 py-1 text-[12px] text-[#E8ECF4]"
+              className="w-full rounded border border-border bg-surface px-2 py-1 text-[12px] text-foreground"
               value={String(l.relation_type ?? d.link.relation_type)}
               onChange={(e) =>
                 onEditDraftChange({
@@ -1229,33 +1238,33 @@ function SuggestionBody({
 
     return (
       <div className="space-y-2">
-        <div className="rounded-[6px] bg-[#0A0E17] px-3 py-2.5 text-[12px] text-[#22C55E] space-y-1">
+        <div className="rounded-[6px] bg-surface px-3 py-2.5 text-[12px] text-emerald-600 space-y-1">
           <p>
-            <span className="text-[#5A6175]">Nom : </span>
+            <span className="text-muted-foreground">Nom : </span>
             {d.node.name}
           </p>
           <p>
-            <span className="text-[#5A6175]">Catégorie : </span>
+            <span className="text-muted-foreground">Catégorie : </span>
             {getCategoryLabelFr(d.node.category as unknown as NodeCategory)}
           </p>
           <p>
-            <span className="text-[#5A6175]">Type : </span>
+            <span className="text-muted-foreground">Type : </span>
             {d.node.type}
           </p>
           <p>
-            <span className="text-[#5A6175]">Époque : </span>
+            <span className="text-muted-foreground">Époque : </span>
             {d.node.era}
           </p>
           <p>
-            <span className="text-[#5A6175]">Année : </span>
+            <span className="text-muted-foreground">Année : </span>
             {d.node.year_approx ?? '—'}
           </p>
         </div>
-        <div className="rounded-[6px] bg-[#0A0E17] px-3 py-2.5 text-[12px] text-[#8B95A8]">
-          <span className="font-medium text-[#E8ECF4]">{srcName}</span>
-          <span className="mx-1 text-[#5A6175]">→</span>
-          <span className="font-medium text-[#E8ECF4]">{tgtName}</span>
-          <span className="ml-2 text-[10px] text-[#5A6175]">
+        <div className="rounded-[6px] bg-surface px-3 py-2.5 text-[12px] text-muted-foreground">
+          <span className="font-medium text-foreground">{srcName}</span>
+          <span className="mx-1 text-muted-foreground">→</span>
+          <span className="font-medium text-foreground">{tgtName}</span>
+          <span className="ml-2 text-[10px] text-muted-foreground">
             ({RELATION_LABELS_FR[d.link.relation_type] ?? d.link.relation_type})
           </span>
         </div>
@@ -1264,7 +1273,7 @@ function SuggestionBody({
   }
 
   return (
-    <pre className="text-xs text-[#5A6175]">
+    <pre className="text-xs text-muted-foreground">
       {JSON.stringify(data, null, 2)}
     </pre>
   );

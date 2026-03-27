@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { AppContentShell } from '@/components/layout/AppContentShell';
 import linksJson from '@/data/links.json';
 import nodesIndex from '@/data/nodes-index.json';
 
@@ -64,8 +65,9 @@ export default async function AboutPage() {
   const nLinks = linksJson.links.length;
 
   return (
-    <main
-      className="mx-auto w-full max-w-[720px] flex-1 px-6 pb-20 pt-16 font-[family-name:var(--font-inter)] text-foreground/85"
+    <AppContentShell
+      as="main"
+      className="flex-1 font-[family-name:var(--font-inter)] text-foreground/85"
       style={{ fontFamily: 'var(--font-inter), Inter, system-ui, sans-serif' }}
     >
       <article className="pb-20">
@@ -336,6 +338,6 @@ export default async function AboutPage() {
           </section>
         </div>
       </article>
-    </main>
+    </AppContentShell>
   );
 }

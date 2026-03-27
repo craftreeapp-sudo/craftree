@@ -8,6 +8,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { getCategoryColor } from '@/lib/colors';
 import type { NodeCategory } from '@/lib/types';
 import { signOut } from '@/lib/auth-client';
+import { AppContentShell } from '@/components/layout/AppContentShell';
 import { useToastStore } from '@/stores/toast-store';
 
 type ProfilePayload = {
@@ -225,17 +226,17 @@ export function ProfilePageClient() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-[720px] bg-page px-8 pb-24 pt-28 text-center text-base text-muted-foreground">
+      <AppContentShell className="text-center text-base text-muted-foreground">
         {t('loading')}
-      </div>
+      </AppContentShell>
     );
   }
 
   if (error || !data) {
     return (
-      <div className="mx-auto max-w-[720px] bg-page px-8 pb-24 pt-28 text-center text-base text-[#EF4444]">
+      <AppContentShell className="text-center text-base text-[#EF4444]">
         {error ?? t('loadError')}
-      </div>
+      </AppContentShell>
     );
   }
 
@@ -244,9 +245,9 @@ export function ProfilePageClient() {
   const avatarUrl = profile.avatar_url?.trim() || null;
 
   return (
-    <div className="mx-auto max-w-[720px] bg-page px-8 pb-24 pt-28 sm:px-10">
+    <AppContentShell>
       <ProfileBackLink />
-      <header className="mx-auto mb-10 max-w-[720px]">
+      <header className="mx-auto mb-10">
         <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start sm:justify-center sm:gap-8">
           <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-border bg-surface-elevated">
             {avatarUrl ? (
@@ -533,6 +534,6 @@ export function ProfilePageClient() {
           </>
         )}
       </div>
-    </div>
+    </AppContentShell>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import { useTranslations } from 'next-intl';
+import { AppContentShell } from '@/components/layout/AppContentShell';
 
 const inputClass =
   'w-full rounded-lg border border-border bg-surface/80 px-4 py-2.5 text-sm text-foreground placeholder:text-[#5B6478] outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-[#3B82F6]/40';
@@ -54,8 +55,9 @@ export function ContactPageClient() {
   }
 
   return (
-    <main
-      className="mx-auto w-full max-w-[720px] flex-1 px-6 pb-20 pt-16 font-[family-name:var(--font-inter)] text-foreground/85"
+    <AppContentShell
+      as="main"
+      className="flex-1 font-[family-name:var(--font-inter)] text-foreground/85"
       style={{ fontFamily: 'var(--font-inter), Inter, system-ui, sans-serif' }}
     >
       <header className="mb-10">
@@ -178,6 +180,6 @@ export function ContactPageClient() {
           </button>
         </form>
       )}
-    </main>
+    </AppContentShell>
   );
 }

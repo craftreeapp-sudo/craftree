@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
+import { AppContentShell } from '@/components/layout/AppContentShell';
 import { useGraphStore } from '@/stores/graph-store';
 import { useUIStore } from '@/stores/ui-store';
 import { getCategoryColor } from '@/lib/colors';
@@ -71,7 +72,11 @@ export function TechListByFilterClient({
   };
 
   return (
-    <main className="mx-auto flex min-h-[calc(100dvh-3.5rem)] w-full max-w-6xl flex-1 flex-col px-4 pb-24 pt-20 md:px-6 md:pt-24">
+    <AppContentShell
+      as="main"
+      variant="wide"
+      className="flex min-h-[calc(100dvh-3.5rem)] flex-1 flex-col"
+    >
       <nav className="mb-6 text-sm text-muted-foreground">
         <Link
           href="/categories"
@@ -143,6 +148,6 @@ export function TechListByFilterClient({
           })}
         </ul>
       )}
-    </main>
+    </AppContentShell>
   );
 }

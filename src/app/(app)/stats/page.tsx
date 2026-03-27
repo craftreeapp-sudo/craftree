@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useMemo } from 'react';
+import { AppContentShell } from '@/components/layout/AppContentShell';
 import { useGraphStore } from '@/stores/graph-store';
 import { computeStatsInsights } from '@/lib/stats-insights';
 import { getCategoryColor } from '@/lib/colors';
@@ -37,7 +38,8 @@ function formatCategoryLabel(c: NodeCategory): string {
 
 function CategoryDonut({ rows, total }: { rows: CategoryCount[]; total: number }) {
   const gradient = useMemo(() => {
-    if (total <= 0 || rows.length === 0) return 'conic-gradient(#2A3042 0deg 360deg)';
+    if (total <= 0 || rows.length === 0)
+      return 'conic-gradient(var(--border) 0deg 360deg)';
     let angle = 0;
     const parts: string[] = [];
     for (const r of rows) {
@@ -54,12 +56,12 @@ function CategoryDonut({ rows, total }: { rows: CategoryCount[]; total: number }
   return (
     <div className="flex flex-col items-center gap-6 md:flex-row md:items-start md:justify-center">
       <div
-        className="relative h-44 w-44 shrink-0 rounded-full shadow-inner ring-1 ring-[#2A3042]/80"
+        className="relative h-44 w-44 shrink-0 rounded-full shadow-inner ring-1 ring-border/80"
         style={{ background: gradient }}
         role="img"
         aria-label="Répartition par catégorie"
       >
-        <div className="absolute inset-[26%] rounded-full bg-surface-elevated ring-1 ring-[#2A3042]/60" />
+        <div className="absolute inset-[26%] rounded-full bg-surface-elevated ring-1 ring-border/60" />
       </div>
       <ul className="grid max-h-64 w-full max-w-md gap-2 overflow-y-auto text-sm sm:grid-cols-2">
         {rows.map((r) => (
@@ -130,7 +132,11 @@ export default function StatsPage() {
   const catTotal = stats.categoryRows.reduce((s, r) => s + r.count, 0);
 
   return (
-    <main className="mx-auto min-h-[calc(100dvh-3.5rem)] w-full max-w-6xl flex-1 px-3 pb-12 pt-20 md:px-4 md:pb-16">
+    <AppContentShell
+      as="main"
+      variant="wide"
+      className="min-h-[calc(100dvh-3.5rem)] flex-1"
+    >
       <header className="mb-6 md:mb-10">
         <h1
           className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
@@ -148,7 +154,7 @@ export default function StatsPage() {
 
       {stats.highlight ? (
         <section
-          className="mb-10 rounded-xl border border-[#3B82F6]/35 bg-[#3B82F6]/[0.07] p-5 shadow-lg"
+          className="mb-10 rounded-xl border border-accent/35 bg-accent/10 p-5 shadow-lg"
           aria-label="Fait marquant"
         >
           <p className="text-xs font-semibold uppercase tracking-wider text-accent">
@@ -175,7 +181,7 @@ export default function StatsPage() {
           </p>
           <Link
             href={`/tree/${stats.highlight.nodeId}`}
-            className="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-[#3B82F6]/50 bg-[#3B82F6]/15 px-4 py-2 text-sm font-medium text-accent transition-colors hover:bg-[#3B82F6]/25"
+            className="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-accent/50 bg-accent/15 px-4 py-2 text-sm font-medium text-accent transition-colors hover:bg-accent/25"
           >
             Voir l’arbre de dépendances
             <span aria-hidden>→</span>
@@ -283,6 +289,6 @@ export default function StatsPage() {
           </div>
         </section>
       </div>
-    </main>
+    </AppContentShell>
   );
 }

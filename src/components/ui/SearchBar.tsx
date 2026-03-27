@@ -2,10 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import Fuse from 'fuse.js';
-import { useUIStore } from '@/stores/ui-store';
 import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 import { getCategoryColor } from '@/lib/colors';
@@ -46,15 +45,7 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
   const { navigateToNode } = useExploreNavigation();
-  const closeSidebarKeepGraphHover = useUIStore(
-    (s) => s.closeSidebarKeepGraphHover
-  );
-  const setExploreHoveredNodeId = useUIStore((s) => s.setExploreHoveredNodeId);
-  const requestExploreNeighborhoodFit = useUIStore(
-    (s) => s.requestExploreNeighborhoodFit
-  );
   const pathname = usePathname();
   const isMobile = useIsMobileBreakpoint();
   const exploreMobileSearch = pathname === '/explore' && isMobile;
@@ -116,26 +107,7 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
     return () => clearTimeout(timer);
   }, [query, search]);
 
-  const handleTreeReveal = useCallback(
-    (node: SearchNode) => {
-      router.replace('/explore');
-      closeSidebarKeepGraphHover();
-      setExploreHoveredNodeId(node.id);
-      requestExploreNeighborhoodFit(node.id);
-      setQuery('');
-      setResults([]);
-      setDropdownOpen(false);
-      inputRef.current?.blur();
-    },
-    [
-      router,
-      closeSidebarKeepGraphHover,
-      setExploreHoveredNodeId,
-      requestExploreNeighborhoodFit,
-    ]
-  );
-
-  const handleFocusView = useCallback(
+  const goToFocusedView = useCallback(
     (node: SearchNode) => {
       navigateToNode(node.id, {
         center: true,
@@ -171,10 +143,10 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
       }
       if (e.key === 'Enter' && results[highlightedIndex]) {
         e.preventDefault();
-        handleTreeReveal(results[highlightedIndex]);
+        goToFocusedView(results[highlightedIndex]);
       }
     },
-    [dropdownOpen, results, highlightedIndex, handleTreeReveal]
+    [dropdownOpen, results, highlightedIndex, goToFocusedView]
   );
 
   useEffect(() => {
@@ -263,19 +235,16 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
                 treeLayerForSearchNode(node)
               );
               return (
-                <div
+                <button
                   key={node.id}
-                  className={`flex w-full items-stretch gap-0 transition-colors ${
+                  type="button"
+                  onClick={() => goToFocusedView(node)}
+                  className={`flex w-full items-start gap-3 px-3 py-2.5 text-left transition-colors ${
                     index === highlightedIndex
                       ? 'bg-border/80'
                       : 'hover:bg-border/50'
                   }`}
                 >
-                  <button
-                    type="button"
-                    onClick={() => handleTreeReveal(node)}
-                    className="flex min-w-0 flex-1 items-start gap-3 px-3 py-2.5 text-left"
-                  >
                     <span className="relative mt-0.5 h-8 w-8 shrink-0 overflow-hidden rounded-md border border-border bg-surface">
                       <Image
                         src={thumb}
@@ -315,41 +284,7 @@ export function SearchBar({ placeholder }: { placeholder?: string } = {}) {
                         <span>{tEra(node.era)}</span>
                       </div>
                     </div>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleFocusView(node);
-                    }}
-                    className="flex w-10 shrink-0 items-center justify-center border-l border-border text-muted-foreground transition-colors hover:bg-border/50 hover:text-accent"
-                    title={tExplore('focusViewTitle')}
-                    aria-label={tExplore('focusViewAria', {
-                      name: displayName,
-                    })}
-                  >
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.75"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden
-                    >
-                      <path d="M12 3v6" />
-                      <path d="M12 15v6" />
-                      <circle cx="12" cy="9" r="2" />
-                      <circle cx="6" cy="15" r="2" />
-                      <circle cx="18" cy="15" r="2" />
-                      <path d="M12 11v2" />
-                      <path d="M10.5 13.5 7 15" />
-                      <path d="M13.5 13.5 17 15" />
-                    </svg>
-                  </button>
-                </div>
+                </button>
               );
             })
           )}
