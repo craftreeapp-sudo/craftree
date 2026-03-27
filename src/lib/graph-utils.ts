@@ -7,6 +7,7 @@
 import dagre from '@dagrejs/dagre';
 import type { Node, Edge } from '@xyflow/react';
 import { Position } from '@xyflow/react';
+import { categoryDisplayOrderIndex } from './category-labels';
 import type {
   CraftingLink,
   Era,
@@ -770,6 +771,19 @@ export const FOCUS_VERT_GAP = 150;
 const FOCUS_H_GAP = 36;
 const FOCUS_GRID = 20;
 
+/** Tri gauche → droite : catégorie (@see NODE_CATEGORY_DISPLAY_ORDER), puis id. */
+export function sortFocusNeighborIdsByCategory(
+  ids: string[],
+  getCategory: (id: string) => NodeCategory | undefined
+): string[] {
+  return [...ids].sort((a, b) => {
+    const ia = categoryDisplayOrderIndex(getCategory(a));
+    const ib = categoryDisplayOrderIndex(getCategory(b));
+    if (ia !== ib) return ia - ib;
+    return a.localeCompare(b, 'fr');
+  });
+}
+
 /**
  * Positions flow pour la vue focalisée : sélection au centre, intrants en dessous,
  * produits au-dessus (une ligne chacun).
@@ -778,7 +792,10 @@ export function computeExploreFocusPositions(
   selectedId: string,
   preds: string[],
   succs: string[],
-  flowCenter: { x: number; y: number }
+  flowCenter: { x: number; y: number },
+  options?: {
+    getCategory?: (id: string) => NodeCategory | undefined;
+  }
 ): Map<string, { x: number; y: number }> {
   const cx = flowCenter.x;
   const cy = flowCenter.y;
@@ -817,17 +834,19 @@ export function computeExploreFocusPositions(
     y: Math.round((cy - EXPLORE_CARD_H / 2) / FOCUS_GRID) * FOCUS_GRID,
   });
 
+  const getCategory = options?.getCategory;
+  const predSorted = getCategory
+    ? sortFocusNeighborIdsByCategory(preds, getCategory)
+    : [...preds].sort((a, b) => a.localeCompare(b, 'fr'));
+  const succSorted = getCategory
+    ? sortFocusNeighborIdsByCategory(succs, getCategory)
+    : [...succs].sort((a, b) => a.localeCompare(b, 'fr'));
+
   const predRowCenterY = cy + EXPLORE_CARD_H + FOCUS_VERT_GAP;
-  placeRow(
-    [...preds].sort((a, b) => a.localeCompare(b, 'fr')),
-    predRowCenterY
-  );
+  placeRow(predSorted, predRowCenterY);
 
   const succRowCenterY = cy - EXPLORE_CARD_H - FOCUS_VERT_GAP;
-  placeRow(
-    [...succs].sort((a, b) => a.localeCompare(b, 'fr')),
-    succRowCenterY
-  );
+  placeRow(succSorted, succRowCenterY);
 
   return out;
 }

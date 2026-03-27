@@ -39,6 +39,9 @@ import type { Era, NodeCategory, TechNodeDetails, TechNodeType } from '@/lib/typ
 
 const BORDER_DEFAULT = 'var(--border)';
 
+/** Vue focalisée : léger zoom des « cartes enfants » au survol. */
+const FOCUS_CHILD_HOVER_SCALE = 1.045;
+
 const FOCUS_DESC_HOVER_MS = 200;
 const FOCUS_DESC_GAP_PX = 8;
 const FOCUS_DESC_ARROW_PX = 6;
@@ -730,14 +733,21 @@ function TechNodeComponent({
             scale:
               focusSlideActive || focusInnerClass
                 ? 1
-                : isSelectedUi && !explosionMode
-                  ? 1.05
-                  : 1,
+                : focusExploreNeighbor &&
+                    hover &&
+                    !explosionMode &&
+                    !focusTransitionAnimating
+                  ? FOCUS_CHILD_HOVER_SCALE
+                  : isSelectedUi && !explosionMode
+                    ? 1.05
+                    : 1,
           }}
           transition={
             focusSlideActive || focusInnerClass
               ? { duration: 0 }
-              : { type: 'spring', stiffness: 380, damping: 28 }
+              : focusExploreNeighbor
+                ? { duration: 0.22, ease: easeOut }
+                : { type: 'spring', stiffness: 380, damping: 28 }
           }
           onPointerEnter={onCardMouseEnter}
           onPointerLeave={onCardMouseLeave}

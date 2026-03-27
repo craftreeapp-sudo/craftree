@@ -29,6 +29,7 @@ import type { TechNodeData } from './TechNode';
 import type { TechEdgeData } from './TechEdge';
 import {
   computeExploreFocusPositions,
+  sortFocusNeighborIdsByCategory,
   EXPLORE_CARD_H,
   EXPLORE_CARD_W,
   EXPLORE_LAYER_EDGE_PAD_Y,
@@ -42,6 +43,7 @@ import {
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 import { useUIStore } from '@/stores/ui-store';
 import { useGraphStore } from '@/stores/graph-store';
+import { useAuthStore } from '@/stores/auth-store';
 import type {
   CraftingLink,
   Era,
@@ -136,8 +138,15 @@ function buildNeighborFadeStaggerMap(
 /** Intrants puis produits (même ordre que le layout focal). */
 function neighborAppearOrder(
   preds: string[],
-  succs: string[]
+  succs: string[],
+  getCategory?: (id: string) => NodeCategory | undefined
 ): string[] {
+  if (getCategory) {
+    return [
+      ...sortFocusNeighborIdsByCategory(preds, getCategory),
+      ...sortFocusNeighborIdsByCategory(succs, getCategory),
+    ];
+  }
   return [
     ...[...preds].sort((a, b) => a.localeCompare(b, 'fr')),
     ...[...succs].sort((a, b) => a.localeCompare(b, 'fr')),
@@ -699,6 +708,15 @@ function TechGraphInner() {
   const activeTypes = useUIStore((s) => s.activeTypes);
 
   const craftEdges = useGraphStore((s) => s.edges);
+  const user = useAuthStore((s) => s.user);
+  /** Invités : pas d’ajout de liens depuis le graphe (uniquement suggestion depuis la fiche). */
+  const allowFocusAddLinks = Boolean(user);
+  const graphNodes = useGraphStore((s) => s.nodes);
+  const getCategoryForFocus = useCallback(
+    (id: string) =>
+      graphNodes.find((n) => n.id === id)?.category as NodeCategory | undefined,
+    [graphNodes]
+  );
   const exploreFlowNodes = useGraphStore((s) => s.exploreFlowNodes);
   const exploreFlowEdges = useGraphStore((s) => s.exploreFlowEdges);
   const layerMetas = useGraphStore((s) => s.exploreLayerMetas);
@@ -951,7 +969,12 @@ function TechGraphInner() {
 
         const newPreds = getDirectPredecessors(toId, edges);
         const newSuccs = getDirectSuccessors(toId, edges);
-        const appearOrder = neighborAppearOrder(newPreds, newSuccs);
+        const storeNodes = useGraphStore.getState().nodes;
+        const getCat = (id: string) =>
+          storeNodes.find((n) => n.id === id)?.category as
+            | NodeCategory
+            | undefined;
+        const appearOrder = neighborAppearOrder(newPreds, newSuccs, getCat);
 
         pushT(
           window.setTimeout(() => {
@@ -1108,7 +1131,8 @@ function TechGraphInner() {
           selectedNodeId,
           preds,
           succs,
-          center
+          center,
+          { getCategory: getCategoryForFocus }
         );
         const incomingReveal =
           tf.isAnimating &&
@@ -1176,7 +1200,9 @@ function TechGraphInner() {
       if (sel) {
         mergedNodes = [
           ...base,
-          ...buildFocusOverlayNodes(sel, searchMode, relationPick),
+          ...buildFocusOverlayNodes(sel, searchMode, relationPick, {
+            allowAddLinks: allowFocusAddLinks,
+          }),
         ];
       } else {
         mergedNodes = base;
@@ -1198,7 +1224,7 @@ function TechGraphInner() {
     ) {
       const preds = getDirectPredecessors(selectedNodeId, craftEdges);
       const succs = getDirectSuccessors(selectedNodeId, craftEdges);
-      const order = neighborAppearOrder(preds, succs);
+      const order = neighborAppearOrder(preds, succs, getCategoryForFocus);
       const started = focusTransitionStartedAtRef.current;
       const elapsed = started != null ? performance.now() - started : 0;
       outEdges = outEdges.map((e) => {
@@ -1263,6 +1289,8 @@ function TechGraphInner() {
     focusTransitionAnimating,
     transitionFromId,
     transitionToId,
+    getCategoryForFocus,
+    allowFocusAddLinks,
   ]);
 
   /**
@@ -1343,7 +1371,8 @@ function TechGraphInner() {
         selectedNodeId,
         preds,
         succs,
-        center
+        center,
+        { getCategory: getCategoryForFocus }
       );
       const stripped = stripFocusOverlayNodes(nodesRef.current);
       const moved = stripped.map((n) => {
@@ -1364,7 +1393,8 @@ function TechGraphInner() {
         ...buildFocusOverlayNodes(
           sel,
           useFocusLinkEditStore.getState().searchMode,
-          useFocusLinkEditStore.getState().relationPick
+          useFocusLinkEditStore.getState().relationPick,
+          { allowAddLinks: allowFocusAddLinks }
         ),
       ]);
       focusPositionsAppliedRef.current = true;
@@ -1406,7 +1436,16 @@ function TechGraphInner() {
     searchMode,
     relationPick,
     focusTransitionAnimating,
+    getCategoryForFocus,
+    allowFocusAddLinks,
   ]);
+
+  /** Invité : fermer une éventuelle recherche de lien ouverte (plus de boutons « + »). */
+  useEffect(() => {
+    if (user) return;
+    if (!focusLayoutActive) return;
+    closeFocusLinkEdit();
+  }, [user, focusLayoutActive, closeFocusLinkEdit]);
 
   useEffect(() => {
     if (focusLayoutActive) return;

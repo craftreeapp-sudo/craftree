@@ -61,6 +61,7 @@ type FilterKey = 'all' | 'edit_node' | 'add_link' | 'new_node';
 const FIELD_LABELS: Record<string, string> = {
   name: 'Nom',
   description: 'Description',
+  description_en: 'Description (EN)',
   category: 'Catégorie',
   type: 'Type',
   era: 'Époque',

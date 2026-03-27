@@ -10,14 +10,23 @@ import type { FocusLinkSearchMode } from '@/stores/focus-link-edit-store';
 /** Taille des boutons « + » (alignée avec les actions sur les cartes voisines). */
 export const FOCUS_ADD_BTN_PX = 40;
 
+export type BuildFocusOverlayOptions = {
+  /** Sans compte : pas de « + » ni popup — contribution via « Suggérer une correction » uniquement. */
+  allowAddLinks?: boolean;
+};
+
 /**
  * Boutons « + » et popup de recherche en vue focalisée /explore.
  */
 export function buildFocusOverlayNodes(
   selected: Node,
   searchMode: FocusLinkSearchMode | null,
-  relationPick: { mode: FocusLinkSearchMode; otherNodeId: string } | null
+  relationPick: { mode: FocusLinkSearchMode; otherNodeId: string } | null,
+  options?: BuildFocusOverlayOptions
 ): Node[] {
+  if (options?.allowAddLinks === false) {
+    return [];
+  }
   /** Centre horizontal de la carte = centre de la boîte nœud (170×240), pas seulement 150px. */
   const cardCenterX = selected.position.x + EXPLORE_LAYOUT_NODE_W / 2;
   const iy = selected.position.y;

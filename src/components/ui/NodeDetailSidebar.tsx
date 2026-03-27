@@ -29,7 +29,10 @@ import type {
 } from '@/lib/types';
 import { RelationType } from '@/lib/types';
 import { isRtlLocale } from '@/lib/i18n-config';
-import { pickNodeDisplayName } from '@/lib/node-display-name';
+import {
+  pickNodeDisplayName,
+  pickNodeDescriptionForLocale,
+} from '@/lib/node-display-name';
 import { buildPeerSearchBlobMap } from '@/lib/suggest-peer-search';
 import {
   SuggestionNodeForm,
@@ -192,28 +195,50 @@ export function NodeDetailSidebar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedNodeId]);
 
-  const snapshotFromForm = useCallback((f: SuggestNodeFormState) => {
-    return {
-      name: f.name.trim(),
-      description: f.description.trim(),
-      category: f.category,
-      type: f.type,
-      era: f.era,
-      year_approx:
-        f.year_approx.trim() === '' ? null : Number(f.year_approx.trim()),
-      origin: f.origin.trim(),
-    } as Record<string, unknown>;
-  }, []);
+  const snapshotFromForm = useCallback(
+    (f: SuggestNodeFormState, uiLocale: string) => {
+      const frenchUi = uiLocale === 'fr' || uiLocale.startsWith('fr-');
+      const base = {
+        name: f.name.trim(),
+        category: f.category,
+        type: f.type,
+        era: f.era,
+        year_approx:
+          f.year_approx.trim() === '' ? null : Number(f.year_approx.trim()),
+        origin: f.origin.trim(),
+      };
+      if (frenchUi) {
+        return { ...base, description: f.description.trim() } as Record<
+          string,
+          unknown
+        >;
+      }
+      return { ...base, description_en: f.description.trim() } as Record<
+        string,
+        unknown
+      >;
+    },
+    []
+  );
 
   const enterSuggestMode = useCallback(async () => {
     if (!node) return;
     const res = await fetch(`/api/nodes/${encodeURIComponent(node.id)}`);
     if (!res.ok) return;
-    const json = (await res.json()) as { node: SeedNode };
+    const json = (await res.json()) as {
+      node: SeedNode;
+      details?: { description?: string; description_en?: string };
+    };
     const seed = json.node;
-    setSuggestForm({
+    const details = json.details;
+    const descriptionText = pickNodeDescriptionForLocale(
+      locale,
+      seed.description,
+      details?.description_en ?? seed.description_en
+    );
+    const formSeed: SuggestNodeFormState = {
       name: seed.name,
-      description: seed.description ?? '',
+      description: descriptionText,
       category: seed.category as NodeCategory,
       type: seed.type as TechNodeType,
       era: seed.era as Era,
@@ -222,19 +247,9 @@ export function NodeDetailSidebar() {
           ? ''
           : String(seed.year_approx),
       origin: seed.origin ?? '',
-    });
-    const snap = snapshotFromForm({
-      name: seed.name,
-      description: seed.description ?? '',
-      category: seed.category as NodeCategory,
-      type: seed.type as TechNodeType,
-      era: seed.era as Era,
-      year_approx:
-        seed.year_approx === undefined || seed.year_approx === null
-          ? ''
-          : String(seed.year_approx),
-      origin: seed.origin ?? '',
-    });
+    };
+    setSuggestForm(formSeed);
+    const snap = snapshotFromForm(formSeed, locale);
     setOriginalSnapshot(snap);
 
     const ledTo = getUsagesOfNode(node.id);
@@ -258,7 +273,7 @@ export function NodeDetailSidebar() {
     setPendingAddLinks([]);
 
     setSuggestMode(true);
-  }, [node, snapshotFromForm, getUsagesOfNode, getRecipeForNode]);
+  }, [node, snapshotFromForm, getUsagesOfNode, getRecipeForNode, locale]);
 
   const handleSuggestCorrection = useCallback(() => {
     void enterSuggestMode();
@@ -321,7 +336,7 @@ export function NodeDetailSidebar() {
     if (!node || !originalSnapshot || !originalLinkEdits) return;
     setSuggestSubmitting(true);
     try {
-      const proposedNode = snapshotFromForm(suggestForm);
+      const proposedNode = snapshotFromForm(suggestForm, locale);
       const diff = computeDiff(originalSnapshot, proposedNode);
       const linkDiff = computeLinkSuggestionDiff(
         originalLinkEdits,
