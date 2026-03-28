@@ -4,9 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import nodesIndexJson from '@/data/nodes-index.json';
 import { useUIStore } from '@/stores/ui-store';
-import { useAuthStore } from '@/stores/auth-store';
 import { getCategoryColor } from '@/lib/colors';
 import { isRtlLocale } from '@/lib/i18n-config';
 import {
@@ -20,8 +18,6 @@ const CATEGORY_PREVIEW_COUNT = 5;
 
 /** Contact mail for dev suggestions from the explore drawer (mailto). */
 const DEVS_SUGGESTIONS_EMAIL = 'craftree.app@gmail.com';
-
-const INVENTION_COUNT = nodesIndexJson.nodes.length;
 
 function GitHubMark({ className }: { className?: string }) {
   return (
@@ -67,7 +63,6 @@ export function ExploreFilterDrawer() {
   const tc = useTranslations('common');
   const tCat = useTranslations('categories');
   const tEra = useTranslations('eras');
-  const tAuth = useTranslations('auth');
   const tFooter = useTranslations('footer');
   const [showAllCategories, setShowAllCategories] = useState(false);
   const open = useUIStore((s) => s.filterDrawerOpen);
@@ -78,8 +73,6 @@ export function ExploreFilterDrawer() {
   const toggleEra = useUIStore((s) => s.toggleEra);
   const setAllCategories = useUIStore((s) => s.setAllCategories);
   const setAllEras = useUIStore((s) => s.setAllEras);
-  const user = useAuthStore((s) => s.user);
-  const isAdmin = useAuthStore((s) => s.isAdmin);
 
   return (
     <>
@@ -104,31 +97,10 @@ export function ExploreFilterDrawer() {
         aria-hidden={!open}
       >
         <div className="shrink-0 border-b border-border px-4 py-3">
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            {tNav('drawerNavigation')}
-          </h3>
           <nav
             className="flex flex-col gap-0.5"
             aria-label={tNav('drawerNavigation')}
           >
-            {user ? (
-              <Link
-                href="/profile"
-                className="rounded-md px-2 py-2 text-sm text-foreground transition-colors hover:bg-surface-elevated hover:text-accent"
-                onClick={() => setOpen(false)}
-              >
-                {tAuth('myProfile')}
-              </Link>
-            ) : null}
-            {user && isAdmin ? (
-              <Link
-                href="/editor"
-                className="rounded-md px-2 py-2 text-sm text-foreground transition-colors hover:bg-surface-elevated hover:text-accent"
-                onClick={() => setOpen(false)}
-              >
-                {tc('allInventions')} ({INVENTION_COUNT})
-              </Link>
-            ) : null}
             <Link
               href="/about"
               className="rounded-md px-2 py-2 text-sm text-foreground transition-colors hover:bg-surface-elevated hover:text-accent"
@@ -149,12 +121,7 @@ export function ExploreFilterDrawer() {
             <a
               href={`mailto:${DEVS_SUGGESTIONS_EMAIL}`}
               aria-label={tNav('devsSuggestionsAria')}
-              className="mt-2 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-amber-500/45 bg-amber-950/40 px-4 py-2.5 text-sm font-medium text-amber-200 shadow-sm transition-colors hover:border-amber-400/55 hover:bg-amber-950/55 active:scale-[0.99]"
-              onClick={(e) => {
-                e.preventDefault();
-                window.location.assign(`mailto:${DEVS_SUGGESTIONS_EMAIL}`);
-                window.setTimeout(() => setOpen(false), 0);
-              }}
+              className="mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-amber-500/45 bg-amber-950/40 px-4 py-2.5 text-sm font-medium text-amber-200 shadow-sm transition-colors hover:border-amber-400/55 hover:bg-amber-950/55 active:scale-[0.99]"
             >
               <MailIcon className="h-[18px] w-[18px] shrink-0" />
               <span>{tNav('devsSuggestions')}</span>
@@ -163,24 +130,44 @@ export function ExploreFilterDrawer() {
         </div>
         {isExplore ? (
           <>
-            <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
-              <h2 className="text-sm font-semibold text-foreground">
-                {tc('filters')}
-              </h2>
-              <button
-                type="button"
-                className="rounded p-1 text-muted-foreground hover:bg-surface-elevated hover:text-foreground"
-                aria-label={t('closeFilters')}
-                onClick={() => setOpen(false)}
-              >
-                ×
-              </button>
-            </div>
             <div className="min-h-0 flex-1 overflow-y-auto px-3 py-4">
               <section className="mb-8">
-                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  {t('categories')}
-                </h3>
+                <div className="mb-3 flex items-center justify-between gap-2">
+                  <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    {t('categories')}
+                  </h3>
+                  {NODE_CATEGORY_ORDER.length > CATEGORY_PREVIEW_COUNT ? (
+                    <button
+                      type="button"
+                      onClick={() => setShowAllCategories((v) => !v)}
+                      className="flex shrink-0 items-center gap-1 rounded-md p-1 text-muted-foreground transition-colors hover:bg-surface-elevated hover:text-foreground"
+                      aria-expanded={showAllCategories}
+                      aria-label={
+                        showAllCategories ? t('showLess') : t('showMore')
+                      }
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className={`shrink-0 transition-transform duration-200 ${
+                          showAllCategories ? 'rotate-180' : ''
+                        }`}
+                        aria-hidden
+                      >
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                      <span className="text-[11px] font-medium tabular-nums">
+                        {NODE_CATEGORY_ORDER.length}
+                      </span>
+                    </button>
+                  ) : null}
+                </div>
                 <div className="mb-2 flex gap-2">
                   <button
                     type="button"
@@ -229,15 +216,6 @@ export function ExploreFilterDrawer() {
                     );
                   })}
                 </ul>
-                {NODE_CATEGORY_ORDER.length > CATEGORY_PREVIEW_COUNT ? (
-                  <button
-                    type="button"
-                    className="mt-2 w-full rounded-md border border-border bg-surface-elevated py-2 text-xs font-medium text-accent transition-colors hover:bg-border"
-                    onClick={() => setShowAllCategories((v) => !v)}
-                  >
-                    {showAllCategories ? t('showLess') : t('showMore')}
-                  </button>
-                ) : null}
               </section>
 
               <section>
