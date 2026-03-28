@@ -24,9 +24,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'id is required' }, { status: 400 });
     }
 
+    console.log('[admin/approve] POST applyApprovedSuggestion', { id });
     await applyApprovedSuggestion(id, {
       overrideProposed: body.overrideProposed,
     });
+    console.log(
+      '[admin/approve] applyApprovedSuggestion finished (contributor notify awaited inside)'
+    );
 
     return NextResponse.json({ ok: true });
   } catch (e) {

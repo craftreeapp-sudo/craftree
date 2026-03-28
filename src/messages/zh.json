@@ -438,7 +438,9 @@
     "toastApproved": "建议已批准",
     "toastRejected": "建议已拒绝",
     "anonymousContributor": "匿名",
-    "contributorUnknown": "未知贡献者"
+    "contributorUnknown": "未知贡献者",
+    "contributorMessageLabel": "贡献者留言",
+    "contributorContactEmailLabel": "联系邮箱："
   },
   "nav": {
     "mainNav": "主导航",
@@ -449,7 +451,9 @@
     "dependencyTree": "依赖树",
     "openFilters": "打开筛选",
     "secondaryNav": "辅助链接",
-    "logoGlobalView": "返回全局视图"
+    "logoGlobalView": "返回全局视图",
+    "devsSuggestions": "Devs suggestions?",
+    "devsSuggestionsAria": "打开邮件至 craftree.app@gmail.com（开发建议）"
   },
   "contactPage": {
     "title": "联系",

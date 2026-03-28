@@ -325,7 +325,11 @@ export async function applyApprovedSuggestion(
       .eq('id', uid);
   }
 
-  void notifyContributorSuggestionResult({
+  console.log('[admin-approve] calling notifyContributorSuggestionResult', {
+    status: 'approved',
+    suggestionId: String(row.id),
+  });
+  await notifyContributorSuggestionResult({
     status: 'approved',
     row: {
       id: String(row.id),

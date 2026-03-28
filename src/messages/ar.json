@@ -438,7 +438,9 @@
     "toastApproved": "تمت الموافقة",
     "toastRejected": "تم الرفض",
     "anonymousContributor": "مجهول",
-    "contributorUnknown": "مساهم غير معروف"
+    "contributorUnknown": "مساهم غير معروف",
+    "contributorMessageLabel": "رسالة المساهم",
+    "contributorContactEmailLabel": "البريد للتواصل:"
   },
   "nav": {
     "mainNav": "التنقّل الرئيسي",
@@ -449,7 +451,9 @@
     "dependencyTree": "شجرة الاعتماد",
     "openFilters": "فتح عوامل التصفية",
     "secondaryNav": "روابط ثانوية",
-    "logoGlobalView": "العودة إلى العرض العام"
+    "logoGlobalView": "العودة إلى العرض العام",
+    "devsSuggestions": "Devs suggestions?",
+    "devsSuggestionsAria": "فتح بريد إلى craftree.app@gmail.com (اقتراحات المطورين)"
   },
   "contactPage": {
     "title": "اتصل",

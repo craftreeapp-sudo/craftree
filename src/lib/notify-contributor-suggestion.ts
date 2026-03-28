@@ -35,31 +35,26 @@ export async function notifyContributorSuggestionResult(params: {
       : process.env.RESEND_TEMPLATE_SUGGESTION_REJECTED?.trim();
 
   if (!apiKey || !from || !templateId) {
-    if (process.env.NODE_ENV === 'development') {
-      console.info(
-        '[notifyContributorSuggestionResult] skipped (set RESEND_API_KEY, RESEND_FROM_EMAIL, RESEND_TEMPLATE_SUGGESTION_' +
-          (params.status === 'approved' ? 'APPROVED' : 'REJECTED') +
-          ')'
-      );
-    }
+    console.warn(
+      '[notifyContributorSuggestionResult] skipped: missing RESEND_API_KEY, RESEND_FROM_EMAIL, or RESEND_TEMPLATE_SUGGESTION_' +
+        (params.status === 'approved' ? 'APPROVED' : 'REJECTED')
+    );
     return;
   }
 
   const sb = createSupabaseServiceRoleClient();
   const to = await resolveContributorEmail(sb, params.row);
   if (!to) {
-    if (process.env.NODE_ENV === 'development') {
-      console.info(
-        '[notifyContributorSuggestionResult] no contributor email for suggestion',
-        params.row.id
-      );
-    }
+    console.warn(
+      '[notifyContributorSuggestionResult] no contributor email for suggestion',
+      params.row.id
+    );
     return;
   }
 
   const origin =
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ||
-    'https://craftree.app';
+    'https://www.craftree.app';
   const nodeId = params.row.node_id?.trim() ?? '';
   const exploreUrl = nodeId
     ? `${origin}/explore?node=${encodeURIComponent(nodeId)}`
@@ -70,7 +65,8 @@ export async function notifyContributorSuggestionResult(params: {
       ? (params.row.data as Record<string, unknown>)
       : {};
 
-  const variables: Record<string, string> = {
+  /** Resend Send Email API: `template.id` + `template.variables` (alias du corps « template » ; pas de HTML brut). */
+  const templateVariables: Record<string, string> = {
     suggestion_id: params.row.id,
     suggestion_type: String(params.row.suggestion_type),
     status: params.status,
@@ -78,9 +74,13 @@ export async function notifyContributorSuggestionResult(params: {
     admin_comment: String(params.adminComment ?? '').trim(),
     site_url: origin,
     explore_url: exploreUrl,
-    /** Résumé court pour le mail (optionnel dans les templates) */
     contributor_message: extractContributorMessagePreview(dataObj),
   };
+
+  console.log(
+    '[notifyContributorSuggestionResult] contributor email (before send):',
+    to
+  );
 
   try {
     const res = await fetch('https://api.resend.com/emails', {
@@ -94,16 +94,23 @@ export async function notifyContributorSuggestionResult(params: {
         to: [to],
         template: {
           id: templateId,
-          variables,
+          variables: templateVariables,
         },
       }),
     });
+    const rawText = await res.text();
+    let parsed: unknown = rawText;
+    try {
+      parsed = rawText ? JSON.parse(rawText) : {};
+    } catch {
+      parsed = rawText;
+    }
+    console.log('Resend response:', { status: res.status, body: parsed });
     if (!res.ok) {
-      const err = await res.text();
       console.error(
         '[notifyContributorSuggestionResult] Resend error:',
         res.status,
-        err
+        parsed
       );
     }
   } catch (e) {

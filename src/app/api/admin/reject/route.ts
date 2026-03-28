@@ -66,7 +66,11 @@ export async function POST(request: Request) {
       node_id: string | null;
       data: unknown;
     };
-    void notifyContributorSuggestionResult({
+    console.log('[admin/reject] calling notifyContributorSuggestionResult', {
+      status: 'rejected',
+      suggestionId: fr.id,
+    });
+    await notifyContributorSuggestionResult({
       status: 'rejected',
       row: {
         id: fr.id,

@@ -82,8 +82,101 @@ type FilterKey =
   | 'edit_node'
   | 'add_link'
   | 'new_node'
+  | 'anonymous_users'
   | 'delete_link'
   | 'anonymous_feedback';
+
+type SortKey = 'recent' | 'reliability' | 'type';
+
+type ReliabilityTier = 'trusted' | 'new' | 'anonymous';
+
+const RELIABILITY = {
+  trusted: { color: '#22C55E', label: 'Fiable' },
+  new: { color: '#F59E0B', label: 'Nouveau' },
+  anonymous: { color: '#5A6175', label: 'Anonyme' },
+} as const;
+
+const TYPE_SORT_ORDER: Record<string, number> = {
+  edit_node: 0,
+  add_link: 1,
+  new_node: 2,
+  delete_link: 3,
+  anonymous_feedback: 4,
+};
+
+function getReliabilityTier(
+  row: SuggestionRow,
+  profile: ProfileLite | undefined
+): ReliabilityTier {
+  if (row.user_id == null) return 'anonymous';
+  const n = profile?.contributions_count ?? 0;
+  if (n >= 10) return 'trusted';
+  return 'new';
+}
+
+function compactDisplayName(raw: string | null | undefined): string {
+  const s = (raw ?? '').trim();
+  if (!s) return '';
+  const parts = s.split(/\s+/).filter(Boolean);
+  if (parts.length === 1) return parts[0]!;
+  const first = parts[0]!;
+  const last = parts[parts.length - 1]!;
+  return `${first} ${last[0]!.toUpperCase()}.`;
+}
+
+function getExploreNodeId(row: SuggestionRow): string | null {
+  const top = row.node_id?.trim();
+  if (top) return top;
+  if (row.suggestion_type === 'anonymous_feedback') {
+    const d = row.data as { node_id?: string };
+    if (typeof d.node_id === 'string' && d.node_id.trim()) return d.node_id.trim();
+  }
+  return null;
+}
+
+function reliabilitySortRank(tier: ReliabilityTier): number {
+  if (tier === 'trusted') return 0;
+  if (tier === 'new') return 1;
+  return 2;
+}
+
+function getSuggestionCardTitle(
+  row: SuggestionRow,
+  nodeNames: Record<string, string>
+): string {
+  if (row.suggestion_type === 'edit_node') {
+    const d = row.data as {
+      proposed?: { name?: string };
+      original?: { name?: string };
+    };
+    if (typeof d.proposed?.name === 'string') return d.proposed.name;
+    if (typeof d.original?.name === 'string') return d.original.name;
+    return 'Correction';
+  }
+  if (row.suggestion_type === 'add_link') {
+    const d = row.data as { source_id: string; target_id: string };
+    const a = nodeNames[d.source_id] ?? d.source_id;
+    const b = nodeNames[d.target_id] ?? d.target_id;
+    return `${a} → ${b}`;
+  }
+  if (row.suggestion_type === 'new_node') {
+    const d = row.data as { node?: { name?: string } };
+    return d.node?.name ?? 'Nouvelle invention';
+  }
+  if (row.suggestion_type === 'delete_link') {
+    const d = row.data as { source_id?: string; target_id?: string };
+    const a = nodeNames[d.source_id ?? ''] ?? d.source_id ?? '—';
+    const b = nodeNames[d.target_id ?? ''] ?? d.target_id ?? '—';
+    return `Supprimer ${a} → ${b}`;
+  }
+  if (row.suggestion_type === 'anonymous_feedback') {
+    const d = row.data as { node_id?: string };
+    const nid = d.node_id ?? row.node_id ?? '';
+    const n = (nodeNames[nid] ?? nid) || '—';
+    return `Retour · ${n}`;
+  }
+  return 'Suggestion';
+}
 
 const FIELD_LABELS: Record<string, string> = {
   name: 'Nom',
@@ -175,7 +268,10 @@ export function AdminPageClient() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [contributorList, setContributorList] = useState<ContributorRow[]>([]);
   const [filter, setFilter] = useState<FilterKey>('all');
-
+  const [sortKey, setSortKey] = useState<SortKey>('recent');
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [bulkProcessing, setBulkProcessing] = useState(false);
+  const [bulkProgress, setBulkProgress] = useState(0);
   const [exitingIds, setExitingIds] = useState<Set<string>>(new Set());
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editDraft, setEditDraft] = useState<Record<string, unknown> | null>(
@@ -272,6 +368,11 @@ export function AdminPageClient() {
 
   const removeAfterExit = useCallback((id: string) => {
     setExitingIds((prev) => new Set(prev).add(id));
+    setSelectedIds((prev) => {
+      const n = new Set(prev);
+      n.delete(id);
+      return n;
+    });
     window.setTimeout(() => {
       setSuggestions((list) => list.filter((s) => s.id !== id));
       setExitingIds((prev) => {
@@ -280,7 +381,7 @@ export function AdminPageClient() {
         return n;
       });
       void loadStats();
-    }, 320);
+    }, 300);
   }, [loadStats]);
 
   const approve = useCallback(
@@ -324,10 +425,138 @@ export function AdminPageClient() {
     [pushToast, t, removeAfterExit, tab, loadContributors]
   );
 
+  const finishBulkRemove = useCallback(
+    (doneIds: string[]) => {
+      if (doneIds.length === 0) return;
+      setExitingIds((prev) => {
+        const n = new Set(prev);
+        for (const id of doneIds) n.add(id);
+        return n;
+      });
+      window.setTimeout(() => {
+        setSuggestions((list) => list.filter((s) => !doneIds.includes(s.id)));
+        setExitingIds((prev) => {
+          const n = new Set(prev);
+          for (const id of doneIds) n.delete(id);
+          return n;
+        });
+        setSelectedIds(new Set());
+        void loadStats();
+      }, 300);
+    },
+    [loadStats]
+  );
+
+  const bulkApprove = useCallback(async () => {
+    const ids = [...selectedIds];
+    if (ids.length === 0 || bulkProcessing) return;
+    setBulkProcessing(true);
+    setBulkProgress(0);
+    const successIds: string[] = [];
+    for (let i = 0; i < ids.length; i++) {
+      const id = ids[i]!;
+      const res = await fetch('/api/admin/approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+      if (res.ok) successIds.push(id);
+      setBulkProgress((i + 1) / ids.length);
+    }
+    setBulkProcessing(false);
+    finishBulkRemove(successIds);
+    if (tab === 'contributors') void loadContributors();
+    pushToast(`${successIds.length} suggestions approuvées`, 'success');
+  }, [
+    selectedIds,
+    bulkProcessing,
+    finishBulkRemove,
+    tab,
+    loadContributors,
+    pushToast,
+  ]);
+
+  const bulkReject = useCallback(async () => {
+    const ids = [...selectedIds];
+    if (ids.length === 0 || bulkProcessing) return;
+    setBulkProcessing(true);
+    setBulkProgress(0);
+    const successIds: string[] = [];
+    for (let i = 0; i < ids.length; i++) {
+      const id = ids[i]!;
+      const res = await fetch('/api/admin/reject', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, admin_comment: null }),
+      });
+      if (res.ok) successIds.push(id);
+      setBulkProgress((i + 1) / ids.length);
+    }
+    setBulkProcessing(false);
+    finishBulkRemove(successIds);
+    if (tab === 'contributors') void loadContributors();
+    pushToast(`${successIds.length} suggestions rejetées`, 'success');
+  }, [
+    selectedIds,
+    bulkProcessing,
+    finishBulkRemove,
+    tab,
+    loadContributors,
+    pushToast,
+  ]);
+
   const filteredSuggestions = useMemo(() => {
-    if (filter === 'all') return suggestions;
-    return suggestions.filter((s) => s.suggestion_type === filter);
-  }, [suggestions, filter]);
+    let list = suggestions;
+    if (filter === 'anonymous_users') {
+      list = list.filter((s) => s.user_id == null);
+    } else if (filter !== 'all') {
+      list = list.filter((s) => s.suggestion_type === filter);
+    }
+    const tierOf = (s: SuggestionRow) =>
+      getReliabilityTier(s, s.user_id ? profiles[s.user_id] : undefined);
+    const sorted = [...list];
+    if (sortKey === 'recent') {
+      sorted.sort(
+        (a, b) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
+    } else if (sortKey === 'reliability') {
+      sorted.sort((a, b) => {
+        const ra = reliabilitySortRank(tierOf(a));
+        const rb = reliabilitySortRank(tierOf(b));
+        if (ra !== rb) return ra - rb;
+        return (
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+      });
+    } else {
+      sorted.sort((a, b) => {
+        const oa = TYPE_SORT_ORDER[a.suggestion_type] ?? 99;
+        const ob = TYPE_SORT_ORDER[b.suggestion_type] ?? 99;
+        if (oa !== ob) return oa - ob;
+        return (
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+      });
+    }
+    return sorted;
+  }, [suggestions, filter, sortKey, profiles]);
+
+  const shortcutTargetId = useMemo(() => {
+    if (tab !== 'pending') return null;
+    if (filteredSuggestions.length === 1) return filteredSuggestions[0]!.id;
+    if (selectedIds.size === 1) return [...selectedIds][0]!;
+    return null;
+  }, [tab, filteredSuggestions, selectedIds]);
+
+  const pendingVisibleIds = useMemo(
+    () => (tab === 'pending' ? filteredSuggestions.map((s) => s.id) : []),
+    [tab, filteredSuggestions]
+  );
+
+  const allPendingVisibleSelected =
+    pendingVisibleIds.length > 0 &&
+    pendingVisibleIds.every((id) => selectedIds.has(id));
 
   const startEdit = (s: SuggestionRow) => {
     setEditingId(s.id);
@@ -372,6 +601,59 @@ export function AdminPageClient() {
       void approve(s.id, editDraft as Record<string, unknown>);
     }
   };
+
+  useEffect(() => {
+    if (tab !== 'pending' || !shortcutTargetId) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (editingId || rejectingId || bulkProcessing) return;
+      const tEl = e.target;
+      if (tEl instanceof HTMLElement) {
+        if (tEl.closest('input, textarea, select') || tEl.isContentEditable) {
+          return;
+        }
+      }
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const key = e.key.toLowerCase();
+      if (key !== 'a' && key !== 'r' && key !== 'v') return;
+      e.preventDefault();
+      const row = suggestions.find((s) => s.id === shortcutTargetId);
+      if (!row) return;
+      if (key === 'v') {
+        const nid = getExploreNodeId(row);
+        if (nid) {
+          window.open(
+            `/explore?node=${encodeURIComponent(nid)}`,
+            '_blank',
+            'noopener,noreferrer'
+          );
+        }
+        return;
+      }
+      if (key === 'a') {
+        if (editingId === shortcutTargetId && editDraft) {
+          submitEditApprove(row);
+        } else {
+          void approve(shortcutTargetId);
+        }
+        return;
+      }
+      if (key === 'r') {
+        void reject(shortcutTargetId, null);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [
+    tab,
+    shortcutTargetId,
+    editingId,
+    rejectingId,
+    bulkProcessing,
+    suggestions,
+    editDraft,
+    approve,
+    reject,
+  ]);
 
   if (isLoading || !isAdmin) {
     return (
@@ -485,31 +767,47 @@ export function AdminPageClient() {
       ) : null}
 
       {tab === 'pending' ? (
-        <div className="flex w-full min-w-0 flex-wrap gap-2 pb-2">
-          {(
-            [
-              ['all', 'Tout'],
-              ['edit_node', 'Corrections'],
-              ['add_link', 'Nouveaux liens'],
-              ['new_node', 'Nouvelles inventions'],
-              ['delete_link', 'Suppressions liens'],
-              ['anonymous_feedback', 'Retours anonymes'],
-            ] as const
-          ).map(([key, label]) => (
-            <button
-              key={key}
-              type="button"
-              onClick={() => setFilter(key)}
-              className={`rounded-[6px] border px-3 py-[5px] text-[11px] ${
-                filter === key
-                  ? 'border-accent text-foreground'
-                  : 'border-border text-muted-foreground'
-              } bg-surface`}
+        <div className="flex w-full min-w-0 flex-col gap-3 pb-2 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex min-w-0 flex-wrap gap-2">
+            {(
+              [
+                ['all', 'Tout'],
+                ['edit_node', 'Corrections'],
+                ['add_link', 'Nouveaux liens'],
+                ['new_node', 'Nouvelles inventions'],
+                ['anonymous_users', 'Anonymes'],
+                ['delete_link', 'Suppressions liens'],
+                ['anonymous_feedback', 'Retours anonymes'],
+              ] as const
+            ).map(([key, label]) => (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setFilter(key)}
+                className={`rounded-[6px] border px-3 py-[5px] text-[11px] ${
+                  filter === key
+                    ? 'border-accent text-foreground'
+                    : 'border-border text-muted-foreground'
+                } bg-surface`}
+                style={{ borderWidth: '0.5px' }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <label className="flex shrink-0 items-center gap-2 text-[11px] text-muted-foreground">
+            <span>Trier par</span>
+            <select
+              value={sortKey}
+              onChange={(e) => setSortKey(e.target.value as SortKey)}
+              className="rounded-[6px] border border-border bg-surface px-2 py-1.5 text-[11px] text-foreground"
               style={{ borderWidth: '0.5px' }}
             >
-              {label}
-            </button>
-          ))}
+              <option value="recent">Plus récentes</option>
+              <option value="reliability">Fiabilité</option>
+              <option value="type">Type</option>
+            </select>
+          </label>
         </div>
       ) : null}
 
@@ -721,74 +1019,167 @@ export function AdminPageClient() {
             Aucune suggestion pour ce filtre.
           </p>
         ) : filteredSuggestions.length === 0 && tab === 'pending' ? (
-          <div className="flex flex-col items-center justify-center py-16">
-            <svg
-              width={48}
-              height={48}
-              viewBox="0 0 48 48"
-              fill="none"
-              className="text-emerald-600"
+          <div className="flex flex-col items-center justify-center py-20">
+            <div
+              className="flex h-10 w-10 items-center justify-center rounded-full"
+              style={{ background: 'rgba(34, 197, 94, 0.2)' }}
               aria-hidden
             >
-              <circle cx="24" cy="24" r="22" stroke="currentColor" strokeWidth="2" />
-              <path
-                d="M14 24l7 7 13-13"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <p className="mt-4 text-[16px] text-muted-foreground">
-              Aucune suggestion en attente
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M5 13l4 4L19 7"
+                  stroke="#22C55E"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <p className="mt-4 text-[16px]" style={{ color: '#5A6175' }}>
+              Rien à modérer
             </p>
-            <p className="mt-1 text-center text-[13px] text-muted-foreground">
-              Les nouvelles suggestions des contributeurs apparaîtront ici
+            <p
+              className="mt-1 max-w-sm text-center text-[13px]"
+              style={{ color: '#3D4555' }}
+            >
+              Les nouvelles suggestions apparaîtront ici
             </p>
+            <Link
+              href="/explore"
+              className="mt-4 text-[13px] hover:underline"
+              style={{ color: '#3B82F6' }}
+            >
+              Explorer le Tree →
+            </Link>
           </div>
         ) : filteredSuggestions.length === 0 ? (
           <p className="text-muted-foreground">{t('noSuggestions')}</p>
         ) : (
-          <ul className="space-y-0">
-            {filteredSuggestions.map((s) => (
-              <SuggestionCard
-                key={s.id}
-                row={s}
-                profiles={profiles}
-                nodeNames={nodeNames}
-                suggestionCountByUser={suggestionCountByUser}
-                exiting={exitingIds.has(s.id)}
-                isEditing={editingId === s.id}
-                editDraft={editingId === s.id ? editDraft : null}
-                onEditDraftChange={setEditDraft}
-                rejecting={rejectingId === s.id}
-                rejectComment={rejectComment}
-                onRejectCommentChange={setRejectComment}
-                onApprove={() => void approve(s.id)}
-                onApproveEdit={() => submitEditApprove(s)}
-                onStartEdit={() => startEdit(s)}
-                onCancelEdit={cancelEdit}
-                onRejectOpen={() => {
-                  setRejectingId(s.id);
-                  setEditingId(null);
+          <div className="relative min-w-0 pb-10">
+            {tab === 'pending' && selectedIds.size > 0 ? (
+              <div
+                className="mb-3 flex flex-wrap items-center gap-3 px-[14px] py-2"
+                style={{
+                  background: '#111827',
+                  border: '0.5px solid rgba(59, 130, 246, 0.13)',
+                  borderRadius: 8,
                 }}
-                onRejectConfirm={() =>
-                  void reject(s.id, rejectComment.trim() || null)
-                }
-                onRejectCancel={() => {
-                  setRejectingId(null);
-                  setRejectComment('');
-                }}
-                t={t}
-                tAuth={tAuth}
-                dateIso={
-                  tab === 'history'
-                    ? (s.reviewed_at ?? s.created_at)
-                    : s.created_at
-                }
-              />
-            ))}
-          </ul>
+              >
+                <label className="flex cursor-pointer items-center gap-2 text-[11px] text-[#8B95A8]">
+                  <input
+                    type="checkbox"
+                    className="h-[14px] w-[14px] cursor-pointer rounded-[3px] border border-[#2A3042] bg-transparent accent-[#22C55E]"
+                    checked={allPendingVisibleSelected}
+                    ref={(el) => {
+                      if (el) el.indeterminate = !allPendingVisibleSelected && selectedIds.size > 0;
+                    }}
+                    onChange={() => {
+                      if (allPendingVisibleSelected) {
+                        setSelectedIds(new Set());
+                      } else {
+                        setSelectedIds(new Set(pendingVisibleIds));
+                      }
+                    }}
+                  />
+                  Tout sélectionner
+                </label>
+                <span className="text-[11px] text-[#8B95A8]">
+                  {selectedIds.size} sélectionnées
+                </span>
+                <button
+                  type="button"
+                  disabled={bulkProcessing}
+                  onClick={() => void bulkApprove()}
+                  className="rounded px-2 py-1 text-[10px] font-medium text-white disabled:opacity-50"
+                  style={{ background: '#22C55E' }}
+                >
+                  Tout approuver
+                </button>
+                <button
+                  type="button"
+                  disabled={bulkProcessing}
+                  onClick={() => void bulkReject()}
+                  className="rounded border px-2 py-1 text-[10px] font-medium text-[#EF4444] disabled:opacity-50"
+                  style={{ borderColor: '#EF4444' }}
+                >
+                  Tout rejeter
+                </button>
+                {bulkProcessing ? (
+                  <div className="h-1 min-w-[120px] flex-1 overflow-hidden rounded-full bg-[#1F2937]">
+                    <div
+                      className="h-full rounded-full bg-[#22C55E] transition-[width] duration-200"
+                      style={{ width: `${Math.round(bulkProgress * 100)}%` }}
+                    />
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
+            <ul className="space-y-0">
+              {filteredSuggestions.map((s) => (
+                <SuggestionCard
+                  key={s.id}
+                  row={s}
+                  profiles={profiles}
+                  nodeNames={nodeNames}
+                  suggestionCountByUser={suggestionCountByUser}
+                  exiting={exitingIds.has(s.id)}
+                  isEditing={editingId === s.id}
+                  editDraft={editingId === s.id ? editDraft : null}
+                  onEditDraftChange={setEditDraft}
+                  rejecting={rejectingId === s.id}
+                  rejectComment={rejectComment}
+                  onRejectCommentChange={setRejectComment}
+                  onApprove={() => void approve(s.id)}
+                  onApproveEdit={() => submitEditApprove(s)}
+                  onStartEdit={() => startEdit(s)}
+                  onCancelEdit={cancelEdit}
+                  onRejectOpen={() => {
+                    setRejectingId(s.id);
+                    setEditingId(null);
+                  }}
+                  onRejectConfirm={() =>
+                    void reject(s.id, rejectComment.trim() || null)
+                  }
+                  onRejectDirect={
+                    s.suggestion_type === 'anonymous_feedback'
+                      ? () => void reject(s.id, null)
+                      : undefined
+                  }
+                  onRejectCancel={() => {
+                    setRejectingId(null);
+                    setRejectComment('');
+                  }}
+                  t={t}
+                  tAuth={tAuth}
+                  dateIso={
+                    tab === 'history'
+                      ? (s.reviewed_at ?? s.created_at)
+                      : s.created_at
+                  }
+                  isPendingTab={tab === 'pending'}
+                  moderationUi={tab === 'pending' || tab === 'history'}
+                  selected={selectedIds.has(s.id)}
+                  onToggleSelect={() => {
+                    setSelectedIds((prev) => {
+                      const n = new Set(prev);
+                      if (n.has(s.id)) n.delete(s.id);
+                      else n.add(s.id);
+                      return n;
+                    });
+                  }}
+                  exploreNodeId={getExploreNodeId(s)}
+                />
+              ))}
+            </ul>
+            {tab === 'pending' && shortcutTargetId ? (
+              <p
+                className="pointer-events-none fixed bottom-4 right-4 z-10 text-[10px]"
+                style={{ color: '#3D4555' }}
+              >
+                A approuver · R rejeter · V voir
+              </p>
+            ) : null}
+          </div>
         )}
       </main>
     </AppContentShell>
@@ -814,6 +1205,33 @@ function StatCard({
   );
 }
 
+function ModerationTypeBadge({ type }: { type: string }) {
+  const cfg: Record<string, { bg: string; fg: string; label: string }> = {
+    edit_node: { bg: 'rgba(245, 158, 11, 0.15)', fg: '#F59E0B', label: 'Correction' },
+    add_link: { bg: 'rgba(20, 184, 166, 0.15)', fg: '#14B8A6', label: 'Lien' },
+    new_node: { bg: 'rgba(168, 85, 247, 0.15)', fg: '#A855F7', label: 'Invention' },
+    delete_link: { bg: 'rgba(239, 68, 68, 0.15)', fg: '#EF4444', label: 'Suppression' },
+    anonymous_feedback: {
+      bg: 'rgba(90, 97, 117, 0.25)',
+      fg: '#5A6175',
+      label: 'Anonyme',
+    },
+  };
+  const c = cfg[type] ?? {
+    bg: 'rgba(168, 85, 247, 0.15)',
+    fg: '#A855F7',
+    label: type,
+  };
+  return (
+    <span
+      className="inline-block rounded px-2 py-[2px] text-[9px] font-semibold"
+      style={{ background: c.bg, color: c.fg }}
+    >
+      {c.label}
+    </span>
+  );
+}
+
 function SuggestionCard({
   row,
   profiles,
@@ -832,10 +1250,16 @@ function SuggestionCard({
   onCancelEdit,
   onRejectOpen,
   onRejectConfirm,
+  onRejectDirect,
   onRejectCancel,
   t,
   tAuth,
   dateIso,
+  isPendingTab,
+  moderationUi,
+  selected,
+  onToggleSelect,
+  exploreNodeId,
 }: {
   row: SuggestionRow;
   profiles: Record<string, ProfileLite>;
@@ -854,200 +1278,360 @@ function SuggestionCard({
   onCancelEdit: () => void;
   onRejectOpen: () => void;
   onRejectConfirm: () => void;
+  onRejectDirect?: () => void;
   onRejectCancel: () => void;
   t: (k: string) => string;
   tAuth: (k: string) => string;
   dateIso: string;
+  isPendingTab: boolean;
+  moderationUi: boolean;
+  selected: boolean;
+  onToggleSelect: () => void;
+  exploreNodeId: string | null;
 }) {
   const canEditApprove =
     row.suggestion_type !== 'delete_link' &&
     row.suggestion_type !== 'anonymous_feedback';
   const p = row.user_id ? profiles[row.user_id] : undefined;
   const uid = row.user_id ?? '';
+  const tier = getReliabilityTier(row, p);
+  const rel = RELIABILITY[tier];
+  const cardTitle = getSuggestionCardTitle(row, nodeNames);
+
+  const metaLine =
+    row.user_id == null
+      ? `Anonyme · ${formatRelativeFr(dateIso)}`
+      : `${compactDisplayName(p?.display_name ?? p?.email)} · ${p?.contributions_count ?? 0} contributions · ${formatRelativeFr(dateIso)}`;
+
+  const showCheckbox = isPendingTab && row.status === 'pending';
+  const isAnonFeedback = row.suggestion_type === 'anonymous_feedback';
 
   return (
     <li
-      className={`mb-[10px] rounded-[8px] border border-border bg-surface p-4 transition-opacity duration-300 ${
-        exiting ? 'pointer-events-none opacity-0' : 'opacity-100'
+      className={`flex overflow-hidden rounded-[8px] border border-border bg-surface transition-[max-height,opacity,margin,padding,border-width] duration-300 ease-out ${
+        exiting
+          ? 'pointer-events-none my-0 max-h-0 border-0 py-0 opacity-0'
+          : 'my-[10px] max-h-[8000px] opacity-100'
       }`}
-      style={{ borderWidth: '0.5px' }}
+      style={{ borderWidth: exiting ? 0 : 0.5 }}
     >
-      <div className="mb-3 flex items-start justify-between gap-2">
-        <TypeBadge type={row.suggestion_type} t={t} />
-        <span className="text-[11px] text-muted-foreground">
-          {formatRelativeFr(dateIso)}
-        </span>
-      </div>
-
-      {row.user_id ? (
-        <div className="mb-3 flex items-center gap-2">
-          <div
-            className="flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden rounded-full text-[9px] font-semibold text-white"
-            style={{
-              width: 24,
-              height: 24,
-              background: p?.avatar_url ? 'transparent' : avatarHue(uid),
-            }}
-          >
-            {p?.avatar_url ? (
-              <Image
-                src={p.avatar_url}
-                alt=""
-                width={24}
-                height={24}
-                className="h-full w-full object-cover"
-                unoptimized
-              />
-            ) : (
-              initialsFromProfile(p, uid)
-            )}
+      <div className="flex min-w-0 flex-1 items-stretch">
+        {showCheckbox ? (
+          <div className="flex shrink-0 items-start pt-4 pl-2 pr-1">
+            <input
+              type="checkbox"
+              checked={selected}
+              onChange={onToggleSelect}
+              className="h-[14px] w-[14px] cursor-pointer rounded-[3px] border border-[#2A3042] bg-transparent accent-[#22C55E]"
+              aria-label="Sélectionner"
+            />
           </div>
-          <div>
-            <p className="text-[12px] text-muted-foreground">
-              {p?.display_name ?? p?.email ?? uid}
-            </p>
-            <p className="text-[10px] text-muted-foreground">
-              {suggestionCountByUser[row.user_id] ?? 0} {t('contributions')}
-            </p>
+        ) : null}
+        <div
+          className="w-1 shrink-0 self-stretch"
+          style={{ width: 4, background: rel.color }}
+          aria-hidden
+        />
+        <div className="min-w-0 flex-1 p-4">
+          <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
+            <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
+              {moderationUi ? (
+                <ModerationTypeBadge type={row.suggestion_type} />
+              ) : (
+                <TypeBadge type={row.suggestion_type} t={t} />
+              )}
+              <h3 className="min-w-0 text-[13px] font-semibold leading-snug text-foreground">
+                {cardTitle}
+              </h3>
+            </div>
+            <div className="flex shrink-0 flex-wrap items-center gap-2">
+              <span
+                className="inline-flex items-center gap-1 rounded px-2 py-[2px] text-[9px] font-semibold"
+                style={{
+                  background: `${rel.color}22`,
+                  color: rel.color,
+                }}
+              >
+                <span
+                  className="h-1.5 w-1.5 rounded-full"
+                  style={{ background: rel.color }}
+                />
+                {rel.label}
+              </span>
+            </div>
           </div>
-        </div>
-      ) : row.suggestion_type === 'anonymous_feedback' ? (
-        <div className="mb-3 flex items-center gap-2">
-          <span
-            className="inline-flex rounded-full bg-slate-500/20 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground"
-          >
-            {t('anonymousBadge')}
-          </span>
-        </div>
-      ) : row.contributor_ip ? (
-        <div className="mb-3 flex items-start gap-2">
-          <div
-            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-surface-elevated text-[10px] font-bold text-muted-foreground"
-            style={{ width: 24, height: 24 }}
-          >
-            ?
-          </div>
-          <div className="min-w-0">
-            <p className="text-[12px] font-medium text-muted-foreground">
-              {t('anonymousContributor')}
+
+          <p className="mb-3 text-[10px]" style={{ color: '#5A6175' }}>
+            {metaLine}
+          </p>
+
+          {moderationUi ? null : row.user_id ? (
+            <div className="mb-3 flex items-center gap-2">
+              <div
+                className="flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden rounded-full text-[9px] font-semibold text-white"
+                style={{
+                  width: 24,
+                  height: 24,
+                  background: p?.avatar_url ? 'transparent' : avatarHue(uid),
+                }}
+              >
+                {p?.avatar_url ? (
+                  <Image
+                    src={p.avatar_url}
+                    alt=""
+                    width={24}
+                    height={24}
+                    className="h-full w-full object-cover"
+                    unoptimized
+                  />
+                ) : (
+                  initialsFromProfile(p, uid)
+                )}
+              </div>
+              <div>
+                <p className="text-[12px] text-muted-foreground">
+                  {p?.display_name ?? p?.email ?? uid}
+                </p>
+                <p className="text-[10px] text-muted-foreground">
+                  {suggestionCountByUser[row.user_id] ?? 0} {t('contributions')}
+                </p>
+              </div>
+            </div>
+          ) : row.suggestion_type === 'anonymous_feedback' ? (
+            <div className="mb-3 flex items-center gap-2">
+              <span className="inline-flex rounded-full bg-slate-500/20 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                {t('anonymousBadge')}
+              </span>
+            </div>
+          ) : row.contributor_ip ? (
+            <div className="mb-3 flex items-start gap-2">
+              <div
+                className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-surface-elevated text-[10px] font-bold text-muted-foreground"
+                style={{ width: 24, height: 24 }}
+              >
+                ?
+              </div>
+              <div className="min-w-0">
+                <p className="text-[12px] font-medium text-muted-foreground">
+                  {t('anonymousContributor')}
+                </p>
+                <p className="font-mono text-[11px] text-amber-500">
+                  {row.contributor_ip}
+                </p>
+                <p className="text-[10px] text-muted-foreground">
+                  {suggestionCountByUser[`anon:${row.contributor_ip}`] ?? 0}{' '}
+                  {t('contributions')}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <p className="mb-3 text-[12px] text-muted-foreground">
+              {t('contributorUnknown')}
             </p>
-            <p className="font-mono text-[11px] text-amber-500">
-              {row.contributor_ip}
-            </p>
-            <p className="text-[10px] text-muted-foreground">
-              {suggestionCountByUser[`anon:${row.contributor_ip}`] ?? 0}{' '}
-              {t('contributions')}
-            </p>
-          </div>
-        </div>
-      ) : (
-        <p className="mb-3 text-[12px] text-muted-foreground">
-          {t('contributorUnknown')}
-        </p>
-      )}
+          )}
 
-      <SuggestionBody
-        row={row}
-        nodeNames={nodeNames}
-        isEditing={isEditing}
-        editDraft={editDraft}
-        onEditDraftChange={onEditDraftChange}
-      />
-
-      {row.status === 'pending' && !isEditing && !rejecting ? (
-        <div className="mt-4 flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={onApprove}
-            className="rounded-[6px] bg-emerald-600 px-4 py-[7px] text-[12px] font-medium text-white"
-          >
-            {t('approve')}
-          </button>
-          {canEditApprove ? (
-            <button
-              type="button"
-              onClick={onStartEdit}
-              className="rounded-[6px] border border-accent bg-transparent px-4 py-[7px] text-[12px] font-medium text-accent"
-            >
-              {t('editApprove')}
-            </button>
-          ) : null}
-          <button
-            type="button"
-            onClick={onRejectOpen}
-            className="rounded-[6px] border border-red-600 bg-transparent px-4 py-[7px] text-[12px] font-medium text-red-600"
-          >
-            {t('reject')}
-          </button>
-        </div>
-      ) : null}
-
-      {row.status === 'pending' && isEditing ? (
-        <div className="mt-4 flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={onApproveEdit}
-            className="rounded-[6px] bg-accent px-4 py-[7px] text-[12px] font-medium text-white"
-          >
-            Valider les modifications
-          </button>
-          <button
-            type="button"
-            onClick={onCancelEdit}
-            className="text-[12px] text-muted-foreground hover:text-foreground"
-          >
-            {tAuth('cancel')}
-          </button>
-        </div>
-      ) : null}
-
-      {row.status === 'pending' && rejecting ? (
-        <div className="mt-3 space-y-2">
-          <input
-            type="text"
-            value={rejectComment}
-            onChange={(e) => onRejectCommentChange(e.target.value)}
-            placeholder="Raison du rejet (optionnel)"
-            className="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
+          <ContributorSubmittedExtras
+            data={
+              row.data && typeof row.data === 'object' && !Array.isArray(row.data)
+                ? (row.data as Record<string, unknown>)
+                : {}
+            }
+            suggestionType={row.suggestion_type}
+            t={t}
           />
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={onRejectConfirm}
-              className="rounded-[6px] border border-red-600 bg-transparent px-3 py-1.5 text-[12px] text-red-600"
-            >
-              Confirmer le rejet
-            </button>
-            <button
-              type="button"
-              onClick={onRejectCancel}
-              className="text-[12px] text-muted-foreground"
-            >
-              {tAuth('cancel')}
-            </button>
-          </div>
-        </div>
-      ) : null}
 
-      {row.status !== 'pending' ? (
-        <div className="mt-3 space-y-1">
-          <span
-            className={`inline-block rounded px-2 py-1 text-[9px] font-semibold ${
-              row.status === 'approved'
-                ? 'bg-emerald-500/15 text-emerald-600'
-                : 'bg-red-500/15 text-red-600'
-            }`}
-          >
-            {row.status === 'approved' ? t('approved') : t('rejected')}
-          </span>
-          {row.status === 'rejected' && row.admin_comment ? (
-            <p className="text-[12px] italic text-muted-foreground">
-              {row.admin_comment}
-            </p>
+          <SuggestionBody
+            row={row}
+            nodeNames={nodeNames}
+            isEditing={isEditing}
+            editDraft={editDraft}
+            onEditDraftChange={onEditDraftChange}
+            moderationUi={moderationUi}
+          />
+
+          {row.status === 'pending' && !isEditing && !rejecting ? (
+            <div className="mt-4 flex w-full min-w-0 flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={onApprove}
+                  className="rounded-[6px] bg-emerald-600 px-4 py-[7px] text-[12px] font-medium text-white"
+                  style={isAnonFeedback ? { background: '#22C55E' } : undefined}
+                >
+                  {isAnonFeedback ? 'Appliquer' : t('approve')}
+                </button>
+                {canEditApprove ? (
+                  <button
+                    type="button"
+                    onClick={onStartEdit}
+                    className="rounded-[6px] border border-accent bg-transparent px-4 py-[7px] text-[12px] font-medium text-accent"
+                  >
+                    {t('editApprove')}
+                  </button>
+                ) : null}
+                <button
+                  type="button"
+                  onClick={
+                    isAnonFeedback && onRejectDirect
+                      ? onRejectDirect
+                      : onRejectOpen
+                  }
+                  className="rounded-[6px] border border-red-600 bg-transparent px-4 py-[7px] text-[12px] font-medium text-red-600"
+                  style={
+                    isAnonFeedback
+                      ? { borderColor: '#EF4444', color: '#EF4444' }
+                      : undefined
+                  }
+                >
+                  {isAnonFeedback ? 'Ignorer' : t('reject')}
+                </button>
+              </div>
+              {exploreNodeId ? (
+                <button
+                  type="button"
+                  onClick={() =>
+                    window.open(
+                      `/explore?node=${encodeURIComponent(exploreNodeId)}`,
+                      '_blank',
+                      'noopener,noreferrer'
+                    )
+                  }
+                  className="shrink-0 rounded-[6px] border bg-transparent px-3 py-[7px] text-[11px]"
+                  style={{
+                    borderColor: '#2A3042',
+                    color: '#8B95A8',
+                  }}
+                >
+                  Voir dans le Tree
+                </button>
+              ) : null}
+            </div>
+          ) : null}
+
+          {row.status === 'pending' && isEditing ? (
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={onApproveEdit}
+                className="rounded-[6px] bg-accent px-4 py-[7px] text-[12px] font-medium text-white"
+              >
+                Valider les modifications
+              </button>
+              <button
+                type="button"
+                onClick={onCancelEdit}
+                className="text-[12px] text-muted-foreground hover:text-foreground"
+              >
+                {tAuth('cancel')}
+              </button>
+            </div>
+          ) : null}
+
+          {row.status === 'pending' && rejecting ? (
+            <div className="mt-3 space-y-2">
+              <input
+                type="text"
+                value={rejectComment}
+                onChange={(e) => onRejectCommentChange(e.target.value)}
+                placeholder="Raison du rejet (optionnel)"
+                className="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
+              />
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={onRejectConfirm}
+                  className="rounded-[6px] border border-red-600 bg-transparent px-3 py-1.5 text-[12px] text-red-600"
+                >
+                  Confirmer le rejet
+                </button>
+                <button
+                  type="button"
+                  onClick={onRejectCancel}
+                  className="text-[12px] text-muted-foreground"
+                >
+                  {tAuth('cancel')}
+                </button>
+              </div>
+            </div>
+          ) : null}
+
+          {row.status !== 'pending' ? (
+            <div className="mt-3 space-y-1">
+              <span
+                className={`inline-block rounded px-2 py-1 text-[9px] font-semibold ${
+                  row.status === 'approved'
+                    ? 'bg-emerald-500/15 text-emerald-600'
+                    : 'bg-red-500/15 text-red-600'
+                }`}
+              >
+                {row.status === 'approved' ? t('approved') : t('rejected')}
+              </span>
+              {row.status === 'rejected' && row.admin_comment ? (
+                <p className="text-[12px] italic text-muted-foreground">
+                  {row.admin_comment}
+                </p>
+              ) : null}
+            </div>
           ) : null}
         </div>
-      ) : null}
+      </div>
     </li>
+  );
+}
+
+/** Champs libres envoyés avec la suggestion (ex. message / email pour corrections anonymes). */
+function ContributorSubmittedExtras({
+  data,
+  suggestionType,
+  t,
+}: {
+  data: Record<string, unknown>;
+  suggestionType: string;
+  t: (k: string) => string;
+}) {
+  if (suggestionType === 'anonymous_feedback') {
+    return null;
+  }
+
+  const msg =
+    typeof data.contributorMessage === 'string'
+      ? data.contributorMessage.trim()
+      : '';
+  const contact =
+    typeof data.contactEmail === 'string' ? data.contactEmail.trim() : '';
+  const altEmail =
+    !contact &&
+    typeof data.email === 'string' &&
+    data.email.includes('@')
+      ? data.email.trim()
+      : '';
+  const email = contact || altEmail;
+
+  if (!msg && !email) return null;
+
+  return (
+    <div className="mb-3 space-y-2 rounded-[6px] border border-border/70 bg-muted/25 px-3 py-2.5">
+      {msg ? (
+        <div>
+          <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+            {t('contributorMessageLabel')}
+          </p>
+          <p className="whitespace-pre-wrap text-[12px] leading-relaxed text-foreground">
+            {msg}
+          </p>
+        </div>
+      ) : null}
+      {email ? (
+        <p className="text-[11px] text-muted-foreground">
+          <span className="font-medium text-foreground">
+            {t('contributorContactEmailLabel')}{' '}
+          </span>
+          <a href={`mailto:${email}`} className="text-accent underline">
+            {email}
+          </a>
+        </p>
+      ) : null}
+    </div>
   );
 }
 
@@ -1091,12 +1675,14 @@ function SuggestionBody({
   isEditing,
   editDraft,
   onEditDraftChange,
+  moderationUi = false,
 }: {
   row: SuggestionRow;
   nodeNames: Record<string, string>;
   isEditing: boolean;
   editDraft: Record<string, unknown> | null;
   onEditDraftChange: (d: Record<string, unknown>) => void;
+  moderationUi?: boolean;
 }) {
   const data = row.data;
 
@@ -1163,6 +1749,154 @@ function SuggestionBody({
               </label>
             ))}
           </div>
+        </div>
+      );
+    }
+
+    if (moderationUi && !isEditing) {
+      return (
+        <div className="space-y-2">
+          <div
+            className="rounded-[6px] px-[10px] py-2"
+            style={{ background: '#0A0E17' }}
+          >
+            {Object.entries(nodeDiff).map(([key, ch]) => (
+              <div
+                key={key}
+                className="mb-2 flex flex-wrap items-baseline gap-1 text-[12px] last:mb-0"
+              >
+                <span
+                  className="inline-block w-[60px] shrink-0 text-[11px]"
+                  style={{ color: '#5A6175' }}
+                >
+                  {FIELD_LABELS[key] ?? key}
+                </span>
+                <span className="line-through" style={{ color: '#EF4444' }}>
+                  {String((ch as { from: unknown }).from ?? '')}
+                </span>
+                <span className="text-muted-foreground">→</span>
+                <span style={{ color: '#22C55E' }}>
+                  {String((ch as { to: unknown }).to ?? '')}
+                </span>
+              </div>
+            ))}
+          </div>
+          {Object.keys(linkDiff).length > 0 ? (
+            <div
+              className="rounded-[6px] px-[10px] py-2"
+              style={{ background: '#0A0E17' }}
+            >
+              <p
+                className="mb-2 text-[11px] font-semibold uppercase tracking-wide"
+                style={{ color: '#5A6175' }}
+              >
+                Liens (Led to / Built upon)
+              </p>
+              <ul className="space-y-3">
+                {Object.entries(linkDiff).map(([linkId, ch]) => {
+                  const ctx = linkContext[linkId];
+                  const sectionLabel =
+                    ctx?.section === 'builtUpon'
+                      ? 'Built upon'
+                      : ctx?.section === 'ledTo'
+                        ? 'Led to'
+                        : 'Lien';
+                  return (
+                    <li key={linkId} className="text-[12px]">
+                      <p className="mb-1 text-[11px]" style={{ color: '#5A6175' }}>
+                        {sectionLabel} · {ctx?.peerName ?? linkId}
+                      </p>
+                      <p className="line-through" style={{ color: '#EF4444' }}>
+                        {formatLinkSnapLine(ch.from)}
+                      </p>
+                      <p className="text-muted-foreground">→</p>
+                      <p style={{ color: '#22C55E' }}>{formatLinkSnapLine(ch.to)}</p>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ) : null}
+          {proposedAddLinks.length > 0 ? (
+            <div
+              className="rounded-[6px] px-[10px] py-2"
+              style={{ background: '#0A0E17' }}
+            >
+              <p
+                className="mb-2 text-[11px] font-semibold uppercase tracking-wide"
+                style={{ color: '#5A6175' }}
+              >
+                Liens proposés (nouveaux)
+              </p>
+              <ul className="space-y-2">
+                {proposedAddLinks.map((add, i) => {
+                  const srcName = nodeNames[add.source_id] ?? add.source_id;
+                  const tgtName = nodeNames[add.target_id] ?? add.target_id;
+                  const sectionLabel =
+                    add.section === 'builtUpon'
+                      ? 'Built upon'
+                      : add.section === 'ledTo'
+                        ? 'Led to'
+                        : 'Lien';
+                  const relLabel =
+                    RELATION_LABELS_FR[add.relation_type] ?? add.relation_type;
+                  return (
+                    <li key={`${add.source_id}-${add.target_id}-${i}`} className="text-[12px]">
+                      <p className="mb-1 text-[11px]" style={{ color: '#5A6175' }}>
+                        {sectionLabel}
+                      </p>
+                      <p style={{ color: '#22C55E' }}>
+                        <span className="font-medium">{srcName}</span>
+                        <span className="text-muted-foreground"> → </span>
+                        <span className="font-medium">{tgtName}</span>
+                        <span className="text-muted-foreground"> · </span>
+                        <span>{relLabel}</span>
+                      </p>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ) : null}
+          {removedLinkIds.length > 0 ? (
+            <div
+              className="rounded-[6px] px-[10px] py-2"
+              style={{ background: '#0A0E17' }}
+            >
+              <p
+                className="mb-2 text-[11px] font-semibold uppercase tracking-wide"
+                style={{ color: '#5A6175' }}
+              >
+                Liens supprimés
+              </p>
+              <ul className="space-y-2">
+                {removedLinkIds.map((linkId) => {
+                  const ctx = linkContext[linkId];
+                  const snap = origLinkEdits[linkId];
+                  const sectionLabel =
+                    ctx?.section === 'builtUpon'
+                      ? 'Built upon'
+                      : ctx?.section === 'ledTo'
+                        ? 'Led to'
+                        : 'Lien';
+                  return (
+                    <li key={linkId} className="text-[12px]">
+                      <p className="mb-1 text-[11px]" style={{ color: '#5A6175' }}>
+                        {sectionLabel} · {ctx?.peerName ?? linkId}
+                      </p>
+                      {snap ? (
+                        <p className="line-through" style={{ color: '#EF4444' }}>
+                          {formatLinkSnapLine(snap)}
+                        </p>
+                      ) : (
+                        <p style={{ color: '#5A6175' }}>{linkId}</p>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ) : null}
         </div>
       );
     }
@@ -1337,6 +2071,31 @@ function SuggestionBody({
       );
     }
 
+    if (moderationUi && !isEditing) {
+      return (
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <span
+              className="rounded px-2.5 py-1 text-[12px] font-bold text-foreground"
+              style={{ background: '#1A1F2E' }}
+            >
+              {srcName}
+            </span>
+            <span className="text-muted-foreground">→</span>
+            <span
+              className="rounded px-2.5 py-1 text-[12px] font-bold text-foreground"
+              style={{ background: '#1A1F2E' }}
+            >
+              {tgtName}
+            </span>
+          </div>
+          <span className="text-[10px]" style={{ color: '#5A6175' }}>
+            {relLabel}
+          </span>
+        </div>
+      );
+    }
+
     return (
       <div className="rounded-[6px] bg-surface px-3 py-2.5">
         <div className="flex flex-wrap items-center justify-between gap-2">
@@ -1364,6 +2123,8 @@ function SuggestionBody({
         era: string;
         year_approx?: number | null;
         proposed_id?: string;
+        description?: string;
+        origin?: string | null;
       };
       link: {
         source_id: string;
@@ -1452,6 +2213,65 @@ function SuggestionBody({
     const tgtName =
       nodeNames[d.link.target_id] ??
       (ph && d.link.target_id === ph ? newName : d.link.target_id);
+    const desc =
+      typeof d.node.description === 'string' ? d.node.description.trim() : '';
+    const origin =
+      typeof d.node.origin === 'string' ? d.node.origin.trim() : '';
+
+    if (moderationUi && !isEditing) {
+      return (
+        <div className="space-y-2">
+          <div
+            className="space-y-1 rounded-[6px] px-[10px] py-2 text-[12px]"
+            style={{ color: '#22C55E' }}
+          >
+            <p>
+              <span className="text-muted-foreground">Nom : </span>
+              {d.node.name}
+            </p>
+            <p>
+              <span className="text-muted-foreground">Catégorie : </span>
+              {getCategoryLabelFr(d.node.category as unknown as NodeCategory)}
+            </p>
+            <p>
+              <span className="text-muted-foreground">Type : </span>
+              {d.node.type}
+            </p>
+            <p>
+              <span className="text-muted-foreground">Époque : </span>
+              {d.node.era}
+            </p>
+            <p>
+              <span className="text-muted-foreground">Année : </span>
+              {d.node.year_approx ?? '—'}
+            </p>
+            {desc ? (
+              <p>
+                <span className="text-muted-foreground">Description : </span>
+                <span className="whitespace-pre-wrap">{desc}</span>
+              </p>
+            ) : null}
+            {origin ? (
+              <p>
+                <span className="text-muted-foreground">Origine : </span>
+                {origin}
+              </p>
+            ) : null}
+          </div>
+          <div
+            className="rounded-[6px] px-3 py-2 text-[12px]"
+            style={{ color: '#22C55E' }}
+          >
+            <span className="font-medium">{srcName}</span>
+            <span className="mx-1 text-muted-foreground">→</span>
+            <span className="font-medium">{tgtName}</span>
+            <span className="ml-2 text-[10px] text-muted-foreground">
+              ({RELATION_LABELS_FR[d.link.relation_type] ?? d.link.relation_type})
+            </span>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className="space-y-2">
@@ -1476,6 +2296,18 @@ function SuggestionBody({
             <span className="text-muted-foreground">Année : </span>
             {d.node.year_approx ?? '—'}
           </p>
+          {desc ? (
+            <p className="text-foreground">
+              <span className="text-muted-foreground">Description : </span>
+              <span className="whitespace-pre-wrap">{desc}</span>
+            </p>
+          ) : null}
+          {origin ? (
+            <p>
+              <span className="text-muted-foreground">Origine : </span>
+              {origin}
+            </p>
+          ) : null}
         </div>
         <div className="rounded-[6px] bg-surface px-3 py-2.5 text-[12px] text-muted-foreground">
           <span className="font-medium text-foreground">{srcName}</span>
@@ -1497,6 +2329,28 @@ function SuggestionBody({
     };
     const srcName = nodeNames[d.source_id ?? ''] ?? d.source_id ?? '—';
     const tgtName = nodeNames[d.target_id ?? ''] ?? d.target_id ?? '—';
+    if (moderationUi) {
+      return (
+        <div className="space-y-2">
+          <p
+            className="text-[11px] font-semibold uppercase tracking-wide"
+            style={{ color: '#5A6175' }}
+          >
+            Lien à supprimer
+          </p>
+          <p className="text-[12px] line-through" style={{ color: '#EF4444' }}>
+            <span className="font-medium">{srcName}</span>
+            <span className="mx-1">→</span>
+            <span className="font-medium">{tgtName}</span>
+          </p>
+          {d.link_id ? (
+            <p className="text-[10px] font-mono text-muted-foreground">
+              {d.link_id}
+            </p>
+          ) : null}
+        </div>
+      );
+    }
     return (
       <div className="space-y-2">
         <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
@@ -1528,6 +2382,27 @@ function SuggestionBody({
     };
     const nid = d.node_id ?? row.node_id ?? '';
     const nName = (nodeNames[nid] ?? nid) || '—';
+    if (moderationUi) {
+      return (
+        <div className="space-y-2">
+          <p className="text-[12px] text-muted-foreground">
+            Invention :{' '}
+            <span className="font-medium text-foreground">{nName}</span>
+          </p>
+          <div
+            className="whitespace-pre-wrap rounded-[6px] px-[10px] py-2 text-[13px] italic"
+            style={{ background: '#0A0E17', color: '#C8CDD8' }}
+          >
+            {d.message ?? ''}
+          </div>
+          {d.email ? (
+            <p className="text-[11px] text-muted-foreground">
+              Email : {d.email}
+            </p>
+          ) : null}
+        </div>
+      );
+    }
     return (
       <div className="space-y-2">
         <p className="text-[12px] text-muted-foreground">

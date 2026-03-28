@@ -438,7 +438,9 @@
     "toastApproved": "Sugerencia aprobada",
     "toastRejected": "Sugerencia rechazada",
     "anonymousContributor": "Anónimo",
-    "contributorUnknown": "Colaborador desconocido"
+    "contributorUnknown": "Colaborador desconocido",
+    "contributorMessageLabel": "Mensaje del colaborador",
+    "contributorContactEmailLabel": "Correo de contacto:"
   },
   "nav": {
     "mainNav": "Navegación principal",
@@ -449,7 +451,9 @@
     "dependencyTree": "Árbol de dependencias",
     "openFilters": "Abrir filtros",
     "secondaryNav": "Enlaces secundarios",
-    "logoGlobalView": "Volver a la vista global"
+    "logoGlobalView": "Volver a la vista global",
+    "devsSuggestions": "Devs suggestions?",
+    "devsSuggestionsAria": "Abrir correo a craftree.app@gmail.com (sugerencias dev)"
   },
   "contactPage": {
     "title": "Contacto",

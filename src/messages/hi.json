@@ -438,7 +438,9 @@
     "toastApproved": "सुझाव स्वीकृत",
     "toastRejected": "सुझाव अस्वीकृत",
     "anonymousContributor": "अनाम",
-    "contributorUnknown": "अज्ञात योगदानकर्ता"
+    "contributorUnknown": "अज्ञात योगदानकर्ता",
+    "contributorMessageLabel": "योगदानकर्ता का संदेश",
+    "contributorContactEmailLabel": "संपर्क ईमेल:"
   },
   "nav": {
     "mainNav": "मुख्य नेविगेशन",
@@ -449,7 +451,9 @@
     "dependencyTree": "निर्भरता वृक्ष",
     "openFilters": "फ़िल्टर खोलें",
     "secondaryNav": "अतिरिक्त लिंक",
-    "logoGlobalView": "वैश्विक दृश्य पर वापस जाएँ"
+    "logoGlobalView": "वैश्विक दृश्य पर वापस जाएँ",
+    "devsSuggestions": "Devs suggestions?",
+    "devsSuggestionsAria": "craftree.app@gmail.com पर ईमेल खोलें (डेव सुझाव)"
   },
   "contactPage": {
     "title": "संपर्क",
