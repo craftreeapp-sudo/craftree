@@ -1,13 +1,20 @@
 'use client';
 
-import { useCallback, useMemo, type ReactNode } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  type ReactNode,
+  type RefObject,
+} from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 import { useGraphStore } from '@/stores/graph-store';
-import { useUIStore } from '@/stores/ui-store';
 import { ExploreCardProvider, useExploreCard } from '@/components/explore/explore-card-context';
 import { ExploreDetailPanel } from '@/components/explore/DetailPanel';
 import { ExploreHoverPopup } from '@/components/explore/HoverPopup';
@@ -33,12 +40,19 @@ const VIEW_TRANSITION = {
   ease: [0.4, 0, 0.2, 1] as [number, number, number, number],
 };
 
-function ExploreScrollArea({ children }: { children: ReactNode }) {
+function ExploreScrollArea({
+  children,
+  scrollRef,
+}: {
+  children: ReactNode;
+  scrollRef: RefObject<HTMLDivElement | null>;
+}) {
   const { detailNodeId, legendOpen, isMobile } = useExploreCard();
   const detailOpen = detailNodeId !== null;
   return (
     <div
-      className={`min-h-0 flex-1 overflow-y-auto px-3 pb-8 transition-[margin] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] sm:px-4 ${
+      ref={scrollRef}
+      className={`flex min-h-0 flex-1 basis-0 flex-col overflow-y-auto overflow-x-hidden px-3 pb-8 transition-[margin] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] sm:px-4 ${
         detailOpen && !isMobile ? 'sm:mr-[340px]' : ''
       } ${legendOpen && !isMobile ? 'sm:ml-[300px]' : ''}`}
     >
@@ -58,8 +72,14 @@ function BuiltUponViewInner({
   const router = useRouter();
   const searchParams = useSearchParams();
   const { navigateToNode } = useExploreNavigation();
-  const selectNode = useUIStore((s) => s.selectNode);
-  const { openDetail, openLegend } = useExploreCard();
+  const { openDetail, openLegend, detailNodeId, legendOpen, isMobile } =
+    useExploreCard();
+  const detailOpen = detailNodeId !== null;
+  const exploreScrollRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    openDetail(focusId);
+  }, [focusId, openDetail]);
 
   const nodes = useGraphStore((s) => s.nodes);
   const edges = useGraphStore((s) => s.edges);
@@ -102,18 +122,29 @@ function BuiltUponViewInner({
     [focusId, router]
   );
 
+  useLayoutEffect(() => {
+    if (viewMode !== 'built-upon') return;
+    const el = exploreScrollRef.current;
+    if (!el) return;
+    el.scrollTop = 0;
+  }, [viewMode, focusId]);
+
   return (
-    <div className="flex min-h-0 flex-1 flex-col bg-page text-foreground dark:bg-[#0a0a0f] dark:text-white">
-      <div className="flex shrink-0 items-center justify-between gap-3 px-3 py-2 sm:px-4">
+    <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden bg-page text-foreground">
+      <div
+        className={`flex shrink-0 items-center justify-between gap-3 px-3 py-2 transition-[margin] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] sm:px-4 ${
+          detailOpen && !isMobile ? 'sm:mr-[340px]' : ''
+        } ${legendOpen && !isMobile ? 'sm:ml-[300px]' : ''}`}
+      >
         <button
           type="button"
           onClick={() => openLegend()}
-          className="rounded-md border border-white/20 bg-transparent px-2.5 py-1.5 text-xs font-medium text-white/70 transition-colors hover:border-white/35 hover:text-white/90 sm:text-sm"
+          className="rounded-md border border-border bg-transparent px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-accent hover:text-foreground sm:text-sm"
         >
           {t('legendButton')}
         </button>
         <div
-          className="flex rounded-lg border border-white/15 bg-[#1a1a2e] p-0.5"
+          className="flex rounded-lg border border-border bg-surface-elevated p-0.5"
           role="tablist"
           aria-label={t('builtUponArboAria')}
         >
@@ -123,7 +154,7 @@ function BuiltUponViewInner({
             aria-selected={viewMode === 'built-upon'}
             title={t('builtUponArboGrid')}
             onClick={() => setViewMode('built-upon')}
-            className={`flex items-center gap-1.5 rounded-md px-3 py-2 text-xs font-semibold sm:text-sm ${viewMode === 'built-upon' ? 'bg-[#3b5bdb] text-white' : 'text-white/60 hover:text-white'}`}
+            className={`flex items-center gap-1.5 rounded-md px-3 py-2 text-xs font-semibold sm:text-sm ${viewMode === 'built-upon' ? 'bg-accent text-white' : 'text-muted-foreground hover:text-foreground'}`}
           >
             <IconGridDown className="h-4 w-4 shrink-0" aria-hidden />
             <span className="hidden sm:inline">{t('builtUponArboGrid')}</span>
@@ -134,7 +165,7 @@ function BuiltUponViewInner({
             aria-selected={viewMode === 'led-to'}
             title={t('builtUponArboList')}
             onClick={() => setViewMode('led-to')}
-            className={`flex items-center gap-1.5 rounded-md px-3 py-2 text-xs font-semibold sm:text-sm ${viewMode === 'led-to' ? 'bg-[#3b5bdb] text-white' : 'text-white/60 hover:text-white'}`}
+            className={`flex items-center gap-1.5 rounded-md px-3 py-2 text-xs font-semibold sm:text-sm ${viewMode === 'led-to' ? 'bg-accent text-white' : 'text-muted-foreground hover:text-foreground'}`}
           >
             <IconGridUp className="h-4 w-4 shrink-0" aria-hidden />
             <span className="hidden sm:inline">{t('builtUponArboList')}</span>
@@ -142,7 +173,7 @@ function BuiltUponViewInner({
         </div>
       </div>
 
-      <ExploreScrollArea>
+      <ExploreScrollArea scrollRef={exploreScrollRef}>
         <AnimatePresence mode="wait" initial={false}>
           {viewMode === 'led-to' ? (
             <motion.div
@@ -152,13 +183,12 @@ function BuiltUponViewInner({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -40 }}
               transition={VIEW_TRANSITION}
-              className="mx-auto w-full max-w-6xl"
+              className="mx-auto w-full max-w-[calc(72rem+10px)]"
             >
               <LedToView
                 focusId={focusId}
                 focusNode={focusNode}
                 goTo={goTo}
-                openDetail={openDetail}
               />
             </motion.div>
           ) : (
@@ -169,7 +199,7 @@ function BuiltUponViewInner({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
               transition={VIEW_TRANSITION}
-              className="mx-auto flex max-w-6xl flex-col gap-8 pt-2"
+              className="mx-auto flex max-w-[calc(72rem+10px)] flex-col gap-8 pt-2"
             >
               <LayoutGroup id="built-upon-cards">
                 <div className="flex flex-col items-center gap-3">
@@ -179,40 +209,35 @@ function BuiltUponViewInner({
                     variant="hero"
                     layoutId={cardLayoutId(focusNode.id)}
                     imageBust={imageBustByNodeId[focusNode.id] ?? 0}
-                    exploreInteractive
-                    onOpenDetail={() => openDetail(focusNode.id)}
                   />
-                  <p className="rounded-full border border-white/15 bg-[#1a1a2e] px-4 py-1.5 text-sm text-white/80">
+                  <p className="rounded-full border border-border bg-surface-elevated px-4 py-1.5 text-sm text-muted-foreground">
                     {t('builtUponTotalCards', { count: totalCardsUp })}
                   </p>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      selectNode(focusId, { openSidebar: true, center: false })
-                    }
-                    className="text-sm text-[#7c9cff] underline-offset-2 hover:underline"
-                  >
-                    {t('builtUponOpenDetails')}
-                  </button>
                 </div>
 
-                <div className="rounded-xl bg-[#1a1a2e] p-4 shadow-inner">
-                  <div className="mb-1 text-xs font-bold uppercase tracking-widest text-white/45">
-                    {t('builtUponMatters')}
-                  </div>
-                  <div className="mb-3 flex min-w-0 gap-2 overflow-x-auto rounded-lg bg-[#2a2a3e] px-2 py-2.5 pb-2 dark:bg-[#2a2a3e] md:grid md:grid-cols-2 md:overflow-visible lg:grid-cols-4">
-                    {MATERIAL_COLUMNS.map((col) => (
-                      <div
-                        key={col}
-                        className="min-w-[5.5rem] shrink-0 text-center text-[10px] font-semibold uppercase tracking-wide text-white/75 sm:min-w-0 sm:text-xs dark:text-white/75"
-                      >
-                        {t(`builtUponLevel_${col}`)}
-                      </div>
-                    ))}
+                <div className="-mx-[30px] flex flex-col gap-8">
+                <div className="rounded-xl border border-border bg-surface-elevated p-4 shadow-inner">
+                  <div className="sticky top-0 z-10 -mx-4 mb-3 border-b border-border/60 bg-surface-elevated/95 px-4 py-3 backdrop-blur-sm">
+                    <div className="mb-[10px] text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
+                      {t('builtUponMatters')}
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 rounded-lg border border-border bg-surface px-2 py-2.5 lg:grid-cols-4">
+                      {MATERIAL_COLUMNS.map((col) => (
+                        <div
+                          key={col}
+                          className="text-center text-[10px] font-semibold uppercase tracking-wide text-muted-foreground sm:text-xs"
+                        >
+                          {t(`builtUponLevel_${col}`)}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-start">
                     {MATERIAL_COLUMNS.map((col) => (
-                      <div key={col} className="flex flex-col gap-3">
+                      <div
+                        key={col}
+                        className="grid grid-cols-2 gap-3 [align-content:start]"
+                      >
                         {bucketsBuilt.matters[col].map((n) => (
                           <InventionCard
                             key={n.id}
@@ -223,7 +248,6 @@ function BuiltUponViewInner({
                             imageBust={imageBustByNodeId[n.id] ?? 0}
                             exploreInteractive
                             onClick={() => goTo(n.id)}
-                            onOpenDetail={() => openDetail(n.id)}
                           />
                         ))}
                       </div>
@@ -232,19 +256,19 @@ function BuiltUponViewInner({
                   {MATERIAL_COLUMNS.every(
                     (c) => bucketsBuilt.matters[c].length === 0
                   ) ? (
-                    <p className="py-2 text-sm text-white/40">
+                    <p className="py-2 text-sm text-muted-foreground">
                       {t('builtUponNoMatters')}
                     </p>
                   ) : null}
                 </div>
 
-                <div className="h-px w-full bg-white/10" />
-
-                <div className="rounded-xl bg-[#1a1a2e] p-4">
-                  <div className="mb-3 text-xs font-bold uppercase tracking-widest text-white/45">
-                    {t('builtUponProcess')}
+                <div className="rounded-xl border border-border bg-surface-elevated p-4">
+                  <div className="sticky top-0 z-10 -mx-4 mb-3 border-b border-border/60 bg-surface-elevated/95 px-4 py-3 backdrop-blur-sm">
+                    <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
+                      {t('builtUponProcess')}
+                    </div>
                   </div>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
                     {bucketsBuilt.process.map((n) => (
                       <InventionCard
                         key={n.id}
@@ -255,22 +279,23 @@ function BuiltUponViewInner({
                         imageBust={imageBustByNodeId[n.id] ?? 0}
                         exploreInteractive
                         onClick={() => goTo(n.id)}
-                        onOpenDetail={() => openDetail(n.id)}
                       />
                     ))}
                     {bucketsBuilt.process.length === 0 ? (
-                      <p className="text-sm text-white/40">{t('builtUponEmpty')}</p>
+                      <p className="col-span-2 text-sm text-muted-foreground sm:col-span-4 lg:col-span-8">
+                        {t('builtUponEmpty')}
+                      </p>
                     ) : null}
                   </div>
                 </div>
 
-                <div className="h-px w-full bg-white/10" />
-
-                <div className="rounded-xl bg-[#1a1a2e] p-4">
-                  <div className="mb-3 text-xs font-bold uppercase tracking-widest text-white/45">
-                    {t('builtUponTools')}
+                <div className="rounded-xl border border-border bg-surface-elevated p-4">
+                  <div className="sticky top-0 z-10 -mx-4 mb-3 border-b border-border/60 bg-surface-elevated/95 px-4 py-3 backdrop-blur-sm">
+                    <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
+                      {t('builtUponTools')}
+                    </div>
                   </div>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
                     {bucketsBuilt.tools.map((n) => (
                       <InventionCard
                         key={n.id}
@@ -281,13 +306,15 @@ function BuiltUponViewInner({
                         imageBust={imageBustByNodeId[n.id] ?? 0}
                         exploreInteractive
                         onClick={() => goTo(n.id)}
-                        onOpenDetail={() => openDetail(n.id)}
                       />
                     ))}
                     {bucketsBuilt.tools.length === 0 ? (
-                      <p className="text-sm text-white/40">{t('builtUponEmpty')}</p>
+                      <p className="col-span-2 text-sm text-muted-foreground sm:col-span-4 lg:col-span-8">
+                        {t('builtUponEmpty')}
+                      </p>
                     ) : null}
                   </div>
+                </div>
                 </div>
               </LayoutGroup>
             </motion.div>
@@ -314,7 +341,7 @@ export function BuiltUponView({ focusId }: { focusId: string }) {
 
   if (!focusNode) {
     return (
-      <div className="flex flex-1 items-center justify-center bg-[#0a0a0f] text-white/50">
+      <div className="flex flex-1 items-center justify-center bg-page text-muted-foreground">
         {t('builtUponLoading')}
       </div>
     );

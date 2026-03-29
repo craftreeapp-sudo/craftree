@@ -8,7 +8,6 @@ import { isRtlLocale } from '@/lib/i18n-config';
 import { NODE_CATEGORY_ORDER } from '@/lib/node-labels';
 import type { NodeCategory } from '@/lib/types';
 
-const DRAWER_W_PX = 280;
 const LEGEND_MARGIN_PX = 20;
 /** Marge cohérente avec la zone principale /explore. */
 const CATEGORY_PANEL_W_PX = 200;
@@ -32,7 +31,6 @@ function LegendHelpIcon() {
 
 /**
  * Légende repliable sur la vue /explore (fixed, sous le header — hors zone pied de page).
- * Se décale lorsque le panneau filtres est ouvert (gauche en LTR, droite en RTL).
  */
 export function Legend() {
   const locale = useLocale();
@@ -44,13 +42,12 @@ export function Legend() {
 
   const [isExpanded, setIsExpanded] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
-  const filterDrawerOpen = useUIStore((s) => s.filterDrawerOpen);
   const selectedNodeId = useUIStore((s) => s.selectedNodeId);
   const isSidebarOpen = useUIStore((s) => s.isSidebarOpen);
   const categoryPanelOpen = useUIStore((s) => s.categoryPanelOpen);
   const focusExploreActive = Boolean(selectedNodeId && isSidebarOpen);
   const categoryPanelLegendOffsetPx = (() => {
-    if (!focusExploreActive || filterDrawerOpen) return 0;
+    if (!focusExploreActive) return 0;
     if (categoryPanelOpen) {
       return (
         CATEGORY_PANEL_W_PX + CATEGORY_PANEL_GAP_PX - LEGEND_MARGIN_PX
@@ -73,10 +70,7 @@ export function Legend() {
     return () => document.removeEventListener('mousedown', onDoc);
   }, [isExpanded]);
 
-  const insetPx =
-    LEGEND_MARGIN_PX +
-    (filterDrawerOpen ? DRAWER_W_PX : 0) +
-    categoryPanelLegendOffsetPx;
+  const insetPx = LEGEND_MARGIN_PX + categoryPanelLegendOffsetPx;
 
   return (
     <div

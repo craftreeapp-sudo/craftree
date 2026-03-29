@@ -36,12 +36,12 @@ function TableOrigins() {
     ],
   ];
   return (
-    <div className="overflow-x-auto rounded-lg border border-white/10">
-      <table className="w-full min-w-[260px] border-collapse text-left text-[11px] text-white/85 sm:text-xs">
+    <div className="overflow-x-auto rounded-lg border border-border">
+      <table className="w-full min-w-[260px] border-collapse text-left text-[11px] text-foreground sm:text-xs">
         <thead>
-          <tr className="border-b border-white/10 bg-white/5">
+          <tr className="border-b border-border bg-border/10">
             {headers.map((h, hi) => (
-              <th key={hi} className="px-2 py-1.5 font-semibold text-white/90">
+              <th key={hi} className="px-2 py-1.5 font-semibold text-foreground">
                 {h}
               </th>
             ))}
@@ -51,10 +51,10 @@ function TableOrigins() {
           {rows.map((cells, ri) => (
             <tr
               key={`o-${ri}`}
-              className="border-b border-white/5 last:border-b-0"
+              className="border-b border-border/40 last:border-b-0"
             >
               {cells.map((c, ci) => (
-                <td key={ci} className="px-2 py-1.5 align-top text-white/75">
+                <td key={ci} className="px-2 py-1.5 align-top text-muted-foreground">
                   {c}
                 </td>
               ))}
@@ -91,12 +91,12 @@ function TableNature() {
     ],
   ];
   return (
-    <div className="overflow-x-auto rounded-lg border border-white/10">
-      <table className="w-full min-w-[260px] border-collapse text-left text-[11px] text-white/85 sm:text-xs">
+    <div className="overflow-x-auto rounded-lg border border-border">
+      <table className="w-full min-w-[260px] border-collapse text-left text-[11px] text-foreground sm:text-xs">
         <thead>
-          <tr className="border-b border-white/10 bg-white/5">
+          <tr className="border-b border-border bg-border/10">
             {headers.map((h, hi) => (
-              <th key={hi} className="px-2 py-1.5 font-semibold text-white/90">
+              <th key={hi} className="px-2 py-1.5 font-semibold text-foreground">
                 {h}
               </th>
             ))}
@@ -106,10 +106,10 @@ function TableNature() {
           {rows.map((cells, ri) => (
             <tr
               key={`n-${ri}`}
-              className="border-b border-white/5 last:border-b-0"
+              className="border-b border-border/40 last:border-b-0"
             >
               {cells.map((c, ci) => (
-                <td key={ci} className="px-2 py-1.5 align-top text-white/75">
+                <td key={ci} className="px-2 py-1.5 align-top text-muted-foreground">
                   {c}
                 </td>
               ))}
@@ -146,10 +146,10 @@ export function LegendPanel() {
         <h3 className="text-[11px] font-bold uppercase tracking-widest text-[#7c9cff]">
           {t('legendMattersHeading')}
         </h3>
-        <p className="mt-1 text-sm font-medium text-white/90">
+        <p className="mt-1 text-sm font-medium text-foreground">
           {t('legendMattersSubtitle')}
         </p>
-        <p className="mt-2 text-xs leading-relaxed text-white/65">
+        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
           {t('legendMattersExamples')}
         </p>
       </section>
@@ -157,10 +157,10 @@ export function LegendPanel() {
         <h3 className="text-[11px] font-bold uppercase tracking-widest text-[#7c9cff]">
           {t('legendProcessHeading')}
         </h3>
-        <p className="mt-1 text-sm font-medium text-white/90">
+        <p className="mt-1 text-sm font-medium text-foreground">
           {t('legendProcessSubtitle')}
         </p>
-        <p className="mt-2 text-xs leading-relaxed text-white/65">
+        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
           {t('legendProcessExamples')}
         </p>
       </section>
@@ -168,10 +168,10 @@ export function LegendPanel() {
         <h3 className="text-[11px] font-bold uppercase tracking-widest text-[#7c9cff]">
           {t('legendToolsHeading')}
         </h3>
-        <p className="mt-1 text-sm font-medium text-white/90">
+        <p className="mt-1 text-sm font-medium text-foreground">
           {t('legendToolsSubtitle')}
         </p>
-        <p className="mt-2 text-xs leading-relaxed text-white/65">
+        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
           {t('legendToolsExamples')}
         </p>
       </section>
@@ -179,7 +179,7 @@ export function LegendPanel() {
         <h3 className="text-[11px] font-bold uppercase tracking-widest text-amber-200/90">
           {t('legendOriginsHeading')}
         </h3>
-        <p className="mt-1 text-sm font-medium text-white/90">
+        <p className="mt-1 text-sm font-medium text-foreground">
           {t('legendOriginsSubtitle')}
         </p>
         <div className="mt-3">
@@ -190,7 +190,7 @@ export function LegendPanel() {
         <h3 className="text-[11px] font-bold uppercase tracking-widest text-amber-200/90">
           {t('legendNatureHeading')}
         </h3>
-        <p className="mt-1 text-sm font-medium text-white/90">
+        <p className="mt-1 text-sm font-medium text-foreground">
           {t('legendNatureSubtitle')}
         </p>
         <div className="mt-3">
@@ -201,10 +201,10 @@ export function LegendPanel() {
   );
 
   const header = (
-    <div className="flex shrink-0 items-center justify-between gap-2 border-b border-white/10 px-4 py-3">
+    <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border px-4 py-3">
       <h2
         id="explore-legend-title"
-        className="text-lg font-bold text-white"
+        className="text-lg font-bold text-foreground"
         style={{
           fontFamily:
             'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -215,7 +215,7 @@ export function LegendPanel() {
       <button
         type="button"
         onClick={() => close()}
-        className="rounded-lg p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+        className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-border/30 hover:text-foreground"
         aria-label={t('legendCloseAria')}
       >
         <span className="text-xl leading-none" aria-hidden>
@@ -248,7 +248,7 @@ export function LegendPanel() {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={TRANSITION}
-              className="fixed inset-x-0 bottom-0 z-[75] flex max-h-[min(92dvh,720px)] flex-col rounded-t-2xl border border-white/10 border-b-0 bg-[#1a1a2e] shadow-2xl"
+              className="fixed inset-x-0 bottom-0 z-[75] flex max-h-[min(92dvh,720px)] flex-col rounded-t-2xl border border-border border-b-0 bg-surface shadow-2xl"
             >
               {header}
               {body}
@@ -263,7 +263,7 @@ export function LegendPanel() {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={TRANSITION}
-              className="fixed bottom-0 left-0 top-14 z-[75] flex w-[min(100vw,300px)] max-w-[300px] flex-col border-r border-white/10 bg-[#1a1a2e] shadow-2xl"
+              className="fixed bottom-0 left-0 top-14 z-[75] flex w-[min(100vw,300px)] max-w-[300px] flex-col border-r border-border bg-surface shadow-2xl"
               style={{ width: LEGEND_W }}
             >
               {header}

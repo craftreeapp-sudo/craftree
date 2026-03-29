@@ -65,7 +65,7 @@ export function HeroSection() {
         </motion.div>
       </div>
 
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0A0E17] to-transparent" />
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-page to-transparent" />
     </section>
   );
 }

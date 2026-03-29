@@ -1,30 +1,6 @@
 @import "tailwindcss";
 
-/* Classic (default) — teinte bleu-nuit du site */
-:root {
-  --page: #0a0e17;
-  --surface: #111827;
-  --surface-elevated: #1a1f2e;
-  --border: #2a3042;
-  --border-subtle: #1a1f2e;
-  --foreground: #e8ecf4;
-  --muted-foreground: #8b95a8;
-  --accent: #3b82f6;
-  --header-bg: rgba(10, 14, 23, 0.92);
-  --ring-focus: #3b82f6;
-  --scrollbar-track: #111827;
-  --scrollbar-thumb: #4b5563;
-  --panel-row-selected-bg: #2a3042;
-  --panel-row-selected-fg: #f8fafc;
-  --panel-row-selected-meta: #94a3b8;
-  --panel-row-hover-bg: #222837;
-  --graph-bg-dot: var(--border);
-  --edge-stroke-material: #94a3b8;
-  --edge-stroke-catalyst: #8b95a8;
-  /* compat anciennes variables */
-  --background: var(--page);
-}
-
+/* Thème sombre (défaut) — piloté par data-theme sur <html> */
 [data-theme='dark'] {
   --page: #0a0a0a;
   --surface: #171717;

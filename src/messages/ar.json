@@ -21,7 +21,6 @@
     "noResults": "لا نتائج"
   },
   "theme": {
-    "classic": "كلاسيكي",
     "dark": "داكن",
     "light": "فاتح",
     "switchTheme": "مظهر الألوان"
@@ -496,6 +495,8 @@
   },
   "nav": {
     "mainNav": "التنقّل الرئيسي",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة",
     "drawerNavigation": "التنقّل",
     "footerNav": "تذييل الصفحة",
     "tree": "الشجرة",

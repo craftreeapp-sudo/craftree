@@ -21,7 +21,6 @@
     "noResults": "Aucun résultat"
   },
   "theme": {
-    "classic": "Classique",
     "dark": "Sombre",
     "light": "Clair",
     "switchTheme": "Thème d’affichage"
@@ -496,6 +495,8 @@
   },
   "nav": {
     "mainNav": "Navigation principale",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
     "drawerNavigation": "Navigation",
     "footerNav": "Pied de page",
     "tree": "Tree",

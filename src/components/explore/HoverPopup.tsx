@@ -131,11 +131,11 @@ export function ExploreHoverPopup() {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.15 }}
-        className="pointer-events-none fixed z-[72] max-h-[min(70vh,420px)] w-[min(92vw,300px)] overflow-y-auto rounded-xl border border-white/15 bg-[#1a1a2e] p-3 shadow-2xl"
+        className="pointer-events-none fixed z-[72] max-h-[min(70vh,420px)] w-[min(92vw,300px)] overflow-y-auto rounded-xl border border-border bg-surface-elevated p-3 shadow-2xl"
         style={{ left: pos.left, top: pos.top, maxWidth: POPUP_MAX_W }}
       >
         <h3
-          className="text-sm font-bold leading-snug text-white"
+          className="text-sm font-bold leading-snug text-foreground"
           style={{
             fontFamily:
               'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -149,7 +149,7 @@ export function ExploreHoverPopup() {
               {originLine}
             </span>
           ) : null}
-          <span className="rounded-md bg-white/10 px-2 py-0.5 text-[10px] text-white/80">
+          <span className="rounded-md bg-border/20 px-2 py-0.5 text-[10px] text-muted-foreground">
             {natureLine}
           </span>
           <span
@@ -161,7 +161,7 @@ export function ExploreHoverPopup() {
           >
             {tCat(node.category as NodeCategory)}
           </span>
-          <span className="rounded-md bg-white/10 px-2 py-0.5 text-[10px] text-white/70">
+          <span className="rounded-md bg-border/20 px-2 py-0.5 text-[10px] text-muted-foreground">
             {tEra(node.era)}
           </span>
         </div>
@@ -170,17 +170,19 @@ export function ExploreHoverPopup() {
             {secondaryTags.map((tag) => (
               <span
                 key={tag}
-                className="rounded border border-white/10 px-1.5 py-0.5 text-[10px] text-white/65"
+                className="rounded border border-border px-1.5 py-0.5 text-[10px] text-muted-foreground"
               >
                 {tag}
               </span>
             ))}
           </div>
         ) : null}
-        <p className="mt-2 text-[11px] tabular-nums text-white/55">
+        <p className="mt-2 text-[11px] tabular-nums text-muted-foreground">
           {formatYear(node.year_approx ?? null)}
         </p>
-        <p className="mt-2 text-xs leading-relaxed text-white/75">{description}</p>
+        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+          {description}
+        </p>
       </motion.div>
     ) : null;
 

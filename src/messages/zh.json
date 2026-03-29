@@ -21,7 +21,6 @@
     "noResults": "无结果"
   },
   "theme": {
-    "classic": "经典",
     "dark": "深色",
     "light": "浅色",
     "switchTheme": "配色主题"
@@ -496,6 +495,8 @@
   },
   "nav": {
     "mainNav": "主导航",
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单",
     "drawerNavigation": "导航",
     "footerNav": "页脚",
     "tree": "树",

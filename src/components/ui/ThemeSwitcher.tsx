@@ -16,28 +16,6 @@ const ITEM =
 
 const ITEM_ACTIVE = 'bg-surface';
 
-/** Teinte Craftree (bleu-nuit) — calques */
-function IconClassic({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" />
-      <path d="M22 17.65v-.57a2 2 0 0 0-1.01-1.73l-7.13-4a2 2 0 0 0-2.12 0l-7.13 4A2 2 0 0 0 2 17.08v.57a2 2 0 0 0 1 1.74L11.27 22a2 2 0 0 0 2.46 0L21 19.42a2 2 0 0 0 1-1.77z" />
-      <path d="m2.6 12.08 8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.91" opacity="0.45" />
-    </svg>
-  );
-}
-
 function IconMoon({ className }: { className?: string }) {
   return (
     <svg
@@ -78,8 +56,7 @@ function IconSun({ className }: { className?: string }) {
   );
 }
 
-const MODES: { id: ThemeMode; Icon: typeof IconClassic }[] = [
-  { id: 'classic', Icon: IconClassic },
+const MODES: { id: ThemeMode; Icon: typeof IconMoon }[] = [
   { id: 'dark', Icon: IconMoon },
   { id: 'light', Icon: IconSun },
 ];
@@ -91,8 +68,7 @@ export function ThemeSwitcher({ align = 'end' }: { align?: 'start' | 'end' }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
 
-  const CurrentIcon =
-    MODES.find((m) => m.id === theme)?.Icon ?? IconClassic;
+  const CurrentIcon = MODES.find((m) => m.id === theme)?.Icon ?? IconMoon;
 
   useEffect(() => {
     if (!open) return;

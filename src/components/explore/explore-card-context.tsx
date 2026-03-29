@@ -45,7 +45,6 @@ export function ExploreCardProvider({
 
   const openLegend = useCallback(() => {
     setLegendOpen(true);
-    setDetailNodeId(null);
     setHoverPreview(null);
   }, []);
 
@@ -59,7 +58,7 @@ export function ExploreCardProvider({
     setDetailNodeId(null);
   }, []);
 
-  const suppressHover = detailNodeId !== null || legendOpen;
+  const suppressHover = legendOpen;
 
   const value = useMemo(
     (): ExploreCardContextValue => ({

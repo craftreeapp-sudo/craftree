@@ -56,11 +56,6 @@ interface UIStore {
   pendingExploreSuggest: boolean;
   clearPendingExploreSuggest: () => void;
 
-  /** Panneau filtres gauche (vue /explore wireframe) */
-  filterDrawerOpen: boolean;
-  setFilterDrawerOpen: (open: boolean) => void;
-  toggleFilterDrawer: () => void;
-
   /** Filtres visuels : sous-ensembles actifs (tout activé par défaut) */
   activeCategories: Set<NodeCategory>;
   activeEras: Set<Era>;
@@ -122,11 +117,6 @@ export const useUIStore = create<UIStore>((set) => ({
 
   pendingExploreSuggest: false,
   clearPendingExploreSuggest: () => set({ pendingExploreSuggest: false }),
-
-  filterDrawerOpen: false,
-  setFilterDrawerOpen: (open) => set({ filterDrawerOpen: open }),
-  toggleFilterDrawer: () =>
-    set((s) => ({ filterDrawerOpen: !s.filterDrawerOpen })),
 
   activeCategories: new Set(ALL_CATEGORIES),
   activeEras: new Set(ALL_ERAS),

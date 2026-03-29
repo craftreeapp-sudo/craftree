@@ -5,16 +5,14 @@ import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
-import { ExploreFilterDrawer } from '@/components/explore/ExploreFilterDrawer';
 import { HeaderAuth } from '@/components/layout/HeaderAuth';
+import { HeaderNavDrawer } from '@/components/layout/HeaderNavDrawer';
 import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher';
-import { useUIStore } from '@/stores/ui-store';
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 
 export function Header() {
   const pathname = usePathname();
   const tNav = useTranslations('nav');
-  const toggleFilterDrawer = useUIStore((s) => s.toggleFilterDrawer);
   const { closeDetail } = useExploreNavigation();
 
   if (pathname === '/editor') {
@@ -29,24 +27,12 @@ export function Header() {
       <header
         className={`fixed left-0 right-0 top-0 z-[100] flex h-14 shrink-0 items-center gap-2 px-3 backdrop-blur-md md:gap-3 md:px-4 xl:px-6 ${
           isLanding
-            ? 'border-b border-white/10 bg-black/45'
+            ? 'border-b border-border/60 bg-header-bg'
             : 'border-b border-border/60 bg-header-bg'
         }`}
         style={{ height: '56px' }}
       >
-        <button
-          type="button"
-          onClick={toggleFilterDrawer}
-          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border text-lg transition-colors ${
-            isLanding
-              ? 'border-white/15 bg-white/5 text-white hover:bg-white/10'
-              : 'border-border bg-surface-elevated text-foreground hover:bg-surface'
-          }`}
-          aria-label={tNav('openFilters')}
-        >
-          ☰
-        </button>
-
+        <HeaderNavDrawer />
         {pathname?.startsWith('/tree/') ? (
           <button
             type="button"
@@ -64,9 +50,7 @@ export function Header() {
         ) : (
           <Link
             href="/"
-            className={`shrink-0 font-bold tracking-tight ${
-              isLanding ? 'text-white' : 'text-foreground'
-            }`}
+            className="shrink-0 font-bold tracking-tight text-foreground"
             style={{
               fontFamily:
                 'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -74,9 +58,7 @@ export function Header() {
             }}
           >
             Craft
-            <span className={isLanding ? 'text-[#7c9cff]' : 'text-accent'}>
-              ree
-            </span>
+            <span className="text-accent">ree</span>
           </Link>
         )}
 
@@ -94,7 +76,6 @@ export function Header() {
           <HeaderAuth />
         </div>
       </header>
-      <ExploreFilterDrawer />
     </>
   );
 }

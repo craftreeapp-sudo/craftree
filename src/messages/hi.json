@@ -21,7 +21,6 @@
     "noResults": "कोई परिणाम नहीं"
   },
   "theme": {
-    "classic": "क्लासिक",
     "dark": "डार्क",
     "light": "लाइट",
     "switchTheme": "रंग थीम"
@@ -496,6 +495,8 @@
   },
   "nav": {
     "mainNav": "मुख्य नेविगेशन",
+    "openMenu": "मेनू खोलें",
+    "closeMenu": "मेनू बंद करें",
     "drawerNavigation": "नेविगेशन",
     "footerNav": "पाद लेख",
     "tree": "वृक्ष",

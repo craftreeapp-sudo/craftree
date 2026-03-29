@@ -115,6 +115,8 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
+      data-theme="dark"
+      suppressHydrationWarning
       className={`${inter.variable} ${geistMono.variable} ${spaceGrotesk.variable} ${lora.variable} h-full bg-page antialiased`}
     >
       <body className="flex min-h-screen min-h-[100dvh] flex-col bg-page font-sans text-foreground antialiased">

@@ -71,7 +71,7 @@ function TreeExploreInner({
   }, [dataReady, inventionId, selectNode, closeSidebar, router]);
 
   return (
-    <main className="relative flex h-full min-h-0 min-h-[calc(100dvh-3.5rem)] flex-1 flex-col overflow-hidden bg-page pt-14 dark:bg-[#0a0a0f]">
+    <main className="relative flex h-full min-h-0 min-h-[calc(100dvh-3.5rem)] flex-1 flex-col overflow-hidden bg-page pt-14">
       {toast ? (
         <div
           className="pointer-events-none fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-lg border border-border bg-surface-elevated px-4 py-2.5 text-sm text-foreground shadow-lg"

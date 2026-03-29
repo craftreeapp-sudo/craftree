@@ -9,13 +9,18 @@ export function applyThemeToDocument(theme: ThemeMode) {
   document.documentElement.dataset.theme = theme;
 }
 
+function normalizeStoredTheme(raw: unknown): ThemeMode {
+  if (raw === 'light') return 'light';
+  return 'dark';
+}
+
 export const useThemeStore = create<{
   theme: ThemeMode;
   setTheme: (theme: ThemeMode) => void;
 }>()(
   persist(
     (set) => ({
-      theme: 'classic',
+      theme: 'dark',
       setTheme: (theme) => {
         set({ theme });
         applyThemeToDocument(theme);
@@ -25,7 +30,12 @@ export const useThemeStore = create<{
       name: THEME_STORAGE_KEY,
       partialize: (s) => ({ theme: s.theme }),
       onRehydrateStorage: () => (state) => {
-        if (state?.theme) applyThemeToDocument(state.theme);
+        if (!state) return;
+        const next = normalizeStoredTheme(state.theme);
+        if (next !== state.theme) {
+          state.theme = next;
+        }
+        applyThemeToDocument(state.theme);
       },
     }
   )
