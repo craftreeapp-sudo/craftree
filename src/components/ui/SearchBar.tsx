@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import Fuse from 'fuse.js';
 import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
@@ -16,7 +16,6 @@ import { pickNodeDisplayName } from '@/lib/node-display-name';
 import { safeCategoryLabel } from '@/lib/safe-category-label';
 import { getNameEnForNode } from '@/lib/name-en-lookup';
 import { trackEvent } from '@/lib/analytics';
-import { parseExploreViewMode } from '@/lib/explore-view-mode';
 
 interface SearchNode {
   id: string;
@@ -35,7 +34,6 @@ const MAX_RESULTS = 8;
 export type SearchBarNavigateOptions = {
   center?: boolean;
   openSidebar?: boolean;
-  exploreView?: 'built-upon' | 'led-to';
 };
 
 function treeLayerForSearchNode(n: SearchNode): number {
@@ -70,7 +68,6 @@ export function SearchBar({
   const containerRef = useRef<HTMLDivElement>(null);
   const { navigateToNode } = useExploreNavigation();
   const pathname = usePathname();
-  const urlSearchParams = useSearchParams();
   const isMobile = useIsMobileBreakpoint();
   const exploreMobileSearch =
     (pathname?.startsWith('/tree/') ?? false) && isMobile;
@@ -138,13 +135,9 @@ export function SearchBar({
   const goToFocusedView = useCallback(
     (node: SearchNode) => {
       const isLanding = variant === 'landing';
-      const view =
-        navigateOptions?.exploreView ??
-        (isLanding ? 'built-upon' : parseExploreViewMode(urlSearchParams));
       navigateToNode(node.id, {
         center: navigateOptions?.center ?? !isLanding,
         openSidebar: navigateOptions?.openSidebar ?? !isLanding,
-        exploreView: view,
         ...(exploreMobileSearch ? { exploreMode: 'root' as const } : {}),
       });
       setQuery('');
@@ -152,13 +145,7 @@ export function SearchBar({
       setDropdownOpen(false);
       inputRef.current?.blur();
     },
-    [
-      navigateToNode,
-      exploreMobileSearch,
-      variant,
-      navigateOptions,
-      urlSearchParams,
-    ]
+    [navigateToNode, exploreMobileSearch, variant, navigateOptions]
   );
 
   const handleLandingCta = useCallback(() => {

@@ -71,6 +71,12 @@ export function Header() {
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
+          <Link
+            href="/categories"
+            className="shrink-0 rounded-md px-1.5 py-1.5 text-[12px] font-medium text-muted-foreground transition-colors hover:text-foreground sm:px-2 sm:text-[13px]"
+          >
+            {tNav('categories')}
+          </Link>
           <ThemeSwitcher align="end" />
           <LanguageSwitcher align="end" />
           <HeaderAuth />

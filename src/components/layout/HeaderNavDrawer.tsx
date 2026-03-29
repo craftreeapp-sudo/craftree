@@ -46,6 +46,13 @@ export function HeaderNavDrawer() {
         aria-label={tNav('drawerNavigation')}
       >
         <Link
+          href="/categories"
+          className="rounded-lg px-3 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10"
+          onClick={() => setOpen(false)}
+        >
+          {tNav('categories')}
+        </Link>
+        <Link
           href="/about"
           className="rounded-lg px-3 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10"
           onClick={() => setOpen(false)}

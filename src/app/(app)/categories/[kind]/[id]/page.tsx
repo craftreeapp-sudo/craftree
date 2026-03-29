@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { TechListByFilterClient } from '@/components/categories/TechListByFilterClient';
 import { validateFilterParams } from '@/lib/category-filter-routes';
 import {
@@ -14,14 +15,14 @@ type PageProps = {
   params: Promise<{ kind: string; id: string }>;
 };
 
-function pageTitle(kind: string, id: string): string {
+function fallbackLabel(kind: string, id: string): string {
   if (kind === 'category') {
-    return NODE_CATEGORY_LABELS_FR[id as NodeCategory];
+    return NODE_CATEGORY_LABELS_FR[id as NodeCategory] ?? id;
   }
   if (kind === 'era') {
-    return ERA_LABELS_FR[id as Era];
+    return ERA_LABELS_FR[id as Era] ?? id;
   }
-  return TECH_NODE_TYPE_LABELS_FR[id as TechNodeType];
+  return TECH_NODE_TYPE_LABELS_FR[id as TechNodeType] ?? id;
 }
 
 export async function generateMetadata({
@@ -29,13 +30,24 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { kind, id } = await params;
   const v = validateFilterParams(kind, id);
+  const t = await getTranslations('categoriesPage');
   if (!v.ok) {
-    return { title: 'Catégories — Craftree' };
+    return { title: t('metaTitle') };
   }
-  const label = pageTitle(v.kind, v.id);
+  const tCat = await getTranslations('categories');
+  const tEra = await getTranslations('eras');
+  const tType = await getTranslations('types');
+  let label: string;
+  if (v.kind === 'category') {
+    label = tCat.has(v.id) ? tCat(v.id) : fallbackLabel('category', v.id);
+  } else if (v.kind === 'era') {
+    label = tEra.has(v.id) ? tEra(v.id) : fallbackLabel('era', v.id);
+  } else {
+    label = tType.has(v.id) ? tType(v.id) : fallbackLabel('type', v.id);
+  }
   return {
-    title: { absolute: `Technologies — ${label} — Craftree` },
-    description: `Liste des technologies « ${label} » dans Craftree.`,
+    title: { absolute: `${t('listPageTitle', { label })} — Craftree` },
+    description: t('metaDescriptionList', { label }),
   };
 }
 
@@ -44,21 +56,5 @@ export default async function CategoryFilterTechListPage({ params }: PageProps) 
   const v = validateFilterParams(kind, id);
   if (!v.ok) notFound();
 
-  const label = pageTitle(v.kind, v.id);
-  const title = `Technologies — ${label}`;
-  const subtitle =
-    v.kind === 'category'
-      ? 'Toutes les entrées du Tree dans cette catégorie.'
-      : v.kind === 'era'
-        ? 'Toutes les technologies rattachées à cette époque.'
-        : 'Tous les nœuds de ce type dans le Tree.';
-
-  return (
-    <TechListByFilterClient
-      kind={v.kind}
-      id={v.id}
-      title={title}
-      subtitle={subtitle}
-    />
-  );
+  return <TechListByFilterClient kind={v.kind} id={v.id} />;
 }

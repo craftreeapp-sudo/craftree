@@ -64,6 +64,59 @@ const MATERIAL_LEVEL_VALUES = new Set([
   'component',
 ]);
 
+/** Aligné sur `NodeCategory` dans `src/lib/types.ts` — seules valeurs acceptées en base. */
+const NODE_CATEGORY_VALUES = new Set([
+  'energy',
+  'construction',
+  'weapon',
+  'network',
+  'food',
+  'transport',
+  'software',
+  'infrastructure',
+  'textile',
+  'communication',
+  'agriculture',
+  'robotics',
+  'chemistry',
+  'electronics',
+  'environment',
+  'automation',
+  'medical',
+  'optical',
+  'storage',
+  'aeronautics',
+  'space',
+  'industry',
+  'nanotechnology',
+  'biotechnology',
+  'security',
+  'home_automation',
+]);
+
+const TECH_NODE_TYPES = new Set([
+  'raw_material',
+  'material',
+  'process',
+  'tool',
+  'component',
+  'end_product',
+]);
+
+const NODE_CATEGORY_LIST_FOR_PROMPT = [...NODE_CATEGORY_VALUES].sort().join(', ');
+
+function normalizeCategory(raw) {
+  const s = typeof raw === 'string' ? raw.trim() : '';
+  if (NODE_CATEGORY_VALUES.has(s)) return s;
+  return 'industry';
+}
+
+function normalizeTechNodeType(raw) {
+  const s = typeof raw === 'string' ? raw.trim() : '';
+  if (TECH_NODE_TYPES.has(s)) return s;
+  return 'material';
+}
+
 function normalizeDimensionMaterialLevel(enriched) {
   const dRaw = enriched.dimension;
   const dimension =
@@ -249,12 +302,13 @@ Recherche des informations sur "${inventionName}" et remplis sa fiche complète.
 5. Si objet réutilisé sans être consommé → "tool"
    Ex: four, marteau, tour, presse, laser, moule
 
-### CATÉGORIE
+### CATÉGORIE (site Craftree — une seule valeur parmi la liste EXACTE ci-dessous)
 
-Si l'invention sert principalement dans UN domaine → catégorie de ce domaine.
-Si transversale → catégorie de sa nature physique.
+Choisis UNE chaîne parmi ces identifiants (slug, en anglais, minuscules, underscores si besoin) :
 
-Valeurs possibles : mineral, vegetal, animal, element, energy, material, tool, process, machine, electronics, chemistry, construction, transport, communication, food, textile, medical, weapon, optical, software
+${NODE_CATEGORY_LIST_FOR_PROMPT}
+
+Exemples d’aide : énergie → energy ; bâtiment / routes → construction ; armes → weapon ; réseau / Internet → network ; alimentation → food ; déplacement → transport ; code / apps → software ; routes-ponts-canalisations → infrastructure ; textile → textile ; télécom → communication ; agriculture → agriculture ; robotique → robotics ; chimie → chemistry ; électronique → electronics ; environnement → environment ; automatisation industrielle → automation ; santé → medical ; optique → optical ; stockage données → storage ; aviation → aeronautics ; spatial → space ; procédés industriels génériques → industry ; nano → nanotechnology ; biotech → biotechnology ; sûreté / cybersécurité → security ; maison connectée → home_automation.
 
 ### ÉPOQUE (basée sur year_approx)
 
@@ -372,7 +426,7 @@ async function enrichInvention(name, existingNodes) {
 }
 
 /** Accumulation par lot ; pas d’écriture disque ici */
-let pendingChanges = { nodes: [], links: [] };
+let pendingChanges = { nodes: [], links: [], updates: [] };
 
 function getMergedNodes() {
   const db = readDB();
@@ -384,58 +438,13 @@ function getMergedLinks() {
   return [...db.links, ...pendingChanges.links];
 }
 
-function addInventionToDB(enriched) {
-  const db = readDB();
-  const id = slugify(enriched.name);
-  const allNodes = getMergedNodes();
-  const allLinks = getMergedLinks();
-
-  if (allNodes.find((n) => n.id === id)) {
-    return {
-      added: false,
-      newDependencies: [],
-      linksCreated: 0,
-      nodeId: null,
-      wikipediaUrl: null,
-    };
-  }
-
-  const builtRaw = Array.isArray(enriched.built_upon)
-    ? JSON.parse(JSON.stringify(enriched.built_upon))
-    : [];
-  const ledRaw = Array.isArray(enriched.led_to)
-    ? JSON.parse(JSON.stringify(enriched.led_to))
-    : [];
-
-  const { dimension, materialLevel } = normalizeDimensionMaterialLevel(enriched);
-
-  const node = {
-    id,
-    name: enriched.name,
-    name_en: enriched.name_en || '',
-    description: cleanDescription(enriched.description ?? ''),
-    description_en: cleanDescription(enriched.description_en ?? ''),
-    category: enriched.category,
-    type: enriched.type,
-    era: enriched.era,
-    year_approx: enriched.year_approx ?? null,
-    origin: enriched.origin || null,
-    image_url: null,
-    wikipedia_url: enriched.wikipedia_url || null,
-    tags: Array.isArray(enriched.tags) ? enriched.tags : [],
-    complexity_depth: 0,
-    dimension,
-    materialLevel,
-    _ai_built_upon: builtRaw,
-    _ai_led_to: ledRaw,
-  };
-
-  pendingChanges.nodes.push(node);
-
+/**
+ * Crée les liens manquants décrits dans enriched (built_upon / led_to).
+ * @returns {{ newDependencies: string[], linksCreated: number }}
+ */
+function applyLinksFromEnrichment(enriched, id, nodesAfterNode, allLinks, db) {
   const newDependencies = [];
   let linksCreated = 0;
-
-  const nodesAfterNode = [...allNodes, node];
 
   if (enriched.built_upon) {
     for (const input of enriched.built_upon) {
@@ -505,8 +514,124 @@ function addInventionToDB(enriched) {
     }
   }
 
+  return { newDependencies, linksCreated };
+}
+
+function cloneAiArrays(enriched) {
+  const builtRaw = Array.isArray(enriched.built_upon)
+    ? JSON.parse(JSON.stringify(enriched.built_upon))
+    : [];
+  const ledRaw = Array.isArray(enriched.led_to)
+    ? JSON.parse(JSON.stringify(enriched.led_to))
+    : [];
+  return { builtRaw, ledRaw };
+}
+
+/**
+ * @param enriched
+ * @param {{ allowUpdate?: boolean }} [opts]
+ */
+function addInventionToDB(enriched, opts = {}) {
+  const allowUpdate = opts.allowUpdate === true;
+  const db = readDB();
+  const id = slugify(enriched.name);
+  const allNodes = getMergedNodes();
+  const allLinks = getMergedLinks();
+
+  const existing = allNodes.find((n) => n.id === id);
+
+  const builtLed = cloneAiArrays(enriched);
+  const { builtRaw, ledRaw } = builtLed;
+
+  const { dimension, materialLevel } = normalizeDimensionMaterialLevel(enriched);
+  const category = normalizeCategory(enriched.category);
+  const type = normalizeTechNodeType(enriched.type);
+
+  if (existing) {
+    if (!allowUpdate) {
+      return {
+        added: false,
+        updated: false,
+        newDependencies: [],
+        linksCreated: 0,
+        nodeId: null,
+        wikipediaUrl: null,
+      };
+    }
+
+    const patch = {
+      name_en: enriched.name_en || '',
+      description: cleanDescription(enriched.description ?? ''),
+      description_en: cleanDescription(enriched.description_en ?? ''),
+      category,
+      type,
+      era: enriched.era,
+      year_approx: enriched.year_approx ?? null,
+      origin: enriched.origin || null,
+      wikipedia_url: enriched.wikipedia_url || null,
+      tags: Array.isArray(enriched.tags) ? enriched.tags : [],
+      dimension,
+      materialLevel,
+      _ai_built_upon: builtRaw,
+      _ai_led_to: ledRaw,
+    };
+
+    pendingChanges.updates.push({ id, patch });
+
+    const { newDependencies, linksCreated } = applyLinksFromEnrichment(
+      enriched,
+      id,
+      allNodes,
+      allLinks,
+      db
+    );
+
+    return {
+      added: false,
+      updated: true,
+      newDependencies,
+      linksCreated,
+      nodeId: id,
+      wikipediaUrl: enriched.wikipedia_url || null,
+    };
+  }
+
+  const node = {
+    id,
+    name: enriched.name,
+    name_en: enriched.name_en || '',
+    description: cleanDescription(enriched.description ?? ''),
+    description_en: cleanDescription(enriched.description_en ?? ''),
+    category,
+    type,
+    era: enriched.era,
+    year_approx: enriched.year_approx ?? null,
+    origin: enriched.origin || null,
+    image_url: null,
+    wikipedia_url: enriched.wikipedia_url || null,
+    tags: Array.isArray(enriched.tags) ? enriched.tags : [],
+    complexity_depth: 0,
+    dimension,
+    materialLevel,
+    _ai_built_upon: builtRaw,
+    _ai_led_to: ledRaw,
+  };
+
+  pendingChanges.nodes.push(node);
+
+  const nodesAfterNode = [...allNodes, node];
+
+  const { newDependencies, linksCreated } = applyLinksFromEnrichment(
+    enriched,
+    id,
+    nodesAfterNode,
+    allLinks,
+    db
+  );
+
   return {
     added: true,
+    updated: false,
     newDependencies,
     linksCreated,
     nodeId: id,
@@ -516,11 +641,22 @@ function addInventionToDB(enriched) {
 
 function flushChanges(existingState) {
   const { existingNames, existingIds } = existingState;
-  if (pendingChanges.nodes.length === 0 && pendingChanges.links.length === 0) {
+  if (
+    pendingChanges.nodes.length === 0 &&
+    pendingChanges.links.length === 0 &&
+    pendingChanges.updates.length === 0
+  ) {
     return;
   }
 
   const db = readDB();
+
+  for (const { id, patch } of pendingChanges.updates) {
+    const n = db.nodes.find((x) => x.id === id);
+    if (n) {
+      Object.assign(n, patch);
+    }
+  }
 
   for (const node of pendingChanges.nodes) {
     if (!db.nodes.find((n) => n.id === node.id)) {
@@ -537,7 +673,7 @@ function flushChanges(existingState) {
   }
 
   writeDB(db);
-  pendingChanges = { nodes: [], links: [] };
+  pendingChanges = { nodes: [], links: [], updates: [] };
 }
 
 function reconcileLinks() {
@@ -938,7 +1074,10 @@ async function main() {
   const processed = new Set();
   const retryCount = new Map();
 
+  const allowUpdate = MODE_EXPAND || MODE_DEEP;
+
   let addedCount = 0;
+  let updatedCount = 0;
   let errorCount = 0;
   let linksCreatedCount = 0;
   let skippedCount = 0;
@@ -995,11 +1134,12 @@ async function main() {
         const prevRetries = retryCount.get(result.name) || 0;
         const {
           added,
+          updated,
           newDependencies,
           linksCreated,
           nodeId,
           wikipediaUrl,
-        } = addInventionToDB(result.enriched);
+        } = addInventionToDB(result.enriched, { allowUpdate });
         if (added) {
           addedCount++;
           if (prevRetries > 0) retrySuccessCount++;
@@ -1007,6 +1147,39 @@ async function main() {
           linksCreatedCount += linksCreated;
           console.log(
             `   ✅ ${result.enriched.name} (${result.enriched.type} | ${result.enriched.category})`
+          );
+          if (nodeId && wikipediaUrl && String(wikipediaUrl).trim()) {
+            batchImageJobs.push({
+              nodeId,
+              wikipediaUrl: String(wikipediaUrl).trim(),
+              name: result.enriched.name,
+            });
+          }
+          for (const dep of newDependencies) {
+            const dk = normalizeInventionName(dep);
+            if (processed.has(dk)) continue;
+            if (
+              !skipExistingCheck &&
+              alreadyExists(dep, existingNames, existingIds)
+            ) {
+              continue;
+            }
+            if (isLikelyFundamental(dep)) {
+              queue.push(dep);
+              console.log(`   📌 Nouvelle dépendance ajoutée : "${dep}"`);
+            } else {
+              dependenciesIgnoredCount++;
+              console.log(`   ⏭️  Ignoré (trop spécifique) : "${dep}"`);
+            }
+          }
+        } else if (updated) {
+          updatedCount++;
+          if (prevRetries > 0) retrySuccessCount++;
+          retryCount.delete(result.name);
+          linksCreatedCount += linksCreated;
+          const cat = normalizeCategory(result.enriched.category);
+          console.log(
+            `   🔄 ${result.enriched.name} (mise à jour — ${result.enriched.type} | ${cat})`
           );
           if (nodeId && wikipediaUrl && String(wikipediaUrl).trim()) {
             batchImageJobs.push({
@@ -1112,6 +1285,7 @@ async function main() {
   console.log('📊 Résumé du peuplement');
   console.log(`Durée totale        : ${formatDuration(durationMs)}`);
   console.log(`Inventions ajoutées : ${addedCount}`);
+  console.log(`Fiches mises à jour : ${updatedCount}`);
   console.log(`Images récupérées   : ${imagesCount}`);
   console.log(`Liens créés         : ${linksCreatedCount}`);
   console.log(`Liens réconciliés   : ${reconciled}`);

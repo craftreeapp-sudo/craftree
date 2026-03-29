@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useTranslations } from 'next-intl';
 import { AppContentShell } from '@/components/layout/AppContentShell';
 import { useGraphStore } from '@/stores/graph-store';
 import { useUIStore } from '@/stores/ui-store';
@@ -24,8 +25,6 @@ import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
 interface TechListByFilterClientProps {
   kind: FilterKind;
   id: string;
-  title: string;
-  subtitle?: string;
 }
 
 function filterNodes(
@@ -45,17 +44,52 @@ function filterNodes(
   return nodes.filter((n) => n.type === t);
 }
 
-export function TechListByFilterClient({
-  kind,
-  id,
-  title,
-  subtitle,
-}: TechListByFilterClientProps) {
+/** Libellé affiché (FR fixe pour données legacy / clés manquantes dans next-intl). */
+function fallbackMetaLabel(
+  kind: FilterKind,
+  id: string
+): string {
+  if (kind === 'category') {
+    return NODE_CATEGORY_LABELS_FR[id as NodeCategory] ?? id;
+  }
+  if (kind === 'era') {
+    return ERA_LABELS_FR[id as Era] ?? id;
+  }
+  return TECH_NODE_TYPE_LABELS_FR[id as TechNodeType] ?? id;
+}
+
+export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps) {
   const router = useRouter();
+  const tPage = useTranslations('categoriesPage');
+  const tCat = useTranslations('categories');
+  const tEra = useTranslations('eras');
+  const tType = useTranslations('types');
+
   const allNodes = useGraphStore((s) => s.nodes);
+  const refreshData = useGraphStore((s) => s.refreshData);
   const setOnlyCategory = useUIStore((s) => s.setOnlyCategory);
   const setOnlyEra = useUIStore((s) => s.setOnlyEra);
   const setOnlyType = useUIStore((s) => s.setOnlyType);
+
+  useEffect(() => {
+    if (allNodes.length === 0) void refreshData();
+  }, [allNodes.length, refreshData]);
+
+  const filterLabel = useMemo(() => {
+    if (kind === 'category') {
+      return tCat.has(id) ? tCat(id) : fallbackMetaLabel(kind, id);
+    }
+    if (kind === 'era') {
+      return tEra.has(id) ? tEra(id) : fallbackMetaLabel(kind, id);
+    }
+    return tType.has(id) ? tType(id) : fallbackMetaLabel(kind, id);
+  }, [kind, id, tCat, tEra, tType]);
+
+  const subtitle = useMemo(() => {
+    if (kind === 'category') return tPage('listSubtitleCategory');
+    if (kind === 'era') return tPage('listSubtitleEra');
+    return tPage('listSubtitleType');
+  }, [kind, tPage]);
 
   const items = useMemo(
     () =>
@@ -72,6 +106,8 @@ export function TechListByFilterClient({
     router.push(treeInventionPath(getDefaultTreeNodeId()));
   };
 
+  const pageTitle = tPage('listPageTitle', { label: filterLabel });
+
   return (
     <AppContentShell
       as="main"
@@ -83,7 +119,7 @@ export function TechListByFilterClient({
           href="/categories"
           className="text-accent transition-colors hover:underline"
         >
-          ← Catégories
+          {tPage('backToCategories')}
         </Link>
       </nav>
 
@@ -95,27 +131,24 @@ export function TechListByFilterClient({
               'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
           }}
         >
-          {title}
+          {pageTitle}
         </h1>
-        {subtitle ? (
-          <p className="mt-2 text-sm text-muted-foreground md:text-base">{subtitle}</p>
-        ) : null}
+        <p className="mt-2 text-sm text-muted-foreground md:text-base">{subtitle}</p>
         <p className="mt-3 text-sm text-muted-foreground">
-          {items.length} technologie{items.length > 1 ? 's' : ''} dans le jeu de
-          données
+          {tPage('techCount', { count: items.length })}
         </p>
         <button
           type="button"
           onClick={openFilteredGraph}
           className="mt-6 inline-flex items-center justify-center rounded-xl bg-[#3B82F6] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#3B82F6]/25 transition-colors hover:bg-[#60A5FA] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#93C5FD]"
         >
-          Voir le Tree filtré
+          {tPage('openFilteredTree')}
         </button>
       </header>
 
       {items.length === 0 ? (
         <p className="rounded-xl border border-border bg-surface-elevated px-4 py-8 text-center text-sm text-muted-foreground">
-          Aucune technologie ne correspond à ce filtre pour l’instant.
+          {tPage('noResults')}
         </p>
       ) : (
         <ul
@@ -124,6 +157,15 @@ export function TechListByFilterClient({
         >
           {items.map((node) => {
             const c = getCategoryColor(node.category);
+            const catLabel = tCat.has(node.category)
+              ? tCat(node.category)
+              : NODE_CATEGORY_LABELS_FR[node.category] ?? node.category;
+            const eraLabel = tEra.has(node.era)
+              ? tEra(node.era)
+              : ERA_LABELS_FR[node.era] ?? node.era;
+            const typeLabel = tType.has(node.type)
+              ? tType(node.type)
+              : TECH_NODE_TYPE_LABELS_FR[node.type] ?? node.type;
             return (
               <li key={node.id}>
                 <Link
@@ -139,9 +181,7 @@ export function TechListByFilterClient({
                     {node.name}
                   </span>
                   <span className="mt-2 text-xs text-muted-foreground">
-                    {NODE_CATEGORY_LABELS_FR[node.category]} ·{' '}
-                    {ERA_LABELS_FR[node.era]} ·{' '}
-                    {TECH_NODE_TYPE_LABELS_FR[node.type]}
+                    {catLabel} · {eraLabel} · {typeLabel}
                   </span>
                 </Link>
               </li>

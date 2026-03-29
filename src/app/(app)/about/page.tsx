@@ -47,12 +47,13 @@ export default async function AboutPage() {
               <p>{t('projectP2')}</p>
               <p>{t('projectP3')}</p>
               <p>{t('projectP4')}</p>
+              <p>{t('projectP5')}</p>
             </div>
           </section>
 
-          <section aria-labelledby="about-graph">
+          <section aria-labelledby="about-read-page">
             <h2
-              id="about-graph"
+              id="about-read-page"
               className="mb-6 text-[22px] font-bold text-foreground"
               style={{ fontFamily: titleFont }}
             >
@@ -62,20 +63,7 @@ export default async function AboutPage() {
               <p>{t('graphP1')}</p>
               <p>{t('graphP2')}</p>
             </div>
-          </section>
-
-          <section aria-labelledby="about-dimensions">
-            <h2
-              id="about-dimensions"
-              className="mb-6 text-[22px] font-bold text-foreground"
-              style={{ fontFamily: titleFont }}
-            >
-              {t('dimensionsTitle')}
-            </h2>
-            <p className="mb-8 text-base leading-[1.75] text-[#b0b0b0]">
-              {t('dimensionsIntro')}
-            </p>
-            <div className="space-y-8">
+            <div className="mt-8 space-y-8">
               <div>
                 <h3
                   className="mb-3 text-lg font-semibold text-foreground"
@@ -109,6 +97,53 @@ export default async function AboutPage() {
                   {t('dimensionToolsBody')}
                 </p>
               </div>
+            </div>
+          </section>
+
+          <section aria-labelledby="about-material-levels">
+            <h2
+              id="about-material-levels"
+              className="mb-6 text-[22px] font-bold text-foreground"
+              style={{ fontFamily: titleFont }}
+            >
+              {t('materialLevelsTitle')}
+            </h2>
+            <p className="mb-6 text-base leading-[1.75] text-[#b0b0b0]">
+              {t('materialLevelsIntro')}
+            </p>
+            <div className="space-y-5 text-base leading-[1.75] text-[#b0b0b0]">
+              <p>{t('materialRawP')}</p>
+              <p>{t('materialProcessedP')}</p>
+              <p>{t('materialIndustrialP')}</p>
+              <p>{t('materialComponentsP')}</p>
+            </div>
+          </section>
+
+          <section aria-labelledby="about-collaborative">
+            <h2
+              id="about-collaborative"
+              className="mb-6 text-[22px] font-bold text-foreground"
+              style={{ fontFamily: titleFont }}
+            >
+              {t('collaborativeTitle')}
+            </h2>
+            <div className="space-y-5 text-base leading-[1.75] text-[#b0b0b0]">
+              <p>{t('collaborativeP1')}</p>
+              <p>{t('collaborativeP2')}</p>
+            </div>
+          </section>
+
+          <section aria-labelledby="about-behind">
+            <h2
+              id="about-behind"
+              className="mb-6 text-[22px] font-bold text-foreground"
+              style={{ fontFamily: titleFont }}
+            >
+              {t('behindTitle')}
+            </h2>
+            <div className="space-y-5 text-base leading-[1.75] text-[#b0b0b0]">
+              <p>{t('behindP1')}</p>
+              <p>{t('behindP2')}</p>
             </div>
           </section>
         </div>

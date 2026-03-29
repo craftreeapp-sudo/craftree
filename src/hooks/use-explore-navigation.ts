@@ -1,16 +1,14 @@
 'use client';
 
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useCallback } from 'react';
 import { useUIStore } from '@/stores/ui-store';
-import { parseExploreViewMode } from '@/lib/explore-view-mode';
 import { treeInventionPath } from '@/lib/tree-routes';
 
-/** Navigation vers `/tree/[id]` + sync query `view=` */
+/** Navigation vers `/tree/[id]` (sans query ; `?view=led-to` sert uniquement au scroll initial). */
 export function useExploreNavigation() {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const selectNode = useUIStore((s) => s.selectNode);
   const closeSidebar = useUIStore((s) => s.closeSidebar);
 
@@ -23,11 +21,9 @@ export function useExploreNavigation() {
         openEdit?: boolean;
         openSuggest?: boolean;
         openSidebar?: boolean;
-        exploreView?: 'built-upon' | 'led-to';
       }
     ) => {
-      const view = opts?.exploreView ?? parseExploreViewMode(searchParams);
-      router.replace(treeInventionPath(id, view));
+      router.replace(treeInventionPath(id));
       selectNode(id, {
         center: opts?.center === true,
         exploreMode: opts?.exploreMode,
@@ -36,7 +32,7 @@ export function useExploreNavigation() {
         openSidebar: opts?.openSidebar,
       });
     },
-    [router, searchParams, selectNode]
+    [router, selectNode]
   );
 
   const closeDetail = useCallback(() => {

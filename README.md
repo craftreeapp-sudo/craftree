@@ -19,11 +19,13 @@
 
 ## What is Craftree?
 
-Craftree is an interactive graph that models human inventions as **fabrication recipes**. Unlike chronological tech trees that show *when* things were invented, Craftree answers a different question: **what do you need to make them?**
+Craftree is an interactive technology tree that models human inventions as **fabrication recipes**. Unlike classic timelines that show *when* things were invented, Craftree answers a different question: **what do you need to make them?**
 
-Every invention is broken down into its direct inputs — the materials consumed, the tools used, the energy sources required, and the prerequisite knowledge. Click an input to go one level deeper. Keep going until you reach raw materials found in nature: sand, clay, wood, water, fire.
+Each invention is broken down into three dimensions: the materials it's made of, the processes used to transform them, and the tools and machines required. Click on any input to explore its own recipe, all the way down to raw materials found in nature — sand, clay, wood, water, fire.
 
-The result is an inverted pyramid. At the top, a smartphone. At the bottom, sand and ore. In between, hundreds of inventions stacked on top of each other, each made possible by those that came before. Craftree makes this depth visible and navigable.
+The result is an inverted pyramid. At the top, a smartphone. At the bottom, sand and ore. In between, hundreds of inventions stacked on one another, each made possible by those before it. Craftree makes that depth visible and explorable.
+
+The project was born from a conviction: in a world where everything moves faster, it matters to understand where things come from — not only who invented them, but what had to be assembled, transformed, and mastered for them to exist.
 
 <p align="center">
   <img src="public/screenshots/global-view.png" alt="Global view of the tree" width="700" />
@@ -256,7 +258,9 @@ Craftree is inspired by the [Historical Tech Tree](https://historicaltechtree.co
 
 ## Credits
 
-Created by **Julien Beljio**.
+Craftree is an independent project created by **Julien Beljio**. It is not affiliated with any company, university, or institution. The code is open source (MIT) and the data is freely accessible.
+
+If you'd like to support the project, contribute content on the site, share it with others, or reach out via [Contact](https://craftree.app/contact).
 
 Built with Next.js, React Flow, and Tailwind CSS. Data enriched by Claude (Anthropic). Images from Wikimedia Commons.
 

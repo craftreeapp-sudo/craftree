@@ -11,8 +11,8 @@ export function getDefaultTreeNodeId(): string {
 }
 
 /**
- * URL canonique d’une invention (vue Built Upon par défaut, sans query inutile).
- * `view=led-to` uniquement pour la vue aval.
+ * URL canonique d’une invention (sans query par défaut).
+ * `?view=led-to` : ouvre la page et fait défiler jusqu’à la section « Led to » (scroll initial).
  */
 export function treeInventionPath(
   id: string,
