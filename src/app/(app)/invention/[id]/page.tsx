@@ -5,6 +5,7 @@ import {
   getInventionNodeById,
 } from '@/lib/invention-seo';
 import { getAllNodeIds } from '@/lib/seed-merge';
+import { treeInventionPath } from '@/lib/tree-routes';
 import { InventionRedirect } from './InventionRedirect';
 
 type Props = {
@@ -28,14 +29,12 @@ export default async function InventionPage({ params }: Props) {
 
   if (!node) {
     return (
-      <InventionRedirect
-        to={`/explore?node=${encodeURIComponent(id)}`}
-      />
+      <InventionRedirect to={treeInventionPath(id)} />
     );
   }
 
   const jsonLd = buildInventionJsonLd(node);
-  const explore = `/explore?node=${encodeURIComponent(id)}`;
+  const treeUrl = treeInventionPath(id);
 
   return (
     <>
@@ -43,7 +42,7 @@ export default async function InventionPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <InventionRedirect to={explore} />
+      <InventionRedirect to={treeUrl} />
     </>
   );
 }

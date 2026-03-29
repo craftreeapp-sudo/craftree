@@ -11,6 +11,8 @@ export interface SelectNodeOptions {
   openEdit?: boolean;
   /** /explore contributeur : ouvrir le mode suggestion (pré-rempli) pour ce nœud */
   openSuggest?: boolean;
+  /** Si false, garde la sidebar fermée (navigation grille Built Upon). Défaut true. */
+  openSidebar?: boolean;
 }
 
 const ALL_CATEGORIES = new Set(Object.values(NC) as NodeCategory[]);
@@ -140,7 +142,7 @@ export const useUIStore = create<UIStore>((set) => ({
       }
       return {
         selectedNodeId: id,
-        isSidebarOpen: true,
+        isSidebarOpen: options?.openSidebar === false ? false : true,
         centerOnNodeId: options?.center === true ? id : null,
         exploreFocusExitCenterId: null,
         exploreNeighborhoodFitId: null,

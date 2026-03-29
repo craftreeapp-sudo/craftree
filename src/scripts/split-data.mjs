@@ -30,6 +30,8 @@ for (const n of data.nodes) {
     year_approx: n.year_approx ?? null,
     image_url: n.image_url ?? undefined,
     complexity_depth: n.complexity_depth,
+    dimension: n.dimension ?? null,
+    materialLevel: n.materialLevel ?? null,
   });
 
   const det = {

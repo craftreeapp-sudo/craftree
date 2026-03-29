@@ -4,12 +4,29 @@ import {
   getExploreMetadataNodes as getExploreMetadataNodesFromSeed,
   getLinksForMetadata as getLinksForMetadataFromSeed,
 } from '@/lib/seed-merge';
-import type { CraftingLink, SeedNode } from '@/lib/types';
+import type {
+  CraftingLink,
+  MaterialLevel,
+  NodeDimension,
+  SeedNode,
+} from '@/lib/types';
 import { getEraFromYear } from '@/lib/utils';
+
+function mapRowDimension(row: Record<string, unknown>): NodeDimension | null {
+  const d = row.dimension;
+  if (d == null || d === '') return null;
+  return String(d) as NodeDimension;
+}
+
+function mapRowMaterialLevel(row: Record<string, unknown>): MaterialLevel | null {
+  const m = row.material_level;
+  if (m == null || m === '') return null;
+  return String(m) as MaterialLevel;
+}
 
 /** Colonnes minimales pour le graphe /explore (pas de textes longs). */
 export const GRAPH_NODES_SELECT =
-  'id, name, name_en, category, type, era, year_approx, image_url, complexity_depth';
+  'id, name, name_en, category, type, era, year_approx, image_url, complexity_depth, dimension, material_level';
 
 /** Liens : champs nécessaires au rendu et à l’éditeur (pas de métadonnées inutiles). */
 export const GRAPH_LINKS_SELECT =
@@ -41,6 +58,8 @@ export function mapGraphNodeRowToSeedNode(row: Record<string, unknown>): SeedNod
     origin: undefined,
     image_url: row.image_url != null ? String(row.image_url) : undefined,
     wikipedia_url: undefined,
+    dimension: mapRowDimension(row),
+    materialLevel: mapRowMaterialLevel(row),
   };
 }
 
@@ -65,6 +84,8 @@ export function mapNodeRowToSeedNode(row: Record<string, unknown>): SeedNode {
     origin: row.origin != null ? String(row.origin) : undefined,
     image_url: row.image_url != null ? String(row.image_url) : undefined,
     wikipedia_url: row.wikipedia_url != null ? String(row.wikipedia_url) : undefined,
+    dimension: mapRowDimension(row),
+    materialLevel: mapRowMaterialLevel(row),
   };
 }
 

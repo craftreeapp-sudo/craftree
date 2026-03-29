@@ -8,6 +8,7 @@ import {
 import { requireAdminFromRequest } from '@/lib/auth-server';
 import { mapNodeRowToSeedNode } from '@/lib/data';
 import { nodeRowToTechNodeDetails } from '@/lib/db-map';
+import { mergeDimensionMaterialLevel } from '@/lib/node-dimension';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 type Ctx = { params: Promise<{ id: string }> };
@@ -112,6 +113,10 @@ export async function PUT(request: Request, ctx: Ctx) {
           body.year_approx === null ? undefined : Number(body.year_approx);
       }
 
+      const dm = mergeDimensionMaterialLevel(cur, body);
+      merged.dimension = dm.dimension;
+      merged.materialLevel = dm.materialLevel;
+
       data.nodes[idx] = merged;
       writeSeedData(data);
       return NextResponse.json({ node: merged });
@@ -123,10 +128,11 @@ export async function PUT(request: Request, ctx: Ctx) {
     }
 
     const sb = createSupabaseServiceRoleClient();
-    const { data: existing } = await sb.from('nodes').select('id').eq('id', decoded).maybeSingle();
-    if (!existing) {
+    const { data: prevRow } = await sb.from('nodes').select('*').eq('id', decoded).maybeSingle();
+    if (!prevRow) {
       return NextResponse.json({ error: 'Node not found' }, { status: 404 });
     }
+    const cur = mapNodeRowToSeedNode(prevRow as Record<string, unknown>);
 
     let tags: string[] | undefined;
     const rawTags = body.tags;
@@ -156,6 +162,10 @@ export async function PUT(request: Request, ctx: Ctx) {
       patch.year_approx =
         body.year_approx === null ? null : Number(body.year_approx);
     }
+
+    const dm = mergeDimensionMaterialLevel(cur, body);
+    patch.dimension = dm.dimension;
+    patch.material_level = dm.materialLevel;
 
     const { data: updated, error } = await sb
       .from('nodes')

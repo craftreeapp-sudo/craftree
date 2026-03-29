@@ -1,15 +1,7 @@
 import type { Metadata } from 'next';
 import { getLocale } from 'next-intl/server';
 import { LandingPage } from '@/components/landing/LandingPage';
-import {
-  computeLandingPageData,
-  type LandingIndexNode,
-} from '@/lib/landing-ssg';
-import { getPublicGraphStats } from '@/lib/landing-stats';
-import { resolveLandingHeroCards } from '@/lib/landing-hero-cards';
-import { getLandingDemoTreeNodes } from '@/lib/landing-demo-tree';
 import nodesIndex from '@/data/nodes-index.json';
-import linksData from '@/data/links.json';
 
 export const metadata: Metadata = {
   title: 'Craftree — De quoi est faite la civilisation ?',
@@ -17,26 +9,20 @@ export const metadata: Metadata = {
     "Explorez l'arbre complet des technologies humaines, de la matière première au produit final.",
 };
 
-const landing = computeLandingPageData(
-  nodesIndex.nodes as LandingIndexNode[],
-  linksData.links
-);
+type IndexNode = (typeof nodesIndex.nodes)[number];
 
-const heroCards = resolveLandingHeroCards(
-  nodesIndex.nodes as Array<{ id: string; name: string; category: string }>
-);
+const floatingPool = nodesIndex.nodes
+  .filter((n: IndexNode) => Boolean(n.image_url?.trim()))
+  .filter((_: IndexNode, i: number) => i % 5 === 0)
+  .slice(0, 48)
+  .map((n: IndexNode) => ({
+    id: n.id,
+    name: n.name,
+    category: n.category,
+    image_url: n.image_url,
+  }));
 
 export default async function Home() {
-  const locale = await getLocale();
-  const demoNodes = getLandingDemoTreeNodes(locale);
-  const stats = await getPublicGraphStats();
-
-  return (
-    <LandingPage
-      stats={stats}
-      feature={landing.feature}
-      heroCards={heroCards}
-      demoNodes={demoNodes}
-    />
-  );
+  await getLocale();
+  return <LandingPage floatingPool={floatingPool} />;
 }

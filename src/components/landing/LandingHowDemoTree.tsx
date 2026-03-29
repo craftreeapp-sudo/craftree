@@ -12,6 +12,7 @@ import {
   type LandingDemoTreeNode,
 } from '@/lib/landing-demo-tree';
 import type { NodeCategory } from '@/lib/types';
+import { treeInventionPath } from '@/lib/tree-routes';
 import { useOnceInView } from '@/hooks/use-once-in-view';
 
 const CARD_W = 60;
@@ -148,7 +149,7 @@ export function LandingHowDemoTree({ nodes }: Props) {
                 }}
               >
                 <Link
-                  href={`/explore?node=${encodeURIComponent(id)}`}
+                  href={treeInventionPath(id)}
                   className="group relative flex h-full w-full flex-col items-center justify-center rounded-md bg-surface/90 px-1 text-center shadow-sm outline-none transition-[transform,border-color,border-width] duration-200 hover:z-10 hover:scale-105 focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-page"
                   style={
                     {

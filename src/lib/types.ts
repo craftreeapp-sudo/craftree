@@ -54,6 +54,16 @@ export type TechNodeType =
   | 'component'
   | 'end_product';
 
+/** Nature de l’invention (orthogonal au champ `type`). */
+export type NodeDimension = 'matter' | 'process' | 'tool';
+
+/** Niveau matière — uniquement si dimension = matter. */
+export type MaterialLevel =
+  | 'raw'
+  | 'processed'
+  | 'industrial'
+  | 'component';
+
 // ─── Nœuds (technologies / ressources) ───────────────────────────────────────
 
 /** Champs chargés avec le graphe (seed-data.json, projection runtime) — pas de textes longs ni médias. */
@@ -72,6 +82,10 @@ export interface TechNodeBasic {
   origin?: string;
   /** Image illustrative (sinon placeholder par catégorie) */
   image_url?: string;
+  /** Matière / procédé / outil — null tant non renseigné. */
+  dimension?: NodeDimension | null;
+  /** Niveau matière si dimension = matter ; sinon null. */
+  materialLevel?: MaterialLevel | null;
 }
 
 /** Métadonnées étendues (nodes-details.json ou API — chargées à la demande). */
@@ -84,6 +98,8 @@ export interface TechNodeDetails {
   wikipedia_url?: string;
   origin?: string | null;
   tags?: string[];
+  /** Images additionnelles (galerie) — optionnel, rarement renseigné. */
+  extra_image_urls?: string[];
   _ai_built_upon?: string[];
   _ai_led_to?: string[];
 }
@@ -128,6 +144,8 @@ export interface SeedNode {
   origin?: string;
   image_url?: string;
   wikipedia_url?: string;
+  dimension?: NodeDimension | null;
+  materialLevel?: MaterialLevel | null;
   _ai_built_upon?: string[];
   _ai_led_to?: string[];
 }

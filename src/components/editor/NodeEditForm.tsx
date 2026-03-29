@@ -13,6 +13,8 @@ import {
   ERA_DATE_RANGES,
   ERA_ORDER,
   TECH_NODE_TYPE_ORDER,
+  DIMENSION_ORDER,
+  MATERIAL_LEVEL_ORDER,
 } from '@/lib/node-labels';
 import { slugify } from '@/lib/utils';
 import {
@@ -32,6 +34,7 @@ import {
   RELATION_TYPES_LIST,
 } from './editor-relation-styles';
 import { ImageUploader } from '@/components/ui/ImageUploader';
+import { EDITOR_DIM_KEY, EDITOR_LEVEL_KEY } from './dimension-editor-keys';
 
 export interface NodeEditFormState {
   name: string;
@@ -44,6 +47,9 @@ export interface NodeEditFormState {
   origin: string;
   tags: string;
   wikipedia_url: string;
+  /** Chaîne vide = non renseigné (null en API). */
+  dimension: string;
+  materialLevel: string;
 }
 
 export function createEmptyFormState(): NodeEditFormState {
@@ -58,6 +64,8 @@ export function createEmptyFormState(): NodeEditFormState {
     origin: '',
     tags: '',
     wikipedia_url: '',
+    dimension: '',
+    materialLevel: '',
   };
 }
 
@@ -76,6 +84,8 @@ export function seedNodeToFormState(n: SeedNode): NodeEditFormState {
     origin: n.origin ?? '',
     tags: (n.tags ?? []).join(', '),
     wikipedia_url: n.wikipedia_url ?? '',
+    dimension: n.dimension ?? '',
+    materialLevel: n.materialLevel ?? '',
   };
 }
 
@@ -281,6 +291,53 @@ export function NodeEditForm({
             {TECH_NODE_TYPE_ORDER.map((nt) => (
               <option key={nt} value={nt}>
                 {tType(nt)}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="mb-1 block text-xs text-muted-foreground">
+            {te('labelDimension')}
+          </label>
+          <select
+            value={form.dimension}
+            onChange={(e) => {
+              const v = e.target.value;
+              setForm((f) => ({
+                ...f,
+                dimension: v,
+                materialLevel: v === 'matter' ? f.materialLevel : '',
+              }));
+            }}
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
+          >
+            <option value="">{te('notSet')}</option>
+            {DIMENSION_ORDER.map((d) => (
+              <option key={d} value={d}>
+                {te(EDITOR_DIM_KEY[d])}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="mb-1 block text-xs text-muted-foreground">
+            {te('labelMaterialLevel')}
+          </label>
+          <select
+            value={form.materialLevel}
+            onChange={(e) =>
+              setForm((f) => ({
+                ...f,
+                materialLevel: e.target.value,
+              }))
+            }
+            disabled={form.dimension !== 'matter'}
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <option value="">{te('notSet')}</option>
+            {MATERIAL_LEVEL_ORDER.map((lv) => (
+              <option key={lv} value={lv}>
+                {te(EDITOR_LEVEL_KEY[lv])}
               </option>
             ))}
           </select>

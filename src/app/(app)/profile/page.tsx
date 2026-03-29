@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { createSupabaseRouteHandlerClient } from '@/lib/supabase-route';
 import { ProfilePageClient } from '@/components/profile/ProfilePageClient';
+import { treeInventionPath, getDefaultTreeNodeId } from '@/lib/tree-routes';
 
 export const metadata: Metadata = {
   title: 'Profil — Craftree',
@@ -14,7 +15,7 @@ export default async function ProfilePage() {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) {
-    redirect('/explore');
+    redirect(treeInventionPath(getDefaultTreeNodeId()));
   }
   return <ProfilePageClient />;
 }

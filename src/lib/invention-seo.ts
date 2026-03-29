@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getMergedSeedNode } from '@/lib/seed-merge';
 import { getSiteUrl } from '@/lib/seo';
+import { treeInventionPath } from '@/lib/tree-routes';
 import { NODE_CATEGORY_LABELS_FR } from '@/lib/node-labels';
 import type { NodeCategory, SeedNode } from '@/lib/types';
 
@@ -32,17 +33,19 @@ export function buildInventionMetadata(id: string): Metadata {
   const imagePath = node.image_url?.trim() || '/og-default.png';
   const ogImage =
     imagePath.startsWith('http') ? imagePath : `${base}${imagePath}`;
+  const canonicalUrl = `${base}${treeInventionPath(id)}`;
 
   return {
     title: { absolute: title },
     description,
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title: `${node.name} — De quoi est-ce fait ?`,
       description,
       type: 'article',
       locale: 'fr_FR',
       siteName: 'Craftree',
-      url: `${base}/invention/${encodeURIComponent(id)}`,
+      url: canonicalUrl,
       images: [
         {
           url: ogImage,
@@ -63,6 +66,7 @@ export function buildInventionMetadata(id: string): Metadata {
 
 export function buildInventionJsonLd(node: SeedNode) {
   const base = getSiteUrl();
+  const pageUrl = `${base}${treeInventionPath(node.id)}`;
   const image = node.image_url?.trim()
     ? node.image_url.startsWith('http')
       ? node.image_url
@@ -75,7 +79,7 @@ export function buildInventionJsonLd(node: SeedNode) {
     name: node.name,
     description: node.description,
     image,
-    url: `${base}/invention/${node.id}`,
+    url: pageUrl,
     ...(node.year_approx !== null && node.year_approx !== undefined
       ? { dateCreated: String(node.year_approx) }
       : {}),

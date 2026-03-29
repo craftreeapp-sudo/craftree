@@ -55,7 +55,7 @@ function MailIcon({ className }: { className?: string }) {
 
 export function ExploreFilterDrawer() {
   const pathname = usePathname();
-  const isExplore = pathname === '/explore';
+  const isExplore = Boolean(pathname?.startsWith('/tree/'));
   const locale = useLocale();
   const isRtl = isRtlLocale(locale);
   const tNav = useTranslations('nav');

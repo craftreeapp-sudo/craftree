@@ -11,6 +11,7 @@ import { signOut } from '@/lib/auth-client';
 import { AppContentShell } from '@/components/layout/AppContentShell';
 import { BackToExploreLink } from '@/components/layout/BackToExploreLink';
 import { useToastStore } from '@/stores/toast-store';
+import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
 
 type ProfilePayload = {
   profile: {
@@ -115,7 +116,7 @@ export function ProfilePageClient() {
       const res = await fetch('/api/profile');
       if (!res.ok) {
         if (res.status === 401) {
-          router.replace('/explore');
+          router.replace(treeInventionPath(getDefaultTreeNodeId()));
           return;
         }
         throw new Error('load failed');
@@ -414,7 +415,7 @@ export function ProfilePageClient() {
             {inventedNodes.map((n) => (
               <Link
                 key={n.id}
-                href={`/explore?node=${encodeURIComponent(n.id)}`}
+                href={treeInventionPath(n.id)}
                 className="inline-flex min-h-[44px] items-center gap-2.5 rounded-lg border border-border bg-surface px-4 py-2.5 text-[14px] font-medium text-foreground/85 transition-colors hover:border-accent"
               >
                 <span

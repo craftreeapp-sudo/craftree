@@ -10,7 +10,7 @@ import type { NodeCategory } from '@/lib/types';
 
 const DRAWER_W_PX = 280;
 const LEGEND_MARGIN_PX = 20;
-/** Aligné avec `ExploreCategoryPanel` : largeur du panneau + marge avant le graphe. */
+/** Marge cohérente avec la zone principale /explore. */
 const CATEGORY_PANEL_W_PX = 200;
 const CATEGORY_PANEL_GAP_PX = 8;
 /** Bouton « rouvrir » (focus, panneau replié) : `left-3` + w-10 + petit espace. */

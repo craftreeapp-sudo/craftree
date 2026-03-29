@@ -13,6 +13,7 @@ import {
   mapNodeRowToSeedNode,
 } from '@/lib/data';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
+import { dimensionMaterialLevelFromCreateBody } from '@/lib/node-dimension';
 
 function uniqueIdFromName(base: string, existingIds: Set<string>): string {
   let id = slugify(base);
@@ -24,7 +25,7 @@ function uniqueIdFromName(base: string, existingIds: Set<string>): string {
 }
 
 const FULL_NODES_SELECT =
-  'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth';
+  'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level';
 
 export async function GET(request: Request) {
   try {
@@ -128,6 +129,7 @@ export async function POST(request: Request) {
         Number.isFinite(body.complexity_depth)
           ? body.complexity_depth
           : 0;
+      const dm = dimensionMaterialLevelFromCreateBody(body);
       const node: SeedNode = {
         id,
         name,
@@ -161,6 +163,8 @@ export async function POST(request: Request) {
                 body.wikipedia_url.trim()
               ? body.wikipedia_url.trim()
               : undefined,
+        dimension: dm.dimension,
+        materialLevel: dm.materialLevel,
       };
       data.nodes.push(node);
       writeSeedData(data);
@@ -229,6 +233,8 @@ export async function POST(request: Request) {
         ? body.complexity_depth
         : 0;
 
+    const dm = dimensionMaterialLevelFromCreateBody(body);
+
     const insertRow = {
       id,
       name,
@@ -266,6 +272,8 @@ export async function POST(request: Request) {
           : typeof body.wikipedia_url === 'string' && body.wikipedia_url.trim()
             ? body.wikipedia_url.trim()
             : null,
+      dimension: dm.dimension,
+      material_level: dm.materialLevel,
     };
 
     const { data: inserted, error } = await sb

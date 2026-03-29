@@ -5,6 +5,8 @@ import {
   NodeCategory as NC,
   Era as EraEnum,
   type Era,
+  type MaterialLevel,
+  type NodeDimension,
   type TechNodeType,
 } from '@/lib/types';
 
@@ -106,4 +108,30 @@ export const TECH_NODE_TYPE_LABELS_FR: Record<TechNodeType, string> = {
   tool: 'Outil',
   component: 'Composant',
   end_product: 'Produit final',
+};
+
+export const DIMENSION_ORDER: NodeDimension[] = [
+  'matter',
+  'process',
+  'tool',
+];
+
+export const DIMENSION_LABELS_FR: Record<NodeDimension, string> = {
+  matter: 'Matière',
+  process: 'Procédé',
+  tool: 'Outil',
+};
+
+export const MATERIAL_LEVEL_ORDER: MaterialLevel[] = [
+  'raw',
+  'processed',
+  'industrial',
+  'component',
+];
+
+export const MATERIAL_LEVEL_LABELS_FR: Record<MaterialLevel, string> = {
+  raw: 'Brut',
+  processed: 'Transformé',
+  industrial: 'Industriel',
+  component: 'Composant',
 };

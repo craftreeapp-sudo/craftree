@@ -2,6 +2,9 @@
 
 import type { AuthError } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
+import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
+
+const DEFAULT_AFTER_AUTH = treeInventionPath(getDefaultTreeNodeId());
 
 export type SignInWithGoogleResult = {
   error: AuthError | Error | null;
@@ -15,7 +18,7 @@ export type SignInWithGoogleOptions = {
    * Permet de choisir un autre compte Google sans rester bloqué sur la session navigateur.
    */
   promptAccountSelection?: boolean;
-  /** Chemin après succès OAuth (défaut : /explore) */
+  /** Chemin après succès OAuth (défaut : première invention /tree) */
   nextPath?: string;
 };
 
@@ -53,8 +56,8 @@ export async function signInWithGoogle(
   }
 
   const origin = window.location.origin;
-  const nextPath = options?.nextPath ?? '/explore';
-  const safeNext = nextPath.startsWith('/') ? nextPath : '/explore';
+  const nextPath = options?.nextPath ?? DEFAULT_AFTER_AUTH;
+  const safeNext = nextPath.startsWith('/') ? nextPath : DEFAULT_AFTER_AUTH;
 
   const promptAccountSelection = options?.promptAccountSelection !== false;
 

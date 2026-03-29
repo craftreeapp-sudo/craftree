@@ -1,72 +1,23 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import {
-  ReactFlow,
-  Background,
-  ReactFlowProvider,
-  useReactFlow,
-} from '@xyflow/react';
-import '@xyflow/react/dist/style.css';
-import { TechNode } from '@/components/graph/TechNode';
-import { TechEdge } from '@/components/graph/TechEdge';
-import {
-  EXPLORE_LAYOUT_NODE_H,
-  EXPLORE_LAYOUT_NODE_W,
-  EXPLORE_NODESEP,
-  EXPLORE_RANKSEP,
-  getLayoutedElements,
-} from '@/lib/graph-utils';
-import type { LayoutEdge, LayoutNode } from '@/lib/graph-utils';
+import Link from 'next/link';
 import nodesIndex from '@/data/nodes-index.json';
-import linksJson from '@/data/links.json';
+import { treeInventionPath } from '@/lib/tree-routes';
 import type { TechNodeBasic } from '@/lib/types';
-
-const nodeTypes = { tech: TechNode };
-const edgeTypes = { tech: TechEdge };
 
 const DEMO_IDS = ['sable', 'verre', 'ampoule'] as const;
 
-function DemoFlowInner() {
-  const { fitView } = useReactFlow();
+export function LandingDemoGraph() {
   const [phase, setPhase] = useState(0);
 
-  const { allNodes, allEdges } = useMemo(() => {
-    const data = {
-      nodes: nodesIndex.nodes.map((n) => ({
-        ...n,
-        tags: [] as string[],
-      })) as TechNodeBasic[],
-      links: linksJson.links as unknown[],
-    };
-    const byId = new Map(data.nodes.map((n) => [n.id, n]));
-    const layoutNodes: LayoutNode[] = DEMO_IDS.map((id) => {
-      const n = byId.get(id)!;
-      return {
-        id: n.id,
-        name: n.name,
-        category: n.category,
-        type: n.type,
-        era: n.era,
-      };
-    });
-    const rawLinks = data.links as LayoutEdge[];
-    const layoutEdges: LayoutEdge[] = [
-      rawLinks.find(
-        (l) => l.source_id === 'sable' && l.target_id === 'verre'
-      ),
-      rawLinks.find(
-        (l) => l.source_id === 'verre' && l.target_id === 'ampoule'
-      ),
-    ].filter((x): x is LayoutEdge => x != null);
-    const le = getLayoutedElements(layoutNodes, layoutEdges, {
-      direction: 'TB',
-      nodeWidth: EXPLORE_LAYOUT_NODE_W,
-      nodeHeight: EXPLORE_LAYOUT_NODE_H,
-      ranksep: EXPLORE_RANKSEP,
-      nodesep: EXPLORE_NODESEP,
-    });
-    return { allNodes: le.nodes, allEdges: le.edges };
+  const steps = useMemo(() => {
+    const byId = new Map(
+      nodesIndex.nodes.map((n) => [n.id, n as TechNodeBasic])
+    );
+    return DEMO_IDS.map((id) => byId.get(id)).filter(
+      (n): n is TechNodeBasic => n != null
+    );
   }, []);
 
   useEffect(() => {
@@ -77,55 +28,39 @@ function DemoFlowInner() {
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  const { nodes, edges } = useMemo(() => {
-    if (phase === 0) return { nodes: [], edges: [] };
-    const n =
-      phase >= 3
-        ? allNodes
-        : allNodes.slice(0, Math.min(phase, 3));
-    let e: typeof allEdges = [];
-    if (phase >= 4) e = [allEdges[0]];
-    if (phase >= 5) e = allEdges;
-    return { nodes: n, edges: e };
-  }, [phase, allNodes, allEdges]);
-
-  useEffect(() => {
-    if (nodes.length === 0) return;
-    const t = window.setTimeout(() => {
-      fitView({ padding: 0.35, duration: 350 });
-    }, 50);
-    return () => clearTimeout(t);
-  }, [nodes, edges, fitView]);
+  const visibleCount =
+    phase === 0 ? 0 : phase >= 3 ? 3 : Math.min(phase, 3);
+  const visibleLinks = phase >= 5 ? 2 : phase >= 4 ? 1 : 0;
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      nodeTypes={nodeTypes}
-      edgeTypes={edgeTypes}
-      nodesDraggable={false}
-      nodesConnectable={false}
-      elementsSelectable={false}
-      panOnScroll={false}
-      zoomOnScroll={false}
-      zoomOnPinch={false}
-      panOnDrag={false}
-      preventScrolling
-      fitView={false}
-      className="rounded-2xl border border-border bg-page/90"
-      proOptions={{ hideAttribution: true }}
-    >
-      <Background color="var(--graph-bg-dot)" gap={16} size={1} />
-    </ReactFlow>
-  );
-}
-
-export function LandingDemoGraph() {
-  return (
-    <div className="h-[min(420px,55vh)] w-full max-w-3xl">
-      <ReactFlowProvider>
-        <DemoFlowInner />
-      </ReactFlowProvider>
+    <div className="flex h-[min(420px,55vh)] w-full max-w-3xl flex-col items-center justify-center gap-4 rounded-2xl border border-border bg-surface/90 p-6 shadow-lg dark:bg-page/90">
+      <div className="flex flex-col items-center gap-2">
+        {steps.slice(0, visibleCount).map((node, i) => (
+          <div key={node.id} className="flex w-full flex-col items-center gap-2">
+            <Link
+              href={treeInventionPath(node.id)}
+              className="group flex w-full max-w-xs flex-col items-center rounded-xl border border-border bg-surface-elevated p-4 shadow-md transition-transform hover:scale-[1.02] dark:border-white/10 dark:bg-[#1a1a2e]"
+            >
+              <div
+                className="mb-2 flex h-16 w-16 items-center justify-center rounded-lg text-lg font-bold text-foreground/80"
+                style={{
+                  backgroundColor: `color-mix(in srgb, var(--accent) 15%, transparent)`,
+                }}
+              >
+                {node.name.charAt(0)}
+              </div>
+              <span className="text-center text-sm font-medium text-foreground">
+                {node.name}
+              </span>
+            </Link>
+            {i < visibleCount - 1 && visibleLinks > i ? (
+              <span className="text-xl text-muted-foreground" aria-hidden>
+                ↓
+              </span>
+            ) : null}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

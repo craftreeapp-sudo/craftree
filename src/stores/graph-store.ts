@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import type { Node, Edge } from '@xyflow/react';
 import type {
   TechNodeBasic,
   CraftingLink,
@@ -9,18 +8,14 @@ import type {
   RelationType,
   SeedNode,
   TechNodeDetails,
+  MaterialLevel,
+  NodeDimension,
 } from '@/lib/types';
 import {
   computeComplexityDepth,
   computeCentrality,
   filterValidCraftingLinks,
   warnOrphanNodes,
-  getDepthLayerLayoutedElements,
-  EXPLORE_LAYER_HEIGHT,
-  EXPLORE_LAYOUT_NODE_H,
-  EXPLORE_LAYOUT_NODE_W,
-  EXPLORE_NODESEP,
-  type DepthLayerMeta,
 } from '@/lib/graph-utils';
 import { useNodeDetailsStore } from '@/stores/node-details-store';
 
@@ -36,6 +31,8 @@ interface RawNode {
   tags?: string[];
   origin?: string;
   image_url?: string;
+  dimension?: NodeDimension | null;
+  materialLevel?: MaterialLevel | null;
 }
 
 interface RawLink {
@@ -48,24 +45,6 @@ interface RawLink {
 }
 
 const detailsMemoryCache = new Map<string, TechNodeDetails | null>();
-
-/** Mise à jour légère des données affichées sur les nœuds Flow (sans recalcul dagre). */
-function applyVisualPatchToExploreFlowNodes(
-  flowNodes: Node[],
-  nodeId: string,
-  patch: Partial<TechNodeBasic>
-): Node[] {
-  return flowNodes.map((n) => {
-    if (n.id !== nodeId || n.type !== 'tech') return n;
-    const d = (n.data ?? {}) as Record<string, unknown>;
-    const next: Record<string, unknown> = { ...d };
-    if (patch.image_url !== undefined) next.image_url = patch.image_url;
-    if (patch.name !== undefined) next.name = patch.name;
-    if (patch.tags !== undefined) next.tags = patch.tags;
-    if (patch.origin !== undefined) next.origin = patch.origin;
-    return { ...n, data: next };
-  });
-}
 
 function patchNeedsFullLayout(patch: Partial<TechNodeBasic>): boolean {
   return Object.keys(patch).some(
@@ -129,6 +108,12 @@ function normalizeNode(raw: RawNode): TechNodeBasic {
     tags: raw.tags ?? [],
     origin: raw.origin,
     image_url: raw.image_url,
+    ...(raw.dimension !== undefined
+      ? { dimension: raw.dimension }
+      : {}),
+    ...(raw.materialLevel !== undefined
+      ? { materialLevel: raw.materialLevel }
+      : {}),
   };
 }
 
@@ -155,6 +140,8 @@ function nodesToRaw(nodes: TechNodeBasic[]): RawNode[] {
     tags: n.tags ?? [],
     origin: n.origin,
     image_url: n.image_url,
+    dimension: n.dimension ?? null,
+    materialLevel: n.materialLevel ?? null,
   }));
 }
 
@@ -188,43 +175,11 @@ function buildGraphState(data: { nodes: RawNode[]; links: RawLink[] }) {
     complexity_depth: complexityDepthByNodeId.get(n.id) ?? n.complexity_depth,
   }));
 
-  const metricsByNodeId = new Map(
-    nodesWithComputedMetrics.map((n) => [n.id, n])
-  );
-  const layoutNodes = nodesWithComputedMetrics.map((n) => ({
-    id: n.id,
-    name: n.name,
-    category: n.category,
-    type: n.type,
-    era: n.era,
-    complexity_depth: n.complexity_depth,
-  }));
-  const layoutEdges = initialEdges.map((e) => ({
-    id: e.id,
-    source_id: e.source_id,
-    target_id: e.target_id,
-    relation_type: e.relation_type,
-  }));
-
-  const { nodes: exploreFlowNodes, edges: exploreFlowEdges, layerMetas } =
-    getDepthLayerLayoutedElements(layoutNodes, layoutEdges, {
-      topMargin: 80,
-      layerHeight: EXPLORE_LAYER_HEIGHT,
-      nodeWidth: EXPLORE_LAYOUT_NODE_W,
-      nodeHeight: EXPLORE_LAYOUT_NODE_H,
-      nodesep: EXPLORE_NODESEP,
-      centralityByNodeId,
-      metricsByNodeId,
-    });
-
   return {
     nodes: nodesWithComputedMetrics,
     edges: initialEdges,
     centralityByNodeId,
     complexityDepthByNodeId,
-    exploreFlowNodes,
-    exploreFlowEdges,
-    exploreLayerMetas: layerMetas,
   };
 }
 
@@ -245,10 +200,6 @@ interface GraphStore {
   complexityDepthByNodeId: Map<string, number>;
   /** Incrémenté à chaque changement d’image pour forcer le reload navigateur. */
   imageBustByNodeId: Record<string, number>;
-  /** Layout React Flow vue /explore (une fois au chargement / refresh). */
-  exploreFlowNodes: Node[];
-  exploreFlowEdges: Edge[];
-  exploreLayerMetas: DepthLayerMeta[];
   /** Recalcule profondeurs, centralité et layout explore sans refetch API. */
   setEdgesAndRecompute: (edges: CraftingLink[]) => void;
   /** Ajoute un nœud (après POST /api/nodes) puis recalcule tout le graphe. */
@@ -270,9 +221,6 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
   centralityByNodeId: bootstrap.centralityByNodeId,
   complexityDepthByNodeId: bootstrap.complexityDepthByNodeId,
   imageBustByNodeId: {},
-  exploreFlowNodes: bootstrap.exploreFlowNodes,
-  exploreFlowEdges: bootstrap.exploreFlowEdges,
-  exploreLayerMetas: bootstrap.exploreLayerMetas,
 
   getNodeDetails,
 
@@ -289,6 +237,8 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
       tags: n.tags ?? [],
       origin: n.origin,
       image_url: n.image_url,
+      dimension: n.dimension ?? null,
+      materialLevel: n.materialLevel ?? null,
     }));
     const rawLinks: RawLink[] = craftingLinks.map((l) => ({
       id: l.id,
@@ -306,9 +256,6 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
       centralityByNodeId: next.centralityByNodeId,
       complexityDepthByNodeId: next.complexityDepthByNodeId,
       imageBustByNodeId: {},
-      exploreFlowNodes: next.exploreFlowNodes,
-      exploreFlowEdges: next.exploreFlowEdges,
-      exploreLayerMetas: next.exploreLayerMetas,
     });
     useNodeDetailsStore.getState().hydrateFromSeedNodes(seedNodes);
   },
@@ -324,9 +271,6 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
         nodes: next.nodes,
         centralityByNodeId: next.centralityByNodeId,
         complexityDepthByNodeId: next.complexityDepthByNodeId,
-        exploreFlowNodes: next.exploreFlowNodes,
-        exploreFlowEdges: next.exploreFlowEdges,
-        exploreLayerMetas: next.exploreLayerMetas,
       };
     });
   },
@@ -344,9 +288,6 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
         edges: next.edges,
         centralityByNodeId: next.centralityByNodeId,
         complexityDepthByNodeId: next.complexityDepthByNodeId,
-        exploreFlowNodes: next.exploreFlowNodes,
-        exploreFlowEdges: next.exploreFlowEdges,
-        exploreLayerMetas: next.exploreLayerMetas,
       };
     });
   },
@@ -366,11 +307,6 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
         return {
           nodes: nextNodes,
           imageBustByNodeId: nextBust,
-          exploreFlowNodes: applyVisualPatchToExploreFlowNodes(
-            s.exploreFlowNodes,
-            nodeId,
-            patch
-          ),
         };
       }
 
@@ -384,9 +320,6 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
         centralityByNodeId: next.centralityByNodeId,
         complexityDepthByNodeId: next.complexityDepthByNodeId,
         imageBustByNodeId: nextBust,
-        exploreFlowNodes: next.exploreFlowNodes,
-        exploreFlowEdges: next.exploreFlowEdges,
-        exploreLayerMetas: next.exploreLayerMetas,
       };
     });
   },
@@ -431,9 +364,6 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
       centralityByNodeId: next.centralityByNodeId,
       complexityDepthByNodeId: next.complexityDepthByNodeId,
       imageBustByNodeId: {},
-      exploreFlowNodes: next.exploreFlowNodes,
-      exploreFlowEdges: next.exploreFlowEdges,
-      exploreLayerMetas: next.exploreLayerMetas,
     });
     useNodeDetailsStore
       .getState()

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { getSiteUrl } from '@/lib/seo';
 import { getAllNodeIds } from '@/lib/seed-merge';
+import { treeInventionPath, getDefaultTreeNodeId } from '@/lib/tree-routes';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = getSiteUrl();
@@ -15,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${base}/explore`,
+      url: `${base}${treeInventionPath(getDefaultTreeNodeId())}`,
       lastModified,
       changeFrequency: 'daily',
       priority: 0.95,

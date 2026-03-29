@@ -10,9 +10,10 @@
  * Variables passées au template (toutes des chaînes, adaptables dans Resend) :
  * - suggestion_id, suggestion_type, status (approved | rejected)
  * - node_id, admin_comment
- * - site_url, explore_url (lien vers /explore ou nœud si node_id)
+ * - site_url, explore_url (lien vers /tree ou nœud si node_id)
  */
 import { createSupabaseServiceRoleClient } from '@/lib/supabase-server';
+import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
 
 type SuggestionRow = {
   id: string;
@@ -57,8 +58,8 @@ export async function notifyContributorSuggestionResult(params: {
     'https://www.craftree.app';
   const nodeId = params.row.node_id?.trim() ?? '';
   const exploreUrl = nodeId
-    ? `${origin}/explore?node=${encodeURIComponent(nodeId)}`
-    : `${origin}/explore`;
+    ? `${origin}${treeInventionPath(nodeId)}`
+    : `${origin}${treeInventionPath(getDefaultTreeNodeId())}`;
 
   const dataObj =
     params.row.data && typeof params.row.data === 'object'

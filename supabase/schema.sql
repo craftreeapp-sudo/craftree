@@ -17,8 +17,20 @@ CREATE TABLE IF NOT EXISTS nodes (
   wikipedia_url TEXT,
   tags TEXT[] DEFAULT '{}',
   complexity_depth INTEGER DEFAULT 0,
+  dimension TEXT,
+  material_level TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  CONSTRAINT nodes_dimension_check CHECK (
+    dimension IS NULL OR dimension IN ('matter', 'process', 'tool')
+  ),
+  CONSTRAINT nodes_material_level_check CHECK (
+    material_level IS NULL
+    OR material_level IN ('raw', 'processed', 'industrial', 'component')
+  ),
+  CONSTRAINT nodes_dimension_material_level_check CHECK (
+    material_level IS NULL OR dimension = 'matter'
+  )
 );
 
 -- Table des liens de fabrication
@@ -59,6 +71,23 @@ CREATE TABLE IF NOT EXISTS suggestions (
 
 -- Bases déjà créées : ajouter la colonne IP (contributions anonymes)
 ALTER TABLE suggestions ADD COLUMN IF NOT EXISTS contributor_ip TEXT;
+
+-- Dimension + niveau matière (bases existantes sans ces colonnes)
+ALTER TABLE nodes ADD COLUMN IF NOT EXISTS dimension TEXT;
+ALTER TABLE nodes ADD COLUMN IF NOT EXISTS material_level TEXT;
+ALTER TABLE nodes DROP CONSTRAINT IF EXISTS nodes_dimension_check;
+ALTER TABLE nodes ADD CONSTRAINT nodes_dimension_check CHECK (
+  dimension IS NULL OR dimension IN ('matter', 'process', 'tool')
+);
+ALTER TABLE nodes DROP CONSTRAINT IF EXISTS nodes_material_level_check;
+ALTER TABLE nodes ADD CONSTRAINT nodes_material_level_check CHECK (
+  material_level IS NULL
+  OR material_level IN ('raw', 'processed', 'industrial', 'component')
+);
+ALTER TABLE nodes DROP CONSTRAINT IF EXISTS nodes_dimension_material_level_check;
+ALTER TABLE nodes ADD CONSTRAINT nodes_dimension_material_level_check CHECK (
+  material_level IS NULL OR dimension = 'matter'
+);
 
 -- Index
 CREATE INDEX IF NOT EXISTS idx_links_source ON links(source_id);

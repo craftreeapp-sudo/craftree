@@ -18,6 +18,7 @@ import { computeDiff } from '@/lib/suggestion-diff';
 import { getCategoryLabelFr } from '@/lib/category-labels';
 import { NodeCategory } from '@/lib/types';
 import { RelationType } from '@/lib/types';
+import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
 
 type SuggestionRow = {
   id: string;
@@ -348,7 +349,7 @@ export function AdminPageClient() {
   useEffect(() => {
     if (isLoading) return;
     if (!isAdmin) {
-      router.replace('/explore');
+      router.replace(treeInventionPath(getDefaultTreeNodeId()));
       return;
     }
     void loadStats();
@@ -622,7 +623,7 @@ export function AdminPageClient() {
         const nid = getExploreNodeId(row);
         if (nid) {
           window.open(
-            `/explore?node=${encodeURIComponent(nid)}`,
+            treeInventionPath(nid),
             '_blank',
             'noopener,noreferrer'
           );
@@ -856,7 +857,7 @@ export function AdminPageClient() {
                       >
                         <span className="text-muted-foreground">{i + 1}.</span>
                         <Link
-                          href={`/explore?node=${encodeURIComponent(row.nodeId)}`}
+                          href={treeInventionPath(row.nodeId)}
                           className="min-w-0 flex-1 truncate text-accent hover:underline"
                         >
                           {row.name}
@@ -1045,7 +1046,7 @@ export function AdminPageClient() {
               Les nouvelles suggestions apparaîtront ici
             </p>
             <Link
-              href="/explore"
+              href={treeInventionPath(getDefaultTreeNodeId())}
               className="mt-4 text-[13px] hover:underline"
               style={{ color: '#3B82F6' }}
             >
@@ -1491,7 +1492,7 @@ function SuggestionCard({
                   type="button"
                   onClick={() =>
                     window.open(
-                      `/explore?node=${encodeURIComponent(exploreNodeId)}`,
+                      treeInventionPath(exploreNodeId),
                       '_blank',
                       'noopener,noreferrer'
                     )

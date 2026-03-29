@@ -17,7 +17,9 @@
       ],
       "origin": "Nature",
       "description_en": "Combustion allowing the transformation of materials through heat.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/FIRE_01.JPG/600px-FIRE_01.JPG"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/FIRE_01.JPG/600px-FIRE_01.JPG",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "eau",
@@ -36,7 +38,9 @@
       ],
       "origin": "Nature",
       "description_en": "Essential chemical compound for life and many transformations.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Pvs%2Ceau%2C348-647K.svg/600px-Pvs%2Ceau%2C348-647K.svg.png"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Pvs%2Ceau%2C348-647K.svg/600px-Pvs%2Ceau%2C348-647K.svg.png",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "air",
@@ -54,7 +58,9 @@
       ],
       "origin": "Nature",
       "description_en": "Gaseous mixture necessary for combustion and respiration.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Meteotek08_atmosfera10.jpg/600px-Meteotek08_atmosfera10.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Meteotek08_atmosfera10.jpg/600px-Meteotek08_atmosfera10.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "sable",
@@ -74,7 +80,9 @@
       ],
       "origin": "Nature",
       "description_en": "Silica particles (SiO₂) used for glass and concrete.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Dunes5.JPG/600px-Dunes5.JPG"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Dunes5.JPG/600px-Dunes5.JPG",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "charbon",
@@ -93,7 +101,9 @@
       ],
       "origin": "Nature",
       "description_en": "Fossil fuel used for heat and ore reduction.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Anthrazit.jpg/600px-Anthrazit.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Anthrazit.jpg/600px-Anthrazit.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "cuivre",
@@ -112,7 +122,9 @@
       ],
       "origin": "Nature",
       "description_en": "Ductile metal excellent conductor of electricity.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/NatCopper.jpg/600px-NatCopper.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/NatCopper.jpg/600px-NatCopper.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "minerai-fer",
@@ -131,7 +143,9 @@
       ],
       "origin": "Nature",
       "description_en": "Rock containing iron to be reduced in a furnace.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Black-band_ironstone_%28aka%29.jpg/600px-Black-band_ironstone_%28aka%29.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Black-band_ironstone_%28aka%29.jpg/600px-Black-band_ironstone_%28aka%29.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "calcaire",
@@ -150,7 +164,9 @@
       ],
       "origin": "Nature",
       "description_en": "Sedimentary rock rich in calcium carbonate.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Kalksteenrots_met_in_het_midden_een_breccie._10-09-2019._%28actm.%29_02.jpg/600px-Kalksteenrots_met_in_het_midden_een_breccie._10-09-2019._%28actm.%29_02.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Kalksteenrots_met_in_het_midden_een_breccie._10-09-2019._%28actm.%29_02.jpg/600px-Kalksteenrots_met_in_het_midden_een_breccie._10-09-2019._%28actm.%29_02.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "argile",
@@ -169,7 +185,9 @@
       ],
       "origin": "Nature",
       "description_en": "Plastic sedimentary rock used for ceramics and cement.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Clay-ss-2005.jpg/600px-Clay-ss-2005.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Clay-ss-2005.jpg/600px-Clay-ss-2005.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "bois",
@@ -188,7 +206,9 @@
       ],
       "origin": "Nature",
       "description_en": "Woody tissue of trees, universal construction material.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Wood_grain.jpg/600px-Wood_grain.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Wood_grain.jpg/600px-Wood_grain.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "sel",
@@ -206,7 +226,9 @@
       ],
       "origin": "Nature",
       "description_en": "Sodium chloride, preservative and flavor enhancer.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Table_salt_with_salt_shaker_V1.jpg/600px-Table_salt_with_salt_shaker_V1.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Table_salt_with_salt_shaker_V1.jpg/600px-Table_salt_with_salt_shaker_V1.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "ble",
@@ -225,7 +247,9 @@
       ],
       "origin": "Nature",
       "description_en": "Cultivated cereal, the basis of bread-based nutrition.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/%C3%89pi_de_bl%C3%A9.jpg/600px-%C3%89pi_de_bl%C3%A9.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/%C3%89pi_de_bl%C3%A9.jpg/600px-%C3%89pi_de_bl%C3%A9.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "raisin",
@@ -244,7 +268,9 @@
       ],
       "origin": "Nature",
       "description_en": "Fruit of the vine, fermented to produce wine.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Grapes%2C_Dry_Creek_Valley-7705.jpg/600px-Grapes%2C_Dry_Creek_Valley-7705.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Grapes%2C_Dry_Creek_Valley-7705.jpg/600px-Grapes%2C_Dry_Creek_Valley-7705.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "lait",
@@ -263,7 +289,9 @@
       ],
       "origin": "Nature",
       "description_en": "Mammalian secretion transformed into cheese.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Milk_glass.jpg/600px-Milk_glass.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Milk_glass.jpg/600px-Milk_glass.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "levure",
@@ -282,7 +310,9 @@
       ],
       "origin": "Nature",
       "description_en": "Unicellular fungus causing fermentation.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/S_cerevisiae_under_DIC_microscopy.jpg/600px-S_cerevisiae_under_DIC_microscopy.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/S_cerevisiae_under_DIC_microscopy.jpg/600px-S_cerevisiae_under_DIC_microscopy.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "presure",
@@ -300,7 +330,9 @@
       ],
       "origin": "Nature",
       "description_en": "Coagulating enzyme extracted from the stomach of ruminants.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Pr%C3%A9sure-p%C3%A8ral_feda_presura.JPG/600px-Pr%C3%A9sure-p%C3%A8ral_feda_presura.JPG"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Pr%C3%A9sure-p%C3%A8ral_feda_presura.JPG/600px-Pr%C3%A9sure-p%C3%A8ral_feda_presura.JPG",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "plantes-medicinales",
@@ -319,7 +351,9 @@
       ],
       "origin": "Nature",
       "description_en": "Plants containing therapeutic active ingredients.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/20120726Lythrum_salicaria2.jpg/600px-20120726Lythrum_salicaria2.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/20120726Lythrum_salicaria2.jpg/600px-20120726Lythrum_salicaria2.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "petrole",
@@ -338,7 +372,9 @@
       ],
       "origin": "Nature",
       "description_en": "Fossil hydrocarbon, foundation of modern organic chemistry.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Petroleum_sample.jpg/600px-Petroleum_sample.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Petroleum_sample.jpg/600px-Petroleum_sample.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "four",
@@ -356,7 +392,9 @@
         "métallurgie"
       ],
       "description_en": "Heated enclosure for cooking, melting or transforming materials.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Oven.jpg/600px-Oven.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Oven.jpg/600px-Oven.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "four-haute-temp",
@@ -374,7 +412,9 @@
         "industrie"
       ],
       "description_en": "Industrial furnace reaching 1500°C for iron reduction.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/FourSolaire2.JPG/600px-FourSolaire2.JPG"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/FourSolaire2.JPG/600px-FourSolaire2.JPG",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "soude",
@@ -392,7 +432,9 @@
         "fondant"
       ],
       "description_en": "Sodium carbonate, flux for silica.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Sodium-hydroxide-crystal-3D-vdW.png/600px-Sodium-hydroxide-crystal-3D-vdW.png"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Sodium-hydroxide-crystal-3D-vdW.png/600px-Sodium-hydroxide-crystal-3D-vdW.png",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "verre",
@@ -410,7 +452,9 @@
         "électronique"
       ],
       "description_en": "Amorphous material resulting from the fusion of sand and soda.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Colorful_bottle.jpg/600px-Colorful_bottle.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Colorful_bottle.jpg/600px-Colorful_bottle.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "silicium",
@@ -428,7 +472,9 @@
         "purification"
       ],
       "description_en": "Semiconductor element purified from silica.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Silicon2.jpg/600px-Silicon2.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Silicon2.jpg/600px-Silicon2.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "wafer-silicium",
@@ -446,7 +492,9 @@
         "photolithographie"
       ],
       "description_en": "Monocrystalline silicon wafer for integrated circuits.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Etchedwafer.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Etchedwafer.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "acide-gravure",
@@ -464,7 +512,9 @@
         "chimie"
       ],
       "description_en": "Chemical solution for etching circuits on silicon.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Rembrandt_The_Hundred_Guilder_Print.jpg/600px-Rembrandt_The_Hundred_Guilder_Print.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Rembrandt_The_Hundred_Guilder_Print.jpg/600px-Rembrandt_The_Hundred_Guilder_Print.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "photolithographie",
@@ -482,7 +532,9 @@
         "UV"
       ],
       "description_en": "UV lithography process for printing circuits using mask and UV light.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Wafer-trasparente.png/600px-Wafer-trasparente.png"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Wafer-trasparente.png/600px-Wafer-trasparente.png",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "resine-epoxy",
@@ -500,7 +552,9 @@
         "circuit"
       ],
       "description_en": "Thermosetting polymer derived from petroleum.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Epoxide_generic.svg/600px-Epoxide_generic.svg.png"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Epoxide_generic.svg/600px-Epoxide_generic.svg.png",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "fibre-verre",
@@ -518,7 +572,9 @@
         "composite"
       ],
       "description_en": "Glass filament fabric for insulation and support.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Glasfaser_Roving.jpg/600px-Glasfaser_Roving.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Glasfaser_Roving.jpg/600px-Glasfaser_Roving.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "circuit-imprime",
@@ -536,7 +592,9 @@
         "PCB"
       ],
       "description_en": "Insulating support with copper conductive tracks.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Aurora_2ch_mixer_board_arrived_%282009-07-28_11.20.55_by_c-g.%29.jpg/600px-Aurora_2ch_mixer_board_arrived_%282009-07-28_11.20.55_by_c-g.%29.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Aurora_2ch_mixer_board_arrived_%282009-07-28_11.20.55_by_c-g.%29.jpg/600px-Aurora_2ch_mixer_board_arrived_%282009-07-28_11.20.55_by_c-g.%29.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "transistor",
@@ -554,7 +612,9 @@
         "numérique"
       ],
       "description_en": "Semiconductor component amplifier and switch.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Transistors.agr.jpg/600px-Transistors.agr.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Transistors.agr.jpg/600px-Transistors.agr.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "circuit-integre",
@@ -572,7 +632,9 @@
         "électronique"
       ],
       "description_en": "Thousands of transistors etched on a silicon chip.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/NXP_PCF8577C_LCD_driver_with_I%C2%B2C_%28Colour_Corrected%29.jpg/600px-NXP_PCF8577C_LCD_driver_with_I%C2%B2C_%28Colour_Corrected%29.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/NXP_PCF8577C_LCD_driver_with_I%C2%B2C_%28Colour_Corrected%29.jpg/600px-NXP_PCF8577C_LCD_driver_with_I%C2%B2C_%28Colour_Corrected%29.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "microprocesseur",
@@ -590,7 +652,9 @@
         "calcul"
       ],
       "description_en": "Integrated circuit containing the central processing unit.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Ic-photo-Motorola--XPC750PRX333SE--%28PowerPC-CPU%29.png/600px-Ic-photo-Motorola--XPC750PRX333SE--%28PowerPC-CPU%29.png"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Ic-photo-Motorola--XPC750PRX333SE--%28PowerPC-CPU%29.png/600px-Ic-photo-Motorola--XPC750PRX333SE--%28PowerPC-CPU%29.png",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "fer",
@@ -608,7 +672,9 @@
         "construction"
       ],
       "description_en": "Metal obtained by reduction of ore in a blast furnace.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Iron_electrolytic_and_1cm3_cube.jpg/600px-Iron_electrolytic_and_1cm3_cube.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Iron_electrolytic_and_1cm3_cube.jpg/600px-Iron_electrolytic_and_1cm3_cube.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "acier",
@@ -626,7 +692,9 @@
         "construction"
       ],
       "description_en": "Alloy of iron and carbon, stronger than pure iron.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Kaltbandcoils.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Kaltbandcoils.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "poutre-acier",
@@ -644,7 +712,9 @@
         "immeuble"
       ],
       "description_en": "Metallic profile for framework and structure.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/DeTomasoPanteraBlack.jpg/600px-DeTomasoPanteraBlack.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/DeTomasoPanteraBlack.jpg/600px-DeTomasoPanteraBlack.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "structure-metallique",
@@ -661,7 +731,9 @@
         "architecture",
         "construction"
       ],
-      "description_en": "Building skeleton with beams and foundations."
+      "description_en": "Building skeleton with beams and foundations.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "ciment",
@@ -679,7 +751,9 @@
         "liant"
       ],
       "description_en": "Hydraulic binder obtained by firing limestone and clay.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/USMC-110806-M-IX060-148.jpg/600px-USMC-110806-M-IX060-148.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/USMC-110806-M-IX060-148.jpg/600px-USMC-110806-M-IX060-148.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "beton",
@@ -697,7 +771,9 @@
         "armé"
       ],
       "description_en": "Mixture of cement, sand, gravel and water.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Metre-cube-beton-p1040192.jpg/600px-Metre-cube-beton-p1040192.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Metre-cube-beton-p1040192.jpg/600px-Metre-cube-beton-p1040192.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "fondations",
@@ -714,7 +790,9 @@
         "bâtiment",
         "stabilité"
       ],
-      "description_en": "Concrete base anchoring the structure to the ground."
+      "description_en": "Concrete base anchoring the structure to the ground.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "pate-papier",
@@ -732,7 +810,9 @@
         "cellulose"
       ],
       "description_en": "Defibrillated and bleached wood fibers.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Bergisch_Gladbach_-_Papierm%C3%BChle_Alte_Dombach_13_ies.jpg/600px-Bergisch_Gladbach_-_Papierm%C3%BChle_Alte_Dombach_13_ies.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Bergisch_Gladbach_-_Papierm%C3%BChle_Alte_Dombach_13_ies.jpg/600px-Bergisch_Gladbach_-_Papierm%C3%BChle_Alte_Dombach_13_ies.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "papier",
@@ -750,7 +830,9 @@
         "support"
       ],
       "description_en": "Sheet of dried and pressed cellulosic fibers.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/FileStack_retouched.jpg/600px-FileStack_retouched.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/FileStack_retouched.jpg/600px-FileStack_retouched.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "encre",
@@ -768,7 +850,9 @@
         "pigment"
       ],
       "description_en": "Pigment or colorant in suspension for writing and printing.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/BlackInkBottle.JPG/600px-BlackInkBottle.JPG"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/BlackInkBottle.JPG/600px-BlackInkBottle.JPG",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "presse-imprimer",
@@ -786,7 +870,9 @@
         "livre"
       ],
       "description_en": "Mechanical machine reproducing text and images on paper.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Gutenberg_MAME.jpg/600px-Gutenberg_MAME.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Gutenberg_MAME.jpg/600px-Gutenberg_MAME.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "livre",
@@ -804,7 +890,9 @@
         "lecture"
       ],
       "description_en": "Collection of printed and bound sheets.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Latin_dictionary.jpg/600px-Latin_dictionary.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Latin_dictionary.jpg/600px-Latin_dictionary.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "fil-cuivre",
@@ -822,7 +910,9 @@
         "transmission"
       ],
       "description_en": "Conductive metal wire for transmitting electricity.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Wire.agr.jpg/600px-Wire.agr.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Wire.agr.jpg/600px-Wire.agr.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "cable-electrique",
@@ -840,7 +930,9 @@
         "isolation"
       ],
       "description_en": "Insulated copper wire for carrying current.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Large_Voltage_Electrical_Cable.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Large_Voltage_Electrical_Cable.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "generateur",
@@ -858,7 +950,9 @@
         "courant"
       ],
       "description_en": "Machine converting mechanical energy into electricity.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm/600px--Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm/600px--Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "electricite",
@@ -876,7 +970,9 @@
         "réseau"
       ],
       "origin": "Nature",
-      "description_en": "Electrical energy produced and distributed."
+      "description_en": "Electrical energy produced and distributed.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "telegraphe",
@@ -893,7 +989,9 @@
         "Morse",
         "réseau"
       ],
-      "description_en": "System for transmitting messages by electrical signals."
+      "description_en": "System for transmitting messages by electrical signals.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "telephone",
@@ -910,7 +1008,9 @@
         "Bell",
         "communication"
       ],
-      "description_en": "Device for transmitting voice through electrical signals."
+      "description_en": "Device for transmitting voice through electrical signals.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "fibre-optique",
@@ -927,7 +1027,9 @@
         "lumière",
         "internet"
       ],
-      "description_en": "Glass fiber transmitting light for data."
+      "description_en": "Glass fiber transmitting light for data.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "serveur-informatique",
@@ -944,7 +1046,9 @@
         "données",
         "cloud"
       ],
-      "description_en": "Computer dedicated to data storage and distribution."
+      "description_en": "Computer dedicated to data storage and distribution.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "internet",
@@ -961,7 +1065,9 @@
         "communication",
         "données"
       ],
-      "description_en": "Global network interconnecting computers and servers."
+      "description_en": "Global network interconnecting computers and servers.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "extraits-vegetaux",
@@ -978,7 +1084,9 @@
         "extraction",
         "principe actif"
       ],
-      "description_en": "Concentrated active compounds by plant extraction."
+      "description_en": "Concentrated active compounds by plant extraction.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "principes-actifs",
@@ -995,7 +1103,9 @@
         "synthèse",
         "médicament"
       ],
-      "description_en": "Pure therapeutic molecules extracted or synthesized."
+      "description_en": "Pure therapeutic molecules extracted or synthesized.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "chimie-organique",
@@ -1012,7 +1122,9 @@
         "synthèse",
         "polymère"
       ],
-      "description_en": "Transformation of hydrocarbons into synthetic compounds."
+      "description_en": "Transformation of hydrocarbons into synthetic compounds.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "polymeres",
@@ -1029,7 +1141,9 @@
         "synthétique",
         "gélule"
       ],
-      "description_en": "Synthetic macromolecules derived from petroleum."
+      "description_en": "Synthetic macromolecules derived from petroleum.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "gelules",
@@ -1046,7 +1160,9 @@
         "enrobage",
         "médicament"
       ],
-      "description_en": "Polymer envelope containing the active ingredient."
+      "description_en": "Polymer envelope containing the active ingredient.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "medicaments",
@@ -1063,7 +1179,9 @@
         "santé",
         "thérapeutique"
       ],
-      "description_en": "Therapeutic preparation combining active ingredients and excipients."
+      "description_en": "Therapeutic preparation combining active ingredients and excipients.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "pain",
@@ -1080,7 +1198,9 @@
         "farine",
         "cuisson"
       ],
-      "description_en": "Food obtained by cooking leavened wheat dough."
+      "description_en": "Food obtained by cooking leavened wheat dough.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "fromage",
@@ -1097,7 +1217,9 @@
         "fermentation",
         "alimentation"
       ],
-      "description_en": "Coagulated dairy product, ripened by fermentation."
+      "description_en": "Coagulated dairy product, ripened by fermentation.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "tonneau",
@@ -1114,7 +1236,9 @@
         "fermentation",
         "bois"
       ],
-      "description_en": "Wooden container for fermentation and storage."
+      "description_en": "Wooden container for fermentation and storage.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "vin",
@@ -1131,7 +1255,9 @@
         "raisin",
         "alcool"
       ],
-      "description_en": "Alcoholic beverage made by fermentation of grapes."
+      "description_en": "Alcoholic beverage made by fermentation of grapes.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "ampoule",
@@ -1148,7 +1274,9 @@
         "électricité",
         "Edison"
       ],
-      "description_en": "Glass envelope containing an incandescent filament."
+      "description_en": "Glass envelope containing an incandescent filament.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "coton",
@@ -1166,7 +1294,9 @@
         "vêtement"
       ],
       "origin": "Nature",
-      "description_en": "Spun plant fibers for breathable textiles."
+      "description_en": "Spun plant fibers for breathable textiles.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "fil-de-coton",
@@ -1182,7 +1312,9 @@
         "fil",
         "tissage"
       ],
-      "description_en": "Thread obtained by spinning and twisting cotton fibers."
+      "description_en": "Thread obtained by spinning and twisting cotton fibers.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "tissu",
@@ -1198,7 +1330,9 @@
         "tissu",
         "habillement"
       ],
-      "description_en": "Fabric produced by interlacing threads on a loom."
+      "description_en": "Fabric produced by interlacing threads on a loom.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "vetement",
@@ -1214,7 +1348,9 @@
         "mode",
         "couture"
       ],
-      "description_en": "Article made from fabrics to cover oneself or to adorn oneself."
+      "description_en": "Article made from fabrics to cover oneself or to adorn oneself.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "laine",
@@ -1231,7 +1367,9 @@
         "tricot"
       ],
       "origin": "Nature",
-      "description_en": "Animal fibers from sheep, insulating and elastic."
+      "description_en": "Animal fibers from sheep, insulating and elastic.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "fil-de-laine",
@@ -1247,7 +1385,9 @@
         "fil",
         "chaud"
       ],
-      "description_en": "Carded and spun yarn, suitable for knitting and heavy weaving."
+      "description_en": "Carded and spun yarn, suitable for knitting and heavy weaving.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "tricot",
@@ -1263,7 +1403,9 @@
         "pull",
         "maille"
       ],
-      "description_en": "Textile formed from interlocked loops of yarn (stitches)."
+      "description_en": "Textile formed from interlocked loops of yarn (stitches).",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "ver-a-soie",
@@ -1280,7 +1422,9 @@
         "Asie"
       ],
       "origin": "Nature",
-      "description_en": "Larva of the bombyx producing the silk thread of the cocoon."
+      "description_en": "Larva of the bombyx producing the silk thread of the cocoon.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "soie-naturelle",
@@ -1296,7 +1440,9 @@
         "luxury",
         "tissu"
       ],
-      "description_en": "Protein fiber spun from the cocoon of the mulberry silkworm."
+      "description_en": "Protein fiber spun from the cocoon of the mulberry silkworm.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "plantes-teinture",
@@ -1313,7 +1459,9 @@
         "teinture"
       ],
       "origin": "Nature",
-      "description_en": "Indigo, madder, weld: sources of pigments for dyeing."
+      "description_en": "Indigo, madder, weld: sources of pigments for dyeing.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "mordant",
@@ -1329,7 +1477,9 @@
         "fixateur",
         "teinture"
       ],
-      "description_en": "Metallic salt that fixes the pigment on textile fiber."
+      "description_en": "Metallic salt that fixes the pigment on textile fiber.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "teinture-textile",
@@ -1345,7 +1495,9 @@
         "couleur",
         "industrie"
       ],
-      "description_en": "Sustainable process for applying dyes to yarns or fabrics."
+      "description_en": "Sustainable process for applying dyes to yarns or fabrics.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "roue",
@@ -1361,7 +1513,9 @@
         "mécanique",
         "char"
       ],
-      "description_en": "Rotating disc reducing ground friction for transport."
+      "description_en": "Rotating disc reducing ground friction for transport.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "chariot",
@@ -1377,7 +1531,9 @@
         "traction",
         "route"
       ],
-      "description_en": "Wheeled vehicle for transporting loads and people."
+      "description_en": "Wheeled vehicle for transporting loads and people.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "caoutchouc",
@@ -1394,7 +1550,9 @@
         "pneu"
       ],
       "origin": "Nature",
-      "description_en": "Natural or synthetic polymer for tires and seals."
+      "description_en": "Natural or synthetic polymer for tires and seals.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "moteur-explosion",
@@ -1410,7 +1568,9 @@
         "automobile",
         "essence"
       ],
-      "description_en": "Heat engine converting gasoline into rotational motion."
+      "description_en": "Heat engine converting gasoline into rotational motion.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "automobile",
@@ -1426,7 +1586,9 @@
         "voiture",
         "industrie"
       ],
-      "description_en": "Autonomous road vehicle with motor and metal chassis."
+      "description_en": "Autonomous road vehicle with motor and metal chassis.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "aluminium",
@@ -1442,7 +1604,9 @@
         "léger",
         "aéronautique"
       ],
-      "description_en": "Light metal derived from bauxite, alloyed for aeronautics."
+      "description_en": "Light metal derived from bauxite, alloyed for aeronautics.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "moteur-reaction",
@@ -1458,7 +1622,9 @@
         "avion",
         "turbine"
       ],
-      "description_en": "High-speed gas flow propulsion system for aviation."
+      "description_en": "High-speed gas flow propulsion system for aviation.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "avion",
@@ -1474,7 +1640,9 @@
         "aviation",
         "transport"
       ],
-      "description_en": "Fixed-wing aircraft propelled by jet or propeller."
+      "description_en": "Fixed-wing aircraft propelled by jet or propeller.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "charbon-de-bois",
@@ -1491,7 +1659,9 @@
         "combustible"
       ],
       "origin": "Nature",
-      "description_en": "Porous carbon obtained by pyrolysis of wood, intense fuel."
+      "description_en": "Porous carbon obtained by pyrolysis of wood, intense fuel.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "houille",
@@ -1508,7 +1678,9 @@
         "thermique"
       ],
       "origin": "Nature",
-      "description_en": "Sedimentary coal rich in carbon for power plants and steel industry."
+      "description_en": "Sedimentary coal rich in carbon for power plants and steel industry.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "essence",
@@ -1524,7 +1696,9 @@
         "carburant",
         "pétrole"
       ],
-      "description_en": "Light hydrocarbon cut for spark ignition engines."
+      "description_en": "Light hydrocarbon cut for spark ignition engines.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "uranium",
@@ -1541,7 +1715,9 @@
         "fission"
       ],
       "origin": "Nature",
-      "description_en": "Fissile element used as enriched nuclear fuel."
+      "description_en": "Fissile element used as enriched nuclear fuel.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "reacteur-nucleaire",
@@ -1557,7 +1733,9 @@
         "fission",
         "centrale"
       ],
-      "description_en": "Core where controlled fission produces heat."
+      "description_en": "Core where controlled fission produces heat.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "panneau-solaire",
@@ -1573,7 +1751,9 @@
         "PV",
         "renouvelable"
       ],
-      "description_en": "Photovoltaic modules converting light into direct current."
+      "description_en": "Photovoltaic modules converting light into direct current.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "charpente-bois",
@@ -1589,7 +1769,9 @@
         "toit",
         "ossature"
       ],
-      "description_en": "Load-bearing framework assembled in wood for roofs and floors."
+      "description_en": "Load-bearing framework assembled in wood for roofs and floors.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "pierre",
@@ -1607,7 +1789,9 @@
       ],
       "origin": "Nature",
       "description_en": "Extracted and sometimes squared rock block for masonry.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Pierres_de_taille_livr%C3%A9es_par_la_carri%C3%A8re.JPG/600px-Pierres_de_taille_livr%C3%A9es_par_la_carri%C3%A8re.JPG"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Pierres_de_taille_livr%C3%A9es_par_la_carri%C3%A8re.JPG/600px-Pierres_de_taille_livr%C3%A9es_par_la_carri%C3%A8re.JPG",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "taille-pierre",
@@ -1623,7 +1807,9 @@
         "maçonnerie",
         "outil"
       ],
-      "description_en": "Shaping of blocks by sawing and dressing for assembly."
+      "description_en": "Shaping of blocks by sawing and dressing for assembly.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "mur-pierre",
@@ -1639,7 +1825,9 @@
         "fortification",
         "bâtiment"
       ],
-      "description_en": "Vertical masonry structure built with stones bonded with mortar."
+      "description_en": "Vertical masonry structure built with stones bonded with mortar.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "chaux",
@@ -1655,7 +1843,9 @@
         "liant",
         "mortier"
       ],
-      "description_en": "Calcium oxide obtained by burning limestone, base of mortar."
+      "description_en": "Calcium oxide obtained by burning limestone, base of mortar.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "mortier",
@@ -1671,7 +1861,9 @@
         "joint",
         "maçonnerie"
       ],
-      "description_en": "Mixture of lime or cement with sand and water for bonding masonry."
+      "description_en": "Mixture of lime or cement with sand and water for bonding masonry.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "vitre",
@@ -1687,7 +1879,9 @@
         "fenêtre",
         "transparence"
       ],
-      "description_en": "Flat glass plate to let light through."
+      "description_en": "Flat glass plate to let light through.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "fenetre",
@@ -1703,7 +1897,9 @@
         "bâtiment",
         "lumière"
       ],
-      "description_en": "Opening equipped with a glazed frame and shutters."
+      "description_en": "Opening equipped with a glazed frame and shutters.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "papyrus",
@@ -1719,7 +1915,9 @@
         "Égypte",
         "écriture"
       ],
-      "description_en": "Writing medium made from strips of pith from Nilotic papyrus."
+      "description_en": "Writing medium made from strips of pith from Nilotic papyrus.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "parchemin",
@@ -1735,7 +1933,9 @@
         "manuscrit",
         "livre"
       ],
-      "description_en": "Skin prepared for writing, durable and smooth."
+      "description_en": "Skin prepared for writing, durable and smooth.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "imprimerie",
@@ -1751,7 +1951,9 @@
         "presse",
         "journal"
       ],
-      "description_en": "Set of rotary presses and composition for mass printing."
+      "description_en": "Set of rotary presses and composition for mass printing.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "journal",
@@ -1767,7 +1969,9 @@
         "presse",
         "actualité"
       ],
-      "description_en": "Printed information periodical on cheap paper."
+      "description_en": "Printed information periodical on cheap paper.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "radio",
@@ -1783,7 +1987,9 @@
         "ondes",
         "audio"
       ],
-      "description_en": "Receiver demodulating electromagnetic waves into sound."
+      "description_en": "Receiver demodulating electromagnetic waves into sound.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "television",
@@ -1799,7 +2005,9 @@
         "image",
         "broadcast"
       ],
-      "description_en": "Device displaying images and sound broadcast by waves or cable."
+      "description_en": "Device displaying images and sound broadcast by waves or cable.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "ordinateur",
@@ -1815,7 +2023,9 @@
         "calcul",
         "logiciel"
       ],
-      "description_en": "Programmable machine processing digital information."
+      "description_en": "Programmable machine processing digital information.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "smartphone",
@@ -1831,7 +2041,9 @@
         "mobile",
         "app"
       ],
-      "description_en": "Mobile touch terminal connected to Internet and cellular networks."
+      "description_en": "Mobile touch terminal connected to Internet and cellular networks.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "plastique",
@@ -1847,7 +2059,9 @@
         "PE",
         "moulage"
       ],
-      "description_en": "Moldable thermoplastic polymer for packaging and parts."
+      "description_en": "Moldable thermoplastic polymer for packaging and parts.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "bouteille-plastique",
@@ -1863,7 +2077,9 @@
         "emballage",
         "recyclage"
       ],
-      "description_en": "Blown PET container for food liquids."
+      "description_en": "Blown PET container for food liquids.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "engrais",
@@ -1879,7 +2095,9 @@
         "agriculture",
         "rendement"
       ],
-      "description_en": "Amendment from the Haber-Bosch process or from nitrate."
+      "description_en": "Amendment from the Haber-Bosch process or from nitrate.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "salpetre",
@@ -1896,7 +2114,9 @@
         "chimie"
       ],
       "origin": "Nature",
-      "description_en": "Potassium nitrate, major oxidizer in powders."
+      "description_en": "Potassium nitrate, major oxidizer in powders.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "soufre",
@@ -1913,7 +2133,9 @@
         "acide"
       ],
       "origin": "Nature",
-      "description_en": "Yellow oxidizing element secondary in explosive mixtures."
+      "description_en": "Yellow oxidizing element secondary in explosive mixtures.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "poudre-a-canon",
@@ -1929,7 +2151,9 @@
         "explosif",
         "arme"
       ],
-      "description_en": "Saltpeter-charcoal-sulfur mixture deflagrating under shock or flame."
+      "description_en": "Saltpeter-charcoal-sulfur mixture deflagrating under shock or flame.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "lentille",
@@ -1945,7 +2169,9 @@
         "optique",
         "verre"
       ],
-      "description_en": "Curved polished glass used to converge or diverge light."
+      "description_en": "Curved polished glass used to converge or diverge light.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "lunettes",
@@ -1961,7 +2187,9 @@
         "vue",
         "correction"
       ],
-      "description_en": "Frame carrying corrective lenses for vision."
+      "description_en": "Frame carrying corrective lenses for vision.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "microscope",
@@ -1977,7 +2205,9 @@
         "science",
         "lentille"
       ],
-      "description_en": "Instrument magnifying the very small by combined lenses."
+      "description_en": "Instrument magnifying the very small by combined lenses.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "telescope",
@@ -1993,7 +2223,9 @@
         "astronomie",
         "lunette"
       ],
-      "description_en": "Astronomical instrument collecting distant light."
+      "description_en": "Astronomical instrument collecting distant light.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "viande",
@@ -2010,7 +2242,9 @@
         "aliment"
       ],
       "origin": "Nature",
-      "description_en": "Fresh or prepared animal muscle, rich in protein."
+      "description_en": "Fresh or prepared animal muscle, rich in protein.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "salaison",
@@ -2026,7 +2260,9 @@
         "conservation",
         "sel"
       ],
-      "description_en": "Meat preserved by brining and drying for long-term storage."
+      "description_en": "Meat preserved by brining and drying for long-term storage.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "canne-a-sucre",
@@ -2043,7 +2279,9 @@
         "tropical"
       ],
       "origin": "Nature",
-      "description_en": "Tropical grass whose juice is rich in sucrose."
+      "description_en": "Tropical grass whose juice is rich in sucrose.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "sucre",
@@ -2059,7 +2297,9 @@
         "sucré",
         "pâtisserie"
       ],
-      "description_en": "Crystallized sucrose after evaporation and refining."
+      "description_en": "Crystallized sucrose after evaporation and refining.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "confiserie",
@@ -2075,7 +2315,9 @@
         "bonbon",
         "dessert"
       ],
-      "description_en": "Candies and pastes made from cooked sugar and flavorings."
+      "description_en": "Candies and pastes made from cooked sugar and flavorings.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "cacao",
@@ -2092,7 +2334,9 @@
         "Mesoamérique"
       ],
       "origin": "Nature",
-      "description_en": "Fermented seeds of the cacao tree, the base of chocolate."
+      "description_en": "Fermented seeds of the cacao tree, the base of chocolate.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "chocolat",
@@ -2108,7 +2352,9 @@
         "dessert",
         "industrie"
       ],
-      "description_en": "Preparation made from cocoa paste, sugar and often milk."
+      "description_en": "Preparation made from cocoa paste, sugar and often milk.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "houblon",
@@ -2125,7 +2371,9 @@
         "amer"
       ],
       "origin": "Nature",
-      "description_en": "American and beer-preserving inflorescences."
+      "description_en": "American and beer-preserving inflorescences.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "orge",
@@ -2142,7 +2390,9 @@
         "brasserie"
       ],
       "origin": "Nature",
-      "description_en": "Malted cereal for brewing beer and feeding the wort."
+      "description_en": "Malted cereal for brewing beer and feeding the wort.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "biere",
@@ -2158,7 +2408,9 @@
         "fermentation",
         "brasserie"
       ],
-      "description_en": "Fermented beverage made from malt, hopped and carbonated."
+      "description_en": "Fermented beverage made from malt, hopped and carbonated.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "metier-tisser",
@@ -2174,7 +2426,9 @@
         "textile",
         "tissage"
       ],
-      "description_en": "Machine for interlacing threads to form fabric."
+      "description_en": "Machine for interlacing threads to form fabric.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "eau-de-chaux",
@@ -2190,7 +2444,9 @@
         "mortier",
         "chaux"
       ],
-      "description_en": "Calcium hydroxide solution for mortars and paints."
+      "description_en": "Calcium hydroxide solution for mortars and paints.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "bauxite",
@@ -2207,7 +2463,9 @@
         "mine"
       ],
       "origin": "Nature",
-      "description_en": "Aluminous ore used to produce aluminum by electrolysis."
+      "description_en": "Aluminous ore used to produce aluminum by electrolysis.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "raffinerie",
@@ -2223,7 +2481,9 @@
         "pétrole",
         "essence"
       ],
-      "description_en": "Fractional distillation plant for crude oil."
+      "description_en": "Fractional distillation plant for crude oil.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "antenne-radio",
@@ -2239,7 +2499,9 @@
         "RF",
         "ondes"
       ],
-      "description_en": "Structure capturing HF waves for reception and transmission."
+      "description_en": "Structure capturing HF waves for reception and transmission.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "tube-cathodique",
@@ -2255,7 +2517,9 @@
         "image",
         "TV"
       ],
-      "description_en": "Electronic scanning display for analog display."
+      "description_en": "Electronic scanning display for analog display.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "eau-lourde",
@@ -2271,7 +2535,9 @@
         "nucléaire",
         "modérateur"
       ],
-      "description_en": "Possible moderator in certain reactors (educational role)."
+      "description_en": "Possible moderator in certain reactors (educational role).",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "beton-arme",
@@ -2287,7 +2553,9 @@
         "génie civil",
         "pont"
       ],
-      "description_en": "Concrete poured over steel reinforcement for tensile strength."
+      "description_en": "Concrete poured over steel reinforcement for tensile strength.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "pneu",
@@ -2303,7 +2571,9 @@
         "caoutchouc",
         "roue"
       ],
-      "description_en": "Inflated rubber casing ensuring road grip."
+      "description_en": "Inflated rubber casing ensuring road grip.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "chassis-auto",
@@ -2319,7 +2589,9 @@
         "assemblage",
         "acier"
       ],
-      "description_en": "Load-bearing steel or aluminum structure of the vehicle."
+      "description_en": "Load-bearing steel or aluminum structure of the vehicle.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "carlingue",
@@ -2335,7 +2607,9 @@
         "aéronautique",
         "alu"
       ],
-      "description_en": "Structural envelope of the aircraft in light alloys."
+      "description_en": "Structural envelope of the aircraft in light alloys.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "gazole",
@@ -2351,7 +2625,9 @@
         "diesel",
         "pétrole"
       ],
-      "description_en": "Heavy cutting for industrial diesel engines and trains."
+      "description_en": "Heavy cutting for industrial diesel engines and trains.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "turbine-vapeur",
@@ -2367,7 +2643,9 @@
         "thermique",
         "électricité"
       ],
-      "description_en": "Thermal engine driving alternators in power plants."
+      "description_en": "Thermal engine driving alternators in power plants.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "alternateur",
@@ -2383,7 +2661,9 @@
         "réseau",
         "AC"
       ],
-      "description_en": "Generator producing three-phase alternating current."
+      "description_en": "Generator producing three-phase alternating current.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "reseau-electrique",
@@ -2399,7 +2679,9 @@
         "HT",
         "transport"
       ],
-      "description_en": "Large-scale electricity transmission and distribution."
+      "description_en": "Large-scale electricity transmission and distribution.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "onduleur-solaire",
@@ -2415,7 +2697,9 @@
         "PV",
         "grille"
       ],
-      "description_en": "Converts the direct current from the panels to AC for the grid."
+      "description_en": "Converts the direct current from the panels to AC for the grid.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "fonte",
@@ -2431,7 +2715,9 @@
         "sidérurgie",
         "moule"
       ],
-      "description_en": "Cast iron-carbon alloy, stage between iron and steel."
+      "description_en": "Cast iron-carbon alloy, stage between iron and steel.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "acier-inox",
@@ -2447,7 +2733,9 @@
         "chimie",
         "alimentaire"
       ],
-      "description_en": "Chrome alloy steel resistant to corrosion."
+      "description_en": "Chrome alloy steel resistant to corrosion.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "tissu-teint",
@@ -2463,7 +2751,9 @@
         "mode",
         "couleur"
       ],
-      "description_en": "Fabric after pigment fixation and mordanting."
+      "description_en": "Fabric after pigment fixation and mordanting.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "filature",
@@ -2479,7 +2769,9 @@
         "industrie",
         "coton"
       ],
-      "description_en": "Mechanized workshop aligning fibers into continuous yarn."
+      "description_en": "Mechanized workshop aligning fibers into continuous yarn.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "mouton",
@@ -2496,7 +2788,9 @@
         "laine"
       ],
       "origin": "Nature",
-      "description_en": "Ruminant raised for wool, meat and milk."
+      "description_en": "Ruminant raised for wool, meat and milk.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "mulberry",
@@ -2513,7 +2807,9 @@
         "feuille"
       ],
       "origin": "Nature",
-      "description_en": "Nourishing tree of the silkworm bombyx."
+      "description_en": "Nourishing tree of the silkworm bombyx.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "feuille-or",
@@ -2529,7 +2825,9 @@
         "luxe",
         "dorure"
       ],
-      "description_en": "Beaten gold for decorative gilding on wood or paper."
+      "description_en": "Beaten gold for decorative gilding on wood or paper.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "or",
@@ -2546,7 +2844,9 @@
         "bijou"
       ],
       "origin": "Nature",
-      "description_en": "Noble ductile metal, resistant to oxidation."
+      "description_en": "Noble ductile metal, resistant to oxidation.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "scierie",
@@ -2562,7 +2862,9 @@
         "bois",
         "charpente"
       ],
-      "description_en": "Factory cutting logs into planks and beams."
+      "description_en": "Factory cutting logs into planks and beams.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "planche-bois",
@@ -2578,7 +2880,9 @@
         "construction",
         "bois"
       ],
-      "description_en": "Sawed piece used for carpentry and joinery."
+      "description_en": "Sawed piece used for carpentry and joinery.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "verre-trempe",
@@ -2594,7 +2898,9 @@
         "sécurité",
         "bâtiment"
       ],
-      "description_en": "Thermally reinforced glass for facade safety."
+      "description_en": "Thermally reinforced glass for facade safety.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "acier-structure",
@@ -2610,7 +2916,9 @@
         "pont",
         "gratte-ciel"
       ],
-      "description_en": "Hot-rolled beams for industrial frameworks."
+      "description_en": "Hot-rolled beams for industrial frameworks.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "hydrogene",
@@ -2627,7 +2935,9 @@
         "engrais"
       ],
       "origin": "Nature",
-      "description_en": "Light gas used in ammonia synthesis (Haber)."
+      "description_en": "Light gas used in ammonia synthesis (Haber).",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "azote",
@@ -2644,7 +2954,9 @@
         "engrais"
       ],
       "origin": "Nature",
-      "description_en": "Industrial fixation of atmospheric gas for fertilizer."
+      "description_en": "Industrial fixation of atmospheric gas for fertilizer.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "ammoniac",
@@ -2660,7 +2972,9 @@
         "synthèse",
         "engrais"
       ],
-      "description_en": "Precursor of nitrogen fertilizers and nitrated explosives."
+      "description_en": "Precursor of nitrogen fertilizers and nitrated explosives.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "nitrate",
@@ -2676,7 +2990,9 @@
         "sol",
         "engrais"
       ],
-      "description_en": "Soluble fertilizer derived from industrial nitrogen chains."
+      "description_en": "Soluble fertilizer derived from industrial nitrogen chains.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "polycarbonate",
@@ -2692,7 +3008,9 @@
         "transparent",
         "sécurité"
       ],
-      "description_en": "Transparent resistant plastic for bottles and visors."
+      "description_en": "Transparent resistant plastic for bottles and visors.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "route-bitee",
@@ -2709,7 +3027,9 @@
         "transport"
       ],
       "description_en": "Roadway bound with petroleum bitumen for motorized traffic.",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Transfagaras.jpg/600px-Transfagaras.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Transfagaras.jpg/600px-Transfagaras.jpg",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "bitume",
@@ -2725,7 +3045,9 @@
         "route",
         "étanchéité"
       ],
-      "description_en": "Viscous fraction of petroleum for road surfacing."
+      "description_en": "Viscous fraction of petroleum for road surfacing.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "signal-numerique",
@@ -2741,7 +3063,9 @@
         "DSP",
         "télécom"
       ],
-      "description_en": "Discretized information for processing by logic circuits."
+      "description_en": "Discretized information for processing by logic circuits.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "ecran-lcd",
@@ -2757,7 +3081,9 @@
         "mobile",
         "affichage"
       ],
-      "description_en": "Polarized liquid crystal matrix for low-power display."
+      "description_en": "Polarized liquid crystal matrix for low-power display.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "batterie-li",
@@ -2773,7 +3099,9 @@
         "stockage",
         "mobile"
       ],
-      "description_en": "Lightweight high-density battery for mobile devices and vehicles."
+      "description_en": "Lightweight high-density battery for mobile devices and vehicles.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "reseau-cellulaire",
@@ -2789,7 +3117,9 @@
         "5G",
         "opérateur"
       ],
-      "description_en": "4G/5G radio infrastructure for mobile data."
+      "description_en": "4G/5G radio infrastructure for mobile data.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "blockchain",
@@ -2804,7 +3134,9 @@
       "tags": [],
       "origin": "Satoshi Nakamoto",
       "wikipedia_url": "https://en.wikipedia.org/wiki/Blockchain",
-      "description_en": "Decentralized network"
+      "description_en": "Decentralized network",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "pierre-de-taille",
@@ -2826,7 +3158,9 @@
         "noble"
       ],
       "complexity_depth": 0,
-      "description_en": "Natural stone extracted from a quarry and cut by a craftsman to obtain blocks with precise dimensions and shapes. Noble construction material used since Antiquity to build temples, cathedrals and monuments."
+      "description_en": "Natural stone extracted from a quarry and cut by a craftsman to obtain blocks with precise dimensions and shapes. Noble construction material used since Antiquity to build temples, cathedrals and monuments.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "minerai-de-cuivre",
@@ -2848,7 +3182,9 @@
         "géologie"
       ],
       "complexity_depth": 0,
-      "description_en": "Copper ore is generally found in the Earth's crust in the form of copper minerals such as chalcopyrite, bornite, malachite, and chalcocite, among others. Copper ore deposits are natural accumulations of copper-containing minerals that can be economically extracted and processed to obtain metallic copper. Copper occurs naturally within mineral deposits called \"copper porphyries\" formed by the circulation of hot fluids produced during the cooling of magmas. Copper precipitates from these fluids and deposits in the form of porphyries between 1 and 6 km in depth."
+      "description_en": "Copper ore is generally found in the Earth's crust in the form of copper minerals such as chalcopyrite, bornite, malachite, and chalcocite, among others. Copper ore deposits are natural accumulations of copper-containing minerals that can be economically extracted and processed to obtain metallic copper. Copper occurs naturally within mineral deposits called \"copper porphyries\" formed by the circulation of hot fluids produced during the cooling of magmas. Copper precipitates from these fluids and deposits in the form of porphyries between 1 and 6 km in depth.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "bronze",
@@ -2872,7 +3208,9 @@
         "durabilité"
       ],
       "complexity_depth": 0,
-      "description_en": "Metallic alloy composed primarily of copper (approximately 90%) and tin (approximately 10%), much harder and more resistant than copper alone. First metallic alloy mastered by humanity, it revolutionized the manufacturing of tools, weapons and art objects. Its discovery marks the beginning of the Bronze Age around 3500 BC."
+      "description_en": "Metallic alloy composed primarily of copper (approximately 90%) and tin (approximately 10%), much harder and more resistant than copper alone. First metallic alloy mastered by humanity, it revolutionized the manufacturing of tools, weapons and art objects. Its discovery marks the beginning of the Bronze Age around 3500 BC.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "brique",
@@ -2894,7 +3232,9 @@
         "bâtiment"
       ],
       "complexity_depth": 0,
-      "description_en": "Building material composed of clay that is molded and sun-dried (raw brick) or kiln-fired (fired brick). Brick constitutes the first artificial stone, making it possible to construct durable and resistant buildings."
+      "description_en": "Building material composed of clay that is molded and sun-dried (raw brick) or kiln-fired (fired brick). Brick constitutes the first artificial stone, making it possible to construct durable and resistant buildings.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "titane",
@@ -2917,7 +3257,9 @@
         "médical"
       ],
       "complexity_depth": 0,
-      "description_en": "Light metal resistant to corrosion, discovered in 1790 by William Gregor. Obtained by the Kroll process since 1939, it is mainly used in high-performance alloys for aeronautics, medical and industry."
+      "description_en": "Light metal resistant to corrosion, discovered in 1790 by William Gregor. Obtained by the Kroll process since 1939, it is mainly used in high-performance alloys for aeronautics, medical and industry.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "energie-nucleaire",
@@ -2994,7 +3336,9 @@
           "exists": false
         }
       ],
-      "description_en": "Energy released by the fission or fusion of atomic nuclei. Discovered in the early 20th century with radioactivity, it was first developed for military uses before being exploited for electricity production. This extremely dense energy source requires complex facilities and raises questions of safety and radioactive waste management."
+      "description_en": "Energy released by the fission or fusion of atomic nuclei. Discovered in the early 20th century with radioactivity, it was first developed for military uses before being exploited for electricity production. This extremely dense energy source requires complex facilities and raises questions of safety and radioactive waste management.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "energie-solaire",
@@ -3081,7 +3425,9 @@
           "exists": false
         }
       ],
-      "description_en": "Energy produced by converting sunlight into electricity or heat. Photovoltaic technology directly transforms photons into electricity through solar cells, while thermal technology captures heat for various applications. This clean and renewable technology is becoming a major energy source in the global energy transition."
+      "description_en": "Energy produced by converting sunlight into electricity or heat. Photovoltaic technology directly transforms photons into electricity through solar cells, while thermal technology captures heat for various applications. This clean and renewable technology is becoming a major energy source in the global energy transition.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "forge",
@@ -3168,7 +3514,9 @@
           "exists": false
         }
       ],
-      "description_en": "Workshop and set of techniques for heating and shaping metals by hammering. The forge includes the heating hearth, the anvil, and the tools necessary for working metals at high temperature to create tools, weapons and various objects."
+      "description_en": "Workshop and set of techniques for heating and shaping metals by hammering. The forge includes the heating hearth, the anvil, and the tools necessary for working metals at high temperature to create tools, weapons and various objects.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "marteau",
@@ -3231,7 +3579,9 @@
           "exists": false
         }
       ],
-      "description_en": "Fundamental percussion tool composed of a heavy head attached to a handle, used for striking, forging and shaping since prehistoric times. The hammer has evolved from simple stones tied to wooden handles to modern versions specialized for each trade."
+      "description_en": "Fundamental percussion tool composed of a heavy head attached to a handle, used for striking, forging and shaping since prehistoric times. The hammer has evolved from simple stones tied to wooden handles to modern versions specialized for each trade.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "clou",
@@ -3300,7 +3650,9 @@
           "exists": false
         }
       ],
-      "description_en": "Elongated metal piece used to attach two objects to each other. Composed of a flat head and a body ending in a point. Revolutionizes assembly techniques in construction and cabinetmaking."
+      "description_en": "Elongated metal piece used to attach two objects to each other. Composed of a flat head and a body ending in a point. Revolutionizes assembly techniques in construction and cabinetmaking.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "etain",
@@ -3312,7 +3664,9 @@
       "era": "ancient",
       "year_approx": -3000,
       "complexity_depth": 0,
-      "tags": []
+      "tags": [],
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "vis",
@@ -3381,7 +3735,9 @@
           "exists": false
         }
       ],
-      "description_en": "Mechanical fastening element consisting of a threaded rod and a head, designed to assemble several parts in a removable manner by pressure. A fastening screw, commonly called a screw, is a mechanical part, comprising a threaded rod and a head; it is intended to achieve the fastening of one or several parts by pressure. The universal applicability of the screw has made it an indispensable component in industry, construction and technology. Their stability allows the connection of materials such as wood, metal or plastic."
+      "description_en": "Mechanical fastening element consisting of a threaded rod and a head, designed to assemble several parts in a removable manner by pressure. A fastening screw, commonly called a screw, is a mechanical part, comprising a threaded rod and a head; it is intended to achieve the fastening of one or several parts by pressure. The universal applicability of the screw has made it an indispensable component in industry, construction and technology. Their stability allows the connection of materials such as wood, metal or plastic.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "tour",
@@ -3456,7 +3812,9 @@
           "exists": false
         }
       ],
-      "description_en": "The lathe is a machine tool that enables the production of mechanical parts by chip removal (machining). In the case of the lathe, the workpiece rotates and the tool is stationary. Turning consists of rotating a workpiece, generally cylindrical in shape, and machining it with a tool that is mounted on a turret. The origin of the lathe is lost in the mists of time; we only know with certainty that some of its applications were found in Egypt more than nineteen hundred years before our era."
+      "description_en": "The lathe is a machine tool that enables the production of mechanical parts by chip removal (machining). In the case of the lathe, the workpiece rotates and the tool is stationary. Turning consists of rotating a workpiece, generally cylindrical in shape, and machining it with a tool that is mounted on a turret. The origin of the lathe is lost in the mists of time; we only know with certainty that some of its applications were found in Egypt more than nineteen hundred years before our era.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "moule",
@@ -3536,7 +3894,9 @@
           "exists": true
         }
       ],
-      "description_en": "A mold is an element used for manufacturing other elements through molding techniques, representing in hollow form the shape of the object one wishes to obtain. Since ancient times, molds were used to obtain objects by pouring molten metal, whether it be gold and silver for jewelry or bronze for weapons and tools. The invention of reusable molds marks a particularly important milestone in the history of these techniques."
+      "description_en": "A mold is an element used for manufacturing other elements through molding techniques, representing in hollow form the shape of the object one wishes to obtain. Since ancient times, molds were used to obtain objects by pouring molten metal, whether it be gold and silver for jewelry or bronze for weapons and tools. The invention of reusable molds marks a particularly important milestone in the history of these techniques.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "presse-hydraulique",
@@ -3619,7 +3979,9 @@
           "exists": false
         }
       ],
-      "description_en": "Machine using a hydraulic circuit to provide great compressive force, based on Pascal's principle. Invented by Joseph Bramah in 1795, it allows the multiplication of applied force through differences in piston cross-sections."
+      "description_en": "Machine using a hydraulic circuit to provide great compressive force, based on Pascal's principle. Invented by Joseph Bramah in 1795, it allows the multiplication of applied force through differences in piston cross-sections.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "scie",
@@ -3694,7 +4056,9 @@
           "exists": true
         }
       ],
-      "description_en": "Designed to cut wood, metal or even stone, the saw is a toothed blade tool made of tempered steel. It is operated by various means such as muscle power, electricity or water. The saw is one of the most useful tools that have been invented for mechanics, allowing precise cutting that avoids waste of materials."
+      "description_en": "Designed to cut wood, metal or even stone, the saw is a toothed blade tool made of tempered steel. It is operated by various means such as muscle power, electricity or water. The saw is one of the most useful tools that have been invented for mechanics, allowing precise cutting that avoids waste of materials.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "hache",
@@ -3771,7 +4135,9 @@
           "exists": false
         }
       ],
-      "description_en": "Tool composed of a sharp blade attached to a handle, used for cutting wood and clearing land. One of humanity's oldest inventions, it has evolved from knapped stone to bronze then to steel. The oldest traces of axes have been found in Africa and their age is estimated at 1.6 million years. For archaeologists, the axe represents a turning point in History, as well as a vector of major social and societal changes."
+      "description_en": "Tool composed of a sharp blade attached to a handle, used for cutting wood and clearing land. One of humanity's oldest inventions, it has evolved from knapped stone to bronze then to steel. The oldest traces of axes have been found in Africa and their age is estimated at 1.6 million years. For archaeologists, the axe represents a turning point in History, as well as a vector of major social and societal changes.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "fonderie",
@@ -3874,7 +4240,9 @@
           "exists": true
         }
       ],
-      "description_en": "Metal forming process that consists of pouring liquid metal or alloy into a mold to reproduce a given part after cooling. Foundry work allows for the manufacturing of complex parts while limiting subsequent finishing work."
+      "description_en": "Metal forming process that consists of pouring liquid metal or alloy into a mold to reproduce a given part after cooling. Foundry work allows for the manufacturing of complex parts while limiting subsequent finishing work.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "distillation",
@@ -3962,7 +4330,9 @@
           "exists": false
         }
       ],
-      "description_en": "Separation process based on the differences in boiling temperature of the components of a liquid mixture. Consists of heating the mixture to selectively vaporize the substances, then condensing these vapors to recover the purified components. Fundamental technique used since antiquity for perfumery, medicines, and later for alcohol production and petroleum refining."
+      "description_en": "Separation process based on the differences in boiling temperature of the components of a liquid mixture. Consists of heating the mixture to selectively vaporize the substances, then condensing these vapors to recover the purified components. Fundamental technique used since antiquity for perfumery, medicines, and later for alcohol production and petroleum refining.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "fermentation",
@@ -4049,7 +4419,9 @@
           "exists": false
         }
       ],
-      "description_en": "Fermentation is an anaerobic metabolic process that has been used by humanity for food production and preservation for 13,000 years. Louis Pasteur demonstrated in 1857 that fermentation was due to living microorganisms and not to the spontaneous decomposition of matter, thus establishing his famous phrase: \"Fermentation is life without air.\" Today, industrial fermentation uses biological systems to produce chemicals, fuels, medicines and materials in many industrial sectors."
+      "description_en": "Fermentation is an anaerobic metabolic process that has been used by humanity for food production and preservation for 13,000 years. Louis Pasteur demonstrated in 1857 that fermentation was due to living microorganisms and not to the spontaneous decomposition of matter, thus establishing his famous phrase: \"Fermentation is life without air.\" Today, industrial fermentation uses biological systems to produce chemicals, fuels, medicines and materials in many industrial sectors.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "soudure",
@@ -4131,7 +4503,9 @@
           "exists": false
         }
       ],
-      "description_en": "Permanent assembly process that ensures material continuity by melting metals to create an atomic bond. Technique known since the Bronze Age with forge welding, revolutionized at the end of the 19th century by electricity and combustible gases."
+      "description_en": "Permanent assembly process that ensures material continuity by melting metals to create an atomic bond. Technique known since the Bronze Age with forge welding, revolutionized at the end of the 19th century by electricity and combustible gases.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "electrolyse",
@@ -4206,7 +4580,9 @@
           "exists": false
         }
       ],
-      "description_en": "Electrolysis is a chemical decomposition process using direct electric current to separate ionic compounds into their constituent elements. This technique notably allows the production of hydrogen through water electrolysis, the purification and production of metals, or surface treatments through electroplating. Discovered on May 2, 1800 by William Nicholson and Sir Anthony Carlisle, it became a major industrial process of the 19th century."
+      "description_en": "Electrolysis is a chemical decomposition process using direct electric current to separate ionic compounds into their constituent elements. This technique notably allows the production of hydrogen through water electrolysis, the purification and production of metals, or surface treatments through electroplating. Discovered on May 2, 1800 by William Nicholson and Sir Anthony Carlisle, it became a major industrial process of the 19th century.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "ressort",
@@ -4285,7 +4661,9 @@
           "exists": false
         }
       ],
-      "description_en": "A spring is a mechanical component or part that uses the elastic properties of certain materials to absorb mechanical energy, produce movement, or exert a force or torque. Cave paintings attest that humans invented this part more than 10,000 years ago, in the form of the bow. Elasticity allows the part to return to its initial position when it is deformed; the spring has thus played a decisive role in the development of civilizations."
+      "description_en": "A spring is a mechanical component or part that uses the elastic properties of certain materials to absorb mechanical energy, produce movement, or exert a force or torque. Cave paintings attest that humans invented this part more than 10,000 years ago, in the form of the bow. Elasticity allows the part to return to its initial position when it is deformed; the spring has thus played a decisive role in the development of civilizations.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "boulon",
@@ -4355,7 +4733,9 @@
           "exists": false
         }
       ],
-      "description_en": "Mechanical assembly device consisting of a threaded rod with head and a nut, creating a complete, rigid and removable connection between the parts it passes through. The bolt acts as a very stiff spring that maintains the tightening through prestressing."
+      "description_en": "Mechanical assembly device consisting of a threaded rod with head and a nut, creating a complete, rigid and removable connection between the parts it passes through. The bolt acts as a very stiff spring that maintains the tightening through prestressing.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "poulie",
@@ -4429,7 +4809,9 @@
           "exists": false
         }
       ],
-      "description_en": "Mechanical device consisting of a grooved wheel that rotates around an axis, used with a rope or belt to change the direction of a force or reduce the effort required for lifting. Simple machine made up of a wheel-shaped part used to deflect translational movement, used with a belt, rope, chain or cable. Allows lifting heavy loads by transforming the direction of the applied force."
+      "description_en": "Mechanical device consisting of a grooved wheel that rotates around an axis, used with a rope or belt to change the direction of a force or reduce the effort required for lifting. Simple machine made up of a wheel-shaped part used to deflect translational movement, used with a belt, rope, chain or cable. Allows lifting heavy loads by transforming the direction of the applied force.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "moteur-electrique",
@@ -4517,7 +4899,9 @@
           "exists": false
         }
       ],
-      "description_en": "Electromechanical machine that converts electrical energy into mechanical energy through the interaction of a magnetic field and an electric current. Composed of a fixed stator and a mobile rotor, it generates rotational movement used in countless industrial and domestic applications."
+      "description_en": "Electromechanical machine that converts electrical energy into mechanical energy through the interaction of a magnetic field and an electric current. Composed of a fixed stator and a mobile rotor, it generates rotational movement used in countless industrial and domestic applications.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "pompe",
@@ -4599,7 +4983,9 @@
           "exists": false
         }
       ],
-      "description_en": "Device that allows suction and discharge of a fluid (liquid or gas) from one point to another through mechanical action. The first water pumps used simple mechanisms such as the rocker arm or screw, before the invention of the piston which revolutionized this technology."
+      "description_en": "Device that allows suction and discharge of a fluid (liquid or gas) from one point to another through mechanical action. The first water pumps used simple mechanisms such as the rocker arm or screw, before the invention of the piston which revolutionized this technology.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "velo",
@@ -4669,7 +5055,9 @@
           "exists": false
         }
       ],
-      "description_en": "Land vehicle propelled by human muscular energy, composed of two aligned wheels connected by a frame, with a pedaling and steering system. Revolutionary for personal mobility since the 19th century."
+      "description_en": "Land vehicle propelled by human muscular energy, composed of two aligned wheels connected by a frame, with a pedaling and steering system. Revolutionary for personal mobility since the 19th century.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "gratte-ciel",
@@ -4747,7 +5135,9 @@
           "exists": false
         }
       ],
-      "description_en": "Very tall building, typically used for offices or housing. The first skyscrapers were built between 1884 and 1939 mainly in New York and Chicago. The first example is the Home Insurance Building, 42 m tall, built in Chicago in 1884-1885 by William Le Baron Jenney."
+      "description_en": "Very tall building, typically used for offices or housing. The first skyscrapers were built between 1884 and 1939 mainly in New York and Chicago. The first example is the Home Insurance Building, 42 m tall, built in Chicago in 1884-1885 by William Le Baron Jenney.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "barrage",
@@ -4834,7 +5224,9 @@
           "exists": false
         }
       ],
-      "description_en": "Artificial structure built across a watercourse to retain or divert water. Allows the creation of reservoirs for irrigation, water supply, flood protection and hydroelectric power generation. Represents a major innovation in water resource management since ancient times."
+      "description_en": "Artificial structure built across a watercourse to retain or divert water. Allows the creation of reservoirs for irrigation, water supply, flood protection and hydroelectric power generation. Represents a major innovation in water resource management since ancient times.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "soie",
@@ -4922,7 +5314,9 @@
           "exists": false
         }
       ],
-      "description_en": "Natural protein fiber of great fineness and resistance, produced by the silkworm caterpillar (Bombyx mori) which uses it to form its cocoon. Luxury material with exceptional properties (shine, flexibility, thermoregulation), it has revolutionized the textile industry and international trade since antiquity. Silk is characterized by its incomparable softness and unique luster due to its triangular structure that reflects light."
+      "description_en": "Natural protein fiber of great fineness and resistance, produced by the silkworm caterpillar (Bombyx mori) which uses it to form its cocoon. Luxury material with exceptional properties (shine, flexibility, thermoregulation), it has revolutionized the textile industry and international trade since antiquity. Silk is characterized by its incomparable softness and unique luster due to its triangular structure that reflects light.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "presse",
@@ -5003,7 +5397,9 @@
           "exists": false
         }
       ],
-      "description_en": "Machine that applies a compressive force to transform, shape or print materials. Gutenberg's printing press revolutionized the dissemination of knowledge, while mechanical and hydraulic presses transformed the manufacturing industry."
+      "description_en": "Machine that applies a compressive force to transform, shape or print materials. Gutenberg's printing press revolutionized the dissemination of knowledge, while mechanical and hydraulic presses transformed the manufacturing industry.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "galvanisation",
@@ -5073,7 +5469,9 @@
           "exists": false
         }
       ],
-      "description_en": "Anti-corrosion treatment process that consists of covering a steel or iron piece with a layer of zinc to protect it from rust. The main process involves immersing the piece in a molten zinc bath at 450°C, creating a metallurgical bond between the zinc and steel. This technique provides long-lasting protection and exceptional resistance to corrosion."
+      "description_en": "Anti-corrosion treatment process that consists of covering a steel or iron piece with a layer of zinc to protect it from rust. The main process involves immersing the piece in a molten zinc bath at 450°C, creating a metallurgical bond between the zinc and steel. This technique provides long-lasting protection and exceptional resistance to corrosion.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "pasteurisation",
@@ -5166,7 +5564,9 @@
           "exists": false
         }
       ],
-      "description_en": "Food preservation process using moderate heat treatment that consists of heating a liquid to a precise temperature (60-100°C) for a determined duration, then rapidly cooling it to eliminate pathogenic microorganisms while preserving the nutritional and organoleptic qualities of the product. Revolutionizes food safety and enables long-term preservation of numerous liquid foods."
+      "description_en": "Food preservation process using moderate heat treatment that consists of heating a liquid to a precise temperature (60-100°C) for a determined duration, then rapidly cooling it to eliminate pathogenic microorganisms while preserving the nutritional and organoleptic qualities of the product. Revolutionizes food safety and enables long-term preservation of numerous liquid foods.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "vulcanisation",
@@ -5241,7 +5641,9 @@
           "exists": false
         }
       ],
-      "description_en": "Chemical process consisting of incorporating sulfur or other vulcanizing agents into raw rubber and applying heat to form cross-links between polymer chains. This transformation makes rubber less plastic but more elastic, stable and resistant to temperature variations."
+      "description_en": "Chemical process consisting of incorporating sulfur or other vulcanizing agents into raw rubber and applying heat to form cross-links between polymer chains. This transformation makes rubber less plastic but more elastic, stable and resistant to temperature variations.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "engrenage",
@@ -5327,7 +5729,9 @@
           "exists": false
         }
       ],
-      "description_en": "Transmission mechanism composed of toothed wheels that intermesh to transmit rotational movement and modify speed or torque between two axes. Gearing is one of the eight simple machines and constitutes a fundamental component of mechanics. Gears are used in all branches of mechanics to transmit movements, from clockwork to industrial machines."
+      "description_en": "Transmission mechanism composed of toothed wheels that intermesh to transmit rotational movement and modify speed or torque between two axes. Gearing is one of the eight simple machines and constitutes a fundamental component of mechanics. Gears are used in all branches of mechanics to transmit movements, from clockwork to industrial machines.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "roulement-a-billes",
@@ -5408,7 +5812,9 @@
           "exists": false
         }
       ],
-      "description_en": "Mechanical system composed of metal balls housed in a cage between two rings, allowing fluid rotation between two mechanical parts by considerably reducing friction. Its main role: to enable smooth, precise and durable rotational movement, while supporting loads (axial, radial or combined). Ball bearings minimize friction between moving parts, which not only increases the energy efficiency of machines, but also extends their lifespan."
+      "description_en": "Mechanical system composed of metal balls housed in a cage between two rings, allowing fluid rotation between two mechanical parts by considerably reducing friction. Its main role: to enable smooth, precise and durable rotational movement, while supporting loads (axial, radial or combined). Ball bearings minimize friction between moving parts, which not only increases the energy efficiency of machines, but also extends their lifespan.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "levier",
@@ -5470,7 +5876,9 @@
           "exists": false
         }
       ],
-      "description_en": "Simple machine consisting of a rigid bar that pivots around a fulcrum to amplify an applied force. Probably the first mechanism used by humans, long before the discovery of the wheel, it only requires two solids: a support and a bar that allow muscular force to be multiplied. Archimedes understood and mastered all the possibilities offered by the lever, which gave birth to his famous quote: \"Give me a place to stand, and I will move the Earth\"."
+      "description_en": "Simple machine consisting of a rigid bar that pivots around a fulcrum to amplify an applied force. Probably the first mechanism used by humans, long before the discovery of the wheel, it only requires two solids: a support and a bar that allow muscular force to be multiplied. Archimedes understood and mastered all the possibilities offered by the lever, which gave birth to his famous quote: \"Give me a place to stand, and I will move the Earth\".",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "machine-a-vapeur",
@@ -5557,7 +5965,9 @@
           "exists": true
         }
       ],
-      "description_en": "External combustion engine that converts the thermal energy of water vapor produced by a boiler into mechanical energy. The first source of mechanical energy mastered by humans, it was the pillar of the industrial revolution in the 19th century."
+      "description_en": "External combustion engine that converts the thermal energy of water vapor produced by a boiler into mechanical energy. The first source of mechanical energy mastered by humans, it was the pillar of the industrial revolution in the 19th century.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "turbine",
@@ -5650,7 +6060,9 @@
           "exists": false
         }
       ],
-      "description_en": "Rotating machine that converts the kinetic energy of a moving fluid (water, steam, gas, air) into mechanical rotational energy. Invented by Benoît Fourneyron in 1827 for hydraulic applications, then developed for steam and gases, it forms the heart of power plants and numerous industrial applications."
+      "description_en": "Rotating machine that converts the kinetic energy of a moving fluid (water, steam, gas, air) into mechanical rotational energy. Invented by Benoît Fourneyron in 1827 for hydraulic applications, then developed for steam and gases, it forms the heart of power plants and numerous industrial applications.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "bateau-a-voile",
@@ -5726,7 +6138,9 @@
           "exists": false
         }
       ],
-      "description_en": "A vessel that uses wind power captured by sails for propulsion. The oldest representation of a sailboat is a painting on a disc found in the region of present-day Kuwait, dated to the late 5th millennium BCE. From that time in Mesopotamia, sailboats and rowing boats would have navigated the great rivers (Tigris, Euphrates), creating trade routes between cities. Throughout history, sailing has been the instrument of civilization development, bringing humanity better mobility than land travel, for commerce, transport, warfare, and fishing."
+      "description_en": "A vessel that uses wind power captured by sails for propulsion. The oldest representation of a sailboat is a painting on a disc found in the region of present-day Kuwait, dated to the late 5th millennium BCE. From that time in Mesopotamia, sailboats and rowing boats would have navigated the great rivers (Tigris, Euphrates), creating trade routes between cities. Throughout history, sailing has been the instrument of civilization development, bringing humanity better mobility than land travel, for commerce, transport, warfare, and fishing.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "locomotive",
@@ -5825,7 +6239,9 @@
           "exists": false
         }
       ],
-      "description_en": "Self-propelled railway traction vehicle that provides the motive power to pull or push the cars of a train. Invented in 1804 by Richard Trevithick with the first steam locomotive in the United Kingdom, then perfected by George and Robert Stephenson with the famous Rocket in 1829. The locomotive evolved from steam (1820-1970) to electricity (early 1900s) and diesel (1912), revolutionizing mass land transportation."
+      "description_en": "Self-propelled railway traction vehicle that provides the motive power to pull or push the cars of a train. Invented in 1804 by Richard Trevithick with the first steam locomotive in the United Kingdom, then perfected by George and Robert Stephenson with the famous Rocket in 1829. The locomotive evolved from steam (1820-1970) to electricity (early 1900s) and diesel (1912), revolutionizing mass land transportation.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "pont",
@@ -5906,7 +6322,9 @@
           "exists": false
         }
       ],
-      "description_en": "Construction allowing to cross a depression or an obstacle such as a watercourse, a valley or a communication route. Bridges have evolved from the first tree trunks thrown between two banks to modern structures made of reinforced concrete and steel."
+      "description_en": "Construction allowing to cross a depression or an obstacle such as a watercourse, a valley or a communication route. Bridges have evolved from the first tree trunks thrown between two banks to modern structures made of reinforced concrete and steel.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "arche",
@@ -5982,7 +6400,9 @@
           "exists": false
         }
       ],
-      "description_en": "Curved structure capable of spanning a space while supporting significant weight. Fundamental architectural element allowing openings to be bridged in bridges, doors and windows, which then became a major technique in monumental construction."
+      "description_en": "Curved structure capable of spanning a space while supporting significant weight. Fundamental architectural element allowing openings to be bridged in bridges, doors and windows, which then became a major technique in monumental construction.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "teinture",
@@ -6041,7 +6461,9 @@
           "exists": true
         }
       ],
-      "description_en": "Process consisting of modifying the color of a textile support by absorption of a dye. This ancient technique uses natural substances (plants, minerals, animals) or synthetic ones to durably color textile fibers. The use of mordants allows the dyes to be fixed onto the fibers."
+      "description_en": "Process consisting of modifying the color of a textile support by absorption of a dye. This ancient technique uses natural substances (plants, minerals, animals) or synthetic ones to durably color textile fibers. The use of mordants allows the dyes to be fixed onto the fibers.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "machine-a-coudre",
@@ -6124,7 +6546,9 @@
           "exists": false
         }
       ],
-      "description_en": "Machine that automates sewing by using two threads (upper and lower) to create mechanical stitches. The invention uses a needle with an eye near the tip and a bobbin system to form knotted stitches, revolutionizing the textile industry."
+      "description_en": "Machine that automates sewing by using two threads (upper and lower) to create mechanical stitches. The invention uses a needle with an eye near the tip and a bobbin system to form knotted stitches, revolutionizing the textile industry.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "stethoscope",
@@ -6194,7 +6618,9 @@
           "exists": false
         }
       ],
-      "description_en": "The stethoscope was invented on February 17, 1816 in France by Doctor René Laennec. It is an acoustic instrument, used primarily in the medical or veterinary field for auscultation, that is, listening to internal sounds of the body. He thus created mediate auscultation, as opposed to immediate auscultation where the head is placed directly against the patient's chest."
+      "description_en": "The stethoscope was invented on February 17, 1816 in France by Doctor René Laennec. It is an acoustic instrument, used primarily in the medical or veterinary field for auscultation, that is, listening to internal sounds of the body. He thus created mediate auscultation, as opposed to immediate auscultation where the head is placed directly against the patient's chest.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "rayons-x",
@@ -6276,7 +6702,9 @@
           "exists": false
         }
       ],
-      "description_en": "Invisible electromagnetic radiation discovered in 1895 by Wilhelm Röntgen during experiments with a Crookes tube. These rays penetrate matter differentially according to its density, enabling medical imaging and numerous industrial applications."
+      "description_en": "Invisible electromagnetic radiation discovered in 1895 by Wilhelm Röntgen during experiments with a Crookes tube. These rays penetrate matter differentially according to its density, enabling medical imaging and numerous industrial applications.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "prothese",
@@ -6370,7 +6798,9 @@
           "exists": false
         }
       ],
-      "description_en": "Artificial medical device that replaces a malformed, deformed or amputated limb. It fulfills the function of the limb in question while approximating its original appearance. The first prostheses appeared in prehistoric times, with Egyptian examples dating from 3000 BC. 3D printing is revolutionizing this medical sector today by enabling personalized and more accessible prostheses."
+      "description_en": "Artificial medical device that replaces a malformed, deformed or amputated limb. It fulfills the function of the limb in question while approximating its original appearance. The first prostheses appeared in prehistoric times, with Egyptian examples dating from 3000 BC. 3D printing is revolutionizing this medical sector today by enabling personalized and more accessible prostheses.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "fusee",
@@ -6447,7 +6877,9 @@
           "exists": false
         }
       ],
-      "description_en": "Spacecraft using reaction propulsion to move in atmosphere and in space. Composed of several stages containing propellants and rocket engine, it allows placing satellites in orbit or exploring space."
+      "description_en": "Spacecraft using reaction propulsion to move in atmosphere and in space. Composed of several stages containing propellants and rocket engine, it allows placing satellites in orbit or exploring space.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "sous-marin",
@@ -6529,7 +6961,9 @@
           "exists": false
         }
       ],
-      "description_en": "A submarine is a vessel capable of moving either on the surface or underwater. The first submarine with an engine was the French Plongeur in 1863, equipped with a compressed air engine, while the first operational model was built by David Bushnell in 1775. Most submarines are warships, although there are civilian uses for oceanographic research and oil exploitation."
+      "description_en": "A submarine is a vessel capable of moving either on the surface or underwater. The first submarine with an engine was the French Plongeur in 1863, equipped with a compressed air engine, while the first operational model was built by David Bushnell in 1775. Most submarines are warships, although there are civilian uses for oceanographic research and oil exploitation.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "charpente",
@@ -6616,7 +7050,9 @@
           "exists": false
         }
       ],
-      "description_en": "The framework is an assembly of wooden, metal or concrete elements used to support or cover constructions. It constitutes the load-bearing structure of a building, allowing the weight of the roof to be transmitted to the load-bearing walls. This fundamental construction technique has evolved since antiquity with different materials and assembly methods."
+      "description_en": "The framework is an assembly of wooden, metal or concrete elements used to support or cover constructions. It constitutes the load-bearing structure of a building, allowing the weight of the roof to be transmitted to the load-bearing walls. This fundamental construction technique has evolved since antiquity with different materials and assembly methods.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "tuyau",
@@ -6691,7 +7127,9 @@
           "exists": false
         }
       ],
-      "description_en": "Cylindrical conduit used to transport fluids (water, gas, steam) from one point to another. The pipe represents a fundamental invention for water supply, sanitation and fluid transport, used since antiquity with various materials according to different eras."
+      "description_en": "Cylindrical conduit used to transport fluids (water, gas, steam) from one point to another. The pipe represents a fundamental invention for water supply, sanitation and fluid transport, used since antiquity with various materials according to different eras.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "conserve",
@@ -6766,7 +7204,9 @@
           "exists": false
         }
       ],
-      "description_en": "Canning, or appertization, is a method of food preservation that consists of placing food in airtight containers, then heating them to destroy pathogenic microorganisms. This food revolution was invented in 1795 by Nicolas Appert, a French confectioner, who discovered that by heating food to over 100°C in hermetically sealed containers, it could be preserved for very long periods without deterioration."
+      "description_en": "Canning, or appertization, is a method of food preservation that consists of placing food in airtight containers, then heating them to destroy pathogenic microorganisms. This food revolution was invented in 1795 by Nicolas Appert, a French confectioner, who discovered that by heating food to over 100°C in hermetically sealed containers, it could be preserved for very long periods without deterioration.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "huile-d-olive",
@@ -6848,7 +7288,9 @@
           "exists": false
         }
       ],
-      "description_en": "Vegetable oil extracted from olives by crushing and pressing or centrifugation. Primary consumption oil of the Mediterranean basin, used for food, lighting, cosmetics and care. Emblematic product of Mediterranean civilization for more than 8000 years."
+      "description_en": "Vegetable oil extracted from olives by crushing and pressing or centrifugation. Primary consumption oil of the Mediterranean basin, used for food, lighting, cosmetics and care. Emblematic product of Mediterranean civilization for more than 8000 years.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "nylon",
@@ -6930,7 +7372,9 @@
           "exists": false
         }
       ],
-      "description_en": "First entirely artificial synthetic polymer created by reaction between adipic acid and hexamethylenediamine. This revolutionary fiber launched in 1938 possesses properties superior to natural silk and opens the era of modern synthetic materials."
+      "description_en": "First entirely artificial synthetic polymer created by reaction between adipic acid and hexamethylenediamine. This revolutionary fiber launched in 1938 possesses properties superior to natural silk and opens the era of modern synthetic materials.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "vaccin",
@@ -7015,7 +7459,9 @@
           "exists": false
         }
       ],
-      "description_en": "Biological preparation that stimulates the immune system to prevent infectious diseases. Contains weakened, killed microorganisms or pathogen fragments that teach the body to recognize and fight infectious agents."
+      "description_en": "Biological preparation that stimulates the immune system to prevent infectious diseases. Contains weakened, killed microorganisms or pathogen fragments that teach the body to recognize and fight infectious agents.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "antibiotique",
@@ -7090,7 +7536,9 @@
           "exists": false
         }
       ],
-      "description_en": "An organic chemical substance of natural or synthetic origin that inhibits or kills pathogenic bacteria at low concentration and possesses selective toxicity. Penicillin, discovered by Alexander Fleming in 1928, is the first industrially produced antibiotic and revolutionized modern medicine. Antibiotics have increased life expectancy by more than ten years."
+      "description_en": "An organic chemical substance of natural or synthetic origin that inhibits or kills pathogenic bacteria at low concentration and possesses selective toxicity. Penicillin, discovered by Alexander Fleming in 1928, is the first industrially produced antibiotic and revolutionized modern medicine. Antibiotics have increased life expectancy by more than ten years.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "anesthesie",
@@ -7149,7 +7597,9 @@
           "exists": false
         }
       ],
-      "description_en": "Anesthesia is the suppression of sensations (and in particular the sensation of pain). On October 16, 1846, William Thomas MORTON, at Massachusetts General Hospital, performed the first ether anesthesia, revolutionizing surgery. This recent medical specialty has revolutionized medicine by enabling quality surgery."
+      "description_en": "Anesthesia is the suppression of sensations (and in particular the sensation of pain). On October 16, 1846, William Thomas MORTON, at Massachusetts General Hospital, performed the first ether anesthesia, revolutionizing surgery. This recent medical specialty has revolutionized medicine by enabling quality surgery.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "dynamite",
@@ -7219,7 +7669,9 @@
           "exists": false
         }
       ],
-      "description_en": "Revolutionary explosive invented by Alfred Nobel in 1867, consisting of nitroglycerin stabilized by diatomaceous earth. This invention transformed the mining industry, tunnel construction, and earthworks, providing a powerful explosive that was much safer to handle than pure liquid nitroglycerin."
+      "description_en": "Revolutionary explosive invented by Alfred Nobel in 1867, consisting of nitroglycerin stabilized by diatomaceous earth. This invention transformed the mining industry, tunnel construction, and earthworks, providing a powerful explosive that was much safer to handle than pure liquid nitroglycerin.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "appareil-photo",
@@ -7301,7 +7753,9 @@
           "exists": false
         }
       ],
-      "description_en": "Optical and mechanical device that allows capturing and recording images permanently. Uses the principle of the camera obscura with a lens system and a photosensitive medium to fix the images."
+      "description_en": "Optical and mechanical device that allows capturing and recording images permanently. Uses the principle of the camera obscura with a lens system and a photosensitive medium to fix the images.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "memoire-ram",
@@ -7371,7 +7825,9 @@
           "exists": true
         }
       ],
-      "description_en": "Random access memory, or RAM, is computer memory in which information processed by a computing device can be stored, generally in a volatile manner. Its role is notably to store data that will be processed by the central processing unit (CPU), which is a microprocessor in most modern devices. Memory chips are composed of integrated circuits containing several transistors, resistors and capacitors that must be formed on each chip. These integrated circuits begin their life cycle as silicon, generally extracted from sand."
+      "description_en": "Random access memory, or RAM, is computer memory in which information processed by a computing device can be stored, generally in a volatile manner. Its role is notably to store data that will be processed by the central processing unit (CPU), which is a microprocessor in most modern devices. Memory chips are composed of integrated circuits containing several transistors, resistors and capacitors that must be formed on each chip. These integrated circuits begin their life cycle as silicon, generally extracted from sand.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "canon",
@@ -7449,7 +7905,9 @@
           "exists": false
         }
       ],
-      "description_en": "Artillery weapon using gunpowder to launch projectiles. Revolutionary invention that transformed siege warfare, naval warfare and land battles, making medieval fortifications obsolete."
+      "description_en": "Artillery weapon using gunpowder to launch projectiles. Revolutionary invention that transformed siege warfare, naval warfare and land battles, making medieval fortifications obsolete.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "fusil",
@@ -7553,7 +8011,9 @@
           "exists": false
         }
       ],
-      "description_en": "Portable firearm with a long barrel and shoulder stock, evolution of the arquebus and musket. Uses a flintlock then percussion ignition system to propel a bullet or projectiles using gunpowder. The rifle revolutionizes military armament and becomes the standard infantry weapon."
+      "description_en": "Portable firearm with a long barrel and shoulder stock, evolution of the arquebus and musket. Uses a flintlock then percussion ignition system to propel a bullet or projectiles using gunpowder. The rifle revolutionizes military armament and becomes the standard infantry weapon.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "savon",
@@ -7630,7 +8090,9 @@
           "exists": false
         }
       ],
-      "description_en": "Washing and cleaning product obtained by saponification of fatty substances (vegetable oils or animal fats) with an alkaline base (sodium hydroxide or potassium hydroxide). The chemical reaction produces soap (sodium or potassium carboxylates) and glycerin."
+      "description_en": "Washing and cleaning product obtained by saponification of fatty substances (vegetable oils or animal fats) with an alkaline base (sodium hydroxide or potassium hydroxide). The chemical reaction produces soap (sodium or potassium carboxylates) and glycerin.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "cosmetique",
@@ -7724,7 +8186,9 @@
           "exists": false
         }
       ],
-      "description_en": "Art and science of beautifying the human body through the application of products designed to cleanse, protect, perfume or modify the appearance of the skin, hair and nails. Cosmetics encompasses all care products, makeup and personal hygiene items used to maintain and enhance natural beauty."
+      "description_en": "Art and science of beautifying the human body through the application of products designed to cleanse, protect, perfume or modify the appearance of the skin, hair and nails. Cosmetics encompasses all care products, makeup and personal hygiene items used to maintain and enhance natural beauty.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "cuisine-mediterraneenne",
@@ -7785,7 +8249,9 @@
           "exists": false
         }
       ],
-      "description_en": "Mediterranean cuisine is a recent concept formalized in the 1950s, based on the traditional food triad of olive, wheat and grape. It encompasses the cuisines of Mediterranean basin countries: Maghrebi, Egyptian, Levantine, Turkish, Balkan, Greek, Italian, French, Cypriot, Maltese, Spanish and Portuguese. Inscribed on UNESCO's Intangible Cultural Heritage of Humanity list in 2010, it represents a set of skills, knowledge, practices and culinary traditions."
+      "description_en": "Mediterranean cuisine is a recent concept formalized in the 1950s, based on the traditional food triad of olive, wheat and grape. It encompasses the cuisines of Mediterranean basin countries: Maghrebi, Egyptian, Levantine, Turkish, Balkan, Greek, Italian, French, Cypriot, Maltese, Spanish and Portuguese. Inscribed on UNESCO's Intangible Cultural Heritage of Humanity list in 2010, it represents a set of skills, knowledge, practices and culinary traditions.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "conservation-des-aliments",
@@ -7860,7 +8326,9 @@
           "exists": true
         }
       ],
-      "description_en": "Set of techniques used to prevent or slow down food deterioration to ensure their preservation over extended periods. These processes aim to eliminate or inhibit microorganisms responsible for decomposition while preserving the nutritional and taste qualities of food products. Food preservation is fundamental for human survival and has evolved from primitive techniques of drying and smoking to modern methods of sterilization and refrigeration."
+      "description_en": "Set of techniques used to prevent or slow down food deterioration to ensure their preservation over extended periods. These processes aim to eliminate or inhibit microorganisms responsible for decomposition while preserving the nutritional and taste qualities of food products. Food preservation is fundamental for human survival and has evolved from primitive techniques of drying and smoking to modern methods of sterilization and refrigeration.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "parachute-en-nylon",
@@ -7925,7 +8393,9 @@
           "exists": false
         }
       ],
-      "description_en": "The nylon parachute was tested for the first time by Adeline Gray on June 6, 1942 in Hartford, marking the transition from silk to this new synthetic material. This innovation revolutionized the parachute industry because nylon offered a unique combination of lightness, strength and resilience superior to silk. During World War II, nylon production was massively redirected toward military needs, particularly for the manufacture of parachutes where it definitively replaced silk."
+      "description_en": "The nylon parachute was tested for the first time by Adeline Gray on June 6, 1942 in Hartford, marking the transition from silk to this new synthetic material. This innovation revolutionized the parachute industry because nylon offered a unique combination of lightness, strength and resilience superior to silk. During World War II, nylon production was massively redirected toward military needs, particularly for the manufacture of parachutes where it definitively replaced silk.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "seringue",
@@ -8007,7 +8477,9 @@
           "exists": true
         }
       ],
-      "description_en": "Medical instrument consisting of a cylindrical tube fitted with a piston, equipped with a hollow needle allowing the injection or extraction of liquid substances in the body. The modern syringe, developed by Pravaz in 1841, revolutionized medicine by enabling precise administration of medications through hypodermic injection."
+      "description_en": "Medical instrument consisting of a cylindrical tube fitted with a piston, equipped with a hollow needle allowing the injection or extraction of liquid substances in the body. The modern syringe, developed by Pravaz in 1841, revolutionized medicine by enabling precise administration of medications through hypodermic injection.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "anatomie-humaine",
@@ -8093,7 +8565,9 @@
           "exists": false
         }
       ],
-      "description_en": "Science that studies the structure of the human body, its organs and their relationships. Developed since Antiquity through observation and dissection, it became a modern discipline in the 16th century with Andreas Vesalius and his work De Humani Corporis Fabrica (1543)."
+      "description_en": "Science that studies the structure of the human body, its organs and their relationships. Developed since Antiquity through observation and dissection, it became a modern discipline in the 16th century with Andreas Vesalius and his work De Humani Corporis Fabrica (1543).",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "immunologie",
@@ -8177,7 +8651,9 @@
           "exists": false
         }
       ],
-      "description_en": "Science that studies the immune system and its defense reactions against pathogenic agents. Based on the vaccination work of Jenner and Pasteur, it developed as an autonomous discipline with the identification of cellular and humoral mechanisms of immunity. It encompasses the study of antibodies, lymphocytes, and the phenomena of self and non-self recognition."
+      "description_en": "Science that studies the immune system and its defense reactions against pathogenic agents. Based on the vaccination work of Jenner and Pasteur, it developed as an autonomous discipline with the identification of cellular and humoral mechanisms of immunity. It encompasses the study of antibodies, lymphocytes, and the phenomena of self and non-self recognition.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "epidemiologie",
@@ -8264,7 +8740,9 @@
           "exists": false
         }
       ],
-      "description_en": "Scientific discipline that studies the distribution and determinants of health problems in human populations, their frequency and their distribution in time and space. It uses statistical and analytical methods to identify the causes of diseases, monitor epidemics and evaluate public health interventions."
+      "description_en": "Scientific discipline that studies the distribution and determinants of health problems in human populations, their frequency and their distribution in time and space. It uses statistical and analytical methods to identify the causes of diseases, monitor epidemics and evaluate public health interventions.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "moisissures",
@@ -8328,7 +8806,9 @@
           "exists": true
         }
       ],
-      "description_en": "Microscopic filamentous organisms belonging to the Fungi kingdom, characterized by their development in humid environments. They play an essential role in the decomposition of organic matter and have enabled major discoveries such as penicillin. Traditionally used in food for cheeses and fermentation."
+      "description_en": "Microscopic filamentous organisms belonging to the Fungi kingdom, characterized by their development in humid environments. They play an essential role in the decomposition of organic matter and have enabled major discoveries such as penicillin. Traditionally used in food for cheeses and fermentation.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "streptomycine",
@@ -8399,7 +8879,9 @@
           "exists": false
         }
       ],
-      "description_en": "First effective antibiotic against tuberculosis, isolated in 1943 from the bacterium Streptomyces griseus. Belongs to the aminoglycoside family and inhibits bacterial protein synthesis by binding to ribosomes. Revolutionized tuberculosis treatment and marked a turning point in the history of antibiotics."
+      "description_en": "First effective antibiotic against tuberculosis, isolated in 1943 from the bacterium Streptomyces griseus. Belongs to the aminoglycoside family and inhibits bacterial protein synthesis by binding to ribosomes. Revolutionized tuberculosis treatment and marked a turning point in the history of antibiotics.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "anesthesie-locale",
@@ -8470,7 +8952,9 @@
           "exists": false
         }
       ],
-      "description_en": "Medical technique that consists of reversibly inhibiting the propagation of signals along nerves in a specific region of the body, allowing surgical procedures to be performed without pain. The first modern local anesthesia was introduced in 1884 by Carl Koller using cocaine in eye surgery, revolutionizing medical practice."
+      "description_en": "Medical technique that consists of reversibly inhibiting the propagation of signals along nerves in a specific region of the body, allowing surgical procedures to be performed without pain. The first modern local anesthesia was introduced in 1884 by Carl Koller using cocaine in eye surgery, revolutionizing medical practice.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "nitroglycerine",
@@ -8545,7 +9029,9 @@
           "exists": false
         }
       ],
-      "description_en": "Nitroglycerin is a dense, colorless, oily, explosive and highly toxic liquid organic compound, obtained by condensation of glycerol with nitric acid. It is used in the manufacture of explosives, and more particularly dynamite, and can also have medical use as a vasodilator. It was discovered by Ascanio Sobrero in 1847 at the University of Turin."
+      "description_en": "Nitroglycerin is a dense, colorless, oily, explosive and highly toxic liquid organic compound, obtained by condensation of glycerol with nitric acid. It is used in the manufacture of explosives, and more particularly dynamite, and can also have medical use as a vasodilator. It was discovered by Ascanio Sobrero in 1847 at the University of Turin.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "tunnel-ferroviaire",
@@ -8633,7 +9119,9 @@
           "exists": false
         }
       ],
-      "description_en": "Underground structure specifically designed for train passage. The development of the railway network in the 19th century led to the boring of numerous tunnels to avoid steep gradients. It was during this period that shield technology was developed to protect workers from cave-ins, and compressed air drills that allowed for faster excavation. The first railway tunnel is the Terre-Noire tunnel, 1477 meters long. Railway tunnels revolutionized transportation by making it possible to overcome natural obstacles such as mountains."
+      "description_en": "Underground structure specifically designed for train passage. The development of the railway network in the 19th century led to the boring of numerous tunnels to avoid steep gradients. It was during this period that shield technology was developed to protect workers from cave-ins, and compressed air drills that allowed for faster excavation. The first railway tunnel is the Terre-Noire tunnel, 1477 meters long. Railway tunnels revolutionized transportation by making it possible to overcome natural obstacles such as mountains.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "geligniite",
@@ -8704,7 +9192,9 @@
           "exists": false
         }
       ],
-      "description_en": "Gelignite is an explosive consisting of collodion-cotton (nitrocellulose) dissolved in nitroglycerin and mixed with wood pulp and saltpeter. It was invented in 1875 by Alfred Nobel. More stable than dynamite, it is easily malleable and safe to handle without protection as long as it is not near a detonator, burns slowly and cannot explode without a detonator."
+      "description_en": "Gelignite is an explosive consisting of collodion-cotton (nitrocellulose) dissolved in nitroglycerin and mixed with wood pulp and saltpeter. It was invented in 1875 by Alfred Nobel. More stable than dynamite, it is easily malleable and safe to handle without protection as long as it is not near a detonator, burns slowly and cannot explode without a detonator.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "argent",
@@ -8759,7 +9249,9 @@
           "exists": false
         }
       ],
-      "description_en": "Precious white and shiny metal, silver (Ag) has been known since antiquity and exhibits excellent electrical and thermal conductivity properties. It exists in its native state in nature but is more often extracted from sulfides associated with copper, lead and zinc."
+      "description_en": "Precious white and shiny metal, silver (Ag) has been known since antiquity and exhibits excellent electrical and thermal conductivity properties. It exists in its native state in nature but is more often extracted from sulfides associated with copper, lead and zinc.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "bitume-de-judee",
@@ -8812,7 +9304,9 @@
           "exists": false
         }
       ],
-      "description_en": "Natural black substance composed of fossil hydrocarbons, extracted mainly from the Dead Sea region. Used since Antiquity as a waterproofing agent and pigment, it became famous in the 19th century in artistic painting and for the invention of photography by Nicéphore Niépce."
+      "description_en": "Natural black substance composed of fossil hydrocarbons, extracted mainly from the Dead Sea region. Used since Antiquity as a waterproofing agent and pigment, it became famous in the 19th century in artistic painting and for the invention of photography by Nicéphore Niépce.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "radiographie",
@@ -8888,7 +9382,9 @@
           "exists": false
         }
       ],
-      "description_en": "Imaging technique using X-rays to visualize the internal structures of an object without destroying it. Discovered in 1895 by Wilhelm Röntgen, it revolutionized medical diagnosis by making it possible to see through the human body."
+      "description_en": "Imaging technique using X-rays to visualize the internal structures of an object without destroying it. Discovered in 1895 by Wilhelm Röntgen, it revolutionized medical diagnosis by making it possible to see through the human body.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "disque-dur",
@@ -8969,7 +9465,9 @@
           "exists": false
         }
       ],
-      "description_en": "Magnetic mass memory consisting of rotating rigid platters covered with a magnetic layer. The first IBM 350 hard disk system was used in the RAMAC 305 in 1956, revolutionizing computer storage. Data is written and read by magnetic heads that fly over the platters without touching them."
+      "description_en": "Magnetic mass memory consisting of rotating rigid platters covered with a magnetic layer. The first IBM 350 hard disk system was used in the RAMAC 305 in 1956, revolutionizing computer storage. Data is written and read by magnetic heads that fly over the platters without touching them.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "arc",
@@ -9028,7 +9526,9 @@
           "exists": false
         }
       ],
-      "description_en": "Projectile weapon consisting of a flexible curved piece and a string, allowing arrows to be launched. The bow stores and releases energy like a spring during drawing and release. Invented in prehistoric times, it was first a hunting weapon then a war weapon, revolutionizing long-distance combat techniques."
+      "description_en": "Projectile weapon consisting of a flexible curved piece and a string, allowing arrows to be launched. The bow stores and releases energy like a spring during drawing and release. Invented in prehistoric times, it was first a hunting weapon then a war weapon, revolutionizing long-distance combat techniques.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "arbalete",
@@ -9112,7 +9612,9 @@
           "exists": false
         }
       ],
-      "description_en": "Projectile weapon consisting of a bow mounted horizontally on a stock (tiller) with a trigger mechanism to hold and release the string. It launches short projectiles called bolts with greater accuracy than the traditional bow but with a slower rate of fire. Widely used from antiquity to the Middle Ages for warfare, hunting, and fortress defense."
+      "description_en": "Projectile weapon consisting of a bow mounted horizontally on a stock (tiller) with a trigger mechanism to hold and release the string. It launches short projectiles called bolts with greater accuracy than the traditional bow but with a slower rate of fire. Widely used from antiquity to the Middle Ages for warfare, hunting, and fortress defense.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "artillerie-moderne",
@@ -9200,7 +9702,9 @@
           "exists": false
         }
       ],
-      "description_en": "Modern artillery refers to the revolutionary evolution of the military art of firearms between 1850 and 1950, characterized by the introduction of breech-loading, rifled barrels, smokeless powder, and rapid-fire systems. This major technological transformation made artillery pieces more accurate, more powerful, and more mobile."
+      "description_en": "Modern artillery refers to the revolutionary evolution of the military art of firearms between 1850 and 1950, characterized by the introduction of breech-loading, rifled barrels, smokeless powder, and rapid-fire systems. This major technological transformation made artillery pieces more accurate, more powerful, and more mobile.",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "acide-sulfurique",
@@ -9280,7 +9784,9 @@
           "name": "Explosifs industriels",
           "exists": false
         }
-      ]
+      ],
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "laser",
@@ -9372,7 +9878,9 @@
           "name": "Holographie",
           "exists": false
         }
-      ]
+      ],
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "batterie",
@@ -9465,7 +9973,9 @@
           "name": "Véhicule électrique",
           "exists": false
         }
-      ]
+      ],
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "gps",
@@ -9553,7 +10063,9 @@
           "name": "Géolocalisation mobile",
           "exists": false
         }
-      ]
+      ],
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "epee",
@@ -9635,7 +10147,9 @@
           "name": "Duel",
           "exists": false
         }
-      ]
+      ],
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "acide-chlorhydrique",
@@ -9688,7 +10202,9 @@
           "name": "Acier",
           "exists": true
         }
-      ]
+      ],
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "batterie-au-plomb",
@@ -9770,7 +10286,9 @@
           "name": "Batterie Li-ion",
           "exists": true
         }
-      ]
+      ],
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "explosifs-industriels",
@@ -9866,7 +10384,9 @@
           "name": "Terrassement moderne",
           "exists": false
         }
-      ]
+      ],
+      "dimension": null,
+      "materialLevel": null
     }
   ],
   "links": [

@@ -1,12 +1,14 @@
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { treeInventionPath, getDefaultTreeNodeId } from '@/lib/tree-routes';
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const oauthError = url.searchParams.get('error');
-  const nextPath = url.searchParams.get('next') ?? '/explore';
-  const safeNext = nextPath.startsWith('/') ? nextPath : '/explore';
+  const nextPath =
+    url.searchParams.get('next') ?? treeInventionPath(getDefaultTreeNodeId());
+  const safeNext = nextPath.startsWith('/') ? nextPath : '/';
 
   if (oauthError) {
     const desc = url.searchParams.get('error_description') ?? oauthError;

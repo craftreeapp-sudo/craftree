@@ -4,7 +4,12 @@
 import nodesIndex from '@/data/nodes-index.json';
 import nodesDetails from '@/data/nodes-details.json';
 import linksJson from '@/data/links.json';
-import type { CraftingLink, SeedNode } from '@/lib/types';
+import type {
+  CraftingLink,
+  MaterialLevel,
+  NodeDimension,
+  SeedNode,
+} from '@/lib/types';
 
 type DetailsRow = {
   name_en?: string;
@@ -19,8 +24,13 @@ type DetailsRow = {
 
 const details = nodesDetails as unknown as Record<string, DetailsRow>;
 
+type IndexNode = (typeof nodesIndex.nodes)[number] & {
+  dimension?: NodeDimension | null;
+  materialLevel?: MaterialLevel | null;
+};
+
 export function getMergedSeedNode(id: string): SeedNode | undefined {
-  const n = nodesIndex.nodes.find((x) => x.id === id);
+  const n = nodesIndex.nodes.find((x) => x.id === id) as IndexNode | undefined;
   if (!n) return undefined;
   const d = details[id] ?? {};
   return {
@@ -33,6 +43,8 @@ export function getMergedSeedNode(id: string): SeedNode | undefined {
     era: n.era,
     year_approx: n.year_approx,
     complexity_depth: n.complexity_depth,
+    dimension: n.dimension ?? null,
+    materialLevel: n.materialLevel ?? null,
     tags: d.tags ?? [],
     origin: d.origin ?? undefined,
     image_url: n.image_url ?? d.image_url,

@@ -56,6 +56,27 @@ function cleanDescription(text) {
     .trim();
 }
 
+const DIMENSION_VALUES = new Set(['matter', 'process', 'tool']);
+const MATERIAL_LEVEL_VALUES = new Set([
+  'raw',
+  'processed',
+  'industrial',
+  'component',
+]);
+
+function normalizeDimensionMaterialLevel(enriched) {
+  const dRaw = enriched.dimension;
+  const dimension =
+    typeof dRaw === 'string' && DIMENSION_VALUES.has(dRaw) ? dRaw : null;
+  const mlRaw = enriched.materialLevel;
+  let materialLevel =
+    typeof mlRaw === 'string' && MATERIAL_LEVEL_VALUES.has(mlRaw)
+      ? mlRaw
+      : null;
+  if (dimension !== 'matter') materialLevel = null;
+  return { dimension, materialLevel };
+}
+
 /** Évite les lectures/écritures concurrentes sur seed-data.json */
 let seedWriteChain = Promise.resolve();
 
@@ -239,6 +260,21 @@ Valeurs possibles : mineral, vegetal, animal, element, energy, material, tool, p
 
 prehistoric (avant -3000), ancient (-3000 à 500), medieval (500 à 1500), renaissance (1500 à 1750), industrial (1750 à 1900), modern (1900 à 1970), digital (1970 à 2010), contemporary (2010+)
 
+### DIMENSION (nature de l'invention — indépendant du champ "type")
+
+- "matter" : ce qui compose un objet (matières, substances)
+- "process" : comment on transforme (procédés, techniques)
+- "tool" : avec quoi on transforme (outils, machines, usines)
+
+### NIVEAU MATIÈRE (materialLevel) — UNIQUEMENT si dimension = "matter"
+
+Sinon mets obligatoirement null.
+
+- "raw" : matières premières brutes extraites de la nature (minerai, sable, pétrole brut)
+- "processed" : matière transformée, nouvelle substance (acier, silicium, plastique, farine)
+- "industrial" : matériau mis en forme pour un usage spécifique (fil de cuivre, tôle, verre trempé)
+- "component" : pièce fonctionnelle autonome (batterie, processeur, moteur, écran)
+
 ### INTRANTS (built_upon) — type de relation
 
 - "material" → consommé/transformé/intégré dans le produit. Disparaît.
@@ -297,6 +333,8 @@ Réponds UNIQUEMENT avec un JSON valide, rien d'autre :
   "era": "...",
   "year_approx": 1886,
   "origin": "Inventeur, entreprise ou pays. Null si inconnu.",
+  "dimension": "matter",
+  "materialLevel": "processed",
   "wikipedia_url": "https://fr.wikipedia.org/wiki/...",
   "tags": ["tag1", "tag2"],
   "built_upon": [
@@ -369,6 +407,8 @@ function addInventionToDB(enriched) {
     ? JSON.parse(JSON.stringify(enriched.led_to))
     : [];
 
+  const { dimension, materialLevel } = normalizeDimensionMaterialLevel(enriched);
+
   const node = {
     id,
     name: enriched.name,
@@ -384,6 +424,8 @@ function addInventionToDB(enriched) {
     wikipedia_url: enriched.wikipedia_url || null,
     tags: Array.isArray(enriched.tags) ? enriched.tags : [],
     complexity_depth: 0,
+    dimension,
+    materialLevel,
     _ai_built_upon: builtRaw,
     _ai_led_to: ledRaw,
   };

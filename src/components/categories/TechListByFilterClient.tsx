@@ -19,6 +19,7 @@ import type {
   TechNodeType,
   TechNodeBasic,
 } from '@/lib/types';
+import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
 
 interface TechListByFilterClientProps {
   kind: FilterKind;
@@ -68,7 +69,7 @@ export function TechListByFilterClient({
     if (kind === 'category') setOnlyCategory(id as NodeCategory);
     else if (kind === 'era') setOnlyEra(id as Era);
     else setOnlyType(id as TechNodeType);
-    router.push('/explore');
+    router.push(treeInventionPath(getDefaultTreeNodeId()));
   };
 
   return (
@@ -126,7 +127,7 @@ export function TechListByFilterClient({
             return (
               <li key={node.id}>
                 <Link
-                  href={`/explore?node=${encodeURIComponent(node.id)}`}
+                  href={treeInventionPath(node.id)}
                   className="flex h-full flex-col rounded-xl border border-border bg-surface-elevated p-4 shadow-md transition-colors hover:border-accent/50 hover:bg-surface/80"
                 >
                   <span

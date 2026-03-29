@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
 import { HeroGraphBackground } from './HeroGraphBackground';
 
 const titleVariants = {
@@ -55,7 +56,7 @@ export function HeroSection() {
           transition={{ duration: 0.5, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
           <Link
-            href="/explore"
+            href={treeInventionPath(getDefaultTreeNodeId())}
             className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#3B82F6] px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-[#3B82F6]/25 transition-colors hover:bg-[#60A5FA] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#93C5FD] focus-visible:ring-offset-2 focus-visible:ring-offset-page md:inline-flex md:w-auto"
           >
             Explorer

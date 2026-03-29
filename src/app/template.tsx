@@ -1,10 +1,19 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 /**
- * Enveloppe racine : fond aligné sur les tokens de thème (script inline + CSS vars).
+ * Transition légère entre routes (alignée sur les animations explore).
  */
 export default function Template({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen min-h-[100dvh] flex-1 flex-col bg-page">
+    <motion.div
+      initial={{ opacity: 0.94, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.24, ease: [0.4, 0, 0.2, 1] }}
+      className="flex min-h-screen min-h-[100dvh] flex-1 flex-col bg-page"
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }

@@ -8,6 +8,8 @@ import {
   NODE_CATEGORY_ORDER,
   ERA_ORDER,
   TECH_NODE_TYPE_ORDER,
+  DIMENSION_ORDER,
+  MATERIAL_LEVEL_ORDER,
 } from '@/lib/node-labels';
 import {
   RelationType as RT,
@@ -17,7 +19,10 @@ import {
   type SeedNode,
   type TechNodeType,
   type Era,
+  type NodeDimension,
+  type MaterialLevel,
 } from '@/lib/types';
+import { EDITOR_DIM_KEY, EDITOR_LEVEL_KEY } from './dimension-editor-keys';
 import { SearchableSelect, type SearchableOption } from './SearchableSelect';
 import {
   NodeEditForm,
@@ -26,6 +31,7 @@ import {
   type NodeEditFormState,
 } from './NodeEditForm';
 import { filterValidCraftingLinks } from '@/lib/graph-utils';
+import { treeInventionPath, getDefaultTreeNodeId } from '@/lib/tree-routes';
 import { useGraphStore } from '@/stores/graph-store';
 import { useAuthStore } from '@/stores/auth-store';
 
@@ -44,6 +50,8 @@ type NodeSortKey =
   | 'name'
   | 'category'
   | 'type'
+  | 'dimension'
+  | 'materialLevel'
   | 'era'
   | 'year_approx'
   | 'origin'
@@ -153,6 +161,8 @@ export function EditorPageClient() {
   const [catF, setCatF] = useState<string>('all');
   const [typeF, setTypeF] = useState<string>('all');
   const [eraF, setEraF] = useState<string>('all');
+  const [dimensionF, setDimensionF] = useState<string>('all');
+  const [materialLevelF, setMaterialLevelF] = useState<string>('all');
   /** Nœuds sans aucun lien entrant ni sortant. */
   const [isolatedOnly, setIsolatedOnly] = useState(false);
   const [sortKey, setSortKey] = useState<NodeSortKey>('name');
@@ -169,6 +179,18 @@ export function EditorPageClient() {
     return nodes.filter((n) => {
       if (catF !== 'all' && n.category !== catF) return false;
       if (typeF !== 'all' && n.type !== typeF) return false;
+      if (dimensionF !== 'all') {
+        const nd = n.dimension ?? null;
+        if (dimensionF === 'unset') {
+          if (nd !== null && nd !== undefined) return false;
+        } else if (nd !== dimensionF) return false;
+      }
+      if (materialLevelF !== 'all') {
+        const nl = n.materialLevel ?? null;
+        if (materialLevelF === 'unset') {
+          if (nl !== null && nl !== undefined) return false;
+        } else if (nl !== materialLevelF) return false;
+      }
       if (eraF !== 'all' && n.era !== eraF) return false;
       if (isolatedOnly) {
         const lc = linkCounts(n.id, graphModelEdges);
@@ -185,7 +207,17 @@ export function EditorPageClient() {
         .toLowerCase();
       return blob.includes(qt);
     });
-  }, [nodes, qNode, catF, typeF, eraF, isolatedOnly, graphModelEdges]);
+  }, [
+    nodes,
+    qNode,
+    catF,
+    typeF,
+    dimensionF,
+    materialLevelF,
+    eraF,
+    isolatedOnly,
+    graphModelEdges,
+  ]);
 
   const sortedNodes = useMemo(() => {
     const arr = [...filteredNodes];
@@ -201,6 +233,12 @@ export function EditorPageClient() {
           break;
         case 'type':
           cmp = a.type.localeCompare(b.type);
+          break;
+        case 'dimension':
+          cmp = (a.dimension ?? '').localeCompare(b.dimension ?? '');
+          break;
+        case 'materialLevel':
+          cmp = (a.materialLevel ?? '').localeCompare(b.materialLevel ?? '');
           break;
         case 'era':
           cmp = a.era.localeCompare(b.era);
@@ -260,6 +298,14 @@ export function EditorPageClient() {
       origin: form.origin.trim() || undefined,
       tags: form.tags,
       wikipedia_url: form.wikipedia_url.trim() || undefined,
+      dimension:
+        form.dimension.trim() === ''
+          ? null
+          : (form.dimension.trim() as NodeDimension),
+      materialLevel:
+        form.dimension !== 'matter' || form.materialLevel.trim() === ''
+          ? null
+          : (form.materialLevel.trim() as MaterialLevel),
     };
     if (!body.name || !body.description) {
       push(te('toastNameDescRequired'), 'err');
@@ -486,7 +532,7 @@ export function EditorPageClient() {
       <div className="flex min-h-[60vh] flex-1 flex-col items-center justify-center gap-4 bg-page px-6 text-center text-foreground">
         <p className="max-w-md text-sm">{te('adminOnly')}</p>
         <Link
-          href="/explore"
+          href={treeInventionPath(getDefaultTreeNodeId())}
           className="rounded-lg border border-border bg-surface-elevated px-4 py-2 text-sm transition-colors hover:bg-border"
         >
           {te('backToExplore')}
@@ -500,7 +546,7 @@ export function EditorPageClient() {
       <header className="sticky top-0 z-40 flex shrink-0 items-center justify-between border-b border-border bg-page px-6 py-4">
         <h1 className="text-lg font-semibold">{te('pageTitle')}</h1>
         <Link
-          href="/explore"
+          href={treeInventionPath(getDefaultTreeNodeId())}
           className="rounded-lg border border-border bg-surface-elevated px-4 py-2 text-sm text-foreground transition-colors hover:bg-border"
         >
           {te('backToExplore')}
@@ -588,6 +634,32 @@ export function EditorPageClient() {
                   </option>
                 ))}
               </select>
+              <select
+                value={dimensionF}
+                onChange={(e) => setDimensionF(e.target.value)}
+                className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
+              >
+                <option value="all">{te('allDimensions')}</option>
+                <option value="unset">{te('notSet')}</option>
+                {DIMENSION_ORDER.map((d) => (
+                  <option key={d} value={d}>
+                    {te(EDITOR_DIM_KEY[d])}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={materialLevelF}
+                onChange={(e) => setMaterialLevelF(e.target.value)}
+                className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
+              >
+                <option value="all">{te('allLevels')}</option>
+                <option value="unset">{te('notSet')}</option>
+                {MATERIAL_LEVEL_ORDER.map((lv) => (
+                  <option key={lv} value={lv}>
+                    {te(EDITOR_LEVEL_KEY[lv])}
+                  </option>
+                ))}
+              </select>
               <button
                 type="button"
                 title={te('isolatedOnlyTitle')}
@@ -607,7 +679,7 @@ export function EditorPageClient() {
             </div>
 
             <div className="editor-scrollbar min-h-0 flex-1 overflow-auto rounded-lg border border-border">
-              <table className="w-full min-w-[1000px] border-collapse text-sm">
+              <table className="w-full min-w-[1180px] border-collapse text-sm">
                 <thead className="sticky top-0 z-10 bg-surface-elevated text-start text-xs font-bold uppercase tracking-wide text-muted-foreground">
                   <tr>
                     <th className="w-12 px-1 py-1 text-center text-muted-foreground">
@@ -641,6 +713,30 @@ export function EditorPageClient() {
                       >
                         {te('type')}{' '}
                         {sortKey === 'type' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
+                      </button>
+                    </th>
+                    <th className="w-[100px] px-3 py-1">
+                      <button
+                        type="button"
+                        className="inline-flex items-center gap-1"
+                        onClick={() => toggleSort('dimension')}
+                      >
+                        {te('columnDimension')}{' '}
+                        {sortKey === 'dimension' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
+                      </button>
+                    </th>
+                    <th className="w-[100px] px-3 py-1">
+                      <button
+                        type="button"
+                        className="inline-flex items-center gap-1"
+                        onClick={() => toggleSort('materialLevel')}
+                      >
+                        {te('columnLevel')}{' '}
+                        {sortKey === 'materialLevel'
+                          ? sortDir === 'asc'
+                            ? '↑'
+                            : '↓'
+                          : ''}
                       </button>
                     </th>
                     <th className="w-[120px] px-3 py-1">
@@ -754,6 +850,16 @@ export function EditorPageClient() {
                           <span className="rounded bg-[#2A3042] px-2 py-0.5 text-xs text-foreground">
                             {tType(n.type as TechNodeType) ?? n.type}
                           </span>
+                        </td>
+                        <td className="px-3 py-2 text-muted-foreground">
+                          {n.dimension
+                            ? te(EDITOR_DIM_KEY[n.dimension as NodeDimension])
+                            : '—'}
+                        </td>
+                        <td className="px-3 py-2 text-muted-foreground">
+                          {n.dimension === 'matter' && n.materialLevel
+                            ? te(EDITOR_LEVEL_KEY[n.materialLevel as MaterialLevel])
+                            : '—'}
                         </td>
                         <td className="px-3 py-2 text-muted-foreground">
                           {tEra(n.era as Era) ?? n.era}
