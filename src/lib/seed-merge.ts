@@ -5,8 +5,10 @@ import nodesIndex from '@/data/nodes-index.json';
 import nodesDetails from '@/data/nodes-details.json';
 import linksJson from '@/data/links.json';
 import type {
+  ChemicalNature,
   CraftingLink,
   MaterialLevel,
+  NaturalOrigin,
   NodeDimension,
   SeedNode,
 } from '@/lib/types';
@@ -33,18 +35,25 @@ export function getMergedSeedNode(id: string): SeedNode | undefined {
   const n = nodesIndex.nodes.find((x) => x.id === id) as IndexNode | undefined;
   if (!n) return undefined;
   const d = details[id] ?? {};
+  const row = n as Record<string, unknown>;
   return {
     id: n.id,
     name: n.name,
     name_en: d.name_en ?? '',
     description: d.description ?? '',
     category: n.category,
-    type: n.type,
+    type: typeof row.type === 'string' ? row.type : 'material',
     era: n.era,
     year_approx: n.year_approx,
     complexity_depth: n.complexity_depth,
     dimension: n.dimension ?? null,
     materialLevel: n.materialLevel ?? null,
+    ...(row.naturalOrigin != null && row.naturalOrigin !== ''
+      ? { naturalOrigin: row.naturalOrigin as NaturalOrigin }
+      : {}),
+    ...(row.chemicalNature != null && row.chemicalNature !== ''
+      ? { chemicalNature: row.chemicalNature as ChemicalNature }
+      : {}),
     tags: d.tags ?? [],
     origin: d.origin ?? undefined,
     image_url: n.image_url ?? d.image_url,

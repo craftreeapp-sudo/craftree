@@ -5,8 +5,10 @@ import {
   getLinksForMetadata as getLinksForMetadataFromSeed,
 } from '@/lib/seed-merge';
 import type {
+  ChemicalNature,
   CraftingLink,
   MaterialLevel,
+  NaturalOrigin,
   NodeDimension,
   SeedNode,
 } from '@/lib/types';
@@ -24,9 +26,73 @@ function mapRowMaterialLevel(row: Record<string, unknown>): MaterialLevel | null
   return String(m) as MaterialLevel;
 }
 
+function mapRowNaturalOrigin(
+  row: Record<string, unknown>
+): NaturalOrigin | null {
+  const v = row.natural_origin;
+  if (v == null || v === '') return null;
+  return String(v) as NaturalOrigin;
+}
+
+function mapRowChemicalNature(
+  row: Record<string, unknown>
+): ChemicalNature | null {
+  const v = row.chemical_nature;
+  if (v == null || v === '') return null;
+  return String(v) as ChemicalNature;
+}
+
 /** Colonnes minimales pour le graphe /explore (pas de textes longs). */
 export const GRAPH_NODES_SELECT =
+  'id, name, name_en, category, type, era, year_approx, image_url, complexity_depth, dimension, material_level, natural_origin, chemical_nature';
+
+/** Même projection sans `natural_origin` / `chemical_nature` (bases non migrées). */
+export const GRAPH_NODES_SELECT_LEGACY =
   'id, name, name_en, category, type, era, year_approx, image_url, complexity_depth, dimension, material_level';
+
+/** Liste admin / API `?full=1` — avec colonnes nature. */
+export const FULL_NODES_SELECT =
+  'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, natural_origin, chemical_nature';
+
+export const FULL_NODES_SELECT_LEGACY =
+  'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level';
+
+export function isMissingNatureColumnsError(
+  err: { code?: string; message?: string } | null
+): boolean {
+  if (!err) return false;
+  const m = String(err.message ?? '');
+  return m.includes('natural_origin') || m.includes('chemical_nature');
+}
+
+type NodesFetchMode = 'graph' | 'full';
+
+/** Lecture `nodes` avec repli si les colonnes nature ne sont pas encore en base (Postgres 42703). */
+export async function fetchNodesOrdered(
+  supabase: ReturnType<typeof createSupabaseServerReadClient>,
+  mode: NodesFetchMode
+): Promise<{ rows: Record<string, unknown>[] }> {
+  const primary =
+    mode === 'graph' ? GRAPH_NODES_SELECT : FULL_NODES_SELECT;
+  const legacy =
+    mode === 'graph' ? GRAPH_NODES_SELECT_LEGACY : FULL_NODES_SELECT_LEGACY;
+  let { data, error } = await supabase
+    .from('nodes')
+    .select(primary as never)
+    .order('name');
+  if (error && isMissingNatureColumnsError(error)) {
+    const second = await supabase
+      .from('nodes')
+      .select(legacy as never)
+      .order('name');
+    data = second.data;
+    error = second.error;
+  }
+  if (error) throw error;
+  return {
+    rows: (data ?? []) as unknown as Record<string, unknown>[],
+  };
+}
 
 /** Liens : champs nécessaires au rendu et à l’éditeur (pas de métadonnées inutiles). */
 export const GRAPH_LINKS_SELECT =
@@ -60,6 +126,8 @@ export function mapGraphNodeRowToSeedNode(row: Record<string, unknown>): SeedNod
     wikipedia_url: undefined,
     dimension: mapRowDimension(row),
     materialLevel: mapRowMaterialLevel(row),
+    naturalOrigin: mapRowNaturalOrigin(row),
+    chemicalNature: mapRowChemicalNature(row),
   };
 }
 
@@ -86,6 +154,8 @@ export function mapNodeRowToSeedNode(row: Record<string, unknown>): SeedNode {
     wikipedia_url: row.wikipedia_url != null ? String(row.wikipedia_url) : undefined,
     dimension: mapRowDimension(row),
     materialLevel: mapRowMaterialLevel(row),
+    naturalOrigin: mapRowNaturalOrigin(row),
+    chemicalNature: mapRowChemicalNature(row),
   };
 }
 
@@ -108,14 +178,8 @@ export async function getAllNodes(): Promise<SeedNode[]> {
     return readSeedData().nodes;
   }
   const supabase = createSupabaseServerReadClient();
-  const { data, error } = await supabase
-    .from('nodes')
-    .select(GRAPH_NODES_SELECT)
-    .order('name');
-  if (error) throw error;
-  return (data ?? []).map((r) =>
-    mapGraphNodeRowToSeedNode(r as Record<string, unknown>)
-  );
+  const { rows } = await fetchNodesOrdered(supabase, 'graph');
+  return rows.map((r) => mapGraphNodeRowToSeedNode(r));
 }
 
 export async function getNodeDetailsRow(id: string) {

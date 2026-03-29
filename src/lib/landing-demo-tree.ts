@@ -85,7 +85,7 @@ export function getLandingDemoTreeNodes(locale: string): LandingDemoTreeNode[] {
       id,
       name,
       description,
-      category: (basic?.category ?? 'material') as NodeCategory,
+      category: (basic?.category ?? 'industry') as NodeCategory,
     };
   });
 }

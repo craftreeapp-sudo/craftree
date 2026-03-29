@@ -11,13 +11,20 @@ import { useAuthStore } from '@/stores/auth-store';
 import { useToastStore } from '@/stores/toast-store';
 import { useExploreCardOptional } from '@/components/explore/explore-card-context';
 import { formatYear } from '@/lib/utils';
-import { getCategoryColor } from '@/lib/colors';
+import { getCategoryColor, hexToRgba } from '@/lib/colors';
+import { directDependencyCount } from '@/lib/built-upon-utils';
 import { trackEvent } from '@/lib/analytics';
 import {
   pickNodeDisplayName,
   pickNodeDescriptionForLocale,
 } from '@/lib/node-display-name';
 import type { NodeCategory, TechNodeDetails } from '@/lib/types';
+import { SuggestNodeCorrectionPanel } from '@/components/ui/SuggestNodeCorrectionPanel';
+import { safeCategoryLabel } from '@/lib/safe-category-label';
+import {
+  ExploreLedToRow,
+  ExploreRecipeRow,
+} from '@/components/explore/ExploreDetailLinkRows';
 
 const PANEL_W = 340;
 const TRANSITION = { duration: 0.35, ease: [0.4, 0, 0.2, 1] as const };
@@ -43,22 +50,27 @@ export function ExploreDetailPanel() {
   const tAuth = useTranslations('auth');
   const tCat = useTranslations('categories');
   const tTypes = useTranslations('types');
-  const tEra = useTranslations('eras');
   const tEd = useTranslations('editor');
 
   const getNodeById = useGraphStore((s) => s.getNodeById);
+  const edges = useGraphStore((s) => s.edges);
+  const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
+  const getUsagesOfNode = useGraphStore((s) => s.getUsagesOfNode);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
   const mergeDetail = useNodeDetailsStore((s) => s.mergeDetail);
   const detailsById = useNodeDetailsStore((s) => s.byId);
-  const selectNode = useUIStore((s) => s.selectNode);
   const { isAdmin } = useAuthStore();
   const pushToast = useToastStore((s) => s.pushToast);
+  const selectNode = useUIStore((s) => s.selectNode);
 
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
   const [mainImgErr, setMainImgErr] = useState(false);
+  const [ledToOpen, setLedToOpen] = useState(true);
+  const [builtUponOpen, setBuiltUponOpen] = useState(true);
 
   const detailNodeId = ctx?.detailNodeId ?? null;
+  const detailSubview = ctx?.detailSubview ?? 'detail';
   const isMobile = ctx?.isMobile ?? false;
 
   const node = detailNodeId ? getNodeById(detailNodeId) : undefined;
@@ -82,6 +94,8 @@ export function ExploreDetailPanel() {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reset explicite au changement de cible
     setMoreOpen(false);
     setMainImgErr(false);
+    setLedToOpen(true);
+    setBuiltUponOpen(true);
   }, [detailNodeId]);
 
   useEffect(() => {
@@ -103,12 +117,8 @@ export function ExploreDetailPanel() {
 
   const enterSuggest = useCallback(() => {
     if (!node) return;
-    selectNode(node.id, {
-      openSidebar: true,
-      openSuggest: true,
-      center: false,
-    });
-  }, [node, selectNode]);
+    ctx?.openSuggestSubview();
+  }, [node, ctx]);
 
   const enterEdit = useCallback(() => {
     if (!node) return;
@@ -183,20 +193,61 @@ export function ExploreDetailPanel() {
 
   const originLine = (node?.origin ?? detail?.origin ?? '').trim();
 
+  const recipeLinks = useMemo(
+    () => (node ? getRecipeForNode(node.id) : []),
+    [node, getRecipeForNode]
+  );
+
+  const directDeps = useMemo(
+    () => (node ? directDependencyCount(node.id, edges) : 0),
+    [node, edges]
+  );
+
+  const usages = useMemo(
+    () => (node ? getUsagesOfNode(node.id) : []),
+    [node, getUsagesOfNode]
+  );
+
+  const openPeerDetail = useCallback(
+    (id: string, direction: 'upstream' | 'downstream') => {
+      if (node) {
+        trackEvent('navigate_link', id, {
+          from: node.id,
+          direction,
+        });
+      }
+      ctx?.openDetail(id);
+    },
+    [ctx, node]
+  );
+
   const panelInner =
     !node ? null : (
       <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+        {/* 1. Titre + numéro de carte + menu */}
         <div className="flex shrink-0 items-start justify-between gap-2 border-b border-border px-4 pb-3 pt-4">
-          <h2
-            id="explore-detail-title"
-            className="min-w-0 flex-1 text-xl font-bold leading-tight text-foreground"
-            style={{
-              fontFamily:
-                'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
-            }}
-          >
-            {displayName}
-          </h2>
+          <div className="flex min-w-0 flex-1 items-start gap-2">
+            <h2
+              id="explore-detail-title"
+              className="min-w-0 flex-1 text-xl font-bold leading-tight text-foreground"
+              style={{
+                fontFamily:
+                  'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+              }}
+            >
+              {displayName}
+            </h2>
+            <span
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded border-2 text-xs font-semibold tabular-nums text-foreground"
+              style={{
+                borderColor: categoryColor,
+                backgroundColor: hexToRgba(categoryColor, 0.12),
+              }}
+              title={tExplore('directDepsBadgeTitle')}
+            >
+              {directDeps}
+            </span>
+          </div>
           <div className="flex shrink-0 items-center gap-1">
             {isAdmin ? (
               <button
@@ -276,39 +327,37 @@ export function ExploreDetailPanel() {
           </div>
         </div>
 
+        {/* 2. Pastilles : catégorie + nature (matière / procédé / outil & niveau) */}
         <div className="flex flex-wrap gap-2 px-4 pt-4">
-          {originLine ? (
-            <span className="rounded-full bg-amber-500/20 px-2.5 py-1 text-xs font-medium text-amber-100/95">
-              {tExplore('detailTagOrigin')}: {originLine}
-            </span>
-          ) : null}
-          <span className="rounded-full bg-border/20 px-2.5 py-1 text-xs font-medium text-muted-foreground">
-            {tExplore('detailTagNature')}: {natureLine}
-          </span>
           <span
             className="rounded-full px-2.5 py-1 text-xs font-medium"
             style={{
-              backgroundColor: `${categoryColor}30`,
+              backgroundColor: `${categoryColor}35`,
               color: categoryColor,
             }}
           >
-            {tCat(node.category as NodeCategory)}
+            {safeCategoryLabel(
+              tCat,
+              String(node.category),
+              tTypes
+            )}
           </span>
-          <span className="rounded-full bg-border/20 px-2.5 py-1 text-xs text-muted-foreground">
-            {tEra(node.era)}
+          <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
+            {natureLine}
           </span>
         </div>
 
+        {/* 3. Tags */}
         {secondaryTags.length > 0 ? (
-          <div className="px-4 pt-3">
-            <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-              {tExplore('detailTagSecondary')}
+          <div className="px-4 pt-4">
+            <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+              {tExplore('detailTagsHeading')}
             </div>
             <div className="flex flex-wrap gap-1.5">
               {secondaryTags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-md border border-border bg-surface-elevated px-2 py-0.5 text-[11px] text-muted-foreground"
+                  className="rounded-md border border-border/80 bg-surface-elevated/80 px-2 py-0.5 text-[11px] text-muted-foreground"
                 >
                   {tag}
                 </span>
@@ -317,6 +366,7 @@ export function ExploreDetailPanel() {
           </div>
         ) : null}
 
+        {/* 4. Visuel */}
         <div className="mt-4 w-full shrink-0 px-4">
           {imageSrc && !mainImgErr ? (
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-page">
@@ -354,16 +404,26 @@ export function ExploreDetailPanel() {
           </div>
         ) : null}
 
+        {/* 5. Date */}
         <div className="px-4 pt-4 text-sm tabular-nums text-muted-foreground">
           {formatYear(node.year_approx ?? null)}
         </div>
 
+        {/* 6. Origine (contexte) */}
+        {originLine ? (
+          <p className="px-4 pt-3 text-[13px] leading-snug text-muted-foreground">
+            {originLine}
+          </p>
+        ) : null}
+
+        {/* 7. Description */}
         <p className="px-4 pt-4 text-sm leading-relaxed text-muted-foreground">
           {description}
         </p>
 
+        {/* 8. Suggestion */}
         {!isAdmin ? (
-          <div className="mt-6 px-4 pb-8">
+          <div className="mt-6 px-4">
             <button
               type="button"
               onClick={() => void enterSuggest()}
@@ -372,9 +432,104 @@ export function ExploreDetailPanel() {
               {tAuth('suggestCorrection')}
             </button>
           </div>
-        ) : (
-          <div className="pb-8" />
-        )}
+        ) : null}
+
+        {/* 9–10. Liens aval / amont */}
+        <section className="mt-6 px-4 pb-8">
+          <button
+            type="button"
+            onClick={() => setLedToOpen((v) => !v)}
+            className="mb-3 flex w-full items-center justify-between gap-2 rounded-md py-1.5 text-start transition-colors hover:bg-surface/50"
+            aria-expanded={ledToOpen}
+          >
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              {tExplore('ledTo')} ({usages.length})
+            </h3>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={`shrink-0 text-muted-foreground transition-transform duration-200 ${
+                ledToOpen ? 'rotate-180' : ''
+              }`}
+              aria-hidden
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          {ledToOpen ? (
+            usages.length === 0 ? (
+              <p className="text-sm text-muted-foreground">
+                {tExplore('noDownstream')}
+              </p>
+            ) : (
+              <ul className="space-y-3">
+                {usages.map(({ link, product }) => (
+                  <ExploreLedToRow
+                    key={link.id}
+                    link={link}
+                    product={product}
+                    locale={locale}
+                    detailsById={detailsById}
+                    onSelectProduct={(id) => openPeerDetail(id, 'downstream')}
+                  />
+                ))}
+              </ul>
+            )
+          ) : null}
+
+          <button
+            type="button"
+            onClick={() => setBuiltUponOpen((v) => !v)}
+            className="mb-3 mt-6 flex w-full items-center justify-between gap-2 rounded-md py-1.5 text-start transition-colors hover:bg-surface/50"
+            aria-expanded={builtUponOpen}
+          >
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              {tExplore('builtUpon')} ({recipeLinks.length})
+            </h3>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={`shrink-0 text-muted-foreground transition-transform duration-200 ${
+                builtUponOpen ? 'rotate-180' : ''
+              }`}
+              aria-hidden
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          {builtUponOpen ? (
+            recipeLinks.length === 0 ? (
+              <p className="text-sm text-muted-foreground">
+                {tExplore('noUpstream')}
+              </p>
+            ) : (
+              <ul className="space-y-3">
+                {recipeLinks.map((link) => (
+                  <ExploreRecipeRow
+                    key={link.id}
+                    link={link}
+                    getNodeById={getNodeById}
+                    locale={locale}
+                    detailsById={detailsById}
+                    onSelectIngredient={(id) => openPeerDetail(id, 'upstream')}
+                  />
+                ))}
+              </ul>
+            )
+          ) : null}
+        </section>
       </div>
     );
 
@@ -396,7 +551,16 @@ export function ExploreDetailPanel() {
           }`}
           style={isMobile ? undefined : { maxWidth: PANEL_W }}
         >
-          {panelInner}
+          {detailSubview === 'suggest' && !isAdmin ? (
+            <div className="flex min-h-0 flex-1 flex-col">
+              <SuggestNodeCorrectionPanel
+                node={node}
+                onClose={() => ctx.closeSuggestSubview()}
+              />
+            </div>
+          ) : (
+            panelInner
+          )}
         </motion.aside>
       ) : null}
     </AnimatePresence>

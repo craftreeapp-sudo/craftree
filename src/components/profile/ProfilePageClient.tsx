@@ -12,6 +12,7 @@ import { AppContentShell } from '@/components/layout/AppContentShell';
 import { BackToExploreLink } from '@/components/layout/BackToExploreLink';
 import { useToastStore } from '@/stores/toast-store';
 import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
+import { safeCategoryLabel } from '@/lib/safe-category-label';
 
 type ProfilePayload = {
   profile: {
@@ -98,6 +99,7 @@ function levelProgress(count: number): {
 export function ProfilePageClient() {
   const t = useTranslations('profile');
   const tCat = useTranslations('categories');
+  const tTypes = useTranslations('types');
   const locale = useLocale();
   const router = useRouter();
   const pushToast = useToastStore((s) => s.pushToast);
@@ -451,7 +453,7 @@ export function ProfilePageClient() {
                   className="text-[18px] font-medium leading-tight"
                   style={{ color: c.color }}
                 >
-                  {tCat(c.category as NodeCategory)}
+                  {safeCategoryLabel(tCat, c.category, tTypes)}
                 </p>
                 <p className="mt-2 text-[13px] text-muted-foreground">
                   {t('categoryContributions', { n: c.count })}

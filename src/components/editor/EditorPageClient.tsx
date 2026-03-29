@@ -33,6 +33,7 @@ import {
 import { filterValidCraftingLinks } from '@/lib/graph-utils';
 import { treeInventionPath, getDefaultTreeNodeId } from '@/lib/tree-routes';
 import { useGraphStore } from '@/stores/graph-store';
+import { safeCategoryLabel } from '@/lib/safe-category-label';
 import { useAuthStore } from '@/stores/auth-store';
 
 const RELATION_BADGE_COLORS: Record<RelationType, string> = {
@@ -843,7 +844,11 @@ export function EditorPageClient() {
                               color: getCategoryColor(n.category as NodeCategory),
                             }}
                           >
-                            {tCat(n.category as NodeCategory) ?? n.category}
+                            {safeCategoryLabel(
+                              tCat,
+                              String(n.category),
+                              tType
+                            )}
                           </span>
                         </td>
                         <td className="px-3 py-2">

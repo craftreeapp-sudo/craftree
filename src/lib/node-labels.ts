@@ -9,6 +9,7 @@ import {
   type NodeDimension,
   type TechNodeType,
 } from '@/lib/types';
+import { PRIMARY_CARD_CATEGORY_ORDER } from '@/lib/card-primary-categories';
 
 /** Ordre d’affichage des époques (chronologique) */
 export const ERA_ORDER: Era[] = [
@@ -46,51 +47,36 @@ export const ERA_DATE_RANGES: Record<Era, string> = {
 };
 
 export const NODE_CATEGORY_LABELS_FR: Record<NC, string> = {
-  [NC.MINERAL]: 'Minéral',
-  [NC.VEGETAL]: 'Végétal',
-  [NC.ANIMAL]: 'Animal',
-  [NC.ELEMENT]: 'Élément',
   [NC.ENERGY]: 'Énergie',
-  [NC.MATERIAL]: 'Matériau',
-  [NC.TOOL]: 'Outillage',
-  [NC.PROCESS]: 'Procédé',
-  [NC.MACHINE]: 'Machine',
-  [NC.ELECTRONICS]: 'Électronique',
-  [NC.CHEMISTRY]: 'Chimie',
   [NC.CONSTRUCTION]: 'Construction',
-  [NC.TRANSPORT]: 'Transport',
-  [NC.COMMUNICATION]: 'Communication',
+  [NC.WEAPON]: 'Armes',
+  [NC.NETWORK]: 'Réseau',
   [NC.FOOD]: 'Alimentation',
-  [NC.TEXTILE]: 'Textile',
-  [NC.MEDICAL]: 'Médical',
-  [NC.WEAPON]: 'Arme',
-  [NC.OPTICAL]: 'Optique',
+  [NC.TRANSPORT]: 'Transport',
   [NC.SOFTWARE]: 'Logiciel',
+  [NC.INFRASTRUCTURE]: 'Infrastructure',
+  [NC.TEXTILE]: 'Textile',
+  [NC.COMMUNICATION]: 'Communication',
+  [NC.AGRICULTURE]: 'Agriculture',
+  [NC.ROBOTICS]: 'Robotique',
+  [NC.CHEMISTRY]: 'Chimie',
+  [NC.ELECTRONICS]: 'Électronique',
+  [NC.ENVIRONMENT]: 'Environnement',
+  [NC.AUTOMATION]: 'Automatisation',
+  [NC.MEDICAL]: 'Médical',
+  [NC.OPTICAL]: 'Optique',
+  [NC.STORAGE]: 'Stockage',
+  [NC.AERONAUTICS]: 'Aéronautique',
+  [NC.SPACE]: 'Spatial',
+  [NC.INDUSTRY]: 'Industrie',
+  [NC.NANOTECHNOLOGY]: 'Nanotechnologie',
+  [NC.BIOTECHNOLOGY]: 'Biotechnologie',
+  [NC.SECURITY]: 'Sécurité',
+  [NC.HOME_AUTOMATION]: 'Domotique',
 };
 
-/** Ordre d’affichage des catégories (groupes naturels puis tech alphabétique cohérent) */
-export const NODE_CATEGORY_ORDER: NC[] = [
-  NC.MINERAL,
-  NC.VEGETAL,
-  NC.ANIMAL,
-  NC.ELEMENT,
-  NC.ENERGY,
-  NC.MATERIAL,
-  NC.FOOD,
-  NC.TEXTILE,
-  NC.CHEMISTRY,
-  NC.MEDICAL,
-  NC.CONSTRUCTION,
-  NC.TRANSPORT,
-  NC.COMMUNICATION,
-  NC.ELECTRONICS,
-  NC.MACHINE,
-  NC.TOOL,
-  NC.PROCESS,
-  NC.OPTICAL,
-  NC.WEAPON,
-  NC.SOFTWARE,
-];
+/** Ordre d’affichage des catégories (aligné sur les cartes site). */
+export const NODE_CATEGORY_ORDER: NC[] = [...PRIMARY_CARD_CATEGORY_ORDER];
 
 export const TECH_NODE_TYPE_ORDER: TechNodeType[] = [
   'raw_material',

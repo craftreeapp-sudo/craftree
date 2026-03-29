@@ -57,7 +57,7 @@ export function createEmptyFormState(): NodeEditFormState {
     name: '',
     name_en: '',
     description: '',
-    category: NC.MATERIAL,
+    category: NC.INDUSTRY,
     type: 'component' as TechNodeType,
     era: EraEnum.MODERN,
     year_approx: '',

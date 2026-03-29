@@ -195,3 +195,15 @@ DROP POLICY IF EXISTS "analytics_read_admin" ON analytics_events;
 CREATE POLICY "analytics_read_admin" ON analytics_events FOR SELECT USING (
   (auth.jwt() ->> 'email') = 'craftree.app@gmail.com'
 );
+
+-- Origine naturelle + nature chimique/physique (suggestions / fiches)
+ALTER TABLE nodes ADD COLUMN IF NOT EXISTS natural_origin TEXT;
+ALTER TABLE nodes ADD COLUMN IF NOT EXISTS chemical_nature TEXT;
+ALTER TABLE nodes DROP CONSTRAINT IF EXISTS nodes_natural_origin_check;
+ALTER TABLE nodes ADD CONSTRAINT nodes_natural_origin_check CHECK (
+  natural_origin IS NULL OR natural_origin IN ('mineral', 'vegetal', 'animal')
+);
+ALTER TABLE nodes DROP CONSTRAINT IF EXISTS nodes_chemical_nature_check;
+ALTER TABLE nodes ADD CONSTRAINT nodes_chemical_nature_check CHECK (
+  chemical_nature IS NULL OR chemical_nature IN ('element', 'compound', 'material')
+);

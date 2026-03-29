@@ -11,8 +11,17 @@ import linksData from '@/data/links.json';
 
 export async function getPublicGraphStats(): Promise<LandingStats> {
   if (!isSupabaseConfigured()) {
+    const nodesForLanding: LandingIndexNode[] = nodesIndex.nodes.map(
+      (raw) => ({
+        id: raw.id,
+        name: raw.name,
+        type:
+          'type' in raw && typeof raw.type === 'string' ? raw.type : 'material',
+        complexity_depth: raw.complexity_depth,
+      })
+    );
     const landing = computeLandingPageData(
-      nodesIndex.nodes as LandingIndexNode[],
+      nodesForLanding,
       linksData.links as Pick<CraftingLink, 'source_id' | 'target_id'>[]
     );
     return landing.stats;

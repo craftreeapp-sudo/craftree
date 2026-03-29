@@ -3,2983 +3,2723 @@
     {
       "id": "feu",
       "name": "Feu",
-      "category": "element",
-      "type": "raw_material",
+      "category": "chemistry",
       "era": "prehistoric",
       "year_approx": -400000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/FIRE_01.JPG/600px-FIRE_01.JPG",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "element"
     },
     {
       "id": "eau",
       "name": "Eau",
-      "category": "element",
-      "type": "raw_material",
+      "category": "chemistry",
       "era": "prehistoric",
       "year_approx": null,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Pvs%2Ceau%2C348-647K.svg/600px-Pvs%2Ceau%2C348-647K.svg.png",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "element"
     },
     {
       "id": "air",
       "name": "Air",
-      "category": "element",
-      "type": "raw_material",
+      "category": "chemistry",
       "era": "prehistoric",
       "year_approx": null,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Meteotek08_atmosfera10.jpg/600px-Meteotek08_atmosfera10.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "element"
     },
     {
       "id": "sable",
       "name": "Sable (silice)",
-      "category": "mineral",
-      "type": "raw_material",
+      "category": "industry",
       "era": "prehistoric",
       "year_approx": null,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Dunes5.JPG/600px-Dunes5.JPG",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "charbon",
       "name": "Charbon",
       "category": "energy",
-      "type": "raw_material",
       "era": "medieval",
       "year_approx": 1000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Anthrazit.jpg/600px-Anthrazit.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "cuivre",
       "name": "Cuivre",
-      "category": "mineral",
-      "type": "raw_material",
+      "category": "industry",
       "era": "ancient",
       "year_approx": -7000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/NatCopper.jpg/600px-NatCopper.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "minerai-fer",
       "name": "Minerai de fer",
-      "category": "mineral",
-      "type": "raw_material",
+      "category": "industry",
       "era": "ancient",
       "year_approx": -3000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Black-band_ironstone_%28aka%29.jpg/600px-Black-band_ironstone_%28aka%29.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "calcaire",
       "name": "Calcaire",
-      "category": "mineral",
-      "type": "raw_material",
+      "category": "industry",
       "era": "prehistoric",
       "year_approx": null,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Kalksteenrots_met_in_het_midden_een_breccie._10-09-2019._%28actm.%29_02.jpg/600px-Kalksteenrots_met_in_het_midden_een_breccie._10-09-2019._%28actm.%29_02.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "argile",
       "name": "Argile",
-      "category": "mineral",
-      "type": "raw_material",
+      "category": "industry",
       "era": "prehistoric",
       "year_approx": null,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Clay-ss-2005.jpg/600px-Clay-ss-2005.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "bois",
       "name": "Bois",
-      "category": "vegetal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "prehistoric",
       "year_approx": null,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Wood_grain.jpg/600px-Wood_grain.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "vegetal",
+      "chemicalNature": "element"
     },
     {
       "id": "sel",
       "name": "Sel",
-      "category": "mineral",
-      "type": "raw_material",
+      "category": "industry",
       "era": "prehistoric",
       "year_approx": null,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Table_salt_with_salt_shaker_V1.jpg/600px-Table_salt_with_salt_shaker_V1.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "ble",
       "name": "Blé",
-      "category": "vegetal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "prehistoric",
       "year_approx": -10000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/%C3%89pi_de_bl%C3%A9.jpg/600px-%C3%89pi_de_bl%C3%A9.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "vegetal",
+      "chemicalNature": "element"
     },
     {
       "id": "raisin",
       "name": "Raisin",
-      "category": "vegetal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "ancient",
       "year_approx": -6000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Grapes%2C_Dry_Creek_Valley-7705.jpg/600px-Grapes%2C_Dry_Creek_Valley-7705.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "vegetal",
+      "chemicalNature": "element"
     },
     {
       "id": "lait",
       "name": "Lait",
-      "category": "animal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "prehistoric",
       "year_approx": null,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Milk_glass.jpg/600px-Milk_glass.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "animal",
+      "chemicalNature": "element"
     },
     {
       "id": "levure",
       "name": "Levure",
-      "category": "vegetal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "ancient",
       "year_approx": -3000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/S_cerevisiae_under_DIC_microscopy.jpg/600px-S_cerevisiae_under_DIC_microscopy.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "element"
     },
     {
       "id": "presure",
       "name": "Présure",
-      "category": "animal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "prehistoric",
       "year_approx": null,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Pr%C3%A9sure-p%C3%A8ral_feda_presura.JPG/600px-Pr%C3%A9sure-p%C3%A8ral_feda_presura.JPG",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "animal",
+      "chemicalNature": "element"
     },
     {
       "id": "plantes-medicinales",
       "name": "Plantes médicinales",
-      "category": "vegetal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "prehistoric",
       "year_approx": null,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/20120726Lythrum_salicaria2.jpg/600px-20120726Lythrum_salicaria2.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "vegetal",
+      "chemicalNature": "element"
     },
     {
       "id": "petrole",
       "name": "Pétrole",
       "category": "energy",
-      "type": "raw_material",
       "era": "industrial",
       "year_approx": 1859,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Petroleum_sample.jpg/600px-Petroleum_sample.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "four",
       "name": "Four",
-      "category": "tool",
-      "type": "tool",
+      "category": "automation",
       "era": "ancient",
       "year_approx": -6000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Oven.jpg/600px-Oven.jpg",
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "four-haute-temp",
       "name": "Four à haute température",
-      "category": "machine",
-      "type": "tool",
+      "category": "robotics",
       "era": "industrial",
       "year_approx": 1784,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/FourSolaire2.JPG/600px-FourSolaire2.JPG",
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "soude",
       "name": "Soude",
       "category": "chemistry",
-      "type": "material",
       "era": "ancient",
       "year_approx": -3000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Sodium-hydroxide-crystal-3D-vdW.png/600px-Sodium-hydroxide-crystal-3D-vdW.png",
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "verre",
       "name": "Verre",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "ancient",
       "year_approx": -3500,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Colorful_bottle.jpg/600px-Colorful_bottle.jpg",
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "silicium",
       "name": "Silicium",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "modern",
       "year_approx": 1954,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Silicon2.jpg/600px-Silicon2.jpg",
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "wafer-silicium",
       "name": "Wafer de silicium",
       "category": "electronics",
-      "type": "component",
       "era": "digital",
       "year_approx": 1960,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Etchedwafer.jpg",
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "acide-gravure",
       "name": "Acide de gravure",
       "category": "chemistry",
-      "type": "material",
       "era": "digital",
       "year_approx": 1960,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Rembrandt_The_Hundred_Guilder_Print.jpg/600px-Rembrandt_The_Hundred_Guilder_Print.jpg",
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "photolithographie",
       "name": "Photolithographie",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "digital",
       "year_approx": 1957,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Wafer-trasparente.png/600px-Wafer-trasparente.png",
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "resine-epoxy",
       "name": "Résine époxy",
       "category": "chemistry",
-      "type": "material",
       "era": "modern",
       "year_approx": 1936,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Epoxide_generic.svg/600px-Epoxide_generic.svg.png",
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "fibre-verre",
       "name": "Fibre de verre",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "modern",
       "year_approx": 1932,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Glasfaser_Roving.jpg/600px-Glasfaser_Roving.jpg",
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "circuit-imprime",
       "name": "Circuit imprimé",
       "category": "electronics",
-      "type": "component",
       "era": "digital",
       "year_approx": 1943,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Aurora_2ch_mixer_board_arrived_%282009-07-28_11.20.55_by_c-g.%29.jpg/600px-Aurora_2ch_mixer_board_arrived_%282009-07-28_11.20.55_by_c-g.%29.jpg",
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "transistor",
       "name": "Transistor",
       "category": "electronics",
-      "type": "component",
       "era": "modern",
       "year_approx": 1947,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Transistors.agr.jpg/600px-Transistors.agr.jpg",
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "circuit-integre",
       "name": "Circuit intégré",
       "category": "electronics",
-      "type": "component",
       "era": "digital",
       "year_approx": 1958,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/NXP_PCF8577C_LCD_driver_with_I%C2%B2C_%28Colour_Corrected%29.jpg/600px-NXP_PCF8577C_LCD_driver_with_I%C2%B2C_%28Colour_Corrected%29.jpg",
       "complexity_depth": 5,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "microprocesseur",
       "name": "Microprocesseur",
       "category": "electronics",
-      "type": "end_product",
       "era": "digital",
       "year_approx": 1971,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Ic-photo-Motorola--XPC750PRX333SE--%28PowerPC-CPU%29.png/600px-Ic-photo-Motorola--XPC750PRX333SE--%28PowerPC-CPU%29.png",
       "complexity_depth": 6,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "fer",
       "name": "Fer",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "ancient",
       "year_approx": -1200,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Iron_electrolytic_and_1cm3_cube.jpg/600px-Iron_electrolytic_and_1cm3_cube.jpg",
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "acier",
       "name": "Acier",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "industrial",
       "year_approx": 1856,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Kaltbandcoils.jpg",
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "poutre-acier",
       "name": "Poutre en acier",
       "category": "construction",
-      "type": "component",
       "era": "industrial",
       "year_approx": 1889,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/DeTomasoPanteraBlack.jpg/600px-DeTomasoPanteraBlack.jpg",
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "structure-metallique",
       "name": "Structure métallique",
       "category": "construction",
-      "type": "end_product",
       "era": "modern",
       "year_approx": 1930,
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "ciment",
       "name": "Ciment",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "industrial",
       "year_approx": 1824,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/USMC-110806-M-IX060-148.jpg/600px-USMC-110806-M-IX060-148.jpg",
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "beton",
       "name": "Béton",
       "category": "construction",
-      "type": "material",
       "era": "ancient",
       "year_approx": -300,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Metre-cube-beton-p1040192.jpg/600px-Metre-cube-beton-p1040192.jpg",
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "fondations",
       "name": "Fondations",
       "category": "construction",
-      "type": "component",
       "era": "ancient",
       "year_approx": null,
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "pate-papier",
       "name": "Pâte à papier",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "ancient",
       "year_approx": 105,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Bergisch_Gladbach_-_Papierm%C3%BChle_Alte_Dombach_13_ies.jpg/600px-Bergisch_Gladbach_-_Papierm%C3%BChle_Alte_Dombach_13_ies.jpg",
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "papier",
       "name": "Papier",
       "category": "communication",
-      "type": "material",
       "era": "ancient",
       "year_approx": 105,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/FileStack_retouched.jpg/600px-FileStack_retouched.jpg",
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "encre",
       "name": "Encre",
       "category": "chemistry",
-      "type": "material",
       "era": "ancient",
       "year_approx": -2500,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/BlackInkBottle.JPG/600px-BlackInkBottle.JPG",
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "presse-imprimer",
       "name": "Presse à imprimer",
-      "category": "machine",
-      "type": "tool",
+      "category": "robotics",
       "era": "renaissance",
       "year_approx": 1440,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Gutenberg_MAME.jpg/600px-Gutenberg_MAME.jpg",
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "livre",
       "name": "Livre",
       "category": "communication",
-      "type": "end_product",
       "era": "renaissance",
       "year_approx": 1455,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Latin_dictionary.jpg/600px-Latin_dictionary.jpg",
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "fil-cuivre",
       "name": "Fil de cuivre",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "industrial",
       "year_approx": 1820,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Wire.agr.jpg/600px-Wire.agr.jpg",
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "cable-electrique",
       "name": "Câble électrique",
       "category": "electronics",
-      "type": "component",
       "era": "industrial",
       "year_approx": 1880,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Large_Voltage_Electrical_Cable.jpg",
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "generateur",
       "name": "Générateur électrique",
-      "category": "machine",
-      "type": "tool",
+      "category": "robotics",
       "era": "industrial",
       "year_approx": 1831,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm/600px--Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm.jpg",
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "electricite",
       "name": "Électricité",
       "category": "energy",
-      "type": "raw_material",
       "era": "industrial",
       "year_approx": 1882,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "element"
     },
     {
       "id": "telegraphe",
       "name": "Télégraphe",
       "category": "communication",
-      "type": "machine",
       "era": "industrial",
       "year_approx": 1844,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "telephone",
       "name": "Téléphone",
       "category": "communication",
-      "type": "machine",
       "era": "industrial",
       "year_approx": 1876,
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "fibre-optique",
       "name": "Fibre optique",
       "category": "optical",
-      "type": "component",
       "era": "digital",
       "year_approx": 1970,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "serveur-informatique",
       "name": "Serveur informatique",
       "category": "electronics",
-      "type": "machine",
       "era": "digital",
       "year_approx": 1990,
       "complexity_depth": 6,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "internet",
       "name": "Internet",
       "category": "software",
-      "type": "end_product",
       "era": "digital",
       "year_approx": 1983,
       "complexity_depth": 7,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "extraits-vegetaux",
       "name": "Extraits végétaux",
       "category": "chemistry",
-      "type": "material",
       "era": "medieval",
       "year_approx": 800,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "principes-actifs",
       "name": "Principes actifs",
       "category": "chemistry",
-      "type": "material",
       "era": "industrial",
       "year_approx": 1828,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "chimie-organique",
       "name": "Chimie organique",
       "category": "chemistry",
-      "type": "process",
       "era": "industrial",
       "year_approx": 1856,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "polymeres",
       "name": "Polymères",
       "category": "chemistry",
-      "type": "material",
       "era": "modern",
       "year_approx": 1907,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "gelules",
       "name": "Gélules",
       "category": "medical",
-      "type": "component",
       "era": "modern",
       "year_approx": 1834,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "medicaments",
       "name": "Médicaments",
       "category": "medical",
-      "type": "end_product",
       "era": "modern",
       "year_approx": 1899,
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "pain",
       "name": "Pain",
       "category": "food",
-      "type": "end_product",
       "era": "prehistoric",
       "year_approx": -10000,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "fromage",
       "name": "Fromage",
       "category": "food",
-      "type": "end_product",
       "era": "prehistoric",
       "year_approx": -6000,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "tonneau",
       "name": "Tonneau",
-      "category": "tool",
-      "type": "tool",
+      "category": "automation",
       "era": "ancient",
       "year_approx": -350,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "vin",
       "name": "Vin",
       "category": "food",
-      "type": "end_product",
       "era": "ancient",
       "year_approx": -6000,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "ampoule",
       "name": "Ampoule électrique",
       "category": "electronics",
-      "type": "end_product",
       "era": "industrial",
       "year_approx": 1879,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "coton",
       "name": "Coton",
       "category": "textile",
-      "type": "raw_material",
       "era": "ancient",
       "year_approx": -5000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "vegetal",
+      "chemicalNature": "element"
     },
     {
       "id": "fil-de-coton",
       "name": "Fil de coton",
       "category": "textile",
-      "type": "material",
       "era": "ancient",
       "year_approx": -4000,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "tissu",
       "name": "Tissu",
       "category": "textile",
-      "type": "material",
       "era": "ancient",
       "year_approx": -3000,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "vetement",
       "name": "Vêtement",
       "category": "textile",
-      "type": "end_product",
       "era": "prehistoric",
       "year_approx": -20000,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "laine",
       "name": "Laine",
-      "category": "animal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "prehistoric",
       "year_approx": -10000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "animal",
+      "chemicalNature": "element"
     },
     {
       "id": "fil-de-laine",
       "name": "Fil de laine",
       "category": "textile",
-      "type": "material",
       "era": "prehistoric",
       "year_approx": -8000,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "tricot",
       "name": "Tricot",
       "category": "textile",
-      "type": "end_product",
       "era": "medieval",
       "year_approx": 1200,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "ver-a-soie",
       "name": "Ver à soie",
-      "category": "animal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "ancient",
       "year_approx": -3000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "animal",
+      "chemicalNature": "element"
     },
     {
       "id": "soie-naturelle",
       "name": "Soie naturelle",
       "category": "textile",
-      "type": "material",
       "era": "ancient",
       "year_approx": -3000,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "plantes-teinture",
       "name": "Plantes tinctoriales",
-      "category": "vegetal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "ancient",
       "year_approx": -2000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "vegetal",
+      "chemicalNature": "element"
     },
     {
       "id": "mordant",
       "name": "Mordant",
       "category": "chemistry",
-      "type": "material",
       "era": "ancient",
       "year_approx": -1500,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "teinture-textile",
       "name": "Teinture textile",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "ancient",
       "year_approx": -2000,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "roue",
       "name": "Roue",
       "category": "transport",
-      "type": "component",
       "era": "ancient",
       "year_approx": -3500,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "chariot",
       "name": "Chariot",
       "category": "transport",
-      "type": "end_product",
       "era": "ancient",
       "year_approx": -3500,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "caoutchouc",
       "name": "Caoutchouc",
-      "category": "material",
-      "type": "raw_material",
+      "category": "industry",
       "era": "industrial",
       "year_approx": 1839,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "vegetal",
+      "chemicalNature": "element"
     },
     {
       "id": "moteur-explosion",
       "name": "Moteur à explosion",
-      "category": "machine",
-      "type": "machine",
+      "category": "robotics",
       "era": "industrial",
       "year_approx": 1876,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "automobile",
       "name": "Automobile",
       "category": "transport",
-      "type": "end_product",
       "era": "industrial",
       "year_approx": 1886,
       "complexity_depth": 5,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "aluminium",
       "name": "Aluminium",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "modern",
       "year_approx": 1886,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "moteur-reaction",
       "name": "Moteur à réaction",
-      "category": "machine",
-      "type": "machine",
+      "category": "robotics",
       "era": "modern",
       "year_approx": 1937,
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "avion",
       "name": "Avion",
       "category": "transport",
-      "type": "end_product",
       "era": "modern",
       "year_approx": 1903,
       "complexity_depth": 6,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "charbon-de-bois",
       "name": "Charbon de bois",
       "category": "energy",
-      "type": "raw_material",
       "era": "prehistoric",
       "year_approx": -20000,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "vegetal",
+      "chemicalNature": "element"
     },
     {
       "id": "houille",
       "name": "Houille",
       "category": "energy",
-      "type": "raw_material",
       "era": "industrial",
       "year_approx": 1700,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "essence",
       "name": "Essence",
       "category": "energy",
-      "type": "material",
       "era": "industrial",
       "year_approx": 1860,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "uranium",
       "name": "Uranium",
-      "category": "mineral",
-      "type": "raw_material",
+      "category": "industry",
       "era": "modern",
       "year_approx": 1942,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "reacteur-nucleaire",
       "name": "Réacteur nucléaire",
-      "category": "machine",
-      "type": "machine",
+      "category": "robotics",
       "era": "modern",
       "year_approx": 1954,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "panneau-solaire",
       "name": "Panneau solaire",
       "category": "electronics",
-      "type": "component",
       "era": "modern",
       "year_approx": 1954,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "charpente-bois",
       "name": "Charpente en bois",
       "category": "construction",
-      "type": "component",
       "era": "medieval",
       "year_approx": 800,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "pierre",
       "name": "Pierre de taille",
-      "category": "mineral",
-      "type": "raw_material",
+      "category": "industry",
       "era": "ancient",
       "year_approx": -2500,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Pierres_de_taille_livr%C3%A9es_par_la_carri%C3%A8re.JPG/600px-Pierres_de_taille_livr%C3%A9es_par_la_carri%C3%A8re.JPG",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "taille-pierre",
       "name": "Taille de pierre",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "ancient",
       "year_approx": -2000,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "mur-pierre",
       "name": "Mur en pierre",
       "category": "construction",
-      "type": "component",
       "era": "ancient",
       "year_approx": -1500,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "chaux",
       "name": "Chaux vive",
       "category": "chemistry",
-      "type": "material",
       "era": "ancient",
       "year_approx": -2000,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "mortier",
       "name": "Mortier",
       "category": "construction",
-      "type": "material",
       "era": "ancient",
       "year_approx": -1500,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "vitre",
       "name": "Vitre",
       "category": "construction",
-      "type": "component",
       "era": "ancient",
       "year_approx": 100,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "fenetre",
       "name": "Fenêtre",
       "category": "construction",
-      "type": "end_product",
       "era": "medieval",
       "year_approx": 1200,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "papyrus",
       "name": "Papyrus",
       "category": "communication",
-      "type": "material",
       "era": "ancient",
       "year_approx": -3000,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "parchemin",
       "name": "Parchemin",
       "category": "communication",
-      "type": "material",
       "era": "medieval",
       "year_approx": 200,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "imprimerie",
       "name": "Imprimerie industrielle",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "industrial",
       "year_approx": 1814,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "journal",
       "name": "Journal",
       "category": "communication",
-      "type": "end_product",
       "era": "industrial",
       "year_approx": 1704,
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "radio",
       "name": "Radio",
       "category": "communication",
-      "type": "machine",
       "era": "modern",
       "year_approx": 1920,
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "television",
       "name": "Télévision",
       "category": "communication",
-      "type": "machine",
       "era": "modern",
       "year_approx": 1927,
       "complexity_depth": 5,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "ordinateur",
       "name": "Ordinateur",
       "category": "electronics",
-      "type": "machine",
       "era": "digital",
       "year_approx": 1945,
       "complexity_depth": 5,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "smartphone",
       "name": "Smartphone",
       "category": "electronics",
-      "type": "end_product",
       "era": "contemporary",
       "year_approx": 2007,
       "complexity_depth": 7,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "plastique",
       "name": "Plastique",
       "category": "chemistry",
-      "type": "material",
       "era": "modern",
       "year_approx": 1907,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "bouteille-plastique",
       "name": "Bouteille plastique",
       "category": "food",
-      "type": "end_product",
       "era": "modern",
       "year_approx": 1973,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "engrais",
       "name": "Engrais azoté",
       "category": "chemistry",
-      "type": "material",
       "era": "modern",
       "year_approx": 1913,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "salpetre",
       "name": "Salpêtre",
-      "category": "mineral",
-      "type": "raw_material",
+      "category": "industry",
       "era": "medieval",
       "year_approx": 1200,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "soufre",
       "name": "Soufre",
-      "category": "mineral",
-      "type": "raw_material",
+      "category": "industry",
       "era": "ancient",
       "year_approx": -500,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "poudre-a-canon",
       "name": "Poudre à canon",
       "category": "weapon",
-      "type": "material",
       "era": "medieval",
       "year_approx": 850,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "lentille",
       "name": "Lentille optique",
       "category": "optical",
-      "type": "component",
       "era": "renaissance",
       "year_approx": 1280,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "lunettes",
       "name": "Lunettes",
       "category": "optical",
-      "type": "end_product",
       "era": "renaissance",
       "year_approx": 1286,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "microscope",
       "name": "Microscope",
       "category": "optical",
-      "type": "machine",
       "era": "renaissance",
       "year_approx": 1590,
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "telescope",
       "name": "Télescope",
       "category": "optical",
-      "type": "machine",
       "era": "renaissance",
       "year_approx": 1608,
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "viande",
       "name": "Viande",
-      "category": "animal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "prehistoric",
       "year_approx": -50000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "animal",
+      "chemicalNature": "element"
     },
     {
       "id": "salaison",
       "name": "Salaison",
       "category": "food",
-      "type": "end_product",
       "era": "ancient",
       "year_approx": -2000,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "canne-a-sucre",
       "name": "Canne à sucre",
-      "category": "vegetal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "ancient",
       "year_approx": -8000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "vegetal",
+      "chemicalNature": "element"
     },
     {
       "id": "sucre",
       "name": "Sucre de canne",
       "category": "food",
-      "type": "material",
       "era": "ancient",
       "year_approx": 500,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "confiserie",
       "name": "Confiserie",
       "category": "food",
-      "type": "end_product",
       "era": "medieval",
       "year_approx": 1200,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "cacao",
       "name": "Fèves de cacao",
-      "category": "vegetal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "ancient",
       "year_approx": -1500,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "vegetal",
+      "chemicalNature": "element"
     },
     {
       "id": "chocolat",
       "name": "Chocolat",
       "category": "food",
-      "type": "end_product",
       "era": "renaissance",
       "year_approx": 1520,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "houblon",
       "name": "Houblon",
-      "category": "vegetal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "medieval",
       "year_approx": 800,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "vegetal",
+      "chemicalNature": "element"
     },
     {
       "id": "orge",
       "name": "Orge",
-      "category": "vegetal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "ancient",
       "year_approx": -5000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "vegetal",
+      "chemicalNature": "element"
     },
     {
       "id": "biere",
       "name": "Bière",
       "category": "food",
-      "type": "end_product",
       "era": "ancient",
       "year_approx": -3500,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "metier-tisser",
       "name": "Métier à tisser",
-      "category": "machine",
-      "type": "tool",
+      "category": "robotics",
       "era": "ancient",
       "year_approx": -4000,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "eau-de-chaux",
       "name": "Eau de chaux",
       "category": "chemistry",
-      "type": "material",
       "era": "ancient",
       "year_approx": -1000,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "bauxite",
       "name": "Bauxite",
-      "category": "mineral",
-      "type": "raw_material",
+      "category": "industry",
       "era": "industrial",
       "year_approx": 1821,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "raffinerie",
       "name": "Raffinerie",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "industrial",
       "year_approx": 1860,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "antenne-radio",
       "name": "Antenne radio",
       "category": "electronics",
-      "type": "component",
       "era": "modern",
       "year_approx": 1895,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "tube-cathodique",
       "name": "Tube cathodique",
       "category": "electronics",
-      "type": "component",
       "era": "modern",
       "year_approx": 1897,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "eau-lourde",
       "name": "Eau lourde",
       "category": "chemistry",
-      "type": "material",
       "era": "modern",
       "year_approx": 1934,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "beton-arme",
       "name": "Béton armé",
       "category": "construction",
-      "type": "material",
       "era": "industrial",
       "year_approx": 1853,
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "pneu",
       "name": "Pneu",
       "category": "transport",
-      "type": "component",
       "era": "industrial",
       "year_approx": 1888,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "chassis-auto",
       "name": "Châssis automobile",
       "category": "transport",
-      "type": "component",
       "era": "industrial",
       "year_approx": 1900,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "carlingue",
       "name": "Carlingue",
       "category": "transport",
-      "type": "component",
       "era": "modern",
       "year_approx": 1935,
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "gazole",
       "name": "Gazole",
       "category": "energy",
-      "type": "material",
       "era": "industrial",
       "year_approx": 1892,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "turbine-vapeur",
       "name": "Turbine à vapeur",
-      "category": "machine",
-      "type": "machine",
+      "category": "robotics",
       "era": "industrial",
       "year_approx": 1884,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "alternateur",
       "name": "Alternateur",
       "category": "electronics",
-      "type": "component",
       "era": "industrial",
       "year_approx": 1891,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "reseau-electrique",
       "name": "Réseau électrique",
       "category": "energy",
-      "type": "process",
       "era": "industrial",
       "year_approx": 1896,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "onduleur-solaire",
       "name": "Onduleur solaire",
       "category": "electronics",
-      "type": "component",
       "era": "contemporary",
       "year_approx": 1995,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "fonte",
       "name": "Fonte",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "industrial",
       "year_approx": 1709,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "acier-inox",
       "name": "Acier inoxydable",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "modern",
       "year_approx": 1913,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "tissu-teint",
       "name": "Tissu teint",
       "category": "textile",
-      "type": "material",
       "era": "ancient",
       "year_approx": -1500,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "filature",
       "name": "Filature",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "industrial",
       "year_approx": 1771,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "mouton",
       "name": "Mouton",
-      "category": "animal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "prehistoric",
       "year_approx": -9000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "animal",
+      "chemicalNature": "element"
     },
     {
       "id": "mulberry",
       "name": "Mûrier",
-      "category": "vegetal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "ancient",
       "year_approx": -3000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "vegetal",
+      "chemicalNature": "element"
     },
     {
       "id": "feuille-or",
       "name": "Feuille d’or",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "ancient",
       "year_approx": -500,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "or",
       "name": "Or",
-      "category": "mineral",
-      "type": "raw_material",
+      "category": "industry",
       "era": "prehistoric",
       "year_approx": -4000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "scierie",
       "name": "Scierie",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "medieval",
       "year_approx": 1300,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "planche-bois",
       "name": "Planche de bois",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "ancient",
       "year_approx": -2000,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "verre-trempe",
       "name": "Verre trempé",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "modern",
       "year_approx": 1929,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "acier-structure",
       "name": "Profilé acier",
       "category": "construction",
-      "type": "component",
       "era": "industrial",
       "year_approx": 1850,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "hydrogene",
       "name": "Hydrogène",
-      "category": "element",
-      "type": "raw_material",
+      "category": "chemistry",
       "era": "modern",
       "year_approx": 1913,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "element"
     },
     {
       "id": "azote",
       "name": "Azote",
-      "category": "element",
-      "type": "raw_material",
+      "category": "chemistry",
       "era": "modern",
       "year_approx": 1913,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "element"
     },
     {
       "id": "ammoniac",
       "name": "Ammoniac",
       "category": "chemistry",
-      "type": "material",
       "era": "modern",
       "year_approx": 1913,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "nitrate",
       "name": "Nitrate de calcium",
       "category": "chemistry",
-      "type": "material",
       "era": "modern",
       "year_approx": 1920,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "polycarbonate",
       "name": "Polycarbonate",
       "category": "chemistry",
-      "type": "material",
       "era": "modern",
       "year_approx": 1953,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "route-bitee",
       "name": "Route bitumée",
       "category": "construction",
-      "type": "end_product",
       "era": "industrial",
       "year_approx": 1870,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Transfagaras.jpg/600px-Transfagaras.jpg",
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "bitume",
       "name": "Bitume",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "industrial",
       "year_approx": 1870,
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "signal-numerique",
       "name": "Signal numérique",
       "category": "software",
-      "type": "process",
       "era": "digital",
       "year_approx": 1948,
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "ecran-lcd",
       "name": "Écran LCD",
       "category": "electronics",
-      "type": "component",
       "era": "digital",
       "year_approx": 1971,
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "batterie-li",
       "name": "Batterie Li-ion",
       "category": "electronics",
-      "type": "component",
       "era": "contemporary",
       "year_approx": 1991,
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "reseau-cellulaire",
       "name": "Réseau cellulaire",
       "category": "communication",
-      "type": "process",
       "era": "contemporary",
       "year_approx": 1980,
       "complexity_depth": 5,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "blockchain",
       "name": "Blockchain",
       "category": "software",
-      "type": "component",
       "era": "contemporary",
       "year_approx": 2010,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "pierre-de-taille",
       "name": "Pierre de taille",
-      "category": "material",
-      "type": "end_product",
+      "category": "industry",
       "era": "ancient",
       "year_approx": -3000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Paris_%28France%29%2C_Rue_R%C3%A9aumur.JPG/600px-Paris_%28France%29%2C_Rue_R%C3%A9aumur.JPG",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "minerai-de-cuivre",
       "name": "Minerai de cuivre",
-      "category": "mineral",
-      "type": "raw_material",
+      "category": "industry",
       "era": "prehistoric",
       "year_approx": -10000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "bronze",
       "name": "Bronze",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "ancient",
       "year_approx": -3500,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Bronze_Marcus_Aurelius_Louvre_Br45.jpg/600px-Bronze_Marcus_Aurelius_Louvre_Br45.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "brique",
       "name": "Brique",
-      "category": "material",
-      "type": "component",
+      "category": "industry",
       "era": "ancient",
       "year_approx": -3000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Colors_and_texture_of_a_brick_ground_artlibre_jnl.png/600px-Colors_and_texture_of_a_brick_ground_artlibre_jnl.png",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "titane",
       "name": "Titane",
-      "category": "element",
-      "type": "raw_material",
+      "category": "chemistry",
       "era": "industrial",
       "year_approx": 1790,
       "image_url": "/images/nodes/titane.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "energie-nucleaire",
       "name": "Énergie nucléaire",
       "category": "energy",
-      "type": "process",
       "era": "modern",
       "year_approx": 1942,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/HEUraniumC.jpg/600px-HEUraniumC.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "energie-solaire",
       "name": "Énergie solaire",
       "category": "energy",
-      "type": "process",
       "era": "modern",
       "year_approx": 1954,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "forge",
       "name": "Forge",
-      "category": "tool",
-      "type": "tool",
+      "category": "automation",
       "era": "ancient",
       "year_approx": -3000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Andrea_pisano%2C_tubalcain_ovvero_la_metallurgia%2C_1334-43%2C_dal_lato_ovest_del_campanile_01.JPG/600px-Andrea_pisano%2C_tubalcain_ovvero_la_metallurgia%2C_1334-43%2C_dal_lato_ovest_del_campanile_01.JPG",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "marteau",
       "name": "Marteau",
-      "category": "tool",
-      "type": "tool",
+      "category": "automation",
       "era": "prehistoric",
       "year_approx": -100000,
       "image_url": "/images/nodes/marteau.png",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "clou",
       "name": "Clou",
-      "category": "tool",
-      "type": "component",
+      "category": "automation",
       "era": "ancient",
       "year_approx": -400,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nails.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "etain",
       "name": "Étain",
-      "category": "material",
-      "type": "raw_material",
+      "category": "industry",
       "era": "ancient",
       "year_approx": -3000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "vis",
       "name": "Vis",
-      "category": "tool",
-      "type": "component",
+      "category": "automation",
       "era": "renaissance",
       "year_approx": 1500,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Screws.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "tour",
       "name": "Tour",
-      "category": "tool",
-      "type": "tool",
+      "category": "automation",
       "era": "renaissance",
       "year_approx": 1745,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "moule",
       "name": "Moule",
-      "category": "tool",
-      "type": "tool",
+      "category": "automation",
       "era": "prehistoric",
       "year_approx": -3000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Bronze_spearhead_mold.JPG/600px-Bronze_spearhead_mold.JPG",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "presse-hydraulique",
       "name": "Presse hydraulique",
-      "category": "machine",
-      "type": "tool",
+      "category": "robotics",
       "era": "industrial",
       "year_approx": 1795,
       "image_url": "/images/nodes/presse-hydraulique.png",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "scie",
       "name": "Scie",
-      "category": "tool",
-      "type": "tool",
+      "category": "automation",
       "era": "ancient",
       "year_approx": -1800,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/S%C3%A5gkamraten.jpg/600px-S%C3%A5gkamraten.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "hache",
       "name": "Hache",
-      "category": "tool",
-      "type": "tool",
+      "category": "automation",
       "era": "prehistoric",
       "year_approx": -1600000,
       "image_url": "/images/nodes/hache.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "fonderie",
       "name": "Fonderie",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "ancient",
       "year_approx": -4000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Fonderie_Rosini_-_L%27art_et_le_savoir_faire..webm/600px--Fonderie_Rosini_-_L%27art_et_le_savoir_faire..webm.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "distillation",
       "name": "Distillation",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "ancient",
       "year_approx": -1200,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "fermentation",
       "name": "Fermentation",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "prehistoric",
       "year_approx": -11000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Fermenting.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "soudure",
       "name": "Soudure",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "ancient",
       "year_approx": -1000,
       "image_url": "/images/nodes/soudure.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "electrolyse",
       "name": "Électrolyse",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "industrial",
       "year_approx": 1800,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Symbole_electrolyseur.png",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "ressort",
       "name": "Ressort",
-      "category": "machine",
-      "type": "component",
+      "category": "robotics",
       "era": "prehistoric",
       "year_approx": -8000,
       "image_url": "/images/nodes/ressort.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "boulon",
       "name": "Boulon",
-      "category": "tool",
-      "type": "component",
+      "category": "automation",
       "era": "medieval",
       "year_approx": 1400,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "poulie",
       "name": "Poulie",
-      "category": "machine",
-      "type": "tool",
+      "category": "robotics",
       "era": "ancient",
       "year_approx": -870,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/%D0%98%D0%BB%D0%BB%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F_%D0%BA_%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B5_%C2%AB%D0%91%D0%BB%D0%BE%D0%BA%C2%BB._%D0%92%D0%BE%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F_%D1%8D%D0%BD%D1%86%D0%B8%D0%BA%D0%BB%D0%BE%D0%BF%D0%B5%D0%B4%D0%B8%D1%8F_%D0%A1%D1%8B%D1%82%D0%B8%D0%BD%D0%B0_%28%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3%2C_1911-1915%29.jpg/600px-%D0%98%D0%BB%D0%BB%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F_%D0%BA_%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B5_%C2%AB%D0%91%D0%BB%D0%BE%D0%BA%C2%BB._%D0%92%D0%BE%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F_%D1%8D%D0%BD%D1%86%D0%B8%D0%BA%D0%BB%D0%BE%D0%BF%D0%B5%D0%B4%D0%B8%D1%8F_%D0%A1%D1%8B%D1%82%D0%B8%D0%BD%D0%B0_%28%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3%2C_1911-1915%29.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "moteur-electrique",
       "name": "Moteur électrique",
-      "category": "machine",
-      "type": "tool",
+      "category": "robotics",
       "era": "industrial",
       "year_approx": 1834,
       "image_url": "/images/nodes/moteur-electrique.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "pompe",
       "name": "Pompe",
-      "category": "tool",
-      "type": "tool",
+      "category": "automation",
       "era": "ancient",
       "year_approx": -280,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Pompe_%C3%A0_eau_de_Fixin.jpg/600px-Pompe_%C3%A0_eau_de_Fixin.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "velo",
       "name": "Vélo",
       "category": "transport",
-      "type": "end_product",
       "era": "industrial",
       "year_approx": 1885,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "gratte-ciel",
       "name": "Gratte-ciel",
       "category": "construction",
-      "type": "end_product",
       "era": "industrial",
       "year_approx": 1885,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Taipei101.portrait.altonthompson.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "barrage",
       "name": "Barrage",
       "category": "construction",
-      "type": "end_product",
       "era": "ancient",
       "year_approx": -2650,
       "image_url": "/images/nodes/barrage.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "soie",
       "name": "Soie",
       "category": "textile",
-      "type": "material",
       "era": "ancient",
       "year_approx": -2570,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Khmersilk.JPG/600px-Khmersilk.JPG",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "presse",
       "name": "Presse",
-      "category": "machine",
-      "type": "tool",
+      "category": "robotics",
       "era": "renaissance",
       "year_approx": 1440,
       "image_url": "/images/nodes/presse.png",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "galvanisation",
       "name": "Galvanisation",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "industrial",
       "year_approx": 1837,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Galvanized_surface.jpg/600px-Galvanized_surface.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "pasteurisation",
       "name": "Pasteurisation",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "industrial",
       "year_approx": 1865,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "vulcanisation",
       "name": "Vulcanisation",
       "category": "chemistry",
-      "type": "process",
       "era": "industrial",
       "year_approx": 1839,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/VulcanizationMold1941.jpg/600px-VulcanizationMold1941.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "engrenage",
       "name": "Engrenage",
-      "category": "tool",
-      "type": "component",
+      "category": "automation",
       "era": "ancient",
       "year_approx": -350,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "roulement-a-billes",
       "name": "Roulement à billes",
-      "category": "machine",
-      "type": "component",
+      "category": "robotics",
       "era": "industrial",
       "year_approx": 1794,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/30/BallBearing.gif",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "levier",
       "name": "Levier",
-      "category": "tool",
-      "type": "tool",
+      "category": "automation",
       "era": "prehistoric",
       "year_approx": -3000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "machine-a-vapeur",
       "name": "Machine à vapeur",
-      "category": "machine",
-      "type": "tool",
+      "category": "robotics",
       "era": "industrial",
       "year_approx": 1769,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Mulhouse%2C_Electropolis.JPG/600px-Mulhouse%2C_Electropolis.JPG",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "turbine",
       "name": "Turbine",
-      "category": "machine",
-      "type": "tool",
+      "category": "robotics",
       "era": "industrial",
       "year_approx": 1827,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "bateau-a-voile",
       "name": "Bateau à voile",
       "category": "transport",
-      "type": "end_product",
       "era": "prehistoric",
       "year_approx": -3500,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Bateaugoelette.jpg/600px-Bateaugoelette.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "locomotive",
       "name": "Locomotive",
       "category": "transport",
-      "type": "machine",
       "era": "industrial",
       "year_approx": 1804,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "pont",
       "name": "Pont",
       "category": "construction",
-      "type": "end_product",
       "era": "ancient",
       "year_approx": -2000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Metrobaan_Duikerlaan_-_panoramio.jpg/600px-Metrobaan_Duikerlaan_-_panoramio.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "arche",
       "name": "Arche",
       "category": "construction",
-      "type": "process",
       "era": "ancient",
       "year_approx": -4000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "teinture",
       "name": "Teinture",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "ancient",
       "year_approx": -3000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Hue_Vietnam_Citadel-of-Hu%E1%BA%BF-21.jpg/600px-Hue_Vietnam_Citadel-of-Hu%E1%BA%BF-21.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "machine-a-coudre",
       "name": "Machine à coudre",
-      "category": "machine",
-      "type": "tool",
+      "category": "robotics",
       "era": "industrial",
       "year_approx": 1830,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "stethoscope",
       "name": "Stéthoscope",
       "category": "medical",
-      "type": "tool",
       "era": "industrial",
       "year_approx": 1816,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/2023_Stetoskop.jpg/600px-2023_Stetoskop.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "rayons-x",
       "name": "Rayons X",
       "category": "medical",
-      "type": "process",
       "era": "modern",
       "year_approx": 1895,
       "image_url": "/images/nodes/rayons-x.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "prothese",
       "name": "Prothèse",
       "category": "medical",
-      "type": "end_product",
       "era": "prehistoric",
       "year_approx": -3000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Prosthetic_toe.jpg/600px-Prosthetic_toe.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "fusee",
       "name": "Fusée",
       "category": "transport",
-      "type": "end_product",
       "era": "modern",
       "year_approx": 1926,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "sous-marin",
       "name": "Sous-marin",
       "category": "transport",
-      "type": "end_product",
       "era": "industrial",
       "year_approx": 1775,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Virginia_class_submarine.jpg/600px-Virginia_class_submarine.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "charpente",
       "name": "Charpente",
       "category": "construction",
-      "type": "component",
       "era": "ancient",
       "year_approx": -700,
       "image_url": "/images/nodes/charpente.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "tuyau",
       "name": "Tuyau",
       "category": "construction",
-      "type": "component",
       "era": "ancient",
       "year_approx": -2750,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/2006-02-15_Piping.jpg/600px-2006-02-15_Piping.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "conserve",
       "name": "Conserve",
       "category": "food",
-      "type": "process",
       "era": "industrial",
       "year_approx": 1795,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "huile-d-olive",
       "name": "Huile d'olive",
       "category": "food",
-      "type": "end_product",
       "era": "prehistoric",
       "year_approx": -6000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Huile_d%27olive_04.jpg/600px-Huile_d%27olive_04.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "nylon",
       "name": "Nylon",
-      "category": "material",
-      "type": "material",
+      "category": "industry",
       "era": "modern",
       "year_approx": 1935,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "vaccin",
       "name": "Vaccin",
       "category": "medical",
-      "type": "end_product",
       "era": "modern",
       "year_approx": 1796,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Smallpox_vaccine.jpg/600px-Smallpox_vaccine.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "antibiotique",
       "name": "Antibiotique",
       "category": "medical",
-      "type": "end_product",
       "era": "modern",
       "year_approx": 1928,
       "image_url": "/images/nodes/antibiotique.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "anesthesie",
       "name": "Anesthésie",
       "category": "medical",
-      "type": "process",
       "era": "industrial",
       "year_approx": 1846,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Anesthesia_-_The_Noun_Project.svg/600px-Anesthesia_-_The_Noun_Project.svg.png",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "dynamite",
       "name": "Dynamite",
       "category": "weapon",
-      "type": "component",
       "era": "industrial",
       "year_approx": 1867,
       "image_url": "/images/nodes/dynamite.png",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "appareil-photo",
       "name": "Appareil photo",
       "category": "optical",
-      "type": "end_product",
       "era": "industrial",
       "year_approx": 1839,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Many_cameras.jpg/600px-Many_cameras.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "memoire-ram",
       "name": "Mémoire RAM",
       "category": "electronics",
-      "type": "component",
       "era": "modern",
       "year_approx": 1963,
       "image_url": "/images/nodes/memoire-ram.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "canon",
       "name": "Canon",
       "category": "weapon",
-      "type": "tool",
       "era": "medieval",
       "year_approx": 1313,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cannon%2C_Ch%C3%A2teau_du_Haut-Koenigsbourg%2C_France.jpg/600px-Cannon%2C_Ch%C3%A2teau_du_Haut-Koenigsbourg%2C_France.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "fusil",
       "name": "Fusil",
       "category": "weapon",
-      "type": "end_product",
       "era": "renaissance",
       "year_approx": 1550,
       "image_url": "/images/nodes/fusil.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "savon",
       "name": "Savon",
       "category": "chemistry",
-      "type": "end_product",
       "era": "ancient",
       "year_approx": -2800,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Handmade_soap.jpg/600px-Handmade_soap.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "cosmetique",
       "name": "Cosmétique",
       "category": "medical",
-      "type": "process",
       "era": "prehistoric",
       "year_approx": -8000,
       "image_url": "/images/nodes/cosmetique.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "cuisine-mediterraneenne",
       "name": "Cuisine méditerranéenne",
       "category": "food",
-      "type": "process",
       "era": "modern",
       "year_approx": 1950,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Gazpacho_ingredients.jpg/600px-Gazpacho_ingredients.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "conservation-des-aliments",
       "name": "Conservation des aliments",
-      "category": "process",
-      "type": "process",
+      "category": "automation",
       "era": "prehistoric",
       "year_approx": -50000,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "parachute-en-nylon",
       "name": "Parachute en nylon",
       "category": "textile",
-      "type": "end_product",
       "era": "modern",
       "year_approx": 1942,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/USMC_Paratrooper.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "seringue",
       "name": "Seringue",
       "category": "medical",
-      "type": "tool",
       "era": "industrial",
       "year_approx": 1841,
       "image_url": "/images/nodes/seringue.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "anatomie-humaine",
       "name": "Anatomie humaine",
       "category": "medical",
-      "type": "process",
       "era": "ancient",
       "year_approx": -400,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Human_body_features-fr.svg/600px-Human_body_features-fr.svg.png",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "immunologie",
       "name": "Immunologie",
       "category": "medical",
-      "type": "process",
       "era": "modern",
       "year_approx": 1880,
       "image_url": "/images/nodes/immunologie.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "epidemiologie",
       "name": "Épidémiologie",
       "category": "medical",
-      "type": "process",
       "era": "modern",
       "year_approx": 1854,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/3548786222_7a3d3208d3_bInfluenzaGrippe.jpg/600px-3548786222_7a3d3208d3_bInfluenzaGrippe.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "moisissures",
       "name": "Moisissures",
-      "category": "animal",
-      "type": "raw_material",
+      "category": "agriculture",
       "era": "prehistoric",
       "year_approx": -40000,
       "image_url": "/images/nodes/moisissures.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "element"
     },
     {
       "id": "streptomycine",
       "name": "Streptomycine",
       "category": "medical",
-      "type": "component",
       "era": "modern",
       "year_approx": 1943,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Streptomycin_structure.svg/600px-Streptomycin_structure.svg.png",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "anesthesie-locale",
       "name": "Anesthésie locale",
       "category": "medical",
-      "type": "process",
       "era": "modern",
       "year_approx": 1884,
       "image_url": "/images/nodes/anesthesie-locale.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "nitroglycerine",
       "name": "Nitroglycérine",
       "category": "chemistry",
-      "type": "material",
       "era": "industrial",
       "year_approx": 1847,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Nitroglycerin.svg/600px-Nitroglycerin.svg.png",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "tunnel-ferroviaire",
       "name": "Tunnel ferroviaire",
       "category": "transport",
-      "type": "construction",
       "era": "industrial",
       "year_approx": 1827,
       "image_url": "/images/nodes/tunnel-ferroviaire.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "geligniite",
       "name": "Géligniite",
       "category": "weapon",
-      "type": "component",
       "era": "industrial",
       "year_approx": 1875,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Gelingnite_general_view.jpg/600px-Gelingnite_general_view.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "argent",
       "name": "Argent",
-      "category": "element",
-      "type": "raw_material",
+      "category": "chemistry",
       "era": "prehistoric",
       "year_approx": -3000,
       "image_url": "/images/nodes/argent.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "bitume-de-judee",
       "name": "Bitume de Judée",
-      "category": "material",
-      "type": "raw_material",
+      "category": "industry",
       "era": "ancient",
       "year_approx": -4000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Bitumen.jpg/600px-Bitumen.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": "mineral",
+      "chemicalNature": "element"
     },
     {
       "id": "radiographie",
       "name": "Radiographie",
       "category": "medical",
-      "type": "process",
       "era": "industrial",
       "year_approx": 1895,
       "image_url": "/images/nodes/radiographie.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "compound"
     },
     {
       "id": "disque-dur",
       "name": "Disque dur",
       "category": "electronics",
-      "type": "component",
       "era": "modern",
       "year_approx": 1956,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Hard_disk_platter_reflection.jpg/600px-Hard_disk_platter_reflection.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "arc",
       "name": "Arc",
       "category": "weapon",
-      "type": "tool",
       "era": "prehistoric",
       "year_approx": -15000,
       "image_url": "/images/nodes/arc.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "arbalete",
       "name": "Arbalète",
       "category": "weapon",
-      "type": "end_product",
       "era": "ancient",
       "year_approx": -400,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Une_arbal%C3%A8te_classique.jpg/600px-Une_arbal%C3%A8te_classique.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "artillerie-moderne",
       "name": "Artillerie moderne",
       "category": "weapon",
-      "type": "tool",
       "era": "industrial",
       "year_approx": 1897,
       "image_url": "/images/nodes/artillerie-moderne.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "acide-sulfurique",
       "name": "Acide sulfurique",
       "category": "chemistry",
-      "type": "component",
       "era": "medieval",
       "year_approx": 800,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Sulfuric-acid-2D-dimensions.svg/600px-Sulfuric-acid-2D-dimensions.svg.png",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "laser",
       "name": "Laser",
       "category": "optical",
-      "type": "tool",
       "era": "modern",
       "year_approx": 1960,
       "image_url": "/images/nodes/laser.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "batterie",
       "name": "Batterie",
       "category": "electronics",
-      "type": "component",
       "era": "industrial",
       "year_approx": 1859,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "gps",
       "name": "GPS",
       "category": "electronics",
-      "type": "end_product",
       "era": "digital",
       "year_approx": 1973,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Navstar.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "epee",
       "name": "Épée",
       "category": "weapon",
-      "type": "end_product",
       "era": "ancient",
       "year_approx": -3100,
       "image_url": "/images/nodes/epee.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "acide-chlorhydrique",
       "name": "Acide chlorhydrique",
       "category": "chemistry",
-      "type": "material",
       "era": "ancient",
       "year_approx": 800,
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "batterie-au-plomb",
       "name": "Batterie au plomb",
       "category": "electronics",
-      "type": "component",
       "era": "industrial",
       "year_approx": 1859,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Photo-CarBattery.jpg/600px-Photo-CarBattery.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     },
     {
       "id": "explosifs-industriels",
       "name": "Explosifs industriels",
       "category": "chemistry",
-      "type": "material",
       "era": "industrial",
       "year_approx": 1867,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Explosions.jpg/600px-Explosions.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null
+      "naturalOrigin": null,
+      "chemicalNature": "material"
     }
   ]
 }

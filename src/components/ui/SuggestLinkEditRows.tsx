@@ -7,6 +7,7 @@ import type { SuggestLinkSnapshot } from '@/lib/suggestion-link-snapshot';
 import { getCategoryColor } from '@/lib/colors';
 import { matchesSearchTokens } from '@/lib/suggest-peer-search';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
+import { safeCategoryLabel } from '@/lib/safe-category-label';
 
 const RELATION_DOT: Record<RelationType, string> = {
   material: '#94A3B8',
@@ -18,6 +19,8 @@ const RELATION_DOT: Record<RelationType, string> = {
 
 const MAX_GLOBAL_RESULTS = 200;
 
+export type SuggestLinkCardVariant = 'default' | 'stagedRemoval' | 'pendingAdd';
+
 type CardProps = {
   linkId: string;
   peerLabel: string;
@@ -26,6 +29,8 @@ type CardProps = {
   onRemove: (linkId: string) => void;
   /** Pas de bouton retirer (contributeur non connecté). */
   readOnly?: boolean;
+  variant?: SuggestLinkCardVariant;
+  onRestore?: (linkId: string) => void;
 };
 
 export function SuggestLinkEditCard({
@@ -35,6 +40,8 @@ export function SuggestLinkEditCard({
   value,
   onRemove,
   readOnly = false,
+  variant = 'default',
+  onRestore,
 }: CardProps) {
   const tRel = useTranslations('relationTypes');
   const tEx = useTranslations('explore');
@@ -45,13 +52,44 @@ export function SuggestLinkEditCard({
       ? getCategoryColor(peerCategory)
       : RELATION_DOT[rel];
 
+  const isOrange =
+    variant === 'stagedRemoval' || variant === 'pendingAdd';
+  const cardClass = isOrange
+    ? 'border-[#F59E0B]/80 bg-amber-950/25 ring-1 ring-[#F59E0B]/35'
+    : 'border-border/80 bg-surface/40';
+
   return (
     <li
-      className={`relative rounded-md border border-border/80 bg-surface/40 px-2 py-2.5 transition-[background-color,border-color,box-shadow] duration-150 hover:border-accent/35 hover:bg-surface/60 hover:shadow-sm ${
-        readOnly ? 'pr-2' : 'pr-9'
-      }`}
+      className={`relative rounded-md border px-2 py-2.5 transition-[background-color,border-color,box-shadow] duration-150 ${
+        isOrange
+          ? ''
+          : 'hover:border-accent/35 hover:bg-surface/60 hover:shadow-sm'
+      } ${cardClass} ${readOnly ? 'pr-2' : 'pr-9'}`}
     >
-      {!readOnly ? (
+      {!readOnly && variant === 'stagedRemoval' && onRestore ? (
+        <button
+          type="button"
+          onClick={() => onRestore(linkId)}
+          className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded p-0.5 text-[#F59E0B] transition-colors hover:bg-[#F59E0B]/20 hover:text-amber-300"
+          aria-label={tEx('suggestLinkRestoreAria')}
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      ) : null}
+      {!readOnly && variant !== 'stagedRemoval' ? (
         <button
           type="button"
           onClick={() => onRemove(linkId)}
@@ -96,6 +134,7 @@ function SuggestBrowseReadOnlyCard({
   onAdd?: () => void;
 }) {
   const tCat = useTranslations('categories');
+  const tTypes = useTranslations('types');
   const te = useTranslations('editor');
   const label = pickNodeDisplayName(
     locale,
@@ -113,7 +152,7 @@ function SuggestBrowseReadOnlyCard({
       <div className="min-w-0 flex-1">
         <p className="text-sm font-medium leading-snug text-accent">{label}</p>
         <p className="mt-0.5 text-xs text-muted-foreground">
-          {tCat(node.category as NodeCategory)}
+          {safeCategoryLabel(tCat, String(node.category), tTypes)}
         </p>
       </div>
     </div>
@@ -159,12 +198,17 @@ type SectionProps = {
     peerLabel: string;
     peerCategory: NodeCategory;
     value: SuggestLinkSnapshot;
+    variant?: SuggestLinkCardVariant;
   }[];
   onRemove: (linkId: string) => void;
+  /** Annuler une suppression de lien existant. */
+  onRestoreLink?: (linkId: string) => void;
   /** Clic sur un résultat de recherche pour proposer un nouveau lien. */
   onAddPeer?: (peerId: string) => void;
   /** Masque recherche / ajout ; cartes sans bouton retirer. */
   readOnly?: boolean;
+  /** Classes additionnelles sur le `<section>` (ex. `!mt-0`). */
+  className?: string;
 };
 
 export function SuggestLinkSection({
@@ -180,8 +224,10 @@ export function SuggestLinkSection({
   detailsById,
   existingRows,
   onRemove,
+  onRestoreLink,
   onAddPeer,
   readOnly = false,
+  className,
 }: SectionProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const searchInputId = useId();
@@ -213,7 +259,7 @@ export function SuggestLinkSection({
   }, [existingRows]);
 
   return (
-    <section className="mt-6">
+    <section className={`mt-6 ${className ?? ''}`}>
       <button
         type="button"
         onClick={onToggleOpen}
@@ -248,7 +294,7 @@ export function SuggestLinkSection({
             ) : (
               <ul className="space-y-3">
                 {existingRows.map(
-                  ({ linkId, peerLabel, peerCategory, value }) => (
+                  ({ linkId, peerLabel, peerCategory, value, variant }) => (
                     <SuggestLinkEditCard
                       key={linkId}
                       linkId={linkId}
@@ -256,6 +302,8 @@ export function SuggestLinkSection({
                       peerCategory={peerCategory}
                       value={value}
                       onRemove={onRemove}
+                      variant={variant ?? 'default'}
+                      onRestore={onRestoreLink}
                       readOnly
                     />
                   )
@@ -285,7 +333,7 @@ export function SuggestLinkSection({
             ) : (
               <ul className="space-y-3">
                 {existingRows.map(
-                  ({ linkId, peerLabel, peerCategory, value }) => (
+                  ({ linkId, peerLabel, peerCategory, value, variant }) => (
                     <SuggestLinkEditCard
                       key={linkId}
                       linkId={linkId}
@@ -293,6 +341,8 @@ export function SuggestLinkSection({
                       peerCategory={peerCategory}
                       value={value}
                       onRemove={onRemove}
+                      variant={variant ?? 'default'}
+                      onRestore={onRestoreLink}
                     />
                   )
                 )}
@@ -315,6 +365,8 @@ export function SuggestLinkSection({
                         peerCategory={row.peerCategory}
                         value={row.value}
                         onRemove={onRemove}
+                        variant={row.variant ?? 'default'}
+                        onRestore={onRestoreLink}
                       />
                     );
                   }

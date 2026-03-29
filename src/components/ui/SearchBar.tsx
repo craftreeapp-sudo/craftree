@@ -13,6 +13,7 @@ import type { NodeCategory } from '@/lib/types';
 import { useGraphStore } from '@/stores/graph-store';
 import { getTreeLayerDisplayIndex } from '@/lib/tree-layers';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
+import { safeCategoryLabel } from '@/lib/safe-category-label';
 import { getNameEnForNode } from '@/lib/name-en-lookup';
 import { trackEvent } from '@/lib/analytics';
 import { parseExploreViewMode } from '@/lib/explore-view-mode';
@@ -59,6 +60,7 @@ export function SearchBar({
   const tc = useTranslations('common');
   const tEra = useTranslations('eras');
   const tCat = useTranslations('categories');
+  const tTypes = useTranslations('types');
   const tExplore = useTranslations('explore');
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchNode[]>([]);
@@ -277,7 +279,7 @@ export function SearchBar({
                 color: categoryColor,
               }}
             >
-              {tCat(node.category as NodeCategory)}
+              {safeCategoryLabel(tCat, node.category, tTypes)}
             </span>
           </div>
           <div

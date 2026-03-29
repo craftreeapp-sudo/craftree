@@ -14,6 +14,7 @@ import {
   pickNodeDescriptionForLocale,
 } from '@/lib/node-display-name';
 import type { NodeCategory, TechNodeDetails } from '@/lib/types';
+import { safeCategoryLabel } from '@/lib/safe-category-label';
 
 const POPUP_MAX_W = 300;
 const GAP = 10;
@@ -131,7 +132,7 @@ export function ExploreHoverPopup() {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.15 }}
-        className="pointer-events-none fixed z-[72] max-h-[min(70vh,420px)] w-[min(92vw,300px)] overflow-y-auto rounded-xl border border-border bg-surface-elevated p-3 shadow-2xl"
+        className="pointer-events-none fixed z-[95] max-h-[min(70vh,420px)] w-[min(92vw,300px)] overflow-y-auto rounded-xl border border-border bg-surface-elevated p-3 shadow-2xl"
         style={{ left: pos.left, top: pos.top, maxWidth: POPUP_MAX_W }}
       >
         <h3
@@ -159,7 +160,11 @@ export function ExploreHoverPopup() {
               color: categoryColor,
             }}
           >
-            {tCat(node.category as NodeCategory)}
+            {safeCategoryLabel(
+              tCat,
+              String(node.category),
+              tTypes
+            )}
           </span>
           <span className="rounded-md bg-border/20 px-2 py-0.5 text-[10px] text-muted-foreground">
             {tEra(node.era)}

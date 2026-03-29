@@ -8,12 +8,12 @@ import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { HeaderAuth } from '@/components/layout/HeaderAuth';
 import { HeaderNavDrawer } from '@/components/layout/HeaderNavDrawer';
 import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher';
-import { useExploreNavigation } from '@/hooks/use-explore-navigation';
+import { useUIStore } from '@/stores/ui-store';
 
 export function Header() {
   const pathname = usePathname();
   const tNav = useTranslations('nav');
-  const { closeDetail } = useExploreNavigation();
+  const closeSidebar = useUIStore((s) => s.closeSidebar);
 
   if (pathname === '/editor') {
     return null;
@@ -34,19 +34,19 @@ export function Header() {
       >
         <HeaderNavDrawer />
         {pathname?.startsWith('/tree/') ? (
-          <button
-            type="button"
-            onClick={closeDetail}
-            className="shrink-0 cursor-pointer border-0 bg-transparent p-0 text-start font-bold tracking-tight text-foreground"
+          <Link
+            href="/"
+            onClick={() => closeSidebar()}
+            className="shrink-0 font-bold tracking-tight text-foreground"
             style={{
               fontFamily:
                 'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
               fontSize: '1.15rem',
             }}
-            aria-label={tNav('logoGlobalView')}
+            aria-label={tNav('logoHome')}
           >
             Craft<span className="text-accent">ree</span>
-          </button>
+          </Link>
         ) : (
           <Link
             href="/"

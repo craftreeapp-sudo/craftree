@@ -10,6 +10,8 @@ import type {
   TechNodeDetails,
   MaterialLevel,
   NodeDimension,
+  NaturalOrigin,
+  ChemicalNature,
 } from '@/lib/types';
 import {
   computeComplexityDepth,
@@ -33,6 +35,8 @@ interface RawNode {
   image_url?: string;
   dimension?: NodeDimension | null;
   materialLevel?: MaterialLevel | null;
+  naturalOrigin?: NaturalOrigin | null;
+  chemicalNature?: ChemicalNature | null;
 }
 
 interface RawLink {
@@ -114,6 +118,12 @@ function normalizeNode(raw: RawNode): TechNodeBasic {
     ...(raw.materialLevel !== undefined
       ? { materialLevel: raw.materialLevel }
       : {}),
+    ...(raw.naturalOrigin !== undefined
+      ? { naturalOrigin: raw.naturalOrigin }
+      : {}),
+    ...(raw.chemicalNature !== undefined
+      ? { chemicalNature: raw.chemicalNature }
+      : {}),
   };
 }
 
@@ -142,6 +152,8 @@ function nodesToRaw(nodes: TechNodeBasic[]): RawNode[] {
     image_url: n.image_url,
     dimension: n.dimension ?? null,
     materialLevel: n.materialLevel ?? null,
+    naturalOrigin: n.naturalOrigin ?? null,
+    chemicalNature: n.chemicalNature ?? null,
   }));
 }
 
@@ -239,6 +251,8 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
       image_url: n.image_url,
       dimension: n.dimension ?? null,
       materialLevel: n.materialLevel ?? null,
+      naturalOrigin: n.naturalOrigin ?? null,
+      chemicalNature: n.chemicalNature ?? null,
     }));
     const rawLinks: RawLink[] = craftingLinks.map((l) => ({
       id: l.id,

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { getLocale } from 'next-intl/server';
-import { LandingPage } from '@/components/landing/LandingPage';
+import { HomePage } from '@/components/home/HomePage';
 import nodesIndex from '@/data/nodes-index.json';
 
 export const metadata: Metadata = {
@@ -24,5 +24,5 @@ const floatingPool = nodesIndex.nodes
 
 export default async function Home() {
   await getLocale();
-  return <LandingPage floatingPool={floatingPool} />;
+  return <HomePage floatingPool={floatingPool} />;
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
+import Script from 'next/script';
 import { Geist_Mono, Inter, Lora, Space_Grotesk } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
@@ -120,11 +121,15 @@ export default async function RootLayout({
       className={`${inter.variable} ${geistMono.variable} ${spaceGrotesk.variable} ${lora.variable} h-full bg-page antialiased`}
     >
       <body className="flex min-h-screen min-h-[100dvh] flex-col bg-page font-sans text-foreground antialiased">
-        <script
+        <Script
+          id="theme-bootstrap"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: getThemeBootstrapScript() }}
         />
-        <script
+        <Script
+          id="ld-json-site"
           type="application/ld+json"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <NextIntlClientProvider locale={locale} messages={messages}>

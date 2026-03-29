@@ -8,6 +8,7 @@ import { formatYear } from '@/lib/utils';
 import type { NodeCategory, TechNodeBasic } from '@/lib/types';
 import { useExploreCardOptional } from '@/components/explore/explore-card-context';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
+import { safeCategoryLabel } from '@/lib/safe-category-label';
 
 const HOVER_DELAY_MS = 300;
 
@@ -36,6 +37,8 @@ export function InventionCard({
 }: Props) {
   const locale = useLocale();
   const tCat = useTranslations('categories');
+  const tTypes = useTranslations('types');
+  const tExplore = useTranslations('explore');
   const ctx = useExploreCardOptional();
 
   const displayName = pickNodeDisplayName(
@@ -138,7 +141,7 @@ export function InventionCard({
             borderColor: catColor,
             backgroundColor: hexToRgba(catColor, 0.12),
           }}
-          title="Direct dependencies"
+          title={tExplore('directDepsBadgeTitle')}
         >
           {directDeps}
         </span>
@@ -150,7 +153,7 @@ export function InventionCard({
         className="w-fit max-w-full rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white"
         style={{ backgroundColor: hexToRgba(catColor, 0.42) }}
       >
-        {tCat(cat)}
+        {safeCategoryLabel(tCat, cat, tTypes)}
       </span>
     </div>
   );

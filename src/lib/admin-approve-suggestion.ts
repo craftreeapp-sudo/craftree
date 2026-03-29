@@ -90,7 +90,6 @@ export async function applyApprovedSuggestion(
     if (typeof proposed.name === 'string') patch.name = proposed.name;
     if (typeof proposed.description === 'string') patch.description = proposed.description;
     if (typeof proposed.category === 'string') patch.category = proposed.category;
-    if (typeof proposed.type === 'string') patch.type = proposed.type;
     if (typeof proposed.era === 'string') patch.era = proposed.era;
     if (proposed.year_approx !== undefined) {
       patch.year_approx =
@@ -100,6 +99,21 @@ export async function applyApprovedSuggestion(
     if (typeof proposed.name_en === 'string') patch.name_en = proposed.name_en;
     if (typeof proposed.description_en === 'string') {
       patch.description_en = proposed.description_en;
+    }
+    if (Array.isArray(proposed.tags)) {
+      patch.tags = (proposed.tags as unknown[]).map(String);
+    }
+    if (proposed.naturalOrigin !== undefined) {
+      patch.natural_origin =
+        proposed.naturalOrigin === null || proposed.naturalOrigin === ''
+          ? null
+          : String(proposed.naturalOrigin);
+    }
+    if (proposed.chemicalNature !== undefined) {
+      patch.chemical_nature =
+        proposed.chemicalNature === null || proposed.chemicalNature === ''
+          ? null
+          : String(proposed.chemicalNature);
     }
 
     const { error: upErr } = await sb.from('nodes').update(patch).eq('id', nodeId);

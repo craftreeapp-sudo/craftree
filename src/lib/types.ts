@@ -3,32 +3,35 @@
  * @see BRIEF.md Section 2 — Architecture des données
  */
 
-// ─── Catégories de nœuds ─────────────────────────────────────────────────────
+// ─── Catégories de nœuds (cartes site — une seule liste) ─────────────────────
 
 export enum NodeCategory {
-  // Matières premières naturelles
-  MINERAL = 'mineral',
-  VEGETAL = 'vegetal',
-  ANIMAL = 'animal',
-  ELEMENT = 'element',
   ENERGY = 'energy',
-
-  // Technologies
-  MATERIAL = 'material',
-  TOOL = 'tool',
-  PROCESS = 'process',
-  MACHINE = 'machine',
-  ELECTRONICS = 'electronics',
-  CHEMISTRY = 'chemistry',
   CONSTRUCTION = 'construction',
-  TRANSPORT = 'transport',
-  COMMUNICATION = 'communication',
-  FOOD = 'food',
-  TEXTILE = 'textile',
-  MEDICAL = 'medical',
   WEAPON = 'weapon',
-  OPTICAL = 'optical',
+  NETWORK = 'network',
+  FOOD = 'food',
+  TRANSPORT = 'transport',
   SOFTWARE = 'software',
+  INFRASTRUCTURE = 'infrastructure',
+  TEXTILE = 'textile',
+  COMMUNICATION = 'communication',
+  AGRICULTURE = 'agriculture',
+  ROBOTICS = 'robotics',
+  CHEMISTRY = 'chemistry',
+  ELECTRONICS = 'electronics',
+  ENVIRONMENT = 'environment',
+  AUTOMATION = 'automation',
+  MEDICAL = 'medical',
+  OPTICAL = 'optical',
+  STORAGE = 'storage',
+  AERONAUTICS = 'aeronautics',
+  SPACE = 'space',
+  INDUSTRY = 'industry',
+  NANOTECHNOLOGY = 'nanotechnology',
+  BIOTECHNOLOGY = 'biotechnology',
+  SECURITY = 'security',
+  HOME_AUTOMATION = 'home_automation',
 }
 
 // ─── Époques ─────────────────────────────────────────────────────────────────
@@ -64,6 +67,12 @@ export type MaterialLevel =
   | 'industrial'
   | 'component';
 
+/** Origine naturelle (fiche / suggestion de correction). */
+export type NaturalOrigin = 'mineral' | 'vegetal' | 'animal';
+
+/** Nature chimique ou physique (fiche / suggestion de correction). */
+export type ChemicalNature = 'element' | 'compound' | 'material';
+
 // ─── Nœuds (technologies / ressources) ───────────────────────────────────────
 
 /** Champs chargés avec le graphe (seed-data.json, projection runtime) — pas de textes longs ni médias. */
@@ -86,6 +95,10 @@ export interface TechNodeBasic {
   dimension?: NodeDimension | null;
   /** Niveau matière si dimension = matter ; sinon null. */
   materialLevel?: MaterialLevel | null;
+  /** Origine naturelle (optionnel). */
+  naturalOrigin?: NaturalOrigin | null;
+  /** Nature chimique/physique (optionnel). */
+  chemicalNature?: ChemicalNature | null;
 }
 
 /** Métadonnées étendues (nodes-details.json ou API — chargées à la demande). */
@@ -146,6 +159,10 @@ export interface SeedNode {
   wikipedia_url?: string;
   dimension?: NodeDimension | null;
   materialLevel?: MaterialLevel | null;
+  /** Origine naturelle (optionnel — colonnes DB / seed). */
+  naturalOrigin?: NaturalOrigin | null;
+  /** Nature chimique/physique (optionnel). */
+  chemicalNature?: ChemicalNature | null;
   _ai_built_upon?: string[];
   _ai_led_to?: string[];
 }

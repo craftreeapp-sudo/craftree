@@ -8,9 +8,9 @@ import {
 } from '@/lib/supabase-server';
 import { requireAdminFromRequest } from '@/lib/auth-server';
 import {
-  GRAPH_NODES_SELECT,
   mapGraphNodeRowToSeedNode,
   mapNodeRowToSeedNode,
+  fetchNodesOrdered,
 } from '@/lib/data';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 import { dimensionMaterialLevelFromCreateBody } from '@/lib/node-dimension';
@@ -24,9 +24,6 @@ function uniqueIdFromName(base: string, existingIds: Set<string>): string {
   return `${id}-${n}`;
 }
 
-const FULL_NODES_SELECT =
-  'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level';
-
 export async function GET(request: Request) {
   try {
     if (!isSupabaseConfigured()) {
@@ -37,14 +34,10 @@ export async function GET(request: Request) {
     const full =
       searchParams.get('full') === '1' || searchParams.get('full') === 'true';
     const supabase = createSupabaseServerReadClient();
-    const sel = full ? FULL_NODES_SELECT : GRAPH_NODES_SELECT;
-    const { data, error } = await supabase
-      .from('nodes')
-      // Colonnes alignées sur le schéma ; assertion pour éviter les unions trop strictes du client.
-      .select(sel as never)
-      .order('name');
-    if (error) throw error;
-    const rows = (data ?? []) as unknown as Record<string, unknown>[];
+    const { rows } = await fetchNodesOrdered(
+      supabase,
+      full ? 'full' : 'graph'
+    );
     const nodes = rows.map((r) =>
       full ? mapNodeRowToSeedNode(r) : mapGraphNodeRowToSeedNode(r)
     );

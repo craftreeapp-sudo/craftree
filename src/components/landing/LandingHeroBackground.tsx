@@ -10,6 +10,7 @@ import {
   LANDING_HERO_LINKS,
   type LandingHeroCard,
 } from '@/lib/landing-hero-cards';
+import { safeCategoryLabel } from '@/lib/safe-category-label';
 
 type Props = {
   cards: LandingHeroCard[];
@@ -68,6 +69,7 @@ function MiniCraftCard({
 
 export function LandingHeroBackground({ cards }: Props) {
   const tCat = useTranslations('categories');
+  const tTypes = useTranslations('types');
   const isMobile = useIsMobileBreakpoint();
   const count = isMobile ? 5 : Math.min(10, cards.length);
   const visible = cards.slice(0, count);
@@ -102,7 +104,11 @@ export function LandingHeroBackground({ cards }: Props) {
               <MiniCraftCard
                 name={card.name}
                 category={card.category}
-                categoryLabel={tCat(card.category)}
+                categoryLabel={safeCategoryLabel(
+                  tCat,
+                  String(card.category),
+                  tTypes
+                )}
                 compact={isMobile}
               />
             </div>

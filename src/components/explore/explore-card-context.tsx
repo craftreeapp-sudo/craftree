@@ -11,10 +11,16 @@ import {
 
 export type ExploreHoverPreview = { nodeId: string; rect: DOMRect };
 
+export type ExploreDetailSubview = 'detail' | 'suggest';
+
 export type ExploreCardContextValue = {
   detailNodeId: string | null;
+  /** Vue dans le panneau latéral explore : fiche ou formulaire de suggestion (sans fermer la fiche). */
+  detailSubview: ExploreDetailSubview;
   openDetail: (id: string) => void;
   closeDetail: () => void;
+  openSuggestSubview: () => void;
+  closeSuggestSubview: () => void;
   legendOpen: boolean;
   openLegend: () => void;
   closeLegend: () => void;
@@ -34,6 +40,8 @@ export function ExploreCardProvider({
   isMobile: boolean;
 }) {
   const [detailNodeId, setDetailNodeId] = useState<string | null>(null);
+  const [detailSubview, setDetailSubview] =
+    useState<ExploreDetailSubview>('detail');
   const [legendOpen, setLegendOpen] = useState(false);
   const [hoverPreview, setHoverPreview] = useState<ExploreHoverPreview | null>(
     null
@@ -50,12 +58,22 @@ export function ExploreCardProvider({
 
   const openDetail = useCallback((id: string) => {
     setDetailNodeId(id);
+    setDetailSubview('detail');
     setLegendOpen(false);
     setHoverPreview(null);
   }, []);
 
   const closeDetail = useCallback(() => {
     setDetailNodeId(null);
+    setDetailSubview('detail');
+  }, []);
+
+  const openSuggestSubview = useCallback(() => {
+    setDetailSubview('suggest');
+  }, []);
+
+  const closeSuggestSubview = useCallback(() => {
+    setDetailSubview('detail');
   }, []);
 
   const suppressHover = legendOpen;
@@ -63,8 +81,11 @@ export function ExploreCardProvider({
   const value = useMemo(
     (): ExploreCardContextValue => ({
       detailNodeId,
+      detailSubview,
       openDetail,
       closeDetail,
+      openSuggestSubview,
+      closeSuggestSubview,
       legendOpen,
       openLegend,
       closeLegend,
@@ -75,8 +96,11 @@ export function ExploreCardProvider({
     }),
     [
       detailNodeId,
+      detailSubview,
       openDetail,
       closeDetail,
+      openSuggestSubview,
+      closeSuggestSubview,
       legendOpen,
       openLegend,
       closeLegend,

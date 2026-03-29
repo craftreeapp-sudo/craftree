@@ -3,7 +3,7 @@
     {
       "id": "feu",
       "name": "Feu",
-      "category": "element",
+      "category": "chemistry",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": -400000,
@@ -18,7 +18,7 @@
     {
       "id": "eau",
       "name": "Eau",
-      "category": "element",
+      "category": "chemistry",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
@@ -33,7 +33,7 @@
     {
       "id": "air",
       "name": "Air",
-      "category": "element",
+      "category": "chemistry",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
@@ -47,7 +47,7 @@
     {
       "id": "sable",
       "name": "Sable (silice)",
-      "category": "mineral",
+      "category": "industry",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
@@ -78,7 +78,7 @@
     {
       "id": "cuivre",
       "name": "Cuivre",
-      "category": "mineral",
+      "category": "industry",
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -7000,
@@ -93,7 +93,7 @@
     {
       "id": "minerai-fer",
       "name": "Minerai de fer",
-      "category": "mineral",
+      "category": "industry",
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -3000,
@@ -108,7 +108,7 @@
     {
       "id": "calcaire",
       "name": "Calcaire",
-      "category": "mineral",
+      "category": "industry",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
@@ -123,7 +123,7 @@
     {
       "id": "argile",
       "name": "Argile",
-      "category": "mineral",
+      "category": "industry",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
@@ -138,7 +138,7 @@
     {
       "id": "bois",
       "name": "Bois",
-      "category": "vegetal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
@@ -153,7 +153,7 @@
     {
       "id": "sel",
       "name": "Sel",
-      "category": "mineral",
+      "category": "industry",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
@@ -167,7 +167,7 @@
     {
       "id": "ble",
       "name": "Blé",
-      "category": "vegetal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": -10000,
@@ -182,7 +182,7 @@
     {
       "id": "raisin",
       "name": "Raisin",
-      "category": "vegetal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -6000,
@@ -197,7 +197,7 @@
     {
       "id": "lait",
       "name": "Lait",
-      "category": "animal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
@@ -212,7 +212,7 @@
     {
       "id": "levure",
       "name": "Levure",
-      "category": "vegetal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -3000,
@@ -227,7 +227,7 @@
     {
       "id": "presure",
       "name": "Présure",
-      "category": "animal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
@@ -241,7 +241,7 @@
     {
       "id": "plantes-medicinales",
       "name": "Plantes médicinales",
-      "category": "vegetal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": null,
@@ -271,7 +271,7 @@
     {
       "id": "four",
       "name": "Four",
-      "category": "tool",
+      "category": "automation",
       "type": "tool",
       "era": "ancient",
       "year_approx": -6000,
@@ -285,7 +285,7 @@
     {
       "id": "four-haute-temp",
       "name": "Four à haute température",
-      "category": "machine",
+      "category": "robotics",
       "type": "tool",
       "era": "industrial",
       "year_approx": 1784,
@@ -313,7 +313,7 @@
     {
       "id": "verre",
       "name": "Verre",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "ancient",
       "year_approx": -3500,
@@ -327,7 +327,7 @@
     {
       "id": "silicium",
       "name": "Silicium",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "modern",
       "year_approx": 1954,
@@ -369,7 +369,7 @@
     {
       "id": "photolithographie",
       "name": "Photolithographie",
-      "category": "process",
+      "category": "automation",
       "type": "process",
       "era": "digital",
       "year_approx": 1957,
@@ -397,7 +397,7 @@
     {
       "id": "fibre-verre",
       "name": "Fibre de verre",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "modern",
       "year_approx": 1932,
@@ -467,7 +467,7 @@
     {
       "id": "fer",
       "name": "Fer",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "ancient",
       "year_approx": -1200,
@@ -481,7 +481,7 @@
     {
       "id": "acier",
       "name": "Acier",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "industrial",
       "year_approx": 1856,
@@ -523,7 +523,7 @@
     {
       "id": "ciment",
       "name": "Ciment",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "industrial",
       "year_approx": 1824,
@@ -565,7 +565,7 @@
     {
       "id": "pate-papier",
       "name": "Pâte à papier",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "ancient",
       "year_approx": 105,
@@ -607,7 +607,7 @@
     {
       "id": "presse-imprimer",
       "name": "Presse à imprimer",
-      "category": "machine",
+      "category": "robotics",
       "type": "tool",
       "era": "renaissance",
       "year_approx": 1440,
@@ -635,7 +635,7 @@
     {
       "id": "fil-cuivre",
       "name": "Fil de cuivre",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "industrial",
       "year_approx": 1820,
@@ -663,7 +663,7 @@
     {
       "id": "generateur",
       "name": "Générateur électrique",
-      "category": "machine",
+      "category": "robotics",
       "type": "tool",
       "era": "industrial",
       "year_approx": 1831,
@@ -874,7 +874,7 @@
     {
       "id": "tonneau",
       "name": "Tonneau",
-      "category": "tool",
+      "category": "automation",
       "type": "tool",
       "era": "ancient",
       "year_approx": -350,
@@ -970,7 +970,7 @@
     {
       "id": "laine",
       "name": "Laine",
-      "category": "animal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": -10000,
@@ -1010,7 +1010,7 @@
     {
       "id": "ver-a-soie",
       "name": "Ver à soie",
-      "category": "animal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -3000,
@@ -1037,7 +1037,7 @@
     {
       "id": "plantes-teinture",
       "name": "Plantes tinctoriales",
-      "category": "vegetal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -2000,
@@ -1064,7 +1064,7 @@
     {
       "id": "teinture-textile",
       "name": "Teinture textile",
-      "category": "process",
+      "category": "automation",
       "type": "process",
       "era": "ancient",
       "year_approx": -2000,
@@ -1103,7 +1103,7 @@
     {
       "id": "caoutchouc",
       "name": "Caoutchouc",
-      "category": "material",
+      "category": "industry",
       "type": "raw_material",
       "era": "industrial",
       "year_approx": 1839,
@@ -1117,7 +1117,7 @@
     {
       "id": "moteur-explosion",
       "name": "Moteur à explosion",
-      "category": "machine",
+      "category": "robotics",
       "type": "machine",
       "era": "industrial",
       "year_approx": 1876,
@@ -1143,7 +1143,7 @@
     {
       "id": "aluminium",
       "name": "Aluminium",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "modern",
       "year_approx": 1886,
@@ -1156,7 +1156,7 @@
     {
       "id": "moteur-reaction",
       "name": "Moteur à réaction",
-      "category": "machine",
+      "category": "robotics",
       "type": "machine",
       "era": "modern",
       "year_approx": 1937,
@@ -1223,7 +1223,7 @@
     {
       "id": "uranium",
       "name": "Uranium",
-      "category": "mineral",
+      "category": "industry",
       "type": "raw_material",
       "era": "modern",
       "year_approx": 1942,
@@ -1237,7 +1237,7 @@
     {
       "id": "reacteur-nucleaire",
       "name": "Réacteur nucléaire",
-      "category": "machine",
+      "category": "robotics",
       "type": "machine",
       "era": "modern",
       "year_approx": 1954,
@@ -1276,7 +1276,7 @@
     {
       "id": "pierre",
       "name": "Pierre de taille",
-      "category": "mineral",
+      "category": "industry",
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -2500,
@@ -1290,7 +1290,7 @@
     {
       "id": "taille-pierre",
       "name": "Taille de pierre",
-      "category": "process",
+      "category": "automation",
       "type": "process",
       "era": "ancient",
       "year_approx": -2000,
@@ -1394,7 +1394,7 @@
     {
       "id": "imprimerie",
       "name": "Imprimerie industrielle",
-      "category": "process",
+      "category": "automation",
       "type": "process",
       "era": "industrial",
       "year_approx": 1814,
@@ -1511,7 +1511,7 @@
     {
       "id": "salpetre",
       "name": "Salpêtre",
-      "category": "mineral",
+      "category": "industry",
       "type": "raw_material",
       "era": "medieval",
       "year_approx": 1200,
@@ -1525,7 +1525,7 @@
     {
       "id": "soufre",
       "name": "Soufre",
-      "category": "mineral",
+      "category": "industry",
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -500,
@@ -1604,7 +1604,7 @@
     {
       "id": "viande",
       "name": "Viande",
-      "category": "animal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": -50000,
@@ -1631,7 +1631,7 @@
     {
       "id": "canne-a-sucre",
       "name": "Canne à sucre",
-      "category": "vegetal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -8000,
@@ -1671,7 +1671,7 @@
     {
       "id": "cacao",
       "name": "Fèves de cacao",
-      "category": "vegetal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -1500,
@@ -1698,7 +1698,7 @@
     {
       "id": "houblon",
       "name": "Houblon",
-      "category": "vegetal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "medieval",
       "year_approx": 800,
@@ -1712,7 +1712,7 @@
     {
       "id": "orge",
       "name": "Orge",
-      "category": "vegetal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -5000,
@@ -1739,7 +1739,7 @@
     {
       "id": "metier-tisser",
       "name": "Métier à tisser",
-      "category": "machine",
+      "category": "robotics",
       "type": "tool",
       "era": "ancient",
       "year_approx": -4000,
@@ -1765,7 +1765,7 @@
     {
       "id": "bauxite",
       "name": "Bauxite",
-      "category": "mineral",
+      "category": "industry",
       "type": "raw_material",
       "era": "industrial",
       "year_approx": 1821,
@@ -1779,7 +1779,7 @@
     {
       "id": "raffinerie",
       "name": "Raffinerie",
-      "category": "process",
+      "category": "automation",
       "type": "process",
       "era": "industrial",
       "year_approx": 1860,
@@ -1896,7 +1896,7 @@
     {
       "id": "turbine-vapeur",
       "name": "Turbine à vapeur",
-      "category": "machine",
+      "category": "robotics",
       "type": "machine",
       "era": "industrial",
       "year_approx": 1884,
@@ -1948,7 +1948,7 @@
     {
       "id": "fonte",
       "name": "Fonte",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "industrial",
       "year_approx": 1709,
@@ -1961,7 +1961,7 @@
     {
       "id": "acier-inox",
       "name": "Acier inoxydable",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "modern",
       "year_approx": 1913,
@@ -1987,7 +1987,7 @@
     {
       "id": "filature",
       "name": "Filature",
-      "category": "process",
+      "category": "automation",
       "type": "process",
       "era": "industrial",
       "year_approx": 1771,
@@ -2000,7 +2000,7 @@
     {
       "id": "mouton",
       "name": "Mouton",
-      "category": "animal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": -9000,
@@ -2014,7 +2014,7 @@
     {
       "id": "mulberry",
       "name": "Mûrier",
-      "category": "vegetal",
+      "category": "agriculture",
       "type": "raw_material",
       "era": "ancient",
       "year_approx": -3000,
@@ -2028,7 +2028,7 @@
     {
       "id": "feuille-or",
       "name": "Feuille d’or",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "ancient",
       "year_approx": -500,
@@ -2041,7 +2041,7 @@
     {
       "id": "or",
       "name": "Or",
-      "category": "mineral",
+      "category": "industry",
       "type": "raw_material",
       "era": "prehistoric",
       "year_approx": -4000,
@@ -2055,7 +2055,7 @@
     {
       "id": "scierie",
       "name": "Scierie",
-      "category": "process",
+      "category": "automation",
       "type": "process",
       "era": "medieval",
       "year_approx": 1300,
@@ -2068,7 +2068,7 @@
     {
       "id": "planche-bois",
       "name": "Planche de bois",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "ancient",
       "year_approx": -2000,
@@ -2081,7 +2081,7 @@
     {
       "id": "verre-trempe",
       "name": "Verre trempé",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "modern",
       "year_approx": 1929,
@@ -2107,7 +2107,7 @@
     {
       "id": "hydrogene",
       "name": "Hydrogène",
-      "category": "element",
+      "category": "chemistry",
       "type": "raw_material",
       "era": "modern",
       "year_approx": 1913,
@@ -2121,7 +2121,7 @@
     {
       "id": "azote",
       "name": "Azote",
-      "category": "element",
+      "category": "chemistry",
       "type": "raw_material",
       "era": "modern",
       "year_approx": 1913,
@@ -2187,7 +2187,7 @@
     {
       "id": "bitume",
       "name": "Bitume",
-      "category": "material",
+      "category": "industry",
       "type": "material",
       "era": "industrial",
       "year_approx": 1870,

@@ -58,7 +58,7 @@ export function LedToView({ focusId, focusNode, goTo }: Props) {
   return (
     <LayoutGroup id="led-to-cards">
       <div className="mx-auto flex w-full max-w-[calc(72rem+10px)] flex-col gap-6 pb-4 pt-2">
-        <div className="-mx-[30px] flex flex-col gap-6">
+        <div className="-mx-[60px] flex flex-col gap-6">
         <div className="rounded-xl border border-border bg-surface-elevated p-4">
           <div className="sticky top-0 z-10 -mx-4 mb-3 border-b border-border/60 bg-surface-elevated/95 px-4 py-3 backdrop-blur-sm">
             <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">

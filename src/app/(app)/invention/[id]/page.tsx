@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import {
   buildInventionJsonLd,
   buildInventionMetadata,
@@ -38,8 +39,10 @@ export default async function InventionPage({ params }: Props) {
 
   return (
     <>
-      <script
+      <Script
+        id={`invention-ld-json-${id}`}
         type="application/ld+json"
+        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <InventionRedirect to={treeUrl} />

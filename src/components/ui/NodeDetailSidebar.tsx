@@ -21,42 +21,17 @@ import {
 import { ImageUploader } from '@/components/ui/ImageUploader';
 import type {
   NodeCategory,
-  TechNodeType,
   CraftingLink,
   TechNodeBasic,
   SeedNode,
   TechNodeDetails,
-  Era,
 } from '@/lib/types';
 import { RelationType } from '@/lib/types';
 import { isRtlLocale } from '@/lib/i18n-config';
-import {
-  pickNodeDisplayName,
-  pickNodeDescriptionForLocale,
-} from '@/lib/node-display-name';
-import { buildPeerSearchBlobMap } from '@/lib/suggest-peer-search';
-import {
-  SuggestionNodeForm,
-  type SuggestNodeFormState,
-} from '@/components/ui/SuggestionNodeForm';
-import { computeDiff } from '@/lib/suggestion-diff';
-import {
-  craftingLinkToSnapshot,
-  computeLinkSuggestionDiff,
-  computeRemovedLinkIds,
-  type SuggestLinkSnapshot,
-  type SuggestLinkContextEntry,
-} from '@/lib/suggestion-link-snapshot';
-import { SuggestLinkSection } from '@/components/ui/SuggestLinkEditRows';
+import { pickNodeDisplayName } from '@/lib/node-display-name';
+import { safeCategoryLabel } from '@/lib/safe-category-label';
 import { useToastStore } from '@/stores/toast-store';
-import { NodeCategory as NC, Era as EraEnum } from '@/lib/types';
-
-type PendingAddLink = {
-  tempId: string;
-  peerId: string;
-  section: 'ledTo' | 'builtUpon';
-  relation_type: RelationType;
-};
+import { SuggestNodeCorrectionPanel } from '@/components/ui/SuggestNodeCorrectionPanel';
 
 const RELATION_DOT: Record<RelationType, string> = {
   material: '#94A3B8',
@@ -94,50 +69,27 @@ export function NodeDetailSidebar() {
 
   const isSidebarOpen = useUIStore((s) => s.isSidebarOpen);
   const selectedNodeId = useUIStore((s) => s.selectedNodeId);
+  const pendingExploreEdit = useUIStore((s) => s.pendingExploreEdit);
+  const pendingExploreSuggest = useUIStore((s) => s.pendingExploreSuggest);
   const { navigateToNode, closeDetail } = useExploreNavigation();
 
   const getNodeById = useGraphStore((s) => s.getNodeById);
-  const graphNodes = useGraphStore((s) => s.nodes);
   const updateNode = useGraphStore((s) => s.updateNode);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
   const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
   const getUsagesOfNode = useGraphStore((s) => s.getUsagesOfNode);
   const refreshData = useGraphStore((s) => s.refreshData);
   const pushToast = useToastStore((s) => s.pushToast);
-  const { isAdmin, user } = useAuthStore();
+  const { isAdmin } = useAuthStore();
   const detailsById = useNodeDetailsStore((s) => s.byId);
 
   const node = selectedNodeId ? getNodeById(selectedNodeId) : undefined;
 
   const [editMode, setEditMode] = useState(false);
   const [suggestMode, setSuggestMode] = useState(false);
-  const [suggestForm, setSuggestForm] = useState<SuggestNodeFormState>(() => ({
-    name: '',
-    description: '',
-    category: NC.MATERIAL,
-    type: 'component',
-    era: EraEnum.MODERN,
-    year_approx: '',
-    origin: '',
-  }));
-  const [originalSnapshot, setOriginalSnapshot] = useState<Record<
-    string,
-    unknown
-  > | null>(null);
-  const [suggestSubmitting, setSuggestSubmitting] = useState(false);
-  const [suggestLinkEdits, setSuggestLinkEdits] = useState<
-    Record<string, SuggestLinkSnapshot>
-  >({});
-  const [pendingAddLinks, setPendingAddLinks] = useState<PendingAddLink[]>([]);
-  const [originalLinkEdits, setOriginalLinkEdits] = useState<Record<
-    string,
-    SuggestLinkSnapshot
-  > | null>(null);
   const [sidebarImageError, setSidebarImageError] = useState(false);
   const [ledToOpen, setLedToOpen] = useState(true);
   const [builtUponOpen, setBuiltUponOpen] = useState(true);
-  const [suggestLedToOpen, setSuggestLedToOpen] = useState(true);
-  const [suggestBuiltUponOpen, setSuggestBuiltUponOpen] = useState(true);
   const [form, setForm] = useState<NodeEditFormState>(() =>
     createEmptyFormState()
   );
@@ -145,11 +97,6 @@ export function NodeDetailSidebar() {
   const [editorLinks, setEditorLinks] = useState<CraftingLink[]>([]);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const moreMenuRef = useRef<HTMLDivElement>(null);
-  /** Email optionnel pour les contributeurs non connectés (contact modération). */
-  const [suggestContactEmail, setSuggestContactEmail] = useState('');
-  /** Note libre pour les modérateurs (contexte, remarques). */
-  const [suggestContributorMessage, setSuggestContributorMessage] =
-    useState('');
 
   const loadEditorData = useCallback(async () => {
     const [nr, lr] = await Promise.all([
@@ -183,304 +130,35 @@ export function NodeDetailSidebar() {
     setBuiltUponOpen(true);
   }, [selectedNodeId]);
 
+  /** Réinitialise édition / suggestion quand on change d’invention (pas quand on ouvre suggest sur le même nœud). */
   useEffect(() => {
     if (!selectedNodeId) {
       setEditMode(false);
       setSuggestMode(false);
       return;
     }
+    setEditMode(false);
+    setSuggestMode(false);
+  }, [selectedNodeId]);
+
+  /**
+   * Consomme pendingExploreEdit / pendingExploreSuggest même si selectedNodeId est inchangé
+   * (ex. panneau explore → « Suggérer une correction » pour le nœud déjà sélectionné sur /tree).
+   */
+  useEffect(() => {
+    if (!selectedNodeId) return;
     const st = useUIStore.getState();
     if (st.pendingExploreEdit) {
       st.clearPendingExploreEdit();
       void enterEdit();
-    } else if (st.pendingExploreSuggest) {
-      st.clearPendingExploreSuggest();
-      void enterSuggestMode();
-    } else {
-      setEditMode(false);
-      setSuggestMode(false);
-    }
-    // Intentionnel : pas de dépendance à enterEdit / enterSuggestMode (évite fermetures intempestives).
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedNodeId]);
-
-  useEffect(() => {
-    setSuggestContactEmail('');
-    setSuggestContributorMessage('');
-  }, [selectedNodeId]);
-
-  const snapshotFromForm = useCallback(
-    (f: SuggestNodeFormState, uiLocale: string) => {
-      const frenchUi = uiLocale === 'fr' || uiLocale.startsWith('fr-');
-      const base = {
-        name: f.name.trim(),
-        category: f.category,
-        type: f.type,
-        era: f.era,
-        year_approx:
-          f.year_approx.trim() === '' ? null : Number(f.year_approx.trim()),
-        origin: f.origin.trim(),
-      };
-      if (frenchUi) {
-        return { ...base, description: f.description.trim() } as Record<
-          string,
-          unknown
-        >;
-      }
-      return { ...base, description_en: f.description.trim() } as Record<
-        string,
-        unknown
-      >;
-    },
-    []
-  );
-
-  const enterSuggestMode = useCallback(async () => {
-    if (!node) return;
-    const res = await fetch(`/api/nodes/${encodeURIComponent(node.id)}`);
-    if (!res.ok) return;
-    const json = (await res.json()) as {
-      node: SeedNode;
-      details?: { description?: string; description_en?: string };
-    };
-    const seed = json.node;
-    const details = json.details;
-    const descriptionText = pickNodeDescriptionForLocale(
-      locale,
-      seed.description,
-      details?.description_en ?? seed.description_en
-    );
-    const formSeed: SuggestNodeFormState = {
-      name: seed.name,
-      description: descriptionText,
-      category: seed.category as NodeCategory,
-      type: seed.type as TechNodeType,
-      era: seed.era as Era,
-      year_approx:
-        seed.year_approx === undefined || seed.year_approx === null
-          ? ''
-          : String(seed.year_approx),
-      origin: seed.origin ?? '',
-    };
-    setSuggestForm(formSeed);
-    const snap = snapshotFromForm(formSeed, locale);
-    setOriginalSnapshot(snap);
-
-    const ledTo = getUsagesOfNode(node.id);
-    const recipe = getRecipeForNode(node.id);
-    const linkMap: Record<string, SuggestLinkSnapshot> = {};
-    for (const { link } of ledTo) {
-      linkMap[link.id] = craftingLinkToSnapshot(link);
-    }
-    for (const link of recipe) {
-      linkMap[link.id] = craftingLinkToSnapshot(link);
-    }
-    const linkCopy = JSON.parse(
-      JSON.stringify(linkMap)
-    ) as Record<string, SuggestLinkSnapshot>;
-    setOriginalLinkEdits(linkCopy);
-    setSuggestLinkEdits(
-      JSON.parse(JSON.stringify(linkMap)) as Record<string, SuggestLinkSnapshot>
-    );
-    setSuggestLedToOpen(true);
-    setSuggestBuiltUponOpen(true);
-    setPendingAddLinks([]);
-    setSuggestContactEmail('');
-    setSuggestContributorMessage('');
-
-    setSuggestMode(true);
-  }, [node, snapshotFromForm, getUsagesOfNode, getRecipeForNode, locale]);
-
-  const cancelSuggestMode = useCallback(() => {
-    setSuggestMode(false);
-    setOriginalSnapshot(null);
-    setOriginalLinkEdits(null);
-    setSuggestLinkEdits({});
-    setPendingAddLinks([]);
-    setSuggestContactEmail('');
-    setSuggestContributorMessage('');
-  }, []);
-
-  const addPendingPeer = useCallback(
-    (section: 'ledTo' | 'builtUpon', peerId: string) => {
-      if (!node) return;
-      setPendingAddLinks((prev) => {
-        if (prev.some((p) => p.section === section && p.peerId === peerId)) {
-          return prev;
-        }
-        if (section === 'ledTo') {
-          const already = getUsagesOfNode(node.id).some(
-            ({ product }) => product.id === peerId
-          );
-          if (already) return prev;
-        } else {
-          const already = getRecipeForNode(node.id).some(
-            (l) => l.source_id === peerId
-          );
-          if (already) return prev;
-        }
-        return [
-          ...prev,
-          {
-            tempId: `pending-${crypto.randomUUID()}`,
-            peerId,
-            section,
-            relation_type: RelationType.MATERIAL,
-          },
-        ];
-      });
-    },
-    [node, getUsagesOfNode, getRecipeForNode]
-  );
-
-  const onSuggestLinkRemove = useCallback((linkId: string) => {
-    if (linkId.startsWith('pending-')) {
-      setPendingAddLinks((prev) => prev.filter((p) => p.tempId !== linkId));
       return;
     }
-    setSuggestLinkEdits((prev) => {
-      if (!prev[linkId]) return prev;
-      const next = { ...prev };
-      delete next[linkId];
-      return next;
-    });
-  }, []);
-
-  const submitSuggestion = useCallback(async () => {
-    if (!node || !originalSnapshot || !originalLinkEdits) return;
-    setSuggestSubmitting(true);
-    try {
-      const proposedNode = snapshotFromForm(suggestForm, locale);
-      const diff = computeDiff(originalSnapshot, proposedNode);
-      const linkDiff = computeLinkSuggestionDiff(
-        originalLinkEdits,
-        suggestLinkEdits
-      );
-      const removedLinkIds = computeRemovedLinkIds(
-        originalLinkEdits,
-        suggestLinkEdits
-      );
-
-      const proposedAddLinks = pendingAddLinks.map((p) => ({
-        source_id: p.section === 'ledTo' ? node.id : p.peerId,
-        target_id: p.section === 'ledTo' ? p.peerId : node.id,
-        relation_type: p.relation_type,
-        section: p.section,
-      }));
-
-      const hasNodeChange = Object.keys(diff).length > 0;
-      const hasLinkChange =
-        Object.keys(linkDiff).length > 0 ||
-        removedLinkIds.length > 0 ||
-        proposedAddLinks.length > 0;
-      const contributorNote = suggestContributorMessage.trim();
-      const hasContributorMessage = contributorNote.length > 0;
-      if (!hasNodeChange && !hasLinkChange && !hasContributorMessage) {
-        pushToast(tAuth('suggestionNothingToSubmit'), 'error');
-        return;
-      }
-
-      const contactEmail =
-        !user && suggestContactEmail.trim()
-          ? suggestContactEmail.trim().slice(0, 320)
-          : null;
-
-      const linkContext: Record<string, SuggestLinkContextEntry> = {};
-      for (const { link, product } of getUsagesOfNode(node.id)) {
-        linkContext[link.id] = {
-          peerId: product.id,
-          peerName: pickNodeDisplayName(
-            locale,
-            product.name,
-            detailsById[product.id]?.name_en
-          ),
-          section: 'ledTo',
-        };
-      }
-      for (const link of getRecipeForNode(node.id)) {
-        const input = getNodeById(link.source_id);
-        if (!input) continue;
-        linkContext[link.id] = {
-          peerId: input.id,
-          peerName: pickNodeDisplayName(
-            locale,
-            input.name,
-            detailsById[input.id]?.name_en
-          ),
-          section: 'builtUpon',
-        };
-      }
-
-      const proposed = {
-        ...proposedNode,
-        linkEdits: suggestLinkEdits,
-      };
-      const originalPayload = {
-        ...originalSnapshot,
-        linkEdits: originalLinkEdits,
-      };
-
-      const res = await fetch('/api/suggestions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          suggestion_type: 'edit_node',
-          node_id: node.id,
-          data: {
-            original: originalPayload,
-            proposed,
-            diff,
-            linkDiff,
-            linkContext,
-            removedLinkIds,
-            proposedAddLinks,
-            ...(contactEmail != null ? { contactEmail } : {}),
-            ...(hasContributorMessage
-              ? { contributorMessage: contributorNote.slice(0, 4000) }
-              : {}),
-          },
-        }),
-      });
-      if (!res.ok) {
-        pushToast(
-          (await res.json().catch(() => ({})))?.error ?? 'Erreur',
-          'error'
-        );
-        return;
-      }
-      pushToast(
-        user ? tAuth('suggestionSentReview') : tAuth('suggestionSentAnonymous'),
-        'success'
-      );
-      setSuggestMode(false);
-      setOriginalSnapshot(null);
-      setOriginalLinkEdits(null);
-      setSuggestLinkEdits({});
-      setPendingAddLinks([]);
-      setSuggestContactEmail('');
-      setSuggestContributorMessage('');
-    } finally {
-      setSuggestSubmitting(false);
+    if (st.pendingExploreSuggest) {
+      st.clearPendingExploreSuggest();
+      setSuggestMode(true);
     }
-  }, [
-    node,
-    originalSnapshot,
-    originalLinkEdits,
-    suggestForm,
-    suggestLinkEdits,
-    snapshotFromForm,
-    pushToast,
-    tAuth,
-    getUsagesOfNode,
-    getRecipeForNode,
-    getNodeById,
-    locale,
-    detailsById,
-    pendingAddLinks,
-    user,
-    suggestContactEmail,
-    suggestContributorMessage,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- enterEdit stable via callback
+  }, [selectedNodeId, pendingExploreEdit, pendingExploreSuggest]);
 
   const saveEdit = useCallback(async () => {
     if (!node) return;
@@ -560,164 +238,6 @@ export function NodeDetailSidebar() {
 
   const detail = node ? detailsById[node.id] : undefined;
 
-  const peerSearchBlobMap = useMemo(
-    () => buildPeerSearchBlobMap(graphNodes, detailsById),
-    [graphNodes, detailsById]
-  );
-
-  const suggestLedToRows = useMemo(() => {
-    if (!node || !suggestMode) return [];
-    const base = getUsagesOfNode(node.id)
-      .map(({ link, product }) => {
-        const v = suggestLinkEdits[link.id];
-        if (!v) return null;
-        const peerId = product.id;
-        return {
-          linkId: link.id,
-          peerId,
-          peerLabel: pickNodeDisplayName(
-            locale,
-            product.name,
-            detailsById[product.id]?.name_en
-          ),
-          peerCategory: product.category as NodeCategory,
-          value: v,
-        };
-      })
-      .filter(
-        (
-          x
-        ): x is {
-          linkId: string;
-          peerId: string;
-          peerLabel: string;
-          peerCategory: NodeCategory;
-          value: SuggestLinkSnapshot;
-        } => x !== null
-      );
-    const pendingRows = pendingAddLinks
-      .filter((p) => p.section === 'ledTo')
-      .map((p) => {
-        const peer = getNodeById(p.peerId);
-        if (!peer) return null;
-        const value: SuggestLinkSnapshot = {
-          id: p.tempId,
-          relation_type: p.relation_type,
-          notes: '',
-          is_optional: false,
-        };
-        return {
-          linkId: p.tempId,
-          peerId: p.peerId,
-          peerLabel: pickNodeDisplayName(
-            locale,
-            peer.name,
-            detailsById[peer.id]?.name_en
-          ),
-          peerCategory: peer.category as NodeCategory,
-          value,
-        };
-      })
-      .filter(
-        (
-          x
-        ): x is {
-          linkId: string;
-          peerId: string;
-          peerLabel: string;
-          peerCategory: NodeCategory;
-          value: SuggestLinkSnapshot;
-        } => x !== null
-      );
-    return [...base, ...pendingRows];
-  }, [
-    node,
-    suggestMode,
-    getUsagesOfNode,
-    getNodeById,
-    suggestLinkEdits,
-    pendingAddLinks,
-    locale,
-    detailsById,
-  ]);
-
-  const suggestRecipeRows = useMemo(() => {
-    if (!node || !suggestMode) return [];
-    const base = getRecipeForNode(node.id)
-      .map((link) => {
-        const input = getNodeById(link.source_id);
-        const v = suggestLinkEdits[link.id];
-        if (!input || !v) return null;
-        const peerId = input.id;
-        return {
-          linkId: link.id,
-          peerId,
-          peerLabel: pickNodeDisplayName(
-            locale,
-            input.name,
-            detailsById[input.id]?.name_en
-          ),
-          peerCategory: input.category as NodeCategory,
-          value: v,
-        };
-      })
-      .filter(
-        (
-          x
-        ): x is {
-          linkId: string;
-          peerId: string;
-          peerLabel: string;
-          peerCategory: NodeCategory;
-          value: SuggestLinkSnapshot;
-        } => x !== null
-      );
-    const pendingRows = pendingAddLinks
-      .filter((p) => p.section === 'builtUpon')
-      .map((p) => {
-        const peer = getNodeById(p.peerId);
-        if (!peer) return null;
-        const value: SuggestLinkSnapshot = {
-          id: p.tempId,
-          relation_type: p.relation_type,
-          notes: '',
-          is_optional: false,
-        };
-        return {
-          linkId: p.tempId,
-          peerId: p.peerId,
-          peerLabel: pickNodeDisplayName(
-            locale,
-            peer.name,
-            detailsById[peer.id]?.name_en
-          ),
-          peerCategory: peer.category as NodeCategory,
-          value,
-        };
-      })
-      .filter(
-        (
-          x
-        ): x is {
-          linkId: string;
-          peerId: string;
-          peerLabel: string;
-          peerCategory: NodeCategory;
-          value: SuggestLinkSnapshot;
-        } => x !== null
-      );
-    return [...base, ...pendingRows];
-  }, [
-    node,
-    suggestMode,
-    getRecipeForNode,
-    getNodeById,
-    suggestLinkEdits,
-    pendingAddLinks,
-    locale,
-    detailsById,
-  ]);
-
   const sidebarDescription = useMemo(() => {
     if (!detail) return '—';
     if (locale === 'fr') return detail.description?.trim() || '—';
@@ -759,7 +279,7 @@ export function NodeDetailSidebar() {
         />
       ) : null}
       <motion.aside
-        className={`fixed top-14 z-[52] flex h-[calc(100dvh-3.5rem)] w-[min(90vw,340px)] flex-col border-border bg-surface-elevated shadow-xl md:w-[340px] ${
+        className={`fixed top-14 z-[90] flex h-[calc(100dvh-3.5rem)] w-[min(90vw,340px)] flex-col border-border bg-surface-elevated shadow-xl md:w-[340px] ${
           isRtl
             ? 'left-0 border-r'
             : 'right-0 border-l'
@@ -837,110 +357,10 @@ export function NodeDetailSidebar() {
                 </div>
               </>
             ) : suggestMode && !isAdmin ? (
-              <>
-                <motion.div
-                  variants={staggerItem}
-                  className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-2 border-b border-border bg-surface-elevated px-4 py-4"
-                >
-                  <h2 className="text-lg font-semibold text-foreground">
-                    {tAuth('suggestCorrection')}
-                  </h2>
-                  <button
-                    type="button"
-                    onClick={cancelSuggestMode}
-                    className="shrink-0 rounded p-1.5 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
-                    aria-label={tSidebar('backToDetail')}
-                  >
-                    <span className="text-xl leading-none">×</span>
-                  </button>
-                </motion.div>
-                <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-4 pt-4">
-                  <SuggestionNodeForm form={suggestForm} setForm={setSuggestForm} />
-                  <label className="mt-4 block text-[13px] font-medium text-foreground">
-                    {tAuth('suggestionContributorNoteLabel')}
-                    <textarea
-                      value={suggestContributorMessage}
-                      onChange={(e) =>
-                        setSuggestContributorMessage(e.target.value)
-                      }
-                      maxLength={4000}
-                      rows={4}
-                      className="mt-2 w-full resize-y rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
-                      placeholder={tAuth('suggestionContributorNotePlaceholder')}
-                    />
-                  </label>
-                  <p className="mt-1 text-[11px] text-muted-foreground">
-                    {suggestContributorMessage.length}/4000
-                  </p>
-                  {!user ? (
-                    <>
-                      <label className="mt-4 block text-[13px] font-medium text-foreground">
-                        {tAuth('anonymousFeedbackEmail')}
-                        <input
-                          type="email"
-                          value={suggestContactEmail}
-                          onChange={(e) => setSuggestContactEmail(e.target.value)}
-                          autoComplete="email"
-                          className="mt-2 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
-                        />
-                      </label>
-                      <p className="mt-1 text-[11px] text-muted-foreground">
-                        {tAuth('anonymousFeedbackHint')}
-                      </p>
-                      <p className="mt-3 text-[12px] text-muted-foreground">
-                        {tAuth('suggestAnonymousNotice')}
-                      </p>
-                    </>
-                  ) : null}
-                  <SuggestLinkSection
-                    sectionTitle={tExplore('ledTo')}
-                    count={suggestLedToRows.length}
-                    open={suggestLedToOpen}
-                    onToggleOpen={() => setSuggestLedToOpen((v) => !v)}
-                    emptyLabel={tExplore('noDownstream')}
-                    currentNodeId={node.id}
-                    locale={locale}
-                    graphNodes={graphNodes}
-                    peerSearchBlobMap={peerSearchBlobMap}
-                    detailsById={detailsById}
-                    existingRows={suggestLedToRows}
-                    onRemove={onSuggestLinkRemove}
-                    onAddPeer={(peerId) => addPendingPeer('ledTo', peerId)}
-                  />
-                  <SuggestLinkSection
-                    sectionTitle={tExplore('builtUpon')}
-                    count={suggestRecipeRows.length}
-                    open={suggestBuiltUponOpen}
-                    onToggleOpen={() => setSuggestBuiltUponOpen((v) => !v)}
-                    emptyLabel={tExplore('noUpstream')}
-                    currentNodeId={node.id}
-                    locale={locale}
-                    graphNodes={graphNodes}
-                    peerSearchBlobMap={peerSearchBlobMap}
-                    detailsById={detailsById}
-                    existingRows={suggestRecipeRows}
-                    onRemove={onSuggestLinkRemove}
-                    onAddPeer={(peerId) => addPendingPeer('builtUpon', peerId)}
-                  />
-                  <div className="mt-6 flex flex-col gap-2">
-                    <button
-                      type="button"
-                      disabled={suggestSubmitting}
-                      onClick={() => void submitSuggestion()}
-                      className="rounded-lg bg-[#F59E0B] px-4 py-2.5 text-sm font-medium text-white transition-opacity disabled:opacity-50"
-                    >
-                      {tAuth('sendSuggestion')}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={cancelSuggestMode}
-                      className="py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {tCommon('cancel')}
-                    </button>
-                  </div>
-                </div>
-              </>
+              <SuggestNodeCorrectionPanel
+                node={node}
+                onClose={() => setSuggestMode(false)}
+              />
             ) : (
               <>
                 <motion.div
@@ -969,7 +389,11 @@ export function NodeDetailSidebar() {
                           color: categoryColor,
                         }}
                       >
-                        {tCat(node.category as NodeCategory)}
+                        {safeCategoryLabel(
+                          tCat,
+                          String(node.category),
+                          tTypes
+                        )}
                       </span>
                       <span className="rounded bg-surface px-2 py-0.5 text-xs text-muted-foreground">
                         {tTypes(node.type)}
@@ -1073,7 +497,7 @@ export function NodeDetailSidebar() {
                               className="flex w-full items-center gap-2 px-3 py-2 text-start text-[13px] text-foreground hover:bg-border"
                               role="menuitem"
                               onClick={() => {
-                                void enterSuggestMode();
+                                setSuggestMode(true);
                                 setMoreMenuOpen(false);
                               }}
                             >
@@ -1175,7 +599,7 @@ export function NodeDetailSidebar() {
                 <motion.div variants={staggerItem} className="mt-4">
                   <button
                     type="button"
-                    onClick={() => void enterSuggestMode()}
+                    onClick={() => setSuggestMode(true)}
                     className="flex w-full items-center justify-center gap-2 rounded-lg border border-amber-500/45 bg-amber-950/40 px-4 py-2.5 text-sm font-medium text-amber-200 shadow-sm transition-colors hover:border-amber-400/55 hover:bg-amber-950/55"
                   >
                     <svg

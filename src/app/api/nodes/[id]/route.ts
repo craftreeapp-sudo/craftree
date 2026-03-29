@@ -9,6 +9,10 @@ import { requireAdminFromRequest } from '@/lib/auth-server';
 import { mapNodeRowToSeedNode } from '@/lib/data';
 import { nodeRowToTechNodeDetails } from '@/lib/db-map';
 import { mergeDimensionMaterialLevel } from '@/lib/node-dimension';
+import {
+  parseChemicalNature,
+  parseNaturalOrigin,
+} from '@/lib/suggest-nature-fields';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 type Ctx = { params: Promise<{ id: string }> };
@@ -117,6 +121,19 @@ export async function PUT(request: Request, ctx: Ctx) {
       merged.dimension = dm.dimension;
       merged.materialLevel = dm.materialLevel;
 
+      if (body.naturalOrigin !== undefined) {
+        merged.naturalOrigin =
+          body.naturalOrigin === null || body.naturalOrigin === ''
+            ? null
+            : parseNaturalOrigin(String(body.naturalOrigin)) || null;
+      }
+      if (body.chemicalNature !== undefined) {
+        merged.chemicalNature =
+          body.chemicalNature === null || body.chemicalNature === ''
+            ? null
+            : parseChemicalNature(String(body.chemicalNature)) || null;
+      }
+
       data.nodes[idx] = merged;
       writeSeedData(data);
       return NextResponse.json({ node: merged });
@@ -166,6 +183,19 @@ export async function PUT(request: Request, ctx: Ctx) {
     const dm = mergeDimensionMaterialLevel(cur, body);
     patch.dimension = dm.dimension;
     patch.material_level = dm.materialLevel;
+
+    if (body.naturalOrigin !== undefined) {
+      patch.natural_origin =
+        body.naturalOrigin === null || body.naturalOrigin === ''
+          ? null
+          : String(body.naturalOrigin);
+    }
+    if (body.chemicalNature !== undefined) {
+      patch.chemical_nature =
+        body.chemicalNature === null || body.chemicalNature === ''
+          ? null
+          : String(body.chemicalNature);
+    }
 
     const { data: updated, error } = await sb
       .from('nodes')

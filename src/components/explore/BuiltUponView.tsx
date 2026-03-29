@@ -215,7 +215,7 @@ function BuiltUponViewInner({
                   </p>
                 </div>
 
-                <div className="-mx-[30px] flex flex-col gap-8">
+                <div className="-mx-[60px] flex flex-col gap-8">
                 <div className="rounded-xl border border-border bg-surface-elevated p-4 shadow-inner">
                   <div className="sticky top-0 z-10 -mx-4 mb-3 border-b border-border/60 bg-surface-elevated/95 px-4 py-3 backdrop-blur-sm">
                     <div className="mb-[10px] text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
