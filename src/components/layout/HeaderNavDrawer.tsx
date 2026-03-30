@@ -4,8 +4,35 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import {
+  HEADER_ICON_BUTTON,
+  HEADER_ICON_IN_BUTTON,
+} from '@/components/layout/header-controls';
 
 const GITHUB_URL = 'https://github.com/craftreeapp-sudo/craftree';
+
+/** Icône menu (lignes + repères) — distincte de l’ancien « hamburger » à trois barres pleines. */
+function IconNavMenu({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      <circle cx="6" cy="6" r="1.5" fill="currentColor" />
+      <circle cx="6" cy="12" r="1.5" fill="currentColor" />
+      <circle cx="6" cy="18" r="1.5" fill="currentColor" />
+      <path
+        d="M10.5 6H21M10.5 12H21M10.5 18H21"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
 export function HeaderNavDrawer() {
   const [open, setOpen] = useState(false);
@@ -84,17 +111,13 @@ export function HeaderNavDrawer() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="relative z-[102] flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-border/60 bg-transparent text-foreground transition-colors hover:border-accent hover:bg-accent/10 md:h-10 md:w-10"
+        className={`relative z-[102] ${HEADER_ICON_BUTTON} text-foreground`}
         aria-expanded={open}
         aria-controls="header-nav-drawer"
         aria-haspopup="dialog"
         aria-label={open ? tNav('closeMenu') : tNav('openMenu')}
       >
-        <span className="flex flex-col gap-1.5" aria-hidden>
-          <span className="block h-0.5 w-5 rounded-full bg-current" />
-          <span className="block h-0.5 w-5 rounded-full bg-current" />
-          <span className="block h-0.5 w-5 rounded-full bg-current" />
-        </span>
+        <IconNavMenu className={`${HEADER_ICON_IN_BUTTON} text-muted-foreground`} />
       </button>
 
       {mounted && drawer ? createPortal(drawer, document.body) : null}

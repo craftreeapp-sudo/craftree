@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocale } from 'next-intl';
 import type { AppLocale } from '@/lib/i18n-config';
 import { trackEvent } from '@/lib/analytics';
+import { HEADER_COMPACT_TEXT_BUTTON } from '@/components/layout/header-controls';
 
 const OPTIONS: {
   locale: AppLocale;
@@ -18,8 +19,7 @@ const OPTIONS: {
   { locale: 'ar', flag: '🇸🇦', label: 'العربية' },
 ];
 
-const BTN =
-  'inline-flex shrink-0 items-center gap-1.5 rounded-[6px] border border-border bg-transparent px-2.5 py-1 text-[13px] text-foreground transition-colors hover:border-accent';
+const BTN = HEADER_COMPACT_TEXT_BUTTON;
 
 const MENU =
   'absolute z-[110] mt-1 min-w-[11rem] rounded-[8px] border border-border bg-surface-elevated py-1 shadow-[0_8px_24px_rgba(0,0,0,0.4)]';
@@ -73,6 +73,7 @@ export function LanguageSwitcher({ align = 'end' }: { align?: 'start' | 'end' })
         className={BTN}
         aria-expanded={open}
         aria-haspopup="listbox"
+        title={current.label}
         onClick={() => setOpen((o) => !o)}
       >
         <span aria-hidden>{current.flag}</span>

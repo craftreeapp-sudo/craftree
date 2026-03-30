@@ -246,17 +246,21 @@
     "backToCategories": "← श्रेणियाँ",
     "techCount": "डेटासेट में {count, plural, one {# तकनीक} other {# तकनीकें}}",
     "openFilteredTree": "फ़िल्टर किया वृक्ष देखें",
-    "noResults": "इस फ़िल्टर से मेल खाने वाली कोई तकनीक नहीं।"
+    "noResults": "इस फ़िल्टर से मेल खाने वाली कोई तकनीक नहीं।",
+    "cardLayoutLabel": "कार्ड लेआउट",
+    "cardLayoutComfort": "आरामदायक — प्रति पंक्ति कम कार्ड",
+    "cardLayoutBalanced": "संतुलित",
+    "cardLayoutDense": "घना — प्रति पंक्ति अधिक कार्ड"
   },
   "eras": {
-    "prehistoric": "प्रागैतिहासिक",
-    "ancient": "प्राचीन",
-    "medieval": "मध्यकाल",
-    "renaissance": "पुनर्जागरण",
-    "industrial": "औद्योगिक",
-    "modern": "आधुनिक",
-    "digital": "डिजिटल",
-    "contemporary": "समकालीन"
+    "prehistoric": "प्रागैतिहासिक (~3000 ईसा पूर्व से पहले)",
+    "ancient": "प्राचीन (3000 ईसा पूर्व – 500 ईस्वी)",
+    "medieval": "मध्यकाल (500 – 1500)",
+    "renaissance": "पुनर्जागरण (1500 – 1750)",
+    "industrial": "औद्योगिक (1750 – 1900)",
+    "modern": "आधुनिक (1900 – 1970)",
+    "digital": "डिजिटल (1970 – 2010)",
+    "contemporary": "समकालीन (2010 से)"
   },
   "editor": {
     "title": "संपादक",

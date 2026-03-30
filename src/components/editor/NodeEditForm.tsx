@@ -7,15 +7,15 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import {
   NODE_CATEGORY_ORDER,
-  ERA_DATE_RANGES,
   ERA_ORDER,
   TECH_NODE_TYPE_ORDER,
   DIMENSION_ORDER,
   MATERIAL_LEVEL_ORDER,
 } from '@/lib/node-labels';
+import { eraLabelFromMessages } from '@/lib/era-display';
 import { slugify } from '@/lib/utils';
 import {
   NodeCategory as NC,
@@ -118,9 +118,9 @@ export function NodeEditForm({
   currentImageUrl = null,
   onImageUploadSuccess,
 }: Props) {
+  const locale = useLocale();
   const te = useTranslations('editor');
   const tCat = useTranslations('categories');
-  const tEra = useTranslations('eras');
   const tType = useTranslations('types');
   const tRel = useTranslations('relationTypes');
   const tc = useTranslations('common');
@@ -351,11 +351,12 @@ export function NodeEditForm({
             onChange={(e) =>
               setForm((f) => ({ ...f, era: e.target.value as Era }))
             }
+            title={eraLabelFromMessages(locale, form.era)}
             className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
           >
             {ERA_ORDER.map((era) => (
               <option key={era} value={era}>
-                {tEra(era)} ({ERA_DATE_RANGES[era]})
+                {eraLabelFromMessages(locale, era)}
               </option>
             ))}
           </select>

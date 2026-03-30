@@ -39,6 +39,16 @@ function cardLayoutId(id: string) {
 const HERO_ID = 'explore-tree-hero';
 /** Bas du bloc Matters (zone Led to) — cible de défilement pour le bouton « Led to ». */
 const LED_TO_MATTERS_END_ID = 'led-to-matters-end';
+/**
+ * Décalage des sous-barres sticky (Tools, Process, Matters…) pour qu’elles restent
+ * sous la barre « How to read / navigation arbre » (sticky z-[90] en haut du scroll).
+ * +10px vs 3rem : un peu plus d’air sous la barre d’outils.
+ */
+const STICKY_SECTION_BELOW_TREE_NAV =
+  'sticky top-[calc(3rem+10px)] z-10 -mx-4 mb-3 border-b border-border/60 bg-surface-elevated/95 px-4 py-3 backdrop-blur-sm';
+/** Même offset que Tools / Process (titres MATTERS alignés). */
+const STICKY_SECTION_BELOW_TREE_NAV_MATTERS_TOP =
+  'sticky top-[calc(3rem+10px)] z-10 -mx-4 mb-3 rounded-t-xl border-b border-border/60 bg-surface-elevated/95 px-4 pb-3 pt-3 backdrop-blur-sm';
 
 type ExploreZone = 'led-to' | 'hero' | 'built-upon';
 
@@ -268,7 +278,7 @@ function BuiltUponViewInner({
           </div>
         </div>
 
-        <div className="mx-auto w-full max-w-[calc(72rem+10px)] pb-4 pt-2">
+        <div className="mx-auto w-full max-w-[calc(72rem+10px)] pb-4 pt-0">
           <LayoutGroup id="explore-tree-cards">
             {/* ─── Led to (aval) ─── */}
             <section
@@ -278,7 +288,7 @@ function BuiltUponViewInner({
             >
               <div className="-mx-[60px] flex flex-col gap-6">
                 <div className="rounded-xl border border-border bg-surface-elevated p-4">
-                  <div className="sticky top-0 z-10 -mx-4 mb-3 border-b border-border/60 bg-surface-elevated/95 px-4 py-3 backdrop-blur-sm">
+                  <div className={STICKY_SECTION_BELOW_TREE_NAV}>
                     <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
                       {t('builtUponTools')}
                     </div>
@@ -305,7 +315,7 @@ function BuiltUponViewInner({
                 </div>
 
                 <div className="rounded-xl border border-border bg-surface-elevated p-4">
-                  <div className="sticky top-0 z-10 -mx-4 mb-3 border-b border-border/60 bg-surface-elevated/95 px-4 py-3 backdrop-blur-sm">
+                  <div className={STICKY_SECTION_BELOW_TREE_NAV}>
                     <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
                       {t('builtUponProcess')}
                     </div>
@@ -335,7 +345,7 @@ function BuiltUponViewInner({
                   id={LED_TO_MATTERS_END_ID}
                   className="rounded-xl border border-border bg-surface-elevated p-4 pt-0 shadow-inner"
                 >
-                  <div className="sticky top-0 z-10 -mx-4 mb-3 rounded-t-xl border-b border-border/60 bg-surface-elevated/95 px-4 pb-3 pt-3 backdrop-blur-sm">
+                  <div className={STICKY_SECTION_BELOW_TREE_NAV_MATTERS_TOP}>
                     <div className="mb-[10px] text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
                       {t('builtUponMatters')}
                     </div>
@@ -424,7 +434,7 @@ function BuiltUponViewInner({
 
               <div className="-mx-[60px] flex flex-col gap-8">
                 <div className="rounded-xl border border-border bg-surface-elevated p-4 shadow-inner">
-                  <div className="sticky top-0 z-10 -mx-4 mb-3 border-b border-border/60 bg-surface-elevated/95 px-4 py-3 backdrop-blur-sm">
+                  <div className={STICKY_SECTION_BELOW_TREE_NAV_MATTERS_TOP}>
                     <div className="mb-[10px] text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
                       {t('builtUponMatters')}
                     </div>
@@ -470,7 +480,7 @@ function BuiltUponViewInner({
                 </div>
 
                 <div className="rounded-xl border border-border bg-surface-elevated p-4">
-                  <div className="sticky top-0 z-10 -mx-4 mb-3 border-b border-border/60 bg-surface-elevated/95 px-4 py-3 backdrop-blur-sm">
+                  <div className={STICKY_SECTION_BELOW_TREE_NAV}>
                     <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
                       {t('builtUponProcess')}
                     </div>
@@ -497,7 +507,7 @@ function BuiltUponViewInner({
                 </div>
 
                 <div className="rounded-xl border border-border bg-surface-elevated p-4">
-                  <div className="sticky top-0 z-10 -mx-4 mb-3 border-b border-border/60 bg-surface-elevated/95 px-4 py-3 backdrop-blur-sm">
+                  <div className={STICKY_SECTION_BELOW_TREE_NAV}>
                     <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
                       {t('builtUponTools')}
                     </div>

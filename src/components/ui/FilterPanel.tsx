@@ -1,15 +1,16 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useUIStore } from '@/stores/ui-store';
 import { getCategoryColor } from '@/lib/colors';
 import {
-  ERA_DATE_RANGES,
   ERA_ORDER,
   NODE_CATEGORY_ORDER,
   TECH_NODE_TYPE_ORDER,
 } from '@/lib/node-labels';
+import { eraLabelFromMessages } from '@/lib/era-display';
+import type { Era } from '@/lib/types';
 
 type OpenPanel = 'categories' | 'eras' | 'types' | null;
 
@@ -22,10 +23,10 @@ const dropdownClass =
   'absolute end-0 top-full z-[60] mt-1.5 w-[min(100vw-2rem,280px)] max-h-[min(70vh,320px)] overflow-y-auto rounded-lg border border-border bg-surface py-2 shadow-xl';
 
 export function FilterPanel() {
+  const locale = useLocale();
   const tf = useTranslations('filters');
   const tc = useTranslations('common');
   const tCat = useTranslations('categories');
-  const tEra = useTranslations('eras');
   const tType = useTranslations('types');
 
   const [open, setOpen] = useState<OpenPanel>(null);
@@ -191,11 +192,8 @@ export function FilterPanel() {
                       }`}
                       onClick={() => toggleEra(era)}
                     >
-                      <span className="font-medium">
-                        {tEra(era)}{' '}
-                        <span className="font-normal text-muted-foreground">
-                          ({ERA_DATE_RANGES[era]})
-                        </span>
+                      <span className="text-start text-sm font-medium">
+                        {eraLabelFromMessages(locale, era as Era)}
                       </span>
                     </button>
                   </li>

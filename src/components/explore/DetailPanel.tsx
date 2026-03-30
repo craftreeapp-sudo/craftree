@@ -21,6 +21,7 @@ import {
 import type { NodeCategory, TechNodeDetails } from '@/lib/types';
 import { SuggestNodeCorrectionPanel } from '@/components/ui/SuggestNodeCorrectionPanel';
 import { safeCategoryLabel } from '@/lib/safe-category-label';
+import { getTagDisplayLabel } from '@/lib/tag-display';
 import {
   ExploreLedToRow,
   ExploreRecipeRow,
@@ -359,7 +360,7 @@ export function ExploreDetailPanel() {
                   key={tag}
                   className="rounded-md border border-border/80 bg-surface-elevated/80 px-2 py-0.5 text-[11px] text-muted-foreground"
                 >
-                  {tag}
+                  {getTagDisplayLabel(locale, tag)}
                 </span>
               ))}
             </div>

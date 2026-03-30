@@ -246,17 +246,21 @@
     "backToCategories": "← Catégories",
     "techCount": "{count, plural, one {# technologie} other {# technologies}} dans le jeu de données",
     "openFilteredTree": "Voir le Tree filtré",
-    "noResults": "Aucune technologie ne correspond à ce filtre pour l’instant."
+    "noResults": "Aucune technologie ne correspond à ce filtre pour l’instant.",
+    "cardLayoutLabel": "Disposition des cartes",
+    "cardLayoutComfort": "Aéré — moins de cartes par ligne",
+    "cardLayoutBalanced": "Équilibré",
+    "cardLayoutDense": "Compact — plus de cartes par ligne"
   },
   "eras": {
-    "prehistoric": "Préhistorique",
-    "ancient": "Antiquité",
-    "medieval": "Moyen Âge",
-    "renaissance": "Renaissance",
-    "industrial": "Industriel",
-    "modern": "Moderne",
-    "digital": "Numérique",
-    "contemporary": "Contemporain"
+    "prehistoric": "Préhistorique (avant ~3000 av. J.-C.)",
+    "ancient": "Antiquité (3000 av. J.-C. – 500)",
+    "medieval": "Moyen Âge (500 – 1500)",
+    "renaissance": "Renaissance (1500 – 1750)",
+    "industrial": "Industriel (1750 – 1900)",
+    "modern": "Moderne (1900 – 1970)",
+    "digital": "Numérique (1970 – 2010)",
+    "contemporary": "Contemporain (depuis 2010)"
   },
   "editor": {
     "title": "Éditeur",

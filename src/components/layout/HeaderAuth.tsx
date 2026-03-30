@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useAuthStore } from '@/stores/auth-store';
 import { useToastStore } from '@/stores/toast-store';
 import { signInWithGoogle, signOut } from '@/lib/auth-client';
+import { HEADER_PRIMARY_TEXT_BUTTON } from '@/components/layout/header-controls';
 
 export function HeaderAuth() {
   const t = useTranslations('auth');
@@ -64,7 +65,7 @@ export function HeaderAuth() {
   if (isLoading) {
     return (
       <div
-        className="h-[32px] w-[72px] shrink-0 rounded-md border border-border/50 bg-transparent"
+        className="h-10 w-[4.5rem] shrink-0 rounded-md border border-border/50 bg-transparent"
         aria-hidden
       />
     );
@@ -75,8 +76,7 @@ export function HeaderAuth() {
       <button
         type="button"
         onClick={onSignIn}
-        className="shrink-0 border border-border bg-transparent px-[14px] py-[6px] text-[13px] text-muted-foreground transition-colors hover:border-accent"
-        style={{ borderRadius: 6 }}
+        className={HEADER_PRIMARY_TEXT_BUTTON}
       >
         {t('signIn')}
       </button>
@@ -94,7 +94,7 @@ export function HeaderAuth() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full border border-border bg-surface-elevated transition-colors hover:border-accent"
+        className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border/60 bg-surface-elevated text-muted-foreground transition-colors hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus"
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label={t('accountMenu')}
@@ -103,8 +103,8 @@ export function HeaderAuth() {
           <Image
             src={avatar}
             alt=""
-            width={24}
-            height={24}
+            width={40}
+            height={40}
             className="h-full w-full object-cover"
             unoptimized
           />

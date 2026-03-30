@@ -24,26 +24,14 @@ export const ERA_ORDER: Era[] = [
 ];
 
 export const ERA_LABELS_FR: Record<Era, string> = {
-  [EraEnum.PREHISTORIC]: 'Préhistorique',
-  [EraEnum.ANCIENT]: 'Antiquité',
-  [EraEnum.MEDIEVAL]: 'Moyen Âge',
-  [EraEnum.RENAISSANCE]: 'Renaissance',
-  [EraEnum.INDUSTRIAL]: 'Industriel',
-  [EraEnum.MODERN]: 'Moderne',
-  [EraEnum.DIGITAL]: 'Numérique',
-  [EraEnum.CONTEMPORARY]: 'Contemporain',
-};
-
-/** Plages indicatives (BRIEF §2.1) */
-export const ERA_DATE_RANGES: Record<Era, string> = {
-  [EraEnum.PREHISTORIC]: 'avant −3000',
-  [EraEnum.ANCIENT]: '−3000 à 500',
-  [EraEnum.MEDIEVAL]: '500 à 1500',
-  [EraEnum.RENAISSANCE]: '1500 à 1750',
-  [EraEnum.INDUSTRIAL]: '1750 à 1900',
-  [EraEnum.MODERN]: '1900 à 1970',
-  [EraEnum.DIGITAL]: '1970 à 2010',
-  [EraEnum.CONTEMPORARY]: '2010+',
+  [EraEnum.PREHISTORIC]: 'Préhistorique (avant ~3000 av. J.-C.)',
+  [EraEnum.ANCIENT]: 'Antiquité (3000 av. J.-C. – 500)',
+  [EraEnum.MEDIEVAL]: 'Moyen Âge (500 – 1500)',
+  [EraEnum.RENAISSANCE]: 'Renaissance (1500 – 1750)',
+  [EraEnum.INDUSTRIAL]: 'Industriel (1750 – 1900)',
+  [EraEnum.MODERN]: 'Moderne (1900 – 1970)',
+  [EraEnum.DIGITAL]: 'Numérique (1970 – 2010)',
+  [EraEnum.CONTEMPORARY]: 'Contemporain (depuis 2010)',
 };
 
 export const NODE_CATEGORY_LABELS_FR: Record<NC, string> = {

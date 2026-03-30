@@ -1,9 +1,10 @@
 'use client';
 
 import { useCallback, useMemo, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useGraphStore } from '@/stores/graph-store';
 import { useNodeDetailsStore } from '@/stores/node-details-store';
+import { eraLabelFromMessages } from '@/lib/era-display';
 import { ERA_ORDER } from '@/lib/node-labels';
 import { PRIMARY_CARD_CATEGORY_ORDER } from '@/lib/card-primary-categories';
 import {
@@ -46,6 +47,8 @@ type Props = {
   setForm: React.Dispatch<React.SetStateAction<SuggestNodeFormState>>;
   /** État initial après chargement ; sert à surligner les champs modifiés (bordure orangée). */
   baselineForm: SuggestNodeFormState | null;
+  /** Image de la carte (fiche / graphe), au-dessus du champ nom. */
+  cardImageUrl?: string | null;
 };
 
 function isFieldDirty(
@@ -73,9 +76,14 @@ function selectClass(dirty: boolean): string {
   }`;
 }
 
-export function SuggestionNodeForm({ form, setForm, baselineForm }: Props) {
+export function SuggestionNodeForm({
+  form,
+  setForm,
+  baselineForm,
+  cardImageUrl = null,
+}: Props) {
+  const locale = useLocale();
   const tCat = useTranslations('categories');
-  const tEra = useTranslations('eras');
   const tSidebar = useTranslations('sidebar');
   const te = useTranslations('editor');
   const tExplore = useTranslations('explore');
@@ -163,6 +171,16 @@ export function SuggestionNodeForm({ form, setForm, baselineForm }: Props) {
   return (
     <div className="space-y-4">
       <div>
+        {cardImageUrl ? (
+          <div className="mb-3 overflow-hidden rounded-lg border border-border bg-page">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={cardImageUrl}
+              alt=""
+              className="aspect-[16/10] w-full object-cover"
+            />
+          </div>
+        ) : null}
         <label className="mb-1 block text-[11px] text-muted-foreground">{te('name')}</label>
         <input
           type="text"
@@ -352,11 +370,12 @@ export function SuggestionNodeForm({ form, setForm, baselineForm }: Props) {
           onChange={(e) =>
             setForm((f) => ({ ...f, era: e.target.value as Era }))
           }
+          title={eraLabelFromMessages(locale, form.era)}
           className={selectClass(fd('era'))}
         >
           {ERA_ORDER.map((c) => (
             <option key={c} value={c}>
-              {tEra(c)}
+              {eraLabelFromMessages(locale, c)}
             </option>
           ))}
         </select>

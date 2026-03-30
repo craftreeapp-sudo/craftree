@@ -9,7 +9,8 @@ import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 import { getCategoryColor } from '@/lib/colors';
 import { formatYear, getPlaceholderImage } from '@/lib/utils';
-import type { NodeCategory } from '@/lib/types';
+import { eraLabelFromMessages } from '@/lib/era-display';
+import type { Era, NodeCategory } from '@/lib/types';
 import { useGraphStore } from '@/stores/graph-store';
 import { getTreeLayerDisplayIndex } from '@/lib/tree-layers';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
@@ -56,7 +57,6 @@ export function SearchBar({
 } = {}) {
   const locale = useLocale();
   const tc = useTranslations('common');
-  const tEra = useTranslations('eras');
   const tCat = useTranslations('categories');
   const tTypes = useTranslations('types');
   const tExplore = useTranslations('explore');
@@ -282,7 +282,7 @@ export function SearchBar({
             ) : null}
             <span>{tExplore('layerShort', { layer: layerIdx })}</span>
             <span className="opacity-50">·</span>
-            <span>{tEra(node.era)}</span>
+            <span>{eraLabelFromMessages(locale, node.era as Era)}</span>
           </div>
         </div>
       </button>
@@ -363,7 +363,7 @@ export function SearchBar({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full max-w-xl ${rootClassName ?? ''}`}
+      className={`relative w-full min-w-0 max-w-full ${rootClassName ?? ''}`}
     >
       <div className="flex items-center gap-2 rounded-lg border border-border bg-surface-elevated/90 px-4 py-2.5 backdrop-blur-md">
         <svg

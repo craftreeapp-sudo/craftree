@@ -246,17 +246,21 @@
     "backToCategories": "← 分类",
     "techCount": "数据集中有 {count} 项技术",
     "openFilteredTree": "查看筛选后的树",
-    "noResults": "暂无符合此筛选条件的技术。"
+    "noResults": "暂无符合此筛选条件的技术。",
+    "cardLayoutLabel": "卡片布局",
+    "cardLayoutComfort": "宽松 — 每行更少卡片",
+    "cardLayoutBalanced": "均衡",
+    "cardLayoutDense": "紧凑 — 每行更多卡片"
   },
   "eras": {
-    "prehistoric": "史前",
-    "ancient": "古代",
-    "medieval": "中世纪",
-    "renaissance": "文艺复兴",
-    "industrial": "工业",
-    "modern": "现代",
-    "digital": "数字",
-    "contemporary": "当代"
+    "prehistoric": "史前（约公元前3000年以前）",
+    "ancient": "古代（公元前3000年—公元500年）",
+    "medieval": "中世纪（500—1500）",
+    "renaissance": "文艺复兴（1500—1750）",
+    "industrial": "工业时代（1750—1900）",
+    "modern": "现代（1900—1970）",
+    "digital": "数字时代（1970—2010）",
+    "contemporary": "当代（2010年至今）"
   },
   "editor": {
     "title": "编辑器",

@@ -9,7 +9,13 @@ import {
   type ReactNode,
 } from 'react';
 
-export type ExploreHoverPreview = { nodeId: string; rect: DOMRect };
+export type ExploreHoverPreview = {
+  nodeId: string;
+  /** Instantané au survol (secours si l’élément disparaît). */
+  rect: DOMRect;
+  /** Élément carte : repositionnement au scroll / resize. */
+  anchorEl: HTMLElement | null;
+};
 
 export type ExploreDetailSubview = 'detail' | 'suggest';
 

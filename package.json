@@ -11,6 +11,7 @@
     "fetch:images": "node scripts/fetch-image-urls.mjs",
     "clean:descriptions": "node scripts/clean-descriptions.mjs",
     "translate": "node scripts/translate-descriptions.mjs",
+    "generate:tag-labels": "node scripts/build-tag-labels-en.mjs",
     "dev": "next dev",
     "generate:og": "node scripts/generate-og.mjs",
     "import:supabase": "node scripts/import-to-supabase.mjs",

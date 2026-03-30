@@ -4,15 +4,15 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import type { ThemeMode } from '@/lib/theme-constants';
 import { useThemeStore } from '@/stores/theme-store';
+import { HEADER_ICON_BUTTON } from '@/components/layout/header-controls';
 
-const BTN =
-  'inline-flex shrink-0 items-center justify-center rounded-[6px] border border-border bg-transparent p-1.5 text-foreground transition-colors hover:border-accent';
+const BTN = HEADER_ICON_BUTTON;
 
 const MENU =
   'absolute z-[110] mt-1 min-w-[12rem] rounded-[8px] border border-border bg-surface-elevated py-1 shadow-[0_8px_24px_rgba(0,0,0,0.35)]';
 
 const ITEM =
-  'flex w-full items-center gap-2.5 px-3 py-2.5 text-left text-[13px] text-foreground transition-colors hover:bg-surface';
+  'flex w-full min-h-0 items-center gap-2.5 px-3 py-2.5 text-left text-[13px] text-foreground transition-colors hover:bg-surface';
 
 const ITEM_ACTIVE = 'bg-surface';
 
@@ -20,8 +20,8 @@ function IconMoon({ className }: { className?: string }) {
   return (
     <svg
       className={className}
-      width="18"
-      height="18"
+      width={20}
+      height={20}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -39,8 +39,8 @@ function IconSun({ className }: { className?: string }) {
   return (
     <svg
       className={className}
-      width="18"
-      height="18"
+      width={20}
+      height={20}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -106,7 +106,7 @@ export function ThemeSwitcher({ align = 'end' }: { align?: 'start' | 'end' }) {
         title={t('switchTheme')}
         onClick={() => setOpen((o) => !o)}
       >
-        <CurrentIcon className="text-muted-foreground" />
+        <CurrentIcon className="h-5 w-5 shrink-0 text-muted-foreground" />
       </button>
       {open ? (
         <div
@@ -123,8 +123,10 @@ export function ThemeSwitcher({ align = 'end' }: { align?: 'start' | 'end' }) {
               className={`${ITEM} ${id === theme ? ITEM_ACTIVE : ''}`}
               onClick={() => onPick(id)}
             >
-              <Icon className="shrink-0 text-muted-foreground" />
-              <span>{t(id)}</span>
+              <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center text-muted-foreground">
+                <Icon className="h-5 w-5 shrink-0" />
+              </span>
+              <span className="min-w-0 flex-1 text-left">{t(id)}</span>
             </button>
           ))}
         </div>

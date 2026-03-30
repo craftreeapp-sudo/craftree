@@ -29,7 +29,13 @@ import {
   parseChemicalNature,
   parseNaturalOrigin,
 } from '@/lib/suggest-nature-fields';
-import type { NodeCategory, SeedNode, TechNodeBasic, Era } from '@/lib/types';
+import type {
+  NodeCategory,
+  SeedNode,
+  TechNodeBasic,
+  Era,
+  TechNodeDetails,
+} from '@/lib/types';
 import { RelationType } from '@/lib/types';
 import { NodeCategory as NC, Era as EraEnum } from '@/lib/types';
 
@@ -64,6 +70,7 @@ export function SuggestNodeCorrectionPanel({
 
   const getNodeById = useGraphStore((s) => s.getNodeById);
   const graphNodes = useGraphStore((s) => s.nodes);
+  const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
   const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
   const getUsagesOfNode = useGraphStore((s) => s.getUsagesOfNode);
   const pushToast = useToastStore((s) => s.pushToast);
@@ -425,6 +432,16 @@ export function SuggestNodeCorrectionPanel({
     [graphNodes, detailsById]
   );
 
+  const detail: TechNodeDetails | undefined = detailsById[node.id];
+  const suggestCardImageUrl = useMemo(() => {
+    const raw = (detail?.image_url ?? node.image_url)?.trim();
+    if (!raw) return null;
+    const bust = imageBustByNodeId[node.id] ?? 0;
+    return bust > 0
+      ? `${raw}${raw.includes('?') ? '&' : '?'}t=${bust}`
+      : raw;
+  }, [node.id, node.image_url, detail?.image_url, imageBustByNodeId]);
+
   const suggestLedToRows = useMemo(() => {
     const base = getUsagesOfNode(node.id)
       .map(({ link, product }) => {
@@ -655,7 +672,7 @@ export function SuggestNodeCorrectionPanel({
   }, [isDirty, onClose, tAuth]);
 
   return (
-    <>
+    <div className="flex min-h-0 flex-1 flex-col">
       <motion.div
         variants={staggerItem}
         className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-2 border-b border-border bg-surface-elevated px-4 py-4"
@@ -672,11 +689,13 @@ export function SuggestNodeCorrectionPanel({
           <span className="text-xl leading-none">×</span>
         </button>
       </motion.div>
-      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-4 pt-4">
+      <div className="flex min-h-0 flex-1 flex-col">
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-4 pt-4">
         <SuggestionNodeForm
           form={suggestForm}
           setForm={setSuggestForm}
           baselineForm={baselineForm}
+          cardImageUrl={suggestCardImageUrl}
         />
         <label className="mt-4 block text-[13px] font-medium text-foreground">
           {tAuth('suggestionContributorNoteLabel')}
@@ -755,24 +774,27 @@ export function SuggestNodeCorrectionPanel({
             onAddPeer={(peerId) => addPendingPeer('builtUpon', peerId)}
           />
         </div>
-        <div className="mt-6 flex flex-col gap-2">
-          <button
-            type="button"
-            disabled={suggestSubmitting}
-            onClick={() => void submitSuggestion()}
-            className="rounded-lg bg-amber-600 px-4 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-amber-500 disabled:opacity-50"
-          >
-            {tAuth('sendSuggestion')}
-          </button>
-          <button
-            type="button"
-            onClick={requestClose}
-            className="rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-red-500"
-          >
-            {tCommon('cancel')}
-          </button>
+        </div>
+        <div className="shrink-0 border-t border-border bg-surface px-4 pb-4 pt-3">
+          <div className="flex flex-col gap-2">
+            <button
+              type="button"
+              disabled={suggestSubmitting}
+              onClick={() => void submitSuggestion()}
+              className="rounded-lg bg-amber-600 px-4 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-amber-500 disabled:opacity-50"
+            >
+              {tAuth('sendSuggestion')}
+            </button>
+            <button
+              type="button"
+              onClick={requestClose}
+              className="rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-red-500"
+            >
+              {tCommon('cancel')}
+            </button>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

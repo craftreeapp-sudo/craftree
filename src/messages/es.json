@@ -246,17 +246,21 @@
     "backToCategories": "← Categorías",
     "techCount": "{count, plural, one {# tecnología} other {# tecnologías}} en el conjunto de datos",
     "openFilteredTree": "Ver el árbol filtrado",
-    "noResults": "Ninguna tecnología coincide con este filtro por ahora."
+    "noResults": "Ninguna tecnología coincide con este filtro por ahora.",
+    "cardLayoutLabel": "Disposición de las tarjetas",
+    "cardLayoutComfort": "Amplio — menos tarjetas por fila",
+    "cardLayoutBalanced": "Equilibrado",
+    "cardLayoutDense": "Compacto — más tarjetas por fila"
   },
   "eras": {
-    "prehistoric": "Prehistórico",
-    "ancient": "Antigüedad",
-    "medieval": "Edad Media",
-    "renaissance": "Renacimiento",
-    "industrial": "Industrial",
-    "modern": "Moderno",
-    "digital": "Digital",
-    "contemporary": "Contemporáneo"
+    "prehistoric": "Prehistórico (antes de c. 3000 a. C.)",
+    "ancient": "Antigüedad (3000 a. C. – 500 d. C.)",
+    "medieval": "Edad Media (500 – 1500)",
+    "renaissance": "Renacimiento (1500 – 1750)",
+    "industrial": "Industrial (1750 – 1900)",
+    "modern": "Moderno (1900 – 1970)",
+    "digital": "Digital (1970 – 2010)",
+    "contemporary": "Contemporáneo (desde 2010)"
   },
   "editor": {
     "title": "Editor",

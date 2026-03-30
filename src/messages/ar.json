@@ -246,17 +246,21 @@
     "backToCategories": "← الفئات",
     "techCount": "{count, plural, zero {لا تقنيات} one {تقنية واحدة} two {# تقنيتان} few {# تقنيات} many {# تقنية} other {# تقنية}} في المجموعة",
     "openFilteredTree": "عرض الشجرة المصفّاة",
-    "noResults": "لا توجد تقنيات مطابقة لهذا التصفية حاليًا."
+    "noResults": "لا توجد تقنيات مطابقة لهذا التصفية حاليًا.",
+    "cardLayoutLabel": "تخطيط البطاقات",
+    "cardLayoutComfort": "مريح — بطاقات أقل في الصف",
+    "cardLayoutBalanced": "متوازن",
+    "cardLayoutDense": "مضغوط — بطاقات أكثر في الصف"
   },
   "eras": {
-    "prehistoric": "ما قبل التاريخ",
-    "ancient": "قديم",
-    "medieval": "وسيط",
-    "renaissance": "نهضة",
-    "industrial": "صناعي",
-    "modern": "حديث",
-    "digital": "رقمي",
-    "contemporary": "معاصر"
+    "prehistoric": "ما قبل التاريخ (قبل حوالي 3000 ق.م)",
+    "ancient": "القديم (3000 ق.م – 500 م)",
+    "medieval": "الوسيط (500 – 1500)",
+    "renaissance": "النهضة (1500 – 1750)",
+    "industrial": "الصناعي (1750 – 1900)",
+    "modern": "الحديث (1900 – 1970)",
+    "digital": "الرقمي (1970 – 2010)",
+    "contemporary": "المعاصر (منذ 2010)"
   },
   "editor": {
     "title": "محرّر",

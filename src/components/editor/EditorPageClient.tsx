@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { getCategoryColor } from '@/lib/colors';
 import {
   NODE_CATEGORY_ORDER,
@@ -30,6 +30,7 @@ import {
   seedNodeToFormState,
   type NodeEditFormState,
 } from './NodeEditForm';
+import { eraLabelFromMessages } from '@/lib/era-display';
 import { filterValidCraftingLinks } from '@/lib/graph-utils';
 import { treeInventionPath, getDefaultTreeNodeId } from '@/lib/tree-routes';
 import { useGraphStore } from '@/stores/graph-store';
@@ -91,10 +92,10 @@ function linkCounts(
 }
 
 export function EditorPageClient() {
+  const locale = useLocale();
   const te = useTranslations('editor');
   const tRel = useTranslations('relationTypes');
   const tCat = useTranslations('categories');
-  const tEra = useTranslations('eras');
   const tType = useTranslations('types');
   const tc = useTranslations('common');
 
@@ -626,12 +627,15 @@ export function EditorPageClient() {
               <select
                 value={eraF}
                 onChange={(e) => setEraF(e.target.value)}
-                className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
+                title={
+                  eraF !== 'all' ? eraLabelFromMessages(locale, eraF as Era) : undefined
+                }
+                className="min-w-[min(100%,14rem)] shrink-0 rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent sm:min-w-[18rem]"
               >
                 <option value="all">{te('allEras')}</option>
                 {ERA_ORDER.map((e) => (
                   <option key={e} value={e}>
-                    {tEra(e)}
+                    {eraLabelFromMessages(locale, e)}
                   </option>
                 ))}
               </select>
@@ -867,7 +871,7 @@ export function EditorPageClient() {
                             : '—'}
                         </td>
                         <td className="px-3 py-2 text-muted-foreground">
-                          {tEra(n.era as Era) ?? n.era}
+                          {eraLabelFromMessages(locale, n.era as Era)}
                         </td>
                         <td className="px-3 py-2">
                           {n.year_approx === null || n.year_approx === undefined

@@ -9,6 +9,11 @@ import { AppContentShell } from '@/components/layout/AppContentShell';
 import { NODE_CATEGORY_ORDER } from '@/lib/node-labels';
 import { PICKER_IMAGE_CATEGORY } from '@/lib/explore-picker-images';
 import { NodeCategory } from '@/lib/types';
+import { CATEGORY_LIST_GRID_CLASS } from '@/components/categories/category-list-card-layout';
+import {
+  CategoryListCardLayoutSwitcher,
+  useCategoryListCardLayout,
+} from '@/components/categories/CategoryListCardLayoutSwitcher';
 
 export function CategoriesPickerClient() {
   const router = useRouter();
@@ -20,6 +25,8 @@ export function CategoriesPickerClient() {
   useEffect(() => {
     if (nodes.length === 0) void refreshData();
   }, [nodes.length, refreshData]);
+
+  const [cardLayout, setCardLayout] = useCategoryListCardLayout();
 
   const onPickCategory = (c: NodeCategory) => {
     router.push(`/categories/category/${encodeURIComponent(c)}`);
@@ -46,9 +53,17 @@ export function CategoriesPickerClient() {
         </p>
       </header>
 
+      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
+        <CategoryListCardLayoutSwitcher
+          layout={cardLayout}
+          onChange={setCardLayout}
+        />
+      </div>
+
       <div
-        className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+        className={CATEGORY_LIST_GRID_CLASS[cardLayout]}
         role="list"
+        suppressHydrationWarning
       >
         {NODE_CATEGORY_ORDER.map((cat) => (
           <button

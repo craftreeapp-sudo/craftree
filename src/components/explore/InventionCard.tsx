@@ -85,6 +85,7 @@ export function InventionCard({
       ctx.setHoverPreview({
         nodeId: node.id,
         rect: el.getBoundingClientRect(),
+        anchorEl: el,
       });
     }, HOVER_DELAY_MS);
   }, [canHover, ctx, clearHoverTimer, node.id]);
@@ -130,7 +131,7 @@ export function InventionCard({
     <div className="flex w-full min-w-0 flex-col gap-2.5 border-t border-border bg-surface-elevated p-3 sm:p-3.5">
       <div className="flex min-w-0 items-start justify-between gap-2">
         <h3
-          className="min-w-0 flex-1 truncate text-sm font-bold leading-snug text-foreground"
+          className="min-h-[2.625rem] min-w-0 flex-1 line-clamp-2 text-sm font-bold leading-snug text-foreground"
           title={displayName}
         >
           {displayName}

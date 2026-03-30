@@ -9,73 +9,102 @@ import { HeaderAuth } from '@/components/layout/HeaderAuth';
 import { HeaderNavDrawer } from '@/components/layout/HeaderNavDrawer';
 import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher';
 import { useUIStore } from '@/stores/ui-store';
+import { HEADER_ICON_BUTTON, HEADER_ICON_IN_BUTTON } from '@/components/layout/header-controls';
+
+function IconCategoriesGrid({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.75" />
+      <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.75" />
+      <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.75" />
+      <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.75" />
+    </svg>
+  );
+}
 
 export function Header() {
   const pathname = usePathname();
   const tNav = useTranslations('nav');
   const closeSidebar = useUIStore((s) => s.closeSidebar);
 
+  const hideHeaderSearch = pathname === '/';
+  const isLanding = pathname === '/';
+
   if (pathname === '/editor') {
     return null;
   }
 
-  const hideHeaderSearch = pathname === '/';
-  const isLanding = pathname === '/';
-
   return (
     <>
       <header
-        className={`fixed left-0 right-0 top-0 z-[100] flex h-14 shrink-0 items-center gap-2 px-3 backdrop-blur-md md:gap-3 md:px-4 xl:px-6 ${
+        className={`fixed left-0 right-0 top-0 z-[100] grid h-14 shrink-0 items-center gap-x-2 px-3 backdrop-blur-md md:gap-x-3 md:px-4 xl:px-6 ${
+          hideHeaderSearch
+            ? 'grid-cols-[1fr_auto_1fr]'
+            : 'grid-cols-[auto_minmax(0,1fr)_auto]'
+        } ${
           isLanding
             ? 'border-b border-border/60 bg-header-bg'
             : 'border-b border-border/60 bg-header-bg'
         }`}
         style={{ height: '56px' }}
       >
-        <HeaderNavDrawer />
-        {pathname?.startsWith('/tree/') ? (
-          <Link
-            href="/"
-            onClick={() => closeSidebar()}
-            className="shrink-0 font-bold tracking-tight text-foreground"
-            style={{
-              fontFamily:
-                'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
-              fontSize: '1.15rem',
-            }}
-            aria-label={tNav('logoHome')}
-          >
-            Craft<span className="text-accent">ree</span>
-          </Link>
-        ) : (
-          <Link
-            href="/"
-            className="shrink-0 font-bold tracking-tight text-foreground"
-            style={{
-              fontFamily:
-                'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
-              fontSize: '1.15rem',
-            }}
-          >
-            Craft
-            <span className="text-accent">ree</span>
-          </Link>
-        )}
+        <div className="flex min-w-0 items-center gap-2 justify-self-start">
+          <HeaderNavDrawer />
+          {pathname?.startsWith('/tree/') ? (
+            <Link
+              href="/"
+              onClick={() => closeSidebar()}
+              className="shrink-0 font-bold tracking-tight text-foreground"
+              style={{
+                fontFamily:
+                  'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+                fontSize: '1.15rem',
+              }}
+              aria-label={tNav('logoHome')}
+            >
+              Craft<span className="text-accent">ree</span>
+            </Link>
+          ) : (
+            <Link
+              href="/"
+              className="shrink-0 font-bold tracking-tight text-foreground"
+              style={{
+                fontFamily:
+                  'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+                fontSize: '1.15rem',
+              }}
+            >
+              Craft
+              <span className="text-accent">ree</span>
+            </Link>
+          )}
+        </div>
 
-        <div className="flex min-w-0 flex-1 justify-center px-2">
+        <div className="flex min-w-0 w-full justify-center justify-self-stretch px-2">
           {!hideHeaderSearch ? (
-            <div className="w-full max-w-xl">
+            <div
+              className="mx-auto w-full"
+              style={{ maxWidth: '48rem' }}
+            >
               <SearchBar />
             </div>
           ) : null}
         </div>
 
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center justify-end gap-2 justify-self-end">
           <Link
             href="/categories"
-            className="shrink-0 rounded-md px-1.5 py-1.5 text-[12px] font-medium text-muted-foreground transition-colors hover:text-foreground sm:px-2 sm:text-[13px]"
+            className={HEADER_ICON_BUTTON}
+            aria-label={tNav('categories')}
+            title={tNav('categories')}
           >
-            {tNav('categories')}
+            <IconCategoriesGrid className={HEADER_ICON_IN_BUTTON} />
           </Link>
           <ThemeSwitcher align="end" />
           <LanguageSwitcher align="end" />
