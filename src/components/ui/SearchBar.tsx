@@ -34,7 +34,6 @@ const MAX_RESULTS = 8;
 
 export type SearchBarNavigateOptions = {
   center?: boolean;
-  openSidebar?: boolean;
 };
 
 function treeLayerForSearchNode(n: SearchNode): number {
@@ -137,7 +136,6 @@ export function SearchBar({
       const isLanding = variant === 'landing';
       navigateToNode(node.id, {
         center: navigateOptions?.center ?? !isLanding,
-        openSidebar: navigateOptions?.openSidebar ?? !isLanding,
         ...(exploreMobileSearch ? { exploreMode: 'root' as const } : {}),
       });
       setQuery('');
@@ -363,7 +361,7 @@ export function SearchBar({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full min-w-0 max-w-full ${rootClassName ?? ''}`}
+      className={`relative w-full min-w-0 max-w-none ${rootClassName ?? ''}`}
     >
       <div className="flex items-center gap-2 rounded-lg border border-border bg-surface-elevated/90 px-4 py-2.5 backdrop-blur-md">
         <svg

@@ -32,6 +32,8 @@ for (const n of data.nodes) {
     complexity_depth: n.complexity_depth,
     dimension: n.dimension ?? null,
     materialLevel: n.materialLevel ?? null,
+    origin_type: n.origin_type ?? null,
+    nature_type: n.nature_type ?? null,
   });
 
   const det = {

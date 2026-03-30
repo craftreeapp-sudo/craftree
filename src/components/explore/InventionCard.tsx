@@ -78,6 +78,7 @@ export function InventionCard({
 
   const scheduleHover = useCallback(() => {
     if (!canHover || !ctx) return;
+    ctx.cancelHoverClose();
     clearHoverTimer();
     hoverTimerRef.current = setTimeout(() => {
       const el = rootRef.current;
@@ -93,7 +94,7 @@ export function InventionCard({
   const endHover = useCallback(() => {
     clearHoverTimer();
     if (ctx?.hoverPreview?.nodeId === node.id) {
-      ctx.setHoverPreview(null);
+      ctx.requestHoverClose();
     }
   }, [clearHoverTimer, ctx, node.id]);
 

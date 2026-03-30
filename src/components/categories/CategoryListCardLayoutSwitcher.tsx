@@ -4,7 +4,6 @@ import { useCallback, useSyncExternalStore } from 'react';
 import { useTranslations } from 'next-intl';
 import {
   CATEGORY_LIST_CARD_LAYOUT_STORAGE_KEY,
-  DEFAULT_CATEGORY_LIST_CARD_LAYOUT,
   type CategoryListCardLayout,
   isCategoryListCardLayout,
 } from '@/components/categories/category-list-card-layout';
@@ -12,14 +11,14 @@ import {
 const layoutListeners = new Set<() => void>();
 
 function readLayoutFromStorage(): CategoryListCardLayout {
-  if (typeof window === 'undefined') return DEFAULT_CATEGORY_LIST_CARD_LAYOUT;
+  if (typeof window === 'undefined') return 'balanced';
   try {
     const raw = localStorage.getItem(CATEGORY_LIST_CARD_LAYOUT_STORAGE_KEY);
     if (isCategoryListCardLayout(raw)) return raw;
   } catch {
     /* ignore */
   }
-  return DEFAULT_CATEGORY_LIST_CARD_LAYOUT;
+  return 'balanced';
 }
 
 function subscribeLayout(onChange: () => void) {
@@ -126,7 +125,7 @@ export function useCategoryListCardLayout(): [
   const layout = useSyncExternalStore<CategoryListCardLayout>(
     subscribeLayout,
     readLayoutFromStorage,
-    () => DEFAULT_CATEGORY_LIST_CARD_LAYOUT
+    () => 'balanced'
   );
 
   const setLayout = useCallback((next: CategoryListCardLayout) => {
@@ -157,7 +156,7 @@ export function CategoryListCardLayoutSwitcher({
       <div
         role="radiogroup"
         aria-labelledby="category-list-card-layout-label"
-        className="inline-flex rounded-lg border border-border/60 bg-surface/50 p-0.5"
+        className="inline-flex gap-0.5 rounded-lg border border-border/60 bg-surface-elevated/40 p-0.5"
       >
         {MODES.map(({ id, Icon }) => {
           const selected = layout === id;
@@ -176,14 +175,14 @@ export function CategoryListCardLayoutSwitcher({
               aria-label={title}
               title={title}
               onClick={() => onChange(id)}
-              className={`inline-flex h-9 w-9 items-center justify-center rounded-md border-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus ${
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus ${
                 selected
-                  ? 'border-accent bg-accent/25 text-foreground shadow-sm'
-                  : 'border-transparent text-muted-foreground opacity-80 hover:border-border/80 hover:bg-surface-elevated hover:opacity-100'
+                  ? 'border border-accent/50 bg-accent/15 text-accent shadow-sm ring-1 ring-accent/30'
+                  : 'border border-transparent text-muted-foreground hover:border-border/60 hover:bg-surface hover:text-foreground'
               }`}
             >
               <Icon
-                className={`h-5 w-5 ${selected ? 'text-accent' : 'text-current'}`}
+                className={`h-5 w-5 shrink-0 ${selected ? 'text-accent' : ''}`}
               />
             </button>
           );

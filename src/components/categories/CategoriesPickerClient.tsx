@@ -26,11 +26,11 @@ export function CategoriesPickerClient() {
     if (nodes.length === 0) void refreshData();
   }, [nodes.length, refreshData]);
 
-  const [cardLayout, setCardLayout] = useCategoryListCardLayout();
-
   const onPickCategory = (c: NodeCategory) => {
     router.push(`/categories/category/${encodeURIComponent(c)}`);
   };
+
+  const [cardLayout, setCardLayout] = useCategoryListCardLayout();
 
   return (
     <AppContentShell
@@ -83,7 +83,7 @@ export function CategoriesPickerClient() {
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/50 to-transparent" />
-              <span className="absolute bottom-0 left-0 right-0 p-3 text-sm font-semibold leading-tight text-foreground md:p-4 md:text-base">
+              <span className="absolute bottom-0 left-0 right-0 p-3 text-sm font-semibold leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] md:p-4 md:text-base">
                 {tCat(cat)}
               </span>
             </div>

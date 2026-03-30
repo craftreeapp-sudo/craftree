@@ -42,10 +42,9 @@ export function Legend() {
 
   const [isExpanded, setIsExpanded] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
-  const selectedNodeId = useUIStore((s) => s.selectedNodeId);
-  const isSidebarOpen = useUIStore((s) => s.isSidebarOpen);
   const categoryPanelOpen = useUIStore((s) => s.categoryPanelOpen);
-  const focusExploreActive = Boolean(selectedNodeId && isSidebarOpen);
+  /** Ancienne fiche latérale supprimée ; la légende ne se décale plus pour ce panneau. */
+  const focusExploreActive = false;
   const categoryPanelLegendOffsetPx = (() => {
     if (!focusExploreActive) return 0;
     if (categoryPanelOpen) {

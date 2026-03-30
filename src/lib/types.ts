@@ -73,6 +73,12 @@ export type NaturalOrigin = 'mineral' | 'vegetal' | 'animal';
 /** Nature chimique ou physique (fiche / suggestion de correction). */
 export type ChemicalNature = 'element' | 'compound' | 'material';
 
+/** Origine naturelle (colonnes DB / seed `origin_type`). */
+export type OriginType = 'mineral' | 'vegetal' | 'animal';
+
+/** Nature chimique/physique (colonnes DB / seed `nature_type`). */
+export type NatureType = 'element' | 'compose' | 'materiau';
+
 // ─── Nœuds (technologies / ressources) ───────────────────────────────────────
 
 /** Champs chargés avec le graphe (seed-data.json, projection runtime) — pas de textes longs ni médias. */
@@ -99,6 +105,10 @@ export interface TechNodeBasic {
   naturalOrigin?: NaturalOrigin | null;
   /** Nature chimique/physique (optionnel). */
   chemicalNature?: ChemicalNature | null;
+  /** Classification origine naturelle (seed / Supabase). */
+  origin_type?: OriginType | null;
+  /** Classification nature chimique/physique (seed / Supabase). */
+  nature_type?: NatureType | null;
 }
 
 /** Métadonnées étendues (nodes-details.json ou API — chargées à la demande). */
@@ -163,6 +173,8 @@ export interface SeedNode {
   naturalOrigin?: NaturalOrigin | null;
   /** Nature chimique/physique (optionnel). */
   chemicalNature?: ChemicalNature | null;
+  origin_type?: OriginType | null;
+  nature_type?: NatureType | null;
   _ai_built_upon?: string[];
   _ai_led_to?: string[];
 }

@@ -18,18 +18,12 @@ export function useExploreNavigation() {
       opts?: {
         center?: boolean;
         exploreMode?: 'root' | 'push';
-        openEdit?: boolean;
-        openSuggest?: boolean;
-        openSidebar?: boolean;
       }
     ) => {
       router.replace(treeInventionPath(id));
       selectNode(id, {
         center: opts?.center === true,
         exploreMode: opts?.exploreMode,
-        openEdit: opts?.openEdit === true,
-        openSuggest: opts?.openSuggest === true,
-        openSidebar: opts?.openSidebar,
       });
     },
     [router, selectNode]

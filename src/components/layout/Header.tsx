@@ -43,18 +43,14 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed left-0 right-0 top-0 z-[100] grid h-14 shrink-0 items-center gap-x-2 px-3 backdrop-blur-md md:gap-x-3 md:px-4 xl:px-6 ${
-          hideHeaderSearch
-            ? 'grid-cols-[1fr_auto_1fr]'
-            : 'grid-cols-[auto_minmax(0,1fr)_auto]'
-        } ${
+        className={`fixed left-0 right-0 top-0 z-[100] flex h-14 shrink-0 items-center justify-between gap-x-2 px-3 backdrop-blur-md md:gap-x-3 md:px-4 xl:px-6 ${
           isLanding
             ? 'border-b border-border/60 bg-header-bg'
             : 'border-b border-border/60 bg-header-bg'
         }`}
         style={{ height: '56px' }}
       >
-        <div className="flex min-w-0 items-center gap-2 justify-self-start">
+        <div className="relative z-[12] flex min-w-0 items-center gap-2">
           <HeaderNavDrawer />
           {pathname?.startsWith('/tree/') ? (
             <Link
@@ -86,18 +82,15 @@ export function Header() {
           )}
         </div>
 
-        <div className="flex min-w-0 w-full justify-center justify-self-stretch px-2">
-          {!hideHeaderSearch ? (
-            <div
-              className="mx-auto w-full"
-              style={{ maxWidth: '48rem' }}
-            >
+        {!hideHeaderSearch ? (
+          <div className="pointer-events-none absolute left-1/2 top-1/2 z-[11] w-[min(calc(100%-1.5rem),calc(31.2rem+60px))] max-w-[min(100%,calc(31.2rem+60px))] -translate-x-1/2 -translate-y-1/2 md:w-[min(calc(100%-2rem),calc(31.2rem+60px))]">
+            <div className="pointer-events-auto w-full min-w-0">
               <SearchBar />
             </div>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
 
-        <div className="flex shrink-0 items-center justify-end gap-2 justify-self-end">
+        <div className="relative z-[12] flex shrink-0 items-center justify-end gap-2">
           <Link
             href="/categories"
             className={HEADER_ICON_BUTTON}

@@ -1,14 +1,16 @@
 /**
  * Peuplement progressif de src/data/seed-data.json via l’API Anthropic (Claude + web search).
- * Traitement par lots parallèles (CONCURRENCY).
+ * Upsert Supabase après chaque lot (service role).
  *
  * Usage :
  *   node scripts/populate.mjs
  *   node scripts/populate.mjs --expand
  *   node scripts/populate.mjs --deep
- *   node scripts/populate.mjs --images   (URLs Wikimedia dans seed-data, sans Claude)
+ *   node scripts/populate.mjs --test <nom>   (une seule invention, ex. Cuivre)
+ *   node scripts/populate.mjs --no-cascade   (ne pas enrichir la file avec les dépendances manquantes)
  *
- * Prérequis : .env.local avec ANTHROPIC_API_KEY (sauf --images)
+ * Prérequis : .env.local avec ANTHROPIC_API_KEY, NEXT_PUBLIC_SUPABASE_URL,
+ * SUPABASE_SERVICE_ROLE_KEY
  */
 
 import Anthropic from '@anthropic-ai/sdk';
@@ -16,44 +18,80 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { config } from 'dotenv';
+import { fetchWikipediaImageUrl } from './wikimedia-fetch.mjs';
 import {
-  fetchWikipediaImageUrl,
-  searchWikipediaImage,
-} from './wikimedia-fetch.mjs';
+  createServiceSupabaseClient,
+  upsertSeedNodes,
+  upsertSeedLinks,
+  updateNodeImageUrl,
+} from './supabase-seed-sync.mjs';
 
 config({ path: '.env.local' });
 config({ path: '.env' });
 
+const testArgIndex = process.argv.indexOf('--test');
+let TEST_INVENTION_NAME = null;
+if (testArgIndex !== -1) {
+  const raw = process.argv[testArgIndex + 1];
+  if (!raw || String(raw).startsWith('--')) {
+    console.error(
+      'Usage : node scripts/populate.mjs --test <nom de l’invention>'
+    );
+    console.error('Exemple : node scripts/populate.mjs --test Cuivre');
+    process.exit(1);
+  }
+  TEST_INVENTION_NAME = String(raw).trim();
+  if (!TEST_INVENTION_NAME) {
+    console.error(
+      'Le nom de l’invention ne peut pas être vide. Exemple : node scripts/populate.mjs --test Cuivre'
+    );
+    process.exit(1);
+  }
+}
+const MODE_TEST = TEST_INVENTION_NAME !== null;
+
 const MODE_EXPAND = process.argv.includes('--expand');
 const MODE_DEEP = process.argv.includes('--deep');
-const MODE_IMAGES = process.argv.includes('--images');
+const MODE_NO_CASCADE = process.argv.includes('--no-cascade');
+
+if (MODE_TEST && (MODE_EXPAND || MODE_DEEP)) {
+  console.error(
+    '❌ --test ne peut pas être combiné avec --expand ou --deep.'
+  );
+  process.exit(1);
+}
 
 const apiKey = process.env.ANTHROPIC_API_KEY?.trim();
-if (!MODE_IMAGES && !apiKey) {
+if (!apiKey) {
   console.error(
     '❌ ANTHROPIC_API_KEY manquant. Créez .env.local (voir .env.example).'
   );
   process.exit(1);
 }
 
-const client = MODE_IMAGES ? null : new Anthropic({ apiKey });
+const client = new Anthropic({ apiKey });
+
+/** Rempli au démarrage de main() — pour enqueuePatchNodeImage async */
+let serviceSupabase = null;
 const SEED_PATH = path.join(process.cwd(), 'src/data/seed-data.json');
 
-const CONCURRENCY = 5;
-const PAUSE_BETWEEN_BATCHES_MS = 1000;
+const CONCURRENCY = 2;
+const PAUSE_BETWEEN_BATCHES_MS = 3000;
 
 const MODEL =
   process.env.ANTHROPIC_MODEL?.trim() || 'claude-sonnet-4-20250514';
 
 function cleanDescription(text) {
-  if (!text) return '';
-  return text
-    .replace(/<cite[^>]*>/g, '')
-    .replace(/<\/cite>/g, '')
-    .replace(/<[^>]+>/g, '')
-    .replace(/\[\d+\]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
+  if (text == null || text === '') return '';
+  let s = String(text);
+  // Blocs cite (y compris attributs type index="1-3")
+  s = s.replace(/<cite\b[^>]*>[\s\S]*?<\/cite>/gi, '');
+  s = s.replace(/<cite\b[^>]*\/?>/gi, '');
+  s = s.replace(/<\/cite>/gi, '');
+  s = s.replace(/<[^>]+>/g, '');
+  s = s.replace(/\[\d+\]/g, '');
+  s = s.replace(/\s+/g, ' ').trim();
+  return s;
 }
 
 const DIMENSION_VALUES = new Set(['matter', 'process', 'tool']);
@@ -100,7 +138,6 @@ const TECH_NODE_TYPES = new Set([
   'process',
   'tool',
   'component',
-  'end_product',
 ]);
 
 const NODE_CATEGORY_LIST_FOR_PROMPT = [...NODE_CATEGORY_VALUES].sort().join(', ');
@@ -113,8 +150,31 @@ function normalizeCategory(raw) {
 
 function normalizeTechNodeType(raw) {
   const s = typeof raw === 'string' ? raw.trim() : '';
+  if (s === 'end_product') return 'component';
   if (TECH_NODE_TYPES.has(s)) return s;
   return 'material';
+}
+
+const ORIGIN_TYPE_VALUES = new Set(['mineral', 'vegetal', 'animal']);
+const NATURE_TYPE_VALUES = new Set(['element', 'compose', 'materiau']);
+
+function normalizeOriginNatureTypes(enriched) {
+  const otRaw = enriched.origin_type ?? enriched.naturalOrigin;
+  const otStr = typeof otRaw === 'string' ? otRaw.trim() : '';
+  const origin_type =
+    otStr && ORIGIN_TYPE_VALUES.has(otStr) ? otStr : null;
+
+  let ntStr = enriched.nature_type ?? enriched.chemicalNature;
+  if (typeof ntStr === 'string') {
+    ntStr = ntStr.trim();
+    if (ntStr === 'compound') ntStr = 'compose';
+    if (ntStr === 'material') ntStr = 'materiau';
+  } else {
+    ntStr = '';
+  }
+  const nature_type =
+    ntStr && NATURE_TYPE_VALUES.has(ntStr) ? ntStr : null;
+  return { origin_type, nature_type };
 }
 
 function normalizeDimensionMaterialLevel(enriched) {
@@ -130,69 +190,32 @@ function normalizeDimensionMaterialLevel(enriched) {
   return { dimension, materialLevel };
 }
 
+/** Entier PostgreSQL ; borne les années aberrantes renvoyées par le modèle. */
+function normalizeYearApprox(year) {
+  if (year == null) return null;
+  const n = typeof year === 'number' ? year : Number(year);
+  if (!Number.isFinite(n)) return null;
+  if (n < -10000) return -10000;
+  if (n > 2030) return null;
+  return Math.round(n);
+}
+
 /** Évite les lectures/écritures concurrentes sur seed-data.json */
 let seedWriteChain = Promise.resolve();
 
 function enqueuePatchNodeImage(nodeId, imageUrl) {
-  seedWriteChain = seedWriteChain.then(() => {
+  seedWriteChain = seedWriteChain.then(async () => {
     const db = readDB();
     const node = db.nodes.find((n) => n.id === nodeId);
     if (node) {
       node.image_url = imageUrl;
       writeDB(db);
     }
+    if (serviceSupabase) {
+      await updateNodeImageUrl(serviceSupabase, nodeId, imageUrl);
+    }
   });
   return seedWriteChain;
-}
-
-function needsRemoteImageUrl(node) {
-  const u = node.image_url?.trim();
-  if (!u) return true;
-  if (u.startsWith('/images/nodes/')) return true;
-  return false;
-}
-
-async function runImagesMode() {
-  console.log('🖼️  Mode images : URLs Wikimedia (sans téléchargement local)\n');
-  const db = readDB();
-  let fetched = 0;
-  let skipped = 0;
-  const total = db.nodes.length;
-  let idx = 0;
-
-  for (const node of db.nodes) {
-    idx++;
-    if (!needsRemoteImageUrl(node)) {
-      skipped++;
-      continue;
-    }
-
-    console.log(`[${idx}/${total}] 🖼️  ${node.name}...`);
-
-    let imageUrl = null;
-    if (node.wikipedia_url?.trim()) {
-      imageUrl = await fetchWikipediaImageUrl(String(node.wikipedia_url).trim());
-    }
-    if (!imageUrl) {
-      imageUrl = await searchWikipediaImage(
-        node.name,
-        node.name_en || node.name
-      );
-    }
-
-    if (imageUrl) {
-      await enqueuePatchNodeImage(node.id, imageUrl);
-      fetched++;
-      console.log(`   ✅ ${imageUrl.slice(0, 72)}…`);
-    } else {
-      console.log(`   ⏭️  Pas d’image trouvée`);
-    }
-
-    await sleep(300);
-  }
-
-  await seedWriteChain;
-  console.log(`\n📊 ${fetched} URLs enregistrées, ${skipped} déjà à jour ou ignorées`);
 }
 
 function readDB() {
@@ -283,24 +306,20 @@ function isLikelyFundamental(name) {
 }
 
 function buildPrompt(inventionName, existingNodes) {
-  return `Tu es un agent de classification pour CivTree, un arbre technologique qui modélise les inventions humaines sous forme de recettes de fabrication.
+  return `Tu es un agent de classification pour Craftree, un arbre technologique qui modélise les inventions humaines sous forme de recettes de fabrication.
 
 Recherche des informations sur "${inventionName}" et remplis sa fiche complète.
 
 ## RÈGLES DE CLASSIFICATION
 
-### TYPE (pose-toi ces questions dans l'ordre)
+### TYPE (obsolète mais conservé pour compatibilité)
+- "raw_material" : existe dans la nature sans intervention humaine (eau, sable, minerai de fer, bois)
+- "material" : matière transformée par l'homme (acier, plastique, verre, farine)
+- "process" : technique ou procédé (fonderie, soudure, distillation)
+- "tool" : outil ou machine réutilisable (four, marteau, presse, laser, usine)
+- "component" : pièce fonctionnelle intégrée dans un autre produit (transistor, batterie, moteur)
 
-1. Existe dans la nature sans intervention humaine ? → "raw_material"
-   Ex: eau, sable, argile, minerai de fer, bois, laine, pétrole brut
-2. Sinon, est-ce un objet physique ? Non → "process" (technique/procédé)
-   Ex: fonderie, distillation, fermentation, soudure
-3. Si objet physique, l'utilisateur final l'utilise directement ? → "end_product"
-   Ex: automobile, smartphone, livre, pain, vêtement
-4. Si objet intégré/consommé dans un autre → "component"
-   Ex: transistor, lentille, circuit imprimé, pneu
-5. Si objet réutilisé sans être consommé → "tool"
-   Ex: four, marteau, tour, presse, laser, moule
+NE JAMAIS utiliser "end_product". Ce type n'existe plus. Si l'objet est utilisé directement par l'utilisateur final (smartphone, voiture, pain), utilise "component" ou "tool" selon le cas.
 
 ### CATÉGORIE (site Craftree — une seule valeur parmi la liste EXACTE ci-dessous)
 
@@ -314,20 +333,62 @@ Exemples d’aide : énergie → energy ; bâtiment / routes → construction ; 
 
 prehistoric (avant -3000), ancient (-3000 à 500), medieval (500 à 1500), renaissance (1500 à 1750), industrial (1750 à 1900), modern (1900 à 1970), digital (1970 à 2010), contemporary (2010+)
 
-### DIMENSION (nature de l'invention — indépendant du champ "type")
+### DIMENSION (nature de l'invention)
+- "matter" : ce qui compose un objet (matières, substances, composants physiques)
+- "process" : comment on transforme (procédés, techniques, méthodes)
+- "tool" : avec quoi on transforme (outils, machines, usines, instruments)
 
-- "matter" : ce qui compose un objet (matières, substances)
-- "process" : comment on transforme (procédés, techniques)
-- "tool" : avec quoi on transforme (outils, machines, usines)
+### NIVEAU MATIÈRE (materialLevel) — UNIQUEMENT si dimension = "matter", sinon null obligatoirement
 
-### NIVEAU MATIÈRE (materialLevel) — UNIQUEMENT si dimension = "matter"
+Test principal : est-ce qu'on le MESURE (kg, litres, mètres) ou est-ce qu'on le COMPTE (1, 2, 3 unités) ?
+- Si on le mesure → c'est raw, processed ou industrial (voir ci-dessous)
+- Si on le compte → c'est "component"
 
-Sinon mets obligatoirement null.
+Sous-classement pour les matières mesurables :
+- "raw" : la nature le fournit tel quel, on extrait/récolte/mine sans transformation. Ex: minerai de fer, sable, pétrole brut, bois, laine brute, eau
+- "processed" : une NOUVELLE SUBSTANCE créée par transformation chimique ou physique fondamentale. Le minerai DEVIENT du fer. Le sable DEVIENT du silicium. Ex: acier, silicium, plastique, farine, ciment, verre (en tant que substance)
+- "industrial" : le MÊME matériau mais mis en FORME ou CALIBRÉ pour un usage spécifique. Ex: fil de cuivre (= cuivre tréfilé), tôle d'acier (= acier laminé), verre trempé (= verre traité), poutre en béton
+- "component" : une pièce fonctionnelle AUTONOME qui FAIT quelque chose. On la compte en unités. Ex: batterie, processeur, moteur, écran, ampoule, pneu, transistor
 
-- "raw" : matières premières brutes extraites de la nature (minerai, sable, pétrole brut)
-- "processed" : matière transformée, nouvelle substance (acier, silicium, plastique, farine)
-- "industrial" : matériau mis en forme pour un usage spécifique (fil de cuivre, tôle, verre trempé)
-- "component" : pièce fonctionnelle autonome (batterie, processeur, moteur, écran)
+Cas ambigus — applique ces règles :
+- Alliage (acier inoxydable, bronze) = "processed" (c'est une nouvelle substance en vrac)
+- Poudre/mélange (poudre à canon, béton frais) = "processed" (on le mesure au poids)
+- Béton coulé en forme = "industrial" (même substance mise en forme)
+- Pain, fromage = "component" (objet fini comptable)
+
+### ORIGINE NATURELLE (origin_type) — D'où ça vient dans la nature
+
+Applicable principalement aux matières (dimension = "matter"), mais peut aussi s'appliquer à certains outils primitifs.
+Mettre null si non applicable (procédés purement intellectuels, machines modernes, etc.)
+
+- "mineral" : provient du sol, des roches, du sous-sol. Non vivant.
+  Ex : pierre, sable, minerais (fer, cuivre, or), sel gemme, argile, pétrole, charbon
+- "vegetal" : provient des plantes. Vivant ou issu du vivant.
+  Ex : bois, coton, caoutchouc naturel, lin, papier, résine, liège
+- "animal" : provient des animaux. Vivant ou issu du vivant.
+  Ex : cuir, laine, soie, os, ivoire, lait, cire d'abeille
+
+Cas ambigus :
+- Pétrole = "mineral" (même s'il provient d'organismes fossiles, c'est extrait du sous-sol)
+- Charbon = "mineral" (idem)
+- Caoutchouc synthétique = null (ce n'est plus d'origine naturelle)
+
+### NATURE CHIMIQUE/PHYSIQUE (nature_type) — Ce que c'est physiquement
+
+Applicable principalement aux matières (dimension = "matter").
+Mettre null si non applicable.
+
+- "element" : substance pure composée d'un seul type d'atome. Définie par le tableau périodique.
+  Ex : cuivre (Cu), fer (Fe), or (Au), oxygène (O₂), silicium (Si), carbone
+- "compose" : substance formée de plusieurs éléments chimiques liés. A une formule chimique.
+  Ex : eau (H₂O), sel (NaCl), acide sulfurique (H₂SO₄), dioxyde de carbone (CO₂), sucre
+- "materiau" : mélange, alliage ou assemblage sans formule chimique unique. Défini par ses propriétés d'usage.
+  Ex : acier (alliage fer+carbone), béton (ciment+sable+eau+gravier), verre, plastique, bois (matériau composite naturel)
+
+Test rapide :
+- Est-ce dans le tableau périodique ? → "element"
+- A-t-il une formule chimique simple (H₂O, NaCl) ? → "compose"
+- Est-ce un mélange/alliage défini par ses propriétés ? → "materiau"
 
 ### INTRANTS (built_upon) — type de relation
 
@@ -389,6 +450,8 @@ Réponds UNIQUEMENT avec un JSON valide, rien d'autre :
   "origin": "Inventeur, entreprise ou pays. Null si inconnu.",
   "dimension": "matter",
   "materialLevel": "processed",
+  "origin_type": "mineral",
+  "nature_type": "compose",
   "wikipedia_url": "https://fr.wikipedia.org/wiki/...",
   "tags": ["tag1", "tag2"],
   "built_upon": [
@@ -422,7 +485,14 @@ async function enrichInvention(name, existingNodes) {
   const jsonMatch = textContent.match(/\{[\s\S]*\}/);
   if (!jsonMatch) throw new Error('Pas de JSON dans la réponse');
 
-  return JSON.parse(jsonMatch[0]);
+  const enriched = JSON.parse(jsonMatch[0]);
+  if (typeof enriched.description === 'string') {
+    enriched.description = cleanDescription(enriched.description);
+  }
+  if (typeof enriched.description_en === 'string') {
+    enriched.description_en = cleanDescription(enriched.description_en);
+  }
+  return enriched;
 }
 
 /** Accumulation par lot ; pas d’écriture disque ici */
@@ -532,6 +602,9 @@ function cloneAiArrays(enriched) {
  * @param {{ allowUpdate?: boolean }} [opts]
  */
 function addInventionToDB(enriched, opts = {}) {
+  if (MODE_TEST) {
+    console.log('📋 Réponse Claude brute :', JSON.stringify(enriched, null, 2));
+  }
   const allowUpdate = opts.allowUpdate === true;
   const db = readDB();
   const id = slugify(enriched.name);
@@ -543,7 +616,10 @@ function addInventionToDB(enriched, opts = {}) {
   const builtLed = cloneAiArrays(enriched);
   const { builtRaw, ledRaw } = builtLed;
 
+  const year_approx = normalizeYearApprox(enriched.year_approx);
+
   const { dimension, materialLevel } = normalizeDimensionMaterialLevel(enriched);
+  const { origin_type, nature_type } = normalizeOriginNatureTypes(enriched);
   const category = normalizeCategory(enriched.category);
   const type = normalizeTechNodeType(enriched.type);
 
@@ -566,12 +642,14 @@ function addInventionToDB(enriched, opts = {}) {
       category,
       type,
       era: enriched.era,
-      year_approx: enriched.year_approx ?? null,
+      year_approx,
       origin: enriched.origin || null,
       wikipedia_url: enriched.wikipedia_url || null,
       tags: Array.isArray(enriched.tags) ? enriched.tags : [],
       dimension,
       materialLevel,
+      origin_type,
+      nature_type,
       _ai_built_upon: builtRaw,
       _ai_led_to: ledRaw,
     };
@@ -605,7 +683,7 @@ function addInventionToDB(enriched, opts = {}) {
     category,
     type,
     era: enriched.era,
-    year_approx: enriched.year_approx ?? null,
+    year_approx,
     origin: enriched.origin || null,
     image_url: null,
     wikipedia_url: enriched.wikipedia_url || null,
@@ -613,6 +691,8 @@ function addInventionToDB(enriched, opts = {}) {
     complexity_depth: 0,
     dimension,
     materialLevel,
+    origin_type,
+    nature_type,
     _ai_built_upon: builtRaw,
     _ai_led_to: ledRaw,
   };
@@ -639,7 +719,7 @@ function addInventionToDB(enriched, opts = {}) {
   };
 }
 
-function flushChanges(existingState) {
+async function flushChanges(existingState, supabase) {
   const { existingNames, existingIds } = existingState;
   if (
     pendingChanges.nodes.length === 0 &&
@@ -649,16 +729,20 @@ function flushChanges(existingState) {
     return;
   }
 
+  const snapshotNodes = [...pendingChanges.nodes];
+  const snapshotUpdates = [...pendingChanges.updates];
+  const snapshotLinks = [...pendingChanges.links];
+
   const db = readDB();
 
-  for (const { id, patch } of pendingChanges.updates) {
+  for (const { id, patch } of snapshotUpdates) {
     const n = db.nodes.find((x) => x.id === id);
     if (n) {
       Object.assign(n, patch);
     }
   }
 
-  for (const node of pendingChanges.nodes) {
+  for (const node of snapshotNodes) {
     if (!db.nodes.find((n) => n.id === node.id)) {
       db.nodes.push(node);
       existingNames.add(normalizeInventionName(node.name));
@@ -666,20 +750,32 @@ function flushChanges(existingState) {
     }
   }
 
-  for (const link of pendingChanges.links) {
+  for (const link of snapshotLinks) {
     if (!db.links.find((l) => l.id === link.id)) {
       db.links.push(link);
     }
   }
 
   writeDB(db);
+
+  const nodeIds = new Set([
+    ...snapshotNodes.map((n) => n.id),
+    ...snapshotUpdates.map((u) => u.id),
+  ]);
+  const nodesToSync = nodeIds.size
+    ? db.nodes.filter((n) => nodeIds.has(n.id))
+    : [];
+  await upsertSeedNodes(supabase, nodesToSync);
+  await upsertSeedLinks(supabase, snapshotLinks);
+
   pendingChanges = { nodes: [], links: [], updates: [] };
 }
 
-function reconcileLinks() {
+async function reconcileLinks(supabase) {
   console.log('\n🔗 Réconciliation des liens...');
   const db = readDB();
   let linksCreated = 0;
+  const newLinksForSupabase = [];
 
   for (const node of db.nodes) {
     if (node._ai_built_upon && Array.isArray(node._ai_built_upon)) {
@@ -692,14 +788,16 @@ function reconcileLinks() {
 
         if (sourceExists && !linkExists) {
           const rel = input.relation_type || 'material';
-          db.links.push({
+          const link = {
             id: uniqueLinkId(db.links, []),
             source_id: sourceId,
             target_id: node.id,
             relation_type: rel,
             is_optional: false,
             notes: null,
-          });
+          };
+          db.links.push(link);
+          newLinksForSupabase.push(link);
           linksCreated++;
           console.log(
             `   🔗 Lien créé : ${nodeNameById(db.nodes, sourceId)} →[${rel}]→ ${node.name}`
@@ -718,14 +816,16 @@ function reconcileLinks() {
 
         if (targetExists && !linkExists) {
           const rel = output.relation_type || 'material';
-          db.links.push({
+          const link = {
             id: uniqueLinkId(db.links, []),
             source_id: node.id,
             target_id: targetId,
             relation_type: rel,
             is_optional: false,
             notes: null,
-          });
+          };
+          db.links.push(link);
+          newLinksForSupabase.push(link);
           linksCreated++;
           console.log(
             `   🔗 Lien créé : ${node.name} →[${rel}]→ ${nodeNameById(db.nodes, targetId)}`
@@ -737,6 +837,7 @@ function reconcileLinks() {
 
   if (linksCreated > 0) {
     writeDB(db);
+    await upsertSeedLinks(supabase, newLinksForSupabase);
   }
   console.log(`   ✅ Réconciliation : ${linksCreated} lien(s) créé(s)`);
   return linksCreated;
@@ -750,21 +851,27 @@ function maxGraphDepth(db) {
   }
   const memo = new Map();
 
-  function depth(nodeId) {
+  /** Profondeur max vers les sources ; `visiting` évite la récursion infinie si le graphe a des cycles. */
+  function depth(nodeId, visiting) {
     if (memo.has(nodeId)) return memo.get(nodeId);
+    if (visiting.has(nodeId)) return 0;
+    visiting.add(nodeId);
     const parents = incoming.get(nodeId) || [];
+    let d;
     if (parents.length === 0) {
-      memo.set(nodeId, 0);
-      return 0;
+      d = 0;
+    } else {
+      const depths = parents.map((p) => depth(p, visiting));
+      d = 1 + Math.max(0, ...depths);
     }
-    const d = 1 + Math.max(...parents.map((p) => depth(p)));
+    visiting.delete(nodeId);
     memo.set(nodeId, d);
     return d;
   }
 
   let max = 0;
   for (const n of db.nodes) {
-    max = Math.max(max, depth(n.id));
+    max = Math.max(max, depth(n.id, new Set()));
   }
   return max;
 }
@@ -1016,28 +1123,44 @@ const SEED_INVENTIONS = [
 
 async function main() {
   const scriptStart = Date.now();
-  console.log('🚀 CivTree — Peuplement automatique de la base de données\n');
+  serviceSupabase = createServiceSupabaseClient();
+  console.log('🚀 Craftree — Peuplement automatique de la base de données\n');
   console.log(`   Modèle : ${MODEL}`);
-  if (MODE_DEEP) {
+  if (MODE_TEST) {
+    console.log(`   Mode : test — une seule invention : « ${TEST_INVENTION_NAME} »\n`);
+  } else if (MODE_DEEP) {
     console.log('   Mode : deep (expansion + intrants sans parents)\n');
   } else if (MODE_EXPAND) {
     console.log('   Mode : expand (fiches existantes incomplètes)\n');
   } else {
     console.log('');
   }
+  if (MODE_NO_CASCADE) {
+    console.log(
+      '   Option : --no-cascade (dépendances manquantes loguées, non ajoutées à la file)\n'
+    );
+  }
 
   let dbInit = readDB();
   let existingState = buildExistingSets(dbInit);
   let { existingNames, existingIds } = existingState;
 
-  const skipExistingCheck = MODE_EXPAND || MODE_DEEP;
+  const skipExistingCheck = MODE_EXPAND || MODE_DEEP || MODE_TEST;
 
   let queue = [];
   let totalInList = 0;
   let alreadyTreated = 0;
   let newToSearch = 0;
 
-  if (MODE_EXPAND || MODE_DEEP) {
+  if (MODE_TEST) {
+    queue = [TEST_INVENTION_NAME];
+    totalInList = 1;
+    alreadyTreated = 0;
+    newToSearch = 1;
+    console.log(
+      `📋 Mode test : 1 invention (« ${TEST_INVENTION_NAME} ») — traitement forcé même si déjà en base\n`
+    );
+  } else if (MODE_EXPAND || MODE_DEEP) {
     console.log('🔄 Mode expansion : enrichissement des fiches existantes\n');
     queue = buildExpandQueue(dbInit);
     if (MODE_DEEP) {
@@ -1074,7 +1197,7 @@ async function main() {
   const processed = new Set();
   const retryCount = new Map();
 
-  const allowUpdate = MODE_EXPAND || MODE_DEEP;
+  const allowUpdate = MODE_EXPAND || MODE_DEEP || MODE_TEST;
 
   let addedCount = 0;
   let updatedCount = 0;
@@ -1145,8 +1268,10 @@ async function main() {
           if (prevRetries > 0) retrySuccessCount++;
           retryCount.delete(result.name);
           linksCreatedCount += linksCreated;
+          const catLog = normalizeCategory(result.enriched.category);
+          const typLog = normalizeTechNodeType(result.enriched.type);
           console.log(
-            `   ✅ ${result.enriched.name} (${result.enriched.type} | ${result.enriched.category})`
+            `   ✅ ${result.enriched.name} (${typLog} | ${catLog})`
           );
           if (nodeId && wikipediaUrl && String(wikipediaUrl).trim()) {
             batchImageJobs.push({
@@ -1155,21 +1280,29 @@ async function main() {
               name: result.enriched.name,
             });
           }
-          for (const dep of newDependencies) {
-            const dk = normalizeInventionName(dep);
-            if (processed.has(dk)) continue;
-            if (
-              !skipExistingCheck &&
-              alreadyExists(dep, existingNames, existingIds)
-            ) {
-              continue;
-            }
-            if (isLikelyFundamental(dep)) {
-              queue.push(dep);
-              console.log(`   📌 Nouvelle dépendance ajoutée : "${dep}"`);
-            } else {
-              dependenciesIgnoredCount++;
-              console.log(`   ⏭️  Ignoré (trop spécifique) : "${dep}"`);
+          if (!MODE_TEST) {
+            for (const dep of newDependencies) {
+              const dk = normalizeInventionName(dep);
+              if (processed.has(dk)) continue;
+              if (
+                !skipExistingCheck &&
+                alreadyExists(dep, existingNames, existingIds)
+              ) {
+                continue;
+              }
+              if (isLikelyFundamental(dep)) {
+                if (MODE_NO_CASCADE) {
+                  console.log(
+                    `   📋 --no-cascade : dépendance non ajoutée à la file : "${dep}"`
+                  );
+                } else {
+                  queue.push(dep);
+                  console.log(`   📌 Nouvelle dépendance ajoutée : "${dep}"`);
+                }
+              } else {
+                dependenciesIgnoredCount++;
+                console.log(`   ⏭️  Ignoré (trop spécifique) : "${dep}"`);
+              }
             }
           }
         } else if (updated) {
@@ -1178,8 +1311,9 @@ async function main() {
           retryCount.delete(result.name);
           linksCreatedCount += linksCreated;
           const cat = normalizeCategory(result.enriched.category);
+          const typ = normalizeTechNodeType(result.enriched.type);
           console.log(
-            `   🔄 ${result.enriched.name} (mise à jour — ${result.enriched.type} | ${cat})`
+            `   🔄 ${result.enriched.name} (mise à jour — ${typ} | ${cat})`
           );
           if (nodeId && wikipediaUrl && String(wikipediaUrl).trim()) {
             batchImageJobs.push({
@@ -1188,21 +1322,29 @@ async function main() {
               name: result.enriched.name,
             });
           }
-          for (const dep of newDependencies) {
-            const dk = normalizeInventionName(dep);
-            if (processed.has(dk)) continue;
-            if (
-              !skipExistingCheck &&
-              alreadyExists(dep, existingNames, existingIds)
-            ) {
-              continue;
-            }
-            if (isLikelyFundamental(dep)) {
-              queue.push(dep);
-              console.log(`   📌 Nouvelle dépendance ajoutée : "${dep}"`);
-            } else {
-              dependenciesIgnoredCount++;
-              console.log(`   ⏭️  Ignoré (trop spécifique) : "${dep}"`);
+          if (!MODE_TEST) {
+            for (const dep of newDependencies) {
+              const dk = normalizeInventionName(dep);
+              if (processed.has(dk)) continue;
+              if (
+                !skipExistingCheck &&
+                alreadyExists(dep, existingNames, existingIds)
+              ) {
+                continue;
+              }
+              if (isLikelyFundamental(dep)) {
+                if (MODE_NO_CASCADE) {
+                  console.log(
+                    `   📋 --no-cascade : dépendance non ajoutée à la file : "${dep}"`
+                  );
+                } else {
+                  queue.push(dep);
+                  console.log(`   📌 Nouvelle dépendance ajoutée : "${dep}"`);
+                }
+              } else {
+                dependenciesIgnoredCount++;
+                console.log(`   ⏭️  Ignoré (trop spécifique) : "${dep}"`);
+              }
             }
           }
         } else {
@@ -1234,7 +1376,7 @@ async function main() {
       }
     }
 
-    flushChanges(existingState);
+    await flushChanges(existingState, serviceSupabase);
 
     for (const job of batchImageJobs) {
       pendingImagePromises.push(
@@ -1273,7 +1415,7 @@ async function main() {
   await Promise.allSettled(pendingImagePromises);
   await seedWriteChain;
 
-  const reconciled = reconcileLinks();
+  const reconciled = await reconcileLinks(serviceSupabase);
   linksCreatedCount += reconciled;
 
   const finalDB = readDB();
@@ -1308,16 +1450,7 @@ async function main() {
   console.log('═'.repeat(46));
 }
 
-if (MODE_IMAGES) {
-  runImagesMode()
-    .then(() => process.exit(0))
-    .catch((e) => {
-      console.error(e);
-      process.exit(1);
-    });
-} else {
-  main().catch((e) => {
-    console.error(e);
-    process.exit(1);
-  });
-}
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

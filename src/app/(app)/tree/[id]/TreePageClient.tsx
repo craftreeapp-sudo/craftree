@@ -4,7 +4,6 @@ import { Suspense, use, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { BuiltUponView } from '@/components/explore/BuiltUponView';
-import { NodeDetailSidebar } from '@/components/ui/NodeDetailSidebar';
 import { useUIStore } from '@/stores/ui-store';
 import { useGraphStore } from '@/stores/graph-store';
 import type { CraftingLink, SeedNode } from '@/lib/types';
@@ -60,14 +59,11 @@ function TreeExploreInner({
     }
 
     const ui = useUIStore.getState();
-    if (ui.selectedNodeId === inventionId && ui.isSidebarOpen) {
+    if (ui.selectedNodeId === inventionId) {
       return;
     }
 
-    selectNode(inventionId, {
-      center: false,
-      openSidebar: false,
-    });
+    selectNode(inventionId, { center: false });
   }, [dataReady, inventionId, selectNode, closeSidebar, router]);
 
   return (
@@ -87,7 +83,6 @@ function TreeExploreInner({
           {tEx('builtUponLoading')}
         </div>
       )}
-      <NodeDetailSidebar />
     </main>
   );
 }

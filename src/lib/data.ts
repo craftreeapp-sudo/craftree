@@ -9,7 +9,9 @@ import type {
   CraftingLink,
   MaterialLevel,
   NaturalOrigin,
+  NatureType,
   NodeDimension,
+  OriginType,
   SeedNode,
 } from '@/lib/types';
 import { getEraFromYear } from '@/lib/utils';
@@ -42,9 +44,25 @@ function mapRowChemicalNature(
   return String(v) as ChemicalNature;
 }
 
+function mapRowOriginType(row: Record<string, unknown>): OriginType | null {
+  const v = row.origin_type;
+  if (v == null || v === '') return null;
+  const s = String(v);
+  if (s === 'mineral' || s === 'vegetal' || s === 'animal') return s;
+  return null;
+}
+
+function mapRowNatureType(row: Record<string, unknown>): NatureType | null {
+  const v = row.nature_type;
+  if (v == null || v === '') return null;
+  const s = String(v);
+  if (s === 'element' || s === 'compose' || s === 'materiau') return s;
+  return null;
+}
+
 /** Colonnes minimales pour le graphe /explore (pas de textes longs). */
 export const GRAPH_NODES_SELECT =
-  'id, name, name_en, category, type, era, year_approx, image_url, complexity_depth, dimension, material_level, natural_origin, chemical_nature';
+  'id, name, name_en, category, type, era, year_approx, image_url, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type';
 
 /** Même projection sans `natural_origin` / `chemical_nature` (bases non migrées). */
 export const GRAPH_NODES_SELECT_LEGACY =
@@ -52,7 +70,7 @@ export const GRAPH_NODES_SELECT_LEGACY =
 
 /** Liste admin / API `?full=1` — avec colonnes nature. */
 export const FULL_NODES_SELECT =
-  'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, natural_origin, chemical_nature';
+  'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type';
 
 export const FULL_NODES_SELECT_LEGACY =
   'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level';
@@ -128,6 +146,8 @@ export function mapGraphNodeRowToSeedNode(row: Record<string, unknown>): SeedNod
     materialLevel: mapRowMaterialLevel(row),
     naturalOrigin: mapRowNaturalOrigin(row),
     chemicalNature: mapRowChemicalNature(row),
+    origin_type: mapRowOriginType(row),
+    nature_type: mapRowNatureType(row),
   };
 }
 
@@ -156,6 +176,8 @@ export function mapNodeRowToSeedNode(row: Record<string, unknown>): SeedNode {
     materialLevel: mapRowMaterialLevel(row),
     naturalOrigin: mapRowNaturalOrigin(row),
     chemicalNature: mapRowChemicalNature(row),
+    origin_type: mapRowOriginType(row),
+    nature_type: mapRowNatureType(row),
   };
 }
 

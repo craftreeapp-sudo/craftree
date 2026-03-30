@@ -16,6 +16,7 @@ import { useTranslations } from 'next-intl';
 import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 import { useGraphStore } from '@/stores/graph-store';
+import { useUIStore } from '@/stores/ui-store';
 import { ExploreCardProvider, useExploreCard } from '@/components/explore/explore-card-context';
 import { ExploreDetailPanel } from '@/components/explore/DetailPanel';
 import { ExploreHoverPopup } from '@/components/explore/HoverPopup';
@@ -143,14 +144,22 @@ function BuiltUponViewInner({
   const t = useTranslations('explore');
   const searchParams = useSearchParams();
   const { navigateToNode } = useExploreNavigation();
-  const { openDetail, openLegend, detailNodeId, legendOpen, isMobile } =
+  const { openDetail, closeDetail, openLegend, detailNodeId, legendOpen, isMobile } =
     useExploreCard();
   const detailOpen = detailNodeId !== null;
   const exploreScrollRef = useRef<HTMLDivElement | null>(null);
+  const exploreDetailDismissNonce = useUIStore((s) => s.exploreDetailDismissNonce);
+  const dismissNonceSyncRef = useRef(exploreDetailDismissNonce);
 
   useEffect(() => {
     openDetail(focusId);
   }, [focusId, openDetail]);
+
+  useEffect(() => {
+    if (exploreDetailDismissNonce === dismissNonceSyncRef.current) return;
+    dismissNonceSyncRef.current = exploreDetailDismissNonce;
+    closeDetail();
+  }, [exploreDetailDismissNonce, closeDetail]);
 
   const nodes = useGraphStore((s) => s.nodes);
   const edges = useGraphStore((s) => s.edges);
@@ -183,10 +192,7 @@ function BuiltUponViewInner({
 
   const goTo = useCallback(
     (id: string) => {
-      navigateToNode(id, {
-        center: false,
-        openSidebar: false,
-      });
+      navigateToNode(id, { center: false });
     },
     [navigateToNode]
   );

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { getCategoryColor } from '@/lib/colors';
 import {
@@ -100,6 +101,9 @@ export function EditorPageClient() {
   const tc = useTranslations('common');
 
   const { isAdmin, isLoading: authLoading } = useAuthStore();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const openedEditFromUrl = useRef(false);
 
   const updateNode = useGraphStore((s) => s.updateNode);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
@@ -284,6 +288,19 @@ export function EditorPageClient() {
     setForm(seedNodeToFormState(n));
     setPanelOpen(true);
   };
+
+  useEffect(() => {
+    if (loading || openedEditFromUrl.current) return;
+    const raw = searchParams.get('edit');
+    if (!raw) return;
+    const n = nodes.find((x) => x.id === raw);
+    if (!n) return;
+    openedEditFromUrl.current = true;
+    setEditingId(n.id);
+    setForm(seedNodeToFormState(n));
+    setPanelOpen(true);
+    router.replace('/editor', { scroll: false });
+  }, [loading, nodes, searchParams, router]);
 
   const saveNode = async () => {
     const body = {

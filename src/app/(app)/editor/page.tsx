@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { EditorPageClient } from '@/components/editor/EditorPageClient';
 
 export const metadata: Metadata = {
@@ -7,5 +8,15 @@ export const metadata: Metadata = {
 };
 
 export default function EditorPage() {
-  return <EditorPageClient />;
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-[50dvh] items-center justify-center pt-14 text-muted-foreground">
+          …
+        </div>
+      }
+    >
+      <EditorPageClient />
+    </Suspense>
+  );
 }

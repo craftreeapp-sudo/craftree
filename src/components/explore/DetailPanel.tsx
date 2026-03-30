@@ -1,12 +1,12 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { useGraphStore, getNodeDetails } from '@/stores/graph-store';
 import { useNodeDetailsStore } from '@/stores/node-details-store';
-import { useUIStore } from '@/stores/ui-store';
 import { useAuthStore } from '@/stores/auth-store';
 import { useToastStore } from '@/stores/toast-store';
 import { useExploreCardOptional } from '@/components/explore/explore-card-context';
@@ -22,6 +22,10 @@ import type { NodeCategory, TechNodeDetails } from '@/lib/types';
 import { SuggestNodeCorrectionPanel } from '@/components/ui/SuggestNodeCorrectionPanel';
 import { safeCategoryLabel } from '@/lib/safe-category-label';
 import { getTagDisplayLabel } from '@/lib/tag-display';
+import {
+  natureTypeToExploreKey,
+  originTypeToExploreKey,
+} from '@/lib/explore-classification-badges';
 import {
   ExploreLedToRow,
   ExploreRecipeRow,
@@ -62,7 +66,7 @@ export function ExploreDetailPanel() {
   const detailsById = useNodeDetailsStore((s) => s.byId);
   const { isAdmin } = useAuthStore();
   const pushToast = useToastStore((s) => s.pushToast);
-  const selectNode = useUIStore((s) => s.selectNode);
+  const router = useRouter();
 
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
@@ -123,12 +127,8 @@ export function ExploreDetailPanel() {
 
   const enterEdit = useCallback(() => {
     if (!node) return;
-    selectNode(node.id, {
-      openSidebar: true,
-      openEdit: true,
-      center: false,
-    });
-  }, [node, selectNode]);
+    router.push(`/editor?edit=${encodeURIComponent(node.id)}`);
+  }, [node, router]);
 
   const displayName = useMemo(() => {
     if (!node) return '';
@@ -346,6 +346,16 @@ export function ExploreDetailPanel() {
           <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
             {natureLine}
           </span>
+          {node.origin_type ? (
+            <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
+              {tExplore(originTypeToExploreKey(node.origin_type))}
+            </span>
+          ) : null}
+          {node.nature_type ? (
+            <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
+              {tExplore(natureTypeToExploreKey(node.nature_type))}
+            </span>
+          ) : null}
         </div>
 
         {/* 3. Tags */}

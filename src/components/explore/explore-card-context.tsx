@@ -5,9 +5,13 @@ import {
   useCallback,
   useContext,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from 'react';
+
+/** Délai après sortie carte/popup avant fermeture (permet d’atteindre le portail). */
+export const HOVER_LEAVE_DELAY_MS = 220;
 
 export type ExploreHoverPreview = {
   nodeId: string;
@@ -32,6 +36,10 @@ export type ExploreCardContextValue = {
   closeLegend: () => void;
   hoverPreview: ExploreHoverPreview | null;
   setHoverPreview: (v: ExploreHoverPreview | null) => void;
+  /** Annule une fermeture différée (ex. entrée dans la popover ou autre carte). */
+  cancelHoverClose: () => void;
+  /** Ferme le survol après un court délai (sortie carte ou popover). */
+  requestHoverClose: () => void;
   suppressHover: boolean;
   isMobile: boolean;
 };
@@ -52,6 +60,22 @@ export function ExploreCardProvider({
   const [hoverPreview, setHoverPreview] = useState<ExploreHoverPreview | null>(
     null
   );
+  const hoverLeaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const cancelHoverClose = useCallback(() => {
+    if (hoverLeaveTimerRef.current) {
+      clearTimeout(hoverLeaveTimerRef.current);
+      hoverLeaveTimerRef.current = null;
+    }
+  }, []);
+
+  const requestHoverClose = useCallback(() => {
+    cancelHoverClose();
+    hoverLeaveTimerRef.current = setTimeout(() => {
+      hoverLeaveTimerRef.current = null;
+      setHoverPreview(null);
+    }, HOVER_LEAVE_DELAY_MS);
+  }, [cancelHoverClose]);
 
   const closeLegend = useCallback(() => {
     setLegendOpen(false);
@@ -59,15 +83,20 @@ export function ExploreCardProvider({
 
   const openLegend = useCallback(() => {
     setLegendOpen(true);
+    cancelHoverClose();
     setHoverPreview(null);
-  }, []);
+  }, [cancelHoverClose]);
 
-  const openDetail = useCallback((id: string) => {
-    setDetailNodeId(id);
-    setDetailSubview('detail');
-    setLegendOpen(false);
-    setHoverPreview(null);
-  }, []);
+  const openDetail = useCallback(
+    (id: string) => {
+      cancelHoverClose();
+      setDetailNodeId(id);
+      setDetailSubview('detail');
+      setLegendOpen(false);
+      setHoverPreview(null);
+    },
+    [cancelHoverClose]
+  );
 
   const closeDetail = useCallback(() => {
     setDetailNodeId(null);
@@ -97,6 +126,8 @@ export function ExploreCardProvider({
       closeLegend,
       hoverPreview,
       setHoverPreview,
+      cancelHoverClose,
+      requestHoverClose,
       suppressHover,
       isMobile,
     }),
@@ -111,6 +142,8 @@ export function ExploreCardProvider({
       openLegend,
       closeLegend,
       hoverPreview,
+      cancelHoverClose,
+      requestHoverClose,
       suppressHover,
       isMobile,
     ]

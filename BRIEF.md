@@ -1,34 +1,36 @@
-# BRIEF PROJET — CivTree : L'Arbre de Fabrication de la Civilisation
+# BRIEF PROJET — Craftree : De quoi est faite la civilisation ?
+
+> **Repo** : https://github.com/craftreeapp-sudo/craftree
+> **Site** : https://craftree.app
+> **Twitter** : @Craftree_app
+> **Email** : craftree.app@gmail.com
+
+---
 
 ## 1. Vision du projet
 
 ### Concept fondamental
 
-CivTree est une application web interactive qui modélise **l'intégralité des technologies humaines sous forme d'un graphe de recettes de fabrication**. Contrairement aux arbres technologiques classiques (type Civilization ou Historical Tech Tree) qui montrent des liens d'inspiration ou de chronologie, CivTree représente les **intrants matériels** nécessaires à la production de chaque technologie.
+Craftree est une application web interactive qui modélise **les technologies humaines sous forme de recettes de fabrication**. Chaque invention est décomposée en ses intrants : les matières qui la composent, les procédés de transformation, et les outils nécessaires — récursivement jusqu'aux matières premières brutes trouvées dans la nature.
 
-**Principe clé** : chaque nœud est une technologie ou une ressource. Chaque lien signifie « est un intrant nécessaire à la fabrication de ». Le graphe est récursif : on peut remonter de n'importe quelle technologie moderne jusqu'aux matières premières brutes.
+**Question centrale** : « Que faut-il pour fabriquer X ? »
 
-### Exemples fondateurs
+**Principe** : chaque carte est une invention ou une ressource. Chaque lien signifie « est nécessaire à la fabrication de ». On peut remonter de n'importe quelle technologie moderne (smartphone, voiture, panneau solaire) jusqu'au sable, au minerai et à l'eau.
+
+### Exemples
 
 ```
-Pot en terre cuite = Argile + Feu
-Eau bouillante = Pot en terre cuite + Feu + Eau
-Brique = Argile + Feu + Moule
-Four = Briques + Feu + Pierre
-Verre = Sable (silice) + Four + Soude
-Acier = Minerai de fer + Charbon + Four à haute température
-Circuit imprimé = Cuivre + Fibre de verre + Résine époxy + Acide (gravure) + Photolithographie
+Pain = Farine + Eau + Levure + Four
+Farine = Blé + Moulin
+Acier = Minerai de fer + Charbon + Haut fourneau
+Smartphone = Processeur + Écran + Batterie + Assemblage + Usine
+Processeur = Silicium + Photolithographie + Salle blanche
+Silicium = Sable (silice) + Raffinage
 ```
 
-### Différenciation
+### Analogie
 
-| Aspect | Historical Tech Tree | CivTree |
-|--------|---------------------|---------|
-| Type de lien | Inspiration / héritage historique | Intrant matériel de fabrication |
-| Question posée | « Qu'est-ce qui a mené à X ? » | « De quoi a-t-on besoin pour fabriquer X ? » |
-| Direction | Chronologique | Récursive (décomposition) |
-| Feuilles du graphe | Premières inventions | Matières premières naturelles |
-| Analogie | Arbre généalogique des idées | Recette de cuisine civilisationnelle |
+Craftree est une **encyclopédie du faire** — comme Wikipedia répond à « Qu'est-ce que c'est ? », Craftree répond à « Comment c'est fait ? ».
 
 ---
 
@@ -36,568 +38,414 @@ Circuit imprimé = Cuivre + Fibre de verre + Résine époxy + Acide (gravure) + 
 
 ### 2.1 Modèle de données
 
-#### Nœuds (technologies / ressources)
+#### Inventions (table `nodes`)
 
 ```typescript
 interface TechNode {
   id: string;                    // Identifiant unique (slug)
-  name: string;                  // Nom affiché
-  name_en: string;               // Nom anglais (pour internationalisation future)
-  description: string;           // Description courte (1-2 phrases)
-  category: NodeCategory;        // Catégorie principale
-  type: 'raw_material' | 'process' | 'tool' | 'component' | 'end_product';
-  era: Era;                      // Époque approximative d'apparition
-  year_approx?: number;          // Année approximative (négatif = avant JC)
-  complexity_depth: number;       // Profondeur max de l'arbre de dépendances (calculé)
-  image_url?: string;            // Illustration
+  name: string;                  // Nom affiché (FR par défaut)
+  name_en: string;               // Nom anglais
+  description: string;           // Description courte (texte brut, pas de HTML)
+  description_en: string;        // Description anglaise
+  category: string;              // Catégorie principale (energy, electronics, material, etc.)
+  type: string;                  // Type hérité (raw_material, material, process, tool, component)
+  dimension: 'matter' | 'process' | 'tool' | null;
+  materialLevel: 'raw' | 'processed' | 'industrial' | 'component' | null;
+  origin_type: 'mineral' | 'vegetal' | 'animal' | null;
+  nature_type: 'element' | 'compose' | 'materiau' | null;
+  era: string;                   // Époque
+  year_approx?: number;          // Année approximative (clamped entre -10000 et 2030)
+  origin?: string;               // Pays / inventeur
+  image_url?: string;            // URL image Wikimedia Commons (jamais locale)
   wikipedia_url?: string;        // Lien Wikipedia
-  tags: string[];                // Tags libres pour recherche
+  tags: string[];                // Tags pour recherche et classification
+  complexity_depth: number;      // Nombre total de cartes requises en amont (calculé)
 }
 ```
 
-#### Catégories de nœuds
+#### Les 3 dimensions
 
-```typescript
-enum NodeCategory {
-  // Matières premières naturelles
-  MINERAL = 'mineral',           // Fer, cuivre, silice, argile...
-  VEGETAL = 'vegetal',           // Bois, coton, caoutchouc...
-  ANIMAL = 'animal',            // Cuir, laine, os...
-  ELEMENT = 'element',          // Eau, feu, air...
-  ENERGY = 'energy',            // Charbon, pétrole, uranium, électricité...
+| Dimension | Question | Exemples |
+|-----------|----------|----------|
+| **matter** | De quoi c'est fait ? | Sable, cuivre, acier, batterie, processeur |
+| **process** | Comment on transforme ? | Fusion, raffinage, assemblage, forgeage |
+| **tool** | Avec quoi on transforme ? | Haut fourneau, machine CNC, usine |
 
-  // Technologies
-  MATERIAL = 'material',        // Acier, verre, plastique, béton...
-  TOOL = 'tool',                // Marteau, tour, presse, laser...
-  PROCESS = 'process',          // Fonderie, distillation, fermentation...
-  MACHINE = 'machine',          // Moteur, pompe, générateur...
-  ELECTRONICS = 'electronics',  // Transistor, circuit imprimé, processeur...
-  CHEMISTRY = 'chemistry',      // Acide, engrais, médicament...
-  CONSTRUCTION = 'construction', // Brique, poutre, pont...
-  TRANSPORT = 'transport',      // Roue, bateau, avion...
-  COMMUNICATION = 'communication', // Papier, imprimerie, internet...
-  FOOD = 'food',                // Pain, fromage, conserve...
-  TEXTILE = 'textile',          // Tissu, teinture, fil...
-  MEDICAL = 'medical',          // Vaccin, antibiotique, prothèse...
-  WEAPON = 'weapon',            // Épée, poudre à canon, missile...
-  OPTICAL = 'optical',          // Lentille, microscope, fibre optique...
-  SOFTWARE = 'software',        // Algorithme, OS, IA...
-}
-```
+#### Les 4 niveaux de matière (uniquement pour dimension = 'matter')
 
-#### Époques
+| Niveau | Description | Test | Exemples |
+|--------|-------------|------|----------|
+| **raw** | Extrait de la nature, aucune transformation | On le trouve tel quel | Minerai de fer, sable, pétrole brut, bois |
+| **processed** | Nouvelle substance créée par transformation | On le mesure au poids/volume | Acier, silicium, plastique, farine |
+| **industrial** | Matériau mis en forme pour un usage | Même substance, mais préparée | Fil de cuivre, tôle d'acier, verre trempé |
+| **component** | Pièce fonctionnelle autonome | On le compte en unités | Batterie, processeur, moteur, écran |
 
-```typescript
-enum Era {
-  PREHISTORIC = 'prehistoric',   // Avant -3000
-  ANCIENT = 'ancient',           // -3000 à 500
-  MEDIEVAL = 'medieval',         // 500 à 1500
-  RENAISSANCE = 'renaissance',   // 1500 à 1750
-  INDUSTRIAL = 'industrial',     // 1750 à 1900
-  MODERN = 'modern',             // 1900 à 1970
-  DIGITAL = 'digital',           // 1970 à 2010
-  CONTEMPORARY = 'contemporary', // 2010+
-}
-```
+**Règle de classement** : si on le mesure (kg, litres) → matière (raw/processed/industrial). Si on le compte (1, 2, 3 unités) → component. Les cas ambigus sont gérés par la communauté via les suggestions.
 
-#### Liens (recettes de fabrication)
+#### Origine naturelle (origin_type) — D'où ça vient dans la nature
+
+Applicable principalement aux matières (dimension = 'matter'). Null si non applicable.
+
+| Origine | Description | Exemples |
+|---------|-------------|----------|
+| **mineral** | Provient du sol, des roches, du sous-sol. Non vivant. | Pierre, sable, minerais, sel, argile, pétrole, charbon |
+| **vegetal** | Provient des plantes. Vivant ou issu du vivant. | Bois, coton, caoutchouc naturel, lin, résine |
+| **animal** | Provient des animaux. Vivant ou issu du vivant. | Cuir, laine, soie, os, lait, cire d'abeille |
+
+#### Nature chimique/physique (nature_type) — Ce que c'est physiquement
+
+Applicable principalement aux matières (dimension = 'matter'). Null si non applicable.
+
+| Nature | Description | Test | Exemples |
+|--------|-------------|------|----------|
+| **element** | Substance pure, un seul type d'atome | Dans le tableau périodique ? | Cuivre (Cu), fer (Fe), silicium (Si) |
+| **compose** | Combinaison chimique de plusieurs éléments | A une formule chimique ? | Eau (H₂O), sel (NaCl), sucre |
+| **materiau** | Mélange, alliage ou assemblage | Défini par ses propriétés d'usage ? | Acier, béton, verre, plastique, bois |
+
+#### Catégories
+
+energy, construction, weapon, network, food, transport, software, infrastructure, textile, communication, agriculture, robotics, chemistry, electronics, environment, automation, medical, optical, storage, aeronautics, space, industry, nanotechnology, biotechnology, security, home_automation
+
+#### Liens (table `links`)
 
 ```typescript
 interface CraftingLink {
   id: string;
   source_id: string;             // ID de l'intrant
   target_id: string;             // ID du produit
-  relation_type: RelationType;
-  is_optional: boolean;          // Intrant optionnel ou substitut ?
-  notes?: string;                // Précision sur le rôle de l'intrant
-}
-
-enum RelationType {
-  MATERIAL = 'material',         // Matière première consommée
-  TOOL = 'tool',                 // Outil nécessaire (non consommé)
-  ENERGY = 'energy',             // Source d'énergie nécessaire
-  KNOWLEDGE = 'knowledge',       // Connaissance/procédé prérequis
-  CATALYST = 'catalyst',         // Catalyseur (facilite mais non strictement requis)
+  relation_type: string;         // material, tool, energy, knowledge, catalyst
+  is_optional: boolean;
+  notes?: string;
 }
 ```
 
-#### Recettes (regroupement des liens)
+### 2.2 Base de données
 
-```typescript
-interface Recipe {
-  id: string;
-  output_id: string;             // Technologie produite
-  variant_name?: string;         // "Méthode traditionnelle", "Procédé Bessemer", etc.
-  inputs: CraftingLink[];        // Liste des intrants
-  era: Era;                      // Époque de cette méthode spécifique
-  is_primary: boolean;           // Recette principale vs alternative
-}
-```
+- **Backend** : Supabase (PostgreSQL) — les données sont modifiables sans commits git
+- **Données seed** : fichier `src/data/seed-data.json` (backup local) + Supabase (source de vérité)
+- **Peuplement IA** : script `scripts/populate.mjs` utilisant l'API Claude — écrit dans seed-data.json ET directement dans Supabase
+- **Schéma SQL** : `supabase/schema.sql`
+- **Images** : URLs Wikimedia Commons stockées dans `image_url` (jamais de fichiers locaux)
 
-> **Point clé** : une même technologie peut avoir PLUSIEURS recettes (le verre peut être fait avec du sable + soude + four, ou sable + potasse + four). Les recettes alternatives sont un aspect fondamental du modèle.
+### 2.3 Contraintes SQL importantes
 
-### 2.2 Données initiales (seed)
-
-Le jeu de données initial doit couvrir au minimum **150-200 nœuds** et **300-400 liens** pour être explorable et démonstratif. Organiser le seed autour de « chaînes de fabrication » complètes :
-
-**Chaîne 1 — De la terre à l'électronique** :
-Sable → Silicium → Wafer → Transistor → Circuit intégré → Microprocesseur
-
-**Chaîne 2 — De la mine au gratte-ciel** :
-Minerai de fer → Fer → Acier → Poutre en acier → Structure métallique
-Calcaire + Argile → Ciment → Béton → Fondations
-
-**Chaîne 3 — De la nature à la pharmacie** :
-Plantes médicinales → Extraits → Principes actifs → Médicaments
-Pétrole → Chimie organique → Polymères → Gélules
-
-**Chaîne 4 — De l'arbre au livre (puis à internet)** :
-Bois → Pâte à papier → Papier → Imprimerie → Livre
-Cuivre → Fil de cuivre → Câble → Télégraphe → Téléphone → Internet
-
-**Chaîne 5 — De la graine à la table** :
-Blé + Eau + Levure + Four → Pain
-Lait + Présure + Sel → Fromage
-Raisin + Levure + Tonneau → Vin
-
-Le fichier seed sera un JSON structuré (`seed-data.json`) importé au lancement.
-
-### 2.3 Base de données
-
-- **Stockage** : fichier JSON local pour le MVP, avec migration vers Supabase (PostgreSQL) ou Firebase prévue
-- **Format d'export/import** : JSON
-- Le modèle doit supporter les contributions communautaires à terme (suggestions de nœuds et liens)
-
----
-
-## 3. Fonctionnalités
-
-### 3.1 MVP (v1)
-
-#### Visualisation du graphe
-- **Vue graphe interactive** : affichage du réseau de nœuds et liens avec pan, zoom, et drag
-- Les nœuds sont colorés par catégorie (palette cohérente)
-- Les liens sont stylisés par type de relation (trait plein pour matériau, pointillé pour outil, ondulé pour énergie, etc.)
-- Cliquer sur un nœud ouvre un **panneau de détail** latéral (nom, description, image, recette complète, époque)
-- **Vue « explosion »** : depuis n'importe quel nœud, afficher l'arbre complet de ses dépendances récursives (type arbre inversé), jusqu'aux matières premières. C'est LA fonctionnalité signature.
-
-#### Navigation
-- **Barre de recherche** globale avec autocomplétion (recherche par nom, catégorie, tag)
-- **Filtres** : par catégorie, par époque, par type de nœud, par profondeur de complexité
-- **Mode timeline** : axe horizontal = époques, montrant l'apparition progressive des technologies
-- **Mode catégorie** : regroupement visuel par domaine technologique
-
-#### Interactions sur le graphe
-- Survoler un nœud = mise en surbrillance de tous ses intrants directs et de tous les produits qui l'utilisent
-- Double-clic = centrer la vue et afficher les N niveaux de voisinage
-- Clic droit ou bouton = « Explorer les dépendances » (vue explosion)
-- Possibilité de « verrouiller » des nœuds en place pour comparer
-
-#### Panneau de détail (sidebar)
-- Nom + icône de catégorie
-- Description (1-3 phrases)
-- Image illustrative
-- **Recette de fabrication** : liste des intrants avec leur type de relation, sous forme visuelle (petites icônes connectées)
-- **Recettes alternatives** si elles existent (onglets)
-- **Utilisé dans** : liste des technologies qui utilisent ce nœud comme intrant
-- **Profondeur** : nombre de niveaux jusqu'aux matières premières
-- Lien Wikipedia
-- Époque d'apparition
-
-### 3.2 Fonctionnalités futures (v2+)
-
-- **Contributions communautaires** : formulaire pour suggérer de nouveaux nœuds/liens (modération)
-- **Mode quiz/jeu** : « De combien de matières premières a-t-on besoin pour fabriquer un smartphone ? » — l'utilisateur explore et découvre
-- **Statistiques** : technologies avec le plus de dépendances, matières premières les plus utilisées, « hub » les plus critiques
-- **Comparaison** : mettre deux technologies côte à côte et voir leurs arbres de dépendances se superposer
-- **Mode « survie »** : si tu es seul sur une île avec [X ressources], que peux-tu fabriquer ?
-- **API publique** : accès aux données du graphe
-- **Multi-langue** : FR / EN
-
----
-
-## 4. Stack technique recommandée
-
-### Frontend
-- **Framework** : Next.js 14+ (App Router) avec TypeScript
-- **Visualisation du graphe** : **React Flow** (https://reactflow.dev) — parfait pour les graphes interactifs avec nœuds custom, très bien documenté, performant. Alternative : D3.js pour plus de contrôle bas niveau, mais React Flow est plus adapté au cas d'usage.
-- **Styling** : Tailwind CSS 4
-- **Animations** : Framer Motion pour les transitions UI
-- **State management** : Zustand (léger, adapté)
-- **Recherche** : Fuse.js (recherche fuzzy côté client pour le MVP)
-
-### Backend (v2)
-- **BaaS** : Supabase (PostgreSQL + Auth + Realtime)
-- **ORM** : Prisma ou Drizzle
-- **Hébergement** : Vercel
-
-### Outils de dev
-- **Linter** : ESLint + Prettier
-- **Tests** : Vitest
-
----
-
-## 5. Design & Direction artistique
-
-### 5.1 Identité visuelle
-
-**Nom** : CivTree (ou « TechCraft », « CivGraph », « ForgePath » — à valider)
-
-**Mood** : Interface sombre et immersive, entre un tableau de bord scientifique et un jeu de stratégie. Inspirations visuelles : Factorio (esthétique industrielle), l'interface de Notion (propreté), les dashboards de données spatiales (NASA/SpaceX).
-
-**Pas de** : esthétique « corporate » fade, ni look jeu vidéo cartoon. On cherche un équilibre entre sérieux intellectuel et plaisir d'exploration.
-
-### 5.2 Palette de couleurs
-
-```
-Fond principal :         #0A0E17 (noir bleuté profond)
-Fond secondaire :        #111827 (gris très foncé)
-Fond cartes/panels :     #1A1F2E (gris bleuté)
-Bordures subtiles :      #2A3042
-Texte principal :        #E8ECF4 (blanc cassé)
-Texte secondaire :       #8B95A8 (gris clair)
-Accent primaire :        #3B82F6 (bleu vif)
-Accent secondaire :      #10B981 (vert émeraude)
-Accent tertiaire :       #F59E0B (ambre/or)
-Danger / énergie :       #EF4444 (rouge)
-```
-
-### 5.3 Couleurs des catégories de nœuds
-
-Chaque catégorie a une couleur distincte pour identification immédiate sur le graphe :
-
-```
-MINERAL      → #94A3B8 (gris acier)
-VEGETAL      → #22C55E (vert vif)
-ANIMAL       → #F97316 (orange)
-ELEMENT      → #06B6D4 (cyan)
-ENERGY       → #EF4444 (rouge)
-MATERIAL     → #6366F1 (indigo)
-TOOL         → #A78BFA (violet clair)
-PROCESS      → #EC4899 (rose)
-MACHINE      → #8B5CF6 (violet)
-ELECTRONICS  → #3B82F6 (bleu)
-CHEMISTRY    → #14B8A6 (teal)
-CONSTRUCTION → #78716C (stone)
-TRANSPORT    → #F59E0B (ambre)
-COMMUNICATION→ #06B6D4 (cyan)
-FOOD         → #84CC16 (lime)
-TEXTILE      → #E879F9 (fuchsia)
-MEDICAL      → #F43F5E (rose-rouge)
-WEAPON       → #DC2626 (rouge foncé)
-OPTICAL      → #38BDF8 (sky)
-SOFTWARE     → #818CF8 (bleu-violet)
-```
-
-### 5.4 Apparence des nœuds sur le graphe
-
-- **Forme** : rectangles arrondis (border-radius: 12px) avec un bandeau coloré à gauche indiquant la catégorie
-- **Taille** : proportionnelle à la « centralité » du nœud (combien de liens entrants + sortants)
-- **Contenu visible** : icône de catégorie + nom
-- **État hover** : glow subtil de la couleur de catégorie, affichage d'un tooltip avec description courte
-- **État sélectionné** : bordure lumineuse, ombre portée colorée
-- **Nœuds « matière première »** (feuilles) : forme légèrement différente (coins plus arrondis ou hexagonale) pour les distinguer visuellement
-- **Nœuds « produit final »** : badge ou icône spéciale (étoile, diamant)
-
-### 5.5 Apparence des liens
-
-- **Matériau (MATERIAL)** : trait plein, épaisseur 2px, couleur de la catégorie source avec opacité 0.6
-- **Outil (TOOL)** : trait pointillé, couleur violet clair
-- **Énergie (ENERGY)** : trait ondulé ou dashes larges, couleur rouge/ambre
-- **Connaissance (KNOWLEDGE)** : trait fin pointillé, couleur bleu clair
-- **Catalyseur (CATALYST)** : trait très fin semi-transparent
-- **Animation** : les liens « pulsent » subtilement quand un chemin est sélectionné (particules qui suivent le lien, comme un flux de matière)
-
-### 5.6 Typographie
-
-- **Titres** : Inter ou Space Grotesk (bold, géométrique, moderne)
-- **Corps** : Inter (lisible, propre)
-- **Mono (données techniques)** : JetBrains Mono ou Fira Code
-- **Tailles** : Hiérarchie claire avec titre graphe (24px), noms de nœuds (13-16px selon importance), descriptions (14px), metadata (12px)
-
-### 5.7 Layout global
-
-```
-┌─────────────────────────────────────────────────────┐
-│  HEADER : Logo + Recherche + Filtres + Mode vue     │
-├──────────────────────────────────────┬──────────────┤
-│                                      │              │
-│                                      │   SIDEBAR    │
-│           ZONE GRAPHE                │   DÉTAIL     │
-│        (plein écran)                 │   (320px)    │
-│                                      │              │
-│                                      │  - Nom       │
-│                                      │  - Recette   │
-│                                      │  - Image     │
-│                                      │  - Liens     │
-│                                      │              │
-├──────────────────────────────────────┴──────────────┤
-│  BARRE INFÉRIEURE : Mini-map + Contrôles zoom       │
-│  + Statistiques (nb nœuds affichés, profondeur...)  │
-└─────────────────────────────────────────────────────┘
-```
-
-- Le graphe occupe la majeure partie de l'écran (immersif)
-- La sidebar se déploie/rétracte à droite au clic sur un nœud
-- Le header est compact (50-60px), semi-transparent avec blur backdrop
-- La mini-map en bas à gauche (comme dans un éditeur de code ou un jeu de stratégie)
-- Mode plein écran disponible (masque le header)
-
-### 5.8 Animations et micro-interactions
-
-- **Ouverture du graphe** : les nœuds apparaissent progressivement depuis le centre (effet de propagation)
-- **Sélection d'un nœud** : les nœuds non connectés se grisent, les nœuds liés se rapprochent légèrement
-- **Vue explosion** : animation d'arbre qui se « déplie » niveau par niveau, avec un léger délai entre chaque couche
-- **Transition entre modes** (graphe → timeline) : morphing fluide des positions
-- **Liens actifs** : particules lumineuses qui circulent le long des liens sélectionnés (direction = flux de matière vers le produit)
-- **Chargement** : animation de « forge » ou de « crafting » (icône qui s'assemble)
-- **Hover sur les catégories** (filtres) : aperçu instantané en surbrillance sur le graphe
-
-### 5.9 Responsive
-
-- **Desktop** (>1280px) : expérience complète avec sidebar
-- **Tablette** (768-1280px) : sidebar en overlay, graphe plein écran
-- **Mobile** (< 768px) : vue liste/arbre verticale au lieu du graphe 2D libre. Le graphe 2D interactif n'est pas adapté au tactile petit écran. Proposer une vue « exploration séquentielle » : on tape une techno, on voit sa recette, on peut taper sur chaque intrant pour descendre d'un niveau.
-
----
-
-## 6. Pages et routes
-
-```
-/                        → Page d'accueil avec graphe par défaut (vue d'ensemble)
-/explore                 → Graphe interactif complet
-/explore?node=acier      → Graphe centré sur un nœud spécifique
-/tree/[id]               → Vue explosion d'une technologie (arbre de dépendances dédié)
-/timeline                → Vue chronologique
-/categories              → Navigation par catégorie
-/stats                   → Statistiques et visualisations dérivées
-/about                   → À propos du projet, méthodologie, crédits
-/contribute              → Formulaire de contribution (v2)
+```sql
+-- dimension ne peut être que matter, process ou tool
+-- materialLevel ne peut être non-null QUE si dimension = 'matter'
+-- origin_type : mineral, vegetal, animal (ou null)
+-- nature_type : element, compose, materiau (ou null)
+-- year_approx : integer entre -10000 et 2030
 ```
 
 ---
 
-## 7. Page d'accueil (Landing)
+## 3. UX — Interface actuelle
 
-La page d'accueil doit immédiatement faire comprendre le concept et donner envie d'explorer.
+### 3.1 Page principale : vue invention unique scrollable
 
-### Structure
+La page principale est une **page unique scrollable** centrée sur une invention. Pas de graphe, pas de React Flow, pas de toggle entre deux vues séparées.
 
-1. **Hero section** : fond sombre avec un fragment animé du graphe en arrière-plan (quelques nœuds et liens qui pulsent doucement). Titre principal : **« De quoi est faite la civilisation ? »** — sous-titre : *« Explorez l'arbre complet des technologies humaines, de la matière première au produit final. »* — CTA : bouton « Explorer le graphe »
-
-2. **Démo interactive** : section avec un exemple interactif embarqué. Par défaut, montrer la chaîne « Sable → Verre → Ampoule → ... ». L'utilisateur peut cliquer et voir l'arbre se déployer. Cela sert de tutoriel implicite.
-
-3. **Chiffres clés** : « X technologies · Y recettes de fabrication · Z matières premières · Profondeur max : N niveaux »
-
-4. **Section « Comment ça marche »** : 3 colonnes avec icônes animées :
-   - 🔍 « Cherchez une technologie »
-   - 🌳 « Explorez ses dépendances »
-   - 🔗 « Découvrez les connexions »
-
-5. **Section « Fait marquant »** : une stat ou un fait contre-intuitif mis en avant chaque semaine (ex : « Un smartphone nécessite plus de 60 matières premières différentes » avec un lien vers l'arbre du smartphone)
-
-6. **Footer** : liens about, contribute, GitHub, crédits, contact
-
----
-
-## 8. Structure de fichiers
+#### Structure verticale de la page (de haut en bas) :
 
 ```
-civtree/
-├── public/
-│   ├── images/
-│   │   └── nodes/           # Illustrations des technologies
-│   ├── favicon.ico
-│   └── og-image.png
-├── src/
-│   ├── app/
-│   │   ├── layout.tsx
-│   │   ├── page.tsx         # Landing page
-│   │   ├── explore/
-│   │   │   └── page.tsx     # Graphe interactif principal
-│   │   ├── tree/
-│   │   │   └── [id]/
-│   │   │       └── page.tsx # Vue explosion
-│   │   ├── timeline/
-│   │   │   └── page.tsx
-│   │   ├── categories/
-│   │   │   └── page.tsx
-│   │   ├── stats/
-│   │   │   └── page.tsx
-│   │   └── about/
-│   │       └── page.tsx
-│   ├── components/
-│   │   ├── graph/
-│   │   │   ├── TechGraph.tsx         # Composant graphe principal (React Flow)
-│   │   │   ├── TechNode.tsx          # Nœud custom React Flow
-│   │   │   ├── TechEdge.tsx          # Lien custom React Flow
-│   │   │   ├── GraphControls.tsx     # Contrôles zoom/mode
-│   │   │   ├── MiniMap.tsx           # Mini-carte
-│   │   │   └── ExplosionTree.tsx     # Vue arbre de dépendances
-│   │   ├── ui/
-│   │   │   ├── SearchBar.tsx
-│   │   │   ├── FilterPanel.tsx
-│   │   │   ├── NodeDetailSidebar.tsx
-│   │   │   ├── RecipeCard.tsx
-│   │   │   ├── CategoryBadge.tsx
-│   │   │   ├── EraBadge.tsx
-│   │   │   ├── Tooltip.tsx
-│   │   │   └── StatsCard.tsx
-│   │   ├── layout/
-│   │   │   ├── Header.tsx
-│   │   │   ├── Footer.tsx
-│   │   │   └── Sidebar.tsx
-│   │   └── landing/
-│   │       ├── HeroSection.tsx
-│   │       ├── DemoGraph.tsx
-│   │       ├── HowItWorks.tsx
-│   │       └── FeaturedFact.tsx
-│   ├── data/
-│   │   └── seed-data.json            # Données initiales complètes
-│   ├── lib/
-│   │   ├── types.ts                  # Interfaces TypeScript
-│   │   ├── graph-utils.ts            # Algorithmes de graphe (BFS, profondeur, centralité)
-│   │   ├── search.ts                 # Configuration Fuse.js
-│   │   ├── colors.ts                 # Palette et mapping catégories → couleurs
-│   │   └── constants.ts
-│   ├── stores/
-│   │   ├── graph-store.ts            # Zustand : état du graphe
-│   │   └── ui-store.ts               # Zustand : état UI (sidebar, filtres, mode)
-│   └── styles/
-│       └── globals.css
-├── tailwind.config.ts
-├── tsconfig.json
-├── package.json
-└── README.md
+┌─────────────────────────────────────────────┐
+│ HEADER (sticky)                             │
+│ [How to read?]              [Built upon] [Led to] │
+├─────────────────────────────────────────────┤
+│                                             │
+│ ZONE "LED TO" (haut de page)                │
+│   Section TOOLS & MACHINES                  │
+│   Section PROCESS                           │
+│   Section MATTERS (4 sous-colonnes)         │
+│                                             │
+├ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┤
+│                                             │
+│         CARTE PRINCIPALE (centrée)          │
+│         "33 cards required upstream"        │
+│                                             │
+├ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┤
+│                                             │
+│ ZONE "BUILT UPON" (bas de page)             │
+│   Section MATTERS (4 sous-colonnes)         │
+│   Section PROCESS                           │
+│   Section TOOLS & MACHINES                  │
+│                                             │
+└─────────────────────────────────────────────┘
+```
+
+#### Comportement des boutons "Built upon" / "Led to"
+- **Fixes au scroll** (sticky dans le header)
+- Clic → **smooth scroll** vers la zone correspondante (navigation par ancre)
+- Le bouton actif est mis en **surbrillance** selon la zone visible (**IntersectionObserver**)
+- Au chargement, scroll automatique vers "Built upon" par défaut
+- Si l'URL contient `?view=led-to`, scroll vers "Led to"
+
+#### Carte d'invention (composant réutilisable)
+Chaque carte affiche :
+- Image (carrée, coins arrondis) ou placeholder avec initiale colorée
+- Nom de l'invention
+- Nombre de dépendances directes (badge chiffré)
+- Date
+- Catégorie principale (badge coloré)
+
+#### Interactions
+- **Clic sur une carte** → navigation : recharge la page avec cette carte comme principale
+- **Clic sur l'icône info** → ouvre le panneau de détails à droite (slide-in)
+- **Hover sur une carte** (desktop) → popup avec infos rapides (délai 300ms)
+
+### 3.2 Panneau de détails (latéral droit)
+
+Slide-in depuis la droite (~300-350px). Contient :
+- Nom de l'invention + numéro de complexité
+- Badges : catégorie, origin_type (Minéral/Végétal/Animal), nature_type (Élément/Composé/Matériau)
+- Tags
+- Image principale
+- Date
+- Origin (inventeur, pays)
+- Description
+- Bouton "Suggest a correction" (fond ambre)
+- Section "LED TO" avec liste cliquable des inventions permises
+- Section "BUILT UPON" avec liste cliquable des dépendances
+- Chaque élément dans les listes Led To / Built Upon a un bouton X pour suggérer la suppression du lien
+
+### 3.3 Panneau "How to read?" (latéral gauche)
+
+Slide-in depuis la gauche (~300px). Explique :
+- Les 3 dimensions (Matters, Process, Tools & Machines) avec exemples
+- Les origines naturelles (Minéral, Végétal, Animal) avec tableau
+- La nature chimique/physique (Élément, Composé, Matériau) avec tableau
+- Traduit via next-intl
+- Ne peut pas être ouvert en même temps que le panneau de détails
+
+### 3.4 Section MATTERS — Layout en grille
+
+```
+| Raw materials | Processed material | Industrial materials | Components |
+```
+- CSS Grid avec 4 colonnes de taille égale
+- Chaque carte se place dans la colonne correspondant à son `materialLevel`
+- Wrap vertical quand une colonne a beaucoup de cartes
+- Cette grille à 4 colonnes ne concerne QUE la dimension MATTERS
+
+### 3.5 Sections PROCESS et TOOLS & MACHINES
+
+- Flexbox wrap horizontal simple
+- Pas de sous-colonnes
+- Les cartes vont à la ligne automatiquement
+
+### 3.6 Landing page
+
+- Fond sombre, plein écran (100vh)
+- Titre central : "De quoi est faite la civilisation ?" / "What is civilization made of?"
+- Sous-titre explicatif
+- Barre de recherche avec autocomplétion + bouton "Explorer l'arbre"
+- Cartes d'inventions flottantes en arrière-plan (semi-transparentes, léger drift)
+- Pas de sections supplémentaires, pas de scroll
+
+### 3.7 Autres pages
+
+| Page | Route | Description |
+|------|-------|-------------|
+| Landing | `/[locale]` | Hero section plein écran avec recherche |
+| Invention | `/[locale]/tree/[slug]` | Page principale scrollable (Led To + carte + Built Upon) |
+| About | `/[locale]/about` | Présentation du projet, comment lire, niveaux de matière |
+| Admin | `/[locale]/admin` | Dashboard d'administration des suggestions |
+| Editor | `/[locale]/editor` | Table de toutes les inventions (admin only) avec colonnes Dimension, Level, Origin Type, Nature Type |
+| Profile | `/[locale]/profile` | Profil utilisateur, historique contributions, rang |
+
+---
+
+## 4. Stack technique
+
+| Couche | Technologie |
+|--------|------------|
+| Framework | Next.js (App Router) |
+| Styling | Tailwind CSS |
+| State | Zustand |
+| Recherche | Fuse.js (⌘K pour focus) |
+| Base de données | Supabase (PostgreSQL) |
+| Auth | Supabase Auth (Google OAuth) |
+| i18n | next-intl (FR, EN, ES, AR, HI, ZH) |
+| IA peuplement | API Anthropic Claude (Sonnet) + web search |
+| Images | API Wikimedia Commons (gratuit, pas de tokens) |
+| Déploiement | Vercel (auto-deploy depuis GitHub) |
+| Domaine | craftree.app (Namecheap) |
+| Monétisation (futur) | Buy Me a Coffee (buymeacoffee.com/craftree) |
+
+---
+
+## 5. Scripts
+
+### Pipeline principal
+
+```bash
+# Remplir la base de données (Claude API → seed-data.json + Supabase)
+npm run populate                          # Mode normal : nouvelles inventions
+npm run populate:expand                   # Mode expand : enrichir fiches existantes incomplètes
+npm run populate:deep                     # Mode deep : expand + dépendances profondes
+node scripts/populate.mjs --no-cascade    # Désactive l'effet boule de neige (économie tokens)
+node scripts/populate.mjs --test Cuivre   # Test sur une seule invention
+
+# Images (gratuit, pas de Claude)
+npm run fix:images                        # Comble les images manquantes via Wikimedia
+```
+
+### Scripts disponibles
+
+| Script npm | Fichier | Rôle | Coût |
+|-----------|---------|------|------|
+| `populate` | `scripts/populate.mjs` | Peuplement IA (Claude + web search) → seed-data.json + Supabase | ~0.03$/invention |
+| `populate:expand` | même + `--expand` | Enrichit fiches existantes incomplètes | ~0.03$/fiche |
+| `populate:deep` | même + `--deep` | Expand + dépendances profondes | ~0.03$/fiche |
+| `fix:images` | `scripts/fix-images.mjs` | Images Wikimedia → Supabase | Gratuit |
+| `split-data` | `scripts/split-seed-data.mjs` | Découpe seed-data.json pour le bundle | Gratuit |
+| `generate:tag-labels` | `scripts/build-tag-labels-en.mjs` | Traductions FR→EN des tags | Gratuit |
+| `generate:og` | `scripts/generate-og.mjs` | Image Open Graph par défaut | Gratuit |
+| `cleanup:analytics` | `scripts/cleanup-analytics.mjs` | Purge analytics > 90 jours | Gratuit |
+
+### Modules partagés (pas des scripts CLI)
+
+| Fichier | Rôle |
+|---------|------|
+| `scripts/wikimedia-fetch.mjs` | Résolution d'URLs d'images Wikipedia/MediaWiki |
+| `scripts/supabase-seed-sync.mjs` | Client Supabase service role + mappers pour upsert |
+
+---
+
+## 6. Structure du projet
+
+```
+src/
+├── app/
+│   ├── [locale]/               # Routes internationalisées
+│   │   ├── page.tsx            # Landing page
+│   │   ├── tree/[slug]/        # Page invention (Led To + carte + Built Upon)
+│   │   ├── about/              # À propos
+│   │   ├── admin/              # Administration
+│   │   ├── editor/             # Éditeur inventions (admin)
+│   │   └── profile/            # Profil utilisateur
+│   └── api/
+│       └── nodes/              # API CRUD inventions
+├── components/
+│   ├── tree/                   # Composants vue invention (cards, grille, panneaux)
+│   ├── editor/                 # Composants éditeur
+│   ├── landing/                # Composants landing page
+│   └── ui/                     # Composants partagés (search, badges, etc.)
+├── lib/
+│   ├── types.ts                # Interfaces TypeScript
+│   ├── data.ts                 # Requêtes Supabase et mappers
+│   ├── node-labels.ts          # Labels dimensions et niveaux
+│   ├── node-dimension.ts       # Parsing/validation dimension/materialLevel
+│   └── colors.ts               # Palette couleurs par catégorie
+├── stores/
+│   ├── graph-store.ts          # État des données (inventions, liens)
+│   └── ui-store.ts             # État UI (panneaux, filtres)
+├── data/
+│   └── seed-data.json          # Backup local (Supabase = source de vérité)
+├── messages/                   # Traductions next-intl (fr.json, en.json, etc.)
+└── styles/
+    └── globals.css
+
+scripts/                        # Scripts CLI (hors bundle Next)
+├── populate.mjs                # Peuplement IA
+├── fix-images.mjs              # Images Wikimedia
+├── supabase-seed-sync.mjs      # Module partagé Supabase
+├── wikimedia-fetch.mjs         # Module partagé Wikimedia
+├── split-seed-data.mjs         # Découpe seed
+├── build-tag-labels-en.mjs     # Tags i18n
+├── generate-og.mjs             # OG image
+└── cleanup-analytics.mjs       # Maintenance
 ```
 
 ---
 
-## 9. Algorithmes clés à implémenter
+## 7. Contribution communautaire
 
-### 9.1 Calcul de profondeur (complexity_depth)
+### Système de suggestions
 
-Pour chaque nœud, calculer la longueur du plus long chemin jusqu'à une matière première (feuille du graphe). BFS inversé depuis les feuilles.
+- N'importe qui peut suggérer : corrections, nouveaux liens, nouvelles inventions
+- Les suggestions anonymes sont acceptées (pas besoin de compte)
+- Chaque suggestion est soumise à validation admin avant publication
+- Types : correction, nouveau lien, nouvelle invention, suppression de lien, retour anonyme
+- Bouton "Suggest a correction" sur chaque fiche
 
-```
-Matière première → profondeur 0
-Pot en terre cuite (argile + feu) → profondeur 1
-Eau bouillante (pot + feu + eau) → profondeur 2
-...
-Microprocesseur → profondeur ~15-20
-```
+### Profils utilisateurs
 
-### 9.2 Arbre d'explosion (dependency tree)
+- Connexion via Google (Supabase Auth)
+- Système de rang : Apprentice → Artisan → Master (basé sur le nombre de contributions approuvées)
+- Historique des suggestions (approuvées, en attente, rejetées)
 
-Depuis un nœud donné, parcours récursif de tous les intrants (BFS ou DFS), avec détection de cycles (un même nœud peut apparaître plusieurs fois dans l'arbre mais ne doit pas boucler). Retourner un arbre avec niveaux pour l'affichage en couches.
+### Page admin
 
-### 9.3 Graphe inversé (usage tree)
-
-Depuis une matière première, trouver TOUT ce qu'on peut fabriquer (directement et indirectement). Utile pour répondre à : « À quoi sert le cuivre ? »
-
-### 9.4 Centralité des nœuds
-
-Calculer un score de « criticité » : combien de technologies dépendent (directement ou indirectement) de ce nœud. Les nœuds les plus critiques (feu, fer, cuivre, silicium) seront visuellement plus gros.
-
-### 9.5 Chemin de fabrication
-
-Trouver le chemin complet entre deux nœuds : « Comment passe-t-on du sable au microprocesseur ? » — afficher la chaîne étape par étape.
+- Dashboard avec compteurs (en attente, approuvées, rejetées, contributeurs)
+- Filtres par type de suggestion
+- Actions : Approve / Edit then approve / Reject
+- Onglets : Pending suggestions, History, Contributors, Analytics
 
 ---
 
-## 10. Comportements UX détaillés
+## 8. Principes fondamentaux
 
-### 10.1 Premier chargement
-
-1. Le graphe se charge avec une animation de « construction » (nœuds qui apparaissent progressivement)
-2. Vue centrée sur un sous-ensemble parlant (ex : chaîne du fer → acier → machine)
-3. Tooltip d'onboarding : « Cliquez sur un nœud pour voir sa recette de fabrication »
-
-### 10.2 Interaction avec un nœud
-
-1. **Hover** : tooltip rapide (nom + catégorie + profondeur), nœuds adjacents mis en surbrillance
-2. **Clic simple** : ouvre la sidebar de détail, centre doucement la vue
-3. **Double-clic** : zoom sur le nœud et affiche 2-3 niveaux de voisinage
-4. **Clic sur « Voir l'arbre complet »** dans la sidebar : navigation vers `/tree/[id]` avec vue explosion plein écran
-5. **Drag** : déplace le nœud (si mode libre activé)
-
-### 10.3 Sidebar de détail
-
-- Transition slide-in depuis la droite (300ms, ease-out)
-- Fermeture par bouton ✕ ou clic en dehors
-- Sticky header avec nom + catégorie, contenu scrollable
-- Section « Recette » avec mini-schéma visuel : les intrants représentés comme de petits nœuds connectés au produit
-- Chaque intrant dans la recette est cliquable (navigation dans le graphe)
-
-### 10.4 Vue Explosion (page dédiée)
-
-- Layout en arbre vertical inversé (produit final en haut, matières premières en bas)
-- Chaque niveau = une couche horizontale
-- Animation de « dépliage » couche par couche (500ms entre chaque niveau)
-- Possibilité de replier/déplier chaque branche
-- Code couleur par catégorie conservé
-- Breadcrumb en haut : chemin de navigation
-- Stats affichées : nombre total de dépendances, profondeur, matières premières requises
+1. **Pas de produit final** — il n'y a jamais de fin dans la chaîne. Un smartphone est un composant du réseau télécom, qui est un composant d'Internet.
+2. **Classification par ce que c'est, pas par étapes** — on classe selon la nature de l'invention (matière vs procédé vs outil), pas selon le nombre de transformations.
+3. **Collaboratif** — comme Wikipedia, les données grandissent avec la communauté.
+4. **Récursif** — cliquer sur n'importe quel élément ouvre sa propre recette. L'exploration est infinie.
+5. **Croissance avant monétisation** — pas de paywall, pas de pub, pas de premium pour l'instant.
+6. **Page unique scrollable** — Led To en haut, carte principale au milieu, Built Upon en bas. Pas de pages séparées, pas de toggle entre deux vues.
+7. **Supabase = source de vérité** — seed-data.json est un backup local. Le script populate écrit directement dans Supabase.
+8. **Images via Wikimedia** — pas de stockage local, pas de téléchargement, URLs directes vers les thumbnails Wikipedia.
 
 ---
 
-## 11. SEO et métadonnées
+## 9. Ce qui a été supprimé (ne plus utiliser)
 
-- Chaque nœud a sa propre URL partageable (`/explore?node=acier` ou `/tree/acier`)
-- Métadonnées Open Graph dynamiques (titre = nom du nœud, description = sa recette, image = capture du sous-graphe)
-- Sitemap généré automatiquement depuis les données
-- Schema.org pour les technologies (type `Thing` ou `CreativeWork`)
+> **IMPORTANT pour Cursor** : les éléments suivants ont été retirés du projet. Ne pas créer de composants, fichiers ou imports les concernant.
 
----
-
-## 12. Performance
-
-- **Rendu du graphe** : React Flow gère le viewport culling nativement (seuls les nœuds visibles sont rendus dans le DOM)
-- **Données** : lazy loading des détails (seuls les noms et positions sont chargés initialement, les descriptions/images sont fetchées au clic)
-- **Recherche** : index Fuse.js construit une seule fois au chargement
-- **Images** : format WebP, lazy loaded, placeholder blur
-- **Target** : < 2s First Contentful Paint, < 4s Time to Interactive
-
----
-
-## 13. Priorités de développement
-
-### Phase 1 — Fondations (semaine 1-2)
-- [ ] Setup Next.js + Tailwind + TypeScript
-- [ ] Modèle de données TypeScript
-- [ ] Fichier seed JSON avec ~50 nœuds et ~80 liens (une chaîne complète)
-- [ ] Composant graphe React Flow basique avec nœuds custom
-- [ ] Recherche basique
-
-### Phase 2 — Cœur (semaine 3-4)
-- [ ] Sidebar de détail complète
-- [ ] Algorithme d'explosion (dependency tree)
-- [ ] Page vue explosion `/tree/[id]`
-- [ ] Filtres par catégorie et époque
-- [ ] Styling complet des nœuds et liens
-
-### Phase 3 — Polish (semaine 5-6)
-- [ ] Landing page
-- [ ] Animations et micro-interactions
-- [ ] Mode timeline
-- [ ] Page stats
-- [ ] Responsive mobile (vue alternative)
-- [ ] SEO et métadonnées
-
-### Phase 4 — Contenu (semaine 7+)
-- [ ] Enrichissement du seed data à 150-200 nœuds
-- [ ] Images pour chaque nœud
-- [ ] Descriptions détaillées
-- [ ] Tests et optimisation performance
+- ❌ **React Flow** — supprimé. Plus de graphe interactif avec nœuds et edges SVG.
+- ❌ **dagre** — supprimé. Plus de calcul de layout de graphe.
+- ❌ **Focus view / Fullscreen view / Global view** — supprimées.
+- ❌ **Toggle Built Upon ↔ Led To** — supprimé. Les deux zones sont sur la MÊME page scrollable, pas un toggle entre deux vues.
+- ❌ **Filter panel** — supprimé. Plus de panneau de filtres latéral.
+- ❌ **Mode timeline** — supprimé.
+- ❌ **Mode catégorie** — supprimé.
+- ❌ **Mini-map** — supprimée.
+- ❌ **Vue explosion en arbre vertical** — supprimée.
+- ❌ **Type "end_product"** — supprimé. Il n'y a pas de produit final. Utiliser "component" à la place.
+- ❌ **CivTree** — ancien nom. Le projet s'appelle **Craftree**.
+- ❌ **import-to-supabase.mjs** — supprimé. Le script populate écrit directement dans Supabase.
+- ❌ **fetch-image-urls.mjs** — remplacé par fix-images.mjs.
+- ❌ **translate-descriptions.mjs** — supprimé. Le populate génère FR + EN en un seul appel.
+- ❌ **clean-descriptions.mjs** — supprimé. Le populate nettoie les descriptions automatiquement.
+- ❌ **merge-seed-enrichment.mjs** — supprimé.
+- ❌ **Images locales** — ne jamais stocker d'images dans `/images/nodes/` ou `/public/`. Toujours des URLs Wikimedia.
 
 ---
 
-## 14. Inspirations visuelles et références
+## 10. Prochaines étapes
 
-- **Factorio** : le concept de chaînes de production récursives, l'esthétique industrielle
-- **React Flow examples** : https://reactflow.dev/examples
-- **Historical Tech Tree** : https://www.historicaltechtree.com (pour la structure de données, pas l'UX)
-- **Notion** : propreté du design, sidebar de détail
-- **Obsidian Graph View** : navigation dans un graphe de connaissances
-- **The Pudding** (data journalism) : visualisations de données engageantes et narratives
-- **Civilization VI Tech Tree** : layout en couches par époques
+### Court terme
+- [ ] Compléter les champs dimension, materialLevel, origin_type, nature_type pour toutes les inventions existantes (via populate --expand)
+- [ ] Enrichir la base à 500+ inventions
+- [ ] Images Wikimedia pour toutes les cartes (via fix:images)
+- [ ] Mettre à jour la page About avec le nouveau contenu
+- [ ] Mettre à jour le README GitHub
+
+### Moyen terme
+- [ ] OG images auto-générées par invention pour le partage social
+- [ ] SEO : sitemap, Schema.org, metadata dynamiques par invention
+- [ ] Analytics (Vercel Analytics + table analytics_events)
+- [ ] Responsive mobile complet (panneaux en drawers, grille adaptative)
+
+### Viral / croissance
+- [ ] Quiz feature ("À partir de quoi est fait X ?")
+- [ ] "Craftree of the day" (invention aléatoire quotidienne)
+- [ ] Widget embed pour sites tiers
+- [ ] Liens externes depuis Wikipedia (section "External links")
+- [ ] Partenariats musées / éducation
+- [ ] Ciblage communautés : Factorio/Civilization, science communicators, YouTubers
+
+### Monétisation (différée)
+- [ ] Buy Me a Coffee (donations)
+- [ ] Pro subscription (fonctionnalités avancées)
+- [ ] Licences éducatives
+- [ ] API access

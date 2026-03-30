@@ -4,7 +4,6 @@ import { useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useGraphStore } from '@/stores/graph-store';
-import { NodeDetailSidebar } from '@/components/ui/NodeDetailSidebar';
 import { ERA_ORDER } from '@/lib/node-labels';
 import { treeInventionPath } from '@/lib/tree-routes';
 import type { Era, TechNodeBasic } from '@/lib/types';
@@ -97,7 +96,6 @@ export function TimelinePageClient() {
           );
         })}
       </div>
-      <NodeDetailSidebar />
     </main>
   );
 }

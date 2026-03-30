@@ -11,7 +11,6 @@ import { InventionCard } from '@/components/explore/InventionCard';
 import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
 import { directDependencyCount } from '@/lib/built-upon-utils';
 import { useGraphStore } from '@/stores/graph-store';
-import { useUIStore } from '@/stores/ui-store';
 import {
   ERA_LABELS_FR,
   NODE_CATEGORY_LABELS_FR,
@@ -24,12 +23,13 @@ import type {
   TechNodeType,
   TechNodeBasic,
 } from '@/lib/types';
-import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
+import { treeInventionPath } from '@/lib/tree-routes';
 import { CATEGORY_LIST_GRID_CLASS } from '@/components/categories/category-list-card-layout';
 import {
   CategoryListCardLayoutSwitcher,
   useCategoryListCardLayout,
 } from '@/components/categories/CategoryListCardLayoutSwitcher';
+import { CategoryFilterSidebar } from '@/components/categories/CategoryFilterSidebar';
 
 interface TechListByFilterClientProps {
   kind: FilterKind;
@@ -79,9 +79,6 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
   const edges = useGraphStore((s) => s.edges);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
   const refreshData = useGraphStore((s) => s.refreshData);
-  const setOnlyCategory = useUIStore((s) => s.setOnlyCategory);
-  const setOnlyEra = useUIStore((s) => s.setOnlyEra);
-  const setOnlyType = useUIStore((s) => s.setOnlyType);
 
   useEffect(() => {
     if (allNodes.length === 0) void refreshData();
@@ -110,13 +107,6 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
       ),
     [allNodes, kind, id]
   );
-
-  const openFilteredGraph = () => {
-    if (kind === 'category') setOnlyCategory(id as NodeCategory);
-    else if (kind === 'era') setOnlyEra(id as Era);
-    else setOnlyType(id as TechNodeType);
-    router.push(treeInventionPath(getDefaultTreeNodeId()));
-  };
 
   const pageTitle = tPage('listPageTitle', { label: filterLabel });
 
@@ -147,26 +137,21 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
       </div>
     );
 
-  return (
-    <ExploreCardProvider isMobile={isMobile}>
-      <ExploreHoverPopup />
-      <AppContentShell
-        as="main"
-        variant="wide"
-        className="flex min-h-[calc(100dvh-3.5rem)] flex-1 flex-col"
-      >
-        <nav className="mb-6 text-sm text-muted-foreground">
-          <Link
-            href="/categories"
-            className="text-accent transition-colors hover:underline"
-          >
-            {tPage('backToCategories')}
-          </Link>
-        </nav>
+  const mainColumn = (
+    <>
+      <nav className="mb-6 text-sm text-muted-foreground">
+        <Link
+          href="/categories"
+          className="text-accent transition-colors hover:underline"
+        >
+          {tPage('backToCategories')}
+        </Link>
+      </nav>
 
-        <header className="mb-8 md:mb-10">
+      <header className="mb-8 md:mb-10">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
           <h1
-            className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
+            className="min-w-0 flex-1 text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
             style={{
               fontFamily:
                 'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -174,29 +159,41 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
           >
             {pageTitle}
           </h1>
-          <p className="mt-2 text-sm text-muted-foreground md:text-base">{subtitle}</p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            {tPage('techCount', { count: items.length })}
-          </p>
-          <button
-            type="button"
-            onClick={openFilteredGraph}
-            className="mt-6 inline-flex items-center justify-center rounded-xl bg-[#3B82F6] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#3B82F6]/25 transition-colors hover:bg-[#60A5FA] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#93C5FD]"
-          >
-            {tPage('openFilteredTree')}
-          </button>
-        </header>
+          {items.length > 0 ? (
+            <div className="shrink-0">
+              <CategoryListCardLayoutSwitcher
+                layout={cardLayout}
+                onChange={setCardLayout}
+              />
+            </div>
+          ) : null}
+        </div>
+        <p className="mt-2 text-sm text-muted-foreground md:text-base">{subtitle}</p>
+        <p className="mt-3 text-sm text-muted-foreground">
+          {tPage('techCount', { count: items.length })}
+        </p>
+      </header>
 
-        {items.length > 0 ? (
-          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
-            <CategoryListCardLayoutSwitcher
-              layout={cardLayout}
-              onChange={setCardLayout}
-            />
+      {listBody}
+    </>
+  );
+
+  return (
+    <ExploreCardProvider isMobile={isMobile}>
+      <ExploreHoverPopup />
+      <AppContentShell
+        as="main"
+        variant={kind === 'category' ? 'full' : 'wide'}
+        className="flex min-h-[calc(100dvh-3.5rem)] flex-1 flex-col"
+      >
+        {kind === 'category' ? (
+          <div className="flex w-full flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
+            <CategoryFilterSidebar activeId={id as NodeCategory} />
+            <div className="min-w-0 w-full flex-1 lg:max-w-6xl">{mainColumn}</div>
           </div>
-        ) : null}
-
-        {listBody}
+        ) : (
+          mainColumn
+        )}
       </AppContentShell>
     </ExploreCardProvider>
   );

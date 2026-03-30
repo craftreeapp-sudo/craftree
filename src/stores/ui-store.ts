@@ -3,16 +3,10 @@ import type { NodeCategory, Era, TechNodeType } from '@/lib/types';
 import { NodeCategory as NC, Era as EraEnum } from '@/lib/types';
 
 export interface SelectNodeOptions {
-  /** Centrer la vue sur le nœud (ex. navigation depuis la sidebar ou la recherche) */
+  /** Centrer la vue sur le nœud (ex. navigation depuis la recherche) */
   center?: boolean;
   /** Mobile /explore : pile d’exploration séquentielle */
   exploreMode?: 'root' | 'push';
-  /** /explore : ouvrir directement le formulaire d’édition dans la sidebar */
-  openEdit?: boolean;
-  /** /explore contributeur : ouvrir le mode suggestion (pré-rempli) pour ce nœud */
-  openSuggest?: boolean;
-  /** Si false, garde la sidebar fermée (navigation grille Built Upon). Défaut true. */
-  openSidebar?: boolean;
 }
 
 const ALL_CATEGORIES = new Set(Object.values(NC) as NodeCategory[]);
@@ -30,7 +24,6 @@ export type EdgeStyle = 'angular' | 'smooth';
 
 interface UIStore {
   selectedNodeId: string | null;
-  isSidebarOpen: boolean;
   /** Verrouillage pendant la transition vue focalisée (clic voisin) ~1,1 s */
   isAnimating: boolean;
   setIsAnimating: (v: boolean) => void;
@@ -49,12 +42,8 @@ interface UIStore {
   /** Mobile /explore : fil d’Ariane pour retour arrière */
   exploreStack: string[];
 
-  /** /explore : consommé par NodeDetailSidebar pour ouvrir le mode édition une fois */
-  pendingExploreEdit: boolean;
-  clearPendingExploreEdit: () => void;
-  /** /explore contributeur : consommé pour ouvrir « Suggérer une correction » pré-ciblé */
-  pendingExploreSuggest: boolean;
-  clearPendingExploreSuggest: () => void;
+  /** Incrémenté à chaque `closeSidebar` : `BuiltUponView` ferme `ExploreDetailPanel` (header / logo). */
+  exploreDetailDismissNonce: number;
 
   /** Filtres visuels : sous-ensembles actifs (tout activé par défaut) */
   activeCategories: Set<NodeCategory>;
@@ -96,7 +85,7 @@ interface UIStore {
 
 export const useUIStore = create<UIStore>((set) => ({
   selectedNodeId: null,
-  isSidebarOpen: false,
+  exploreDetailDismissNonce: 0,
   isAnimating: false,
   setIsAnimating: (v) => set({ isAnimating: v }),
   exploreHoveredNodeId: null,
@@ -112,12 +101,6 @@ export const useUIStore = create<UIStore>((set) => ({
 
   exploreStack: [],
 
-  pendingExploreEdit: false,
-  clearPendingExploreEdit: () => set({ pendingExploreEdit: false }),
-
-  pendingExploreSuggest: false,
-  clearPendingExploreSuggest: () => set({ pendingExploreSuggest: false }),
-
   activeCategories: new Set(ALL_CATEGORIES),
   activeEras: new Set(ALL_ERAS),
   activeTypes: new Set(ALL_TYPES),
@@ -132,61 +115,49 @@ export const useUIStore = create<UIStore>((set) => ({
       }
       return {
         selectedNodeId: id,
-        isSidebarOpen: options?.openSidebar === false ? false : true,
         centerOnNodeId: options?.center === true ? id : null,
         exploreFocusExitCenterId: null,
         exploreNeighborhoodFitId: null,
         exploreStack: nextStack,
-        pendingExploreEdit:
-          options?.openEdit === true && options?.openSuggest !== true,
-        pendingExploreSuggest: options?.openSuggest === true,
       };
     }),
 
   closeSidebar: () =>
     set((s) => {
       const lastSelected = s.selectedNodeId;
-      const centerAfterExit =
-        s.isSidebarOpen && lastSelected !== null ? lastSelected : null;
+      const centerAfterExit = lastSelected !== null ? lastSelected : null;
       return {
-        isSidebarOpen: false,
         selectedNodeId: null,
         exploreHoveredNodeId: null,
         centerOnNodeId: null,
         exploreFocusExitCenterId: centerAfterExit,
         exploreNeighborhoodFitId: null,
         exploreStack: [],
-        pendingExploreEdit: false,
-        pendingExploreSuggest: false,
         categoryPanelOpen: true,
+        exploreDetailDismissNonce: s.exploreDetailDismissNonce + 1,
       };
     }),
 
   closeSidebarKeepGraphHover: () =>
-    set({
-      isSidebarOpen: false,
+    set((s) => ({
       selectedNodeId: null,
       centerOnNodeId: null,
       exploreFocusExitCenterId: null,
       exploreStack: [],
-      pendingExploreEdit: false,
-      pendingExploreSuggest: false,
       categoryPanelOpen: true,
-    }),
+      exploreDetailDismissNonce: s.exploreDetailDismissNonce + 1,
+    })),
 
   popExploreStack: () =>
     set((s) => {
       if (s.exploreStack.length === 0) {
         return {
-          isSidebarOpen: false,
           selectedNodeId: null,
           exploreHoveredNodeId: null,
           centerOnNodeId: null,
           exploreFocusExitCenterId: null,
           exploreNeighborhoodFitId: null,
           exploreStack: [],
-          pendingExploreEdit: false,
-          pendingExploreSuggest: false,
           categoryPanelOpen: true,
         };
       }
@@ -197,12 +168,9 @@ export const useUIStore = create<UIStore>((set) => ({
       return {
         exploreStack: nextStack,
         selectedNodeId: nextId,
-        isSidebarOpen: nextId !== null,
         centerOnNodeId: null,
         exploreFocusExitCenterId: nextId === null ? poppedId : null,
         exploreNeighborhoodFitId: null,
-        pendingExploreEdit: false,
-        pendingExploreSuggest: false,
       };
     }),
 

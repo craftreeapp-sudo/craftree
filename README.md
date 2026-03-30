@@ -106,7 +106,8 @@ Each invention is classified using a 3-question decision tree:
 - Node.js 18+
 - npm
 - A Supabase project (free tier works)
-- Anthropic API key (for the populate script only)
+- Anthropic API key (for `npm run populate` only)
+- Supabase service role key (for `populate` and `fix:images`)
 
 ### Installation
 
@@ -129,7 +130,7 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 # Admin
 NEXT_PUBLIC_ADMIN_EMAIL=your-email@gmail.com
 
-# Anthropic (only needed for populate script)
+# Anthropic (populate script)
 ANTHROPIC_API_KEY=sk-ant-...
 
 # Site
@@ -140,7 +141,7 @@ NEXT_PUBLIC_SITE_URL=https://craftree.app
 
 1. Create a Supabase project at [supabase.com](https://supabase.com)
 2. Go to SQL Editor and run the contents of `supabase/schema.sql`
-3. Import seed data: `npm run import:supabase`
+3. Load data: run `npm run populate` (updates `src/data/seed-data.json` and upserts Supabase). To backfill Wikimedia image URLs without Claude, run `npm run fix:images` afterward.
 
 ### Development
 
@@ -158,14 +159,14 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run build` | Production build |
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
-| `npm run populate` | Enrich inventions via Claude API (parallel, 5 concurrent) |
-| `npm run populate -- --expand` | Re-enrich existing inventions with missing data |
-| `npm run populate -- --deep` | Follow dependencies to level 2 |
-| `npm run fetch:images` | Fetch Wikimedia image URLs for all inventions |
-| `npm run translate` | Translate French descriptions to English via Claude |
-| `npm run clean:descriptions` | Remove `<cite>` artifacts from descriptions |
-| `npm run import:supabase` | Import seed-data.json into Supabase |
+| `npm run populate` | Enrich inventions via Claude (writes seed-data.json + Supabase) |
+| `npm run populate:expand` | Re-enrich existing inventions with missing data |
+| `npm run populate:deep` | Follow dependencies to level 2 |
+| `npm run fix:images` | Wikimedia image URLs in Supabase only (no Claude) |
+| `npm run split-data` | Split seed into graph-core + node-details (local dev) |
+| `npm run generate:tag-labels` | Build English tag labels for i18n |
 | `npm run generate:og` | Generate Open Graph default image |
+| `npm run cleanup:analytics` | Analytics maintenance |
 
 ## Project structure
 
@@ -190,12 +191,14 @@ craftree/
 │   ├── messages/               # i18n translation files (fr, en, es, zh, hi, ar)
 │   └── data/                   # seed-data.json (backup)
 ├── scripts/
-│   ├── populate.mjs            # AI enrichment script
-│   ├── fetch-image-urls.mjs    # Wikimedia image fetcher
-│   ├── translate-descriptions.mjs
-│   ├── clean-descriptions.mjs
-│   ├── import-to-supabase.mjs
+│   ├── populate.mjs            # AI enrichment → seed-data.json + Supabase
+│   ├── fix-images.mjs        # Wikimedia images → Supabase only
+│   ├── supabase-seed-sync.mjs # Shared Supabase mapping / upsert helpers
+│   ├── wikimedia-fetch.mjs    # Wikimedia API helpers
+│   ├── split-seed-data.mjs    # Optional dev split (npm run split-data)
 │   └── generate-og.mjs
+├── src/scripts/
+│   └── split-data.mjs         # Used by prebuild → nodes-index.json, etc.
 ├── supabase/
 │   └── schema.sql              # Database schema
 └── public/

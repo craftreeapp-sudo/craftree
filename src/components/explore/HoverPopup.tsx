@@ -1,6 +1,12 @@
 'use client';
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { useLocale, useTranslations } from 'next-intl';
 import { useGraphStore, getNodeDetails } from '@/stores/graph-store';
@@ -18,6 +24,10 @@ import type { NodeCategory, TechNodeDetails } from '@/lib/types';
 import { safeCategoryLabel } from '@/lib/safe-category-label';
 import { getTagDisplayLabel } from '@/lib/tag-display';
 import { getScrollableAncestors } from '@/lib/dom-scroll-parents';
+import {
+  natureTypeToExploreKey,
+  originTypeToExploreKey,
+} from '@/lib/explore-classification-badges';
 
 const POPUP_MAX_W = 340;
 /** Aligné sur `ExploreDetailPanel` (fiche) : largeur max + petite marge. */
@@ -51,9 +61,9 @@ function applyPopupPosition(
   void pop.offsetWidth;
 
   const br = pop.getBoundingClientRect();
-  let popW =
+  const popW =
     br.width > 2 ? br.width : Math.min(vw * 0.92, cappedMax);
-  let popH =
+  const popH =
     br.height > 2 ? br.height : Math.min(vh * 0.85, 560);
 
   const preferRight = rect.right + GAP + popW <= maxRight;
@@ -101,25 +111,26 @@ export function ExploreHoverPopup() {
     : undefined;
 
   const popupRef = useRef<HTMLDivElement | null>(null);
-  const previewRef = useRef(preview);
-  previewRef.current = preview;
-
-  const layoutRef = useRef<HoverLayoutHints>({ reserveRight: 0 });
   const detailOpen = Boolean(ctx?.detailNodeId);
   const isMobile = Boolean(ctx?.isMobile);
-  layoutRef.current = {
-    reserveRight:
-      detailOpen && !isMobile ? DETAIL_PANEL_W + GAP : 0,
-  };
+  const layoutHints = useMemo<HoverLayoutHints>(
+    () => ({
+      reserveRight:
+        detailOpen && !isMobile ? DETAIL_PANEL_W + GAP : 0,
+    }),
+    [detailOpen, isMobile]
+  );
 
   /** Position dès que le nœud portail existe (évite un premier frame sans left/top). */
-  const setPopupRef = useCallback((el: HTMLDivElement | null) => {
-    popupRef.current = el;
-    const p = previewRef.current;
-    if (el && p) {
-      applyPopupPosition(el, p, layoutRef.current);
-    }
-  }, []);
+  const setPopupRef = useCallback(
+    (el: HTMLDivElement | null) => {
+      popupRef.current = el;
+      if (el && preview) {
+        applyPopupPosition(el, preview, layoutHints);
+      }
+    },
+    [preview, layoutHints]
+  );
 
   useEffect(() => {
     if (!preview?.nodeId) return;
@@ -143,10 +154,9 @@ export function ExploreHoverPopup() {
     const uniqueScroll = [...new Set(scrollTargets)];
 
     const bump = () => {
-      const p = previewRef.current;
       const pop = popupRef.current;
-      if (!p || !pop) return;
-      applyPopupPosition(pop, p, layoutRef.current);
+      if (!preview || !pop) return;
+      applyPopupPosition(pop, preview, layoutHints);
     };
 
     bump();
@@ -175,7 +185,7 @@ export function ExploreHoverPopup() {
       }
       ro?.disconnect();
     };
-  }, [preview, detailOpen, isMobile]);
+  }, [preview, detailOpen, isMobile, layoutHints]);
 
   const displayName = useMemo(() => {
     if (!node) return '';
@@ -250,6 +260,17 @@ export function ExploreHoverPopup() {
     return out;
   }, [node, detail?.tags]);
 
+  const cancelHoverClose = ctx?.cancelHoverClose;
+  const requestHoverClose = ctx?.requestHoverClose;
+
+  const onPopupPointerEnter = useCallback(() => {
+    cancelHoverClose?.();
+  }, [cancelHoverClose]);
+
+  const onPopupPointerLeave = useCallback(() => {
+    requestHoverClose?.();
+  }, [requestHoverClose]);
+
   if (!ctx || typeof document === 'undefined') return null;
 
   /** Sous la fiche (z-80) quand elle est ouverte ; sinon au-dessus du contenu explore. */
@@ -262,9 +283,11 @@ export function ExploreHoverPopup() {
         ref={setPopupRef}
         data-explore-hover-popup
         role="tooltip"
-        className={`pointer-events-none fixed ${hoverZClass} max-h-[min(85vh,560px)] w-[min(92vw,340px)] max-w-[min(92vw,340px)] overflow-y-auto rounded-xl border border-border bg-surface shadow-2xl`}
+        onPointerEnter={onPopupPointerEnter}
+        onPointerLeave={onPopupPointerLeave}
+        className={`pointer-events-auto fixed ${hoverZClass} max-h-[min(85vh,560px)] w-[min(92vw,340px)] max-w-[min(92vw,340px)] overflow-y-auto overscroll-contain rounded-xl border border-border bg-surface shadow-2xl`}
       >
-        <div className="flex min-h-0 flex-col">
+        <div className="flex min-h-0 min-w-0 flex-col">
           <div className="flex shrink-0 items-start justify-between gap-2 border-b border-border px-4 pb-3 pt-4">
             <h2
               className="min-w-0 flex-1 text-xl font-bold leading-tight text-foreground"
@@ -304,6 +327,16 @@ export function ExploreHoverPopup() {
             <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
               {natureLine}
             </span>
+            {node.origin_type ? (
+              <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
+                {tExplore(originTypeToExploreKey(node.origin_type))}
+              </span>
+            ) : null}
+            {node.nature_type ? (
+              <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
+                {tExplore(natureTypeToExploreKey(node.nature_type))}
+              </span>
+            ) : null}
           </div>
 
           {secondaryTags.length > 0 ? (

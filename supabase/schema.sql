@@ -207,3 +207,15 @@ ALTER TABLE nodes DROP CONSTRAINT IF EXISTS nodes_chemical_nature_check;
 ALTER TABLE nodes ADD CONSTRAINT nodes_chemical_nature_check CHECK (
   chemical_nature IS NULL OR chemical_nature IN ('element', 'compound', 'material')
 );
+
+-- Classification : origine naturelle + nature chimique/physique (noms alignés seed / populate)
+ALTER TABLE nodes ADD COLUMN IF NOT EXISTS origin_type TEXT;
+ALTER TABLE nodes ADD COLUMN IF NOT EXISTS nature_type TEXT;
+ALTER TABLE nodes DROP CONSTRAINT IF EXISTS nodes_origin_type_check;
+ALTER TABLE nodes ADD CONSTRAINT nodes_origin_type_check CHECK (
+  origin_type IS NULL OR origin_type IN ('mineral', 'vegetal', 'animal')
+);
+ALTER TABLE nodes DROP CONSTRAINT IF EXISTS nodes_nature_type_check;
+ALTER TABLE nodes ADD CONSTRAINT nodes_nature_type_check CHECK (
+  nature_type IS NULL OR nature_type IN ('element', 'compose', 'materiau')
+);
