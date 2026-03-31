@@ -22,7 +22,7 @@ const OPTIONS: {
 const BTN = HEADER_COMPACT_TEXT_BUTTON;
 
 const MENU =
-  'absolute z-[110] mt-1 min-w-[11rem] rounded-[8px] border border-border bg-surface-elevated py-1 shadow-[0_8px_24px_rgba(0,0,0,0.4)]';
+  'absolute z-[110] mt-1 min-w-[11rem] rounded-[8px] glass-surface py-1 shadow-[0_8px_24px_rgba(0,0,0,0.4)]';
 
 const ITEM =
   'flex w-full items-center gap-2 px-3 py-2 text-left text-[13px] text-foreground transition-colors hover:bg-surface';

@@ -39,12 +39,12 @@ export function LoginModal() {
     >
       <button
         type="button"
-        className="absolute inset-0 bg-black/50"
+        className="absolute inset-0 bg-black/45 backdrop-blur-[2px]"
         aria-label={t('closeModal')}
         onClick={onClose}
       />
       <div
-        className="relative w-full max-w-[360px] rounded-[12px] border border-border bg-surface-elevated p-6 shadow-xl"
+        className="relative w-full max-w-[360px] rounded-[12px] glass-surface p-6"
       >
         <h2
           id="login-modal-title"

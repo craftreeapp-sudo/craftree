@@ -94,7 +94,7 @@ export function HeaderAuth() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border/60 bg-surface-elevated text-muted-foreground transition-colors hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus"
+        className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full glass-search-field text-muted-foreground transition-colors hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus"
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label={t('accountMenu')}
@@ -116,7 +116,7 @@ export function HeaderAuth() {
       </button>
       {open ? (
         <div
-          className="absolute right-0 top-[calc(100%+6px)] z-[150] min-w-[160px] rounded-md border border-border bg-surface-elevated py-1 shadow-lg"
+          className="absolute right-0 top-[calc(100%+6px)] z-[150] min-w-[160px] rounded-md glass-surface py-1 shadow-lg"
           role="menu"
         >
           <div className="truncate px-3 py-2 text-[11px] text-muted-foreground">

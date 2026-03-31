@@ -37,7 +37,7 @@ export function Toast({
 
   return (
     <div
-      className={`pointer-events-auto max-w-[min(90vw,360px)] rounded-lg border bg-surface-elevated px-5 py-3 text-[13px] text-foreground shadow-lg transition-opacity duration-300 ${
+      className={`pointer-events-auto max-w-[min(90vw,360px)] rounded-lg glass-surface px-5 py-3 text-[13px] text-foreground transition-opacity duration-300 ${
         visible ? 'opacity-100' : 'opacity-0'
       } ${BORDER[kind]}`}
       role="status"

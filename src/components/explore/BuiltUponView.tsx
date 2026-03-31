@@ -7,11 +7,12 @@ import {
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
   type ReactNode,
   type RefObject,
 } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { LayoutGroup } from 'framer-motion';
+import { LayoutGroup, motion, useReducedMotion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
@@ -39,16 +40,19 @@ function cardLayoutId(id: string) {
 const HERO_ID = 'explore-tree-hero';
 /** Bas du bloc Matters (zone Led to) — cible de défilement pour le bouton « Led to ». */
 const LED_TO_MATTERS_END_ID = 'led-to-matters-end';
+/** Après affichage du hero : scroll animé jusqu’à la section « Built upon » (juste sous la carte principale). */
+const TREE_INTRO_SCROLL_TO_BUILT_UPON_MS = 780;
 /**
  * Décalage des sous-barres sticky (Tools, Process, Matters…) pour qu’elles restent
  * sous la barre « How to read / navigation arbre » (sticky z-[90] en haut du scroll).
  * +10px vs 3rem : un peu plus d’air sous la barre d’outils.
  */
+/** Barre d’outils arbre hors du scroll : les bandeaux sticky internes collent au haut du scroll. */
 const STICKY_SECTION_BELOW_TREE_NAV =
-  'sticky top-[calc(3rem+10px)] z-10 -mx-4 mb-3 border-b border-border/60 bg-surface-elevated/95 px-4 py-3 backdrop-blur-sm';
+  'sticky top-0 z-10 -mx-4 mb-3 glass-app-header px-4 py-3';
 /** Même offset que Tools / Process (titres MATTERS alignés). */
 const STICKY_SECTION_BELOW_TREE_NAV_MATTERS_TOP =
-  'sticky top-[calc(3rem+10px)] z-10 -mx-4 mb-3 rounded-t-xl border-b border-border/60 bg-surface-elevated/95 px-4 pb-3 pt-3 backdrop-blur-sm';
+  'sticky top-0 z-10 -mx-4 mb-3 rounded-t-xl glass-app-header px-4 pb-3 pt-3';
 
 type ExploreZone = 'led-to' | 'hero' | 'built-upon';
 
@@ -133,6 +137,30 @@ function scrollToMainHero() {
   });
 }
 
+function ScrollRevealCard({
+  children,
+  scrollRootRef,
+}: {
+  children: ReactNode;
+  scrollRootRef: RefObject<HTMLDivElement | null>;
+}) {
+  const reduceMotion = useReducedMotion();
+  if (reduceMotion) {
+    return <>{children}</>;
+  }
+  return (
+    <motion.div
+      className="min-w-0"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.12, root: scrollRootRef }}
+      transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 function BuiltUponViewInner({
   focusId,
   focusNode,
@@ -147,8 +175,23 @@ function BuiltUponViewInner({
     useExploreCard();
   const detailOpen = detailNodeId !== null;
   const exploreScrollRef = useRef<HTMLDivElement | null>(null);
+  const treeToolbarRef = useRef<HTMLDivElement | null>(null);
+  const [treeToolbarPx, setTreeToolbarPx] = useState(56);
   const exploreDetailDismissNonce = useUIStore((s) => s.exploreDetailDismissNonce);
   const dismissNonceSyncRef = useRef(exploreDetailDismissNonce);
+
+  /** Hauteur réelle de la barre arbre → --explore-tree-toolbar-h pour les panneaux fixed (détail, légende). */
+  useLayoutEffect(() => {
+    const el = treeToolbarRef.current;
+    if (!el) return;
+    const measure = () => {
+      setTreeToolbarPx(Math.round(el.getBoundingClientRect().height));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     openDetail(focusId);
@@ -192,8 +235,9 @@ function BuiltUponViewInner({
   );
 
   const activeZone = useExploreActiveZone(exploreScrollRef, focusId);
+  const reduceMotion = useReducedMotion();
 
-  /** Au chargement / changement de nœud : ancrage selon `?view=` */
+  /** Au chargement / changement de nœud : ancrage selon `?view=` (défaut = hero centré). */
   useLayoutEffect(() => {
     const initial = parseExploreViewMode(searchParams);
     const run = () => {
@@ -203,24 +247,48 @@ function BuiltUponViewInner({
           block: 'end',
         });
       } else {
-        document.getElementById('built-upon')?.scrollIntoView({
+        document.getElementById(HERO_ID)?.scrollIntoView({
           behavior: 'auto',
-          block: 'start',
+          block: 'center',
         });
       }
     };
     requestAnimationFrame(() => requestAnimationFrame(run));
   }, [focusId, searchParams]);
 
+  /** Vue par défaut : descendre jusqu’à « Built upon » sous la carte principale (sans reduced motion). */
+  useEffect(() => {
+    const initial = parseExploreViewMode(searchParams);
+    if (initial === 'led-to' || reduceMotion) return;
+    const id = window.setTimeout(() => {
+      document.getElementById('built-upon')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }, TREE_INTRO_SCROLL_TO_BUILT_UPON_MS);
+    return () => clearTimeout(id);
+  }, [focusId, searchParams, reduceMotion]);
+
   return (
-    <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden bg-page text-foreground">
-      <ExploreScrollArea scrollRef={exploreScrollRef}>
-        {/* Barre sticky : How to read (gauche) — navigation arbre (droite) */}
-        <div
-          className={`sticky top-0 z-[90] flex w-full min-w-0 shrink-0 items-center gap-3 border-b border-border/80 bg-page/95 px-3 py-2 backdrop-blur-sm transition-[margin] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] sm:px-4 ${
-            detailOpen && !isMobile ? 'sm:mr-[400px]' : ''
-          } ${legendOpen && !isMobile ? 'sm:ml-[300px]' : ''}`}
-        >
+    <div
+      className="flex h-full min-h-0 flex-1 flex-col overflow-hidden bg-page text-foreground"
+      style={
+        {
+          '--explore-tree-toolbar-h': `${treeToolbarPx}px`,
+        } as CSSProperties
+      }
+    >
+      {/*
+        Hors scroll : pleine largeur. Deux blocs distincts à droite :
+        1) toolbar navigation zones (scroll) 2) affichage fiche — séparés visuellement et sémantiquement.
+      */}
+      <div
+        ref={treeToolbarRef}
+        id="explore-tree-toolbar"
+        className={`glass-explore-sticky-nav z-[90] flex min-h-[3.5rem] w-full min-w-0 shrink-0 items-center gap-3 px-3 py-2 transition-[margin] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] sm:px-4 ${
+          legendOpen && !isMobile ? 'sm:ml-[300px]' : ''
+        }`}
+      >
           <button
             type="button"
             onClick={() => openLegend()}
@@ -228,56 +296,89 @@ function BuiltUponViewInner({
           >
             {t('legendButton')}
           </button>
-          <div
-            className="ml-auto flex shrink-0 rounded-lg border border-border bg-surface-elevated p-0.5"
-            role="toolbar"
-            aria-label={t('treeNavAria')}
-          >
-            <button
-              type="button"
-              aria-pressed={activeZone === 'built-upon'}
-              title={t('builtUponArboGrid')}
-              onClick={() => scrollToBuiltUpon()}
-              className={`flex items-center gap-1.5 rounded-md px-2.5 py-2 text-xs font-semibold sm:px-3 sm:text-sm ${
-                activeZone === 'built-upon'
-                  ? 'bg-accent text-white'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
+          <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
+            <div
+              className="flex shrink-0 rounded-lg glass-search-field p-0.5"
+              role="toolbar"
+              aria-label={t('treeNavAria')}
             >
-              <IconGridDown className="h-4 w-4 shrink-0" aria-hidden />
-              <span className="hidden sm:inline">{t('builtUponArboGrid')}</span>
-            </button>
-            <button
-              type="button"
-              aria-pressed={activeZone === 'hero'}
-              title={t('treeNavMainCardTitle')}
-              onClick={() => scrollToMainHero()}
-              className={`flex items-center gap-1.5 rounded-md px-2.5 py-2 text-xs font-semibold sm:px-3 sm:text-sm ${
-                activeZone === 'hero'
-                  ? 'bg-accent text-white'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
+              <button
+                type="button"
+                aria-pressed={activeZone === 'built-upon'}
+                title={t('builtUponArboGrid')}
+                onClick={() => scrollToBuiltUpon()}
+                className={`flex items-center gap-1.5 rounded-md px-2.5 py-2 text-xs font-semibold sm:px-3 sm:text-sm ${
+                  activeZone === 'built-upon'
+                    ? 'bg-accent text-white'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <IconGridDown className="h-4 w-4 shrink-0" aria-hidden />
+                <span className="hidden sm:inline">{t('builtUponArboGrid')}</span>
+              </button>
+              <button
+                type="button"
+                aria-pressed={activeZone === 'hero'}
+                title={t('treeNavMainCardTitle')}
+                onClick={() => scrollToMainHero()}
+                className={`flex items-center gap-1.5 rounded-md px-2.5 py-2 text-xs font-semibold sm:px-3 sm:text-sm ${
+                  activeZone === 'hero'
+                    ? 'bg-accent text-white'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <IconMainCard className="h-4 w-4 shrink-0" aria-hidden />
+                <span className="hidden sm:inline">{t('treeNavMainCard')}</span>
+              </button>
+              <button
+                type="button"
+                aria-pressed={activeZone === 'led-to'}
+                title={t('builtUponArboList')}
+                onClick={() => scrollToLedToAfterMatters()}
+                className={`flex items-center gap-1.5 rounded-md px-2.5 py-2 text-xs font-semibold sm:px-3 sm:text-sm ${
+                  activeZone === 'led-to'
+                    ? 'bg-accent text-white'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <IconGridUp className="h-4 w-4 shrink-0" aria-hidden />
+                <span className="hidden sm:inline">{t('builtUponArboList')}</span>
+              </button>
+            </div>
+            <div
+              className="shrink-0 rounded-lg glass-search-field p-0.5"
+              role="group"
+              aria-label={t('treeNavDetailPanel')}
             >
-              <IconMainCard className="h-4 w-4 shrink-0" aria-hidden />
-              <span className="hidden sm:inline">{t('treeNavMainCard')}</span>
-            </button>
-            <button
-              type="button"
-              aria-pressed={activeZone === 'led-to'}
-              title={t('builtUponArboList')}
-              onClick={() => scrollToLedToAfterMatters()}
-              className={`flex items-center gap-1.5 rounded-md px-2.5 py-2 text-xs font-semibold sm:px-3 sm:text-sm ${
-                activeZone === 'led-to'
-                  ? 'bg-accent text-white'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              <IconGridUp className="h-4 w-4 shrink-0" aria-hidden />
-              <span className="hidden sm:inline">{t('builtUponArboList')}</span>
-            </button>
+              <button
+                type="button"
+                aria-pressed={detailOpen}
+                aria-label={
+                  detailOpen
+                    ? t('treeNavDetailPanelHideTitle')
+                    : t('treeNavDetailPanelShowTitle')
+                }
+                title={
+                  detailOpen
+                    ? t('treeNavDetailPanelHideTitle')
+                    : t('treeNavDetailPanelShowTitle')
+                }
+                onClick={() =>
+                  detailOpen ? closeDetail() : openDetail(focusId)
+                }
+                className={`flex items-center justify-center rounded-md px-2.5 py-2 text-xs font-semibold sm:px-2.5 sm:text-sm ${
+                  detailOpen
+                    ? 'bg-accent text-white'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <IconDetailPanelToggle className="h-4 w-4 shrink-0" aria-hidden />
+              </button>
+            </div>
           </div>
         </div>
 
+      <ExploreScrollArea scrollRef={exploreScrollRef}>
         <div className="mx-auto w-full max-w-[calc(72rem+10px)] pb-4 pt-0">
           <LayoutGroup id="explore-tree-cards">
             {/* ─── Led to (aval) ─── */}
@@ -287,7 +388,7 @@ function BuiltUponViewInner({
               aria-labelledby="explore-led-to-heading"
             >
               <div className="-mx-[60px] flex flex-col gap-6">
-                <div className="rounded-xl border border-border bg-surface-elevated p-4">
+                <div className="rounded-xl glass-card p-4">
                   <div className={STICKY_SECTION_BELOW_TREE_NAV}>
                     <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
                       {t('builtUponTools')}
@@ -295,15 +396,19 @@ function BuiltUponViewInner({
                   </div>
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
                     {bucketsLed.tools.map((n) => (
-                      <InventionCard
+                      <ScrollRevealCard
                         key={n.id}
-                        node={n}
-                        variant="compact"
-                        layoutId={cardLayoutId(n.id)}
-                        imageBust={imageBustByNodeId[n.id] ?? 0}
-                        exploreInteractive
-                        onClick={() => goTo(n.id)}
-                      />
+                        scrollRootRef={exploreScrollRef}
+                      >
+                        <InventionCard
+                          node={n}
+                          variant="compact"
+                          layoutId={cardLayoutId(n.id)}
+                          imageBust={imageBustByNodeId[n.id] ?? 0}
+                          exploreInteractive
+                          onClick={() => goTo(n.id)}
+                        />
+                      </ScrollRevealCard>
                     ))}
                     {bucketsLed.tools.length === 0 ? (
                       <p className="col-span-2 text-sm text-muted-foreground sm:col-span-4 lg:col-span-8">
@@ -313,7 +418,7 @@ function BuiltUponViewInner({
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-border bg-surface-elevated p-4">
+                <div className="rounded-xl glass-card p-4">
                   <div className={STICKY_SECTION_BELOW_TREE_NAV}>
                     <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
                       {t('builtUponProcess')}
@@ -321,15 +426,19 @@ function BuiltUponViewInner({
                   </div>
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
                     {bucketsLed.process.map((n) => (
-                      <InventionCard
+                      <ScrollRevealCard
                         key={n.id}
-                        node={n}
-                        variant="compact"
-                        layoutId={cardLayoutId(n.id)}
-                        imageBust={imageBustByNodeId[n.id] ?? 0}
-                        exploreInteractive
-                        onClick={() => goTo(n.id)}
-                      />
+                        scrollRootRef={exploreScrollRef}
+                      >
+                        <InventionCard
+                          node={n}
+                          variant="compact"
+                          layoutId={cardLayoutId(n.id)}
+                          imageBust={imageBustByNodeId[n.id] ?? 0}
+                          exploreInteractive
+                          onClick={() => goTo(n.id)}
+                        />
+                      </ScrollRevealCard>
                     ))}
                     {bucketsLed.process.length === 0 ? (
                       <p className="col-span-2 text-sm text-muted-foreground sm:col-span-4 lg:col-span-8">
@@ -341,7 +450,7 @@ function BuiltUponViewInner({
 
                 <div
                   id={LED_TO_MATTERS_END_ID}
-                  className="rounded-xl border border-border bg-surface-elevated p-4 pt-0 shadow-inner"
+                  className="rounded-xl glass-card p-4 pt-0 shadow-inner"
                 >
                   <div className={STICKY_SECTION_BELOW_TREE_NAV_MATTERS_TOP}>
                     <div className="mb-[10px] text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
@@ -365,15 +474,19 @@ function BuiltUponViewInner({
                         className="grid grid-cols-2 gap-3 [align-content:start]"
                       >
                         {bucketsLed.matters[col].map((n) => (
-                          <InventionCard
+                          <ScrollRevealCard
                             key={n.id}
-                            node={n}
-                            variant="compact"
-                            layoutId={cardLayoutId(n.id)}
-                            imageBust={imageBustByNodeId[n.id] ?? 0}
-                            exploreInteractive
-                            onClick={() => goTo(n.id)}
-                          />
+                            scrollRootRef={exploreScrollRef}
+                          >
+                            <InventionCard
+                              node={n}
+                              variant="compact"
+                              layoutId={cardLayoutId(n.id)}
+                              imageBust={imageBustByNodeId[n.id] ?? 0}
+                              exploreInteractive
+                              onClick={() => goTo(n.id)}
+                            />
+                          </ScrollRevealCard>
                         ))}
                       </div>
                     ))}
@@ -400,9 +513,12 @@ function BuiltUponViewInner({
             </section>
 
             {/* ─── Carte centrale ─── */}
-            <div
+            <motion.div
               id={HERO_ID}
-              className="scroll-mt-16 my-10 flex flex-col items-center gap-4 rounded-2xl border-2 border-dashed border-border/70 bg-surface-elevated/25 px-4 py-10 sm:px-8"
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="glass-explore-hero-frame scroll-mt-16 my-10 flex flex-col items-center gap-4 rounded-2xl px-4 py-10 sm:px-8"
             >
               <InventionCard
                 node={focusNode}
@@ -410,10 +526,10 @@ function BuiltUponViewInner({
                 layoutId={cardLayoutId(focusNode.id)}
                 imageBust={imageBustByNodeId[focusNode.id] ?? 0}
               />
-              <p className="rounded-full border border-border bg-surface-elevated px-4 py-1.5 text-sm text-muted-foreground">
+              <p className="rounded-full glass-search-field px-4 py-1.5 text-sm text-muted-foreground">
                 {t('builtUponTotalCards', { count: totalCardsUp })}
               </p>
-            </div>
+            </motion.div>
 
             {/* ─── Built upon (amont) ─── */}
             <section
@@ -429,7 +545,7 @@ function BuiltUponViewInner({
               </h2>
 
               <div className="-mx-[60px] flex flex-col gap-8">
-                <div className="rounded-xl border border-border bg-surface-elevated p-4 shadow-inner">
+                <div className="rounded-xl glass-card p-4 shadow-inner">
                   <div className={STICKY_SECTION_BELOW_TREE_NAV_MATTERS_TOP}>
                     <div className="mb-[10px] text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
                       {t('builtUponMatters')}
@@ -452,15 +568,19 @@ function BuiltUponViewInner({
                         className="grid grid-cols-2 gap-3 [align-content:start]"
                       >
                         {bucketsBuilt.matters[col].map((n) => (
-                          <InventionCard
+                          <ScrollRevealCard
                             key={n.id}
-                            node={n}
-                            variant="compact"
-                            layoutId={cardLayoutId(n.id)}
-                            imageBust={imageBustByNodeId[n.id] ?? 0}
-                            exploreInteractive
-                            onClick={() => goTo(n.id)}
-                          />
+                            scrollRootRef={exploreScrollRef}
+                          >
+                            <InventionCard
+                              node={n}
+                              variant="compact"
+                              layoutId={cardLayoutId(n.id)}
+                              imageBust={imageBustByNodeId[n.id] ?? 0}
+                              exploreInteractive
+                              onClick={() => goTo(n.id)}
+                            />
+                          </ScrollRevealCard>
                         ))}
                       </div>
                     ))}
@@ -474,7 +594,7 @@ function BuiltUponViewInner({
                   ) : null}
                 </div>
 
-                <div className="rounded-xl border border-border bg-surface-elevated p-4">
+                <div className="rounded-xl glass-card p-4">
                   <div className={STICKY_SECTION_BELOW_TREE_NAV}>
                     <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
                       {t('builtUponProcess')}
@@ -482,15 +602,19 @@ function BuiltUponViewInner({
                   </div>
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
                     {bucketsBuilt.process.map((n) => (
-                      <InventionCard
+                      <ScrollRevealCard
                         key={n.id}
-                        node={n}
-                        variant="compact"
-                        layoutId={cardLayoutId(n.id)}
-                        imageBust={imageBustByNodeId[n.id] ?? 0}
-                        exploreInteractive
-                        onClick={() => goTo(n.id)}
-                      />
+                        scrollRootRef={exploreScrollRef}
+                      >
+                        <InventionCard
+                          node={n}
+                          variant="compact"
+                          layoutId={cardLayoutId(n.id)}
+                          imageBust={imageBustByNodeId[n.id] ?? 0}
+                          exploreInteractive
+                          onClick={() => goTo(n.id)}
+                        />
+                      </ScrollRevealCard>
                     ))}
                     {bucketsBuilt.process.length === 0 ? (
                       <p className="col-span-2 text-sm text-muted-foreground sm:col-span-4 lg:col-span-8">
@@ -500,7 +624,7 @@ function BuiltUponViewInner({
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-border bg-surface-elevated p-4">
+                <div className="rounded-xl glass-card p-4">
                   <div className={STICKY_SECTION_BELOW_TREE_NAV}>
                     <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
                       {t('builtUponTools')}
@@ -508,15 +632,19 @@ function BuiltUponViewInner({
                   </div>
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
                     {bucketsBuilt.tools.map((n) => (
-                      <InventionCard
+                      <ScrollRevealCard
                         key={n.id}
-                        node={n}
-                        variant="compact"
-                        layoutId={cardLayoutId(n.id)}
-                        imageBust={imageBustByNodeId[n.id] ?? 0}
-                        exploreInteractive
-                        onClick={() => goTo(n.id)}
-                      />
+                        scrollRootRef={exploreScrollRef}
+                      >
+                        <InventionCard
+                          node={n}
+                          variant="compact"
+                          layoutId={cardLayoutId(n.id)}
+                          imageBust={imageBustByNodeId[n.id] ?? 0}
+                          exploreInteractive
+                          onClick={() => goTo(n.id)}
+                        />
+                      </ScrollRevealCard>
                     ))}
                     {bucketsBuilt.tools.length === 0 ? (
                       <p className="col-span-2 text-sm text-muted-foreground sm:col-span-4 lg:col-span-8">
@@ -617,6 +745,26 @@ function IconGridUp({ className }: { className?: string }) {
       <path d="M14 4h6v4h-6z" />
       <path d="M14 10h6v4h-6z" />
       <path d="M14 16h6v4h-6z" />
+    </svg>
+  );
+}
+
+/** Panneau latéral + chevron : afficher / masquer la fiche détail */
+function IconDetailPanelToggle({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <line x1="15" y1="6" x2="15" y2="18" />
+      <path d="M10 9l4 3-4 3" />
     </svg>
   );
 }

@@ -846,7 +846,7 @@ export function SuggestNodeCorrectionPanel({
     <div className="flex min-h-0 flex-1 flex-col">
       <motion.div
         variants={staggerItem}
-        className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-2 border-b border-border bg-surface-elevated px-5 py-4"
+        className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-2 glass-app-header px-5 py-4"
       >
         <h2 className="text-lg font-semibold text-foreground">
           {variant === 'admin' ? tEditor('panelEditInvention') : tAuth('suggestCorrection')}
@@ -950,7 +950,7 @@ export function SuggestNodeCorrectionPanel({
           />
         </div>
         </div>
-        <div className="shrink-0 border-t border-border bg-surface px-5 pb-4 pt-3">
+        <div className="shrink-0 glass-footer px-5 pb-4 pt-3">
           <div className="flex flex-col gap-2">
             <button
               type="button"

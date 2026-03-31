@@ -426,7 +426,7 @@ export function SuggestionNodeForm({
             />
             {tagSuggestions.length > 0 ? (
               <ul
-                className="absolute z-20 mt-1 max-h-40 w-full overflow-auto rounded-md border border-border bg-surface-elevated py-1 shadow-lg"
+                className="absolute z-20 mt-1 max-h-40 w-full overflow-auto rounded-md glass-surface py-1 shadow-lg"
                 role="listbox"
               >
                 {tagSuggestions.map((t) => (

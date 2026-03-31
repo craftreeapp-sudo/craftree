@@ -39,16 +39,11 @@ export function Header() {
   const setAddCardModalOpen = useUIStore((s) => s.setAddCardModalOpen);
 
   const hideHeaderSearch = pathname === '/';
-  const isLanding = pathname === '/';
 
   return (
     <>
       <header
-        className={`fixed left-0 right-0 top-0 z-[100] flex h-14 shrink-0 items-center justify-between gap-x-2 px-3 backdrop-blur-md md:gap-x-3 md:px-4 xl:px-6 ${
-          isLanding
-            ? 'border-b border-border/60 bg-header-bg'
-            : 'border-b border-border/60 bg-header-bg'
-        }`}
+        className="fixed left-0 right-0 top-0 z-[100] flex h-14 shrink-0 items-center justify-between gap-x-2 px-3 md:gap-x-3 md:px-4 xl:px-6 glass-app-header"
         style={{ height: '56px' }}
       >
         <div className="relative z-[12] flex min-w-0 items-center gap-2">

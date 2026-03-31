@@ -304,8 +304,8 @@ export function SearchBar({
     <div
       className={`absolute left-0 right-0 top-full z-50 overflow-auto py-1 ${
         isLanding
-          ? 'mt-2 max-h-[min(42vh,340px)] rounded-xl border border-white/10 bg-[#101018]/95 shadow-2xl backdrop-blur-md'
-          : 'mt-1 max-h-[320px] rounded-lg border border-border bg-surface-elevated/95 backdrop-blur-md'
+          ? 'mt-2 max-h-[min(42vh,340px)] rounded-xl glass-landing shadow-2xl'
+          : 'mt-1 max-h-[320px] rounded-lg glass-surface'
       }`}
       aria-live="polite"
     >
@@ -330,7 +330,7 @@ export function SearchBar({
         className={`relative w-full max-w-2xl ${rootClassName ?? ''}`}
       >
         <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">
-          <div className="flex min-w-0 flex-1 items-center gap-2 rounded-xl border border-white/15 bg-white/[0.06] px-3 py-2.5 backdrop-blur-sm sm:py-3">
+          <div className="flex min-w-0 flex-1 items-center gap-2 rounded-xl glass-landing px-3 py-2.5 sm:py-3">
             <svg
               className="h-4 w-4 shrink-0 text-white/45"
               fill="none"
@@ -376,7 +376,7 @@ export function SearchBar({
       ref={containerRef}
       className={`relative w-full min-w-0 max-w-none ${rootClassName ?? ''}`}
     >
-      <div className="flex items-center gap-2 rounded-lg border border-border bg-surface-elevated/90 px-4 py-2.5 backdrop-blur-md">
+      <div className="flex items-center gap-2 rounded-lg glass-search-field px-4 py-2.5">
         <svg
           className="h-4 w-4 shrink-0 text-muted-foreground"
           fill="none"

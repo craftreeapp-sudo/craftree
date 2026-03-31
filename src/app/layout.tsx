@@ -77,7 +77,7 @@ export const metadata: Metadata = {
         url: '/og-default.png',
         width: 1200,
         height: 630,
-        alt: "Craftree — L'arbre de fabrication de la civilisation",
+        alt: 'Craftree — What is civilization made of?',
       },
     ],
   },

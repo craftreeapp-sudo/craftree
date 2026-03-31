@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useExploreCardOptional } from '@/components/explore/explore-card-context';
+import { EXPLORE_TREE_PANEL_FIXED_TOP_CLASS } from '@/lib/explore-layout';
 
 const LEGEND_W = 300;
 const TRANSITION = {
@@ -143,7 +144,7 @@ export function LegendPanel() {
   const body = (
     <div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto px-4 pb-6 pt-2">
       <section>
-        <h3 className="text-[11px] font-bold uppercase tracking-widest text-[#7c9cff]">
+        <h3 className="text-[11px] font-bold uppercase tracking-widest text-accent">
           {t('legendMattersHeading')}
         </h3>
         <p className="mt-1 text-sm font-medium text-foreground">
@@ -154,7 +155,7 @@ export function LegendPanel() {
         </p>
       </section>
       <section>
-        <h3 className="text-[11px] font-bold uppercase tracking-widest text-[#7c9cff]">
+        <h3 className="text-[11px] font-bold uppercase tracking-widest text-accent">
           {t('legendProcessHeading')}
         </h3>
         <p className="mt-1 text-sm font-medium text-foreground">
@@ -165,7 +166,7 @@ export function LegendPanel() {
         </p>
       </section>
       <section>
-        <h3 className="text-[11px] font-bold uppercase tracking-widest text-[#7c9cff]">
+        <h3 className="text-[11px] font-bold uppercase tracking-widest text-accent">
           {t('legendToolsHeading')}
         </h3>
         <p className="mt-1 text-sm font-medium text-foreground">
@@ -176,7 +177,7 @@ export function LegendPanel() {
         </p>
       </section>
       <section>
-        <h3 className="text-[11px] font-bold uppercase tracking-widest text-amber-200/90">
+        <h3 className="legend-heading-warm text-[11px] font-bold uppercase tracking-widest">
           {t('legendOriginsHeading')}
         </h3>
         <p className="mt-1 text-sm font-medium text-foreground">
@@ -187,7 +188,7 @@ export function LegendPanel() {
         </div>
       </section>
       <section>
-        <h3 className="text-[11px] font-bold uppercase tracking-widest text-amber-200/90">
+        <h3 className="legend-heading-warm text-[11px] font-bold uppercase tracking-widest">
           {t('legendNatureHeading')}
         </h3>
         <p className="mt-1 text-sm font-medium text-foreground">
@@ -248,7 +249,7 @@ export function LegendPanel() {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={TRANSITION}
-              className="fixed inset-x-0 bottom-0 z-[75] flex max-h-[min(92dvh,720px)] flex-col rounded-t-2xl border border-border border-b-0 bg-surface shadow-2xl"
+              className="glass-explore-legend-sheet fixed inset-x-0 bottom-0 z-[75] flex max-h-[min(92dvh,720px)] flex-col rounded-t-2xl border border-border border-b-0"
             >
               {header}
               {body}
@@ -263,7 +264,7 @@ export function LegendPanel() {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={TRANSITION}
-              className="fixed bottom-0 left-0 top-14 z-[75] flex w-[min(100vw,300px)] max-w-[300px] flex-col border-r border-border bg-surface shadow-2xl"
+              className={`glass-explore-legend ${EXPLORE_TREE_PANEL_FIXED_TOP_CLASS} fixed bottom-0 left-0 z-[75] flex w-[min(100vw,300px)] max-w-[300px] flex-col shadow-2xl`}
               style={{ width: LEGEND_W }}
             >
               {header}

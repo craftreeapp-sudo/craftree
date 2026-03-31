@@ -19,7 +19,7 @@ export function CategoryFilterSidebar({ activeId }: Props) {
       aria-label={tPage('categorySidebarHeading')}
       className="w-full shrink-0 lg:w-56 xl:w-60"
     >
-      <div className="rounded-xl border border-border/80 bg-surface-elevated/40 p-3 lg:sticky lg:top-28 lg:max-h-[min(70vh,calc(100dvh-8rem))] lg:overflow-y-auto lg:pr-1">
+      <div className="rounded-xl glass-card p-3 lg:sticky lg:top-28 lg:max-h-[min(70vh,calc(100dvh-8rem))] lg:overflow-y-auto lg:pr-1">
         <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
           {tPage('categorySidebarHeading')}
         </p>

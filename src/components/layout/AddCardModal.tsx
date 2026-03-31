@@ -442,7 +442,7 @@ export function AddCardModal() {
         onClick={onClose}
       />
       <div
-        className="relative z-[1] flex max-h-[min(90dvh,800px)] w-full max-w-xl flex-col overflow-hidden rounded-xl border border-border bg-surface-elevated shadow-2xl"
+        className="relative z-[1] flex max-h-[min(90dvh,800px)] w-full max-w-md flex-col overflow-hidden rounded-xl glass-surface shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
@@ -451,7 +451,7 @@ export function AddCardModal() {
           </h2>
           <button
             type="button"
-            className="rounded p-1 text-muted-foreground hover:bg-border hover:text-foreground"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md text-2xl leading-none text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
             onClick={onClose}
             aria-label={tc('close')}
           >

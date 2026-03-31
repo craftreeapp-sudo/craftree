@@ -191,7 +191,7 @@ export default function StatsPage() {
 
       <div className="grid w-full gap-4 md:gap-6 lg:grid-cols-2">
         <section
-          className="w-full rounded-xl border border-border bg-surface-elevated p-4 shadow-xl md:p-5"
+          className="w-full rounded-xl glass-card p-4 shadow-xl md:p-5"
           aria-labelledby="stats-raw-title"
         >
           <h2
@@ -218,7 +218,7 @@ export default function StatsPage() {
         </section>
 
         <section
-          className="w-full rounded-xl border border-border bg-surface-elevated p-4 shadow-xl md:p-5"
+          className="w-full rounded-xl glass-card p-4 shadow-xl md:p-5"
           aria-labelledby="stats-complex-title"
         >
           <h2
@@ -245,7 +245,7 @@ export default function StatsPage() {
         </section>
 
         <section
-          className="w-full rounded-xl border border-border bg-surface-elevated p-4 shadow-xl md:p-5 lg:col-span-2"
+          className="w-full rounded-xl glass-card p-4 shadow-xl md:p-5 lg:col-span-2"
           aria-labelledby="stats-cat-title"
         >
           <h2
@@ -263,7 +263,7 @@ export default function StatsPage() {
         </section>
 
         <section
-          className="w-full rounded-xl border border-border bg-surface-elevated p-4 shadow-xl md:p-5 lg:col-span-2"
+          className="w-full rounded-xl glass-card p-4 shadow-xl md:p-5 lg:col-span-2"
           aria-labelledby="stats-era-title"
         >
           <h2

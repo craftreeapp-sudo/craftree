@@ -43,7 +43,7 @@ export function LandingPage({ floatingPool }: Props) {
         </div>
         <Suspense
           fallback={
-            <div className="h-14 w-full max-w-2xl animate-pulse rounded-xl bg-white/[0.06]" />
+            <div className="h-14 w-full max-w-2xl animate-pulse rounded-xl glass-landing" />
           }
         >
           <SearchBar

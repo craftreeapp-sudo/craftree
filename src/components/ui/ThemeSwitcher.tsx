@@ -12,7 +12,7 @@ import {
 const BTN = HEADER_ICON_BUTTON;
 
 const MENU =
-  'absolute z-[110] mt-1 w-max min-w-[12rem] max-w-[min(100vw-1rem,14rem)] overflow-hidden rounded-[8px] border border-border bg-surface-elevated py-1 shadow-[0_8px_24px_rgba(0,0,0,0.35)]';
+  'absolute z-[110] mt-1 w-max min-w-[12rem] max-w-[min(100vw-1rem,14rem)] overflow-hidden rounded-[8px] glass-surface py-1 shadow-[0_8px_24px_rgba(0,0,0,0.35)]';
 
 const ITEM =
   'flex w-full min-w-0 flex-row items-center gap-2.5 px-3 py-2 text-left text-[13px] text-foreground transition-colors hover:bg-surface';

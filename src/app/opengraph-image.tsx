@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const alt = 'Craftree — L’arbre de fabrication de la civilisation';
+export const alt = 'Craftree — What is civilization made of?';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -40,7 +40,7 @@ export default function OpenGraphImage() {
             }}
           >
             <span>Craft</span>
-            <span style={{ color: '#3B82F6' }}>ree</span>
+            <span style={{ color: '#5DCAA5' }}>ree</span>
           </div>
           <div
             style={{
@@ -51,7 +51,7 @@ export default function OpenGraphImage() {
               lineHeight: 1.35,
             }}
           >
-            L’arbre de fabrication de la civilisation
+            What is civilization made of?
           </div>
         </div>
       </div>

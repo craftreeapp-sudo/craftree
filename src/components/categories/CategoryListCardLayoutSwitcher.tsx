@@ -156,7 +156,7 @@ export function CategoryListCardLayoutSwitcher({
       <div
         role="radiogroup"
         aria-labelledby="category-list-card-layout-label"
-        className="inline-flex gap-0.5 rounded-lg border border-border/60 bg-surface-elevated/40 p-0.5"
+        className="inline-flex gap-0.5 rounded-lg glass-search-field p-0.5"
       >
         {MODES.map(({ id, Icon }) => {
           const selected = layout === id;

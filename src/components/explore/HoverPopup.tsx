@@ -287,7 +287,7 @@ export function ExploreHoverPopup() {
         role="tooltip"
         onPointerEnter={onPopupPointerEnter}
         onPointerLeave={onPopupPointerLeave}
-        className={`pointer-events-auto fixed ${hoverZClass} max-h-[min(85vh,560px)] overflow-y-auto overscroll-contain rounded-xl border border-border bg-surface shadow-2xl`}
+        className={`glass-explore-hover pointer-events-auto fixed ${hoverZClass} max-h-[min(85vh,560px)] overflow-y-auto overscroll-contain rounded-xl`}
         style={{
           width: `min(92vw, ${EXPLORE_DETAIL_PANEL_WIDTH_PX}px)`,
           maxWidth: `min(92vw, ${EXPLORE_DETAIL_PANEL_WIDTH_PX}px)`,

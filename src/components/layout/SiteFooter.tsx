@@ -14,7 +14,7 @@ export function SiteFooter({ variant = 'default' }: { variant?: Variant }) {
 
   if (variant === 'landing') {
     return (
-      <footer className="mt-auto border-t-[0.5px] border-border-subtle bg-page px-4 py-6 md:px-6">
+      <footer className="glass-footer mt-auto px-4 py-6 md:px-6">
         <div className="mx-auto flex max-w-[960px] flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <p className="text-center text-[12px] leading-relaxed text-muted-foreground md:text-start">
             {t('brandLine')}
@@ -56,7 +56,7 @@ export function SiteFooter({ variant = 'default' }: { variant?: Variant }) {
   }
 
   return (
-    <footer className="mt-auto border-t border-border bg-page/90 px-4 py-10">
+    <footer className="glass-footer mt-auto px-4 py-10">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 text-center sm:flex-row sm:text-left">
         <p
           className="text-sm text-muted-foreground"

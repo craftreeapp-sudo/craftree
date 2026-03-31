@@ -71,7 +71,7 @@ export function CategoriesPickerClient() {
             type="button"
             role="listitem"
             onClick={() => onPickCategory(cat)}
-            className="group relative overflow-hidden rounded-xl border border-border bg-surface-elevated text-left shadow-lg transition-transform hover:-translate-y-0.5 hover:border-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus"
+            className="group relative overflow-hidden rounded-xl glass-card text-left shadow-lg transition-transform hover:-translate-y-0.5 hover:border-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus"
           >
             <div className="relative aspect-[4/3] w-full overflow-hidden">
               <Image

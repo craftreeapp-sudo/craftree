@@ -8,7 +8,7 @@
   </defs>
   <rect width="1200" height="630" fill="url(#bg)"/>
   <rect x="80" y="80" width="1040" height="470" rx="24" stroke="#2A3042" stroke-width="2" fill="#1A1F2E" fill-opacity="0.5"/>
-  <text x="600" y="280" text-anchor="middle" fill="#E8ECF4" font-family="system-ui, sans-serif" font-size="72" font-weight="700" letter-spacing="-0.02em">Civ<tspan fill="#3B82F6">Tree</tspan></text>
-  <text x="600" y="360" text-anchor="middle" fill="#8B95A8" font-family="system-ui, sans-serif" font-size="28">L'arbre de fabrication de la civilisation</text>
-  <text x="600" y="430" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="18">Placeholder  image Open Graph</text>
+  <text x="600" y="280" text-anchor="middle" fill="#E8ECF4" font-family="system-ui, sans-serif" font-size="72" font-weight="700" letter-spacing="-0.02em">Craft<tspan fill="#5DCAA5">ree</tspan></text>
+  <text x="600" y="360" text-anchor="middle" fill="#8B95A8" font-family="system-ui, sans-serif" font-size="28">What is civilization made of?</text>
+  <text x="600" y="430" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="18">Open Graph placeholder</text>
 </svg>

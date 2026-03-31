@@ -1144,7 +1144,7 @@ export function EditorPageClient() {
       {/* Panneau nœud : édition = même UI que « Suggérer une correction » */}
       {panelOpen && editNodeForPanel ? (
         <aside
-          className="fixed right-0 top-14 z-[70] flex h-[calc(100dvh-3.5rem)] min-h-0 w-full flex-col overflow-hidden border-l border-border bg-surface-elevated shadow-2xl"
+          className="fixed right-0 top-14 z-[70] flex h-[calc(100dvh-3.5rem)] min-h-0 w-full flex-col overflow-hidden glass-panel-right shadow-2xl"
           style={{
             maxWidth: 400,
             width: 'min(100vw, 400px)',
@@ -1165,7 +1165,7 @@ export function EditorPageClient() {
       {/* Modal suppression nœud */}
       {deleteTarget ? (
         <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/60 p-4">
-          <div className="w-full max-w-md rounded-lg border border-border bg-surface-elevated p-6 shadow-xl">
+          <div className="w-full max-w-md rounded-lg glass-surface p-6 shadow-xl">
             <p className="text-sm text-foreground">
               {te('deleteConfirmRich', {
                 name: deleteTarget.name,
@@ -1202,7 +1202,7 @@ export function EditorPageClient() {
             onClick={() => setLinkPanel(null)}
           />
           <aside
-            className="fixed right-0 top-14 z-[70] flex h-[calc(100dvh-3.5rem)] w-full flex-col border-l border-border bg-surface-elevated shadow-xl"
+            className="fixed right-0 top-14 z-[70] flex h-[calc(100dvh-3.5rem)] w-full flex-col glass-panel-right shadow-xl"
             style={{
               maxWidth: EXPLORE_DETAIL_PANEL_WIDTH_PX,
               width: `min(100vw, ${EXPLORE_DETAIL_PANEL_WIDTH_PX}px)`,

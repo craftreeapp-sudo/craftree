@@ -1,7 +1,11 @@
 @import 'tailwindcss';
 
+/* `dark:` suit `data-theme` sur <html> (pas prefers-color-scheme) */
+@custom-variant dark (&:where(html[data-theme='dark'] *));
+
 /* Thème sombre (défaut) — piloté par data-theme sur <html> */
 [data-theme='dark'] {
+  color-scheme: dark;
   --page: #0a0a0a;
   --surface: #171717;
   --surface-elevated: #1f1f1f;
@@ -22,9 +26,27 @@
   --edge-stroke-material: #94a3b8;
   --edge-stroke-catalyst: #a1a1aa;
   --background: var(--page);
+  /* Glass (aligné sur la palette page/surface — pas de décalage bleu vs le reste de l’UI) */
+  --glass-header: rgba(10, 10, 10, 0.75);
+  --glass-header-fallback: rgba(10, 10, 10, 0.92);
+  --glass-header-border: rgba(255, 255, 255, 0.06);
+  --glass-panel: rgba(23, 23, 23, 0.85);
+  --glass-panel-fallback: rgba(23, 23, 23, 0.94);
+  --glass-panel-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow-detail: -4px 0 24px rgba(0, 0, 0, 0.3);
+  --glass-shadow-legend: 4px 0 24px rgba(0, 0, 0, 0.3);
+  --glass-shadow-legend-sheet: 0 -8px 32px rgba(0, 0, 0, 0.35);
+  --glass-hover: rgba(23, 23, 23, 0.88);
+  --glass-hover-fallback: rgba(23, 23, 23, 0.94);
+  --glass-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-hero: rgba(31, 31, 31, 0.7);
+  --glass-hero-fallback: rgba(31, 31, 31, 0.88);
+  --glass-hero-border: rgba(255, 255, 255, 0.1);
+  --glass-hero-shadow: 0 0 40px rgba(83, 74, 183, 0.08);
 }
 
 [data-theme='light'] {
+  color-scheme: light;
   /* Fond canvas plus marqué que le blanc des cartes (contraste page / surface) */
   --page: #e2e8f0;
   --surface: #ffffff;
@@ -50,6 +72,23 @@
   --graph-bg-dot: #cbd5e1;
   --edge-stroke-material: #64748b;
   --edge-stroke-catalyst: #64748b;
+  /* Glass — cohérent avec surfaces claires */
+  --glass-header: rgba(255, 255, 255, 0.75);
+  --glass-header-fallback: rgba(255, 255, 255, 0.96);
+  --glass-header-border: rgba(0, 0, 0, 0.06);
+  --glass-panel: rgba(255, 255, 255, 0.85);
+  --glass-panel-fallback: rgba(255, 255, 255, 0.94);
+  --glass-panel-border: rgba(0, 0, 0, 0.08);
+  --glass-shadow-detail: -4px 0 24px rgba(0, 0, 0, 0.08);
+  --glass-shadow-legend: 4px 0 24px rgba(0, 0, 0, 0.08);
+  --glass-shadow-legend-sheet: 0 -8px 32px rgba(0, 0, 0, 0.1);
+  --glass-hover: rgba(255, 255, 255, 0.9);
+  --glass-hover-fallback: rgba(255, 255, 255, 0.94);
+  --glass-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --glass-hero: rgba(255, 255, 255, 0.8);
+  --glass-hero-fallback: rgba(255, 255, 255, 0.92);
+  --glass-hero-border: rgba(0, 0, 0, 0.06);
+  --glass-hero-shadow: 0 0 40px rgba(83, 74, 183, 0.04);
 }
 
 @theme inline {
@@ -124,6 +163,149 @@ button:disabled,
 
 tr[role='button'] {
   cursor: pointer;
+}
+
+/*
+ * Liquid glass (site) — variables --glass-* dans [data-theme], alignées sur --page / --surface.
+ * Aliases : .glass-surface / .glass-card / .glass-panel-right = mêmes surfaces que l’explore tree.
+ * Fallback sans backdrop-filter : fonds plus opaques.
+ */
+.glass-app-header,
+.glass-explore-sticky-nav {
+  background-color: var(--glass-header-fallback);
+  border-bottom: 1px solid var(--glass-header-border);
+}
+
+.glass-footer {
+  background-color: var(--glass-header-fallback);
+  border-top: 1px solid var(--glass-header-border);
+}
+
+/* Champs recherche (shell app) : même échelle que le header, bordure complète */
+.glass-search-field {
+  background-color: var(--glass-header-fallback);
+  border: 1px solid var(--glass-header-border);
+}
+
+/* Landing hero (#050508) : vitrage clair lisible sur fond très sombre (indépendant du thème clair/sombre) */
+.glass-landing {
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.glass-explore-detail,
+.glass-panel-right {
+  background-color: var(--glass-panel-fallback);
+  border-left: 1px solid var(--glass-panel-border);
+  box-shadow: var(--glass-shadow-detail);
+}
+
+.glass-explore-legend {
+  background-color: var(--glass-panel-fallback);
+  border-right: 1px solid var(--glass-panel-border);
+  box-shadow: var(--glass-shadow-legend);
+}
+
+.glass-explore-legend-sheet {
+  background-color: var(--glass-panel-fallback);
+  box-shadow: var(--glass-shadow-legend-sheet);
+}
+
+.glass-explore-hover,
+.glass-surface {
+  background-color: var(--glass-hover-fallback);
+  border: 1px solid var(--glass-panel-border);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.glass-explore-hero-frame,
+.glass-card {
+  background-color: var(--glass-hero-fallback);
+  border: 1px solid var(--glass-hero-border);
+  box-shadow: var(--glass-hero-shadow);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .glass-app-header,
+  .glass-explore-sticky-nav {
+    background-color: var(--glass-header);
+    backdrop-filter: blur(16px) saturate(1.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  }
+
+  .glass-footer {
+    background-color: var(--glass-header);
+    backdrop-filter: blur(16px) saturate(1.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  }
+
+  .glass-search-field {
+    background-color: var(--glass-header);
+    backdrop-filter: blur(16px) saturate(1.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  }
+
+  .glass-landing {
+    background-color: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px) saturate(1.35);
+    -webkit-backdrop-filter: blur(20px) saturate(1.35);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  }
+
+  .glass-explore-detail,
+  .glass-panel-right {
+    background-color: var(--glass-panel);
+    backdrop-filter: blur(24px) saturate(1.3);
+    -webkit-backdrop-filter: blur(24px) saturate(1.3);
+    box-shadow: var(--glass-shadow-detail);
+  }
+
+  .glass-explore-legend {
+    background-color: var(--glass-panel);
+    backdrop-filter: blur(24px) saturate(1.3);
+    -webkit-backdrop-filter: blur(24px) saturate(1.3);
+    box-shadow: var(--glass-shadow-legend);
+  }
+
+  .glass-explore-legend-sheet {
+    background-color: var(--glass-panel);
+    backdrop-filter: blur(24px) saturate(1.3);
+    -webkit-backdrop-filter: blur(24px) saturate(1.3);
+    box-shadow: var(--glass-shadow-legend-sheet);
+  }
+
+  .glass-explore-hover,
+  .glass-surface {
+    background-color: var(--glass-hover);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    box-shadow: var(--glass-shadow-hover);
+  }
+
+  .glass-explore-hero-frame,
+  .glass-card {
+    background-color: var(--glass-hero);
+    backdrop-filter: blur(12px) saturate(1.1);
+    -webkit-backdrop-filter: blur(12px) saturate(1.1);
+    box-shadow: var(--glass-hero-shadow);
+  }
+}
+
+/*
+ * Explore /tree : panneaux latéraux fixes — `top` = header site (3.5rem) + hauteur réelle
+ * de la barre « How to read » (variable --explore-tree-toolbar-h en px, définie sur le wrapper BuiltUponViewInner).
+ */
+.explore-tree-panel-fixed-top {
+  top: calc(3.5rem + var(--explore-tree-toolbar-h, 3.5rem));
+}
+
+/* Légende explore : titres ambre lisibles en clair et en sombre */
+[data-theme='dark'] .legend-heading-warm {
+  color: rgb(253 230 138 / 0.92);
+}
+[data-theme='light'] .legend-heading-warm {
+  color: rgb(146 64 14);
 }
 
 /* Landing — mini-cartes hero + lignes (désactivé si prefers-reduced-motion) */

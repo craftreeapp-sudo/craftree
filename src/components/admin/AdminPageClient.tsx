@@ -964,7 +964,7 @@ export function AdminPageClient() {
             {contributorList.map((p) => (
               <li
                 key={p.id}
-                className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3"
+                className="flex flex-wrap items-center gap-3 rounded-lg glass-card px-4 py-3"
                 style={{ borderWidth: '0.5px' }}
               >
                 <div

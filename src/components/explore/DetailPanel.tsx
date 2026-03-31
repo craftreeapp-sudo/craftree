@@ -30,7 +30,10 @@ import {
 import { CardImagePlaceholder } from '@/components/explore/CardImagePlaceholder';
 import { ShareInventionButton } from '@/components/explore/ShareInventionButton';
 import { treeLayerDisplayIndexFromNode } from '@/lib/tree-layers';
-import { EXPLORE_DETAIL_PANEL_WIDTH_PX } from '@/lib/explore-layout';
+import {
+  EXPLORE_DETAIL_PANEL_WIDTH_PX,
+  EXPLORE_TREE_PANEL_FIXED_TOP_CLASS,
+} from '@/lib/explore-layout';
 const TRANSITION = { duration: 0.35, ease: [0.4, 0, 0.2, 1] as const };
 
 function materialLevelEditorKey(
@@ -283,7 +286,7 @@ export function ExploreDetailPanel() {
               </button>
               {moreOpen ? (
                 <div
-                  className="absolute end-0 top-[calc(100%+6px)] z-[90] min-w-[180px] rounded-md border border-border bg-surface-elevated py-1 shadow-lg"
+                  className="absolute end-0 top-[calc(100%+6px)] z-[90] min-w-[180px] rounded-md glass-surface py-1 shadow-lg"
                   role="menu"
                 >
                   {detail?.wikipedia_url ? (
@@ -531,7 +534,7 @@ export function ExploreDetailPanel() {
           animate={{ x: 0 }}
           exit={{ x: '100%' }}
           transition={TRANSITION}
-          className={`fixed bottom-0 right-0 top-14 z-[80] flex flex-col border-l border-border bg-surface shadow-2xl ${
+          className={`glass-explore-detail ${EXPLORE_TREE_PANEL_FIXED_TOP_CLASS} fixed bottom-0 right-0 z-[80] flex flex-col ${
             isMobile ? 'w-full' : ''
           }`}
           style={

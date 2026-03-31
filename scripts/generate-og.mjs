@@ -23,8 +23,8 @@ const svg = `<?xml version="1.0" encoding="UTF-8"?>
     <circle cx="900" cy="200" r="5" fill="#8B95A8" opacity="0.3"/>
     <circle cx="1020" cy="280" r="6" fill="#3B82F6" opacity="0.35"/>
   </g>
-  <text x="600" y="290" text-anchor="middle" fill="#E8ECF4" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="64" font-weight="700">Craftree</text>
-  <text x="600" y="350" text-anchor="middle" fill="#8B95A8" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="28">L'arbre de fabrication de la civilisation</text>
+  <text x="600" y="290" text-anchor="middle" fill="#E8ECF4" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="64" font-weight="700">Craft<tspan fill="#5DCAA5">ree</tspan></text>
+  <text x="600" y="350" text-anchor="middle" fill="#8B95A8" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="28">What is civilization made of?</text>
 </svg>`;
 
 const buffer = await sharp(Buffer.from(svg)).png().toBuffer();

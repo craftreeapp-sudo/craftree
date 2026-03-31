@@ -10,7 +10,6 @@ import { useExploreCardOptional } from '@/components/explore/explore-card-contex
 import { pickNodeDisplayName } from '@/lib/node-display-name';
 import { safeCategoryLabel } from '@/lib/safe-category-label';
 import { CardImagePlaceholder } from '@/components/explore/CardImagePlaceholder';
-import { ShareInventionButton } from '@/components/explore/ShareInventionButton';
 import { treeLayerDisplayIndexFromNode } from '@/lib/tree-layers';
 
 const HOVER_DELAY_MS = 300;
@@ -126,7 +125,7 @@ export function InventionCard({
 
   const textBlock = (
     <div className="flex w-full min-w-0 flex-col gap-2.5 border-t border-border bg-surface-elevated px-3.5 py-3 sm:px-4 sm:py-3.5">
-      <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-x-1.5 sm:gap-x-2">
+      <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-1.5 sm:gap-x-2">
         <h3
           className="min-h-[2.625rem] min-w-0 line-clamp-2 text-sm font-bold leading-snug text-foreground"
           title={displayName}
@@ -143,13 +142,6 @@ export function InventionCard({
         >
           {layerDisplay}
         </span>
-        <div className="mt-0.5 flex justify-end">
-          <ShareInventionButton
-            nodeId={node.id}
-            stopInteractionBubble
-            className="shrink-0 p-1.5 sm:p-2"
-          />
-        </div>
       </div>
       <span className="w-fit rounded-full bg-border/20 px-2.5 py-1 text-[11px] font-medium tabular-nums text-muted-foreground">
         {formatYear(node.year_approx ?? null)}
@@ -170,7 +162,7 @@ export function InventionCard({
     </div>
   );
 
-  const cardClass = `relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-md transition-[border-color,transform,box-shadow] duration-200 hover:border-[var(--card-cat)] hover:shadow-lg ${!isHero && onClick ? 'hover:scale-[1.02] active:scale-[0.99]' : ''} ${isHero ? 'w-full max-w-[min(100%,23rem)] sm:max-w-[min(100%,27rem)]' : 'w-full min-w-0'} ${onClick ? 'cursor-pointer' : ''} ${className}`;
+  const cardClass = `relative flex flex-col overflow-hidden rounded-xl glass-card transition-[border-color,transform,box-shadow] duration-200 hover:border-[var(--card-cat)] hover:shadow-lg ${!isHero && onClick ? 'hover:scale-[1.02] active:scale-[0.99]' : ''} ${isHero ? 'w-full max-w-[min(100%,23rem)] sm:max-w-[min(100%,27rem)]' : 'w-full min-w-0'} ${onClick ? 'cursor-pointer' : ''} ${className}`;
 
   const clickProps =
     exploreInteractive && onClick

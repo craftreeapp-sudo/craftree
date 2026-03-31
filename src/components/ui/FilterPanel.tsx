@@ -17,10 +17,10 @@ type OpenPanel = 'categories' | 'eras' | 'types' | null;
 const CATEGORY_PREVIEW_COUNT = 5;
 
 const panelBtnClass =
-  'inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface-elevated px-2.5 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-border focus:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus';
+  'inline-flex items-center gap-1.5 rounded-lg glass-search-field px-2.5 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-border focus:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus';
 
 const dropdownClass =
-  'absolute end-0 top-full z-[60] mt-1.5 w-[min(100vw-2rem,280px)] max-h-[min(70vh,320px)] overflow-y-auto rounded-lg border border-border bg-surface py-2 shadow-xl';
+  'absolute end-0 top-full z-[60] mt-1.5 w-[min(100vw-2rem,280px)] max-h-[min(70vh,320px)] overflow-y-auto rounded-lg glass-surface py-2 shadow-xl';
 
 export function FilterPanel() {
   const locale = useLocale();

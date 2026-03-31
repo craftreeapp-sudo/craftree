@@ -68,7 +68,7 @@ export function TimelinePageClient() {
                     <li key={n.id}>
                       <Link
                         href={treeInventionPath(n.id)}
-                        className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border bg-surface-elevated px-3 py-2.5 text-left shadow-sm transition-[transform,box-shadow] hover:scale-[1.01] hover:shadow-md"
+                        className="flex flex-wrap items-center justify-between gap-2 rounded-lg glass-card px-3 py-2.5 text-left shadow-sm transition-[transform,box-shadow] hover:scale-[1.01] hover:shadow-md"
                       >
                         <span className="font-medium text-foreground">
                           {n.name}

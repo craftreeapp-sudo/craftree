@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { AppContentShell } from '@/components/layout/AppContentShell';
 import { ExploreCardProvider } from '@/components/explore/explore-card-context';
@@ -66,6 +66,15 @@ function cardLayoutId(nodeId: string) {
   return `cat-filter-card-${nodeId}`;
 }
 
+function matchesCategoryListSearch(node: TechNodeBasic, rawQuery: string): boolean {
+  const q = rawQuery.trim().toLowerCase();
+  if (!q) return true;
+  const parts = [node.name, node.name_en, ...node.tags]
+    .filter(Boolean)
+    .map((x) => String(x).toLowerCase());
+  return parts.some((p) => p.includes(q));
+}
+
 export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps) {
   const router = useRouter();
   const tPage = useTranslations('categoriesPage');
@@ -106,21 +115,32 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
     [allNodes, kind, id]
   );
 
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredItems = useMemo(
+    () => items.filter((n) => matchesCategoryListSearch(n, searchQuery)),
+    [items, searchQuery]
+  );
+
   const pageTitle = tPage('listPageTitle', { label: filterLabel });
 
   const [cardLayout, setCardLayout] = useCategoryListCardLayout();
 
   const listBody =
     items.length === 0 ? (
-      <p className="rounded-xl border border-border bg-surface-elevated px-4 py-8 text-center text-sm text-muted-foreground">
+      <p className="rounded-xl glass-card px-4 py-8 text-center text-sm text-muted-foreground">
         {tPage('noResults')}
+      </p>
+    ) : filteredItems.length === 0 ? (
+      <p className="rounded-xl glass-card px-4 py-8 text-center text-sm text-muted-foreground">
+        {tPage('categoryListNoSearchMatch')}
       </p>
     ) : (
       <div
         className={CATEGORY_LIST_GRID_CLASS[cardLayout]}
         suppressHydrationWarning
       >
-        {items.map((node) => (
+        {filteredItems.map((node) => (
           <InventionCard
             key={node.id}
             node={node}
@@ -146,29 +166,52 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
       </nav>
 
       <header className="mb-8 md:mb-10">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-          <h1
-            className="min-w-0 flex-1 text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
-            style={{
-              fontFamily:
-                'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
-            }}
-          >
-            {pageTitle}
-          </h1>
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
+          <div className="min-w-0 flex-1">
+            <h1
+              className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
+              style={{
+                fontFamily:
+                  'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+              }}
+            >
+              {pageTitle}
+            </h1>
+            <p className="mt-2 text-sm text-muted-foreground md:text-base">
+              {subtitle}
+            </p>
+            <p className="mt-3 text-sm text-muted-foreground">
+              {searchQuery.trim()
+                ? tPage('techCountFiltered', {
+                    shown: filteredItems.length,
+                    total: items.length,
+                  })
+                : tPage('techCount', { count: items.length })}
+            </p>
+          </div>
           {items.length > 0 ? (
-            <div className="shrink-0">
-              <CategoryListCardLayoutSwitcher
-                layout={cardLayout}
-                onChange={setCardLayout}
+            <div className="flex w-full shrink-0 flex-col gap-3 sm:max-w-md lg:w-80 lg:max-w-none">
+              <label htmlFor="category-list-search" className="sr-only">
+                {tPage('categoryListSearchAria')}
+              </label>
+              <input
+                id="category-list-search"
+                type="search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={tPage('categoryListSearchPlaceholder')}
+                autoComplete="off"
+                className="w-full rounded-lg glass-search-field px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none transition focus-visible:ring-2 focus-visible:ring-ring-focus"
               />
+              <div className="w-full lg:flex lg:justify-end">
+                <CategoryListCardLayoutSwitcher
+                  layout={cardLayout}
+                  onChange={setCardLayout}
+                />
+              </div>
             </div>
           ) : null}
         </div>
-        <p className="mt-2 text-sm text-muted-foreground md:text-base">{subtitle}</p>
-        <p className="mt-3 text-sm text-muted-foreground">
-          {tPage('techCount', { count: items.length })}
-        </p>
       </header>
 
       {listBody}

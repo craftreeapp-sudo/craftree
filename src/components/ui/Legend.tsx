@@ -74,7 +74,7 @@ export function Legend() {
   return (
     <div
       ref={rootRef}
-      className={`fixed top-[4.5rem] z-[60] overflow-hidden rounded-lg border border-border bg-surface-elevated shadow-lg ease-out ${
+      className={`fixed top-[4.5rem] z-[60] overflow-hidden rounded-lg glass-search-field shadow-lg ease-out ${
         isRtl ? 'transition-[right,width,opacity]' : 'transition-[left,width,opacity]'
       } duration-200 ${isExpanded ? 'cursor-default' : 'cursor-pointer'} pointer-events-auto opacity-100`}
       style={{
