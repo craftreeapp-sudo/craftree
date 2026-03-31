@@ -1,15 +1,17 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import { collectUpstreamDependencyNodeIds } from '@/lib/graph-utils';
 import type { CraftingLink } from '@/lib/types';
 import { getSiteUrl } from '@/lib/seo';
+import { buildTreeArticleJsonLd, buildTreeSeoBundle } from '@/lib/tree-seo';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
+import { getMergedSeedNode } from '@/lib/seed-merge';
 import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
 import { TreePageClient } from './TreePageClient';
 import {
   getAllNodes,
   getAllLinks,
   getExploreMetadataLinks,
+  getExploreMetadataNodes,
   getTreePageNodeMeta,
 } from '@/lib/data';
 import type { SeedNode } from '@/lib/types';
@@ -21,8 +23,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const base = getSiteUrl();
-  const n = await getTreePageNodeMeta(id);
-  const edgeLinks = await getExploreMetadataLinks();
+
+  const [n, edgeLinks, metaNodes] = await Promise.all([
+    getTreePageNodeMeta(id),
+    getExploreMetadataLinks(),
+    getExploreMetadataNodes(),
+  ]);
 
   if (!n) {
     return {
@@ -32,24 +38,29 @@ export async function generateMetadata({
     };
   }
 
+  const nameById = new Map(metaNodes.map((m) => [m.id, m.name]));
   const edgeSlice = edgeLinks.map((e) => ({
     source_id: e.source_id,
     target_id: e.target_id,
   }));
-  const upstream = collectUpstreamDependencyNodeIds(id, edgeSlice);
-  const depCount = Math.max(0, upstream.size - 1);
+
+  const seo = buildTreeSeoBundle({
+    displayName: n.name,
+    nodeId: id,
+    edges: edgeSlice,
+    nameById,
+  });
 
   const title = `${n.name} — Craftree`;
-  const description = `Que faut-il pour fabriquer ${n.name} ? Découvrez les ${depCount} inventions nécessaires.`;
   const canonical = `${base}${treeInventionPath(id)}`;
 
   return {
     title: { absolute: title },
-    description,
+    description: seo.description,
     alternates: { canonical },
     openGraph: {
       title,
-      description,
+      description: seo.openGraphDescription,
       url: canonical,
       siteName: 'Craftree',
       locale: 'fr_FR',
@@ -59,7 +70,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       site: '@Craftree_app',
       title,
-      description,
+      description: seo.twitterDescription,
     },
   };
 }
@@ -81,7 +92,27 @@ export default async function TreePage({
     initialGraph = { nodes, links };
   }
 
+  const base = getSiteUrl();
+  const merged = getMergedSeedNode(id);
+  const canonicalUrl = `${base}${treeInventionPath(id)}`;
+  const jsonLd = buildTreeArticleJsonLd({
+    name: meta.name,
+    alternateName: merged?.name_en,
+    description: merged?.description,
+    canonicalUrl,
+    siteUrl: base,
+    yearApprox: merged?.year_approx ?? null,
+  });
+
   return (
-    <TreePageClient params={params} initialGraph={initialGraph} />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      <TreePageClient params={params} initialGraph={initialGraph} />
+    </>
   );
 }

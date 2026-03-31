@@ -5,13 +5,11 @@ import { BackToExploreLink } from '@/components/layout/BackToExploreLink';
 const titleFont =
   'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif';
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('about');
-  return {
-    title: { absolute: `${t('title')} — Craftree` },
-    description: t('subtitle'),
-  };
-}
+export const metadata: Metadata = {
+  title: { absolute: 'À propos — Craftree' },
+  description:
+    'Craftree modélise les inventions humaines comme des recettes de fabrication. Projet collaboratif et open source.',
+};
 
 export default async function AboutPage() {
   const t = await getTranslations('about');

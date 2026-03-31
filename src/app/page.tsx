@@ -6,7 +6,7 @@ import nodesIndex from '@/data/nodes-index.json';
 export const metadata: Metadata = {
   title: 'Craftree — De quoi est faite la civilisation ?',
   description:
-    "Explorez l'arbre complet des technologies humaines, de la matière première au produit final.",
+    'Explorez l’arbre complet des technologies humaines. Chaque invention décomposée en ses matériaux, procédés et outils, des matières premières au produit final.',
 };
 
 type IndexNode = (typeof nodesIndex.nodes)[number];

@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { AppContentShell } from '@/components/layout/AppContentShell';
@@ -76,7 +75,6 @@ function matchesCategoryListSearch(node: TechNodeBasic, rawQuery: string): boole
 }
 
 export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps) {
-  const router = useRouter();
   const tPage = useTranslations('categoriesPage');
   const tCat = useTranslations('categories');
   const tEra = useTranslations('eras');
@@ -148,7 +146,7 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
             layoutId={cardLayoutId(node.id)}
             imageBust={imageBustByNodeId[node.id] ?? 0}
             exploreInteractive
-            onClick={() => router.push(treeInventionPath(node.id))}
+            href={treeInventionPath(node.id)}
           />
         ))}
       </div>

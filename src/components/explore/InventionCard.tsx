@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useRef } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { getCategoryColor, hexToRgba } from '@/lib/colors';
@@ -17,8 +18,10 @@ const HOVER_DELAY_MS = 300;
 type Props = {
   node: TechNodeBasic;
   variant: 'hero' | 'compact';
-  /** Navigation (clic sur la carte) */
+  /** Navigation (clic) — ignoré si `href` est défini (préférer `href` pour le SEO) */
   onClick?: () => void;
+  /** Lien canonique vers `/tree/[id]` (balise `<a>` pour les moteurs) */
+  href?: string;
   /** Mode explore : survol + panneau latéral */
   exploreInteractive?: boolean;
   layoutId?: string;
@@ -30,6 +33,7 @@ export function InventionCard({
   node,
   variant,
   onClick,
+  href,
   exploreInteractive,
   layoutId,
   imageBust = 0,
@@ -47,7 +51,7 @@ export function InventionCard({
     node.name_en
   );
 
-  const rootRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement | HTMLAnchorElement | null>(null);
   const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
     undefined
   );
@@ -162,10 +166,11 @@ export function InventionCard({
     </div>
   );
 
-  const cardClass = `relative flex flex-col overflow-hidden rounded-xl glass-card transition-[border-color,transform,box-shadow] duration-200 hover:border-[var(--card-cat)] hover:shadow-lg ${!isHero && onClick ? 'hover:scale-[1.02] active:scale-[0.99]' : ''} ${isHero ? 'w-full max-w-[min(100%,23rem)] sm:max-w-[min(100%,27rem)]' : 'w-full min-w-0'} ${onClick ? 'cursor-pointer' : ''} ${className}`;
+  const isInteractive = !isHero && (!!href || !!onClick);
+  const cardClass = `relative flex flex-col overflow-hidden rounded-xl glass-card transition-[border-color,transform,box-shadow] duration-200 hover:border-[var(--card-cat)] hover:shadow-lg ${isInteractive ? 'hover:scale-[1.02] active:scale-[0.99]' : ''} ${isHero ? 'w-full max-w-[min(100%,23rem)] sm:max-w-[min(100%,27rem)]' : 'w-full min-w-0'} ${isInteractive ? 'cursor-pointer' : ''} ${className}`;
 
   const clickProps =
-    exploreInteractive && onClick
+    !href && exploreInteractive && onClick
       ? {
           onClick: handleCardClick,
           role: 'button' as const,
@@ -177,7 +182,7 @@ export function InventionCard({
             }
           },
         }
-      : !exploreInteractive && onClick
+      : !href && !exploreInteractive && onClick
         ? {
             onClick,
             role: 'button' as const,
@@ -198,10 +203,42 @@ export function InventionCard({
       }
     : {};
 
+  const style = { '--card-cat': catColor } as React.CSSProperties;
+
+  if (href) {
+    const linkEl = (
+      <Link
+        ref={rootRef as React.Ref<HTMLAnchorElement>}
+        href={href}
+        replace
+        scroll={false}
+        className={cardClass}
+        style={style}
+        onClick={onClick}
+        {...hoverPointerHandlers}
+      >
+        {inner}
+      </Link>
+    );
+
+    if (layoutId) {
+      return (
+        <motion.div
+          layout
+          layoutId={layoutId}
+          className="w-full min-w-0"
+        >
+          {linkEl}
+        </motion.div>
+      );
+    }
+    return linkEl;
+  }
+
   const commonDivProps = {
-    ref: rootRef,
+    ref: rootRef as React.Ref<HTMLDivElement>,
     className: cardClass,
-    style: { '--card-cat': catColor } as React.CSSProperties,
+    style,
     ...clickProps,
     ...hoverPointerHandlers,
   };

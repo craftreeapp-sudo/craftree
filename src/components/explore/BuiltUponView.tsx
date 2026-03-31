@@ -15,7 +15,7 @@ import { useSearchParams } from 'next/navigation';
 import { LayoutGroup, motion, useReducedMotion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
-import { useExploreNavigation } from '@/hooks/use-explore-navigation';
+import { treeInventionPath } from '@/lib/tree-routes';
 import { useGraphStore } from '@/stores/graph-store';
 import { useUIStore } from '@/stores/ui-store';
 import { ExploreCardProvider, useExploreCard } from '@/components/explore/explore-card-context';
@@ -170,7 +170,7 @@ function BuiltUponViewInner({
 }) {
   const t = useTranslations('explore');
   const searchParams = useSearchParams();
-  const { navigateToNode } = useExploreNavigation();
+  const selectNode = useUIStore((s) => s.selectNode);
   const { openDetail, closeDetail, openLegend, detailNodeId, legendOpen, isMobile } =
     useExploreCard();
   const detailOpen = detailNodeId !== null;
@@ -225,13 +225,6 @@ function BuiltUponViewInner({
   const totalDown = useMemo(
     () => totalDownstreamCardCount(focusId, edges),
     [focusId, edges]
-  );
-
-  const goTo = useCallback(
-    (id: string) => {
-      navigateToNode(id, { center: false });
-    },
-    [navigateToNode]
   );
 
   const activeZone = useExploreActiveZone(exploreScrollRef, focusId);
@@ -406,7 +399,8 @@ function BuiltUponViewInner({
                           layoutId={cardLayoutId(n.id)}
                           imageBust={imageBustByNodeId[n.id] ?? 0}
                           exploreInteractive
-                          onClick={() => goTo(n.id)}
+                          href={treeInventionPath(n.id)}
+                          onClick={() => selectNode(n.id, { center: false })}
                         />
                       </ScrollRevealCard>
                     ))}
@@ -436,7 +430,8 @@ function BuiltUponViewInner({
                           layoutId={cardLayoutId(n.id)}
                           imageBust={imageBustByNodeId[n.id] ?? 0}
                           exploreInteractive
-                          onClick={() => goTo(n.id)}
+                          href={treeInventionPath(n.id)}
+                          onClick={() => selectNode(n.id, { center: false })}
                         />
                       </ScrollRevealCard>
                     ))}
@@ -484,7 +479,8 @@ function BuiltUponViewInner({
                               layoutId={cardLayoutId(n.id)}
                               imageBust={imageBustByNodeId[n.id] ?? 0}
                               exploreInteractive
-                              onClick={() => goTo(n.id)}
+                              href={treeInventionPath(n.id)}
+                              onClick={() => selectNode(n.id, { center: false })}
                             />
                           </ScrollRevealCard>
                         ))}
@@ -578,7 +574,8 @@ function BuiltUponViewInner({
                               layoutId={cardLayoutId(n.id)}
                               imageBust={imageBustByNodeId[n.id] ?? 0}
                               exploreInteractive
-                              onClick={() => goTo(n.id)}
+                              href={treeInventionPath(n.id)}
+                              onClick={() => selectNode(n.id, { center: false })}
                             />
                           </ScrollRevealCard>
                         ))}
@@ -612,7 +609,8 @@ function BuiltUponViewInner({
                           layoutId={cardLayoutId(n.id)}
                           imageBust={imageBustByNodeId[n.id] ?? 0}
                           exploreInteractive
-                          onClick={() => goTo(n.id)}
+                          href={treeInventionPath(n.id)}
+                          onClick={() => selectNode(n.id, { center: false })}
                         />
                       </ScrollRevealCard>
                     ))}
@@ -642,7 +640,8 @@ function BuiltUponViewInner({
                           layoutId={cardLayoutId(n.id)}
                           imageBust={imageBustByNodeId[n.id] ?? 0}
                           exploreInteractive
-                          onClick={() => goTo(n.id)}
+                          href={treeInventionPath(n.id)}
+                          onClick={() => selectNode(n.id, { center: false })}
                         />
                       </ScrollRevealCard>
                     ))}
