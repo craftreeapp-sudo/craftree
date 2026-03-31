@@ -1,271 +1,199 @@
-<p align="center">
-  <img src="public/og-default.png" alt="Craftree" width="600" />
-</p>
+# Craftree
 
-<h1 align="center">Craftree</h1>
+**What is civilization made of?**
 
-<p align="center">
-  <strong>The fabrication tree of human civilization</strong><br/>
-  Explore how every technology is made, from raw materials up.
-</p>
+Craftree is an interactive technology tree that maps dependency relationships between human inventions. Instead of showing *when* things were invented, it answers a different question: **what do you need to make them?**
 
-<p align="center">
-  <a href="https://craftree.app">Live Site</a> · 
-  <a href="https://craftree.app/about">About</a> · 
-  <a href="https://x.com/Craftree_app">Twitter</a>
-</p>
+Each invention is decomposed into its materials, processes, tools, and prerequisite technologies — recursively, all the way down to raw materials found in nature.
+
+🌐 **Live:** [craftree.app](https://craftree.app)
+🐦 **Twitter:** [@Craftree_app](https://twitter.com/Craftree_app)
 
 ---
 
-## What is Craftree?
+## How it works
 
-Craftree is an interactive technology tree that models human inventions as **fabrication recipes**. Unlike classic timelines that show *when* things were invented, Craftree answers a different question: **what do you need to make them?**
+Every invention sits at the center of a single scrollable page:
 
-Each invention is broken down into three dimensions: the materials it's made of, the processes used to transform them, and the tools and machines required. Click on any input to explore its own recipe, all the way down to raw materials found in nature — sand, clay, wood, water, fire.
+- **Above it** — everything the invention enables (*Led To*)
+- **Below it** — everything the invention requires (*Built Upon*)
 
-The result is an inverted pyramid. At the top, a smartphone. At the bottom, sand and ore. In between, hundreds of inventions stacked on one another, each made possible by those before it. Craftree makes that depth visible and explorable.
+Click any card to explore its own recipe. The depth is recursive — a smartphone requires a processor, which requires silicon, which requires sand.
 
-The project was born from a conviction: in a world where everything moves faster, it matters to understand where things come from — not only who invented them, but what had to be assembled, transformed, and mastered for them to exist.
+### Three dimensions
 
-<p align="center">
-  <img src="public/screenshots/global-view.png" alt="Global view of the tree" width="700" />
-</p>
+Every invention is classified along three dimensions:
 
-## Features
+| Dimension | Question | Examples |
+|---|---|---|
+| **Matters** | What is it made of? | Sand, copper, steel, battery, processor |
+| **Process** | How do we transform it? | Smelting, refining, assembly, forging |
+| **Tools & Machines** | What do we use? | Blast furnace, CNC machine, factory |
 
-**Interactive graph** — Pan, zoom, and click through 260+ inventions organized in layers. Raw materials at the bottom, complex products at the top. The vertical axis represents transformation depth: how many fabrication steps from nature.
+### Four material levels
 
-**Focused view** — Click any invention to see its inputs below and outputs above, with all other nodes faded out. Navigate the fabrication chain click by click.
+Materials are further classified by how far they've been transformed from nature:
 
-**5 relation types** — Each link is classified: Material (consumed), Tool (reused), Energy, Knowledge (prerequisite), or Catalyst. Color-coded and visually distinct.
+| Level | Description | Examples |
+|---|---|---|
+| Raw materials | Extracted from nature | Iron ore, sand, crude oil |
+| Processed materials | New substance from transformation | Steel, silicon, plastic |
+| Industrial materials | Shaped for a specific use | Copper wire, steel sheet |
+| Components | Functional piece with a purpose | Battery, engine, processor |
 
-**AI-powered database** — Inventions are classified using Claude (Anthropic) with web search, following a strict 3-question decision tree: type → category → inputs.
+### Natural origin & chemical nature
 
-**6 languages** — French (default), English, Spanish, Chinese, Hindi, Arabic. Interface and labels are fully translated; invention names fall back to English for non-FR languages.
+Materials are also tagged with their natural origin (mineral, vegetal, animal) and their chemical nature (element, compound, material).
 
-**Contributor mode** — Registered users can suggest corrections, new inventions, and new links. All suggestions go through a moderation queue before being published.
-
-**Admin panel** — Review, approve, modify, or reject suggestions with a visual diff view. Track contributor activity and manage the database.
-
-**Shareable URLs** — Every invention has its own URL (`/invention/acier`) with Open Graph metadata for rich previews on social media.
-
-## How the graph works
-
-```
-Layer 14  ┌─────────────┐
-          │  Smartphone  │
-          └──────┬───────┘
-                 │
-Layer 8   ┌──────┴───────┐
-          │  Transistor   │
-          └──────┬───────┘
-                 │
-Layer 5   ┌──────┴───────┐
-          │   Silicon     │
-          └──────┬───────┘
-                 │
-Layer 1   ┌──────┴───────┐
-          │    Sand       │  ← raw material
-          └──────────────┘
-```
-
-The Y-axis is fixed by `complexity_depth` — the number of transformation steps from nature. The X-axis is optimized by dagre for readability. This hybrid approach preserves semantic meaning vertically while minimizing edge crossings horizontally.
-
-## Classification methodology
-
-Each invention is classified using a 3-question decision tree:
-
-1. **Does it exist in nature without human intervention?** → Raw material. Otherwise, is it a physical object or a technique? Techniques are processes; objects are classified by usage — tools if reusable, components if integrated, end products if used directly.
-
-2. **In which domain is it primarily used?** → One of 20 categories (Electronics, Transport, Food, Chemistry, etc.)
-
-3. **What inputs are needed to make it?** → For each input: is it consumed (material), reused (tool), does it provide energy, or does it represent prerequisite knowledge?
+---
 
 ## Tech stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 16 (App Router) |
-| Graph | React Flow (@xyflow/react) |
-| Layout | dagre (layered graph layout) |
-| Styling | Tailwind CSS 4 |
-| State | Zustand |
-| Search | Fuse.js (fuzzy client-side) |
-| Database | Supabase (PostgreSQL) |
-| Auth | Supabase Auth (Google OAuth) |
-| AI enrichment | Anthropic API (Claude + web search) |
-| Images | Wikimedia Commons (direct URLs) |
-| i18n | next-intl (6 languages) |
-| Hosting | Vercel |
-| Domain | craftree.app |
+- **Framework:** Next.js (App Router)
+- **Styling:** Tailwind CSS
+- **Database & Auth:** Supabase (PostgreSQL + Google OAuth)
+- **Deployment:** Vercel
+- **Search:** Fuse.js
+- **State management:** Zustand
+- **Internationalization:** next-intl (6 languages: FR, EN, ES, AR, HI, ZH)
+- **AI data population:** Anthropic Claude API (Haiku for classification, Sonnet for enrichment)
+- **Images:** Wikimedia Commons API (free, no local storage)
+- **Domain:** craftree.app (Namecheap)
+
+---
+
+## Project structure
+
+```
+src/
+├── app/
+│   ├── [locale]/               # Internationalized routes
+│   │   ├── page.tsx            # Landing page
+│   │   ├── tree/[slug]/        # Invention page (Led To + Built Upon)
+│   │   ├── about/              # About page
+│   │   ├── admin/              # Admin dashboard
+│   │   ├── editor/             # All inventions editor (admin)
+│   │   └── profile/            # User profile
+│   └── api/                    # API routes
+├── components/
+│   ├── tree/                   # Tree view (cards, grid, panels)
+│   ├── editor/                 # Editor components
+│   ├── landing/                # Landing page components
+│   └── ui/                     # Shared UI components
+├── lib/                        # Types, utilities, data helpers
+├── stores/                     # Zustand stores
+├── data/                       # seed-data.json (local backup)
+└── messages/                   # i18n translations
+
+scripts/                        # CLI scripts (outside Next bundle)
+├── add-inventions.mjs          # Add new inventions via Claude AI
+├── enrich-inventions.mjs       # Complete incomplete invention cards
+├── fix-images.mjs              # Fetch missing images from Wikimedia
+├── wikimedia-fetch.mjs         # Shared Wikimedia API module
+├── supabase-seed-sync.mjs      # Shared Supabase upsert module
+├── split-seed-data.mjs         # Split seed data for Next bundle
+├── build-tag-labels-en.mjs     # Tag translations
+├── generate-og.mjs             # Default Open Graph image
+└── cleanup-analytics.mjs       # Purge old analytics events
+```
+
+---
 
 ## Getting started
 
 ### Prerequisites
 
 - Node.js 18+
-- npm
-- A Supabase project (free tier works)
-- Anthropic API key (for `npm run populate` only)
-- Supabase service role key (for `populate` and `fix:images`)
+- A Supabase project
+- An Anthropic API key (for data population only)
 
-### Installation
+### Setup
 
 ```bash
+# Clone the repository
 git clone https://github.com/craftreeapp-sudo/craftree.git
 cd craftree
+
+# Install dependencies
 npm install
-```
 
-### Environment variables
+# Set up environment variables
+cp .env.example .env.local
+# Fill in: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY,
+# SUPABASE_SERVICE_ROLE_KEY, ANTHROPIC_API_KEY
 
-Create a `.env.local` file at the root:
+# Initialize the database
+# Run the contents of supabase/schema.sql in your Supabase SQL Editor
 
-```env
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-
-# Admin
-NEXT_PUBLIC_ADMIN_EMAIL=your-email@gmail.com
-
-# Anthropic (populate script)
-ANTHROPIC_API_KEY=sk-ant-...
-
-# Site
-NEXT_PUBLIC_SITE_URL=https://craftree.app
-```
-
-### Database setup
-
-1. Create a Supabase project at [supabase.com](https://supabase.com)
-2. Go to SQL Editor and run the contents of `supabase/schema.sql`
-3. Load data: run `npm run populate` (updates `src/data/seed-data.json` and upserts Supabase). To backfill Wikimedia image URLs without Claude, run `npm run fix:images` afterward.
-
-### Development
-
-```bash
+# Start the development server
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Scripts
+---
 
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Production build |
-| `npm run start` | Start production server |
-| `npm run lint` | Run ESLint |
-| `npm run populate` | Enrich inventions via Claude (writes seed-data.json + Supabase) |
-| `npm run populate:expand` | Re-enrich existing inventions with missing data |
-| `npm run populate:deep` | Follow dependencies to level 2 |
-| `npm run fix:images` | Wikimedia image URLs in Supabase only (no Claude) |
-| `npm run split-data` | Split seed into graph-core + node-details (local dev) |
-| `npm run generate:tag-labels` | Build English tag labels for i18n |
-| `npm run generate:og` | Generate Open Graph default image |
-| `npm run cleanup:analytics` | Analytics maintenance |
+## Populating the database
 
-## Project structure
+Craftree uses Claude AI to automatically generate invention data. Three scripts handle different tasks:
 
+| Command | What it does | Cost |
+|---------|-------------|------|
+| `npm run add -- --count 10` | Add 10 new inventions automatically | ~$0.02 |
+| `npm run add -- --count 5 --category energy` | Add 5 inventions in a specific category | ~$0.01 |
+| `npm run add -- --name "Dynamite,Radar"` | Add specific inventions by name | ~$0.01 |
+| `npm run enrich` | Complete all incomplete cards | ~$0.01/10 cards |
+| `npm run enrich -- --limit 20` | Complete 20 cards max | ~$0.02 |
+| `npm run fix:images` | Fetch missing images from Wikimedia | Free |
+
+### Recommended workflow
+
+```bash
+npm run add -- --count 20        # Add inventions
+npm run fix:images               # Fetch images
+npm run enrich                   # Complete missing fields
 ```
-craftree/
-├── src/
-│   ├── app/                    # Next.js App Router pages
-│   │   ├── page.tsx            # Landing page
-│   │   ├── explore/            # Main graph view
-│   │   ├── invention/[id]/     # OG metadata + redirect
-│   │   ├── about/              # About page
-│   │   ├── editor/             # Admin editor
-│   │   ├── admin/              # Admin moderation panel
-│   │   ├── profile/            # User profile
-│   │   └── api/                # API routes (admin actions)
-│   ├── components/
-│   │   ├── graph/              # TechGraph, TechNodeCard, TechEdge
-│   │   ├── ui/                 # Sidebar, SearchBar, Filters, Legend
-│   │   └── layout/             # Header, Footer
-│   ├── stores/                 # Zustand stores (graph, UI, auth)
-│   ├── lib/                    # Supabase client, data fetching, auth
-│   ├── messages/               # i18n translation files (fr, en, es, zh, hi, ar)
-│   └── data/                   # seed-data.json (backup)
-├── scripts/
-│   ├── populate.mjs            # AI enrichment → seed-data.json + Supabase
-│   ├── fix-images.mjs        # Wikimedia images → Supabase only
-│   ├── supabase-seed-sync.mjs # Shared Supabase mapping / upsert helpers
-│   ├── wikimedia-fetch.mjs    # Wikimedia API helpers
-│   ├── split-seed-data.mjs    # Optional dev split (npm run split-data)
-│   └── generate-og.mjs
-├── src/scripts/
-│   └── split-data.mjs         # Used by prebuild → nodes-index.json, etc.
-├── supabase/
-│   └── schema.sql              # Database schema
-└── public/
-    ├── og-default.png           # Default OG image
-    └── images/                  # Static assets
-```
+
+All scripts write to both `seed-data.json` (local backup) and Supabase (production) simultaneously. Human edits are never overwritten by the scripts.
+
+---
 
 ## Data model
 
-```typescript
-TechNode {
-  id: string              // slug (e.g. "acier")
-  name: string             // French name
-  name_en: string          // English name
-  description: string      // French description
-  description_en: string   // English description
-  category: NodeCategory   // 20 values (mineral, electronics, food...)
-  type: NodeType           // raw_material | process | tool | component | end_product
-  era: Era                 // 8 periods (prehistoric → contemporary)
-  year_approx: number      // approximate year of invention
-  origin: string           // inventor, company, or country
-  image_url: string        // Wikimedia Commons URL
-  wikipedia_url: string    // Wikipedia page
-  complexity_depth: number // computed: steps from raw materials
-}
+Each invention (`node`) has the following attributes:
 
-CraftingLink {
-  source_id: string        // input invention
-  target_id: string        // output invention
-  relation_type: string    // material | tool | energy | knowledge | catalyst
-  quantity_hint: string    // "beaucoup", "un", "modéré"
-  is_optional: boolean
-}
-```
+| Field | Description |
+|---|---|
+| `name` / `name_en` | Display name (French + English) |
+| `description` / `description_en` | Short description (French + English) |
+| `category` | Primary category (energy, electronics, etc.) |
+| `dimension` | `matter`, `process`, or `tool` |
+| `materialLevel` | `raw`, `processed`, `industrial`, or `component` (matter only) |
+| `origin_type` | `mineral`, `vegetal`, or `animal` (natural origin) |
+| `nature_type` | `element`, `compose`, or `materiau` (chemical nature) |
+| `era` | Historical era |
+| `year_approx` | Approximate year of invention |
+| `origin` | Country and/or inventor |
+| `image_url` | Wikimedia Commons image URL |
+| `wikipedia_url` | Wikipedia page URL |
+| `tags` | Search and classification tags |
+| `complexity_depth` | Total cards required upstream (computed) |
+
+Inventions are connected by **links** (`source_id` → `target_id`) with a `relation_type`: material, tool, energy, knowledge, or catalyst.
+
+---
 
 ## Contributing
 
-Craftree is open source. There are two ways to contribute:
+### On the website
 
-**On the site** — Create an account on [craftree.app](https://craftree.app), then use the "Suggest a correction" button or the "+" buttons to propose changes. All suggestions are reviewed before publication.
+Anyone can suggest corrections, add new inventions, or propose new links between technologies directly on [craftree.app](https://craftree.app). All suggestions are reviewed by an admin before being published. No account required for anonymous suggestions.
 
-**On GitHub** — Open an issue for bugs, missing inventions, or classification errors. Pull requests are welcome for code improvements.
+### On the code
 
-### What makes a good contribution
+Pull requests are welcome. For major changes, please open an issue first to discuss what you'd like to change.
 
-- A missing invention that is fundamental (widely used, historically significant)
-- A missing fabrication link between two existing inventions
-- A correction to a classification (wrong category, type, or date)
-- A better description or translation
-
-### What to avoid
-
-- Overly specialized inventions (e.g., a specific model of a machine rather than the machine itself)
-- Inventions that are variants rather than distinct technologies
-- Links that represent inspiration rather than fabrication dependency
-
-## Inspiration
-
-Craftree is inspired by the [Historical Tech Tree](https://historicaltechtree.com) by Étienne Fortier-Dubois, the technology trees from the Civilization game series, and the conviction that understanding where things come from is the first step to understanding where they're going.
-
-## Credits
-
-Craftree is an independent project created by **Julien Beljio**. It is not affiliated with any company, university, or institution. The code is open source (MIT) and the data is freely accessible.
-
-If you'd like to support the project, contribute content on the site, share it with others, or reach out via [Contact](https://craftree.app/contact).
-
-Built with Next.js, React Flow, and Tailwind CSS. Data enriched by Claude (Anthropic). Images from Wikimedia Commons.
+---
 
 ## License
 
@@ -273,6 +201,4 @@ MIT
 
 ---
 
-<p align="center">
-  <sub>If you wish to make an apple pie from scratch, you must first invent the universe. — Carl Sagan</sub>
-</p>
+Built with curiosity by Julien Beljio.
