@@ -1,5 +1,10 @@
 import { createSupabaseServiceRoleClient } from '@/lib/supabase-server';
 import { notifyContributorSuggestionResult } from '@/lib/notify-contributor-suggestion';
+import { dimensionMaterialLevelFromCreateBody } from '@/lib/node-dimension';
+import {
+  parseChemicalNature,
+  parseNaturalOrigin,
+} from '@/lib/suggest-nature-fields';
 import { slugify } from '@/lib/utils';
 import type { RelationType } from '@/lib/types';
 
@@ -236,19 +241,32 @@ export async function applyApprovedSuggestion(
     type NewNodePayload = {
       node: {
         name: string;
+        name_en?: string;
         category: string;
-        type: string;
+        type?: string;
         era: string;
         year_approx?: number | null;
         origin?: string | null;
         description?: string;
         proposed_id?: string;
+        tags?: string[];
+        wikipedia_url?: string | null;
+        dimension?: string | null;
+        materialLevel?: string | null;
+        naturalOrigin?: string | null;
+        chemicalNature?: string | null;
       };
-      link: {
+      link?: {
         source_id: string;
         target_id: string;
         relation_type: RelationType;
       };
+      /** Liens additionnels (même schéma que `link`, id du nœud proposé = `proposed_id`). */
+      links?: {
+        source_id: string;
+        target_id: string;
+        relation_type: RelationType;
+      }[];
     };
 
     let d = data as unknown as NewNodePayload;
@@ -256,7 +274,11 @@ export async function applyApprovedSuggestion(
       const o = options.overrideProposed as Partial<NewNodePayload>;
       d = {
         node: { ...d.node, ...(o.node ?? {}) },
-        link: { ...d.link, ...(o.link ?? {}) },
+        link:
+          o.link !== undefined
+            ? { ...(d.link ?? {}), ...o.link }
+            : d.link,
+        links: o.links !== undefined ? o.links : d.links,
       };
     }
 
@@ -273,38 +295,132 @@ export async function applyApprovedSuggestion(
       nodeId = await uniqueNodeId(sb, d.node.name);
     }
 
+    const dm = dimensionMaterialLevelFromCreateBody({
+      dimension: d.node.dimension,
+      materialLevel: d.node.materialLevel,
+    });
+
+    const tags = Array.isArray(d.node.tags)
+      ? (d.node.tags as unknown[]).map(String)
+      : [];
+
+    const nameEn =
+      typeof d.node.name_en === 'string' && d.node.name_en.trim()
+        ? d.node.name_en.trim()
+        : d.node.name;
+
+    const wiki =
+      d.node.wikipedia_url &&
+      typeof d.node.wikipedia_url === 'string' &&
+      d.node.wikipedia_url.trim()
+        ? d.node.wikipedia_url.trim()
+        : null;
+
+    const naturalOrigin = parseNaturalOrigin(
+      typeof d.node.naturalOrigin === 'string'
+        ? d.node.naturalOrigin
+        : undefined
+    );
+    const chemicalNature = parseChemicalNature(
+      typeof d.node.chemicalNature === 'string'
+        ? d.node.chemicalNature
+        : undefined
+    );
+
     const { error: nErr } = await sb.from('nodes').insert({
       id: nodeId,
       name: d.node.name,
-      name_en: d.node.name,
+      name_en: nameEn,
       description: d.node.description ?? '',
+      description_en: null,
       category: d.node.category,
-      type: d.node.type,
+      type: d.node.type ?? 'component',
       era: d.node.era,
       year_approx: d.node.year_approx ?? null,
       origin: d.node.origin ?? null,
-      tags: [],
+      tags,
       complexity_depth: 0,
       updated_at: new Date().toISOString(),
+      wikipedia_url: wiki,
+      dimension: dm.dimension,
+      material_level: dm.materialLevel,
+      natural_origin: naturalOrigin === '' ? null : naturalOrigin,
+      chemical_nature: chemicalNature === '' ? null : chemicalNature,
     });
     if (nErr) throw nErr;
 
     const ph = d.node.proposed_id?.trim() || '';
-    const src =
-      ph && d.link.source_id === ph ? nodeId : d.link.source_id;
-    const tgt =
-      ph && d.link.target_id === ph ? nodeId : d.link.target_id;
+    const linkItems: {
+      source_id: string;
+      target_id: string;
+      relation_type: RelationType;
+    }[] = [];
+    const seen = new Set<string>();
+    const pushLink = (x: {
+      source_id: string;
+      target_id: string;
+      relation_type: RelationType;
+    }) => {
+      const k = `${x.source_id}|${x.target_id}|${x.relation_type}`;
+      if (seen.has(k)) return;
+      seen.add(k);
+      linkItems.push(x);
+    };
+    if (
+      d.link &&
+      typeof d.link.source_id === 'string' &&
+      typeof d.link.target_id === 'string' &&
+      d.link.source_id &&
+      d.link.target_id &&
+      d.link.relation_type
+    ) {
+      pushLink(d.link);
+    }
+    if (Array.isArray(d.links)) {
+      for (const L of d.links) {
+        if (
+          L &&
+          typeof L.source_id === 'string' &&
+          typeof L.target_id === 'string' &&
+          L.source_id &&
+          L.target_id &&
+          L.relation_type
+        ) {
+          pushLink(L);
+        }
+      }
+    }
 
-    const linkId = await nextLinkId(sb);
-    const { error: lErr } = await sb.from('links').insert({
-      id: linkId,
-      source_id: src,
-      target_id: tgt,
-      relation_type: d.link.relation_type,
-      is_optional: false,
-      notes: null,
-    });
-    if (lErr) throw lErr;
+    const validRelations = new Set<string>([
+      'material',
+      'tool',
+      'energy',
+      'knowledge',
+      'catalyst',
+    ]);
+
+    for (const link of linkItems) {
+      const rel = String(link.relation_type);
+      if (!validRelations.has(rel)) {
+        throw new Error('relation_type invalide');
+      }
+
+      const src =
+        ph && link.source_id === ph ? nodeId : link.source_id;
+      const tgt =
+        ph && link.target_id === ph ? nodeId : link.target_id;
+
+      const linkId = await nextLinkId(sb);
+      const { error: lErr } = await sb.from('links').insert({
+        id: linkId,
+        source_id: src,
+        target_id: tgt,
+        relation_type: rel as RelationType,
+        is_optional: false,
+        notes: null,
+      });
+      if (lErr) throw lErr;
+    }
   } else if (type === 'delete_link') {
     const linkId = String(data.link_id ?? '');
     if (!linkId) throw new Error('link_id manquant');

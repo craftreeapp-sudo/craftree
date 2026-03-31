@@ -24,7 +24,6 @@ import { LegendPanel } from '@/components/explore/LegendPanel';
 import {
   bucketDirectDependencies,
   bucketLedToOutputs,
-  directDependencyCount,
   MATERIAL_COLUMNS,
   totalDownstreamCardCount,
   totalUpstreamCardCount,
@@ -66,7 +65,7 @@ function ExploreScrollArea({
     <div
       ref={scrollRef}
       className={`flex min-h-0 flex-1 basis-0 flex-col overflow-y-auto overflow-x-hidden px-3 pb-8 transition-[margin] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] sm:px-4 ${
-        detailOpen && !isMobile ? 'sm:mr-[340px]' : ''
+        detailOpen && !isMobile ? 'sm:mr-[400px]' : ''
       } ${legendOpen && !isMobile ? 'sm:ml-[300px]' : ''}`}
     >
       {children}
@@ -185,11 +184,6 @@ function BuiltUponViewInner({
     [focusId, edges]
   );
 
-  const mainDirectIn = useMemo(
-    () => directDependencyCount(focusId, edges),
-    [focusId, edges]
-  );
-
   const goTo = useCallback(
     (id: string) => {
       navigateToNode(id, { center: false });
@@ -224,7 +218,7 @@ function BuiltUponViewInner({
         {/* Barre sticky : How to read (gauche) — navigation arbre (droite) */}
         <div
           className={`sticky top-0 z-[90] flex w-full min-w-0 shrink-0 items-center gap-3 border-b border-border/80 bg-page/95 px-3 py-2 backdrop-blur-sm transition-[margin] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] sm:px-4 ${
-            detailOpen && !isMobile ? 'sm:mr-[340px]' : ''
+            detailOpen && !isMobile ? 'sm:mr-[400px]' : ''
           } ${legendOpen && !isMobile ? 'sm:ml-[300px]' : ''}`}
         >
           <button
@@ -304,7 +298,6 @@ function BuiltUponViewInner({
                       <InventionCard
                         key={n.id}
                         node={n}
-                        directDeps={directDependencyCount(n.id, edges)}
                         variant="compact"
                         layoutId={cardLayoutId(n.id)}
                         imageBust={imageBustByNodeId[n.id] ?? 0}
@@ -331,7 +324,6 @@ function BuiltUponViewInner({
                       <InventionCard
                         key={n.id}
                         node={n}
-                        directDeps={directDependencyCount(n.id, edges)}
                         variant="compact"
                         layoutId={cardLayoutId(n.id)}
                         imageBust={imageBustByNodeId[n.id] ?? 0}
@@ -376,7 +368,6 @@ function BuiltUponViewInner({
                           <InventionCard
                             key={n.id}
                             node={n}
-                            directDeps={directDependencyCount(n.id, edges)}
                             variant="compact"
                             layoutId={cardLayoutId(n.id)}
                             imageBust={imageBustByNodeId[n.id] ?? 0}
@@ -415,7 +406,6 @@ function BuiltUponViewInner({
             >
               <InventionCard
                 node={focusNode}
-                directDeps={mainDirectIn}
                 variant="hero"
                 layoutId={cardLayoutId(focusNode.id)}
                 imageBust={imageBustByNodeId[focusNode.id] ?? 0}
@@ -465,7 +455,6 @@ function BuiltUponViewInner({
                           <InventionCard
                             key={n.id}
                             node={n}
-                            directDeps={directDependencyCount(n.id, edges)}
                             variant="compact"
                             layoutId={cardLayoutId(n.id)}
                             imageBust={imageBustByNodeId[n.id] ?? 0}
@@ -496,7 +485,6 @@ function BuiltUponViewInner({
                       <InventionCard
                         key={n.id}
                         node={n}
-                        directDeps={directDependencyCount(n.id, edges)}
                         variant="compact"
                         layoutId={cardLayoutId(n.id)}
                         imageBust={imageBustByNodeId[n.id] ?? 0}
@@ -523,7 +511,6 @@ function BuiltUponViewInner({
                       <InventionCard
                         key={n.id}
                         node={n}
-                        directDeps={directDependencyCount(n.id, edges)}
                         variant="compact"
                         layoutId={cardLayoutId(n.id)}
                         imageBust={imageBustByNodeId[n.id] ?? 0}

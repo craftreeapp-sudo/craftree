@@ -10,8 +10,18 @@ import {
   createSupabaseServiceRoleClient,
 } from '@/lib/supabase-server';
 import { requireAdminFromRequest } from '@/lib/auth-server';
-import { GRAPH_LINKS_SELECT, mapLinkRowToCraftingLink } from '@/lib/data';
+import {
+  fetchAllLinkRowsPaginated,
+  GRAPH_LINKS_SELECT,
+  mapLinkRowToCraftingLink,
+} from '@/lib/data';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
+
+const JSON_NO_STORE = {
+  headers: {
+    'Cache-Control': 'private, no-store, max-age=0, must-revalidate',
+  },
+} as const;
 
 function nextLinkId(links: CraftingLink[]): string {
   let max = 0;
@@ -41,14 +51,9 @@ export async function GET() {
       return NextResponse.json({ links: data.links });
     }
     const supabase = createSupabaseServerReadClient();
-    const { data, error } = await supabase
-      .from('links')
-      .select(GRAPH_LINKS_SELECT);
-    if (error) throw error;
-    const links = (data ?? []).map((r) =>
-      mapLinkRowToCraftingLink(r as Record<string, unknown>)
-    );
-    return NextResponse.json({ links });
+    const linkRows = await fetchAllLinkRowsPaginated(supabase, GRAPH_LINKS_SELECT);
+    const links = linkRows.map((r) => mapLinkRowToCraftingLink(r));
+    return NextResponse.json({ links }, JSON_NO_STORE);
   } catch (e) {
     console.error(e);
     return NextResponse.json(
@@ -140,12 +145,12 @@ export async function POST(request: Request) {
       );
     }
 
-    const { data: existingLinks } = await sb.from('links').select('*');
-    const dup = (existingLinks ?? []).some(
+    const existingRows = await fetchAllLinkRowsPaginated(sb, '*');
+    const dup = existingRows.some(
       (l) =>
-        l.source_id === source_id &&
-        l.target_id === target_id &&
-        l.relation_type === relation_type
+        String(l.source_id) === source_id &&
+        String(l.target_id) === target_id &&
+        String(l.relation_type) === relation_type
     );
     if (dup) {
       return NextResponse.json(
@@ -155,9 +160,7 @@ export async function POST(request: Request) {
     }
 
     const id = nextLinkId(
-      (existingLinks ?? []).map((l) =>
-        mapLinkRowToCraftingLink(l as Record<string, unknown>)
-      )
+      existingRows.map((l) => mapLinkRowToCraftingLink(l))
     );
 
     const insertRow = {

@@ -1,6 +1,6 @@
 /**
  * Client Supabase (service role) + mapping seed-data.json → colonnes PostgreSQL.
- * Utilisé par populate.mjs et fix-images.mjs.
+ * Utilisé par add-inventions.mjs, enrich-inventions.mjs, fix-images.mjs.
  */
 import { createClient } from '@supabase/supabase-js';
 import path from 'path';
@@ -122,6 +122,10 @@ export async function upsertSeedLinks(supabase, seedLinks) {
     }
   }
 }
+
+/** Alias explicites pour les nouveaux scripts */
+export const upsertNodes = upsertSeedNodes;
+export const upsertLinks = upsertSeedLinks;
 
 /**
  * Mise à jour d’image seule (évite un upsert partiel qui écraserait name, etc.).

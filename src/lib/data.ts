@@ -1,8 +1,10 @@
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { createSupabaseServerReadClient } from '@/lib/supabase-server';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 import {
   getExploreMetadataNodes as getExploreMetadataNodesFromSeed,
   getLinksForMetadata as getLinksForMetadataFromSeed,
+  getTreeMetadataNode,
 } from '@/lib/seed-merge';
 import type {
   ChemicalNature,
@@ -76,10 +78,19 @@ export const FULL_NODES_SELECT_LEGACY =
   'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level';
 
 export function isMissingNatureColumnsError(
-  err: { code?: string; message?: string } | null
+  err: {
+    code?: string;
+    message?: string;
+    details?: string;
+    hint?: string;
+  } | null
 ): boolean {
   if (!err) return false;
-  const m = String(err.message ?? '');
+  const m = [
+    String(err.message ?? ''),
+    String(err.details ?? ''),
+    String(err.hint ?? ''),
+  ].join(' ');
   return m.includes('natural_origin') || m.includes('chemical_nature');
 }
 
@@ -115,6 +126,33 @@ export async function fetchNodesOrdered(
 /** Liens : champs nécessaires au rendu et à l’éditeur (pas de métadonnées inutiles). */
 export const GRAPH_LINKS_SELECT =
   'id, source_id, target_id, relation_type, is_optional, notes';
+
+const LINKS_PAGE_SIZE = 1000;
+
+/**
+ * PostgREST limite le nombre de lignes par réponse ; parcourir toutes les pages.
+ * Utilisé par `getAllLinks` (SSR `/tree`) et par l’API `GET/POST /api/links`.
+ */
+export async function fetchAllLinkRowsPaginated(
+  sb: SupabaseClient,
+  columns: string
+): Promise<Record<string, unknown>[]> {
+  const rows: Record<string, unknown>[] = [];
+  let from = 0;
+  for (;;) {
+    const { data, error } = await sb
+      .from('links')
+      .select(columns)
+      .range(from, from + LINKS_PAGE_SIZE - 1);
+    if (error) throw error;
+    const batch = (data ?? []) as unknown as Record<string, unknown>[];
+    if (batch.length === 0) break;
+    rows.push(...batch);
+    if (batch.length < LINKS_PAGE_SIZE) break;
+    from += LINKS_PAGE_SIZE;
+  }
+  return rows;
+}
 
 /**
  * Projection graphe → SeedNode : champs lourds vides jusqu’à chargement détail / ?full=1.
@@ -220,15 +258,35 @@ export async function getNodeDetailsRow(id: string) {
   return data;
 }
 
+/**
+ * Existence + nom pour `/tree/[id]` : base Supabase si configurée, sinon `nodes-index.json` (build).
+ */
+export async function getTreePageNodeMeta(
+  id: string
+): Promise<{ id: string; name: string } | null> {
+  if (!isSupabaseConfigured()) {
+    return getTreeMetadataNode(id) ?? null;
+  }
+  const supabase = createSupabaseServerReadClient();
+  const { data, error } = await supabase
+    .from('nodes')
+    .select('id, name')
+    .eq('id', id)
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) return null;
+  const row = data as { id: string; name: string };
+  return { id: String(row.id), name: String(row.name) };
+}
+
 export async function getAllLinks(): Promise<CraftingLink[]> {
   if (!isSupabaseConfigured()) {
     const { readSeedData } = await import('@/lib/seed-data-fs');
     return readSeedData().links;
   }
   const supabase = createSupabaseServerReadClient();
-  const { data, error } = await supabase.from('links').select(GRAPH_LINKS_SELECT);
-  if (error) throw error;
-  return (data ?? []).map((r) => mapLinkRowToCraftingLink(r as Record<string, unknown>));
+  const linkRows = await fetchAllLinkRowsPaginated(supabase, GRAPH_LINKS_SELECT);
+  return linkRows.map((r) => mapLinkRowToCraftingLink(r));
 }
 
 export async function getLinksForNode(nodeId: string): Promise<CraftingLink[]> {

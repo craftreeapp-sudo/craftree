@@ -81,6 +81,10 @@ interface UIStore {
   /** Modal « connectez-vous pour contribuer » */
   loginModalOpen: boolean;
   setLoginModalOpen: (open: boolean) => void;
+
+  /** Modal globale « Ajouter une carte » (création / suggestion) */
+  addCardModalOpen: boolean;
+  setAddCardModalOpen: (open: boolean) => void;
 }
 
 export const useUIStore = create<UIStore>((set) => ({
@@ -250,4 +254,7 @@ export const useUIStore = create<UIStore>((set) => ({
 
   loginModalOpen: false,
   setLoginModalOpen: (open) => set({ loginModalOpen: open }),
+
+  addCardModalOpen: false,
+  setAddCardModalOpen: (open) => set({ addCardModalOpen: open }),
 }));

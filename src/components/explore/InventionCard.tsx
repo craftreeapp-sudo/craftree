@@ -9,12 +9,14 @@ import type { NodeCategory, TechNodeBasic } from '@/lib/types';
 import { useExploreCardOptional } from '@/components/explore/explore-card-context';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
 import { safeCategoryLabel } from '@/lib/safe-category-label';
+import { CardImagePlaceholder } from '@/components/explore/CardImagePlaceholder';
+import { ShareInventionButton } from '@/components/explore/ShareInventionButton';
+import { treeLayerDisplayIndexFromNode } from '@/lib/tree-layers';
 
 const HOVER_DELAY_MS = 300;
 
 type Props = {
   node: TechNodeBasic;
-  directDeps: number;
   variant: 'hero' | 'compact';
   /** Navigation (clic sur la carte) */
   onClick?: () => void;
@@ -27,7 +29,6 @@ type Props = {
 
 export function InventionCard({
   node,
-  directDeps,
   variant,
   onClick,
   exploreInteractive,
@@ -61,6 +62,7 @@ export function InventionCard({
 
   const cat = node.category as NodeCategory;
   const catColor = getCategoryColor(cat);
+  const layerDisplay = treeLayerDisplayIndexFromNode(node);
 
   const canHover =
     !isHero &&
@@ -117,22 +119,16 @@ export function InventionCard({
           loading="lazy"
         />
       ) : (
-        <div
-          className="flex h-full w-full items-center justify-center text-2xl font-bold text-muted-foreground/60 sm:text-3xl"
-          style={{ backgroundColor: hexToRgba(catColor, 0.22) }}
-          aria-hidden
-        >
-          {displayName.trim().charAt(0).toUpperCase() || '?'}
-        </div>
+        <CardImagePlaceholder categoryColor={catColor} className="h-full w-full" />
       )}
     </div>
   );
 
   const textBlock = (
-    <div className="flex w-full min-w-0 flex-col gap-2.5 border-t border-border bg-surface-elevated p-3 sm:p-3.5">
-      <div className="flex min-w-0 items-start justify-between gap-2">
+    <div className="flex w-full min-w-0 flex-col gap-2.5 border-t border-border bg-surface-elevated px-3.5 py-3 sm:px-4 sm:py-3.5">
+      <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-x-1.5 sm:gap-x-2">
         <h3
-          className="min-h-[2.625rem] min-w-0 flex-1 line-clamp-2 text-sm font-bold leading-snug text-foreground"
+          className="min-h-[2.625rem] min-w-0 line-clamp-2 text-sm font-bold leading-snug text-foreground"
           title={displayName}
         >
           {displayName}
@@ -143,10 +139,17 @@ export function InventionCard({
             borderColor: catColor,
             backgroundColor: hexToRgba(catColor, 0.12),
           }}
-          title={tExplore('directDepsBadgeTitle')}
+          title={tExplore('layerShort', { layer: layerDisplay })}
         >
-          {directDeps}
+          {layerDisplay}
         </span>
+        <div className="mt-0.5 flex justify-end">
+          <ShareInventionButton
+            nodeId={node.id}
+            stopInteractionBubble
+            className="shrink-0 p-1.5 sm:p-2"
+          />
+        </div>
       </div>
       <span className="w-fit rounded-full bg-border/20 px-2.5 py-1 text-[11px] font-medium tabular-nums text-muted-foreground">
         {formatYear(node.year_approx ?? null)}
@@ -167,7 +170,7 @@ export function InventionCard({
     </div>
   );
 
-  const cardClass = `relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-md transition-[border-color,transform,box-shadow] duration-200 hover:border-[var(--card-cat)] hover:shadow-lg ${!isHero && onClick ? 'hover:scale-[1.02] active:scale-[0.99]' : ''} ${isHero ? 'w-full max-w-[min(100%,21rem)] sm:max-w-[min(100%,24rem)]' : 'w-full min-w-0'} ${onClick ? 'cursor-pointer' : ''} ${className}`;
+  const cardClass = `relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-md transition-[border-color,transform,box-shadow] duration-200 hover:border-[var(--card-cat)] hover:shadow-lg ${!isHero && onClick ? 'hover:scale-[1.02] active:scale-[0.99]' : ''} ${isHero ? 'w-full max-w-[min(100%,23rem)] sm:max-w-[min(100%,27rem)]' : 'w-full min-w-0'} ${onClick ? 'cursor-pointer' : ''} ${className}`;
 
   const clickProps =
     exploreInteractive && onClick

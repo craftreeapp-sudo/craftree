@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, type CSSProperties } from 'react';
+import { CardImagePlaceholder } from '@/components/explore/CardImagePlaceholder';
 import { getCategoryColor } from '@/lib/colors';
 import type { NodeCategory } from '@/lib/types';
 
@@ -132,12 +133,10 @@ export function LandingFloatingCards({ pool }: { pool: LandingFloatingNode[] }) 
                     className="h-[52px] w-full object-cover sm:h-[60px]"
                   />
                 ) : (
-                  <div
-                    className="flex h-[52px] w-full items-center justify-center px-0.5 text-center text-[10px] font-bold leading-tight text-white/95 sm:h-[60px]"
-                    style={{ backgroundColor: color }}
-                  >
-                    {c.name.length > 14 ? `${c.name.slice(0, 12)}…` : c.name}
-                  </div>
+                  <CardImagePlaceholder
+                    categoryColor={color}
+                    variant="compact"
+                  />
                 )}
                 <div className="line-clamp-2 px-1.5 py-1 text-center text-[9px] font-medium leading-tight text-white/50">
                   {c.name}

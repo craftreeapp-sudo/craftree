@@ -1,22 +1,25 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import Fuse from 'fuse.js';
 import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 import { getCategoryColor } from '@/lib/colors';
-import { formatYear, getPlaceholderImage } from '@/lib/utils';
+import { formatYear } from '@/lib/utils';
 import { eraLabelFromMessages } from '@/lib/era-display';
 import type { Era, NodeCategory } from '@/lib/types';
 import { useGraphStore } from '@/stores/graph-store';
 import { getTreeLayerDisplayIndex } from '@/lib/tree-layers';
-import { pickNodeDisplayName } from '@/lib/node-display-name';
+import {
+  isFrenchLocale,
+  pickNodeDisplayName,
+} from '@/lib/node-display-name';
 import { safeCategoryLabel } from '@/lib/safe-category-label';
 import { getNameEnForNode } from '@/lib/name-en-lookup';
 import { trackEvent } from '@/lib/analytics';
+import { CardImagePlaceholder } from '@/components/explore/CardImagePlaceholder';
 
 interface SearchNode {
   id: string;
@@ -28,6 +31,7 @@ interface SearchNode {
   complexity_depth: number;
   year_approx?: number | null;
   tags: string[];
+  image_url?: string;
 }
 
 const MAX_RESULTS = 8;
@@ -84,30 +88,35 @@ export function SearchBar({
         complexity_depth: n.complexity_depth,
         year_approx: n.year_approx ?? null,
         tags: n.tags,
+        image_url: n.image_url,
       })) as SearchNode[],
     [graphNodes]
   );
 
-  const defaultSortedNodes = useMemo(
-    () => [...nodes].sort((a, b) => a.name.localeCompare(b.name, 'fr')),
-    [nodes]
-  );
+  const defaultSortedNodes = useMemo(() => {
+    const sortLocale = isFrenchLocale(locale) ? 'fr' : 'en';
+    return [...nodes].sort((a, b) => {
+      const da = pickNodeDisplayName(locale, a.name, a.name_en);
+      const db = pickNodeDisplayName(locale, b.name, b.name_en);
+      return da.localeCompare(db, sortLocale, { sensitivity: 'base' });
+    });
+  }, [nodes, locale]);
 
-  const fuse = useMemo(
-    () =>
-      new Fuse(nodes, {
-        keys: [
-          { name: 'name', weight: 2 },
-          { name: 'name_en', weight: 2 },
-          { name: 'tags', weight: 1 },
-          { name: 'category', weight: 0.8 },
-          { name: 'era', weight: 0.35 },
-        ],
-        threshold: 0.4,
-        includeScore: true,
-      }),
-    [nodes]
-  );
+  const fuse = useMemo(() => {
+    const primaryName = isFrenchLocale(locale) ? 'name' : 'name_en';
+    const secondaryName = isFrenchLocale(locale) ? 'name_en' : 'name';
+    return new Fuse(nodes, {
+      keys: [
+        { name: primaryName, weight: 2 },
+        { name: secondaryName, weight: 0.35 },
+        { name: 'tags', weight: 1 },
+        { name: 'category', weight: 0.8 },
+        { name: 'era', weight: 0.35 },
+      ],
+      threshold: 0.4,
+      includeScore: true,
+    });
+  }, [nodes, locale]);
 
   const search = useCallback(
     (q: string) => {
@@ -211,12 +220,9 @@ export function SearchBar({
     const displayName = pickNodeDisplayName(
       locale,
       node.name,
-      getNameEnForNode(node.id)
+      node.name_en
     );
-    const thumb = getPlaceholderImage(
-      node.category as NodeCategory,
-      node.name
-    );
+    const thumbUrl = node.image_url?.trim();
     const yearStr = formatYear(node.year_approx ?? undefined);
     const layerIdx = getTreeLayerDisplayIndex(treeLayerForSearchNode(node));
     const rowHighlight =
@@ -239,14 +245,21 @@ export function SearchBar({
             isLanding ? 'border-white/15' : 'border-border'
           }`}
         >
-          <Image
-            src={thumb}
-            alt=""
-            width={32}
-            height={32}
-            className="h-full w-full object-cover"
-            unoptimized
-          />
+          {thumbUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={thumbUrl}
+              alt=""
+              width={32}
+              height={32}
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <CardImagePlaceholder
+              categoryColor={categoryColor}
+              variant="search"
+            />
+          )}
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">

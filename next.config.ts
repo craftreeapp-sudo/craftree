@@ -1,10 +1,28 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+
+/** Répertoire du dépôt craftree (évite que Turbopack prenne un parent à cause d’un autre lockfile). */
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    // Racine explicite si un lockfile parent fait croire à Next que le projet est au-dessus de craftree.
+    root: projectRoot,
+  },
   compress: true,
+  async redirects() {
+    return [
+      {
+        source: '/admin/inventions',
+        destination: '/editor',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

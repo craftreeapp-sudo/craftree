@@ -79,7 +79,11 @@ export async function getNodeDetails(id: string): Promise<TechNodeDetails | null
   }
   const fromStore = useNodeDetailsStore.getState().byId[id];
   if (fromStore !== undefined && nodeDetailsHasReadableDescription(fromStore)) {
-    return fromStore;
+    /** Sinon on ne charge jamais l’URL Wikipédia si le store n’a que la description. */
+    if (fromStore.wikipedia_url?.trim()) {
+      detailsMemoryCache.set(id, fromStore);
+      return fromStore;
+    }
   }
   try {
     const res = await fetch(`/api/nodes/${encodeURIComponent(id)}`);
@@ -367,8 +371,8 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
 
   refreshData: async () => {
     const [nodesRes, linksRes] = await Promise.all([
-      fetch('/api/nodes'),
-      fetch('/api/links'),
+      fetch('/api/nodes', { cache: 'no-store' }),
+      fetch('/api/links', { cache: 'no-store' }),
     ]);
     if (!nodesRes.ok || !linksRes.ok) {
       console.warn('refreshData: API error');

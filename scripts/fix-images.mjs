@@ -1,13 +1,9 @@
 #!/usr/bin/env node
 /**
- * Complète image_url sur les nœuds Supabase via Wikimedia (sans Claude).
- * Lit les nodes depuis Supabase, met à jour image_url en base uniquement.
- *
- * Usage : npm run fix:images
- *
- * Prérequis : .env.local — NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+ * Complète image_url via Wikimedia (gratuit, pas de Claude).
+ * Lit et écrit seed-data.json + met à jour Supabase.
  */
-
+import { readDB, writeDB, sleep } from './seed-helpers.mjs';
 import {
   createServiceSupabaseClient,
   updateNodeImageUrl,
@@ -17,10 +13,15 @@ import {
   searchWikipediaImage,
 } from './wikimedia-fetch.mjs';
 
-const PAGE_SIZE = 200;
+const PAUSE_MS = 300;
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+function parseLimit() {
+  const i = process.argv.indexOf('--limit');
+  if (i === -1) return null;
+  const raw = process.argv[i + 1];
+  if (!raw || raw.startsWith('--')) return null;
+  const n = parseInt(raw, 10);
+  return Number.isFinite(n) && n >= 1 ? n : null;
 }
 
 function needsRemoteImageUrl(node) {
@@ -30,51 +31,34 @@ function needsRemoteImageUrl(node) {
   return false;
 }
 
-async function fetchAllNodes(supabase) {
-  const out = [];
-  let offset = 0;
-  for (;;) {
-    const { data, error } = await supabase
-      .from('nodes')
-      .select('id,name,name_en,image_url,wikipedia_url')
-      .order('id')
-      .range(offset, offset + PAGE_SIZE - 1);
-    if (error) {
-      console.error('Supabase select nodes:', error);
-      process.exit(1);
-    }
-    if (!data?.length) break;
-    out.push(...data);
-    if (data.length < PAGE_SIZE) break;
-    offset += PAGE_SIZE;
-  }
-  return out;
-}
-
 async function main() {
+  const limit = parseLimit();
   const supabase = createServiceSupabaseClient();
-  console.log('🖼️  fix-images — lecture Supabase, URLs Wikimedia\n');
+  const db = readDB();
+  const totalNodes = db.nodes.length;
+  let todo = db.nodes.filter(needsRemoteImageUrl);
+  if (limit != null) {
+    todo = todo.slice(0, limit);
+  }
 
-  const nodes = await fetchAllNodes(supabase);
-  const total = nodes.length;
-  let fetched = 0;
-  let skipped = 0;
+  const missingCount = db.nodes.filter(needsRemoteImageUrl).length;
+  console.log(
+    `🖼️  ${missingCount} images manquantes sur ${totalNodes} nœuds${
+      limit != null ? ` (traitement limité à ${limit})` : ''
+    }\n`
+  );
+
+  let ok = 0;
+  let miss = 0;
   let i = 0;
 
-  for (const node of nodes) {
+  for (const node of todo) {
     i++;
-    if (!needsRemoteImageUrl(node)) {
-      skipped++;
-      continue;
-    }
-
-    console.log(`[${i}/${total}] ${node.name}…`);
+    process.stdout.write(`[${i}/${todo.length}] ${node.name}… `);
 
     let imageUrl = null;
     if (node.wikipedia_url?.trim()) {
-      imageUrl = await fetchWikipediaImageUrl(
-        String(node.wikipedia_url).trim()
-      );
+      imageUrl = await fetchWikipediaImageUrl(String(node.wikipedia_url).trim());
     }
     if (!imageUrl) {
       imageUrl = await searchWikipediaImage(
@@ -84,19 +68,20 @@ async function main() {
     }
 
     if (imageUrl) {
+      node.image_url = imageUrl;
+      writeDB(db);
       await updateNodeImageUrl(supabase, node.id, imageUrl);
-      fetched++;
-      console.log(`   ✅ ${imageUrl.slice(0, 72)}…`);
+      ok++;
+      console.log('✅');
     } else {
-      console.log(`   ⏭️  Pas d’image trouvée`);
+      miss++;
+      console.log('⏭️ aucune image');
     }
 
-    await sleep(300);
+    await sleep(PAUSE_MS);
   }
 
-  console.log(
-    `\n📊 ${fetched} image(s) mise(s) à jour, ${skipped} déjà à jour ou ignorées`
-  );
+  console.log(`\n📊 Résumé : ${ok} image(s) récupérée(s), ${miss} sans résultat`);
 }
 
 main().catch((e) => {

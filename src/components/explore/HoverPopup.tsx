@@ -15,7 +15,6 @@ import { useExploreCardOptional } from '@/components/explore/explore-card-contex
 import type { ExploreHoverPreview } from '@/components/explore/explore-card-context';
 import { formatYear } from '@/lib/utils';
 import { getCategoryColor, hexToRgba } from '@/lib/colors';
-import { directDependencyCount } from '@/lib/built-upon-utils';
 import {
   pickNodeDisplayName,
   pickNodeDescriptionForLocale,
@@ -28,10 +27,14 @@ import {
   natureTypeToExploreKey,
   originTypeToExploreKey,
 } from '@/lib/explore-classification-badges';
+import { CardImagePlaceholder } from '@/components/explore/CardImagePlaceholder';
+import { ShareInventionButton } from '@/components/explore/ShareInventionButton';
+import { treeLayerDisplayIndexFromNode } from '@/lib/tree-layers';
+import { EXPLORE_DETAIL_PANEL_WIDTH_PX } from '@/lib/explore-layout';
 
-const POPUP_MAX_W = 340;
+const POPUP_MAX_W = EXPLORE_DETAIL_PANEL_WIDTH_PX;
 /** Aligné sur `ExploreDetailPanel` (fiche) : largeur max + petite marge. */
-const DETAIL_PANEL_W = 340;
+const DETAIL_PANEL_W = EXPLORE_DETAIL_PANEL_WIDTH_PX;
 const GAP = 10;
 const VIEW_MARGIN = 8;
 
@@ -99,7 +102,6 @@ export function ExploreHoverPopup() {
   const tEd = useTranslations('editor');
 
   const getNodeById = useGraphStore((s) => s.getNodeById);
-  const edges = useGraphStore((s) => s.edges);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
   const mergeDetail = useNodeDetailsStore((s) => s.mergeDetail);
   const detailsById = useNodeDetailsStore((s) => s.byId);
@@ -205,9 +207,9 @@ export function ExploreHoverPopup() {
     ? getCategoryColor(node.category as NodeCategory)
     : '#3B82F6';
 
-  const directDeps = useMemo(
-    () => (node ? directDependencyCount(node.id, edges) : 0),
-    [node, edges]
+  const layerDisplay = useMemo(
+    () => (node ? treeLayerDisplayIndexFromNode(node) : 0),
+    [node]
   );
 
   const popupImageUrl = useMemo(() => {
@@ -285,12 +287,16 @@ export function ExploreHoverPopup() {
         role="tooltip"
         onPointerEnter={onPopupPointerEnter}
         onPointerLeave={onPopupPointerLeave}
-        className={`pointer-events-auto fixed ${hoverZClass} max-h-[min(85vh,560px)] w-[min(92vw,340px)] max-w-[min(92vw,340px)] overflow-y-auto overscroll-contain rounded-xl border border-border bg-surface shadow-2xl`}
+        className={`pointer-events-auto fixed ${hoverZClass} max-h-[min(85vh,560px)] overflow-y-auto overscroll-contain rounded-xl border border-border bg-surface shadow-2xl`}
+        style={{
+          width: `min(92vw, ${EXPLORE_DETAIL_PANEL_WIDTH_PX}px)`,
+          maxWidth: `min(92vw, ${EXPLORE_DETAIL_PANEL_WIDTH_PX}px)`,
+        }}
       >
         <div className="flex min-h-0 min-w-0 flex-col">
-          <div className="flex shrink-0 items-start justify-between gap-2 border-b border-border px-4 pb-3 pt-4">
+          <div className="grid shrink-0 grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-x-2 border-b border-border px-5 pb-3 pt-4">
             <h2
-              className="min-w-0 flex-1 text-xl font-bold leading-tight text-foreground"
+              className="min-w-0 line-clamp-2 text-xl font-bold leading-tight text-foreground"
               style={{
                 fontFamily:
                   'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -304,13 +310,16 @@ export function ExploreHoverPopup() {
                 borderColor: categoryColor,
                 backgroundColor: hexToRgba(categoryColor, 0.12),
               }}
-              title={tExplore('directDepsBadgeTitle')}
+              title={tExplore('layerShort', { layer: layerDisplay })}
             >
-              {directDeps}
+              {layerDisplay}
             </span>
+            <div className="flex justify-end">
+              <ShareInventionButton nodeId={node.id} />
+            </div>
           </div>
 
-          <div className="flex flex-wrap gap-2 px-4 pt-4">
+          <div className="flex flex-wrap gap-2 px-5 pt-4">
             <span
               className="rounded-full px-2.5 py-1 text-xs font-medium"
               style={{
@@ -340,7 +349,7 @@ export function ExploreHoverPopup() {
           </div>
 
           {secondaryTags.length > 0 ? (
-            <div className="px-4 pt-4">
+            <div className="px-5 pt-4">
               <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                 {tExplore('detailTagsHeading')}
               </div>
@@ -357,7 +366,7 @@ export function ExploreHoverPopup() {
             </div>
           ) : null}
 
-          <div className="mt-4 w-full shrink-0 px-4">
+          <div className="mt-4 w-full shrink-0 px-5">
             {popupImageUrl ? (
               <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-page">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -368,26 +377,24 @@ export function ExploreHoverPopup() {
                 />
               </div>
             ) : (
-              <div
-                className="flex min-h-[120px] w-full items-center justify-center rounded-lg px-4 py-6 text-center text-base font-semibold text-white"
-                style={{ backgroundColor: categoryColor }}
-              >
-                {displayName}
-              </div>
+              <CardImagePlaceholder
+                categoryColor={categoryColor}
+                variant="panel"
+              />
             )}
           </div>
 
-          <div className="px-4 pt-4 text-sm tabular-nums text-muted-foreground">
+          <div className="px-5 pt-4 text-sm tabular-nums text-muted-foreground">
             {formatYear(node.year_approx ?? null)}
           </div>
 
           {originLine ? (
-            <p className="px-4 pt-3 text-[13px] leading-snug text-muted-foreground">
+            <p className="px-5 pt-3 text-[13px] leading-snug text-muted-foreground">
               {originLine}
             </p>
           ) : null}
 
-          <p className="px-4 pb-4 pt-4 text-sm leading-relaxed text-muted-foreground">
+          <p className="px-5 pb-4 pt-4 text-sm leading-relaxed text-muted-foreground">
             {description || '—'}
           </p>
         </div>

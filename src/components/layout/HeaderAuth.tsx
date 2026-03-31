@@ -141,7 +141,7 @@ export function HeaderAuth() {
                 {tAdmin('navLink')}
               </Link>
               <Link
-                href="/admin/inventions"
+                href="/editor"
                 className="block px-3 py-1.5 pl-5 text-[12px] text-muted-foreground hover:bg-surface hover:text-foreground"
                 role="menuitem"
                 onClick={() => setOpen(false)}

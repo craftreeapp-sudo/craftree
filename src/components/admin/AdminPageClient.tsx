@@ -571,11 +571,20 @@ export function AdminPageClient() {
     } else if (s.suggestion_type === 'new_node') {
       const d = s.data as {
         node: Record<string, unknown>;
-        link: Record<string, unknown>;
+        link?: Record<string, unknown>;
+        links?: unknown[];
       };
+      const links = Array.isArray(d.links)
+        ? d.links.map((x) =>
+            x && typeof x === 'object' ? { ...(x as Record<string, unknown>) } : {}
+          )
+        : d.link
+          ? [d.link]
+          : [];
       setEditDraft({
         node: { ...d.node },
-        link: { ...d.link },
+        link: d.link ? { ...d.link } : {},
+        links,
       });
     } else {
       setEditDraft({});
@@ -2127,20 +2136,52 @@ function SuggestionBody({
         description?: string;
         origin?: string | null;
       };
-      link: {
+      link?: {
         source_id: string;
         target_id: string;
         relation_type: string;
       };
+      links?: {
+        source_id: string;
+        target_id: string;
+        relation_type: string;
+      }[];
     };
+
+    const linksList: {
+      source_id: string;
+      target_id: string;
+      relation_type: string;
+    }[] = [];
+    const seenLink = new Set<string>();
+    const pushL = (x: {
+      source_id: string;
+      target_id: string;
+      relation_type: string;
+    }) => {
+      const k = `${x.source_id}|${x.target_id}|${x.relation_type}`;
+      if (seenLink.has(k)) return;
+      seenLink.add(k);
+      linksList.push(x);
+    };
+    if (d.link?.source_id && d.link?.target_id && d.link?.relation_type) {
+      pushL(d.link);
+    }
+    if (Array.isArray(d.links)) {
+      for (const x of d.links) {
+        if (x?.source_id && x?.target_id && x?.relation_type) pushL(x);
+      }
+    }
 
     if (isEditing && editDraft) {
       const draft = editDraft as {
         node: Record<string, unknown>;
-        link: Record<string, unknown>;
+        link?: Record<string, unknown>;
+        links?: unknown[];
       };
       const n = draft.node ?? {};
       const l = draft.link ?? {};
+      const firstLink = linksList[0];
       return (
         <div className="space-y-2">
           <div className="rounded-[6px] bg-surface px-3 py-2.5 space-y-2">
@@ -2173,47 +2214,57 @@ function SuggestionBody({
                       ...draft,
                       node: { ...n, [k]: v },
                       link: { ...l },
+                      links: draft.links,
                     });
                   }}
                 />
               </label>
             ))}
           </div>
-          <div className="rounded-[6px] bg-surface px-3 py-2.5">
-            <p className="mb-1 text-[10px] text-muted-foreground">Lien</p>
-            <select
-              className="w-full rounded border border-border bg-surface px-2 py-1 text-[12px] text-foreground"
-              value={String(l.relation_type ?? d.link.relation_type)}
-              onChange={(e) =>
-                onEditDraftChange({
-                  ...draft,
-                  node: { ...n },
-                  link: {
-                    ...l,
-                    relation_type: e.target.value,
-                  },
-                })
-              }
-            >
-              {Object.values(RelationType).map((rt) => (
-                <option key={rt} value={rt}>
-                  {RELATION_LABELS_FR[rt] ?? rt}
-                </option>
-              ))}
-            </select>
-          </div>
+          {firstLink ? (
+            <div className="rounded-[6px] bg-surface px-3 py-2.5">
+              <p className="mb-1 text-[10px] text-muted-foreground">
+                Lien (premier — {linksList.length > 1 ? `${linksList.length} au total` : '1'})
+              </p>
+              <select
+                className="w-full rounded border border-border bg-surface px-2 py-1 text-[12px] text-foreground"
+                value={String(l.relation_type ?? firstLink.relation_type)}
+                onChange={(e) =>
+                  onEditDraftChange({
+                    ...draft,
+                    node: { ...n },
+                    link: {
+                      ...l,
+                      relation_type: e.target.value,
+                    },
+                    links: draft.links,
+                  })
+                }
+              >
+                {Object.values(RelationType).map((rt) => (
+                  <option key={rt} value={rt}>
+                    {RELATION_LABELS_FR[rt] ?? rt}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : null}
         </div>
       );
     }
 
     const newName = d.node.name;
     const ph = (d.node.proposed_id ?? '').trim();
-    const srcName =
-      nodeNames[d.link.source_id] ??
-      (ph && d.link.source_id === ph ? newName : d.link.source_id);
-    const tgtName =
-      nodeNames[d.link.target_id] ??
-      (ph && d.link.target_id === ph ? newName : d.link.target_id);
+    const linkRow = (link: (typeof linksList)[0]) => {
+      const srcName =
+        nodeNames[link.source_id] ??
+        (ph && link.source_id === ph ? newName : link.source_id);
+      const tgtName =
+        nodeNames[link.target_id] ??
+        (ph && link.target_id === ph ? newName : link.target_id);
+      return { srcName, tgtName, rel: link.relation_type };
+    };
+
     const desc =
       typeof d.node.description === 'string' ? d.node.description.trim() : '';
     const origin =
@@ -2259,17 +2310,27 @@ function SuggestionBody({
               </p>
             ) : null}
           </div>
-          <div
-            className="rounded-[6px] px-3 py-2 text-[12px]"
-            style={{ color: '#22C55E' }}
-          >
-            <span className="font-medium">{srcName}</span>
-            <span className="mx-1 text-muted-foreground">→</span>
-            <span className="font-medium">{tgtName}</span>
-            <span className="ml-2 text-[10px] text-muted-foreground">
-              ({RELATION_LABELS_FR[d.link.relation_type] ?? d.link.relation_type})
-            </span>
-          </div>
+          {linksList.length === 0 ? (
+            <p className="text-[11px] text-muted-foreground">Aucun lien proposé</p>
+          ) : (
+            linksList.map((lnk, i) => {
+              const { srcName, tgtName, rel } = linkRow(lnk);
+              return (
+                <div
+                  key={`${lnk.source_id}-${lnk.target_id}-${i}`}
+                  className="rounded-[6px] px-3 py-2 text-[12px]"
+                  style={{ color: '#22C55E' }}
+                >
+                  <span className="font-medium">{srcName}</span>
+                  <span className="mx-1 text-muted-foreground">→</span>
+                  <span className="font-medium">{tgtName}</span>
+                  <span className="ml-2 text-[10px] text-muted-foreground">
+                    ({RELATION_LABELS_FR[rel as RelationType] ?? rel})
+                  </span>
+                </div>
+              );
+            })
+          )}
         </div>
       );
     }
@@ -2310,14 +2371,26 @@ function SuggestionBody({
             </p>
           ) : null}
         </div>
-        <div className="rounded-[6px] bg-surface px-3 py-2.5 text-[12px] text-muted-foreground">
-          <span className="font-medium text-foreground">{srcName}</span>
-          <span className="mx-1 text-muted-foreground">→</span>
-          <span className="font-medium text-foreground">{tgtName}</span>
-          <span className="ml-2 text-[10px] text-muted-foreground">
-            ({RELATION_LABELS_FR[d.link.relation_type] ?? d.link.relation_type})
-          </span>
-        </div>
+        {linksList.length === 0 ? (
+          <p className="text-[11px] text-muted-foreground">Aucun lien proposé</p>
+        ) : (
+          linksList.map((lnk, i) => {
+            const { srcName, tgtName, rel } = linkRow(lnk);
+            return (
+              <div
+                key={`${lnk.source_id}-${lnk.target_id}-${i}`}
+                className="rounded-[6px] bg-surface px-3 py-2.5 text-[12px] text-muted-foreground"
+              >
+                <span className="font-medium text-foreground">{srcName}</span>
+                <span className="mx-1 text-muted-foreground">→</span>
+                <span className="font-medium text-foreground">{tgtName}</span>
+                <span className="ml-2 text-[10px] text-muted-foreground">
+                  ({RELATION_LABELS_FR[rel as RelationType] ?? rel})
+                </span>
+              </div>
+            );
+          })
+        )}
       </div>
     );
   }

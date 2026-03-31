@@ -14,6 +14,7 @@ import {
 import { buildPeerSearchBlobMap } from '@/lib/suggest-peer-search';
 import {
   SuggestionNodeForm,
+  createEmptySuggestNodeFormState,
   type SuggestNodeFormState,
 } from '@/components/ui/SuggestionNodeForm';
 import { computeDiff } from '@/lib/suggestion-diff';
@@ -35,9 +36,9 @@ import type {
   TechNodeBasic,
   Era,
   TechNodeDetails,
+  TechNodeType,
 } from '@/lib/types';
 import { RelationType } from '@/lib/types';
-import { NodeCategory as NC, Era as EraEnum } from '@/lib/types';
 
 type PendingAddLink = {
   tempId: string;
@@ -58,15 +59,21 @@ const staggerItem = {
 export function SuggestNodeCorrectionPanel({
   node,
   onClose,
+  variant = 'suggestion',
+  onAdminSaved,
 }: {
   node: TechNodeBasic;
   onClose: () => void;
+  /** `admin` : titre « Modifier », bouton Sauvegarder, écriture directe (API) au lieu d’une suggestion. */
+  variant?: 'suggestion' | 'admin';
+  onAdminSaved?: () => void | Promise<void>;
 }) {
   const locale = useLocale();
   const tExplore = useTranslations('explore');
   const tSidebar = useTranslations('sidebar');
   const tCommon = useTranslations('common');
   const tAuth = useTranslations('auth');
+  const tEditor = useTranslations('editor');
 
   const getNodeById = useGraphStore((s) => s.getNodeById);
   const graphNodes = useGraphStore((s) => s.nodes);
@@ -77,17 +84,9 @@ export function SuggestNodeCorrectionPanel({
   const { user } = useAuthStore();
   const detailsById = useNodeDetailsStore((s) => s.byId);
 
-  const [suggestForm, setSuggestForm] = useState<SuggestNodeFormState>(() => ({
-    name: '',
-    description: '',
-    category: NC.ENERGY,
-    era: EraEnum.MODERN,
-    year_approx: '',
-    origin: '',
-    tags: '',
-    naturalOrigin: '',
-    chemicalNature: '',
-  }));
+  const [suggestForm, setSuggestForm] = useState<SuggestNodeFormState>(() =>
+    createEmptySuggestNodeFormState()
+  );
   const [originalSnapshot, setOriginalSnapshot] = useState<Record<
     string,
     unknown
@@ -109,6 +108,8 @@ export function SuggestNodeCorrectionPanel({
   const [baselineForm, setBaselineForm] = useState<SuggestNodeFormState | null>(
     null
   );
+  /** Ligne `nodes` complète (API) — champs non présents dans le formulaire suggestion (type, dimension…). */
+  const [seedNode, setSeedNode] = useState<SeedNode | null>(null);
   /** Liens existants marqués pour suppression : affichage orange + restauration. */
   const [stagedLinkRemovals, setStagedLinkRemovals] = useState<
     Record<string, SuggestLinkSnapshot>
@@ -198,6 +199,7 @@ export function SuggestNodeCorrectionPanel({
     };
     setSuggestForm(formSeed);
     setBaselineForm(structuredClone(formSeed));
+    setSeedNode(seed);
     const snap = snapshotFromForm(formSeed, locale);
     setOriginalSnapshot(snap);
 
@@ -427,6 +429,172 @@ export function SuggestNodeCorrectionPanel({
     onClose,
   ]);
 
+  const submitAdminSave = useCallback(async () => {
+    if (variant !== 'admin' || !originalSnapshot || !originalLinkEdits || !seedNode) {
+      return;
+    }
+    setSuggestSubmitting(true);
+    try {
+      const proposedNode = snapshotFromForm(suggestForm, locale);
+      const diff = computeDiff(originalSnapshot, proposedNode);
+      const linkDiff = computeLinkSuggestionDiff(
+        originalLinkEdits,
+        suggestLinkEdits
+      );
+      const removedLinkIds = computeRemovedLinkIds(
+        originalLinkEdits,
+        suggestLinkEdits
+      );
+      const proposedAddLinks = pendingAddLinks.map((p) => ({
+        source_id: p.section === 'ledTo' ? node.id : p.peerId,
+        target_id: p.section === 'ledTo' ? p.peerId : node.id,
+        relation_type: p.relation_type,
+        section: p.section,
+      }));
+
+      const hasNodeChange = Object.keys(diff).length > 0;
+      const hasLinkChange =
+        Object.keys(linkDiff).length > 0 ||
+        removedLinkIds.length > 0 ||
+        proposedAddLinks.length > 0;
+      if (!hasNodeChange && !hasLinkChange) {
+        pushToast(tAuth('suggestionNothingToSubmit'), 'error');
+        return;
+      }
+
+      const tagsArr = suggestForm.tags
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+      const frenchUi = locale === 'fr' || locale.startsWith('fr-');
+
+      if (hasNodeChange) {
+        const putBody: Record<string, unknown> = {
+          name: suggestForm.name.trim(),
+          name_en: (seedNode.name_en ?? '').trim() || suggestForm.name.trim(),
+          category: suggestForm.category,
+          type: seedNode.type as TechNodeType,
+          era: suggestForm.era,
+          year_approx:
+            suggestForm.year_approx.trim() === ''
+              ? null
+              : Number(suggestForm.year_approx.trim()),
+          origin: suggestForm.origin.trim() || undefined,
+          tags: tagsArr,
+          wikipedia_url: seedNode.wikipedia_url ?? undefined,
+          dimension: seedNode.dimension ?? null,
+          materialLevel: seedNode.materialLevel ?? null,
+          naturalOrigin:
+            suggestForm.naturalOrigin === ''
+              ? null
+              : String(suggestForm.naturalOrigin),
+          chemicalNature:
+            suggestForm.chemicalNature === ''
+              ? null
+              : String(suggestForm.chemicalNature),
+        };
+        if (frenchUi) {
+          putBody.description = suggestForm.description.trim();
+          putBody.description_en = seedNode.description_en;
+        } else {
+          putBody.description = seedNode.description ?? '';
+          putBody.description_en = suggestForm.description.trim();
+        }
+
+        const putRes = await fetch(
+          `/api/nodes/${encodeURIComponent(node.id)}`,
+          {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(putBody),
+          }
+        );
+        if (!putRes.ok) {
+          const err = await putRes.json().catch(() => ({}));
+          pushToast(
+            String((err as { error?: string }).error ?? tEditor('toastError')),
+            'error'
+          );
+          return;
+        }
+      }
+
+      for (const linkId of removedLinkIds) {
+        const delRes = await fetch(
+          `/api/links/${encodeURIComponent(linkId)}`,
+          { method: 'DELETE' }
+        );
+        if (!delRes.ok) {
+          pushToast(tEditor('toastSaveError'), 'error');
+          return;
+        }
+      }
+
+      for (const [linkId, { to }] of Object.entries(linkDiff)) {
+        const putL = await fetch(
+          `/api/links/${encodeURIComponent(linkId)}`,
+          {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              relation_type: to.relation_type,
+              notes: to.notes.trim() || undefined,
+              is_optional: to.is_optional,
+            }),
+          }
+        );
+        if (!putL.ok) {
+          pushToast(tEditor('toastSaveError'), 'error');
+          return;
+        }
+      }
+
+      for (const p of pendingAddLinks) {
+        const postRes = await fetch('/api/links', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            source_id: p.section === 'ledTo' ? node.id : p.peerId,
+            target_id: p.section === 'ledTo' ? p.peerId : node.id,
+            relation_type: p.relation_type,
+            is_optional: false,
+            notes: '',
+          }),
+        });
+        if (!postRes.ok) {
+          const err = await postRes.json().catch(() => ({}));
+          pushToast(
+            String((err as { error?: string }).error ?? tEditor('toastSaveError')),
+            'error'
+          );
+          return;
+        }
+      }
+
+      pushToast(tEditor('toastNodeUpdated'), 'success');
+      await onAdminSaved?.();
+      onClose();
+    } finally {
+      setSuggestSubmitting(false);
+    }
+  }, [
+    variant,
+    originalSnapshot,
+    originalLinkEdits,
+    seedNode,
+    suggestForm,
+    suggestLinkEdits,
+    pendingAddLinks,
+    node.id,
+    locale,
+    snapshotFromForm,
+    pushToast,
+    tAuth,
+    tEditor,
+    onAdminSaved,
+    onClose,
+  ]);
+
   const peerSearchBlobMap = useMemo(
     () => buildPeerSearchBlobMap(graphNodes, detailsById),
     [graphNodes, detailsById]
@@ -643,8 +811,10 @@ export function SuggestNodeCorrectionPanel({
     if (JSON.stringify(suggestForm) !== JSON.stringify(baselineForm)) {
       return true;
     }
-    if (suggestContributorMessage.trim() !== '') return true;
-    if (!user && suggestContactEmail.trim() !== '') return true;
+    if (variant === 'suggestion') {
+      if (suggestContributorMessage.trim() !== '') return true;
+      if (!user && suggestContactEmail.trim() !== '') return true;
+    }
     if (pendingAddLinks.length > 0) return true;
     if (
       originalLinkEdits &&
@@ -654,6 +824,7 @@ export function SuggestNodeCorrectionPanel({
     }
     return false;
   }, [
+    variant,
     baselineForm,
     suggestForm,
     suggestContributorMessage,
@@ -675,10 +846,10 @@ export function SuggestNodeCorrectionPanel({
     <div className="flex min-h-0 flex-1 flex-col">
       <motion.div
         variants={staggerItem}
-        className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-2 border-b border-border bg-surface-elevated px-4 py-4"
+        className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-2 border-b border-border bg-surface-elevated px-5 py-4"
       >
         <h2 className="text-lg font-semibold text-foreground">
-          {tAuth('suggestCorrection')}
+          {variant === 'admin' ? tEditor('panelEditInvention') : tAuth('suggestCorrection')}
         </h2>
         <button
           type="button"
@@ -697,46 +868,50 @@ export function SuggestNodeCorrectionPanel({
           baselineForm={baselineForm}
           cardImageUrl={suggestCardImageUrl}
         />
-        <label className="mt-4 block text-[13px] font-medium text-foreground">
-          {tAuth('suggestionContributorNoteLabel')}
-          <textarea
-            value={suggestContributorMessage}
-            onChange={(e) => setSuggestContributorMessage(e.target.value)}
-            maxLength={4000}
-            rows={4}
-            className={`mt-2 w-full resize-y rounded-md border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground ${
-              suggestContributorMessage.trim() !== ''
-                ? 'border-[#F59E0B]/80 ring-1 ring-[#F59E0B]/30'
-                : 'border-border'
-            }`}
-            placeholder={tAuth('suggestionContributorNotePlaceholder')}
-          />
-        </label>
-        <p className="mt-1 text-[11px] text-muted-foreground">
-          {suggestContributorMessage.length}/4000
-        </p>
-        {!user ? (
+        {variant === 'suggestion' ? (
           <>
             <label className="mt-4 block text-[13px] font-medium text-foreground">
-              {tAuth('anonymousFeedbackEmail')}
-              <input
-                type="email"
-                value={suggestContactEmail}
-                onChange={(e) => setSuggestContactEmail(e.target.value)}
-                autoComplete="email"
-                className={`mt-2 w-full rounded-md border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground ${
-                  suggestContactEmail.trim() !== ''
+              {tAuth('suggestionContributorNoteLabel')}
+              <textarea
+                value={suggestContributorMessage}
+                onChange={(e) => setSuggestContributorMessage(e.target.value)}
+                maxLength={4000}
+                rows={4}
+                className={`mt-2 w-full resize-y rounded-md border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground ${
+                  suggestContributorMessage.trim() !== ''
                     ? 'border-[#F59E0B]/80 ring-1 ring-[#F59E0B]/30'
                     : 'border-border'
                 }`}
+                placeholder={tAuth('suggestionContributorNotePlaceholder')}
               />
             </label>
             <p className="mt-1 text-[11px] text-muted-foreground">
-              {tAuth('anonymousFeedbackHint')}
+              {suggestContributorMessage.length}/4000
             </p>
-            <p className="mt-3 text-[12px] text-muted-foreground">
-              {tAuth('suggestAnonymousNotice')}
-            </p>
+            {!user ? (
+              <>
+                <label className="mt-4 block text-[13px] font-medium text-foreground">
+                  {tAuth('anonymousFeedbackEmail')}
+                  <input
+                    type="email"
+                    value={suggestContactEmail}
+                    onChange={(e) => setSuggestContactEmail(e.target.value)}
+                    autoComplete="email"
+                    className={`mt-2 w-full rounded-md border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground ${
+                      suggestContactEmail.trim() !== ''
+                        ? 'border-[#F59E0B]/80 ring-1 ring-[#F59E0B]/30'
+                        : 'border-border'
+                    }`}
+                  />
+                </label>
+                <p className="mt-1 text-[11px] text-muted-foreground">
+                  {tAuth('anonymousFeedbackHint')}
+                </p>
+                <p className="mt-3 text-[12px] text-muted-foreground">
+                  {tAuth('suggestAnonymousNotice')}
+                </p>
+              </>
+            ) : null}
           </>
         ) : null}
         <div className="mt-6">
@@ -775,15 +950,17 @@ export function SuggestNodeCorrectionPanel({
           />
         </div>
         </div>
-        <div className="shrink-0 border-t border-border bg-surface px-4 pb-4 pt-3">
+        <div className="shrink-0 border-t border-border bg-surface px-5 pb-4 pt-3">
           <div className="flex flex-col gap-2">
             <button
               type="button"
               disabled={suggestSubmitting}
-              onClick={() => void submitSuggestion()}
+              onClick={() =>
+                void (variant === 'admin' ? submitAdminSave() : submitSuggestion())
+              }
               className="rounded-lg bg-amber-600 px-4 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-amber-500 disabled:opacity-50"
             >
-              {tAuth('sendSuggestion')}
+              {variant === 'admin' ? tCommon('save') : tAuth('sendSuggestion')}
             </button>
             <button
               type="button"

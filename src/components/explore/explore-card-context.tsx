@@ -21,7 +21,7 @@ export type ExploreHoverPreview = {
   anchorEl: HTMLElement | null;
 };
 
-export type ExploreDetailSubview = 'detail' | 'suggest';
+export type ExploreDetailSubview = 'detail' | 'suggest' | 'adminEdit';
 
 export type ExploreCardContextValue = {
   detailNodeId: string | null;
@@ -31,6 +31,8 @@ export type ExploreCardContextValue = {
   closeDetail: () => void;
   openSuggestSubview: () => void;
   closeSuggestSubview: () => void;
+  /** Admin : formulaire d’édition directe (reste sur /tree). */
+  openAdminEditSubview: () => void;
   legendOpen: boolean;
   openLegend: () => void;
   closeLegend: () => void;
@@ -111,6 +113,10 @@ export function ExploreCardProvider({
     setDetailSubview('detail');
   }, []);
 
+  const openAdminEditSubview = useCallback(() => {
+    setDetailSubview('adminEdit');
+  }, []);
+
   const suppressHover = legendOpen;
 
   const value = useMemo(
@@ -121,6 +127,7 @@ export function ExploreCardProvider({
       closeDetail,
       openSuggestSubview,
       closeSuggestSubview,
+      openAdminEditSubview,
       legendOpen,
       openLegend,
       closeLegend,
@@ -138,6 +145,7 @@ export function ExploreCardProvider({
       closeDetail,
       openSuggestSubview,
       closeSuggestSubview,
+      openAdminEditSubview,
       legendOpen,
       openLegend,
       closeLegend,

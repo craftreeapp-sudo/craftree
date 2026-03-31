@@ -12,6 +12,7 @@ import { AuthUrlErrorToast } from '@/components/auth/AuthUrlErrorToast';
 import { ThemeProvider } from '@/components/layout/ThemeProvider';
 import { ToastContainer } from '@/components/ui/ToastContainer';
 import { LoginModal } from '@/components/ui/LoginModal';
+import { AddCardModal } from '@/components/layout/AddCardModal';
 import { Header } from '@/components/layout/Header';
 import { getThemeBootstrapScript } from '@/lib/theme-bootstrap';
 import { Analytics } from '@vercel/analytics/react';
@@ -140,6 +141,7 @@ export default async function RootLayout({
             </Suspense>
             <ToastContainer />
             <LoginModal />
+            <AddCardModal />
             <Header />
             {children}
           </ThemeProvider>

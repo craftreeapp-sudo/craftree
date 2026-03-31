@@ -6,7 +6,7 @@ import {
   createSupabaseServiceRoleClient,
 } from '@/lib/supabase-server';
 import { requireAdminFromRequest } from '@/lib/auth-server';
-import { mapNodeRowToSeedNode } from '@/lib/data';
+import { isMissingNatureColumnsError, mapNodeRowToSeedNode } from '@/lib/data';
 import { nodeRowToTechNodeDetails } from '@/lib/db-map';
 import { mergeDimensionMaterialLevel } from '@/lib/node-dimension';
 import {
@@ -185,24 +185,42 @@ export async function PUT(request: Request, ctx: Ctx) {
     patch.material_level = dm.materialLevel;
 
     if (body.naturalOrigin !== undefined) {
-      patch.natural_origin =
-        body.naturalOrigin === null || body.naturalOrigin === ''
-          ? null
-          : String(body.naturalOrigin);
+      if (body.naturalOrigin === null || body.naturalOrigin === '') {
+        patch.natural_origin = null;
+      } else {
+        const p = parseNaturalOrigin(String(body.naturalOrigin));
+        patch.natural_origin = p === '' ? null : p;
+      }
     }
     if (body.chemicalNature !== undefined) {
-      patch.chemical_nature =
-        body.chemicalNature === null || body.chemicalNature === ''
-          ? null
-          : String(body.chemicalNature);
+      if (body.chemicalNature === null || body.chemicalNature === '') {
+        patch.chemical_nature = null;
+      } else {
+        const p = parseChemicalNature(String(body.chemicalNature));
+        patch.chemical_nature = p === '' ? null : p;
+      }
     }
 
-    const { data: updated, error } = await sb
+    let { data: updated, error } = await sb
       .from('nodes')
       .update(patch)
       .eq('id', decoded)
       .select()
       .single();
+
+    if (error && isMissingNatureColumnsError(error)) {
+      const patchLegacy = { ...patch };
+      delete patchLegacy.natural_origin;
+      delete patchLegacy.chemical_nature;
+      const second = await sb
+        .from('nodes')
+        .update(patchLegacy)
+        .eq('id', decoded)
+        .select()
+        .single();
+      updated = second.data;
+      error = second.error;
+    }
 
     if (error) throw error;
     const node = mapNodeRowToSeedNode(updated as Record<string, unknown>);

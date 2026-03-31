@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { SuggestNodeCorrectionPanel } from '@/components/ui/SuggestNodeCorrectionPanel';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
@@ -18,6 +19,7 @@ import {
   type NodeCategory,
   type RelationType,
   type SeedNode,
+  type TechNodeBasic,
   type TechNodeType,
   type Era,
   type NodeDimension,
@@ -25,18 +27,18 @@ import {
 } from '@/lib/types';
 import { EDITOR_DIM_KEY, EDITOR_LEVEL_KEY } from './dimension-editor-keys';
 import { SearchableSelect, type SearchableOption } from './SearchableSelect';
-import {
-  NodeEditForm,
-  createEmptyFormState,
-  seedNodeToFormState,
-  type NodeEditFormState,
-} from './NodeEditForm';
 import { eraLabelFromMessages } from '@/lib/era-display';
 import { filterValidCraftingLinks } from '@/lib/graph-utils';
+import {
+  chemicalNatureTableLabel,
+  naturalOriginTableLabel,
+} from '@/lib/nature-table-labels';
 import { treeInventionPath, getDefaultTreeNodeId } from '@/lib/tree-routes';
+import { EXPLORE_DETAIL_PANEL_WIDTH_PX } from '@/lib/explore-layout';
 import { useGraphStore } from '@/stores/graph-store';
 import { safeCategoryLabel } from '@/lib/safe-category-label';
 import { useAuthStore } from '@/stores/auth-store';
+import { useUIStore } from '@/stores/ui-store';
 
 const RELATION_BADGE_COLORS: Record<RelationType, string> = {
   [RT.MATERIAL]: 'bg-teal-500/20 text-teal-200 border-teal-500/40',
@@ -79,6 +81,31 @@ function useToasts() {
   return { toasts, push };
 }
 
+function seedNodeToTechBasic(n: SeedNode): TechNodeBasic {
+  return {
+    id: n.id,
+    name: n.name,
+    name_en: n.name_en,
+    category: n.category as NodeCategory,
+    type: n.type as TechNodeType,
+    era: n.era as Era,
+    year_approx:
+      n.year_approx === null || n.year_approx === undefined
+        ? undefined
+        : n.year_approx,
+    complexity_depth: n.complexity_depth ?? 0,
+    tags: n.tags ?? [],
+    origin: n.origin,
+    image_url: n.image_url,
+    dimension: n.dimension ?? null,
+    materialLevel: n.materialLevel ?? null,
+    naturalOrigin: n.naturalOrigin ?? null,
+    chemicalNature: n.chemicalNature ?? null,
+    origin_type: n.origin_type ?? null,
+    nature_type: n.nature_type ?? null,
+  };
+}
+
 function linkCounts(
   nodeId: string,
   links: CraftingLink[]
@@ -99,14 +126,17 @@ export function EditorPageClient() {
   const tCat = useTranslations('categories');
   const tType = useTranslations('types');
   const tc = useTranslations('common');
+  const tExplore = useTranslations('explore');
 
   const { isAdmin, isLoading: authLoading } = useAuthStore();
+  const setAddCardModalOpen = useUIStore((s) => s.setAddCardModalOpen);
   const router = useRouter();
   const searchParams = useSearchParams();
   const openedEditFromUrl = useRef(false);
+  const openedNewFromUrl = useRef(false);
 
-  const updateNode = useGraphStore((s) => s.updateNode);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
+  const hydrateFromRaw = useGraphStore((s) => s.hydrateFromRaw);
   const { toasts, push } = useToasts();
   const [tab, setTab] = useState<'nodes' | 'links'>('nodes');
   const [nodes, setNodes] = useState<SeedNode[]>([]);
@@ -117,22 +147,34 @@ export function EditorPageClient() {
     setLoading(true);
     try {
       const [nr, lr] = await Promise.all([
-        fetch('/api/nodes?full=1'),
-        fetch('/api/links'),
+        fetch('/api/nodes?full=1', { cache: 'no-store' }),
+        fetch('/api/links', { cache: 'no-store' }),
       ]);
       const nj = await nr.json();
       const lj = await lr.json();
-      setNodes(nj.nodes ?? []);
-      setLinks(lj.links ?? []);
+      const nextNodes = nj.nodes ?? [];
+      const nextLinks = lj.links ?? [];
+      setNodes(nextNodes);
+      setLinks(nextLinks);
+      hydrateFromRaw(nextNodes, nextLinks);
     } catch {
       push(te('toastLoadError'), 'err');
     } finally {
       setLoading(false);
     }
-  }, [push, te]);
+  }, [push, te, hydrateFromRaw]);
 
   useEffect(() => {
     void loadAll();
+  }, [loadAll]);
+
+  useEffect(() => {
+    const onRefresh = () => {
+      void loadAll();
+    };
+    window.addEventListener('craftree:editor-refresh', onRefresh);
+    return () =>
+      window.removeEventListener('craftree:editor-refresh', onRefresh);
   }, [loadAll]);
 
   const nodeById = useMemo(
@@ -176,7 +218,11 @@ export function EditorPageClient() {
 
   const [panelOpen, setPanelOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [form, setForm] = useState<NodeEditFormState>(createEmptyFormState());
+
+  const editNodeForPanel = useMemo(
+    () => (editingId ? nodes.find((x) => x.id === editingId) : undefined),
+    [nodes, editingId]
+  );
 
   const [deleteTarget, setDeleteTarget] = useState<SeedNode | null>(null);
 
@@ -278,16 +324,19 @@ export function EditorPageClient() {
   };
 
   const openNew = () => {
-    setEditingId(null);
-    setForm(createEmptyFormState());
-    setPanelOpen(true);
+    setAddCardModalOpen(true);
   };
 
   const openEdit = (n: SeedNode) => {
     setEditingId(n.id);
-    setForm(seedNodeToFormState(n));
     setPanelOpen(true);
   };
+
+  useEffect(() => {
+    if (searchParams.get('new') !== '1') {
+      openedNewFromUrl.current = false;
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (loading || openedEditFromUrl.current) return;
@@ -297,71 +346,18 @@ export function EditorPageClient() {
     if (!n) return;
     openedEditFromUrl.current = true;
     setEditingId(n.id);
-    setForm(seedNodeToFormState(n));
     setPanelOpen(true);
     router.replace('/editor', { scroll: false });
   }, [loading, nodes, searchParams, router]);
 
-  const saveNode = async () => {
-    const body = {
-      name: form.name.trim(),
-      name_en: form.name_en.trim() || form.name.trim(),
-      description: form.description.trim(),
-      category: form.category,
-      type: form.type,
-      era: form.era,
-      year_approx:
-        form.year_approx.trim() === ''
-          ? null
-          : Number(form.year_approx.trim()),
-      origin: form.origin.trim() || undefined,
-      tags: form.tags,
-      wikipedia_url: form.wikipedia_url.trim() || undefined,
-      dimension:
-        form.dimension.trim() === ''
-          ? null
-          : (form.dimension.trim() as NodeDimension),
-      materialLevel:
-        form.dimension !== 'matter' || form.materialLevel.trim() === ''
-          ? null
-          : (form.materialLevel.trim() as MaterialLevel),
-    };
-    if (!body.name || !body.description) {
-      push(te('toastNameDescRequired'), 'err');
-      return;
-    }
-    try {
-      if (editingId) {
-        const res = await fetch(`/api/nodes/${encodeURIComponent(editingId)}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
-        });
-        if (!res.ok) {
-          const e = await res.json().catch(() => ({}));
-          push((e as { error?: string }).error ?? te('toastError'), 'err');
-          return;
-        }
-        push(te('toastNodeUpdated'));
-      } else {
-        const res = await fetch('/api/nodes', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
-        });
-        if (!res.ok) {
-          const e = await res.json().catch(() => ({}));
-          push((e as { error?: string }).error ?? te('toastError'), 'err');
-          return;
-        }
-        push(te('toastNodeCreated'));
-      }
-      setPanelOpen(false);
-      await loadAll();
-    } catch {
-      push(te('toastNetworkError'), 'err');
-    }
-  };
+  useEffect(() => {
+    if (loading || openedNewFromUrl.current) return;
+    if (searchParams.get('new') !== '1') return;
+    if (searchParams.get('edit')) return;
+    openedNewFromUrl.current = true;
+    setAddCardModalOpen(true);
+    router.replace('/editor', { scroll: false });
+  }, [loading, searchParams, router, setAddCardModalOpen]);
 
   const confirmDelete = async () => {
     if (!deleteTarget) return;
@@ -548,7 +544,7 @@ export function EditorPageClient() {
 
   if (!authLoading && !isAdmin) {
     return (
-      <div className="flex min-h-[60vh] flex-1 flex-col items-center justify-center gap-4 bg-page px-6 text-center text-foreground">
+      <div className="flex min-h-[60vh] flex-1 flex-col items-center justify-center gap-4 bg-page px-6 pt-14 text-center text-foreground">
         <p className="max-w-md text-sm">{te('adminOnly')}</p>
         <Link
           href={treeInventionPath(getDefaultTreeNodeId())}
@@ -561,15 +557,9 @@ export function EditorPageClient() {
   }
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col bg-page text-foreground">
-      <header className="sticky top-0 z-40 flex shrink-0 items-center justify-between border-b border-border bg-page px-6 py-4">
+    <div className="flex min-h-0 flex-1 flex-col bg-page pt-14 text-foreground">
+      <header className="sticky top-14 z-40 flex shrink-0 items-center border-b border-border bg-page px-6 py-4">
         <h1 className="text-lg font-semibold">{te('pageTitle')}</h1>
-        <Link
-          href={treeInventionPath(getDefaultTreeNodeId())}
-          className="rounded-lg border border-border bg-surface-elevated px-4 py-2 text-sm text-foreground transition-colors hover:bg-border"
-        >
-          {te('backToExplore')}
-        </Link>
       </header>
 
       <div className="flex min-h-0 flex-1 flex-col px-6 py-4">
@@ -701,7 +691,7 @@ export function EditorPageClient() {
             </div>
 
             <div className="editor-scrollbar min-h-0 flex-1 overflow-auto rounded-lg border border-border">
-              <table className="w-full min-w-[1180px] border-collapse text-sm">
+              <table className="w-full min-w-[1380px] border-collapse text-sm">
                 <thead className="sticky top-0 z-10 bg-surface-elevated text-start text-xs font-bold uppercase tracking-wide text-muted-foreground">
                   <tr>
                     <th className="w-12 px-1 py-1 text-center text-muted-foreground">
@@ -791,6 +781,12 @@ export function EditorPageClient() {
                         {sortKey === 'origin' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
+                    <th className="w-[120px] px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+                      {te('columnNaturalOrigins')}
+                    </th>
+                    <th className="w-[120px] px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+                      {te('columnChemicalNature')}
+                    </th>
                     <th className="w-[60px] px-3 py-1 text-center">
                       <button
                         type="button"
@@ -811,16 +807,7 @@ export function EditorPageClient() {
                     return (
                       <tr
                         key={n.id}
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => openEdit(n)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            openEdit(n);
-                          }
-                        }}
-                        className={`cursor-pointer border-t border-border ${bg} hover:bg-surface-elevated`}
+                        className={`border-t border-border ${bg}`}
                       >
                         <td
                           className="w-12 px-1 py-2 align-middle"
@@ -856,7 +843,14 @@ export function EditorPageClient() {
                             )}
                           </div>
                         </td>
-                        <td className="px-3 py-2 font-bold text-foreground">{n.name}</td>
+                        <td className="px-3 py-2 font-bold text-foreground">
+                          <Link
+                            href={treeInventionPath(n.id)}
+                            className="text-foreground underline-offset-2 hover:text-accent hover:underline"
+                          >
+                            {n.name}
+                          </Link>
+                        </td>
                         <td className="px-3 py-2">
                           <span
                             className="inline-flex items-center gap-1 rounded border px-2 py-0.5 text-xs"
@@ -898,32 +892,34 @@ export function EditorPageClient() {
                         <td className="max-w-[150px] truncate px-3 py-2 text-muted-foreground">
                           {n.origin?.trim() ? n.origin : '—'}
                         </td>
+                        <td className="max-w-[120px] truncate px-3 py-2 text-muted-foreground">
+                          {naturalOriginTableLabel(n, tExplore)}
+                        </td>
+                        <td className="max-w-[120px] truncate px-3 py-2 text-muted-foreground">
+                          {chemicalNatureTableLabel(n, tExplore)}
+                        </td>
                         <td className="px-3 py-2 text-center font-mono text-xs text-muted-foreground">
                           ↓{lc.in} ↑{lc.out}
                         </td>
                         <td className="px-3 py-2">
-                          <button
-                            type="button"
-                            className="mr-2 rounded p-1 hover:bg-border"
-                            aria-label={te('panelEditInvention')}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              openEdit(n);
-                            }}
-                          >
-                            ✏️
-                          </button>
-                          <button
-                            type="button"
-                            className="rounded p-1 text-[#EF4444] transition-colors hover:text-[#F87171]"
-                            aria-label={tc('delete')}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setDeleteTarget(n);
-                            }}
-                          >
-                            <span className="text-lg leading-none">×</span>
-                          </button>
+                          <div className="flex items-center justify-end gap-1">
+                            <button
+                              type="button"
+                              className="rounded p-1 hover:bg-border"
+                              aria-label={te('panelEditInvention')}
+                              onClick={() => openEdit(n)}
+                            >
+                              ✏️
+                            </button>
+                            <button
+                              type="button"
+                              className="ml-3 rounded p-1 text-[#EF4444] transition-colors hover:text-[#F87171]"
+                              aria-label={tc('delete')}
+                              onClick={() => setDeleteTarget(n)}
+                            >
+                              <span className="text-lg leading-none">×</span>
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     );
@@ -1145,59 +1141,25 @@ export function EditorPageClient() {
         )}
       </div>
 
-      {/* Panneau nœud */}
-      {panelOpen ? (
-        <>
-          <button
-            type="button"
-            className="fixed inset-0 z-[60] bg-black/50"
-            aria-label={tc('close')}
-            onClick={() => setPanelOpen(false)}
+      {/* Panneau nœud : édition = même UI que « Suggérer une correction » */}
+      {panelOpen && editNodeForPanel ? (
+        <aside
+          className="fixed right-0 top-14 z-[70] flex h-[calc(100dvh-3.5rem)] min-h-0 w-full flex-col overflow-hidden border-l border-border bg-surface-elevated shadow-2xl"
+          style={{
+            maxWidth: 400,
+            width: 'min(100vw, 400px)',
+          }}
+        >
+          <SuggestNodeCorrectionPanel
+            key={editNodeForPanel.id}
+            variant="admin"
+            node={seedNodeToTechBasic(editNodeForPanel)}
+            onClose={() => setPanelOpen(false)}
+            onAdminSaved={async () => {
+              await loadAll();
+            }}
           />
-          <aside className="fixed right-0 top-0 z-[70] flex h-full w-full max-w-[400px] flex-col border-l border-border bg-surface-elevated shadow-xl">
-            <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
-              <h2 className="font-semibold">
-                {editingId ? te('panelEditInvention') : te('panelNewInvention')}
-              </h2>
-              <button
-                type="button"
-                className="text-muted-foreground hover:text-white"
-                onClick={() => setPanelOpen(false)}
-              >
-                ×
-              </button>
-            </div>
-            <div className="flex min-h-0 flex-1 flex-col px-4 py-4">
-              <NodeEditForm
-                editingId={editingId}
-                form={form}
-                setForm={setForm}
-                nodes={nodes}
-                links={links}
-                onRefreshData={loadAll}
-                onSave={() => void saveNode()}
-                onCancel={() => setPanelOpen(false)}
-                currentImageUrl={
-                  editingId
-                    ? nodes.find((x) => x.id === editingId)?.image_url ?? null
-                    : null
-                }
-                onImageUploadSuccess={
-                  editingId
-                    ? (url) => {
-                        updateNode(editingId, { image_url: url });
-                        setNodes((prev) =>
-                          prev.map((x) =>
-                            x.id === editingId ? { ...x, image_url: url } : x
-                          )
-                        );
-                      }
-                    : undefined
-                }
-              />
-            </div>
-          </aside>
-        </>
+        </aside>
       ) : null}
 
       {/* Modal suppression nœud */}
@@ -1239,8 +1201,14 @@ export function EditorPageClient() {
             aria-label={tc('close')}
             onClick={() => setLinkPanel(null)}
           />
-          <aside className="fixed right-0 top-0 z-[70] flex h-full w-full max-w-[400px] flex-col border-l border-border bg-surface-elevated shadow-xl">
-            <div className="flex items-center justify-between border-b border-border px-4 py-3">
+          <aside
+            className="fixed right-0 top-14 z-[70] flex h-[calc(100dvh-3.5rem)] w-full flex-col border-l border-border bg-surface-elevated shadow-xl"
+            style={{
+              maxWidth: EXPLORE_DETAIL_PANEL_WIDTH_PX,
+              width: `min(100vw, ${EXPLORE_DETAIL_PANEL_WIDTH_PX}px)`,
+            }}
+          >
+            <div className="flex items-center justify-between border-b border-border px-5 py-3">
               <h2 className="font-semibold">{te('editLink')}</h2>
               <button
                 type="button"
@@ -1250,7 +1218,7 @@ export function EditorPageClient() {
                 ×
               </button>
             </div>
-            <div className="space-y-4 overflow-y-auto px-4 py-4">
+            <div className="space-y-4 overflow-y-auto px-5 py-4">
               <div>
                 <label className="mb-1 block text-xs text-muted-foreground">
                   {te('linkColumnSource')}

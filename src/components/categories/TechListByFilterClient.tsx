@@ -9,7 +9,6 @@ import { ExploreCardProvider } from '@/components/explore/explore-card-context';
 import { ExploreHoverPopup } from '@/components/explore/HoverPopup';
 import { InventionCard } from '@/components/explore/InventionCard';
 import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
-import { directDependencyCount } from '@/lib/built-upon-utils';
 import { useGraphStore } from '@/stores/graph-store';
 import {
   ERA_LABELS_FR,
@@ -76,7 +75,6 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
   const isMobile = useIsMobileBreakpoint();
 
   const allNodes = useGraphStore((s) => s.nodes);
-  const edges = useGraphStore((s) => s.edges);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
   const refreshData = useGraphStore((s) => s.refreshData);
 
@@ -126,7 +124,6 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
           <InventionCard
             key={node.id}
             node={node}
-            directDeps={directDependencyCount(node.id, edges)}
             variant="compact"
             layoutId={cardLayoutId(node.id)}
             imageBust={imageBustByNodeId[node.id] ?? 0}

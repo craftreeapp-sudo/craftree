@@ -1,3 +1,8 @@
+/** UI en français (noms canoniques `name`). */
+export function isFrenchLocale(locale: string): boolean {
+  return locale === 'fr' || locale.startsWith('fr-');
+}
+
 /**
  * Affichage du nom d’invention selon la locale UI (voir règles i18n Craftree).
  */
@@ -6,8 +11,7 @@ export function pickNodeDisplayName(
   name: string,
   nameEn?: string | null
 ): string {
-  const frenchUi = locale === 'fr' || locale.startsWith('fr-');
-  if (frenchUi) return name;
+  if (isFrenchLocale(locale)) return name;
   const en = nameEn?.trim();
   if (en) return en;
   return name;
@@ -21,8 +25,7 @@ export function pickNodeDescriptionForLocale(
   descriptionFr: string | undefined | null,
   descriptionEn?: string | null
 ): string {
-  const frenchUi = locale === 'fr' || locale.startsWith('fr-');
-  if (frenchUi) return (descriptionFr ?? '').trim();
+  if (isFrenchLocale(locale)) return (descriptionFr ?? '').trim();
   const en = descriptionEn?.trim();
   if (en) return en;
   return (descriptionFr ?? '').trim();

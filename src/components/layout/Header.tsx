@@ -9,7 +9,11 @@ import { HeaderAuth } from '@/components/layout/HeaderAuth';
 import { HeaderNavDrawer } from '@/components/layout/HeaderNavDrawer';
 import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher';
 import { useUIStore } from '@/stores/ui-store';
-import { HEADER_ICON_BUTTON, HEADER_ICON_IN_BUTTON } from '@/components/layout/header-controls';
+import {
+  HEADER_COMPACT_TEXT_BUTTON,
+  HEADER_ICON_BUTTON,
+  HEADER_ICON_IN_BUTTON,
+} from '@/components/layout/header-controls';
 
 function IconCategoriesGrid({ className }: { className?: string }) {
   return (
@@ -32,13 +36,10 @@ export function Header() {
   const pathname = usePathname();
   const tNav = useTranslations('nav');
   const closeSidebar = useUIStore((s) => s.closeSidebar);
+  const setAddCardModalOpen = useUIStore((s) => s.setAddCardModalOpen);
 
   const hideHeaderSearch = pathname === '/';
   const isLanding = pathname === '/';
-
-  if (pathname === '/editor') {
-    return null;
-  }
 
   return (
     <>
@@ -91,6 +92,14 @@ export function Header() {
         ) : null}
 
         <div className="relative z-[12] flex shrink-0 items-center justify-end gap-2">
+          <button
+            type="button"
+            onClick={() => setAddCardModalOpen(true)}
+            className={`${HEADER_COMPACT_TEXT_BUTTON} max-w-[min(100vw-8rem,11rem)] truncate whitespace-nowrap sm:max-w-none`}
+            title={tNav('addCard')}
+          >
+            {tNav('addCard')}
+          </button>
           <Link
             href="/categories"
             className={HEADER_ICON_BUTTON}

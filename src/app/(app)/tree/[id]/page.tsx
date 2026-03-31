@@ -1,15 +1,16 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import linksJson from '@/data/links.json';
 import { collectUpstreamDependencyNodeIds } from '@/lib/graph-utils';
 import type { CraftingLink } from '@/lib/types';
 import { getSiteUrl } from '@/lib/seo';
-import { getTreeMetadataNode } from '@/lib/seed-merge';
+import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
 import { TreePageClient } from './TreePageClient';
 import {
   getAllNodes,
   getAllLinks,
+  getExploreMetadataLinks,
+  getTreePageNodeMeta,
 } from '@/lib/data';
 import type { SeedNode } from '@/lib/types';
 
@@ -20,8 +21,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const base = getSiteUrl();
-  const n = getTreeMetadataNode(id);
-  const links = linksJson.links as CraftingLink[];
+  const n = await getTreePageNodeMeta(id);
+  const edgeLinks = await getExploreMetadataLinks();
 
   if (!n) {
     return {
@@ -31,15 +32,15 @@ export async function generateMetadata({
     };
   }
 
-  const edgeSlice = links.map((e) => ({
+  const edgeSlice = edgeLinks.map((e) => ({
     source_id: e.source_id,
     target_id: e.target_id,
   }));
   const upstream = collectUpstreamDependencyNodeIds(id, edgeSlice);
   const depCount = Math.max(0, upstream.size - 1);
 
-  const title = `Craftree — ${n.name}`;
-  const description = `Explorez les ${depCount} dépendances nécessaires pour fabriquer ${n.name}.`;
+  const title = `${n.name} — Craftree`;
+  const description = `Que faut-il pour fabriquer ${n.name} ? Découvrez les ${depCount} inventions nécessaires.`;
   const canonical = `${base}${treeInventionPath(id)}`;
 
   return {
@@ -53,10 +54,10 @@ export async function generateMetadata({
       siteName: 'Craftree',
       locale: 'fr_FR',
       type: 'website',
-      images: [{ url: `${base}/og-default.png`, width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
+      site: '@Craftree_app',
       title,
       description,
     },
@@ -69,13 +70,13 @@ export default async function TreePage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const exists = Boolean(getTreeMetadataNode(id));
-  if (!exists) {
+  const meta = await getTreePageNodeMeta(id);
+  if (!meta) {
     redirect(treeInventionPath(getDefaultTreeNodeId()));
   }
 
   let initialGraph: { nodes: SeedNode[]; links: CraftingLink[] } | null = null;
-  if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
+  if (isSupabaseConfigured()) {
     const [nodes, links] = await Promise.all([getAllNodes(), getAllLinks()]);
     initialGraph = { nodes, links };
   }

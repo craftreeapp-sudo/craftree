@@ -1,18 +1,15 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { useGraphStore, getNodeDetails } from '@/stores/graph-store';
 import { useNodeDetailsStore } from '@/stores/node-details-store';
 import { useAuthStore } from '@/stores/auth-store';
-import { useToastStore } from '@/stores/toast-store';
 import { useExploreCardOptional } from '@/components/explore/explore-card-context';
 import { formatYear } from '@/lib/utils';
 import { getCategoryColor, hexToRgba } from '@/lib/colors';
-import { directDependencyCount } from '@/lib/built-upon-utils';
 import { trackEvent } from '@/lib/analytics';
 import {
   pickNodeDisplayName,
@@ -30,8 +27,10 @@ import {
   ExploreLedToRow,
   ExploreRecipeRow,
 } from '@/components/explore/ExploreDetailLinkRows';
-
-const PANEL_W = 340;
+import { CardImagePlaceholder } from '@/components/explore/CardImagePlaceholder';
+import { ShareInventionButton } from '@/components/explore/ShareInventionButton';
+import { treeLayerDisplayIndexFromNode } from '@/lib/tree-layers';
+import { EXPLORE_DETAIL_PANEL_WIDTH_PX } from '@/lib/explore-layout';
 const TRANSITION = { duration: 0.35, ease: [0.4, 0, 0.2, 1] as const };
 
 function materialLevelEditorKey(
@@ -51,22 +50,19 @@ export function ExploreDetailPanel() {
   const locale = useLocale();
   const tExplore = useTranslations('explore');
   const tSidebar = useTranslations('sidebar');
-  const tCommon = useTranslations('common');
   const tAuth = useTranslations('auth');
   const tCat = useTranslations('categories');
   const tTypes = useTranslations('types');
   const tEd = useTranslations('editor');
 
   const getNodeById = useGraphStore((s) => s.getNodeById);
-  const edges = useGraphStore((s) => s.edges);
   const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
   const getUsagesOfNode = useGraphStore((s) => s.getUsagesOfNode);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
   const mergeDetail = useNodeDetailsStore((s) => s.mergeDetail);
   const detailsById = useNodeDetailsStore((s) => s.byId);
   const { isAdmin } = useAuthStore();
-  const pushToast = useToastStore((s) => s.pushToast);
-  const router = useRouter();
+  const refreshData = useGraphStore((s) => s.refreshData);
 
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
@@ -112,14 +108,6 @@ export function ExploreDetailPanel() {
     return () => document.removeEventListener('mousedown', onDoc);
   }, [moreOpen]);
 
-  const handleShare = useCallback(() => {
-    if (!node) return;
-    trackEvent('share', node.id);
-    const url = `${window.location.origin}/invention/${encodeURIComponent(node.id)}`;
-    void navigator.clipboard.writeText(url);
-    pushToast(tCommon('linkCopied'), 'success');
-  }, [node, pushToast, tCommon]);
-
   const enterSuggest = useCallback(() => {
     if (!node) return;
     ctx?.openSuggestSubview();
@@ -127,8 +115,8 @@ export function ExploreDetailPanel() {
 
   const enterEdit = useCallback(() => {
     if (!node) return;
-    router.push(`/editor?edit=${encodeURIComponent(node.id)}`);
-  }, [node, router]);
+    ctx?.openAdminEditSubview();
+  }, [node, ctx]);
 
   const displayName = useMemo(() => {
     if (!node) return '';
@@ -199,14 +187,14 @@ export function ExploreDetailPanel() {
     [node, getRecipeForNode]
   );
 
-  const directDeps = useMemo(
-    () => (node ? directDependencyCount(node.id, edges) : 0),
-    [node, edges]
-  );
-
   const usages = useMemo(
     () => (node ? getUsagesOfNode(node.id) : []),
     [node, getUsagesOfNode]
+  );
+
+  const layerDisplay = useMemo(
+    () => (node ? treeLayerDisplayIndexFromNode(node) : 0),
+    [node]
   );
 
   const openPeerDetail = useCallback(
@@ -225,42 +213,54 @@ export function ExploreDetailPanel() {
   const panelInner =
     !node ? null : (
       <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
-        {/* 1. Titre + numéro de carte + menu */}
-        <div className="flex shrink-0 items-start justify-between gap-2 border-b border-border px-4 pb-3 pt-4">
-          <div className="flex min-w-0 flex-1 items-start gap-2">
-            <h2
-              id="explore-detail-title"
-              className="min-w-0 flex-1 text-xl font-bold leading-tight text-foreground"
-              style={{
-                fontFamily:
-                  'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
-              }}
+        {/* 1. Titre + couche (adjacents) | actions */}
+        <div className="grid shrink-0 grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-x-2 border-b border-border px-5 pb-3 pt-4">
+          <h2
+            id="explore-detail-title"
+            className="min-w-0 line-clamp-2 text-xl font-bold leading-tight text-foreground"
+            style={{
+              fontFamily:
+                'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+            }}
+          >
+            {displayName}
+          </h2>
+          <span
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded border-2 text-xs font-semibold tabular-nums text-foreground"
+            style={{
+              borderColor: categoryColor,
+              backgroundColor: hexToRgba(categoryColor, 0.12),
+            }}
+            title={tExplore('layerShort', { layer: layerDisplay })}
+          >
+            {layerDisplay}
+          </span>
+          <div className="flex shrink-0 items-center justify-end gap-0.5">
+          <ShareInventionButton nodeId={node.id} />
+          {isAdmin ? (
+            <button
+              type="button"
+              onClick={() => void enterEdit()}
+              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-border/30 hover:text-foreground"
+              aria-label={tSidebar('editInvention')}
             >
-              {displayName}
-            </h2>
-            <span
-              className="flex h-7 w-7 shrink-0 items-center justify-center rounded border-2 text-xs font-semibold tabular-nums text-foreground"
-              style={{
-                borderColor: categoryColor,
-                backgroundColor: hexToRgba(categoryColor, 0.12),
-              }}
-              title={tExplore('directDepsBadgeTitle')}
-            >
-              {directDeps}
-            </span>
-          </div>
-          <div className="flex shrink-0 items-center gap-1">
-            {isAdmin ? (
-              <button
-                type="button"
-                onClick={() => void enterEdit()}
-                className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-border/30 hover:text-foreground"
-                aria-label={tSidebar('editInvention')}
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
               >
-                <span className="text-base leading-none">✏️</span>
-              </button>
-            ) : null}
-            <div className="relative" ref={moreRef}>
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+              </svg>
+            </button>
+          ) : null}
+          <div className="relative shrink-0" ref={moreRef}>
               <button
                 type="button"
                 onClick={() => setMoreOpen((v) => !v)}
@@ -298,30 +298,6 @@ export function ExploreDetailPanel() {
                       {tSidebar('wikipedia')}
                     </a>
                   ) : null}
-                  <button
-                    type="button"
-                    className="flex w-full items-center gap-2 px-3 py-2 text-start text-[13px] text-foreground hover:bg-border/25"
-                    role="menuitem"
-                    onClick={() => {
-                      handleShare();
-                      setMoreOpen(false);
-                    }}
-                  >
-                    {tCommon('share')}
-                  </button>
-                  {!isAdmin ? (
-                    <button
-                      type="button"
-                      className="flex w-full items-center gap-2 px-3 py-2 text-start text-[13px] text-foreground hover:bg-border/25"
-                      role="menuitem"
-                      onClick={() => {
-                        enterSuggest();
-                        setMoreOpen(false);
-                      }}
-                    >
-                      {tAuth('suggestCorrection')}
-                    </button>
-                  ) : null}
                 </div>
               ) : null}
             </div>
@@ -329,7 +305,7 @@ export function ExploreDetailPanel() {
         </div>
 
         {/* 2. Pastilles : catégorie + nature (matière / procédé / outil & niveau) */}
-        <div className="flex flex-wrap gap-2 px-4 pt-4">
+        <div className="flex flex-wrap gap-2 px-5 pt-4">
           <span
             className="rounded-full px-2.5 py-1 text-xs font-medium"
             style={{
@@ -360,7 +336,7 @@ export function ExploreDetailPanel() {
 
         {/* 3. Tags */}
         {secondaryTags.length > 0 ? (
-          <div className="px-4 pt-4">
+          <div className="px-5 pt-4">
             <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
               {tExplore('detailTagsHeading')}
             </div>
@@ -378,7 +354,7 @@ export function ExploreDetailPanel() {
         ) : null}
 
         {/* 4. Visuel */}
-        <div className="mt-4 w-full shrink-0 px-4">
+        <div className="mt-4 w-full shrink-0 px-5">
           {imageSrc && !mainImgErr ? (
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-page">
               <Image
@@ -386,23 +362,21 @@ export function ExploreDetailPanel() {
                 alt=""
                 fill
                 className="object-cover"
-                sizes="340px"
+                sizes={`${EXPLORE_DETAIL_PANEL_WIDTH_PX}px`}
                 unoptimized={imageUnoptimized}
                 onError={() => setMainImgErr(true)}
               />
             </div>
           ) : (
-            <div
-              className="flex min-h-[140px] w-full items-center justify-center rounded-lg px-4 py-8 text-center text-lg font-semibold text-white"
-              style={{ backgroundColor: categoryColor }}
-            >
-              {displayName}
-            </div>
+            <CardImagePlaceholder
+              categoryColor={categoryColor}
+              variant="panel"
+            />
           )}
         </div>
 
         {extraThumbs.length > 0 ? (
-          <div className="mt-3 flex gap-2 overflow-x-auto px-4 pb-1">
+          <div className="mt-3 flex gap-2 overflow-x-auto px-5 pb-1">
             {extraThumbs.map((u, i) => (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -416,29 +390,29 @@ export function ExploreDetailPanel() {
         ) : null}
 
         {/* 5. Date */}
-        <div className="px-4 pt-4 text-sm tabular-nums text-muted-foreground">
+        <div className="px-5 pt-4 text-sm tabular-nums text-muted-foreground">
           {formatYear(node.year_approx ?? null)}
         </div>
 
         {/* 6. Origine (contexte) */}
         {originLine ? (
-          <p className="px-4 pt-3 text-[13px] leading-snug text-muted-foreground">
+          <p className="px-5 pt-3 text-[13px] leading-snug text-muted-foreground">
             {originLine}
           </p>
         ) : null}
 
         {/* 7. Description */}
-        <p className="px-4 pt-4 text-sm leading-relaxed text-muted-foreground">
+        <p className="px-5 pt-4 text-sm leading-relaxed text-muted-foreground">
           {description}
         </p>
 
         {/* 8. Suggestion */}
         {!isAdmin ? (
-          <div className="mt-6 px-4">
+          <div className="mt-6 px-5">
             <button
               type="button"
               onClick={() => void enterSuggest()}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-amber-600 px-4 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-amber-500"
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-amber-600 px-5 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-amber-500"
             >
               {tAuth('suggestCorrection')}
             </button>
@@ -446,7 +420,7 @@ export function ExploreDetailPanel() {
         ) : null}
 
         {/* 9–10. Liens aval / amont */}
-        <section className="mt-6 px-4 pb-8">
+        <section className="mt-6 px-5 pb-8">
           <button
             type="button"
             onClick={() => setLedToOpen((v) => !v)}
@@ -558,15 +532,34 @@ export function ExploreDetailPanel() {
           exit={{ x: '100%' }}
           transition={TRANSITION}
           className={`fixed bottom-0 right-0 top-14 z-[80] flex flex-col border-l border-border bg-surface shadow-2xl ${
-            isMobile ? 'w-full' : 'w-[min(100vw,350px)]'
+            isMobile ? 'w-full' : ''
           }`}
-          style={isMobile ? undefined : { maxWidth: PANEL_W }}
+          style={
+            isMobile
+              ? undefined
+              : {
+                  width: `min(100vw, ${EXPLORE_DETAIL_PANEL_WIDTH_PX}px)`,
+                  maxWidth: EXPLORE_DETAIL_PANEL_WIDTH_PX,
+                }
+          }
         >
           {detailSubview === 'suggest' && !isAdmin ? (
             <div className="flex min-h-0 flex-1 flex-col">
               <SuggestNodeCorrectionPanel
                 node={node}
                 onClose={() => ctx.closeSuggestSubview()}
+              />
+            </div>
+          ) : detailSubview === 'adminEdit' && isAdmin ? (
+            <div className="flex min-h-0 flex-1 flex-col">
+              <SuggestNodeCorrectionPanel
+                key={node.id}
+                variant="admin"
+                node={node}
+                onClose={() => ctx.closeSuggestSubview()}
+                onAdminSaved={async () => {
+                  await refreshData();
+                }}
               />
             </div>
           ) : (

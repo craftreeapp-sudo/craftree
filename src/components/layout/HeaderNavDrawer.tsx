@@ -8,6 +8,7 @@ import {
   HEADER_ICON_BUTTON,
   HEADER_ICON_IN_BUTTON,
 } from '@/components/layout/header-controls';
+import { useUIStore } from '@/stores/ui-store';
 
 const GITHUB_URL = 'https://github.com/craftreeapp-sudo/craftree';
 
@@ -40,6 +41,7 @@ export function HeaderNavDrawer() {
   const tFooter = useTranslations('footer');
   const tNav = useTranslations('nav');
   const tContact = useTranslations('contactPage');
+  const setAddCardModalOpen = useUIStore((s) => s.setAddCardModalOpen);
 
   useEffect(() => {
     setMounted(true);
@@ -72,6 +74,16 @@ export function HeaderNavDrawer() {
         className="fixed bottom-0 left-0 top-14 z-[201] flex w-[min(100%,280px)] flex-col gap-1 overflow-y-auto border-r border-white/15 bg-[#14141c] px-4 pb-8 pt-4 text-foreground shadow-2xl"
         aria-label={tNav('drawerNavigation')}
       >
+        <button
+          type="button"
+          className="w-full rounded-lg px-3 py-3 text-left text-sm font-medium text-white transition-colors hover:bg-white/10"
+          onClick={() => {
+            setAddCardModalOpen(true);
+            setOpen(false);
+          }}
+        >
+          {tNav('addCard')}
+        </button>
         <Link
           href="/categories"
           className="rounded-lg px-3 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10"

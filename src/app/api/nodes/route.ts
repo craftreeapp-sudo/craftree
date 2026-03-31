@@ -11,9 +11,20 @@ import {
   mapGraphNodeRowToSeedNode,
   mapNodeRowToSeedNode,
   fetchNodesOrdered,
+  isMissingNatureColumnsError,
 } from '@/lib/data';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 import { dimensionMaterialLevelFromCreateBody } from '@/lib/node-dimension';
+import {
+  parseChemicalNature,
+  parseNaturalOrigin,
+} from '@/lib/suggest-nature-fields';
+
+const JSON_NO_STORE = {
+  headers: {
+    'Cache-Control': 'private, no-store, max-age=0, must-revalidate',
+  },
+} as const;
 
 function uniqueIdFromName(base: string, existingIds: Set<string>): string {
   let id = slugify(base);
@@ -41,7 +52,7 @@ export async function GET(request: Request) {
     const nodes = rows.map((r) =>
       full ? mapNodeRowToSeedNode(r) : mapGraphNodeRowToSeedNode(r)
     );
-    return NextResponse.json({ nodes });
+    return NextResponse.json({ nodes }, JSON_NO_STORE);
   } catch (e) {
     console.error(e);
     return NextResponse.json(
@@ -123,6 +134,14 @@ export async function POST(request: Request) {
           ? body.complexity_depth
           : 0;
       const dm = dimensionMaterialLevelFromCreateBody(body);
+      const naturalOrigin = parseNaturalOrigin(
+        typeof body.naturalOrigin === 'string' ? body.naturalOrigin : undefined
+      );
+      const chemicalNature = parseChemicalNature(
+        typeof body.chemicalNature === 'string'
+          ? body.chemicalNature
+          : undefined
+      );
       const node: SeedNode = {
         id,
         name,
@@ -158,6 +177,12 @@ export async function POST(request: Request) {
               : undefined,
         dimension: dm.dimension,
         materialLevel: dm.materialLevel,
+        ...(naturalOrigin !== ''
+          ? { naturalOrigin }
+          : {}),
+        ...(chemicalNature !== ''
+          ? { chemicalNature }
+          : {}),
       };
       data.nodes.push(node);
       writeSeedData(data);
@@ -227,6 +252,12 @@ export async function POST(request: Request) {
         : 0;
 
     const dm = dimensionMaterialLevelFromCreateBody(body);
+    const naturalOrigin = parseNaturalOrigin(
+      typeof body.naturalOrigin === 'string' ? body.naturalOrigin : undefined
+    );
+    const chemicalNature = parseChemicalNature(
+      typeof body.chemicalNature === 'string' ? body.chemicalNature : undefined
+    );
 
     const insertRow = {
       id,
@@ -267,21 +298,51 @@ export async function POST(request: Request) {
             : null,
       dimension: dm.dimension,
       material_level: dm.materialLevel,
+      natural_origin: naturalOrigin === '' ? null : naturalOrigin,
+      chemical_nature: chemicalNature === '' ? null : chemicalNature,
     };
 
-    const { data: inserted, error } = await sb
+    const firstAttempt = await sb
       .from('nodes')
       .insert(insertRow)
       .select()
       .single();
+    let insErr = firstAttempt.error;
+    let insData = firstAttempt.data;
 
-    if (error) throw error;
-    const node = mapNodeRowToSeedNode(inserted as Record<string, unknown>);
+    if (insErr && isMissingNatureColumnsError(insErr)) {
+      const {
+        natural_origin: _no,
+        chemical_nature: _cn,
+        ...insertWithoutNature
+      } = insertRow;
+      const retry = await sb
+        .from('nodes')
+        .insert(insertWithoutNature)
+        .select()
+        .single();
+      insErr = retry.error;
+      insData = retry.data;
+    }
+
+    if (insErr) throw insErr;
+    const insertedRow = insData as Record<string, unknown>;
+
+    const node = mapNodeRowToSeedNode(insertedRow);
     return NextResponse.json({ node }, { status: 201 });
   } catch (e) {
     console.error(e);
+    const msg =
+      e &&
+      typeof e === 'object' &&
+      'message' in e &&
+      typeof (e as { message?: unknown }).message === 'string'
+        ? String((e as { message: string }).message)
+        : e instanceof Error
+          ? e.message
+          : 'Failed to create node';
     return NextResponse.json(
-      { error: 'Failed to create node' },
+      { error: 'Failed to create node', message: msg },
       { status: 500 }
     );
   }
