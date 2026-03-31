@@ -26,23 +26,23 @@
   --edge-stroke-material: #94a3b8;
   --edge-stroke-catalyst: #a1a1aa;
   --background: var(--page);
-  /* Glass (aligné sur la palette page/surface — pas de décalage bleu vs le reste de l’UI) */
-  --glass-header: rgba(10, 10, 10, 0.75);
-  --glass-header-fallback: rgba(10, 10, 10, 0.92);
+  /* Glass — neutre (aligné --page / --surface / --surface-elevated), opacités élevées pour lisibilité sans blur */
+  --glass-header: rgba(10, 10, 10, 0.92);
+  --glass-header-fallback: rgba(10, 10, 10, 0.98);
   --glass-header-border: rgba(255, 255, 255, 0.06);
-  --glass-panel: rgba(23, 23, 23, 0.85);
-  --glass-panel-fallback: rgba(23, 23, 23, 0.94);
+  --glass-panel: rgba(23, 23, 23, 0.95);
+  --glass-panel-fallback: rgba(23, 23, 23, 0.99);
   --glass-panel-border: rgba(255, 255, 255, 0.08);
   --glass-shadow-detail: -4px 0 24px rgba(0, 0, 0, 0.3);
   --glass-shadow-legend: 4px 0 24px rgba(0, 0, 0, 0.3);
   --glass-shadow-legend-sheet: 0 -8px 32px rgba(0, 0, 0, 0.35);
-  --glass-hover: rgba(23, 23, 23, 0.88);
-  --glass-hover-fallback: rgba(23, 23, 23, 0.94);
+  --glass-hover: rgba(23, 23, 23, 0.95);
+  --glass-hover-fallback: rgba(23, 23, 23, 0.99);
   --glass-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.4);
-  --glass-hero: rgba(31, 31, 31, 0.7);
-  --glass-hero-fallback: rgba(31, 31, 31, 0.88);
+  --glass-hero: rgba(31, 31, 31, 0.9);
+  --glass-hero-fallback: rgba(31, 31, 31, 0.97);
   --glass-hero-border: rgba(255, 255, 255, 0.1);
-  --glass-hero-shadow: 0 0 40px rgba(83, 74, 183, 0.08);
+  --glass-hero-shadow: 0 0 40px rgba(0, 0, 0, 0.22);
 }
 
 [data-theme='light'] {
@@ -72,21 +72,21 @@
   --graph-bg-dot: #cbd5e1;
   --edge-stroke-material: #64748b;
   --edge-stroke-catalyst: #64748b;
-  /* Glass — cohérent avec surfaces claires */
-  --glass-header: rgba(255, 255, 255, 0.75);
-  --glass-header-fallback: rgba(255, 255, 255, 0.96);
+  /* Glass — opacités élevées pour lisibilité (fallback sans backdrop-filter inclus) */
+  --glass-header: rgba(255, 255, 255, 0.95);
+  --glass-header-fallback: rgba(255, 255, 255, 0.99);
   --glass-header-border: rgba(0, 0, 0, 0.06);
-  --glass-panel: rgba(255, 255, 255, 0.85);
-  --glass-panel-fallback: rgba(255, 255, 255, 0.94);
+  --glass-panel: rgba(255, 255, 255, 0.97);
+  --glass-panel-fallback: rgba(255, 255, 255, 0.99);
   --glass-panel-border: rgba(0, 0, 0, 0.08);
   --glass-shadow-detail: -4px 0 24px rgba(0, 0, 0, 0.08);
   --glass-shadow-legend: 4px 0 24px rgba(0, 0, 0, 0.08);
   --glass-shadow-legend-sheet: 0 -8px 32px rgba(0, 0, 0, 0.1);
-  --glass-hover: rgba(255, 255, 255, 0.9);
-  --glass-hover-fallback: rgba(255, 255, 255, 0.94);
+  --glass-hover: rgba(255, 255, 255, 0.97);
+  --glass-hover-fallback: rgba(255, 255, 255, 0.99);
   --glass-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.1);
-  --glass-hero: rgba(255, 255, 255, 0.8);
-  --glass-hero-fallback: rgba(255, 255, 255, 0.92);
+  --glass-hero: rgba(255, 255, 255, 0.95);
+  --glass-hero-fallback: rgba(255, 255, 255, 0.99);
   --glass-hero-border: rgba(0, 0, 0, 0.06);
   --glass-hero-shadow: 0 0 40px rgba(83, 74, 183, 0.04);
 }
