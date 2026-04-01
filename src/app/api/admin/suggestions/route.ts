@@ -1,43 +1,8 @@
 import { NextResponse } from 'next/server';
+import { collectNodeIdsFromSuggestions } from '@/lib/collect-suggestion-node-ids';
 import { createSupabaseRouteHandlerClient } from '@/lib/supabase-route';
 import { requireAdminFromRequest } from '@/lib/auth-server';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
-
-function collectNodeIdsFromSuggestions(
-  rows: { suggestion_type: string; node_id: unknown; data: unknown }[]
-): string[] {
-  const ids: string[] = [];
-  for (const r of rows) {
-    if (r.node_id && typeof r.node_id === 'string') ids.push(r.node_id);
-    const d = r.data as Record<string, unknown> | null;
-    if (!d) continue;
-    if (r.suggestion_type === 'add_link') {
-      if (typeof d.source_id === 'string') ids.push(d.source_id);
-      if (typeof d.target_id === 'string') ids.push(d.target_id);
-    }
-    if (r.suggestion_type === 'new_node') {
-      const link = d.link as
-        | { source_id?: string; target_id?: string }
-        | undefined;
-      if (link?.source_id) ids.push(link.source_id);
-      if (link?.target_id) ids.push(link.target_id);
-    }
-    if (r.suggestion_type === 'delete_link') {
-      if (typeof d.source_id === 'string') ids.push(d.source_id);
-      if (typeof d.target_id === 'string') ids.push(d.target_id);
-    }
-    if (r.suggestion_type === 'anonymous_feedback') {
-      const nid =
-        typeof d.node_id === 'string'
-          ? d.node_id
-          : typeof r.node_id === 'string'
-            ? r.node_id
-            : '';
-      if (nid) ids.push(nid);
-    }
-  }
-  return ids;
-}
 
 export async function GET(request: Request) {
   try {

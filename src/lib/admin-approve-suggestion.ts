@@ -1,3 +1,9 @@
+import { buildSupabaseNodePatchFromBody } from '@/lib/admin-node-patch';
+import {
+  fetchAllLinkRowsPaginated,
+  isMissingNatureColumnsError,
+  mapNodeRowToSeedNode,
+} from '@/lib/data';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase-server';
 import { notifyContributorSuggestionResult } from '@/lib/notify-contributor-suggestion';
 import { dimensionMaterialLevelFromCreateBody } from '@/lib/node-dimension';
@@ -6,7 +12,11 @@ import {
   parseNaturalOrigin,
 } from '@/lib/suggest-nature-fields';
 import { slugify } from '@/lib/utils';
+import { fetchWikipediaThumbnailUrl } from '@/lib/wikipedia-thumb';
+import type { AdminEditNodeLinkListsOverride } from '@/lib/admin-suggestion-shared';
 import type { RelationType } from '@/lib/types';
+
+export type { AdminEditNodeLinkListsOverride };
 
 function nextLinkIdFromRows(rows: { id: string }[]): string {
   let max = 0;
@@ -17,9 +27,19 @@ function nextLinkIdFromRows(rows: { id: string }[]): string {
   return `l${max + 1}`;
 }
 
+/** Max suffix `l{n}` sur toutes les lignes (PostgREST limite ~1000 lignes par requête sans pagination). */
+function maxNumericLinkSuffixFromRows(rows: { id: string }[]): number {
+  let max = 0;
+  for (const l of rows) {
+    const m = /^l(\d+)$/.exec(l.id);
+    if (m) max = Math.max(max, parseInt(m[1]!, 10));
+  }
+  return max;
+}
+
 async function nextLinkId(sb: ReturnType<typeof createSupabaseServiceRoleClient>) {
-  const { data } = await sb.from('links').select('id');
-  return nextLinkIdFromRows((data ?? []) as { id: string }[]);
+  const rows = (await fetchAllLinkRowsPaginated(sb, 'id')) as { id: string }[];
+  return nextLinkIdFromRows(rows);
 }
 
 async function uniqueNodeId(
@@ -51,7 +71,13 @@ type EditNodeData = {
 
 export async function applyApprovedSuggestion(
   suggestionId: string,
-  options?: { overrideProposed?: Record<string, unknown> }
+  options?: {
+    overrideProposed?: Record<string, unknown>;
+    /** Si défini (ex. approbation depuis « Modifier puis approuver »), remplace les tableaux de liens de la suggestion. */
+    overrideEditNodeLinkLists?: AdminEditNodeLinkListsOverride;
+    /** Commentaire admin (email contributeur, colonne `suggestions.admin_comment`). */
+    adminComment?: string | null;
+  }
 ): Promise<void> {
   const sb = createSupabaseServiceRoleClient();
   const { data: row, error: fetchErr } = await sb
@@ -89,46 +115,44 @@ export async function applyApprovedSuggestion(
       delete proposed.linkEdits;
     }
 
-    const patch: Record<string, unknown> = {
-      updated_at: new Date().toISOString(),
-    };
-    if (typeof proposed.name === 'string') patch.name = proposed.name;
-    if (typeof proposed.description === 'string') patch.description = proposed.description;
-    if (typeof proposed.category === 'string') patch.category = proposed.category;
-    if (typeof proposed.era === 'string') patch.era = proposed.era;
-    if (proposed.year_approx !== undefined) {
-      patch.year_approx =
-        proposed.year_approx === null ? null : Number(proposed.year_approx);
+    const { data: prevRow, error: prevErr } = await sb
+      .from('nodes')
+      .select('*')
+      .eq('id', nodeId)
+      .maybeSingle();
+    if (prevErr || !prevRow) {
+      throw new Error('Nœud introuvable');
     }
-    if (typeof proposed.origin === 'string') patch.origin = proposed.origin;
-    if (typeof proposed.name_en === 'string') patch.name_en = proposed.name_en;
-    if (typeof proposed.description_en === 'string') {
-      patch.description_en = proposed.description_en;
-    }
-    if (Array.isArray(proposed.tags)) {
-      patch.tags = (proposed.tags as unknown[]).map(String);
-    }
-    if (proposed.naturalOrigin !== undefined) {
-      patch.natural_origin =
-        proposed.naturalOrigin === null || proposed.naturalOrigin === ''
-          ? null
-          : String(proposed.naturalOrigin);
-    }
-    if (proposed.chemicalNature !== undefined) {
-      patch.chemical_nature =
-        proposed.chemicalNature === null || proposed.chemicalNature === ''
-          ? null
-          : String(proposed.chemicalNature);
+    const cur = mapNodeRowToSeedNode(prevRow as Record<string, unknown>);
+    const patch = buildSupabaseNodePatchFromBody(proposed, cur);
+
+    let { error: upErr } = await sb.from('nodes').update(patch).eq('id', nodeId);
+
+    if (upErr && isMissingNatureColumnsError(upErr)) {
+      const patchLegacy = { ...patch };
+      delete patchLegacy.natural_origin;
+      delete patchLegacy.chemical_nature;
+      const second = await sb
+        .from('nodes')
+        .update(patchLegacy)
+        .eq('id', nodeId);
+      upErr = second.error;
     }
 
-    const { error: upErr } = await sb.from('nodes').update(patch).eq('id', nodeId);
     if (upErr) throw upErr;
 
-    const removedLinkIds = Array.isArray(
-      (data as { removedLinkIds?: unknown }).removedLinkIds
-    )
-      ? ((data as { removedLinkIds: string[] }).removedLinkIds as string[])
-      : [];
+    const listsOverride = options?.overrideEditNodeLinkLists;
+    const removedLinkIds =
+      listsOverride &&
+      Object.prototype.hasOwnProperty.call(listsOverride, 'removedLinkIds')
+        ? Array.isArray(listsOverride.removedLinkIds)
+          ? listsOverride.removedLinkIds.filter(
+              (x): x is string => typeof x === 'string' && x.length > 0
+            )
+          : []
+        : Array.isArray((data as { removedLinkIds?: unknown }).removedLinkIds)
+          ? ((data as { removedLinkIds: string[] }).removedLinkIds as string[])
+          : [];
 
     for (const linkId of removedLinkIds) {
       const { data: linkRow, error: linkFetchErr } = await sb
@@ -173,8 +197,11 @@ export async function applyApprovedSuggestion(
       }
     }
 
-    const proposedAddRaw = (data as { proposedAddLinks?: unknown })
-      .proposedAddLinks;
+    const proposedAddRaw =
+      listsOverride &&
+      Object.prototype.hasOwnProperty.call(listsOverride, 'proposedAddLinks')
+        ? listsOverride.proposedAddLinks
+        : (data as { proposedAddLinks?: unknown }).proposedAddLinks;
     const proposedAddLinks = Array.isArray(proposedAddRaw)
       ? (proposedAddRaw as {
           source_id: string;
@@ -248,13 +275,17 @@ export async function applyApprovedSuggestion(
         year_approx?: number | null;
         origin?: string | null;
         description?: string;
+        description_en?: string | null;
         proposed_id?: string;
         tags?: string[];
         wikipedia_url?: string | null;
+        image_url?: string | null;
         dimension?: string | null;
         materialLevel?: string | null;
         naturalOrigin?: string | null;
         chemicalNature?: string | null;
+        origin_type?: string | null;
+        nature_type?: string | null;
       };
       link?: {
         source_id: string;
@@ -316,6 +347,16 @@ export async function applyApprovedSuggestion(
         ? d.node.wikipedia_url.trim()
         : null;
 
+    let imageUrl: string | null =
+      d.node.image_url &&
+      typeof d.node.image_url === 'string' &&
+      d.node.image_url.trim()
+        ? d.node.image_url.trim()
+        : null;
+    if (!imageUrl && wiki) {
+      imageUrl = await fetchWikipediaThumbnailUrl(wiki);
+    }
+
     const naturalOrigin = parseNaturalOrigin(
       typeof d.node.naturalOrigin === 'string'
         ? d.node.naturalOrigin
@@ -327,12 +368,34 @@ export async function applyApprovedSuggestion(
         : undefined
     );
 
-    const { error: nErr } = await sb.from('nodes').insert({
+    const descEn =
+      typeof d.node.description_en === 'string'
+        ? d.node.description_en.trim()
+        : '';
+
+    const otRaw = d.node.origin_type;
+    const ntRaw = d.node.nature_type;
+    const originTypeVal =
+      otRaw === null || otRaw === ''
+        ? null
+        : typeof otRaw === 'string' &&
+            ['mineral', 'vegetal', 'animal'].includes(otRaw)
+          ? otRaw
+          : null;
+    const natureTypeVal =
+      ntRaw === null || ntRaw === ''
+        ? null
+        : typeof ntRaw === 'string' &&
+            ['element', 'compose', 'materiau'].includes(ntRaw)
+          ? ntRaw
+          : null;
+
+    const insertRow = {
       id: nodeId,
       name: d.node.name,
       name_en: nameEn,
       description: d.node.description ?? '',
-      description_en: null,
+      description_en: descEn || null,
       category: d.node.category,
       type: d.node.type ?? 'component',
       era: d.node.era,
@@ -342,12 +405,46 @@ export async function applyApprovedSuggestion(
       complexity_depth: 0,
       updated_at: new Date().toISOString(),
       wikipedia_url: wiki,
+      image_url: imageUrl,
       dimension: dm.dimension,
       material_level: dm.materialLevel,
       natural_origin: naturalOrigin === '' ? null : naturalOrigin,
       chemical_nature: chemicalNature === '' ? null : chemicalNature,
-    });
-    if (nErr) throw nErr;
+      origin_type: originTypeVal,
+      nature_type: natureTypeVal,
+    };
+
+    let firstIns = await sb.from('nodes').insert(insertRow);
+    let nErr = firstIns.error;
+
+    if (nErr && isMissingNatureColumnsError(nErr)) {
+      const {
+        natural_origin: _no,
+        chemical_nature: _cn,
+        ...insertWithoutNature
+      } = insertRow;
+      const retry = await sb.from('nodes').insert(insertWithoutNature);
+      nErr = retry.error;
+    }
+
+    if (
+      nErr &&
+      String((nErr as { message?: string }).message ?? '').includes(
+        'origin_type'
+      )
+    ) {
+      const {
+        origin_type: _ot,
+        nature_type: _nt,
+        ...withoutOriginNature
+      } = insertRow;
+      const retry2 = await sb.from('nodes').insert(withoutOriginNature);
+      nErr = retry2.error;
+    }
+
+    if (nErr) {
+      throw nErr;
+    }
 
     const ph = d.node.proposed_id?.trim() || '';
     const linkItems: {
@@ -399,6 +496,12 @@ export async function applyApprovedSuggestion(
       'catalyst',
     ]);
 
+    const existingLinkRows = (await fetchAllLinkRowsPaginated(
+      sb,
+      'id'
+    )) as { id: string }[];
+    let linkSuffix = maxNumericLinkSuffixFromRows(existingLinkRows);
+
     for (const link of linkItems) {
       const rel = String(link.relation_type);
       if (!validRelations.has(rel)) {
@@ -410,7 +513,8 @@ export async function applyApprovedSuggestion(
       const tgt =
         ph && link.target_id === ph ? nodeId : link.target_id;
 
-      const linkId = await nextLinkId(sb);
+      linkSuffix += 1;
+      const linkId = `l${linkSuffix}`;
       const { error: lErr } = await sb.from('links').insert({
         id: linkId,
         source_id: src,
@@ -432,17 +536,30 @@ export async function applyApprovedSuggestion(
     throw new Error(`Type de suggestion inconnu: ${type}`);
   }
 
+  const hasAdminCommentKey =
+    options !== undefined && Object.prototype.hasOwnProperty.call(options, 'adminComment');
+  const adminCommentForRow = hasAdminCommentKey
+    ? String(options!.adminComment ?? '').trim() || null
+    : undefined;
+
   const { error: stErr } = await sb
     .from('suggestions')
     .update({
       status: 'approved',
       reviewed_at: new Date().toISOString(),
+      ...(hasAdminCommentKey ? { admin_comment: adminCommentForRow ?? null } : {}),
     })
     .eq('id', suggestionId);
   if (stErr) throw stErr;
 
   const uid = row.user_id as string | null;
-  if (uid) {
+  const countsContribution =
+    type === 'edit_node' ||
+    type === 'new_node' ||
+    type === 'add_link' ||
+    type === 'delete_link';
+
+  if (uid && countsContribution) {
     const { data: prof } = await sb
       .from('profiles')
       .select('contributions_count')
@@ -468,6 +585,6 @@ export async function applyApprovedSuggestion(
       node_id: (row.node_id as string | null) ?? null,
       data: row.data,
     },
-    adminComment: null,
+    adminComment: hasAdminCommentKey ? (adminCommentForRow ?? null) : null,
   });
 }

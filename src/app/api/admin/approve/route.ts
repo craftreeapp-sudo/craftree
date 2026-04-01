@@ -1,7 +1,23 @@
 import { NextResponse } from 'next/server';
 import { requireAdminFromRequest } from '@/lib/auth-server';
-import { applyApprovedSuggestion } from '@/lib/admin-approve-suggestion';
+import {
+  applyApprovedSuggestion,
+  type AdminEditNodeLinkListsOverride,
+} from '@/lib/admin-approve-suggestion';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
+
+function approveErrorMessage(e: unknown): string {
+  if (e instanceof Error) return e.message;
+  if (
+    e &&
+    typeof e === 'object' &&
+    'message' in e &&
+    typeof (e as { message?: unknown }).message === 'string'
+  ) {
+    return String((e as { message: string }).message);
+  }
+  return 'Approve failed';
+}
 
 export async function POST(request: Request) {
   try {
@@ -17,6 +33,8 @@ export async function POST(request: Request) {
     const body = (await request.json()) as {
       id?: string;
       overrideProposed?: Record<string, unknown>;
+      overrideEditNodeLinkLists?: AdminEditNodeLinkListsOverride;
+      admin_comment?: string | null;
     };
 
     const id = body.id;
@@ -24,10 +42,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'id is required' }, { status: 400 });
     }
 
-    console.log('[admin/approve] POST applyApprovedSuggestion', { id });
-    await applyApprovedSuggestion(id, {
+    const opts: Parameters<typeof applyApprovedSuggestion>[1] = {
       overrideProposed: body.overrideProposed,
-    });
+      overrideEditNodeLinkLists: body.overrideEditNodeLinkLists,
+    };
+    if (Object.prototype.hasOwnProperty.call(body, 'admin_comment')) {
+      opts.adminComment = body.admin_comment ?? null;
+    }
+
+    console.log('[admin/approve] POST applyApprovedSuggestion', { id });
+    await applyApprovedSuggestion(id, opts);
     console.log(
       '[admin/approve] applyApprovedSuggestion finished (contributor notify awaited inside)'
     );
@@ -35,7 +59,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   } catch (e) {
     console.error(e);
-    const msg = e instanceof Error ? e.message : 'Approve failed';
+    const msg = approveErrorMessage(e);
     return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

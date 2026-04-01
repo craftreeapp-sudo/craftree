@@ -9,29 +9,59 @@ import {
   useState,
 } from 'react';
 import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { AdminEditNodeAddLinkSearches } from '@/components/admin/AdminEditNodeAddLinkSearches';
 import { AppContentShell } from '@/components/layout/AppContentShell';
 import { BackToExploreLink } from '@/components/layout/BackToExploreLink';
 import { useAuthStore } from '@/stores/auth-store';
 import { useToastStore } from '@/stores/toast-store';
+import {
+  ADMIN_DRAFT_PROPOSED_ADD,
+  ADMIN_DRAFT_REMOVED_IDS,
+  type AdminEditNodeLinkListsOverride,
+  getExploreNodeId,
+  initSuggestionEditDraft,
+  type LinkSnap,
+  type SuggestionRow,
+  sanitizeAdminProposedAddLinks,
+  VALID_RELATIONS,
+  formatLinkSnapLine,
+  stripLinkEditsFromPayload,
+} from '@/lib/admin-suggestion-shared';
+import { PRIMARY_CARD_CATEGORY_ORDER } from '@/lib/card-primary-categories';
+import {
+  EDIT_NODE_EXTRA_KEYS_AFTER_ADD_CARD,
+  SUGGEST_ADD_CARD_NODE_KEYS,
+} from '@/lib/suggest-add-card-field-order';
 import { computeDiff } from '@/lib/suggestion-diff';
 import { getCategoryLabelFr } from '@/lib/category-labels';
-import { NodeCategory } from '@/lib/types';
-import { RelationType } from '@/lib/types';
+import { eraLabelFromMessages } from '@/lib/era-display';
+import {
+  DIMENSION_ORDER,
+  ERA_ORDER,
+  MATERIAL_LEVEL_ORDER,
+  NODE_CATEGORY_ORDER,
+  TECH_NODE_TYPE_ORDER,
+} from '@/lib/node-labels';
+import {
+  CHEMICAL_NATURE_ORDER,
+  NATURAL_ORIGIN_ORDER,
+} from '@/lib/suggest-nature-fields';
+import { NodeCategory, RelationType, type Era } from '@/lib/types';
 import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
-
-type SuggestionRow = {
-  id: string;
-  user_id: string | null;
-  contributor_ip?: string | null;
-  suggestion_type: string;
-  status: string;
-  node_id: string | null;
-  data: Record<string, unknown>;
-  admin_comment: string | null;
-  created_at: string;
-  reviewed_at: string | null;
-};
+import {
+  EDITOR_DIM_KEY,
+  EDITOR_LEVEL_KEY,
+} from '@/components/editor/dimension-editor-keys';
+import {
+  suggestFormLabelClass,
+  suggestFormLabelSectionClass,
+  suggestFormNatureSectionTitleClass,
+  suggestInputClass,
+  suggestNatureBlockWrapClass,
+  suggestSelectClass,
+} from '@/components/ui/suggest-form-classes';
+import { SuggestionTagsField } from '@/components/ui/SuggestionTagsField';
 
 type ProfileLite = {
   email: string | null;
@@ -91,12 +121,6 @@ type SortKey = 'recent' | 'reliability' | 'type';
 
 type ReliabilityTier = 'trusted' | 'new' | 'anonymous';
 
-const RELIABILITY = {
-  trusted: { color: '#22C55E', label: 'Fiable' },
-  new: { color: '#F59E0B', label: 'Nouveau' },
-  anonymous: { color: '#5A6175', label: 'Anonyme' },
-} as const;
-
 const TYPE_SORT_ORDER: Record<string, number> = {
   edit_node: 0,
   add_link: 1,
@@ -123,16 +147,6 @@ function compactDisplayName(raw: string | null | undefined): string {
   const first = parts[0]!;
   const last = parts[parts.length - 1]!;
   return `${first} ${last[0]!.toUpperCase()}.`;
-}
-
-function getExploreNodeId(row: SuggestionRow): string | null {
-  const top = row.node_id?.trim();
-  if (top) return top;
-  if (row.suggestion_type === 'anonymous_feedback') {
-    const d = row.data as { node_id?: string };
-    if (typeof d.node_id === 'string' && d.node_id.trim()) return d.node_id.trim();
-  }
-  return null;
 }
 
 function reliabilitySortRank(tier: ReliabilityTier): number {
@@ -179,45 +193,6 @@ function getSuggestionCardTitle(
   return 'Suggestion';
 }
 
-const FIELD_LABELS: Record<string, string> = {
-  name: 'Nom',
-  description: 'Description',
-  description_en: 'Description (EN)',
-  category: 'Catégorie',
-  type: 'Type',
-  era: 'Époque',
-  year_approx: 'Année',
-  origin: 'Origine',
-};
-
-const RELATION_LABELS_FR: Record<string, string> = {
-  [RelationType.MATERIAL]: 'Matière première',
-  [RelationType.TOOL]: 'Outil',
-  [RelationType.ENERGY]: 'Énergie',
-  [RelationType.KNOWLEDGE]: 'Connaissance',
-  [RelationType.CATALYST]: 'Catalyseur',
-};
-
-type LinkSnap = {
-  id: string;
-  relation_type: string;
-  notes: string;
-  is_optional: boolean;
-};
-
-function formatLinkSnapLine(s: LinkSnap): string {
-  const rel = RELATION_LABELS_FR[s.relation_type] ?? s.relation_type;
-  const n = s.notes?.trim() || '—';
-  const opt = s.is_optional ? 'optionnel' : 'requis';
-  return `${rel} · ${opt} · ${n}`;
-}
-
-function stripLinkEditsFromPayload(o: Record<string, unknown>) {
-  const rest = { ...o };
-  delete rest.linkEdits;
-  return rest;
-}
-
 function formatRelativeFr(iso: string): string {
   const d = new Date(iso);
   const diffMs = Date.now() - d.getTime();
@@ -253,6 +228,7 @@ export function AdminPageClient() {
   const router = useRouter();
   const t = useTranslations('admin');
   const tAuth = useTranslations('auth');
+  const tCommon = useTranslations('common');
   const pushToast = useToastStore((s) => s.pushToast);
   const { isAdmin, isLoading } = useAuthStore();
 
@@ -274,12 +250,8 @@ export function AdminPageClient() {
   const [bulkProcessing, setBulkProcessing] = useState(false);
   const [bulkProgress, setBulkProgress] = useState(0);
   const [exitingIds, setExitingIds] = useState<Set<string>>(new Set());
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [editDraft, setEditDraft] = useState<Record<string, unknown> | null>(
-    null
-  );
-  const [rejectingId, setRejectingId] = useState<string | null>(null);
-  const [rejectComment, setRejectComment] = useState('');
+  /** Suggestion ouverte dans le panneau de droite (onglets en attente / historique). */
+  const [detailPanelId, setDetailPanelId] = useState<string | null>(null);
 
   const loadStats = useCallback(async () => {
     try {
@@ -368,6 +340,7 @@ export function AdminPageClient() {
   ]);
 
   const removeAfterExit = useCallback((id: string) => {
+    setDetailPanelId((cur) => (cur === id ? null : cur));
     setExitingIds((prev) => new Set(prev).add(id));
     setSelectedIds((prev) => {
       const n = new Set(prev);
@@ -386,11 +359,21 @@ export function AdminPageClient() {
   }, [loadStats]);
 
   const approve = useCallback(
-    async (id: string, overrideProposed?: Record<string, unknown>) => {
+    async (
+      id: string,
+      overrideProposed?: Record<string, unknown>,
+      overrideEditNodeLinkLists?: AdminEditNodeLinkListsOverride
+    ) => {
       const res = await fetch('/api/admin/approve', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, overrideProposed }),
+        body: JSON.stringify({
+          id,
+          overrideProposed,
+          ...(overrideEditNodeLinkLists !== undefined
+            ? { overrideEditNodeLinkLists }
+            : {}),
+        }),
       });
       if (!res.ok) {
         const e = await res.json().catch(() => ({}));
@@ -398,8 +381,6 @@ export function AdminPageClient() {
         return;
       }
       pushToast(t('toastApproved'), 'success');
-      setEditingId(null);
-      setEditDraft(null);
       removeAfterExit(id);
       if (tab === 'contributors') void loadContributors();
     },
@@ -418,8 +399,6 @@ export function AdminPageClient() {
         return;
       }
       pushToast(t('toastRejected'), 'success');
-      setRejectingId(null);
-      setRejectComment('');
       removeAfterExit(id);
       if (tab === 'contributors') void loadContributors();
     },
@@ -442,6 +421,9 @@ export function AdminPageClient() {
           return n;
         });
         setSelectedIds(new Set());
+        setDetailPanelId((cur) =>
+          cur && doneIds.includes(cur) ? null : cur
+        );
         void loadStats();
       }, 300);
     },
@@ -543,6 +525,24 @@ export function AdminPageClient() {
     return sorted;
   }, [suggestions, filter, sortKey, profiles]);
 
+  const selectedDetailRow = useMemo(() => {
+    if (!detailPanelId) return null;
+    return filteredSuggestions.find((s) => s.id === detailPanelId) ?? null;
+  }, [detailPanelId, filteredSuggestions]);
+
+  useEffect(() => {
+    if (tab !== 'pending' && tab !== 'history') {
+      setDetailPanelId(null);
+    }
+  }, [tab]);
+
+  useEffect(() => {
+    if (!detailPanelId) return;
+    if (!filteredSuggestions.some((s) => s.id === detailPanelId)) {
+      setDetailPanelId(null);
+    }
+  }, [detailPanelId, filteredSuggestions]);
+
   const shortcutTargetId = useMemo(() => {
     if (tab !== 'pending') return null;
     if (filteredSuggestions.length === 1) return filteredSuggestions[0]!.id;
@@ -559,63 +559,10 @@ export function AdminPageClient() {
     pendingVisibleIds.length > 0 &&
     pendingVisibleIds.every((id) => selectedIds.has(id));
 
-  const startEdit = (s: SuggestionRow) => {
-    setEditingId(s.id);
-    setRejectingId(null);
-    if (s.suggestion_type === 'edit_node') {
-      const d = s.data as { proposed?: Record<string, unknown> };
-      setEditDraft({ ...(d.proposed ?? {}) });
-    } else if (s.suggestion_type === 'add_link') {
-      const d = s.data as { relation_type?: string };
-      setEditDraft({ relation_type: d.relation_type ?? RelationType.MATERIAL });
-    } else if (s.suggestion_type === 'new_node') {
-      const d = s.data as {
-        node: Record<string, unknown>;
-        link?: Record<string, unknown>;
-        links?: unknown[];
-      };
-      const links = Array.isArray(d.links)
-        ? d.links.map((x) =>
-            x && typeof x === 'object' ? { ...(x as Record<string, unknown>) } : {}
-          )
-        : d.link
-          ? [d.link]
-          : [];
-      setEditDraft({
-        node: { ...d.node },
-        link: d.link ? { ...d.link } : {},
-        links,
-      });
-    } else {
-      setEditDraft({});
-    }
-  };
-
-  const cancelEdit = () => {
-    setEditingId(null);
-    setEditDraft(null);
-  };
-
-  const submitEditApprove = (s: SuggestionRow) => {
-    if (!editDraft) return;
-    if (s.suggestion_type === 'edit_node') {
-      const o = { ...(editDraft as Record<string, unknown>) };
-      if (typeof o.year_approx === 'string') {
-        o.year_approx =
-          o.year_approx.trim() === '' ? null : Number(o.year_approx);
-      }
-      void approve(s.id, o);
-    } else if (s.suggestion_type === 'add_link') {
-      void approve(s.id, editDraft as Record<string, unknown>);
-    } else if (s.suggestion_type === 'new_node') {
-      void approve(s.id, editDraft as Record<string, unknown>);
-    }
-  };
-
   useEffect(() => {
     if (tab !== 'pending' || !shortcutTargetId) return;
     const onKey = (e: KeyboardEvent) => {
-      if (editingId || rejectingId || bulkProcessing) return;
+      if (bulkProcessing) return;
       const tEl = e.target;
       if (tEl instanceof HTMLElement) {
         if (tEl.closest('input, textarea, select') || tEl.isContentEditable) {
@@ -640,11 +587,7 @@ export function AdminPageClient() {
         return;
       }
       if (key === 'a') {
-        if (editingId === shortcutTargetId && editDraft) {
-          submitEditApprove(row);
-        } else {
-          void approve(shortcutTargetId);
-        }
+        setDetailPanelId(shortcutTargetId);
         return;
       }
       if (key === 'r') {
@@ -656,19 +599,18 @@ export function AdminPageClient() {
   }, [
     tab,
     shortcutTargetId,
-    editingId,
-    rejectingId,
     bulkProcessing,
     suggestions,
-    editDraft,
-    approve,
     reject,
   ]);
 
   if (isLoading || !isAdmin) {
     return (
-      <AppContentShell className="flex min-h-[50vh] w-full flex-1 flex-col items-center justify-center text-center text-muted-foreground">
-        …
+      <AppContentShell
+        variant="admin"
+        className="flex min-h-[50vh] w-full flex-1 flex-col items-center justify-center text-center text-muted-foreground"
+      >
+        {tCommon('loading')}
       </AppContentShell>
     );
   }
@@ -676,11 +618,14 @@ export function AdminPageClient() {
   const pendingBadge = stats?.pending ?? 0;
 
   return (
-    <AppContentShell className="flex w-full flex-1 flex-col text-foreground">
+    <AppContentShell
+      variant="admin"
+      className="flex w-full flex-1 flex-col text-[15px] text-foreground"
+    >
       <div className="pb-3">
         <BackToExploreLink />
         <h1
-          className="text-lg font-semibold tracking-tight text-foreground md:text-xl"
+          className="text-xl font-semibold tracking-tight text-foreground md:text-2xl"
           style={{
             fontFamily:
               'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
@@ -695,14 +640,14 @@ export function AdminPageClient() {
           <button
             type="button"
             onClick={() => setTab('pending')}
-            className={`relative pb-2 text-sm font-medium ${
+            className={`relative pb-2 text-base font-medium ${
               tab === 'pending' ? 'text-foreground' : 'text-muted-foreground'
             }`}
           >
             {t('tabPending')}
             {pendingBadge > 0 ? (
               <span
-                className="ml-2 inline-block rounded-[8px] bg-red-500 px-[5px] py-[1px] text-[9px] font-semibold leading-tight text-white"
+                className="ml-2 inline-block rounded-[8px] bg-red-500 px-[5px] py-[1px] text-[11px] font-semibold leading-tight text-white"
                 aria-label={`${pendingBadge}`}
               >
                 {pendingBadge}
@@ -715,7 +660,7 @@ export function AdminPageClient() {
           <button
             type="button"
             onClick={() => setTab('history')}
-            className={`relative pb-2 text-sm font-medium ${
+            className={`relative pb-2 text-base font-medium ${
               tab === 'history' ? 'text-foreground' : 'text-muted-foreground'
             }`}
           >
@@ -727,7 +672,7 @@ export function AdminPageClient() {
           <button
             type="button"
             onClick={() => setTab('contributors')}
-            className={`relative pb-2 text-sm font-medium ${
+            className={`relative pb-2 text-base font-medium ${
               tab === 'contributors' ? 'text-foreground' : 'text-muted-foreground'
             }`}
           >
@@ -739,7 +684,7 @@ export function AdminPageClient() {
           <button
             type="button"
             onClick={() => setTab('analytics')}
-            className={`relative pb-2 text-sm font-medium ${
+            className={`relative pb-2 text-base font-medium ${
               tab === 'analytics' ? 'text-foreground' : 'text-muted-foreground'
             }`}
           >
@@ -794,7 +739,7 @@ export function AdminPageClient() {
                 key={key}
                 type="button"
                 onClick={() => setFilter(key)}
-                className={`rounded-[6px] border px-3 py-[5px] text-[11px] ${
+                className={`rounded-[6px] border px-3 py-[5px] text-[13px] ${
                   filter === key
                     ? 'border-accent text-foreground'
                     : 'border-border text-muted-foreground'
@@ -805,12 +750,12 @@ export function AdminPageClient() {
               </button>
             ))}
           </div>
-          <label className="flex shrink-0 items-center gap-2 text-[11px] text-muted-foreground">
+          <label className="flex shrink-0 items-center gap-2 text-[13px] text-muted-foreground">
             <span>Trier par</span>
             <select
               value={sortKey}
               onChange={(e) => setSortKey(e.target.value as SortKey)}
-              className="rounded-[6px] border border-border bg-surface px-2 py-1.5 text-[11px] text-foreground"
+              className="rounded-[6px] border border-border bg-surface px-2 py-1.5 text-[13px] text-foreground"
               style={{ borderWidth: '0.5px' }}
             >
               <option value="recent">Plus récentes</option>
@@ -823,7 +768,7 @@ export function AdminPageClient() {
 
       <main className="min-w-0 flex-1 overflow-x-auto py-4">
         {loading ? (
-          <p className="text-muted-foreground">…</p>
+          <p className="text-muted-foreground">{tCommon('loading')}</p>
         ) : tab === 'analytics' ? (
           analyticsPayload ? (
             <div className="flex min-w-0 flex-col gap-8">
@@ -1065,134 +1010,396 @@ export function AdminPageClient() {
         ) : filteredSuggestions.length === 0 ? (
           <p className="text-muted-foreground">{t('noSuggestions')}</p>
         ) : (
-          <div className="relative min-w-0 pb-10">
-            {tab === 'pending' && selectedIds.size > 0 ? (
-              <div
-                className="mb-3 flex flex-wrap items-center gap-3 px-[14px] py-2"
-                style={{
-                  background: '#111827',
-                  border: '0.5px solid rgba(59, 130, 246, 0.13)',
-                  borderRadius: 8,
-                }}
-              >
-                <label className="flex cursor-pointer items-center gap-2 text-[11px] text-[#8B95A8]">
-                  <input
-                    type="checkbox"
-                    className="h-[14px] w-[14px] cursor-pointer rounded-[3px] border border-[#2A3042] bg-transparent accent-[#22C55E]"
-                    checked={allPendingVisibleSelected}
-                    ref={(el) => {
-                      if (el) el.indeterminate = !allPendingVisibleSelected && selectedIds.size > 0;
-                    }}
-                    onChange={() => {
-                      if (allPendingVisibleSelected) {
-                        setSelectedIds(new Set());
-                      } else {
-                        setSelectedIds(new Set(pendingVisibleIds));
-                      }
-                    }}
-                  />
-                  Tout sélectionner
-                </label>
-                <span className="text-[11px] text-[#8B95A8]">
-                  {selectedIds.size} sélectionnées
-                </span>
-                <button
-                  type="button"
-                  disabled={bulkProcessing}
-                  onClick={() => void bulkApprove()}
-                  className="rounded px-2 py-1 text-[10px] font-medium text-white disabled:opacity-50"
-                  style={{ background: '#22C55E' }}
+          <div className="relative flex min-w-0 flex-col gap-4 pb-10 xl:flex-row xl:items-start xl:gap-6">
+            <div className="relative min-w-0 flex-1">
+              {tab === 'pending' && selectedIds.size > 0 ? (
+                <div
+                  className="mb-3 flex flex-wrap items-center gap-3 px-[14px] py-2"
+                  style={{
+                    background: '#111827',
+                    border: '0.5px solid rgba(59, 130, 246, 0.13)',
+                    borderRadius: 8,
+                  }}
                 >
-                  Tout approuver
-                </button>
-                <button
-                  type="button"
-                  disabled={bulkProcessing}
-                  onClick={() => void bulkReject()}
-                  className="rounded border px-2 py-1 text-[10px] font-medium text-[#EF4444] disabled:opacity-50"
-                  style={{ borderColor: '#EF4444' }}
-                >
-                  Tout rejeter
-                </button>
-                {bulkProcessing ? (
-                  <div className="h-1 min-w-[120px] flex-1 overflow-hidden rounded-full bg-[#1F2937]">
-                    <div
-                      className="h-full rounded-full bg-[#22C55E] transition-[width] duration-200"
-                      style={{ width: `${Math.round(bulkProgress * 100)}%` }}
+                  <label className="flex cursor-pointer items-center gap-2 text-[13px] text-[#8B95A8]">
+                    <input
+                      type="checkbox"
+                      className="h-[14px] w-[14px] cursor-pointer rounded-[3px] border border-[#2A3042] bg-transparent accent-[#22C55E]"
+                      checked={allPendingVisibleSelected}
+                      ref={(el) => {
+                        if (el) el.indeterminate = !allPendingVisibleSelected && selectedIds.size > 0;
+                      }}
+                      onChange={() => {
+                        if (allPendingVisibleSelected) {
+                          setSelectedIds(new Set());
+                        } else {
+                          setSelectedIds(new Set(pendingVisibleIds));
+                        }
+                      }}
                     />
-                  </div>
-                ) : null}
+                    Tout sélectionner
+                  </label>
+                  <span className="text-[13px] text-[#8B95A8]">
+                    {selectedIds.size} sélectionnées
+                  </span>
+                  <button
+                    type="button"
+                    disabled={bulkProcessing}
+                    onClick={() => void bulkApprove()}
+                  className="rounded px-2 py-1 text-[12px] font-medium text-white disabled:opacity-50"
+                  style={{ background: '#22C55E' }}
+                  >
+                    Tout approuver
+                  </button>
+                  <button
+                    type="button"
+                    disabled={bulkProcessing}
+                    onClick={() => void bulkReject()}
+                  className="rounded border px-2 py-1 text-[12px] font-medium text-[#EF4444] disabled:opacity-50"
+                  style={{ borderColor: '#EF4444' }}
+                  >
+                    Tout rejeter
+                  </button>
+                  {bulkProcessing ? (
+                    <div className="h-1 min-w-[120px] flex-1 overflow-hidden rounded-full bg-[#1F2937]">
+                      <div
+                        className="h-full rounded-full bg-[#22C55E] transition-[width] duration-200"
+                        style={{ width: `${Math.round(bulkProgress * 100)}%` }}
+                      />
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+              <div className="overflow-x-auto rounded-lg border border-border">
+                <table className="w-full min-w-[640px] border-collapse text-left text-[14px]">
+                  <thead>
+                    <tr className="border-b border-border bg-surface-elevated/40">
+                      {tab === 'pending' ? (
+                        <th className="w-10 px-2 py-2" scope="col">
+                          <span className="sr-only">{t('tableSelectColumn')}</span>
+                        </th>
+                      ) : null}
+                      <th className="px-3 py-2 font-medium text-muted-foreground" scope="col">
+                        {t('tableColType')}
+                      </th>
+                      <th className="px-3 py-2 font-medium text-muted-foreground" scope="col">
+                        {t('tableColInvention')}
+                      </th>
+                      <th className="px-3 py-2 font-medium text-muted-foreground" scope="col">
+                        {t('tableColContributor')}
+                      </th>
+                    <th className="px-3 py-2 font-medium text-muted-foreground" scope="col">
+                      {t('tableColDate')}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredSuggestions.map((s) => {
+                      const p = s.user_id ? profiles[s.user_id] : undefined;
+                      const title = getSuggestionCardTitle(s, nodeNames);
+                      const dateIso =
+                        tab === 'history'
+                          ? (s.reviewed_at ?? s.created_at)
+                          : s.created_at;
+                      const typeLabel =
+                        s.suggestion_type === 'edit_node'
+                          ? t('typeEdit')
+                          : s.suggestion_type === 'add_link'
+                            ? t('typeAddLink')
+                            : s.suggestion_type === 'new_node'
+                              ? t('typeNewNode')
+                              : s.suggestion_type === 'delete_link'
+                                ? t('typeDeleteLink')
+                                : s.suggestion_type === 'anonymous_feedback'
+                                  ? t('typeAnonymousFeedback')
+                                  : s.suggestion_type;
+                      const contrib =
+                        s.user_id == null
+                          ? s.contributor_ip
+                            ? `${t('anonymousContributor')} (${s.contributor_ip})`
+                            : t('anonymousContributor')
+                          : compactDisplayName(
+                              p?.display_name ?? p?.email
+                            ) || (p?.email ?? s.user_id);
+                      const rowSelected = detailPanelId === s.id;
+                      return (
+                        <tr
+                          key={s.id}
+                          tabIndex={0}
+                          aria-label={t('tableRowOpenPanel', { title })}
+                          onClick={() => setDetailPanelId(s.id)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              setDetailPanelId(s.id);
+                            }
+                          }}
+                          className={`cursor-pointer border-b border-border/60 transition-colors transition-opacity duration-300 hover:bg-muted/30 focus-visible:outline focus-visible:ring-2 focus-visible:ring-accent ${
+                            exitingIds.has(s.id) ? 'opacity-40' : ''
+                          } ${rowSelected ? 'bg-accent/10' : ''}`}
+                        >
+                          {tab === 'pending' ? (
+                            <td className="px-2 py-2 align-top">
+                              <input
+                                type="checkbox"
+                                checked={selectedIds.has(s.id)}
+                                onClick={(e) => e.stopPropagation()}
+                                onChange={() => {
+                                  setSelectedIds((prev) => {
+                                    const n = new Set(prev);
+                                    if (n.has(s.id)) n.delete(s.id);
+                                    else n.add(s.id);
+                                    return n;
+                                  });
+                                }}
+                                className="h-[14px] w-[14px] cursor-pointer rounded-[3px] border border-[#2A3042] bg-transparent accent-[#22C55E]"
+                                aria-label={t('tableSelectRow')}
+                              />
+                            </td>
+                          ) : null}
+                          <td className="px-3 py-2 align-top text-muted-foreground">
+                            {typeLabel}
+                          </td>
+                          <td className="max-w-[220px] px-3 py-2 align-top font-medium text-foreground">
+                            <span className="line-clamp-2">{title}</span>
+                          </td>
+                          <td className="max-w-[180px] px-3 py-2 align-top text-muted-foreground">
+                            <span className="line-clamp-2">{contrib}</span>
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-2 align-top text-muted-foreground">
+                            {formatRelativeFr(dateIso)}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
-            ) : null}
-            <ul className="space-y-0">
-              {filteredSuggestions.map((s) => (
-                <SuggestionCard
-                  key={s.id}
-                  row={s}
-                  profiles={profiles}
-                  nodeNames={nodeNames}
-                  suggestionCountByUser={suggestionCountByUser}
-                  exiting={exitingIds.has(s.id)}
-                  isEditing={editingId === s.id}
-                  editDraft={editingId === s.id ? editDraft : null}
-                  onEditDraftChange={setEditDraft}
-                  rejecting={rejectingId === s.id}
-                  rejectComment={rejectComment}
-                  onRejectCommentChange={setRejectComment}
-                  onApprove={() => void approve(s.id)}
-                  onApproveEdit={() => submitEditApprove(s)}
-                  onStartEdit={() => startEdit(s)}
-                  onCancelEdit={cancelEdit}
-                  onRejectOpen={() => {
-                    setRejectingId(s.id);
-                    setEditingId(null);
-                  }}
-                  onRejectConfirm={() =>
-                    void reject(s.id, rejectComment.trim() || null)
-                  }
-                  onRejectDirect={
-                    s.suggestion_type === 'anonymous_feedback'
-                      ? () => void reject(s.id, null)
-                      : undefined
-                  }
-                  onRejectCancel={() => {
-                    setRejectingId(null);
-                    setRejectComment('');
-                  }}
-                  t={t}
-                  tAuth={tAuth}
-                  dateIso={
-                    tab === 'history'
-                      ? (s.reviewed_at ?? s.created_at)
-                      : s.created_at
-                  }
-                  isPendingTab={tab === 'pending'}
-                  moderationUi={tab === 'pending' || tab === 'history'}
-                  selected={selectedIds.has(s.id)}
-                  onToggleSelect={() => {
-                    setSelectedIds((prev) => {
-                      const n = new Set(prev);
-                      if (n.has(s.id)) n.delete(s.id);
-                      else n.add(s.id);
-                      return n;
-                    });
-                  }}
-                  exploreNodeId={getExploreNodeId(s)}
-                />
-              ))}
-            </ul>
-            {tab === 'pending' && shortcutTargetId ? (
-              <p
-                className="pointer-events-none fixed bottom-4 right-4 z-10 text-[10px]"
-                style={{ color: '#3D4555' }}
-              >
-                A approuver · R rejeter · V voir
-              </p>
-            ) : null}
+              {tab === 'pending' && shortcutTargetId ? (
+                <p
+                  className="pointer-events-none fixed bottom-4 right-4 z-10 max-w-[min(100vw-2rem,22rem)] text-[12px] xl:right-[min(28rem,42vw)]"
+                  style={{ color: '#3D4555' }}
+                >
+                  {t('keyboardHintOpenRejectView')}
+                </p>
+              ) : null}
+            </div>
+            <aside
+              className="w-full shrink-0 rounded-lg border border-border bg-surface-elevated/30 p-4 xl:sticky xl:top-4 xl:max-h-[calc(100vh-3rem)] xl:w-[min(420px,38vw)] xl:max-w-[480px] xl:overflow-y-auto"
+              aria-label={t('panelApprovalAria')}
+            >
+              <AdminSuggestionApprovalPanel
+                key={detailPanelId ?? 'none'}
+                row={selectedDetailRow}
+                nodeNames={nodeNames}
+                onResolved={removeAfterExit}
+              />
+            </aside>
           </div>
         )}
       </main>
     </AppContentShell>
+  );
+}
+
+function AdminSuggestionApprovalPanel({
+  row,
+  nodeNames,
+  onResolved,
+}: {
+  row: SuggestionRow | null;
+  nodeNames: Record<string, string>;
+  onResolved: (id: string) => void;
+}) {
+  const t = useTranslations('admin');
+  const pushToast = useToastStore((s) => s.pushToast);
+  const [editDraft, setEditDraft] = useState<Record<string, unknown> | null>(
+    () => (row ? initSuggestionEditDraft(row) : null)
+  );
+  const [adminComment, setAdminComment] = useState('');
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    if (!row) {
+      setEditDraft(null);
+      setAdminComment('');
+      return;
+    }
+    setEditDraft(initSuggestionEditDraft(row));
+    setAdminComment('');
+  }, [row]);
+
+  const runApprove = useCallback(async () => {
+    if (!row || row.status !== 'pending' || !editDraft) return;
+    setBusy(true);
+    try {
+      const body: Record<string, unknown> = {
+        id: row.id,
+        admin_comment: adminComment.trim() || null,
+      };
+
+      if (row.suggestion_type === 'edit_node') {
+        const raw = { ...editDraft };
+        const removed = raw[ADMIN_DRAFT_REMOVED_IDS];
+        const adds = raw[ADMIN_DRAFT_PROPOSED_ADD];
+        delete raw[ADMIN_DRAFT_REMOVED_IDS];
+        delete raw[ADMIN_DRAFT_PROPOSED_ADD];
+        const o = { ...raw };
+        if (typeof o.year_approx === 'string') {
+          o.year_approx =
+            o.year_approx.trim() === '' ? null : Number(o.year_approx);
+        }
+        if (typeof o.tags === 'string') {
+          o.tags = o.tags
+            .split(',')
+            .map((x) => x.trim())
+            .filter(Boolean);
+        }
+        const removedIds = Array.isArray(removed)
+          ? removed.map((x) => String(x))
+          : [];
+        const proposedAdds = sanitizeAdminProposedAddLinks(adds);
+        body.overrideProposed = o;
+        body.overrideEditNodeLinkLists = {
+          removedLinkIds: removedIds,
+          proposedAddLinks: proposedAdds,
+        } satisfies AdminEditNodeLinkListsOverride;
+      } else if (
+        row.suggestion_type === 'add_link' ||
+        row.suggestion_type === 'new_node'
+      ) {
+        body.overrideProposed = editDraft;
+      }
+
+      const res = await fetch('/api/admin/approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) {
+        const e = await res.json().catch(() => ({}));
+        pushToast(String(e?.error ?? t('detailLoadError')), 'error');
+        return;
+      }
+      pushToast(t('toastApproved'), 'success');
+      onResolved(row.id);
+    } finally {
+      setBusy(false);
+    }
+  }, [adminComment, editDraft, onResolved, pushToast, row, t]);
+
+  const runReject = useCallback(async () => {
+    if (!row || row.status !== 'pending') return;
+    setBusy(true);
+    try {
+      const res = await fetch('/api/admin/reject', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: row.id,
+          admin_comment: adminComment.trim() || null,
+        }),
+      });
+      if (!res.ok) {
+        pushToast(t('detailLoadError'), 'error');
+        return;
+      }
+      pushToast(t('toastRejected'), 'success');
+      onResolved(row.id);
+    } finally {
+      setBusy(false);
+    }
+  }, [adminComment, onResolved, pushToast, row, t]);
+
+  if (!row) {
+    return (
+      <div className="flex min-h-[180px] flex-col items-center justify-center px-2 text-center">
+        <p className="text-[15px] text-muted-foreground">
+          {t('panelSelectSuggestion')}
+        </p>
+      </div>
+    );
+  }
+
+  const readOnly = row.status !== 'pending';
+  const exploreId = getExploreNodeId(row);
+  const isAnonFeedback = row.suggestion_type === 'anonymous_feedback';
+
+  return (
+    <div className="space-y-3 text-[15px]">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <Link
+          href={`/admin/suggestions/${row.id}`}
+          className="text-[14px] text-accent underline-offset-2 hover:underline"
+        >
+          {t('panelOpenFullPage')}
+        </Link>
+        {exploreId ? (
+          <a
+            href={treeInventionPath(exploreId)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[14px] text-muted-foreground underline-offset-2 hover:underline"
+          >
+            {t('openInTree')}
+          </a>
+        ) : null}
+      </div>
+      <p className="text-[13px] text-muted-foreground">
+        {row.suggestion_type} · {new Date(row.created_at).toLocaleString()}
+      </p>
+      <AdminSuggestionFormBody
+        row={row}
+        nodeNames={nodeNames}
+        isEditing={!readOnly}
+        editDraft={editDraft}
+        onEditDraftChange={setEditDraft}
+        moderationUi
+        editNodeMode={row.suggestion_type === 'edit_node' ? 'full' : 'diff'}
+        readOnly={readOnly}
+        comfortableText
+        suggestedFieldHighlight
+      />
+      {!readOnly ? (
+        <div className="space-y-3 border-t border-border pt-3">
+          <label className="block text-[14px] text-muted-foreground">
+            {t('adminCommentLabel')}
+            <textarea
+              value={adminComment}
+              onChange={(e) => setAdminComment(e.target.value)}
+              rows={3}
+              className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-[15px] text-foreground"
+              placeholder={t('adminCommentPlaceholder')}
+            />
+          </label>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => void runApprove()}
+              className="rounded-md bg-emerald-600 px-4 py-2 text-[15px] font-medium text-white disabled:opacity-50"
+            >
+              {isAnonFeedback ? t('archiveAnonymous') : t('approve')}
+            </button>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => void runReject()}
+              className="rounded-md border border-red-600 px-4 py-2 text-[15px] font-medium text-red-600 disabled:opacity-50"
+            >
+              {isAnonFeedback ? t('ignoreAnonymous') : t('reject')}
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="border-t border-border pt-3 text-[14px] text-muted-foreground">
+          {row.status === 'approved' ? t('approved') : t('rejected')}
+          {row.admin_comment ? (
+            <p className="mt-2 italic">{row.admin_comment}</p>
+          ) : null}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -1207,485 +1414,25 @@ function StatCard({
 }) {
   return (
     <div className="rounded-[8px] bg-surface px-3 py-3 text-center">
-      <p className="text-[20px] font-medium" style={{ color }}>
+      <p className="text-[22px] font-medium" style={{ color }}>
         {value}
       </p>
-      <p className="mt-1 text-[10px] text-muted-foreground">{label}</p>
+      <p className="mt-1 text-[12px] text-muted-foreground">{label}</p>
     </div>
   );
 }
 
-function ModerationTypeBadge({ type }: { type: string }) {
-  const cfg: Record<string, { bg: string; fg: string; label: string }> = {
-    edit_node: { bg: 'rgba(245, 158, 11, 0.15)', fg: '#F59E0B', label: 'Correction' },
-    add_link: { bg: 'rgba(20, 184, 166, 0.15)', fg: '#14B8A6', label: 'Lien' },
-    new_node: { bg: 'rgba(168, 85, 247, 0.15)', fg: '#A855F7', label: 'Invention' },
-    delete_link: { bg: 'rgba(239, 68, 68, 0.15)', fg: '#EF4444', label: 'Suppression' },
-    anonymous_feedback: {
-      bg: 'rgba(90, 97, 117, 0.25)',
-      fg: '#5A6175',
-      label: 'Anonyme',
-    },
-  };
-  const c = cfg[type] ?? {
-    bg: 'rgba(168, 85, 247, 0.15)',
-    fg: '#A855F7',
-    label: type,
-  };
-  return (
-    <span
-      className="inline-block rounded px-2 py-[2px] text-[9px] font-semibold"
-      style={{ background: c.bg, color: c.fg }}
-    >
-      {c.label}
-    </span>
-  );
-}
-
-function SuggestionCard({
-  row,
-  profiles,
-  nodeNames,
-  suggestionCountByUser,
-  exiting,
-  isEditing,
-  editDraft,
-  onEditDraftChange,
-  rejecting,
-  rejectComment,
-  onRejectCommentChange,
-  onApprove,
-  onApproveEdit,
-  onStartEdit,
-  onCancelEdit,
-  onRejectOpen,
-  onRejectConfirm,
-  onRejectDirect,
-  onRejectCancel,
-  t,
-  tAuth,
-  dateIso,
-  isPendingTab,
-  moderationUi,
-  selected,
-  onToggleSelect,
-  exploreNodeId,
-}: {
-  row: SuggestionRow;
-  profiles: Record<string, ProfileLite>;
-  nodeNames: Record<string, string>;
-  suggestionCountByUser: Record<string, number>;
-  exiting: boolean;
-  isEditing: boolean;
-  editDraft: Record<string, unknown> | null;
-  onEditDraftChange: (d: Record<string, unknown>) => void;
-  rejecting: boolean;
-  rejectComment: string;
-  onRejectCommentChange: (s: string) => void;
-  onApprove: () => void;
-  onApproveEdit: () => void;
-  onStartEdit: () => void;
-  onCancelEdit: () => void;
-  onRejectOpen: () => void;
-  onRejectConfirm: () => void;
-  onRejectDirect?: () => void;
-  onRejectCancel: () => void;
-  t: (k: string) => string;
-  tAuth: (k: string) => string;
-  dateIso: string;
-  isPendingTab: boolean;
-  moderationUi: boolean;
-  selected: boolean;
-  onToggleSelect: () => void;
-  exploreNodeId: string | null;
-}) {
-  const canEditApprove =
-    row.suggestion_type !== 'delete_link' &&
-    row.suggestion_type !== 'anonymous_feedback';
-  const p = row.user_id ? profiles[row.user_id] : undefined;
-  const uid = row.user_id ?? '';
-  const tier = getReliabilityTier(row, p);
-  const rel = RELIABILITY[tier];
-  const cardTitle = getSuggestionCardTitle(row, nodeNames);
-
-  const metaLine =
-    row.user_id == null
-      ? `Anonyme · ${formatRelativeFr(dateIso)}`
-      : `${compactDisplayName(p?.display_name ?? p?.email)} · ${p?.contributions_count ?? 0} contributions · ${formatRelativeFr(dateIso)}`;
-
-  const showCheckbox = isPendingTab && row.status === 'pending';
-  const isAnonFeedback = row.suggestion_type === 'anonymous_feedback';
-
-  return (
-    <li
-      className={`flex overflow-hidden rounded-[8px] border border-border bg-surface transition-[max-height,opacity,margin,padding,border-width] duration-300 ease-out ${
-        exiting
-          ? 'pointer-events-none my-0 max-h-0 border-0 py-0 opacity-0'
-          : 'my-[10px] max-h-[8000px] opacity-100'
-      }`}
-      style={{ borderWidth: exiting ? 0 : 0.5 }}
-    >
-      <div className="flex min-w-0 flex-1 items-stretch">
-        {showCheckbox ? (
-          <div className="flex shrink-0 items-start pt-4 pl-2 pr-1">
-            <input
-              type="checkbox"
-              checked={selected}
-              onChange={onToggleSelect}
-              className="h-[14px] w-[14px] cursor-pointer rounded-[3px] border border-[#2A3042] bg-transparent accent-[#22C55E]"
-              aria-label="Sélectionner"
-            />
-          </div>
-        ) : null}
-        <div
-          className="w-1 shrink-0 self-stretch"
-          style={{ width: 4, background: rel.color }}
-          aria-hidden
-        />
-        <div className="min-w-0 flex-1 p-4">
-          <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
-            <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
-              {moderationUi ? (
-                <ModerationTypeBadge type={row.suggestion_type} />
-              ) : (
-                <TypeBadge type={row.suggestion_type} t={t} />
-              )}
-              <h3 className="min-w-0 text-[13px] font-semibold leading-snug text-foreground">
-                {cardTitle}
-              </h3>
-            </div>
-            <div className="flex shrink-0 flex-wrap items-center gap-2">
-              <span
-                className="inline-flex items-center gap-1 rounded px-2 py-[2px] text-[9px] font-semibold"
-                style={{
-                  background: `${rel.color}22`,
-                  color: rel.color,
-                }}
-              >
-                <span
-                  className="h-1.5 w-1.5 rounded-full"
-                  style={{ background: rel.color }}
-                />
-                {rel.label}
-              </span>
-            </div>
-          </div>
-
-          <p className="mb-3 text-[10px]" style={{ color: '#5A6175' }}>
-            {metaLine}
-          </p>
-
-          {moderationUi ? null : row.user_id ? (
-            <div className="mb-3 flex items-center gap-2">
-              <div
-                className="flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden rounded-full text-[9px] font-semibold text-white"
-                style={{
-                  width: 24,
-                  height: 24,
-                  background: p?.avatar_url ? 'transparent' : avatarHue(uid),
-                }}
-              >
-                {p?.avatar_url ? (
-                  <Image
-                    src={p.avatar_url}
-                    alt=""
-                    width={24}
-                    height={24}
-                    className="h-full w-full object-cover"
-                    unoptimized
-                  />
-                ) : (
-                  initialsFromProfile(p, uid)
-                )}
-              </div>
-              <div>
-                <p className="text-[12px] text-muted-foreground">
-                  {p?.display_name ?? p?.email ?? uid}
-                </p>
-                <p className="text-[10px] text-muted-foreground">
-                  {suggestionCountByUser[row.user_id] ?? 0} {t('contributions')}
-                </p>
-              </div>
-            </div>
-          ) : row.suggestion_type === 'anonymous_feedback' ? (
-            <div className="mb-3 flex items-center gap-2">
-              <span className="inline-flex rounded-full bg-slate-500/20 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
-                {t('anonymousBadge')}
-              </span>
-            </div>
-          ) : row.contributor_ip ? (
-            <div className="mb-3 flex items-start gap-2">
-              <div
-                className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-surface-elevated text-[10px] font-bold text-muted-foreground"
-                style={{ width: 24, height: 24 }}
-              >
-                ?
-              </div>
-              <div className="min-w-0">
-                <p className="text-[12px] font-medium text-muted-foreground">
-                  {t('anonymousContributor')}
-                </p>
-                <p className="font-mono text-[11px] text-amber-500">
-                  {row.contributor_ip}
-                </p>
-                <p className="text-[10px] text-muted-foreground">
-                  {suggestionCountByUser[`anon:${row.contributor_ip}`] ?? 0}{' '}
-                  {t('contributions')}
-                </p>
-              </div>
-            </div>
-          ) : (
-            <p className="mb-3 text-[12px] text-muted-foreground">
-              {t('contributorUnknown')}
-            </p>
-          )}
-
-          <ContributorSubmittedExtras
-            data={
-              row.data && typeof row.data === 'object' && !Array.isArray(row.data)
-                ? (row.data as Record<string, unknown>)
-                : {}
-            }
-            suggestionType={row.suggestion_type}
-            t={t}
-          />
-
-          <SuggestionBody
-            row={row}
-            nodeNames={nodeNames}
-            isEditing={isEditing}
-            editDraft={editDraft}
-            onEditDraftChange={onEditDraftChange}
-            moderationUi={moderationUi}
-          />
-
-          {row.status === 'pending' && !isEditing && !rejecting ? (
-            <div className="mt-4 flex w-full min-w-0 flex-wrap items-center justify-between gap-2">
-              <div className="flex flex-wrap items-center gap-2">
-                <button
-                  type="button"
-                  onClick={onApprove}
-                  className="rounded-[6px] bg-emerald-600 px-4 py-[7px] text-[12px] font-medium text-white"
-                  style={isAnonFeedback ? { background: '#22C55E' } : undefined}
-                >
-                  {isAnonFeedback ? 'Appliquer' : t('approve')}
-                </button>
-                {canEditApprove ? (
-                  <button
-                    type="button"
-                    onClick={onStartEdit}
-                    className="rounded-[6px] border border-accent bg-transparent px-4 py-[7px] text-[12px] font-medium text-accent"
-                  >
-                    {t('editApprove')}
-                  </button>
-                ) : null}
-                <button
-                  type="button"
-                  onClick={
-                    isAnonFeedback && onRejectDirect
-                      ? onRejectDirect
-                      : onRejectOpen
-                  }
-                  className="rounded-[6px] border border-red-600 bg-transparent px-4 py-[7px] text-[12px] font-medium text-red-600"
-                  style={
-                    isAnonFeedback
-                      ? { borderColor: '#EF4444', color: '#EF4444' }
-                      : undefined
-                  }
-                >
-                  {isAnonFeedback ? 'Ignorer' : t('reject')}
-                </button>
-              </div>
-              {exploreNodeId ? (
-                <button
-                  type="button"
-                  onClick={() =>
-                    window.open(
-                      treeInventionPath(exploreNodeId),
-                      '_blank',
-                      'noopener,noreferrer'
-                    )
-                  }
-                  className="shrink-0 rounded-[6px] border bg-transparent px-3 py-[7px] text-[11px]"
-                  style={{
-                    borderColor: '#2A3042',
-                    color: '#8B95A8',
-                  }}
-                >
-                  Voir dans le Tree
-                </button>
-              ) : null}
-            </div>
-          ) : null}
-
-          {row.status === 'pending' && isEditing ? (
-            <div className="mt-4 flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={onApproveEdit}
-                className="rounded-[6px] bg-accent px-4 py-[7px] text-[12px] font-medium text-white"
-              >
-                Valider les modifications
-              </button>
-              <button
-                type="button"
-                onClick={onCancelEdit}
-                className="text-[12px] text-muted-foreground hover:text-foreground"
-              >
-                {tAuth('cancel')}
-              </button>
-            </div>
-          ) : null}
-
-          {row.status === 'pending' && rejecting ? (
-            <div className="mt-3 space-y-2">
-              <input
-                type="text"
-                value={rejectComment}
-                onChange={(e) => onRejectCommentChange(e.target.value)}
-                placeholder="Raison du rejet (optionnel)"
-                className="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
-              />
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={onRejectConfirm}
-                  className="rounded-[6px] border border-red-600 bg-transparent px-3 py-1.5 text-[12px] text-red-600"
-                >
-                  Confirmer le rejet
-                </button>
-                <button
-                  type="button"
-                  onClick={onRejectCancel}
-                  className="text-[12px] text-muted-foreground"
-                >
-                  {tAuth('cancel')}
-                </button>
-              </div>
-            </div>
-          ) : null}
-
-          {row.status !== 'pending' ? (
-            <div className="mt-3 space-y-1">
-              <span
-                className={`inline-block rounded px-2 py-1 text-[9px] font-semibold ${
-                  row.status === 'approved'
-                    ? 'bg-emerald-500/15 text-emerald-600'
-                    : 'bg-red-500/15 text-red-600'
-                }`}
-              >
-                {row.status === 'approved' ? t('approved') : t('rejected')}
-              </span>
-              {row.status === 'rejected' && row.admin_comment ? (
-                <p className="text-[12px] italic text-muted-foreground">
-                  {row.admin_comment}
-                </p>
-              ) : null}
-            </div>
-          ) : null}
-        </div>
-      </div>
-    </li>
-  );
-}
-
-/** Champs libres envoyés avec la suggestion (ex. message / email pour corrections anonymes). */
-function ContributorSubmittedExtras({
-  data,
-  suggestionType,
-  t,
-}: {
-  data: Record<string, unknown>;
-  suggestionType: string;
-  t: (k: string) => string;
-}) {
-  if (suggestionType === 'anonymous_feedback') {
-    return null;
-  }
-
-  const msg =
-    typeof data.contributorMessage === 'string'
-      ? data.contributorMessage.trim()
-      : '';
-  const contact =
-    typeof data.contactEmail === 'string' ? data.contactEmail.trim() : '';
-  const altEmail =
-    !contact &&
-    typeof data.email === 'string' &&
-    data.email.includes('@')
-      ? data.email.trim()
-      : '';
-  const email = contact || altEmail;
-
-  if (!msg && !email) return null;
-
-  return (
-    <div className="mb-3 space-y-2 rounded-[6px] border border-border/70 bg-muted/25 px-3 py-2.5">
-      {msg ? (
-        <div>
-          <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
-            {t('contributorMessageLabel')}
-          </p>
-          <p className="whitespace-pre-wrap text-[12px] leading-relaxed text-foreground">
-            {msg}
-          </p>
-        </div>
-      ) : null}
-      {email ? (
-        <p className="text-[11px] text-muted-foreground">
-          <span className="font-medium text-foreground">
-            {t('contributorContactEmailLabel')}{' '}
-          </span>
-          <a href={`mailto:${email}`} className="text-accent underline">
-            {email}
-          </a>
-        </p>
-      ) : null}
-    </div>
-  );
-}
-
-function TypeBadge({ type, t }: { type: string; t: (k: string) => string }) {
-  const label =
-    type === 'edit_node'
-      ? t('typeEdit')
-      : type === 'add_link'
-        ? t('typeAddLink')
-        : type === 'new_node'
-          ? t('typeNewNode')
-          : type === 'delete_link'
-            ? t('typeDeleteLink')
-            : type === 'anonymous_feedback'
-              ? t('typeAnonymousFeedback')
-              : type;
-  const cls =
-    type === 'edit_node'
-      ? 'bg-amber-500/15 text-amber-700'
-      : type === 'add_link'
-        ? 'bg-emerald-500/15 text-emerald-600'
-        : type === 'new_node'
-          ? 'bg-violet-500/15 text-violet-600'
-          : type === 'delete_link'
-            ? 'bg-rose-500/15 text-rose-600'
-            : type === 'anonymous_feedback'
-              ? 'bg-slate-500/15 text-slate-600'
-              : 'bg-violet-500/15 text-violet-600';
-  return (
-    <span
-      className={`inline-block rounded px-2 py-[2px] text-[9px] font-semibold ${cls}`}
-    >
-      {label}
-    </span>
-  );
-}
-
-function SuggestionBody({
+export function AdminSuggestionFormBody({
   row,
   nodeNames,
   isEditing,
   editDraft,
   onEditDraftChange,
   moderationUi = false,
+  editNodeMode = 'diff',
+  readOnly = false,
+  comfortableText = false,
+  suggestedFieldHighlight = false,
 }: {
   row: SuggestionRow;
   nodeNames: Record<string, string>;
@@ -1693,7 +1440,27 @@ function SuggestionBody({
   editDraft: Record<string, unknown> | null;
   onEditDraftChange: (d: Record<string, unknown>) => void;
   moderationUi?: boolean;
+  editNodeMode?: 'diff' | 'full';
+  readOnly?: boolean;
+  /** +2px sur les corps de texte (panneau admin à droite). */
+  comfortableText?: boolean;
+  /** Champs effectivement proposés / modifiés en orange. */
+  suggestedFieldHighlight?: boolean;
 }) {
+  const ta = useTranslations('admin');
+  const tRel = useTranslations('relationTypes');
+  const locale = useLocale();
+  const tEditor = useTranslations('editor');
+  const tCat = useTranslations('categories');
+  const tTypes = useTranslations('types');
+  const tExplore = useTranslations('explore');
+  const tSidebar = useTranslations('sidebar');
+
+  const fieldLabel = (key: string) =>
+    ta(`field_${key}` as Parameters<typeof ta>[0]);
+  const relLabel = (code: string) =>
+    tRel(code as Parameters<typeof tRel>[0]);
+
   const data = row.data;
 
   if (row.suggestion_type === 'edit_node') {
@@ -1738,32 +1505,907 @@ function SuggestionBody({
           ? orig.name
           : '—';
 
-    if (isEditing && editDraft) {
+    if (!readOnly && isEditing && editDraft) {
       const draft = editDraft as Record<string, unknown>;
-      return (
-        <div className="space-y-2">
-          <p className="text-[13px] font-bold text-foreground">
-            {nodeName} — correction
-          </p>
-          <div className="space-y-2 rounded-[6px] bg-surface px-3 py-2.5">
-            {Object.keys(nodeDiff).map((key) => (
-              <label key={key} className="block text-[11px] text-muted-foreground">
-                {FIELD_LABELS[key] ?? key}
-                <input
-                  className="mt-1 w-full rounded border border-border bg-surface px-2 py-1 text-[12px] text-foreground"
-                  value={String(draft[key] ?? '')}
-                  onChange={(e) =>
-                    onEditDraftChange({ ...draft, [key]: e.target.value })
-                  }
-                />
-              </label>
-            ))}
+      const draftLinkEdits =
+        (draft.linkEdits as Record<string, LinkSnap> | undefined) ?? {};
+      const draftRemoved = Array.isArray(draft[ADMIN_DRAFT_REMOVED_IDS])
+        ? (draft[ADMIN_DRAFT_REMOVED_IDS] as string[])
+        : [];
+      const draftAdds = Array.isArray(draft[ADMIN_DRAFT_PROPOSED_ADD])
+        ? (draft[ADMIN_DRAFT_PROPOSED_ADD] as Record<string, unknown>[])
+        : [];
+
+      const fieldValue = (key: string): string => {
+        const v = draft[key];
+        if (key === 'tags' && Array.isArray(v)) {
+          return v.map(String).join(', ');
+        }
+        if (key === 'year_approx' && (v === null || v === undefined)) {
+          return '';
+        }
+        if (key === 'year_approx' && typeof v === 'number') {
+          return String(v);
+        }
+        return String(v ?? '');
+      };
+      const setField = (key: string, val: string) => {
+        if (key === 'tags') {
+          onEditDraftChange({
+            ...draft,
+            [key]: val
+              .split(',')
+              .map((s) => s.trim())
+              .filter(Boolean),
+          });
+          return;
+        }
+        if (key === 'year_approx') {
+          const trimmed = val.trim();
+          onEditDraftChange({
+            ...draft,
+            year_approx: trimmed === '' ? null : Number(trimmed),
+          });
+          return;
+        }
+        onEditDraftChange({ ...draft, [key]: val });
+      };
+
+      const origRecord = stripLinkEditsFromPayload(orig) as Record<string, unknown>;
+      const origFieldDisplay = (key: string): string => {
+        const v = origRecord[key];
+        if (key === 'tags') {
+          if (Array.isArray(v) && v.length > 0) {
+            return v.map(String).join(', ');
+          }
+          return '—';
+        }
+        if (key === 'year_approx') {
+          if (v === null || v === undefined) return '—';
+          return String(v);
+        }
+        if (key === 'category') {
+          const s = typeof v === 'string' ? v : '';
+          if (!s) return '—';
+          return NODE_CATEGORY_ORDER.includes(s as NodeCategory)
+            ? tCat(s as NodeCategory)
+            : s;
+        }
+        if (key === 'type') {
+          const s = typeof v === 'string' ? v : '';
+          if (!s) return '—';
+          return TECH_NODE_TYPE_ORDER.includes(
+            s as (typeof TECH_NODE_TYPE_ORDER)[number]
+          )
+            ? tTypes(s)
+            : s;
+        }
+        if (key === 'era') {
+          const s = typeof v === 'string' ? v : '';
+          if (!s) return '—';
+          return ERA_ORDER.includes(s as Era)
+            ? eraLabelFromMessages(locale, s as Era)
+            : s;
+        }
+        if (key === 'dimension') {
+          const s = typeof v === 'string' ? v : '';
+          if (!s) return '—';
+          return DIMENSION_ORDER.includes(s as (typeof DIMENSION_ORDER)[number])
+            ? tEditor(EDITOR_DIM_KEY[s as keyof typeof EDITOR_DIM_KEY])
+            : s;
+        }
+        if (key === 'materialLevel') {
+          const s = typeof v === 'string' ? v : '';
+          if (!s) return '—';
+          return MATERIAL_LEVEL_ORDER.includes(
+            s as (typeof MATERIAL_LEVEL_ORDER)[number]
+          )
+            ? tEditor(EDITOR_LEVEL_KEY[s as keyof typeof EDITOR_LEVEL_KEY])
+            : s;
+        }
+        if (key === 'naturalOrigin') {
+          const s = typeof v === 'string' ? v : '';
+          if (!s) return '—';
+          return NATURAL_ORIGIN_ORDER.includes(s as (typeof NATURAL_ORIGIN_ORDER)[number])
+            ? tExplore(
+                `suggestNaturalOrigin_${s}` as Parameters<typeof tExplore>[0]
+              )
+            : s;
+        }
+        if (key === 'chemicalNature') {
+          const s = typeof v === 'string' ? v : '';
+          if (!s) return '—';
+          return CHEMICAL_NATURE_ORDER.includes(s as (typeof CHEMICAL_NATURE_ORDER)[number])
+            ? tExplore(
+                `suggestChemicalNature_${s}` as Parameters<typeof tExplore>[0]
+              )
+            : s;
+        }
+        if (key === 'origin_type') {
+          const s = typeof v === 'string' ? v : '';
+          if (!s) return '—';
+          const opts = ['mineral', 'vegetal', 'animal'] as const;
+          const lab: Record<(typeof opts)[number], Parameters<typeof tExplore>[0]> =
+            {
+              mineral: 'originTypeMineral',
+              vegetal: 'originTypeVegetal',
+              animal: 'originTypeAnimal',
+            };
+          return opts.includes(s as (typeof opts)[number])
+            ? tExplore(lab[s as (typeof opts)[number]])
+            : s;
+        }
+        if (key === 'nature_type') {
+          const s = typeof v === 'string' ? v : '';
+          if (!s) return '—';
+          const opts = ['element', 'compose', 'materiau'] as const;
+          const lab: Record<(typeof opts)[number], Parameters<typeof tExplore>[0]> =
+            {
+              element: 'natureTypeElement',
+              compose: 'natureTypeCompose',
+              materiau: 'natureTypeMateriau',
+            };
+          return opts.includes(s as (typeof opts)[number])
+            ? tExplore(lab[s as (typeof opts)[number]])
+            : s;
+        }
+        if (v === null || v === undefined) return '—';
+        const str = String(v).trim();
+        return str === '' ? '—' : str;
+      };
+
+      const nodeFieldKeysDiff = Object.keys(nodeDiff);
+
+      const isKeySuggested = (key: string) =>
+        suggestedFieldHighlight &&
+        Object.prototype.hasOwnProperty.call(nodeDiff, key);
+
+      const fieldInputClass = (key: string) =>
+        suggestInputClass({
+          suggested: isKeySuggested(key),
+          comfortableText,
+        });
+
+      const fieldSelectClass = (key: string) =>
+        suggestSelectClass({
+          suggested: isKeySuggested(key),
+          comfortableText,
+        });
+
+      const addCardFieldLabel = (key: string): string => {
+        switch (key) {
+          case 'name':
+            return tEditor('name');
+          case 'year_approx':
+            return tEditor('date');
+          case 'category':
+            return tEditor('category');
+          case 'naturalOrigin':
+            return tExplore('suggestNaturalOriginLabel');
+          case 'chemicalNature':
+            return tExplore('suggestChemicalNatureLabel');
+          case 'tags':
+            return tExplore('detailTagsHeading');
+          case 'era':
+            return tEditor('era');
+          case 'origin':
+            return tEditor('origin');
+          case 'description':
+            return tSidebar('description');
+          default:
+            return fieldLabel(key);
+        }
+      };
+
+      const natureSuggested =
+        suggestedFieldHighlight &&
+        (Object.prototype.hasOwnProperty.call(nodeDiff, 'naturalOrigin') ||
+          Object.prototype.hasOwnProperty.call(nodeDiff, 'chemicalNature'));
+
+      const linkFieldClass = () => {
+        const size = comfortableText ? 'text-[14px]' : 'text-[12px]';
+        if (suggestedFieldHighlight) {
+          return `mt-1 w-full rounded border border-orange-500/50 bg-orange-950/25 px-2 py-1 ${size} text-orange-200`;
+        }
+        return `mt-1 w-full rounded border border-border bg-surface px-2 py-1 ${size} text-foreground`;
+      };
+
+      const sectionTitleClass = () =>
+        `${
+          comfortableText ? 'text-[13px]' : 'text-[11px]'
+        } font-semibold uppercase tracking-wide text-muted-foreground`;
+
+      const emptySelectLabel =
+        editNodeMode === 'full' ? '—' : ta('field_empty');
+
+      const renderNodeFieldControl = (key: string) => {
+        if (key === 'tags') {
+          return (
+            <SuggestionTagsField
+              tagsCsv={fieldValue('tags')}
+              onTagsCsvChange={(csv) => setField('tags', csv)}
+              dirty={false}
+              suggested={isKeySuggested('tags')}
+              comfortableText={comfortableText}
+            />
+          );
+        }
+        if (key === 'category') {
+          const v = fieldValue('category') || PRIMARY_CARD_CATEGORY_ORDER[0];
+          return (
+            <select
+              className={fieldSelectClass(key)}
+              value={
+                PRIMARY_CARD_CATEGORY_ORDER.includes(v as NodeCategory)
+                  ? v
+                  : PRIMARY_CARD_CATEGORY_ORDER[0]
+              }
+              onChange={(e) =>
+                onEditDraftChange({ ...draft, category: e.target.value })
+              }
+            >
+              {PRIMARY_CARD_CATEGORY_ORDER.map((c) => (
+                <option key={c} value={c}>
+                  {tCat(c)}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'type') {
+          const v = fieldValue('type') || TECH_NODE_TYPE_ORDER[0];
+          return (
+            <select
+              className={fieldSelectClass(key)}
+              value={TECH_NODE_TYPE_ORDER.includes(v as (typeof TECH_NODE_TYPE_ORDER)[number]) ? v : TECH_NODE_TYPE_ORDER[0]}
+              onChange={(e) =>
+                onEditDraftChange({ ...draft, type: e.target.value })
+              }
+            >
+              {TECH_NODE_TYPE_ORDER.map((ty) => (
+                <option key={ty} value={ty}>
+                  {tTypes(ty)}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'era') {
+          const v = fieldValue('era') || ERA_ORDER[0];
+          return (
+            <select
+              className={fieldSelectClass(key)}
+              value={ERA_ORDER.includes(v as (typeof ERA_ORDER)[number]) ? v : ERA_ORDER[0]}
+              onChange={(e) =>
+                onEditDraftChange({ ...draft, era: e.target.value })
+              }
+            >
+              {ERA_ORDER.map((er) => (
+                <option key={er} value={er}>
+                  {eraLabelFromMessages(locale, er)}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'dimension') {
+          const cur = fieldValue('dimension');
+          return (
+            <select
+              className={fieldSelectClass(key)}
+              value={cur}
+              onChange={(e) =>
+                onEditDraftChange({
+                  ...draft,
+                  dimension: e.target.value,
+                })
+              }
+            >
+              <option value="">{ta('field_empty')}</option>
+              {DIMENSION_ORDER.map((dim) => (
+                <option key={dim} value={dim}>
+                  {tEditor(EDITOR_DIM_KEY[dim])}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'materialLevel') {
+          const cur = fieldValue('materialLevel');
+          return (
+            <select
+              className={fieldSelectClass(key)}
+              value={cur}
+              onChange={(e) =>
+                onEditDraftChange({
+                  ...draft,
+                  materialLevel: e.target.value,
+                })
+              }
+            >
+              <option value="">{ta('field_empty')}</option>
+              {MATERIAL_LEVEL_ORDER.map((lv) => (
+                <option key={lv} value={lv}>
+                  {tEditor(EDITOR_LEVEL_KEY[lv])}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'naturalOrigin') {
+          const cur = fieldValue('naturalOrigin');
+          return (
+            <select
+              className={fieldSelectClass(key)}
+              value={cur}
+              onChange={(e) =>
+                onEditDraftChange({
+                  ...draft,
+                  naturalOrigin: e.target.value,
+                })
+              }
+            >
+              <option value="">{emptySelectLabel}</option>
+              {NATURAL_ORIGIN_ORDER.map((no) => (
+                <option key={no} value={no}>
+                  {tExplore(
+                    `suggestNaturalOrigin_${no}` as Parameters<typeof tExplore>[0]
+                  )}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'chemicalNature') {
+          const cur = fieldValue('chemicalNature');
+          return (
+            <select
+              className={fieldSelectClass(key)}
+              value={cur}
+              onChange={(e) =>
+                onEditDraftChange({
+                  ...draft,
+                  chemicalNature: e.target.value,
+                })
+              }
+            >
+              <option value="">{emptySelectLabel}</option>
+              {CHEMICAL_NATURE_ORDER.map((cn) => (
+                <option key={cn} value={cn}>
+                  {tExplore(
+                    `suggestChemicalNature_${cn}` as Parameters<typeof tExplore>[0]
+                  )}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'origin_type') {
+          const cur = fieldValue('origin_type');
+          const opts = ['mineral', 'vegetal', 'animal'] as const;
+          const lab: Record<(typeof opts)[number], Parameters<typeof tExplore>[0]> =
+            {
+              mineral: 'originTypeMineral',
+              vegetal: 'originTypeVegetal',
+              animal: 'originTypeAnimal',
+            };
+          return (
+            <select
+              className={fieldSelectClass(key)}
+              value={opts.includes(cur as (typeof opts)[number]) ? cur : ''}
+              onChange={(e) =>
+                onEditDraftChange({ ...draft, origin_type: e.target.value })
+              }
+            >
+              <option value="">{ta('field_empty')}</option>
+              {opts.map((o) => (
+                <option key={o} value={o}>
+                  {tExplore(lab[o])}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'nature_type') {
+          const cur = fieldValue('nature_type');
+          const opts = ['element', 'compose', 'materiau'] as const;
+          const lab: Record<(typeof opts)[number], Parameters<typeof tExplore>[0]> =
+            {
+              element: 'natureTypeElement',
+              compose: 'natureTypeCompose',
+              materiau: 'natureTypeMateriau',
+            };
+          return (
+            <select
+              className={fieldSelectClass(key)}
+              value={opts.includes(cur as (typeof opts)[number]) ? cur : ''}
+              onChange={(e) =>
+                onEditDraftChange({ ...draft, nature_type: e.target.value })
+              }
+            >
+              <option value="">{ta('field_empty')}</option>
+              {opts.map((o) => (
+                <option key={o} value={o}>
+                  {tExplore(lab[o])}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'description' || key === 'description_en') {
+          const fullDesc = editNodeMode === 'full' && key === 'description';
+          return (
+            <textarea
+              className={
+                fullDesc
+                  ? fieldInputClass(key)
+                  : `${fieldInputClass(key)} min-h-[72px]`
+              }
+              rows={fullDesc ? 5 : undefined}
+              value={fieldValue(key)}
+              onChange={(e) => setField(key, e.target.value)}
+            />
+          );
+        }
+        return (
+          <input
+            type="text"
+            className={fieldInputClass(key)}
+            value={fieldValue(key)}
+            onChange={(e) => setField(key, e.target.value)}
+          />
+        );
+      };
+
+      const renderFieldRow = (key: string) => {
+        const inDiff = Object.prototype.hasOwnProperty.call(nodeDiff, key);
+        const ghost =
+          editNodeMode === 'full' && !inDiff
+            ? 'rounded-md border border-border/50 bg-muted/10 px-2 py-1.5'
+            : '';
+        const useAddCard =
+          editNodeMode === 'full' &&
+          (SUGGEST_ADD_CARD_NODE_KEYS as readonly string[]).includes(key);
+        const labelClass = useAddCard
+          ? key === 'tags'
+            ? suggestFormLabelSectionClass(comfortableText)
+            : suggestFormLabelClass(comfortableText)
+          : suggestFormLabelClass(comfortableText);
+        const labelText = useAddCard ? addCardFieldLabel(key) : fieldLabel(key);
+
+        return (
+          <div key={key} className={ghost || undefined}>
+            <label className={labelClass}>
+              {labelText}
+              {editNodeMode === 'full' && !inDiff ? (
+                <span
+                  className={`ml-1 ${
+                    comfortableText ? 'text-[12px]' : 'text-[10px]'
+                  } text-muted-foreground/80`}
+                >
+                  ({ta('fieldUnchangedHint')})
+                </span>
+              ) : null}
+            </label>
+            {suggestedFieldHighlight ? (
+              <p
+                className={`mb-1.5 ${
+                  comfortableText ? 'text-[13px]' : 'text-[11px]'
+                } text-muted-foreground`}
+              >
+                <span className="font-medium text-foreground/85">
+                  {ta('fieldCurrentCard')}
+                </span>{' '}
+                <span className="whitespace-pre-wrap break-words">
+                  {origFieldDisplay(key)}
+                </span>
+              </p>
+            ) : null}
+            {key === 'era' && editNodeMode === 'full' ? (
+              <p
+                className={`mb-1.5 ${
+                  comfortableText ? 'text-[12px]' : 'text-[10px]'
+                } text-muted-foreground`}
+              >
+                {tExplore('suggestEraHint')}
+              </p>
+            ) : null}
+            {renderNodeFieldControl(key)}
           </div>
+        );
+      };
+
+      const tagsUnchangedInFull =
+        editNodeMode === 'full' &&
+        !Object.prototype.hasOwnProperty.call(nodeDiff, 'tags');
+
+      return (
+        <div className="space-y-3">
+          <p
+            className={`${
+              comfortableText ? 'text-[15px]' : 'text-[13px]'
+            } font-bold text-foreground`}
+          >
+            {nodeName} — {ta('editNodeCorrectionTitle')}
+          </p>
+          <div
+            className={
+              editNodeMode === 'full'
+                ? 'space-y-4 px-1'
+                : 'space-y-2 rounded-[6px] bg-surface px-3 py-2.5'
+            }
+          >
+            {editNodeMode === 'full' ? (
+              <>
+                {renderFieldRow('name')}
+                {renderFieldRow('year_approx')}
+                {renderFieldRow('category')}
+                <div
+                  className={suggestNatureBlockWrapClass({
+                    suggested: natureSuggested,
+                  })}
+                >
+                  <p
+                    className={suggestFormNatureSectionTitleClass(
+                      comfortableText
+                    )}
+                  >
+                    {tExplore('detailTagNature')}
+                  </p>
+                  <div className="space-y-3">
+                    {renderFieldRow('naturalOrigin')}
+                    {renderFieldRow('chemicalNature')}
+                  </div>
+                </div>
+                <div
+                  className={
+                    tagsUnchangedInFull
+                      ? 'rounded-md border border-border/50 bg-muted/10 px-2 py-1.5'
+                      : undefined
+                  }
+                >
+                  <label className={suggestFormLabelSectionClass(comfortableText)}>
+                    {tExplore('detailTagsHeading')}
+                    {tagsUnchangedInFull ? (
+                      <span
+                        className={`ml-1 ${
+                          comfortableText ? 'text-[12px]' : 'text-[10px]'
+                        } text-muted-foreground/80`}
+                      >
+                        ({ta('fieldUnchangedHint')})
+                      </span>
+                    ) : null}
+                  </label>
+                  {suggestedFieldHighlight ? (
+                    <p
+                      className={`mb-1.5 ${
+                        comfortableText ? 'text-[13px]' : 'text-[11px]'
+                      } text-muted-foreground`}
+                    >
+                      <span className="font-medium text-foreground/85">
+                        {ta('fieldCurrentCard')}
+                      </span>{' '}
+                      <span className="whitespace-pre-wrap break-words">
+                        {origFieldDisplay('tags')}
+                      </span>
+                    </p>
+                  ) : null}
+                  {renderNodeFieldControl('tags')}
+                </div>
+                {renderFieldRow('era')}
+                {renderFieldRow('origin')}
+                {renderFieldRow('description')}
+                <p
+                  className={`${
+                    comfortableText ? 'text-[12px]' : 'text-[10px]'
+                  } font-semibold uppercase tracking-wide text-muted-foreground pt-1`}
+                >
+                  {ta('adminExtraNodeFields')}
+                </p>
+                {EDIT_NODE_EXTRA_KEYS_AFTER_ADD_CARD.map((k) =>
+                  renderFieldRow(k)
+                )}
+              </>
+            ) : (
+              nodeFieldKeysDiff.map((key) => renderFieldRow(key))
+            )}
+          </div>
+
+          {Object.keys(linkDiff).length > 0 ? (
+            <div className="space-y-2 rounded-[6px] border border-border/60 bg-surface px-3 py-2.5">
+              <p className={sectionTitleClass()}>
+                Liens (Led to / Built upon)
+              </p>
+              <ul className="space-y-3">
+                {Object.entries(linkDiff).map(([linkId, ch]) => {
+                  const chTyped = ch as { from?: LinkSnap; to?: LinkSnap };
+                  const snap =
+                    draftLinkEdits[linkId] ?? chTyped.to;
+                  if (!snap) return null;
+                  const ctx = linkContext[linkId];
+                  const sectionLabel =
+                    ctx?.section === 'builtUpon'
+                      ? 'Built upon'
+                      : ctx?.section === 'ledTo'
+                        ? 'Led to'
+                        : 'Lien';
+                  return (
+                    <li
+                      key={linkId}
+                      className="rounded border border-border/50 bg-surface-elevated/30 p-2"
+                    >
+                      <p
+                        className={`mb-2 ${
+                          comfortableText ? 'text-[13px]' : 'text-[11px]'
+                        } text-muted-foreground`}
+                      >
+                        {sectionLabel} · {ctx?.peerName ?? linkId}
+                      </p>
+                      {suggestedFieldHighlight && chTyped.from ? (
+                        <p
+                          className={`mb-2 ${
+                            comfortableText ? 'text-[13px]' : 'text-[11px]'
+                          } text-muted-foreground`}
+                        >
+                          <span className="font-medium text-foreground/85">
+                            {ta('fieldCurrentCard')}
+                          </span>{' '}
+                          <span className="whitespace-pre-wrap">
+                            {formatLinkSnapLine(chTyped.from, relLabel)}
+                          </span>
+                        </p>
+                      ) : null}
+                      <label
+                        className={`mb-2 block ${
+                          comfortableText ? 'text-[13px]' : 'text-[11px]'
+                        } text-muted-foreground`}
+                      >
+                        {ta('field_relation_type')}
+                        <select
+                          className={linkFieldClass()}
+                          value={
+                            VALID_RELATIONS.has(snap.relation_type)
+                              ? snap.relation_type
+                              : RelationType.MATERIAL
+                          }
+                          onChange={(e) => {
+                            const rt = e.target.value as RelationType;
+                            onEditDraftChange({
+                              ...draft,
+                              linkEdits: {
+                                ...draftLinkEdits,
+                                [linkId]: { ...snap, relation_type: rt },
+                              },
+                            });
+                          }}
+                        >
+                          {Object.values(RelationType).map((rt) => (
+                            <option key={rt} value={rt}>
+                              {relLabel(rt)}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <label
+                        className={`mb-2 block ${
+                          comfortableText ? 'text-[13px]' : 'text-[11px]'
+                        } text-muted-foreground`}
+                      >
+                        {ta('field_link_notes')}
+                        <input
+                          className={linkFieldClass()}
+                          value={snap.notes ?? ''}
+                          onChange={(e) => {
+                            onEditDraftChange({
+                              ...draft,
+                              linkEdits: {
+                                ...draftLinkEdits,
+                                [linkId]: { ...snap, notes: e.target.value },
+                              },
+                            });
+                          }}
+                        />
+                      </label>
+                      <label
+                        className={`flex items-center gap-2 ${
+                          comfortableText ? 'text-[14px]' : 'text-[12px]'
+                        } text-muted-foreground`}
+                      >
+                        <input
+                          type="checkbox"
+                          className={
+                            suggestedFieldHighlight
+                              ? 'accent-orange-500'
+                              : undefined
+                          }
+                          checked={Boolean(snap.is_optional)}
+                          onChange={(e) => {
+                            onEditDraftChange({
+                              ...draft,
+                              linkEdits: {
+                                ...draftLinkEdits,
+                                [linkId]: {
+                                  ...snap,
+                                  is_optional: e.target.checked,
+                                },
+                              },
+                            });
+                          }}
+                        />
+                        {ta('field_link_optional')}
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ) : null}
+
+          <div className="space-y-2 rounded-[6px] border border-border/60 bg-surface px-3 py-2.5">
+            <p className={sectionTitleClass()}>
+              Liens proposés (nouveaux)
+            </p>
+            {row.node_id ? (
+              <AdminEditNodeAddLinkSearches
+                currentNodeId={row.node_id}
+                draft={draft}
+                draftAdds={draftAdds}
+                onEditDraftChange={onEditDraftChange}
+              />
+            ) : (
+              <p
+                className={
+                  comfortableText ? 'text-[14px] text-muted-foreground' : 'text-[12px] text-muted-foreground'
+                }
+              >
+                node_id manquant — impossible d&apos;ajouter un lien ici.
+              </p>
+            )}
+            {draftAdds.length > 0 ? (
+              <ul className="space-y-3">
+                {draftAdds.map((add, i) => {
+                  const source_id = String(add.source_id ?? '');
+                  const target_id = String(add.target_id ?? '');
+                  const rel = String(add.relation_type ?? RelationType.MATERIAL);
+                  const srcName = nodeNames[source_id] ?? source_id;
+                  const tgtName = nodeNames[target_id] ?? target_id;
+                  return (
+                    <li
+                      key={`${source_id}-${target_id}-${i}`}
+                      className="rounded border border-border/50 bg-surface-elevated/30 p-2"
+                    >
+                      <p
+                        className={`mb-2 ${
+                          comfortableText ? 'text-[14px]' : 'text-[12px]'
+                        } text-muted-foreground`}
+                      >
+                        <span className="font-medium text-foreground">{srcName}</span>
+                        <span className="text-muted-foreground"> → </span>
+                        <span className="font-medium text-foreground">{tgtName}</span>
+                      </p>
+                      <label
+                        className={`block ${
+                          comfortableText ? 'text-[13px]' : 'text-[11px]'
+                        } text-muted-foreground`}
+                      >
+                        {ta('field_relation_type')}
+                        <select
+                          className={linkFieldClass()}
+                          value={
+                            VALID_RELATIONS.has(rel) ? rel : RelationType.MATERIAL
+                          }
+                          onChange={(e) => {
+                            const next = draftAdds.map((row, j) =>
+                              j === i
+                                ? {
+                                    ...row,
+                                    relation_type: e.target.value,
+                                  }
+                                : row
+                            );
+                            onEditDraftChange({
+                              ...draft,
+                              [ADMIN_DRAFT_PROPOSED_ADD]: next,
+                            });
+                          }}
+                        >
+                          {Object.values(RelationType).map((rt) => (
+                            <option key={rt} value={rt}>
+                              {relLabel(rt)}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <button
+                        type="button"
+                        className={`mt-2 ${
+                          comfortableText ? 'text-[13px]' : 'text-[11px]'
+                        } text-red-400 hover:underline`}
+                        onClick={() => {
+                          const next = draftAdds.filter((_, j) => j !== i);
+                          onEditDraftChange({
+                            ...draft,
+                            [ADMIN_DRAFT_PROPOSED_ADD]: next,
+                          });
+                        }}
+                      >
+                        Retirer ce lien
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p
+                className={
+                  comfortableText ? 'text-[14px] text-muted-foreground' : 'text-[12px] text-muted-foreground'
+                }
+              >
+                Aucun lien nouveau dans la proposition (utilisez la recherche
+                ci-dessus pour en ajouter).
+              </p>
+            )}
+          </div>
+
+          {draftRemoved.length > 0 ? (
+            <div className="space-y-2 rounded-[6px] border border-amber-600/35 bg-amber-950/15 px-3 py-2.5">
+              <p
+                className={`${
+                  comfortableText ? 'text-[13px]' : 'text-[11px]'
+                } font-semibold uppercase tracking-wide text-amber-200/90`}
+              >
+                Liens marqués pour suppression
+              </p>
+              <ul className="space-y-2">
+                {draftRemoved.map((linkId) => {
+                  const ctx = linkContext[linkId];
+                  const snap = origLinkEdits[linkId];
+                  const sectionLabel =
+                    ctx?.section === 'builtUpon'
+                      ? 'Built upon'
+                      : ctx?.section === 'ledTo'
+                        ? 'Led to'
+                        : 'Lien';
+                  return (
+                    <li
+                      key={linkId}
+                      className="flex flex-wrap items-center justify-between gap-2 border-b border-border/30 pb-2 last:border-0 last:pb-0"
+                    >
+                      <span className="min-w-0 text-[12px] text-muted-foreground">
+                        <span className="block">
+                          {sectionLabel} · {ctx?.peerName ?? linkId}
+                        </span>
+                        {snap ? (
+                          <span className="block text-[11px] line-through text-red-400/90">
+                            {formatLinkSnapLine(snap, relLabel)}
+                          </span>
+                        ) : null}
+                      </span>
+                      <button
+                        type="button"
+                        className="shrink-0 rounded border border-amber-600/50 px-2 py-1 text-[11px] text-amber-200 hover:bg-amber-600/20"
+                        onClick={() => {
+                          onEditDraftChange({
+                            ...draft,
+                            [ADMIN_DRAFT_REMOVED_IDS]: draftRemoved.filter(
+                              (id) => id !== linkId
+                            ),
+                          });
+                        }}
+                      >
+                        Conserver le lien
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ) : null}
         </div>
       );
     }
 
-    if (moderationUi && !isEditing) {
+    if (moderationUi && (!isEditing || readOnly)) {
       return (
         <div className="space-y-2">
           <div
@@ -1773,19 +2415,28 @@ function SuggestionBody({
             {Object.entries(nodeDiff).map(([key, ch]) => (
               <div
                 key={key}
-                className="mb-2 flex flex-wrap items-baseline gap-1 text-[12px] last:mb-0"
+                className={`mb-2 flex flex-wrap items-baseline gap-1 last:mb-0 ${
+                  comfortableText ? 'text-[14px]' : 'text-[12px]'
+                }`}
               >
                 <span
-                  className="inline-block w-[60px] shrink-0 text-[11px]"
+                  className={`inline-block w-[60px] shrink-0 ${
+                    comfortableText ? 'text-[13px]' : 'text-[11px]'
+                  }`}
                   style={{ color: '#5A6175' }}
                 >
-                  {FIELD_LABELS[key] ?? key}
+                  {fieldLabel(key)}
                 </span>
                 <span className="line-through" style={{ color: '#EF4444' }}>
                   {String((ch as { from: unknown }).from ?? '')}
                 </span>
                 <span className="text-muted-foreground">→</span>
-                <span style={{ color: '#22C55E' }}>
+                <span
+                  className={
+                    suggestedFieldHighlight ? 'font-medium text-orange-400' : ''
+                  }
+                  style={suggestedFieldHighlight ? undefined : { color: '#22C55E' }}
+                >
                   {String((ch as { to: unknown }).to ?? '')}
                 </span>
               </div>
@@ -1817,10 +2468,17 @@ function SuggestionBody({
                         {sectionLabel} · {ctx?.peerName ?? linkId}
                       </p>
                       <p className="line-through" style={{ color: '#EF4444' }}>
-                        {formatLinkSnapLine(ch.from)}
+                        {formatLinkSnapLine(ch.from, relLabel)}
                       </p>
                       <p className="text-muted-foreground">→</p>
-                      <p style={{ color: '#22C55E' }}>{formatLinkSnapLine(ch.to)}</p>
+                      <p
+                        className={
+                          suggestedFieldHighlight ? 'font-medium text-orange-400' : ''
+                        }
+                        style={suggestedFieldHighlight ? undefined : { color: '#22C55E' }}
+                      >
+                        {formatLinkSnapLine(ch.to, relLabel)}
+                      </p>
                     </li>
                   );
                 })}
@@ -1848,19 +2506,23 @@ function SuggestionBody({
                       : add.section === 'ledTo'
                         ? 'Led to'
                         : 'Lien';
-                  const relLabel =
-                    RELATION_LABELS_FR[add.relation_type] ?? add.relation_type;
+                  const addRelCaption = relLabel(add.relation_type);
                   return (
                     <li key={`${add.source_id}-${add.target_id}-${i}`} className="text-[12px]">
                       <p className="mb-1 text-[11px]" style={{ color: '#5A6175' }}>
                         {sectionLabel}
                       </p>
-                      <p style={{ color: '#22C55E' }}>
+                      <p
+                        className={
+                          suggestedFieldHighlight ? 'font-medium text-orange-400' : ''
+                        }
+                        style={suggestedFieldHighlight ? undefined : { color: '#22C55E' }}
+                      >
                         <span className="font-medium">{srcName}</span>
                         <span className="text-muted-foreground"> → </span>
                         <span className="font-medium">{tgtName}</span>
                         <span className="text-muted-foreground"> · </span>
-                        <span>{relLabel}</span>
+                        <span>{addRelCaption}</span>
                       </p>
                     </li>
                   );
@@ -1896,7 +2558,7 @@ function SuggestionBody({
                       </p>
                       {snap ? (
                         <p className="line-through" style={{ color: '#EF4444' }}>
-                          {formatLinkSnapLine(snap)}
+                          {formatLinkSnapLine(snap, relLabel)}
                         </p>
                       ) : (
                         <p style={{ color: '#5A6175' }}>{linkId}</p>
@@ -1925,7 +2587,7 @@ function SuggestionBody({
               <span
                 className="inline-block w-[70px] shrink-0 text-[11px] text-muted-foreground"
               >
-                {FIELD_LABELS[key] ?? key}
+                {fieldLabel(key)}
               </span>
               <span className="text-red-600 line-through">
                 {String((ch as { from: unknown }).from ?? '')}
@@ -1957,10 +2619,10 @@ function SuggestionBody({
                       {sectionLabel} · {ctx?.peerName ?? linkId}
                     </p>
                     <p className="text-red-600 line-through">
-                      {formatLinkSnapLine(ch.from)}
+                      {formatLinkSnapLine(ch.from, relLabel)}
                     </p>
                     <p className="text-muted-foreground">→</p>
-                    <p className="text-emerald-600">{formatLinkSnapLine(ch.to)}</p>
+                    <p className="text-emerald-600">{formatLinkSnapLine(ch.to, relLabel)}</p>
                   </li>
                 );
               })}
@@ -1982,8 +2644,7 @@ function SuggestionBody({
                     : add.section === 'ledTo'
                       ? 'Led to'
                       : 'Lien';
-                const relLabel =
-                  RELATION_LABELS_FR[add.relation_type] ?? add.relation_type;
+                const addRelCaption = relLabel(add.relation_type);
                 return (
                   <li key={`${add.source_id}-${add.target_id}-${i}`} className="text-[12px]">
                     <p className="mb-1 text-[11px] text-muted-foreground">{sectionLabel}</p>
@@ -1992,7 +2653,7 @@ function SuggestionBody({
                       <span className="text-muted-foreground"> → </span>
                       <span className="font-medium">{tgtName}</span>
                       <span className="text-muted-foreground"> · </span>
-                      <span>{relLabel}</span>
+                      <span>{addRelCaption}</span>
                     </p>
                   </li>
                 );
@@ -2022,7 +2683,7 @@ function SuggestionBody({
                     </p>
                     {snap ? (
                       <p className="text-red-600 line-through">
-                        {formatLinkSnapLine(snap)}
+                        {formatLinkSnapLine(snap, relLabel)}
                       </p>
                     ) : (
                       <p className="text-muted-foreground">{linkId}</p>
@@ -2042,46 +2703,128 @@ function SuggestionBody({
       source_id: string;
       target_id: string;
       relation_type: string;
+      is_optional?: boolean;
+      notes?: string | null;
     };
     const srcName = nodeNames[d.source_id] ?? d.source_id;
     const tgtName = nodeNames[d.target_id] ?? d.target_id;
-    const relLabel =
-      RELATION_LABELS_FR[d.relation_type] ?? d.relation_type;
+    const relTypeLabel = tRel(d.relation_type as Parameters<typeof tRel>[0]);
+    const srcResolved = Boolean(nodeNames[d.source_id]);
+    const tgtResolved = Boolean(nodeNames[d.target_id]);
 
-    if (isEditing && editDraft) {
-      const draft = editDraft as { relation_type?: string };
+    if (!readOnly && isEditing && editDraft) {
+      const draft = editDraft as {
+        relation_type?: string;
+        is_optional?: boolean;
+        notes?: string;
+      };
+      const addLinkFieldClass = suggestedFieldHighlight
+        ? `mt-1 w-full rounded border border-orange-500/50 bg-orange-950/30 px-2 py-1 ${
+            comfortableText ? 'text-[14px]' : 'text-[12px]'
+          } text-orange-200`
+        : `mt-1 w-full rounded border border-border bg-surface px-2 py-1 ${
+            comfortableText ? 'text-[14px]' : 'text-[12px]'
+          } text-foreground`;
+      const addLinkLabelClass = `block ${
+        comfortableText ? 'text-[13px]' : 'text-[11px]'
+      } text-muted-foreground`;
       return (
-        <div className="rounded-[6px] bg-surface px-3 py-2.5">
+        <div className="rounded-[6px] border border-border/50 bg-surface px-3 py-2.5 space-y-2">
+          {suggestedFieldHighlight ? (
+            <p
+              className={`${
+                comfortableText ? 'text-[13px]' : 'text-[11px]'
+              } text-muted-foreground`}
+            >
+              <span className="font-medium text-foreground/85">
+                {ta('fieldCurrentCard')}
+              </span>{' '}
+              {ta('addLinkNoCurrentLink')}
+            </p>
+          ) : null}
+          {!srcResolved || !tgtResolved ? (
+            <p
+              className={`${
+                comfortableText ? 'text-[13px]' : 'text-[11px]'
+              } text-amber-500`}
+              role="status"
+            >
+              {!srcResolved ? ta('addLinkUnknownSource') : null}
+              {!srcResolved && !tgtResolved ? ' · ' : null}
+              {!tgtResolved ? ta('addLinkUnknownTarget') : null}
+            </p>
+          ) : null}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded px-2.5 py-1 text-[12px] font-bold text-foreground bg-surface-elevated">
+            <span
+              className={`rounded px-2.5 py-1 ${
+                comfortableText ? 'text-[14px]' : 'text-[12px]'
+              } font-bold text-foreground bg-surface-elevated`}
+            >
               {srcName}
             </span>
             <span className="text-muted-foreground">→</span>
-            <span className="rounded px-2.5 py-1 text-[12px] font-bold text-foreground bg-surface-elevated">
+            <span
+              className={`rounded px-2.5 py-1 ${
+                comfortableText ? 'text-[14px]' : 'text-[12px]'
+              } font-bold text-foreground bg-surface-elevated`}
+            >
               {tgtName}
             </span>
           </div>
-          <select
-            className="mt-2 w-full rounded border border-border bg-surface px-2 py-1 text-[12px] text-foreground"
-            value={draft.relation_type ?? d.relation_type}
-            onChange={(e) =>
-              onEditDraftChange({
-                ...draft,
-                relation_type: e.target.value as RelationType,
-              })
-            }
+          <label className={addLinkLabelClass}>
+            {ta('field_relation_type')}
+            <select
+              className={addLinkFieldClass}
+              value={draft.relation_type ?? d.relation_type}
+              onChange={(e) =>
+                onEditDraftChange({
+                  ...draft,
+                  relation_type: e.target.value as RelationType,
+                })
+              }
+            >
+              {Object.values(RelationType).map((rt) => (
+                <option key={rt} value={rt}>
+                  {relLabel(rt)}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className={addLinkLabelClass}>
+            {ta('field_link_notes')}
+            <input
+              className={addLinkFieldClass}
+              value={draft.notes ?? d.notes ?? ''}
+              onChange={(e) =>
+                onEditDraftChange({ ...draft, notes: e.target.value })
+              }
+            />
+          </label>
+          <label
+            className={`flex items-center gap-2 ${
+              comfortableText ? 'text-[14px]' : 'text-[12px]'
+            } text-muted-foreground`}
           >
-            {Object.values(RelationType).map((rt) => (
-              <option key={rt} value={rt}>
-                {RELATION_LABELS_FR[rt] ?? rt}
-              </option>
-            ))}
-          </select>
+            <input
+              type="checkbox"
+              className={
+                suggestedFieldHighlight ? 'accent-orange-500' : undefined
+              }
+              checked={Boolean(draft.is_optional ?? d.is_optional)}
+              onChange={(e) =>
+                onEditDraftChange({
+                  ...draft,
+                  is_optional: e.target.checked,
+                })
+              }
+            />
+            {ta('field_link_optional')}
+          </label>
         </div>
       );
     }
 
-    if (moderationUi && !isEditing) {
+    if (moderationUi && (!isEditing || readOnly)) {
       return (
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex flex-wrap items-center gap-2">
@@ -2100,7 +2843,7 @@ function SuggestionBody({
             </span>
           </div>
           <span className="text-[10px]" style={{ color: '#5A6175' }}>
-            {relLabel}
+            {relTypeLabel}
           </span>
         </div>
       );
@@ -2118,7 +2861,7 @@ function SuggestionBody({
               {tgtName}
             </span>
           </div>
-          <span className="text-[10px] text-muted-foreground">{relLabel}</span>
+          <span className="text-[10px] text-muted-foreground">{relTypeLabel}</span>
         </div>
       </div>
     );
@@ -2173,7 +2916,7 @@ function SuggestionBody({
       }
     }
 
-    if (isEditing && editDraft) {
+    if (!readOnly && isEditing && editDraft) {
       const draft = editDraft as {
         node: Record<string, unknown>;
         link?: Record<string, unknown>;
@@ -2182,52 +2925,322 @@ function SuggestionBody({
       const n = draft.node ?? {};
       const l = draft.link ?? {};
       const firstLink = linksList[0];
+      const ic = suggestedFieldHighlight
+        ? `mt-0.5 w-full rounded border border-orange-500/50 bg-orange-950/25 px-2 py-1 ${
+            comfortableText ? 'text-[14px]' : 'text-[12px]'
+          } text-orange-200`
+        : `mt-0.5 w-full rounded border border-border bg-surface px-2 py-1 ${
+            comfortableText ? 'text-[14px]' : 'text-[12px]'
+          } text-foreground`;
+      const newNodeLabelClass = `block ${
+        comfortableText ? 'text-[13px]' : 'text-[11px]'
+      } text-muted-foreground`;
+      const nv = (key: string): string => {
+        const v = n[key];
+        if (key === 'tags' && Array.isArray(v)) return v.map(String).join(', ');
+        if (key === 'year_approx' && (v === null || v === undefined)) return '';
+        if (key === 'year_approx' && typeof v === 'number') return String(v);
+        return String(v ?? '');
+      };
+      const patchNode = (patch: Record<string, unknown>) =>
+        onEditDraftChange({
+          ...draft,
+          node: { ...n, ...patch },
+          link: { ...l },
+          links: draft.links,
+        });
+      const renderNewNodeControl = (key: string) => {
+        if (key === 'category') {
+          const v = nv('category') || NODE_CATEGORY_ORDER[0];
+          return (
+            <select
+              className={ic}
+              value={
+                NODE_CATEGORY_ORDER.includes(v as NodeCategory)
+                  ? v
+                  : NODE_CATEGORY_ORDER[0]
+              }
+              onChange={(e) => patchNode({ category: e.target.value })}
+            >
+              {NODE_CATEGORY_ORDER.map((c) => (
+                <option key={c} value={c}>
+                  {tCat(c)}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'type') {
+          const v = nv('type') || TECH_NODE_TYPE_ORDER[0];
+          return (
+            <select
+              className={ic}
+              value={
+                TECH_NODE_TYPE_ORDER.includes(
+                  v as (typeof TECH_NODE_TYPE_ORDER)[number]
+                )
+                  ? v
+                  : TECH_NODE_TYPE_ORDER[0]
+              }
+              onChange={(e) => patchNode({ type: e.target.value })}
+            >
+              {TECH_NODE_TYPE_ORDER.map((ty) => (
+                <option key={ty} value={ty}>
+                  {tTypes(ty)}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'era') {
+          const v = nv('era') || ERA_ORDER[0];
+          return (
+            <select
+              className={ic}
+              value={
+                ERA_ORDER.includes(v as (typeof ERA_ORDER)[number])
+                  ? v
+                  : ERA_ORDER[0]
+              }
+              onChange={(e) => patchNode({ era: e.target.value })}
+            >
+              {ERA_ORDER.map((er) => (
+                <option key={er} value={er}>
+                  {eraLabelFromMessages(locale, er)}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'dimension') {
+          return (
+            <select
+              className={ic}
+              value={nv('dimension')}
+              onChange={(e) => patchNode({ dimension: e.target.value })}
+            >
+              <option value="">{ta('field_empty')}</option>
+              {DIMENSION_ORDER.map((dim) => (
+                <option key={dim} value={dim}>
+                  {tEditor(EDITOR_DIM_KEY[dim])}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'materialLevel') {
+          return (
+            <select
+              className={ic}
+              value={nv('materialLevel')}
+              onChange={(e) => patchNode({ materialLevel: e.target.value })}
+            >
+              <option value="">{ta('field_empty')}</option>
+              {MATERIAL_LEVEL_ORDER.map((lv) => (
+                <option key={lv} value={lv}>
+                  {tEditor(EDITOR_LEVEL_KEY[lv])}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'naturalOrigin') {
+          return (
+            <select
+              className={ic}
+              value={nv('naturalOrigin')}
+              onChange={(e) => patchNode({ naturalOrigin: e.target.value })}
+            >
+              <option value="">{ta('field_empty')}</option>
+              {NATURAL_ORIGIN_ORDER.map((no) => (
+                <option key={no} value={no}>
+                  {tExplore(
+                    `suggestNaturalOrigin_${no}` as Parameters<typeof tExplore>[0]
+                  )}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'chemicalNature') {
+          return (
+            <select
+              className={ic}
+              value={nv('chemicalNature')}
+              onChange={(e) => patchNode({ chemicalNature: e.target.value })}
+            >
+              <option value="">{ta('field_empty')}</option>
+              {CHEMICAL_NATURE_ORDER.map((cn) => (
+                <option key={cn} value={cn}>
+                  {tExplore(
+                    `suggestChemicalNature_${cn}` as Parameters<typeof tExplore>[0]
+                  )}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'origin_type') {
+          const opts = ['mineral', 'vegetal', 'animal'] as const;
+          const cur = nv('origin_type');
+          const lab: Record<
+            (typeof opts)[number],
+            Parameters<typeof tExplore>[0]
+          > = {
+            mineral: 'originTypeMineral',
+            vegetal: 'originTypeVegetal',
+            animal: 'originTypeAnimal',
+          };
+          return (
+            <select
+              className={ic}
+              value={opts.includes(cur as (typeof opts)[number]) ? cur : ''}
+              onChange={(e) => patchNode({ origin_type: e.target.value })}
+            >
+              <option value="">{ta('field_empty')}</option>
+              {opts.map((o) => (
+                <option key={o} value={o}>
+                  {tExplore(lab[o])}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'nature_type') {
+          const opts = ['element', 'compose', 'materiau'] as const;
+          const cur = nv('nature_type');
+          const lab: Record<
+            (typeof opts)[number],
+            Parameters<typeof tExplore>[0]
+          > = {
+            element: 'natureTypeElement',
+            compose: 'natureTypeCompose',
+            materiau: 'natureTypeMateriau',
+          };
+          return (
+            <select
+              className={ic}
+              value={opts.includes(cur as (typeof opts)[number]) ? cur : ''}
+              onChange={(e) => patchNode({ nature_type: e.target.value })}
+            >
+              <option value="">{ta('field_empty')}</option>
+              {opts.map((o) => (
+                <option key={o} value={o}>
+                  {tExplore(lab[o])}
+                </option>
+              ))}
+            </select>
+          );
+        }
+        if (key === 'year_approx') {
+          return (
+            <input
+              className={ic}
+              type="text"
+              inputMode="numeric"
+              value={nv('year_approx')}
+              onChange={(e) => {
+                const t = e.target.value.trim();
+                patchNode({
+                  year_approx: t === '' ? null : Number(t),
+                });
+              }}
+            />
+          );
+        }
+        if (key === 'tags') {
+          return (
+            <input
+              className={ic}
+              value={nv('tags')}
+              onChange={(e) =>
+                patchNode({
+                  tags: e.target.value
+                    .split(',')
+                    .map((x) => x.trim())
+                    .filter(Boolean),
+                })
+              }
+            />
+          );
+        }
+        if (key === 'description' || key === 'description_en') {
+          return (
+            <textarea
+              className={`${ic} min-h-[72px]`}
+              value={nv(key)}
+              onChange={(e) => patchNode({ [key]: e.target.value })}
+            />
+          );
+        }
+        return (
+          <input
+            className={ic}
+            value={nv(key)}
+            onChange={(e) => patchNode({ [key]: e.target.value })}
+          />
+        );
+      };
+      const newNodeKeys = [
+        'proposed_id',
+        'name',
+        'name_en',
+        'description',
+        'description_en',
+        'category',
+        'type',
+        'era',
+        'year_approx',
+        'origin',
+        'tags',
+        'wikipedia_url',
+        'image_url',
+        'dimension',
+        'materialLevel',
+        'naturalOrigin',
+        'chemicalNature',
+        'origin_type',
+        'nature_type',
+      ] as const;
       return (
         <div className="space-y-2">
-          <div className="rounded-[6px] bg-surface px-3 py-2.5 space-y-2">
-            {(
-              [
-                ['name', 'Nom'],
-                ['category', 'Catégorie'],
-                ['type', 'Type'],
-                ['era', 'Époque'],
-                ['year_approx', 'Année'],
-              ] as const
-            ).map(([k, lab]) => (
-              <label key={k} className="block text-[11px] text-muted-foreground">
-                {lab}
-                <input
-                  className="mt-0.5 w-full rounded border border-border bg-surface px-2 py-1 text-[12px] text-foreground"
-                  value={
-                    k === 'year_approx'
-                      ? String(n[k] ?? '')
-                      : String(n[k] ?? '')
-                  }
-                  onChange={(e) => {
-                    const v =
-                      k === 'year_approx'
-                        ? e.target.value === ''
-                          ? null
-                          : Number(e.target.value)
-                        : e.target.value;
-                    onEditDraftChange({
-                      ...draft,
-                      node: { ...n, [k]: v },
-                      link: { ...l },
-                      links: draft.links,
-                    });
-                  }}
-                />
-              </label>
+          <div className="space-y-2 rounded-[6px] border border-border/50 bg-surface px-3 py-2.5">
+            {suggestedFieldHighlight ? (
+              <p
+                className={`${
+                  comfortableText ? 'text-[13px]' : 'text-[11px]'
+                } text-muted-foreground`}
+              >
+                {ta('newNodeNoCurrentCard')}
+              </p>
+            ) : null}
+            {newNodeKeys.map((key) => (
+              <div key={key} className="space-y-1">
+                <div className={newNodeLabelClass}>{fieldLabel(key)}</div>
+                {renderNewNodeControl(key)}
+              </div>
             ))}
           </div>
           {firstLink ? (
-            <div className="rounded-[6px] bg-surface px-3 py-2.5">
-              <p className="mb-1 text-[10px] text-muted-foreground">
-                Lien (premier — {linksList.length > 1 ? `${linksList.length} au total` : '1'})
+            <div className="rounded-[6px] border border-border/50 bg-surface px-3 py-2.5">
+              <p
+                className={`mb-1 ${
+                  comfortableText ? 'text-[12px]' : 'text-[10px]'
+                } text-muted-foreground`}
+              >
+                {ta('newNodeFirstLink')}{' '}
+                {linksList.length > 1
+                  ? ta('newNodeLinkCount', { n: linksList.length })
+                  : null}
               </p>
               <select
-                className="w-full rounded border border-border bg-surface px-2 py-1 text-[12px] text-foreground"
+                className={`w-full rounded border px-2 py-1 ${
+                  comfortableText ? 'text-[14px]' : 'text-[12px]'
+                } ${
+                  suggestedFieldHighlight
+                    ? 'border-orange-500/50 bg-orange-950/25 text-orange-200'
+                    : 'border-border bg-surface text-foreground'
+                }`}
                 value={String(l.relation_type ?? firstLink.relation_type)}
                 onChange={(e) =>
                   onEditDraftChange({
@@ -2243,7 +3256,7 @@ function SuggestionBody({
               >
                 {Object.values(RelationType).map((rt) => (
                   <option key={rt} value={rt}>
-                    {RELATION_LABELS_FR[rt] ?? rt}
+                    {relLabel(rt)}
                   </option>
                 ))}
               </select>
@@ -2270,7 +3283,7 @@ function SuggestionBody({
     const origin =
       typeof d.node.origin === 'string' ? d.node.origin.trim() : '';
 
-    if (moderationUi && !isEditing) {
+    if (moderationUi && (!isEditing || readOnly)) {
       return (
         <div className="space-y-2">
           <div
@@ -2325,7 +3338,7 @@ function SuggestionBody({
                   <span className="mx-1 text-muted-foreground">→</span>
                   <span className="font-medium">{tgtName}</span>
                   <span className="ml-2 text-[10px] text-muted-foreground">
-                    ({RELATION_LABELS_FR[rel as RelationType] ?? rel})
+                    ({relLabel(rel)})
                   </span>
                 </div>
               );
@@ -2385,7 +3398,7 @@ function SuggestionBody({
                 <span className="mx-1 text-muted-foreground">→</span>
                 <span className="font-medium text-foreground">{tgtName}</span>
                 <span className="ml-2 text-[10px] text-muted-foreground">
-                  ({RELATION_LABELS_FR[rel as RelationType] ?? rel})
+                  ({relLabel(rel)})
                 </span>
               </div>
             );
@@ -2407,18 +3420,35 @@ function SuggestionBody({
       return (
         <div className="space-y-2">
           <p
-            className="text-[11px] font-semibold uppercase tracking-wide"
-            style={{ color: '#5A6175' }}
+            className={`${
+              comfortableText ? 'text-[13px]' : 'text-[11px]'
+            } font-semibold uppercase tracking-wide ${
+              suggestedFieldHighlight ? 'text-orange-400' : ''
+            }`}
+            style={suggestedFieldHighlight ? undefined : { color: '#5A6175' }}
           >
             Lien à supprimer
           </p>
-          <p className="text-[12px] line-through" style={{ color: '#EF4444' }}>
+          <p
+            className={`${
+              comfortableText ? 'text-[14px]' : 'text-[12px]'
+            } line-through ${
+              suggestedFieldHighlight ? 'text-orange-400' : ''
+            }`}
+            style={suggestedFieldHighlight ? undefined : { color: '#EF4444' }}
+          >
             <span className="font-medium">{srcName}</span>
             <span className="mx-1">→</span>
             <span className="font-medium">{tgtName}</span>
           </p>
           {d.link_id ? (
-            <p className="text-[10px] font-mono text-muted-foreground">
+            <p
+              className={`${
+                comfortableText ? 'text-[12px]' : 'text-[10px]'
+              } font-mono ${
+                suggestedFieldHighlight ? 'text-orange-300/80' : 'text-muted-foreground'
+              }`}
+            >
               {d.link_id}
             </p>
           ) : null}
@@ -2427,7 +3457,11 @@ function SuggestionBody({
     }
     return (
       <div className="space-y-2">
-        <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+        <p
+          className={`${
+            comfortableText ? 'text-[13px]' : 'text-[11px]'
+          } font-semibold uppercase tracking-wide text-muted-foreground`}
+        >
           Lien à supprimer
         </p>
         <div className="flex flex-wrap items-center gap-2 rounded-[6px] bg-surface px-3 py-2.5">
@@ -2459,18 +3493,44 @@ function SuggestionBody({
     if (moderationUi) {
       return (
         <div className="space-y-2">
-          <p className="text-[12px] text-muted-foreground">
+          <p
+            className={`${
+              comfortableText ? 'text-[14px]' : 'text-[12px]'
+            } text-muted-foreground`}
+          >
             Invention :{' '}
-            <span className="font-medium text-foreground">{nName}</span>
+            <span
+              className={`font-medium ${
+                suggestedFieldHighlight ? 'text-orange-200' : 'text-foreground'
+              }`}
+            >
+              {nName}
+            </span>
           </p>
           <div
-            className="whitespace-pre-wrap rounded-[6px] px-[10px] py-2 text-[13px] italic"
-            style={{ background: '#0A0E17', color: '#C8CDD8' }}
+            className={`whitespace-pre-wrap rounded-[6px] px-[10px] py-2 italic ${
+              comfortableText ? 'text-[15px]' : 'text-[13px]'
+            } ${
+              suggestedFieldHighlight
+                ? 'border border-orange-500/40 bg-orange-950/30 text-orange-200'
+                : ''
+            }`}
+            style={
+              suggestedFieldHighlight
+                ? undefined
+                : { background: '#0A0E17', color: '#C8CDD8' }
+            }
           >
             {d.message ?? ''}
           </div>
           {d.email ? (
-            <p className="text-[11px] text-muted-foreground">
+            <p
+              className={`${
+                comfortableText ? 'text-[13px]' : 'text-[11px]'
+              } ${
+                suggestedFieldHighlight ? 'text-orange-300' : 'text-muted-foreground'
+              }`}
+            >
               Email : {d.email}
             </p>
           ) : null}

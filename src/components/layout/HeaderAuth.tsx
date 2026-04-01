@@ -131,7 +131,7 @@ export function HeaderAuth() {
             {t('myProfile')}
           </Link>
           {isAdmin ? (
-            <div className="py-0">
+            <>
               <Link
                 href="/admin"
                 className="block px-3 py-2 text-[13px] text-white hover:bg-surface"
@@ -142,13 +142,13 @@ export function HeaderAuth() {
               </Link>
               <Link
                 href="/editor"
-                className="block px-3 py-1.5 pl-5 text-[12px] text-muted-foreground hover:bg-surface hover:text-foreground"
+                className="block px-3 py-2 text-[13px] text-white hover:bg-surface"
                 role="menuitem"
                 onClick={() => setOpen(false)}
               >
                 {tCommon('allInventions')}
               </Link>
-            </div>
+            </>
           ) : null}
           <div className="border-t border-border pt-1">
             <button

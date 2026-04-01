@@ -1,8 +1,8 @@
 import type { CSSProperties, ReactNode } from 'react';
 
 export type AppContentShellProps = {
-  /** `full` : pas de max-width (ex. tableaux admin pleine largeur). */
-  variant?: 'narrow' | 'wide' | 'full';
+  /** `wide` : contenus larges (stats). `admin` : modération (large, marges latérales). `full` : pas de max-width. */
+  variant?: 'narrow' | 'wide' | 'admin' | 'full';
   as?: 'main' | 'div';
   className?: string;
   style?: CSSProperties;
@@ -25,7 +25,9 @@ export function AppContentShell({
       ? 'max-w-none'
       : variant === 'wide'
         ? 'max-w-6xl'
-        : 'max-w-[720px]';
+        : variant === 'admin'
+          ? 'max-w-screen-2xl'
+          : 'max-w-[720px]';
   return (
     <Component
       style={style}
