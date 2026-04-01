@@ -2,8 +2,10 @@
  * Ordre des champs aligné sur `SuggestionNodeForm` / modal « Ajouter une carte ».
  * Les clés supplémentaires suivent (fiche complète / éditeur).
  */
+/** Ordre unique : suggestion visiteur, ajout de carte, base admin (hors image). */
 export const SUGGEST_ADD_CARD_NODE_KEYS = [
   'name',
+  'name_en',
   'year_approx',
   'category',
   'naturalOrigin',
@@ -12,19 +14,14 @@ export const SUGGEST_ADD_CARD_NODE_KEYS = [
   'era',
   'origin',
   'description',
-] as const;
-
-export const EDIT_NODE_EXTRA_KEYS_AFTER_ADD_CARD = [
-  'name_en',
   'description_en',
-  'type',
-  'wikipedia_url',
-  'image_url',
   'dimension',
   'materialLevel',
-  'origin_type',
-  'nature_type',
+  'wikipedia_url',
 ] as const;
+
+/** Champs réservés à l’admin (hors formulaire visiteur). */
+export const EDIT_NODE_EXTRA_KEYS_AFTER_ADD_CARD = ['image_url'] as const;
 
 /** Ordre complet pour une correction de fiche (tous les champs éditables). */
 export function editNodeFullKeyOrder(): readonly string[] {
@@ -45,7 +42,6 @@ export const NEW_NODE_EXTRA_KEYS = [
   'materialLevel',
   'origin_type',
   'nature_type',
-  'type',
 ] as const;
 
 export function newNodeFullKeyOrder(): readonly string[] {

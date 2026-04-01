@@ -302,6 +302,9 @@
     "levelComponent": "Component",
     "noLinks": "بلا روابط",
     "name": "الاسم",
+    "nameEn": "الاسم (إنجليزي)",
+    "descriptionEn": "الوصف (إنجليزي)",
+    "wikipediaUrl": "رابط ويكيبيديا",
     "category": "الفئة",
     "type": "النوع",
     "era": "العصر",
@@ -424,18 +427,11 @@
   "filters": {
     "categories": "الفئات",
     "eras": "العصور",
-    "types": "الأنواع",
+    "dimensions": "الأبعاد",
+    "materialLevels": "مستويات المادة",
     "closeFilters": "إغلاق عوامل التصفية",
     "showMore": "عرض الكل",
     "showLess": "عرض أقل"
-  },
-  "types": {
-    "raw_material": "مادة خام",
-    "process": "عملية",
-    "tool": "أداة",
-    "component": "مكوّن",
-    "end_product": "منتج نهائي",
-    "material": "مادة"
   },
   "relationTypes": {
     "material": "مادة",
@@ -446,7 +442,7 @@
   },
   "connectionPopup": {
     "createHeading": "إنشاء: {name}",
-    "pickHint": "اختر الفئة والنوع ونوع الربط نحو الاختراع في المركز.",
+    "pickHint": "اختر الفئة والبعد ومستوى المادة عند الحاجة، ثم نوع الربط نحو الاختراع في المركز.",
     "yearPlaceholder": "مثال: 1939 أو −3000",
     "choose": "— اختر —",
     "creating": "جارٍ الإنشاء…",

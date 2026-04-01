@@ -24,11 +24,12 @@ for (const n of data.nodes) {
     id: n.id,
     name: n.name,
     category: n.category,
-    type: n.type,
     era: n.era,
     year_approx: n.year_approx ?? null,
     complexity_depth: n.complexity_depth,
     tags: n.tags ?? [],
+    dimension: n.dimension ?? null,
+    materialLevel: n.materialLevel ?? null,
   });
   const detail = {
     name_en: n.name_en ?? n.name,

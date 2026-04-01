@@ -7,10 +7,7 @@ import { useGraphStore } from '@/stores/graph-store';
 import { useAuthStore } from '@/stores/auth-store';
 import { useNodeDetailsStore } from '@/stores/node-details-store';
 import { useToastStore } from '@/stores/toast-store';
-import {
-  pickNodeDisplayName,
-  pickNodeDescriptionForLocale,
-} from '@/lib/node-display-name';
+import { pickNodeDisplayName } from '@/lib/node-display-name';
 import { buildPeerSearchBlobMap } from '@/lib/suggest-peer-search';
 import {
   SuggestionNodeForm,
@@ -38,6 +35,7 @@ import type {
   TechNodeDetails,
 } from '@/lib/types';
 import { RelationType } from '@/lib/types';
+import { mergeDimensionMaterialLevel } from '@/lib/node-dimension';
 
 type PendingAddLink = {
   tempId: string;
@@ -115,8 +113,7 @@ export function SuggestNodeCorrectionPanel({
   >({});
 
   const snapshotFromForm = useCallback(
-    (f: SuggestNodeFormState, uiLocale: string) => {
-      const frenchUi = uiLocale === 'fr' || uiLocale.startsWith('fr-');
+    (f: SuggestNodeFormState, _uiLocale: string) => {
       const tagsArr = f.tags
         .split(',')
         .map((s) => s.trim())
@@ -125,8 +122,18 @@ export function SuggestNodeCorrectionPanel({
         f.naturalOrigin === '' ? null : f.naturalOrigin;
       const chemicalNature =
         f.chemicalNature === '' ? null : f.chemicalNature;
-      const base = {
+      const dm = mergeDimensionMaterialLevel(
+        { dimension: null, materialLevel: null },
+        {
+          dimension: f.dimension.trim() === '' ? null : f.dimension,
+          materialLevel:
+            f.materialLevel.trim() === '' ? null : f.materialLevel,
+        }
+      );
+      const wiki = f.wikipedia_url.trim();
+      return {
         name: f.name.trim(),
+        name_en: f.name_en.trim(),
         category: f.category,
         era: f.era,
         year_approx:
@@ -135,17 +142,12 @@ export function SuggestNodeCorrectionPanel({
         tags: tagsArr,
         naturalOrigin,
         chemicalNature,
-      };
-      if (frenchUi) {
-        return { ...base, description: f.description.trim() } as Record<
-          string,
-          unknown
-        >;
-      }
-      return { ...base, description_en: f.description.trim() } as Record<
-        string,
-        unknown
-      >;
+        description: f.description.trim(),
+        description_en: f.description_en.trim(),
+        dimension: dm.dimension,
+        materialLevel: dm.materialLevel,
+        wikipedia_url: wiki === '' ? null : wiki,
+      } as Record<string, unknown>;
     },
     []
   );
@@ -158,6 +160,7 @@ export function SuggestNodeCorrectionPanel({
     const json = (await res.json()) as {
       node: SeedNode;
       details?: {
+        name_en?: string;
         description?: string;
         description_en?: string;
         tags?: string[];
@@ -165,11 +168,6 @@ export function SuggestNodeCorrectionPanel({
     };
     const seed = json.node;
     const details = json.details;
-    const descriptionText = pickNodeDescriptionForLocale(
-      locale,
-      seed.description,
-      details?.description_en ?? seed.description_en
-    );
     const tagList = [
       ...(seed.tags ?? []),
       ...(details?.tags ?? []),
@@ -182,9 +180,13 @@ export function SuggestNodeCorrectionPanel({
       seenTag.add(s);
       mergedTags.push(s);
     }
+    const descFr = seed.description ?? '';
+    const descEn = (details?.description_en ?? seed.description_en ?? '').trim();
     const formSeed: SuggestNodeFormState = {
       name: seed.name,
-      description: descriptionText,
+      name_en: (seed.name_en ?? details?.name_en ?? '').trim(),
+      description: descFr,
+      description_en: descEn,
       category: seed.category as NodeCategory,
       era: seed.era as Era,
       year_approx:
@@ -195,6 +197,9 @@ export function SuggestNodeCorrectionPanel({
       tags: mergedTags.join(', '),
       naturalOrigin: parseNaturalOrigin(seed.naturalOrigin ?? undefined),
       chemicalNature: parseChemicalNature(seed.chemicalNature ?? undefined),
+      dimension: seed.dimension ?? '',
+      materialLevel: seed.materialLevel ?? '',
+      wikipedia_url: (seed.wikipedia_url ?? '').trim(),
     };
     setSuggestForm(formSeed);
     setBaselineForm(structuredClone(formSeed));
@@ -403,7 +408,12 @@ export function SuggestNodeCorrectionPanel({
         user ? tAuth('suggestionSentReview') : tAuth('suggestionSentAnonymous'),
         'success'
       );
-      onClose();
+      // Laisser le toast s’afficher avant de fermer le panneau (sinon l’utilisateur ne voit souvent rien).
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          onClose();
+        });
+      });
     } finally {
       setSuggestSubmitting(false);
     }
@@ -465,12 +475,23 @@ export function SuggestNodeCorrectionPanel({
         .split(',')
         .map((s) => s.trim())
         .filter(Boolean);
-      const frenchUi = locale === 'fr' || locale.startsWith('fr-');
 
       if (hasNodeChange) {
+        const dm = mergeDimensionMaterialLevel(seedNode, {
+          dimension:
+            suggestForm.dimension.trim() === ''
+              ? null
+              : suggestForm.dimension,
+          materialLevel:
+            suggestForm.materialLevel.trim() === ''
+              ? null
+              : suggestForm.materialLevel,
+        });
         const putBody: Record<string, unknown> = {
           name: suggestForm.name.trim(),
-          name_en: (seedNode.name_en ?? '').trim() || suggestForm.name.trim(),
+          name_en:
+            suggestForm.name_en.trim() ||
+            suggestForm.name.trim(),
           category: suggestForm.category,
           era: suggestForm.era,
           year_approx:
@@ -479,9 +500,11 @@ export function SuggestNodeCorrectionPanel({
               : Number(suggestForm.year_approx.trim()),
           origin: suggestForm.origin.trim() || undefined,
           tags: tagsArr,
-          wikipedia_url: seedNode.wikipedia_url ?? undefined,
-          dimension: seedNode.dimension ?? null,
-          materialLevel: seedNode.materialLevel ?? null,
+          description: suggestForm.description.trim(),
+          description_en: suggestForm.description_en.trim(),
+          wikipedia_url: suggestForm.wikipedia_url.trim() || null,
+          dimension: dm.dimension,
+          materialLevel: dm.materialLevel,
           naturalOrigin:
             suggestForm.naturalOrigin === ''
               ? null
@@ -491,13 +514,6 @@ export function SuggestNodeCorrectionPanel({
               ? null
               : String(suggestForm.chemicalNature),
         };
-        if (frenchUi) {
-          putBody.description = suggestForm.description.trim();
-          putBody.description_en = seedNode.description_en;
-        } else {
-          putBody.description = seedNode.description ?? '';
-          putBody.description_en = suggestForm.description.trim();
-        }
 
         const putRes = await fetch(
           `/api/nodes/${encodeURIComponent(node.id)}`,

@@ -12,13 +12,14 @@ import {
   ADMIN_DRAFT_REMOVED_IDS,
   type AdminEditNodeLinkListsOverride,
   type SuggestionRow,
+  getContributorContactHintFromSuggestion,
+  getContributorFacingMessageFromSuggestion,
+  getExploreNodeId,
   initSuggestionEditDraft,
   sanitizeAdminProposedAddLinks,
 } from '@/lib/admin-suggestion-shared';
 import { AdminSuggestionFormBody } from '@/components/admin/AdminPageClient';
-import {
-  getExploreNodeId,
-} from '@/lib/admin-suggestion-shared';
+import { useAdminSuggestionCardImageUrl } from '@/components/admin/use-admin-suggestion-card-image';
 import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
 
 export function AdminSuggestionDetailClient({ id }: { id: string }) {
@@ -36,6 +37,7 @@ export function AdminSuggestionDetailClient({ id }: { id: string }) {
   );
   const [adminComment, setAdminComment] = useState('');
   const [busy, setBusy] = useState(false);
+  const cardPreviewUrl = useAdminSuggestionCardImageUrl(row);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -176,42 +178,77 @@ export function AdminSuggestionDetailClient({ id }: { id: string }) {
   const readOnly = row.status !== 'pending';
   const exploreId = getExploreNodeId(row);
   const isAnonFeedback = row.suggestion_type === 'anonymous_feedback';
+  const contributorNote = getContributorFacingMessageFromSuggestion(row);
+  const contributorContactHint = getContributorContactHintFromSuggestion(row);
 
   return (
     <AppContentShell className="flex w-full flex-1 flex-col gap-4 pb-12 text-foreground">
-      <div className="flex flex-wrap items-center gap-3">
-        <Link
-          href="/admin"
-          className="text-[13px] text-accent underline-offset-2 hover:underline"
-        >
-          {t('backToAdmin')}
-        </Link>
-        {exploreId ? (
-          <a
-            href={treeInventionPath(exploreId)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[13px] text-muted-foreground underline-offset-2 hover:underline"
+      {contributorNote ? (
+        <div className="rounded-xl border border-amber-500/35 bg-amber-950/25 p-4 ring-1 ring-amber-500/20">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-200/90">
+            {t('contributorMessageLabel')}
+          </p>
+          <p className="mt-2 whitespace-pre-wrap text-[14px] leading-relaxed text-foreground">
+            {contributorNote}
+          </p>
+          {contributorContactHint ? (
+            <p className="mt-3 text-[12px] text-muted-foreground">
+              <span className="font-medium text-foreground/80">
+                {t('contributorContactEmailLabel')}
+              </span>{' '}
+              {contributorContactHint}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
+
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="min-w-0 flex-1 space-y-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/admin"
+              className="text-[13px] text-accent underline-offset-2 hover:underline"
+            >
+              {t('backToAdmin')}
+            </Link>
+            {exploreId ? (
+              <a
+                href={treeInventionPath(exploreId)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[13px] text-muted-foreground underline-offset-2 hover:underline"
+              >
+                {t('openInTree')}
+              </a>
+            ) : null}
+          </div>
+
+          <h1
+            className="text-lg font-semibold md:text-xl"
+            style={{
+              fontFamily:
+                'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+            }}
           >
-            {t('openInTree')}
-          </a>
+            {t('detailTitle')}
+          </h1>
+
+          <p className="text-[12px] text-muted-foreground">
+            {row.suggestion_type} ·{' '}
+            {new Date(row.created_at).toLocaleString()}
+          </p>
+        </div>
+        {cardPreviewUrl ? (
+          <div className="w-[min(160px,40vw)] shrink-0 overflow-hidden rounded-lg border border-border bg-page">
+            {/* eslint-disable-next-line @next/next/no-img-element -- URL dynamique graphe / stockage */}
+            <img
+              src={cardPreviewUrl}
+              alt=""
+              className="aspect-[16/10] w-full object-cover"
+            />
+          </div>
         ) : null}
       </div>
-
-      <h1
-        className="text-lg font-semibold md:text-xl"
-        style={{
-          fontFamily:
-            'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
-        }}
-      >
-        {t('detailTitle')}
-      </h1>
-
-      <p className="text-[12px] text-muted-foreground">
-        {row.suggestion_type} ·{' '}
-        {new Date(row.created_at).toLocaleString()}
-      </p>
 
       <AdminSuggestionFormBody
         row={row}

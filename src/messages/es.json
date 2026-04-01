@@ -302,6 +302,9 @@
     "levelComponent": "Componente",
     "noLinks": "Sin enlaces",
     "name": "Nombre",
+    "nameEn": "Nombre (EN)",
+    "descriptionEn": "Descripción (EN)",
+    "wikipediaUrl": "URL de Wikipedia",
     "category": "Categoría",
     "type": "Tipo",
     "era": "Época",
@@ -424,18 +427,11 @@
   "filters": {
     "categories": "Categorías",
     "eras": "Épocas",
-    "types": "Tipos",
+    "dimensions": "Dimensiones",
+    "materialLevels": "Niveles de material",
     "closeFilters": "Cerrar filtros",
     "showMore": "Mostrar todo",
     "showLess": "Mostrar menos"
-  },
-  "types": {
-    "raw_material": "Materia prima",
-    "process": "Proceso",
-    "tool": "Herramienta",
-    "component": "Componente",
-    "end_product": "Producto final",
-    "material": "Material"
   },
   "relationTypes": {
     "material": "Material",
@@ -446,7 +442,7 @@
   },
   "connectionPopup": {
     "createHeading": "Crear: {name}",
-    "pickHint": "Elige la categoría, el tipo y el tipo de enlace hacia la invención central.",
+    "pickHint": "Elige la categoría, la dimensión y el nivel de material si aplica, luego el tipo de enlace hacia la invención central.",
     "yearPlaceholder": "ej.: 1939 o −3000",
     "choose": "— Elegir —",
     "creating": "Creando…",

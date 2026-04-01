@@ -9,7 +9,8 @@
  *
  * Variables passées au template (toutes des chaînes, adaptables dans Resend) :
  * - suggestion_id, suggestion_type, status (approved | rejected)
- * - node_id, admin_comment
+ * - node_id, admin_comment (identiques : admin_reply, moderator_note)
+ * - contributor_message (message laissé par le contributeur dans la suggestion)
  * - site_url, explore_url (lien vers /tree ou nœud si node_id)
  */
 import { createSupabaseServiceRoleClient } from '@/lib/supabase-server';
@@ -66,13 +67,17 @@ export async function notifyContributorSuggestionResult(params: {
       ? (params.row.data as Record<string, unknown>)
       : {};
 
+  const adminText = String(params.adminComment ?? '').trim();
+
   /** Resend Send Email API: `template.id` + `template.variables` (alias du corps « template » ; pas de HTML brut). */
   const templateVariables: Record<string, string> = {
     suggestion_id: params.row.id,
     suggestion_type: String(params.row.suggestion_type),
     status: params.status,
     node_id: nodeId,
-    admin_comment: String(params.adminComment ?? '').trim(),
+    admin_comment: adminText,
+    admin_reply: adminText,
+    moderator_note: adminText,
     site_url: origin,
     explore_url: exploreUrl,
     contributor_message: extractContributorMessagePreview(dataObj),

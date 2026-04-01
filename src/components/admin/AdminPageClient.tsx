@@ -11,6 +11,8 @@ import {
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { AdminEditNodeAddLinkSearches } from '@/components/admin/AdminEditNodeAddLinkSearches';
+import { AdminNewNodeLinkSearches } from '@/components/admin/AdminNewNodeLinkSearches';
+import { useAdminSuggestionCardImageUrl } from '@/components/admin/use-admin-suggestion-card-image';
 import { AppContentShell } from '@/components/layout/AppContentShell';
 import { BackToExploreLink } from '@/components/layout/BackToExploreLink';
 import { useAuthStore } from '@/stores/auth-store';
@@ -19,6 +21,8 @@ import {
   ADMIN_DRAFT_PROPOSED_ADD,
   ADMIN_DRAFT_REMOVED_IDS,
   type AdminEditNodeLinkListsOverride,
+  getContributorContactHintFromSuggestion,
+  getContributorFacingMessageFromSuggestion,
   getExploreNodeId,
   initSuggestionEditDraft,
   type LinkSnap,
@@ -759,7 +763,7 @@ export function AdminPageClient() {
             >
               <option value="recent">Plus récentes</option>
               <option value="reliability">Fiabilité</option>
-              <option value="type">Type</option>
+              <option value="type">{t('sortBySuggestionKind')}</option>
             </select>
           </label>
         </div>
@@ -1079,9 +1083,6 @@ export function AdminPageClient() {
                         </th>
                       ) : null}
                       <th className="px-3 py-2 font-medium text-muted-foreground" scope="col">
-                        {t('tableColType')}
-                      </th>
-                      <th className="px-3 py-2 font-medium text-muted-foreground" scope="col">
                         {t('tableColInvention')}
                       </th>
                       <th className="px-3 py-2 font-medium text-muted-foreground" scope="col">
@@ -1100,18 +1101,6 @@ export function AdminPageClient() {
                         tab === 'history'
                           ? (s.reviewed_at ?? s.created_at)
                           : s.created_at;
-                      const typeLabel =
-                        s.suggestion_type === 'edit_node'
-                          ? t('typeEdit')
-                          : s.suggestion_type === 'add_link'
-                            ? t('typeAddLink')
-                            : s.suggestion_type === 'new_node'
-                              ? t('typeNewNode')
-                              : s.suggestion_type === 'delete_link'
-                                ? t('typeDeleteLink')
-                                : s.suggestion_type === 'anonymous_feedback'
-                                  ? t('typeAnonymousFeedback')
-                                  : s.suggestion_type;
                       const contrib =
                         s.user_id == null
                           ? s.contributor_ip
@@ -1156,9 +1145,6 @@ export function AdminPageClient() {
                               />
                             </td>
                           ) : null}
-                          <td className="px-3 py-2 align-top text-muted-foreground">
-                            {typeLabel}
-                          </td>
                           <td className="max-w-[220px] px-3 py-2 align-top font-medium text-foreground">
                             <span className="line-clamp-2">{title}</span>
                           </td>
@@ -1191,6 +1177,7 @@ export function AdminPageClient() {
                 key={detailPanelId ?? 'none'}
                 row={selectedDetailRow}
                 nodeNames={nodeNames}
+                listTotalCount={filteredSuggestions.length}
                 onResolved={removeAfterExit}
               />
             </aside>
@@ -1204,10 +1191,13 @@ export function AdminPageClient() {
 function AdminSuggestionApprovalPanel({
   row,
   nodeNames,
+  listTotalCount,
   onResolved,
 }: {
   row: SuggestionRow | null;
   nodeNames: Record<string, string>;
+  /** Nombre de suggestions dans la liste courante (filtre + onglet). */
+  listTotalCount: number;
   onResolved: (id: string) => void;
 }) {
   const t = useTranslations('admin');
@@ -1217,6 +1207,13 @@ function AdminSuggestionApprovalPanel({
   );
   const [adminComment, setAdminComment] = useState('');
   const [busy, setBusy] = useState(false);
+  const cardPreviewUrl = useAdminSuggestionCardImageUrl(row);
+  const contributorNote = row
+    ? getContributorFacingMessageFromSuggestion(row)
+    : null;
+  const contributorContactHint = row
+    ? getContributorContactHintFromSuggestion(row)
+    : null;
 
   useEffect(() => {
     if (!row) {
@@ -1323,30 +1320,91 @@ function AdminSuggestionApprovalPanel({
   const readOnly = row.status !== 'pending';
   const exploreId = getExploreNodeId(row);
   const isAnonFeedback = row.suggestion_type === 'anonymous_feedback';
+  const cardTitle = getSuggestionCardTitle(row, nodeNames);
+  const headline =
+    row.suggestion_type === 'edit_node'
+      ? `${cardTitle} — ${t('editNodeCorrectionTitle')}`
+      : cardTitle;
 
   return (
-    <div className="space-y-3 text-[15px]">
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <Link
-          href={`/admin/suggestions/${row.id}`}
-          className="text-[14px] text-accent underline-offset-2 hover:underline"
-        >
-          {t('panelOpenFullPage')}
-        </Link>
-        {exploreId ? (
-          <a
-            href={treeInventionPath(exploreId)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[14px] text-muted-foreground underline-offset-2 hover:underline"
-          >
-            {t('openInTree')}
-          </a>
-        ) : null}
+    <div className="space-y-4 text-[15px]">
+      {contributorNote ? (
+        <div className="rounded-xl border border-amber-500/35 bg-amber-950/25 p-4 sm:p-5 ring-1 ring-amber-500/20">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-200/90">
+            {t('contributorMessageLabel')}
+          </p>
+          <p className="mt-2 whitespace-pre-wrap text-[14px] leading-relaxed text-foreground">
+            {contributorNote}
+          </p>
+          {contributorContactHint ? (
+            <p className="mt-3 text-[12px] text-muted-foreground">
+              <span className="font-medium text-foreground/80">
+                {t('contributorContactEmailLabel')}
+              </span>{' '}
+              {contributorContactHint}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
+      <div className="rounded-xl border border-border/60 bg-surface/40 p-4 sm:p-5">
+        <div className="flex flex-wrap items-start gap-3 sm:gap-4">
+          {cardPreviewUrl ? (
+            <div className="w-[min(128px,32vw)] shrink-0 overflow-hidden rounded-lg border border-border bg-page">
+              {/* eslint-disable-next-line @next/next/no-img-element -- URL dynamique graphe / stockage */}
+              <img
+                src={cardPreviewUrl}
+                alt=""
+                className="aspect-[16/10] w-full object-cover"
+              />
+            </div>
+          ) : null}
+          <div className="min-w-0 flex-1 space-y-1.5">
+            <div className="flex items-start justify-between gap-2">
+              <h2
+                className="text-[15px] font-bold leading-snug text-foreground"
+                style={{
+                  fontFamily:
+                    'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+                }}
+              >
+                {headline}
+              </h2>
+              {exploreId ? (
+                <a
+                  href={treeInventionPath(exploreId)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-border/60 bg-surface text-muted-foreground transition-colors hover:bg-muted/25 hover:text-foreground"
+                  aria-label={t('panelViewInTreeAria')}
+                  title={t('panelViewInTreeAria')}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden
+                  >
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                </a>
+              ) : null}
+            </div>
+            <p className="text-[13px] text-muted-foreground">
+              {row.suggestion_type} ·{' '}
+              {new Date(row.created_at).toLocaleString()}
+              {' · '}
+              {t('panelListTotal', { count: listTotalCount })}
+            </p>
+          </div>
+        </div>
       </div>
-      <p className="text-[13px] text-muted-foreground">
-        {row.suggestion_type} · {new Date(row.created_at).toLocaleString()}
-      </p>
       <AdminSuggestionFormBody
         row={row}
         nodeNames={nodeNames}
@@ -1459,6 +1517,42 @@ export function AdminSuggestionFormBody({
   const relLabel = (code: string) =>
     tRel(code as Parameters<typeof tRel>[0]);
 
+  /** Libellés alignés sur `SuggestionNodeForm` / modal ajout de carte. */
+  const getSuggestFormFieldLabel = (key: string): string => {
+    switch (key) {
+      case 'name':
+        return tEditor('name');
+      case 'name_en':
+        return tEditor('nameEn');
+      case 'year_approx':
+        return tEditor('date');
+      case 'category':
+        return tEditor('category');
+      case 'naturalOrigin':
+        return tExplore('suggestNaturalOriginLabel');
+      case 'chemicalNature':
+        return tExplore('suggestChemicalNatureLabel');
+      case 'tags':
+        return tExplore('detailTagsHeading');
+      case 'era':
+        return tEditor('era');
+      case 'origin':
+        return tEditor('origin');
+      case 'description':
+        return tSidebar('description');
+      case 'description_en':
+        return tEditor('descriptionEn');
+      case 'dimension':
+        return tEditor('labelDimension');
+      case 'materialLevel':
+        return tEditor('labelMaterialLevel');
+      case 'wikipedia_url':
+        return tEditor('wikipediaUrl');
+      default:
+        return fieldLabel(key);
+    }
+  };
+
   const data = row.data;
 
   if (row.suggestion_type === 'edit_node') {
@@ -1469,7 +1563,7 @@ export function AdminSuggestionFormBody({
       linkDiff?: Record<string, { from: LinkSnap; to: LinkSnap }>;
       linkContext?: Record<
         string,
-        { peerName: string; section: 'ledTo' | 'builtUpon' }
+        { peerName: string; section: 'ledTo' | 'builtUpon'; peerId?: string }
       >;
       removedLinkIds?: string[];
       proposedAddLinks?: Array<{
@@ -1507,9 +1601,6 @@ export function AdminSuggestionFormBody({
       const draft = editDraft as Record<string, unknown>;
       const draftLinkEdits =
         (draft.linkEdits as Record<string, LinkSnap> | undefined) ?? {};
-      const draftRemoved = Array.isArray(draft[ADMIN_DRAFT_REMOVED_IDS])
-        ? (draft[ADMIN_DRAFT_REMOVED_IDS] as string[])
-        : [];
       const draftAdds = Array.isArray(draft[ADMIN_DRAFT_PROPOSED_ADD])
         ? (draft[ADMIN_DRAFT_PROPOSED_ADD] as Record<string, unknown>[])
         : [];
@@ -1660,31 +1751,6 @@ export function AdminSuggestionFormBody({
           suggested: isKeySuggested(key),
           comfortableText,
         });
-
-      const addCardFieldLabel = (key: string): string => {
-        switch (key) {
-          case 'name':
-            return tEditor('name');
-          case 'year_approx':
-            return tEditor('date');
-          case 'category':
-            return tEditor('category');
-          case 'naturalOrigin':
-            return tExplore('suggestNaturalOriginLabel');
-          case 'chemicalNature':
-            return tExplore('suggestChemicalNatureLabel');
-          case 'tags':
-            return tExplore('detailTagsHeading');
-          case 'era':
-            return tEditor('era');
-          case 'origin':
-            return tEditor('origin');
-          case 'description':
-            return tSidebar('description');
-          default:
-            return fieldLabel(key);
-        }
-      };
 
       const natureSuggested =
         suggestedFieldHighlight &&
@@ -1929,10 +1995,14 @@ export function AdminSuggestionFormBody({
       };
 
       const renderFieldRow = (key: string) => {
+        if (key === 'materialLevel') {
+          const dim = String(draft.dimension ?? '');
+          if (dim !== 'matter') return null;
+        }
         const inDiff = Object.prototype.hasOwnProperty.call(nodeDiff, key);
         const ghost =
           editNodeMode === 'full' && !inDiff
-            ? 'rounded-md border border-border/50 bg-muted/10 px-2 py-1.5'
+            ? 'rounded-md border border-border/60 bg-surface/30 px-3 py-2'
             : '';
         const useAddCard =
           editNodeMode === 'full' &&
@@ -1942,7 +2012,9 @@ export function AdminSuggestionFormBody({
             ? suggestFormLabelSectionClass(comfortableText)
             : suggestFormLabelClass(comfortableText)
           : suggestFormLabelClass(comfortableText);
-        const labelText = useAddCard ? addCardFieldLabel(key) : fieldLabel(key);
+        const labelText = useAddCard
+          ? getSuggestFormFieldLabel(key)
+          : fieldLabel(key);
 
         return (
           <div key={key} className={ghost || undefined}>
@@ -1991,24 +2063,27 @@ export function AdminSuggestionFormBody({
         !Object.prototype.hasOwnProperty.call(nodeDiff, 'tags');
 
       return (
-        <div className="space-y-3">
-          <p
-            className={`${
-              comfortableText ? 'text-[15px]' : 'text-[13px]'
-            } font-bold text-foreground`}
-          >
-            {nodeName} — {ta('editNodeCorrectionTitle')}
-          </p>
+        <div className="space-y-4">
+          {moderationUi && editNodeMode === 'full' ? null : (
+            <p
+              className={`${
+                comfortableText ? 'text-[15px]' : 'text-[13px]'
+              } font-bold text-foreground`}
+            >
+              {nodeName} — {ta('editNodeCorrectionTitle')}
+            </p>
+          )}
           <div
             className={
               editNodeMode === 'full'
-                ? 'space-y-4 px-1'
-                : 'space-y-2 rounded-[6px] bg-surface px-3 py-2.5'
+                ? 'space-y-4 rounded-xl border border-border/60 bg-surface/40 p-4 sm:p-5'
+                : 'space-y-2 rounded-xl border border-border/60 bg-surface/40 p-4'
             }
           >
             {editNodeMode === 'full' ? (
               <>
                 {renderFieldRow('name')}
+                {renderFieldRow('name_en')}
                 {renderFieldRow('year_approx')}
                 {renderFieldRow('category')}
                 <div
@@ -2031,7 +2106,7 @@ export function AdminSuggestionFormBody({
                 <div
                   className={
                     tagsUnchangedInFull
-                      ? 'rounded-md border border-border/50 bg-muted/10 px-2 py-1.5'
+                      ? suggestNatureBlockWrapClass({ suggested: false })
                       : undefined
                   }
                 >
@@ -2066,6 +2141,10 @@ export function AdminSuggestionFormBody({
                 {renderFieldRow('era')}
                 {renderFieldRow('origin')}
                 {renderFieldRow('description')}
+                {renderFieldRow('description_en')}
+                {renderFieldRow('dimension')}
+                {renderFieldRow('materialLevel')}
+                {renderFieldRow('wikipedia_url')}
                 <p
                   className={`${
                     comfortableText ? 'text-[12px]' : 'text-[10px]'
@@ -2083,7 +2162,7 @@ export function AdminSuggestionFormBody({
           </div>
 
           {Object.keys(linkDiff).length > 0 ? (
-            <div className="space-y-2 rounded-[6px] border border-border/60 bg-surface px-3 py-2.5">
+            <div className="space-y-2 rounded-xl border border-border/60 bg-surface/40 p-4 sm:p-5">
               <p className={sectionTitleClass()}>
                 Liens (Led to / Built upon)
               </p>
@@ -2126,37 +2205,17 @@ export function AdminSuggestionFormBody({
                           </span>
                         </p>
                       ) : null}
-                      <label
-                        className={`mb-2 block ${
+                      <p
+                        className={`mb-2 ${
                           comfortableText ? 'text-[13px]' : 'text-[11px]'
                         } text-muted-foreground`}
                       >
-                        {ta('field_relation_type')}
-                        <select
-                          className={linkFieldClass()}
-                          value={
-                            VALID_RELATIONS.has(snap.relation_type)
-                              ? snap.relation_type
-                              : RelationType.MATERIAL
-                          }
-                          onChange={(e) => {
-                            const rt = e.target.value as RelationType;
-                            onEditDraftChange({
-                              ...draft,
-                              linkEdits: {
-                                ...draftLinkEdits,
-                                [linkId]: { ...snap, relation_type: rt },
-                              },
-                            });
-                          }}
-                        >
-                          {Object.values(RelationType).map((rt) => (
-                            <option key={rt} value={rt}>
-                              {relLabel(rt)}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
+                        {relLabel(
+                          VALID_RELATIONS.has(snap.relation_type)
+                            ? snap.relation_type
+                            : RelationType.MATERIAL
+                        )}
+                      </p>
                       <label
                         className={`mb-2 block ${
                           comfortableText ? 'text-[13px]' : 'text-[11px]'
@@ -2212,9 +2271,9 @@ export function AdminSuggestionFormBody({
             </div>
           ) : null}
 
-          <div className="space-y-2 rounded-[6px] border border-border/60 bg-surface px-3 py-2.5">
+          <div className="mt-4 space-y-3 rounded-xl border border-border/60 bg-surface/40 p-4 sm:p-5">
             <p className={sectionTitleClass()}>
-              Liens proposés (nouveaux)
+              {ta('editNodeLinksSuggestionSection')}
             </p>
             {row.node_id ? (
               <AdminEditNodeAddLinkSearches
@@ -2222,6 +2281,9 @@ export function AdminSuggestionFormBody({
                 draft={draft}
                 draftAdds={draftAdds}
                 onEditDraftChange={onEditDraftChange}
+                nodeNames={nodeNames}
+                linkContext={linkContext}
+                origLinkEdits={origLinkEdits}
               />
             ) : (
               <p
@@ -2232,146 +2294,7 @@ export function AdminSuggestionFormBody({
                 node_id manquant — impossible d&apos;ajouter un lien ici.
               </p>
             )}
-            {draftAdds.length > 0 ? (
-              <ul className="space-y-3">
-                {draftAdds.map((add, i) => {
-                  const source_id = String(add.source_id ?? '');
-                  const target_id = String(add.target_id ?? '');
-                  const rel = String(add.relation_type ?? RelationType.MATERIAL);
-                  const srcName = nodeNames[source_id] ?? source_id;
-                  const tgtName = nodeNames[target_id] ?? target_id;
-                  return (
-                    <li
-                      key={`${source_id}-${target_id}-${i}`}
-                      className="rounded border border-border/50 bg-surface-elevated/30 p-2"
-                    >
-                      <p
-                        className={`mb-2 ${
-                          comfortableText ? 'text-[14px]' : 'text-[12px]'
-                        } text-muted-foreground`}
-                      >
-                        <span className="font-medium text-foreground">{srcName}</span>
-                        <span className="text-muted-foreground"> → </span>
-                        <span className="font-medium text-foreground">{tgtName}</span>
-                      </p>
-                      <label
-                        className={`block ${
-                          comfortableText ? 'text-[13px]' : 'text-[11px]'
-                        } text-muted-foreground`}
-                      >
-                        {ta('field_relation_type')}
-                        <select
-                          className={linkFieldClass()}
-                          value={
-                            VALID_RELATIONS.has(rel) ? rel : RelationType.MATERIAL
-                          }
-                          onChange={(e) => {
-                            const next = draftAdds.map((row, j) =>
-                              j === i
-                                ? {
-                                    ...row,
-                                    relation_type: e.target.value,
-                                  }
-                                : row
-                            );
-                            onEditDraftChange({
-                              ...draft,
-                              [ADMIN_DRAFT_PROPOSED_ADD]: next,
-                            });
-                          }}
-                        >
-                          {Object.values(RelationType).map((rt) => (
-                            <option key={rt} value={rt}>
-                              {relLabel(rt)}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                      <button
-                        type="button"
-                        className={`mt-2 ${
-                          comfortableText ? 'text-[13px]' : 'text-[11px]'
-                        } text-red-400 hover:underline`}
-                        onClick={() => {
-                          const next = draftAdds.filter((_, j) => j !== i);
-                          onEditDraftChange({
-                            ...draft,
-                            [ADMIN_DRAFT_PROPOSED_ADD]: next,
-                          });
-                        }}
-                      >
-                        Retirer ce lien
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : (
-              <p
-                className={
-                  comfortableText ? 'text-[14px] text-muted-foreground' : 'text-[12px] text-muted-foreground'
-                }
-              >
-                Aucun lien nouveau dans la proposition (utilisez la recherche
-                ci-dessus pour en ajouter).
-              </p>
-            )}
           </div>
-
-          {draftRemoved.length > 0 ? (
-            <div className="space-y-2 rounded-[6px] border border-amber-600/35 bg-amber-950/15 px-3 py-2.5">
-              <p
-                className={`${
-                  comfortableText ? 'text-[13px]' : 'text-[11px]'
-                } font-semibold uppercase tracking-wide text-amber-200/90`}
-              >
-                Liens marqués pour suppression
-              </p>
-              <ul className="space-y-2">
-                {draftRemoved.map((linkId) => {
-                  const ctx = linkContext[linkId];
-                  const snap = origLinkEdits[linkId];
-                  const sectionLabel =
-                    ctx?.section === 'builtUpon'
-                      ? 'Built upon'
-                      : ctx?.section === 'ledTo'
-                        ? 'Led to'
-                        : 'Lien';
-                  return (
-                    <li
-                      key={linkId}
-                      className="flex flex-wrap items-center justify-between gap-2 border-b border-border/30 pb-2 last:border-0 last:pb-0"
-                    >
-                      <span className="min-w-0 text-[12px] text-muted-foreground">
-                        <span className="block">
-                          {sectionLabel} · {ctx?.peerName ?? linkId}
-                        </span>
-                        {snap ? (
-                          <span className="block text-[11px] line-through text-red-400/90">
-                            {formatLinkSnapLine(snap, relLabel)}
-                          </span>
-                        ) : null}
-                      </span>
-                      <button
-                        type="button"
-                        className="shrink-0 rounded border border-amber-600/50 px-2 py-1 text-[11px] text-amber-200 hover:bg-amber-600/20"
-                        onClick={() => {
-                          onEditDraftChange({
-                            ...draft,
-                            [ADMIN_DRAFT_REMOVED_IDS]: draftRemoved.filter(
-                              (id) => id !== linkId
-                            ),
-                          });
-                        }}
-                      >
-                        Conserver le lien
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ) : null}
         </div>
       );
     }
@@ -2742,25 +2665,19 @@ export function AdminSuggestionFormBody({
               {tgtName}
             </span>
           </div>
-          <label className={addLinkLabelClass}>
-            {ta('field_relation_type')}
-            <select
-              className={addLinkFieldClass}
-              value={draft.relation_type ?? d.relation_type}
-              onChange={(e) =>
-                onEditDraftChange({
-                  ...draft,
-                  relation_type: e.target.value as RelationType,
-                })
-              }
-            >
-              {Object.values(RelationType).map((rt) => (
-                <option key={rt} value={rt}>
-                  {relLabel(rt)}
-                </option>
-              ))}
-            </select>
-          </label>
+          <p
+            className={`${
+              comfortableText ? 'text-[13px]' : 'text-[11px]'
+            } text-muted-foreground`}
+          >
+            {relLabel(
+              VALID_RELATIONS.has(
+                String(draft.relation_type ?? d.relation_type)
+              )
+                ? String(draft.relation_type ?? d.relation_type)
+                : RelationType.MATERIAL
+            )}
+          </p>
           <label className={addLinkLabelClass}>
             {ta('field_link_notes')}
             <input
@@ -2896,20 +2813,22 @@ export function AdminSuggestionFormBody({
       };
       const n = draft.node ?? {};
       const l = draft.link ?? {};
-      const firstLink = linksList[0];
-      const ic = suggestedFieldHighlight
-        ? `mt-0.5 w-full rounded border border-orange-500/50 bg-orange-950/25 px-2 py-1 ${
-            comfortableText ? 'text-[14px]' : 'text-[12px]'
-          } text-orange-200`
-        : `mt-0.5 w-full rounded border border-border bg-surface px-2 py-1 ${
-            comfortableText ? 'text-[14px]' : 'text-[12px]'
-          } text-foreground`;
-      const newNodeLabelClass = `block ${
-        comfortableText ? 'text-[13px]' : 'text-[11px]'
-      } text-muted-foreground`;
+      const nnInput = suggestInputClass({
+        suggested: suggestedFieldHighlight,
+        comfortableText,
+      });
+      const nnSelect = suggestSelectClass({
+        suggested: suggestedFieldHighlight,
+        comfortableText,
+      });
+      const lbl = suggestFormLabelClass(comfortableText);
+      const lblSection = suggestFormLabelSectionClass(comfortableText);
       const nv = (key: string): string => {
         const v = n[key];
-        if (key === 'tags' && Array.isArray(v)) return v.map(String).join(', ');
+        if (key === 'tags') {
+          if (Array.isArray(v)) return v.map(String).join(', ');
+          return String(v ?? '');
+        }
         if (key === 'year_approx' && (v === null || v === undefined)) return '';
         if (key === 'year_approx' && typeof v === 'number') return String(v);
         return String(v ?? '');
@@ -2921,239 +2840,20 @@ export function AdminSuggestionFormBody({
           link: { ...l },
           links: draft.links,
         });
-      const renderNewNodeControl = (key: string) => {
-        if (key === 'category') {
-          const v = nv('category') || NODE_CATEGORY_ORDER[0];
-          return (
-            <select
-              className={ic}
-              value={
-                NODE_CATEGORY_ORDER.includes(v as NodeCategory)
-                  ? v
-                  : NODE_CATEGORY_ORDER[0]
-              }
-              onChange={(e) => patchNode({ category: e.target.value })}
-            >
-              {NODE_CATEGORY_ORDER.map((c) => (
-                <option key={c} value={c}>
-                  {tCat(c)}
-                </option>
-              ))}
-            </select>
-          );
-        }
-        if (key === 'era') {
-          const v = nv('era') || ERA_ORDER[0];
-          return (
-            <select
-              className={ic}
-              value={
-                ERA_ORDER.includes(v as (typeof ERA_ORDER)[number])
-                  ? v
-                  : ERA_ORDER[0]
-              }
-              onChange={(e) => patchNode({ era: e.target.value })}
-            >
-              {ERA_ORDER.map((er) => (
-                <option key={er} value={er}>
-                  {eraLabelFromMessages(locale, er)}
-                </option>
-              ))}
-            </select>
-          );
-        }
-        if (key === 'dimension') {
-          return (
-            <select
-              className={ic}
-              value={nv('dimension')}
-              onChange={(e) => patchNode({ dimension: e.target.value })}
-            >
-              <option value="">{ta('field_empty')}</option>
-              {DIMENSION_ORDER.map((dim) => (
-                <option key={dim} value={dim}>
-                  {tEditor(EDITOR_DIM_KEY[dim])}
-                </option>
-              ))}
-            </select>
-          );
-        }
-        if (key === 'materialLevel') {
-          return (
-            <select
-              className={ic}
-              value={nv('materialLevel')}
-              onChange={(e) => patchNode({ materialLevel: e.target.value })}
-            >
-              <option value="">{ta('field_empty')}</option>
-              {MATERIAL_LEVEL_ORDER.map((lv) => (
-                <option key={lv} value={lv}>
-                  {tEditor(EDITOR_LEVEL_KEY[lv])}
-                </option>
-              ))}
-            </select>
-          );
-        }
-        if (key === 'naturalOrigin') {
-          return (
-            <select
-              className={ic}
-              value={nv('naturalOrigin')}
-              onChange={(e) => patchNode({ naturalOrigin: e.target.value })}
-            >
-              <option value="">{ta('field_empty')}</option>
-              {NATURAL_ORIGIN_ORDER.map((no) => (
-                <option key={no} value={no}>
-                  {tExplore(
-                    `suggestNaturalOrigin_${no}` as Parameters<typeof tExplore>[0]
-                  )}
-                </option>
-              ))}
-            </select>
-          );
-        }
-        if (key === 'chemicalNature') {
-          return (
-            <select
-              className={ic}
-              value={nv('chemicalNature')}
-              onChange={(e) => patchNode({ chemicalNature: e.target.value })}
-            >
-              <option value="">{ta('field_empty')}</option>
-              {CHEMICAL_NATURE_ORDER.map((cn) => (
-                <option key={cn} value={cn}>
-                  {tExplore(
-                    `suggestChemicalNature_${cn}` as Parameters<typeof tExplore>[0]
-                  )}
-                </option>
-              ))}
-            </select>
-          );
-        }
-        if (key === 'origin_type') {
-          const opts = ['mineral', 'vegetal', 'animal'] as const;
-          const cur = nv('origin_type');
-          const lab: Record<
-            (typeof opts)[number],
-            Parameters<typeof tExplore>[0]
-          > = {
-            mineral: 'originTypeMineral',
-            vegetal: 'originTypeVegetal',
-            animal: 'originTypeAnimal',
-          };
-          return (
-            <select
-              className={ic}
-              value={opts.includes(cur as (typeof opts)[number]) ? cur : ''}
-              onChange={(e) => patchNode({ origin_type: e.target.value })}
-            >
-              <option value="">{ta('field_empty')}</option>
-              {opts.map((o) => (
-                <option key={o} value={o}>
-                  {tExplore(lab[o])}
-                </option>
-              ))}
-            </select>
-          );
-        }
-        if (key === 'nature_type') {
-          const opts = ['element', 'compose', 'materiau'] as const;
-          const cur = nv('nature_type');
-          const lab: Record<
-            (typeof opts)[number],
-            Parameters<typeof tExplore>[0]
-          > = {
-            element: 'natureTypeElement',
-            compose: 'natureTypeCompose',
-            materiau: 'natureTypeMateriau',
-          };
-          return (
-            <select
-              className={ic}
-              value={opts.includes(cur as (typeof opts)[number]) ? cur : ''}
-              onChange={(e) => patchNode({ nature_type: e.target.value })}
-            >
-              <option value="">{ta('field_empty')}</option>
-              {opts.map((o) => (
-                <option key={o} value={o}>
-                  {tExplore(lab[o])}
-                </option>
-              ))}
-            </select>
-          );
-        }
-        if (key === 'year_approx') {
-          return (
-            <input
-              className={ic}
-              type="text"
-              inputMode="numeric"
-              value={nv('year_approx')}
-              onChange={(e) => {
-                const t = e.target.value.trim();
-                patchNode({
-                  year_approx: t === '' ? null : Number(t),
-                });
-              }}
-            />
-          );
-        }
-        if (key === 'tags') {
-          return (
-            <input
-              className={ic}
-              value={nv('tags')}
-              onChange={(e) =>
-                patchNode({
-                  tags: e.target.value
-                    .split(',')
-                    .map((x) => x.trim())
-                    .filter(Boolean),
-                })
-              }
-            />
-          );
-        }
-        if (key === 'description' || key === 'description_en') {
-          return (
-            <textarea
-              className={`${ic} min-h-[72px]`}
-              value={nv(key)}
-              onChange={(e) => patchNode({ [key]: e.target.value })}
-            />
-          );
-        }
-        return (
-          <input
-            className={ic}
-            value={nv(key)}
-            onChange={(e) => patchNode({ [key]: e.target.value })}
-          />
-        );
-      };
-      const newNodeKeys = [
-        'proposed_id',
-        'name',
-        'name_en',
-        'description',
-        'description_en',
-        'category',
-        'era',
-        'year_approx',
-        'origin',
-        'tags',
-        'wikipedia_url',
-        'image_url',
-        'dimension',
-        'materialLevel',
-        'naturalOrigin',
-        'chemicalNature',
-        'origin_type',
-        'nature_type',
-      ] as const;
+      const matterDim = nv('dimension') === 'matter';
+      const tagsCsv = nv('tags');
+      const setTagsFromCsv = (csv: string) =>
+        patchNode({
+          tags: csv
+            .split(',')
+            .map((x) => x.trim())
+            .filter(Boolean),
+        });
+      const emptyDash = '—';
+
       return (
-        <div className="space-y-2">
-          <div className="space-y-2 rounded-[6px] border border-border/50 bg-surface px-3 py-2.5">
+        <div className="space-y-3">
+          <div className="space-y-4 rounded-xl border border-border/60 bg-surface/40 p-4 sm:p-5">
             {suggestedFieldHighlight ? (
               <p
                 className={`${
@@ -3163,54 +2863,364 @@ export function AdminSuggestionFormBody({
                 {ta('newNodeNoCurrentCard')}
               </p>
             ) : null}
-            {newNodeKeys.map((key) => (
-              <div key={key} className="space-y-1">
-                <div className={newNodeLabelClass}>{fieldLabel(key)}</div>
-                {renderNewNodeControl(key)}
-              </div>
-            ))}
-          </div>
-          {firstLink ? (
-            <div className="rounded-[6px] border border-border/50 bg-surface px-3 py-2.5">
-              <p
-                className={`mb-1 ${
-                  comfortableText ? 'text-[12px]' : 'text-[10px]'
-                } text-muted-foreground`}
-              >
-                {ta('newNodeFirstLink')}{' '}
-                {linksList.length > 1
-                  ? ta('newNodeLinkCount', { n: linksList.length })
-                  : null}
-              </p>
+
+            <div>
+              <label className={lbl}>{fieldLabel('proposed_id')}</label>
+              <input
+                type="text"
+                className={nnInput}
+                value={nv('proposed_id')}
+                onChange={(e) => patchNode({ proposed_id: e.target.value })}
+              />
+            </div>
+
+            <div>
+              <label className={lbl}>{getSuggestFormFieldLabel('name')}</label>
+              <input
+                type="text"
+                className={nnInput}
+                value={nv('name')}
+                onChange={(e) => patchNode({ name: e.target.value })}
+              />
+            </div>
+
+            <div>
+              <label className={lbl}>
+                {getSuggestFormFieldLabel('name_en')}
+              </label>
+              <input
+                type="text"
+                className={nnInput}
+                value={nv('name_en')}
+                onChange={(e) => patchNode({ name_en: e.target.value })}
+              />
+            </div>
+
+            <div>
+              <label className={lbl}>
+                {getSuggestFormFieldLabel('year_approx')}
+              </label>
+              <input
+                type="text"
+                inputMode="numeric"
+                className={nnInput}
+                value={nv('year_approx')}
+                onChange={(e) => {
+                  const t = e.target.value.trim();
+                  patchNode({
+                    year_approx: t === '' ? null : Number(t),
+                  });
+                }}
+              />
+            </div>
+
+            <div>
+              <label className={lbl}>
+                {getSuggestFormFieldLabel('category')}
+              </label>
               <select
-                className={`w-full rounded border px-2 py-1 ${
-                  comfortableText ? 'text-[14px]' : 'text-[12px]'
-                } ${
-                  suggestedFieldHighlight
-                    ? 'border-orange-500/50 bg-orange-950/25 text-orange-200'
-                    : 'border-border bg-surface text-foreground'
-                }`}
-                value={String(l.relation_type ?? firstLink.relation_type)}
-                onChange={(e) =>
-                  onEditDraftChange({
-                    ...draft,
-                    node: { ...n },
-                    link: {
-                      ...l,
-                      relation_type: e.target.value,
-                    },
-                    links: draft.links,
-                  })
+                className={nnSelect}
+                value={
+                  (() => {
+                    const v = nv('category') || PRIMARY_CARD_CATEGORY_ORDER[0];
+                    return PRIMARY_CARD_CATEGORY_ORDER.includes(v as NodeCategory)
+                      ? v
+                      : PRIMARY_CARD_CATEGORY_ORDER[0];
+                  })()
                 }
+                onChange={(e) => patchNode({ category: e.target.value })}
               >
-                {Object.values(RelationType).map((rt) => (
-                  <option key={rt} value={rt}>
-                    {relLabel(rt)}
+                {PRIMARY_CARD_CATEGORY_ORDER.map((c) => (
+                  <option key={c} value={c}>
+                    {tCat(c)}
                   </option>
                 ))}
               </select>
             </div>
-          ) : null}
+
+            <div
+              className={suggestNatureBlockWrapClass({
+                suggested: suggestedFieldHighlight,
+              })}
+            >
+              <p
+                className={suggestFormNatureSectionTitleClass(comfortableText)}
+              >
+                {tExplore('detailTagNature')}
+              </p>
+              <div className="space-y-3">
+                <div>
+                  <label className={lbl}>
+                    {getSuggestFormFieldLabel('naturalOrigin')}
+                  </label>
+                  <select
+                    className={nnSelect}
+                    value={nv('naturalOrigin')}
+                    onChange={(e) =>
+                      patchNode({ naturalOrigin: e.target.value })
+                    }
+                  >
+                    <option value="">{emptyDash}</option>
+                    {NATURAL_ORIGIN_ORDER.map((no) => (
+                      <option key={no} value={no}>
+                        {tExplore(
+                          `suggestNaturalOrigin_${no}` as Parameters<
+                            typeof tExplore
+                          >[0]
+                        )}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className={lbl}>
+                    {getSuggestFormFieldLabel('chemicalNature')}
+                  </label>
+                  <select
+                    className={nnSelect}
+                    value={nv('chemicalNature')}
+                    onChange={(e) =>
+                      patchNode({ chemicalNature: e.target.value })
+                    }
+                  >
+                    <option value="">{emptyDash}</option>
+                    {CHEMICAL_NATURE_ORDER.map((cn) => (
+                      <option key={cn} value={cn}>
+                        {tExplore(
+                          `suggestChemicalNature_${cn}` as Parameters<
+                            typeof tExplore
+                          >[0]
+                        )}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label className={lblSection}>
+                {getSuggestFormFieldLabel('tags')}
+              </label>
+              <SuggestionTagsField
+                tagsCsv={tagsCsv}
+                onTagsCsvChange={setTagsFromCsv}
+                dirty={false}
+                suggested={suggestedFieldHighlight}
+                comfortableText={comfortableText}
+              />
+            </div>
+
+            <div>
+              <label className={lbl}>{getSuggestFormFieldLabel('era')}</label>
+              <p
+                className={`mb-1.5 ${
+                  comfortableText ? 'text-[12px]' : 'text-[10px]'
+                } text-muted-foreground`}
+              >
+                {tExplore('suggestEraHint')}
+              </p>
+              <select
+                className={nnSelect}
+                value={
+                  (() => {
+                    const v = nv('era') || ERA_ORDER[0];
+                    return ERA_ORDER.includes(v as (typeof ERA_ORDER)[number])
+                      ? v
+                      : ERA_ORDER[0];
+                  })()
+                }
+                onChange={(e) => patchNode({ era: e.target.value })}
+              >
+                {ERA_ORDER.map((er) => (
+                  <option key={er} value={er}>
+                    {eraLabelFromMessages(locale, er)}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className={lbl}>
+                {getSuggestFormFieldLabel('origin')}
+              </label>
+              <input
+                type="text"
+                className={nnInput}
+                value={nv('origin')}
+                onChange={(e) => patchNode({ origin: e.target.value })}
+              />
+            </div>
+
+            <div>
+              <label className={lbl}>
+                {getSuggestFormFieldLabel('description')}
+              </label>
+              <textarea
+                rows={5}
+                className={nnInput}
+                value={nv('description')}
+                onChange={(e) => patchNode({ description: e.target.value })}
+              />
+            </div>
+
+            <div>
+              <label className={lbl}>
+                {getSuggestFormFieldLabel('description_en')}
+              </label>
+              <textarea
+                rows={5}
+                className={nnInput}
+                value={nv('description_en')}
+                onChange={(e) => patchNode({ description_en: e.target.value })}
+              />
+            </div>
+
+            <div>
+              <label className={lbl}>
+                {getSuggestFormFieldLabel('dimension')}
+              </label>
+              <select
+                className={nnSelect}
+                value={nv('dimension')}
+                onChange={(e) => patchNode({ dimension: e.target.value })}
+              >
+                <option value="">{emptyDash}</option>
+                {DIMENSION_ORDER.map((dim) => (
+                  <option key={dim} value={dim}>
+                    {tEditor(EDITOR_DIM_KEY[dim])}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {matterDim ? (
+              <div>
+                <label className={lbl}>
+                  {getSuggestFormFieldLabel('materialLevel')}
+                </label>
+                <select
+                  className={nnSelect}
+                  value={nv('materialLevel')}
+                  onChange={(e) =>
+                    patchNode({ materialLevel: e.target.value })
+                  }
+                >
+                  <option value="">{emptyDash}</option>
+                  {MATERIAL_LEVEL_ORDER.map((lv) => (
+                    <option key={lv} value={lv}>
+                      {tEditor(EDITOR_LEVEL_KEY[lv])}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ) : null}
+
+            <div>
+              <label className={lbl}>
+                {getSuggestFormFieldLabel('wikipedia_url')}
+              </label>
+              <input
+                type="text"
+                className={nnInput}
+                value={nv('wikipedia_url')}
+                onChange={(e) => patchNode({ wikipedia_url: e.target.value })}
+              />
+            </div>
+
+            <div>
+              <label className={lbl}>{fieldLabel('image_url')}</label>
+              <input
+                type="text"
+                className={nnInput}
+                value={nv('image_url')}
+                onChange={(e) => patchNode({ image_url: e.target.value })}
+              />
+            </div>
+
+            <div>
+              <label className={lbl}>{fieldLabel('origin_type')}</label>
+              <select
+                className={nnSelect}
+                value={
+                  (() => {
+                    const opts = ['mineral', 'vegetal', 'animal'] as const;
+                    const cur = nv('origin_type');
+                    return opts.includes(cur as (typeof opts)[number])
+                      ? cur
+                      : '';
+                  })()
+                }
+                onChange={(e) => patchNode({ origin_type: e.target.value })}
+              >
+                <option value="">{ta('field_empty')}</option>
+                {(
+                  ['mineral', 'vegetal', 'animal'] as const
+                ).map((o) => (
+                  <option key={o} value={o}>
+                    {tExplore(
+                      {
+                        mineral: 'originTypeMineral',
+                        vegetal: 'originTypeVegetal',
+                        animal: 'originTypeAnimal',
+                      }[o] as Parameters<typeof tExplore>[0]
+                    )}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className={lbl}>{fieldLabel('nature_type')}</label>
+              <select
+                className={nnSelect}
+                value={
+                  (() => {
+                    const opts = ['element', 'compose', 'materiau'] as const;
+                    const cur = nv('nature_type');
+                    return opts.includes(cur as (typeof opts)[number])
+                      ? cur
+                      : '';
+                  })()
+                }
+                onChange={(e) => patchNode({ nature_type: e.target.value })}
+              >
+                <option value="">{ta('field_empty')}</option>
+                {(
+                  ['element', 'compose', 'materiau'] as const
+                ).map((o) => (
+                  <option key={o} value={o}>
+                    {tExplore(
+                      {
+                        element: 'natureTypeElement',
+                        compose: 'natureTypeCompose',
+                        materiau: 'natureTypeMateriau',
+                      }[o] as Parameters<typeof tExplore>[0]
+                    )}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="mt-4 space-y-3 rounded-xl border border-border/60 bg-surface/40 p-4 sm:p-5">
+            <p
+              className={`${
+                comfortableText ? 'text-[12px]' : 'text-[10px]'
+              } font-semibold uppercase tracking-wide text-muted-foreground`}
+            >
+              {ta('editNodeLinksSuggestionSection')}
+            </p>
+            <AdminNewNodeLinkSearches
+              placeholderNodeId={
+                nv('proposed_id').trim() ||
+                String(d.node.proposed_id ?? '').trim()
+              }
+              draft={draft}
+              onEditDraftChange={onEditDraftChange}
+              nodeNames={nodeNames}
+            />
+          </div>
         </div>
       );
     }

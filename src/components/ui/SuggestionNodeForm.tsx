@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import { eraLabelFromMessages } from '@/lib/era-display';
-import { ERA_ORDER } from '@/lib/node-labels';
+import { DIMENSION_ORDER, ERA_ORDER, MATERIAL_LEVEL_ORDER } from '@/lib/node-labels';
 import { PRIMARY_CARD_CATEGORY_ORDER } from '@/lib/card-primary-categories';
 import {
   CHEMICAL_NATURE_ORDER,
@@ -17,6 +17,7 @@ import {
   suggestSelectClass,
 } from '@/components/ui/suggest-form-classes';
 import { SuggestionTagsField } from '@/components/ui/SuggestionTagsField';
+import { EDITOR_DIM_KEY, EDITOR_LEVEL_KEY } from '@/components/editor/dimension-editor-keys';
 import {
   NodeCategory as NC,
   Era as EraEnum,
@@ -28,7 +29,9 @@ import {
 
 export type SuggestNodeFormState = {
   name: string;
+  name_en: string;
   description: string;
+  description_en: string;
   category: NodeCategory;
   era: Era;
   year_approx: string;
@@ -37,12 +40,19 @@ export type SuggestNodeFormState = {
   tags: string;
   naturalOrigin: NaturalOrigin | '';
   chemicalNature: ChemicalNature | '';
+  /** Vide = non renseigné ; sinon matter | process | tool */
+  dimension: string;
+  /** Vide = non renseigné ; pertinent si dimension === matter */
+  materialLevel: string;
+  wikipedia_url: string;
 };
 
 export function createEmptySuggestNodeFormState(): SuggestNodeFormState {
   return {
     name: '',
+    name_en: '',
     description: '',
+    description_en: '',
     category: NC.ENERGY,
     era: EraEnum.MODERN,
     year_approx: '',
@@ -50,6 +60,9 @@ export function createEmptySuggestNodeFormState(): SuggestNodeFormState {
     tags: '',
     naturalOrigin: '',
     chemicalNature: '',
+    dimension: '',
+    materialLevel: '',
+    wikipedia_url: '',
   };
 }
 
@@ -100,6 +113,8 @@ export function SuggestionNodeForm({
       baselineForm!.chemicalNature !== form.chemicalNature);
   const natureBlockError =
     fieldErrors?.naturalOrigin || fieldErrors?.chemicalNature;
+
+  const matterSelected = form.dimension === 'matter';
 
   const inputClass = (dirty: boolean, error?: string) =>
     suggestInputClass({ suggested: dirty, error, comfortableText: false });
@@ -157,6 +172,21 @@ export function SuggestionNodeForm({
               ))}
             </ul>
           </div>
+        ) : null}
+      </div>
+
+      <div>
+        <label className={suggestFormLabelClass(false)}>{te('nameEn')}</label>
+        <input
+          type="text"
+          value={form.name_en}
+          onChange={(e) => setForm((f) => ({ ...f, name_en: e.target.value }))}
+          className={inputClass(fd('name_en'), fieldErrors?.name_en)}
+          autoComplete="off"
+          aria-invalid={Boolean(fieldErrors?.name_en)}
+        />
+        {fieldErrors?.name_en ? (
+          <p className="mt-1 text-[10px] text-red-400">{fieldErrors.name_en}</p>
         ) : null}
       </div>
 
@@ -384,6 +414,86 @@ export function SuggestionNodeForm({
             {fieldErrors.description}
           </p>
         ) : null}
+      </div>
+
+      <div>
+        <label className={suggestFormLabelClass(false)}>{te('descriptionEn')}</label>
+        <textarea
+          rows={5}
+          value={form.description_en}
+          onChange={(e) =>
+            setForm((f) => ({ ...f, description_en: e.target.value }))
+          }
+          className={inputClass(fd('description_en'), fieldErrors?.description_en)}
+          aria-invalid={Boolean(fieldErrors?.description_en)}
+        />
+        {fieldErrors?.description_en ? (
+          <p className="mt-1 text-[10px] text-red-400">
+            {fieldErrors.description_en}
+          </p>
+        ) : null}
+      </div>
+
+      <div>
+        <label className={suggestFormLabelClass(false)}>{te('labelDimension')}</label>
+        <select
+          value={form.dimension}
+          onChange={(e) => {
+            const v = e.target.value;
+            setForm((f) => ({
+              ...f,
+              dimension: v,
+              materialLevel: v === 'matter' ? f.materialLevel : '',
+            }));
+          }}
+          className={selectClass(fd('dimension'), fieldErrors?.dimension)}
+        >
+          <option value="">{te('notSet')}</option>
+          {DIMENSION_ORDER.map((d) => (
+            <option key={d} value={d}>
+              {te(EDITOR_DIM_KEY[d])}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {matterSelected ? (
+        <div>
+          <label className={suggestFormLabelClass(false)}>
+            {te('labelMaterialLevel')}
+          </label>
+          <select
+            value={form.materialLevel}
+            onChange={(e) =>
+              setForm((f) => ({ ...f, materialLevel: e.target.value }))
+            }
+            className={selectClass(
+              fd('materialLevel'),
+              fieldErrors?.materialLevel
+            )}
+          >
+            <option value="">{te('notSet')}</option>
+            {MATERIAL_LEVEL_ORDER.map((lv) => (
+              <option key={lv} value={lv}>
+                {te(EDITOR_LEVEL_KEY[lv])}
+              </option>
+            ))}
+          </select>
+        </div>
+      ) : null}
+
+      <div>
+        <label className={suggestFormLabelClass(false)}>{te('wikipediaUrl')}</label>
+        <input
+          type="url"
+          value={form.wikipedia_url}
+          onChange={(e) =>
+            setForm((f) => ({ ...f, wikipedia_url: e.target.value }))
+          }
+          className={inputClass(fd('wikipedia_url'), fieldErrors?.wikipedia_url)}
+          placeholder={tExplore('wikipediaPlaceholder')}
+          autoComplete="off"
+        />
       </div>
     </div>
   );

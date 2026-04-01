@@ -77,14 +77,6 @@ export const NODE_CATEGORY_VALUES = new Set([
   'home_automation',
 ]);
 
-const TECH_NODE_TYPES = new Set([
-  'raw_material',
-  'material',
-  'process',
-  'tool',
-  'component',
-]);
-
 const ERA_VALUES = new Set([
   'prehistoric',
   'ancient',
@@ -103,13 +95,6 @@ export function normalizeCategory(raw) {
   const s = typeof raw === 'string' ? raw.trim() : '';
   if (NODE_CATEGORY_VALUES.has(s)) return s;
   return 'industry';
-}
-
-export function normalizeTechNodeType(raw) {
-  const s = typeof raw === 'string' ? raw.trim() : '';
-  if (s === 'end_product') return 'component';
-  if (TECH_NODE_TYPES.has(s)) return s;
-  return 'material';
 }
 
 export function normalizeEra(raw) {
@@ -200,7 +185,6 @@ export function mergeUpdatedNodeFields(existing, claudePatch, force) {
     'description',
     'description_en',
     'category',
-    'type',
     'era',
     'year_approx',
     'origin',
@@ -281,9 +265,6 @@ export function enrichItemToClaudePatch(item) {
   if (Object.prototype.hasOwnProperty.call(item, 'category')) {
     patch.category = normalizeCategory(item.category ?? '');
   }
-  if (Object.prototype.hasOwnProperty.call(item, 'type')) {
-    patch.type = normalizeTechNodeType(item.type ?? '');
-  }
   if (Object.prototype.hasOwnProperty.call(item, 'era')) {
     patch.era = normalizeEra(item.era ?? '');
   }
@@ -317,7 +298,6 @@ export function nodeNeedsEnrichment(node) {
   if (isEmptyForMerge(node.description)) return true;
   if (isEmptyForMerge(node.description_en)) return true;
   if (isEmptyForMerge(node.category)) return true;
-  if (isEmptyForMerge(node.type)) return true;
   if (isEmptyForMerge(node.era)) return true;
   if (node.year_approx == null || node.year_approx === '') return true;
   if (isEmptyForMerge(node.origin)) return true;
@@ -337,7 +317,6 @@ export function formatNodeWithMissingFields(n) {
   const lines = [
     `Nom : ${n.name} (id: ${n.id})`,
     line('category', n.category, !isEmptyForMerge(n.category)),
-    line('type', n.type, !isEmptyForMerge(n.type)),
     line('dimension', n.dimension, !isEmptyForMerge(n.dimension)),
     line(
       'materialLevel',

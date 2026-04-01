@@ -58,7 +58,6 @@ export function mapSeedNodeToSupabaseRow(node) {
     description: node.description || null,
     description_en: node.description_en || null,
     category: node.category,
-    type: node.type,
     era: node.era || null,
     year_approx: node.year_approx ?? null,
     origin: node.origin || null,

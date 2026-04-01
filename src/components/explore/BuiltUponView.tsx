@@ -161,6 +161,78 @@ function ScrollRevealCard({
   );
 }
 
+type TreeSectionKey =
+  | 'ledTools'
+  | 'ledProcess'
+  | 'ledMatters'
+  | 'builtMatters'
+  | 'builtProcess'
+  | 'builtTools';
+
+function TreeDimensionSectionHeader({
+  title,
+  count,
+  expanded,
+  onToggle,
+  stickyClassName,
+  sectionId,
+}: {
+  title: string;
+  count: number;
+  expanded: boolean;
+  onToggle: () => void;
+  stickyClassName: string;
+  sectionId: string;
+}) {
+  const t = useTranslations('explore');
+  const controlsId = `${sectionId}-content`;
+  return (
+    <div className={stickyClassName}>
+      <div className="relative flex min-h-[2.5rem] items-center">
+        <div className="w-9 shrink-0" aria-hidden />
+        <div className="flex min-w-0 flex-1 flex-wrap items-center justify-center gap-2 px-1">
+          <span className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
+            {title}
+          </span>
+          <span
+            className="shrink-0 rounded-md bg-muted/40 px-2 py-0.5 text-xs font-semibold tabular-nums text-foreground/90"
+            title={t('treeSectionCardCountAria', { count })}
+          >
+            {count}
+          </span>
+        </div>
+        <div className="flex w-9 shrink-0 justify-end">
+          <button
+            type="button"
+            id={`${sectionId}-toggle`}
+            onClick={onToggle}
+            aria-expanded={expanded}
+            aria-controls={controlsId}
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-border/60 bg-surface/80 text-muted-foreground transition-colors hover:bg-muted/30 hover:text-foreground"
+            title={expanded ? t('treeSectionCollapse') : t('treeSectionExpand')}
+          >
+            <span className="sr-only">
+              {expanded ? t('treeSectionCollapse') : t('treeSectionExpand')}
+            </span>
+            <svg
+              className={`h-4 w-4 transition-transform ${expanded ? '' : '-rotate-90'}`}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function BuiltUponViewInner({
   focusId,
   focusNode,
@@ -226,6 +298,39 @@ function BuiltUponViewInner({
     () => totalDownstreamCardCount(focusId, edges),
     [focusId, edges]
   );
+
+  const [treeSectionsOpen, setTreeSectionsOpen] = useState<
+    Record<TreeSectionKey, boolean>
+  >({
+    ledTools: true,
+    ledProcess: true,
+    ledMatters: true,
+    builtMatters: true,
+    builtProcess: true,
+    builtTools: true,
+  });
+
+  const ledMattersTotal = useMemo(
+    () =>
+      MATERIAL_COLUMNS.reduce(
+        (acc, c) => acc + bucketsLed.matters[c].length,
+        0
+      ),
+    [bucketsLed]
+  );
+
+  const builtMattersTotal = useMemo(
+    () =>
+      MATERIAL_COLUMNS.reduce(
+        (acc, c) => acc + bucketsBuilt.matters[c].length,
+        0
+      ),
+    [bucketsBuilt]
+  );
+
+  const toggleTreeSection = useCallback((key: TreeSectionKey) => {
+    setTreeSectionsOpen((s) => ({ ...s, [key]: !s[key] }));
+  }, []);
 
   const activeZone = useExploreActiveZone(exploreScrollRef, focusId);
   const reduceMotion = useReducedMotion();
@@ -382,93 +487,18 @@ function BuiltUponViewInner({
             >
               <div className="-mx-[60px] flex flex-col gap-6">
                 <div className="rounded-xl glass-card p-4">
-                  <div className={STICKY_SECTION_BELOW_TREE_NAV}>
-                    <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
-                      {t('builtUponTools')}
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
-                    {bucketsLed.tools.map((n) => (
-                      <ScrollRevealCard
-                        key={n.id}
-                        scrollRootRef={exploreScrollRef}
-                      >
-                        <InventionCard
-                          node={n}
-                          variant="compact"
-                          layoutId={cardLayoutId(n.id)}
-                          imageBust={imageBustByNodeId[n.id] ?? 0}
-                          exploreInteractive
-                          href={treeInventionPath(n.id)}
-                          onClick={() => selectNode(n.id, { center: false })}
-                        />
-                      </ScrollRevealCard>
-                    ))}
-                    {bucketsLed.tools.length === 0 ? (
-                      <p className="col-span-2 text-sm text-muted-foreground sm:col-span-4 lg:col-span-8">
-                        {t('builtUponEmpty')}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-
-                <div className="rounded-xl glass-card p-4">
-                  <div className={STICKY_SECTION_BELOW_TREE_NAV}>
-                    <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
-                      {t('builtUponProcess')}
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
-                    {bucketsLed.process.map((n) => (
-                      <ScrollRevealCard
-                        key={n.id}
-                        scrollRootRef={exploreScrollRef}
-                      >
-                        <InventionCard
-                          node={n}
-                          variant="compact"
-                          layoutId={cardLayoutId(n.id)}
-                          imageBust={imageBustByNodeId[n.id] ?? 0}
-                          exploreInteractive
-                          href={treeInventionPath(n.id)}
-                          onClick={() => selectNode(n.id, { center: false })}
-                        />
-                      </ScrollRevealCard>
-                    ))}
-                    {bucketsLed.process.length === 0 ? (
-                      <p className="col-span-2 text-sm text-muted-foreground sm:col-span-4 lg:col-span-8">
-                        {t('builtUponEmpty')}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-
-                <div
-                  id={LED_TO_MATTERS_END_ID}
-                  className="rounded-xl glass-card p-4 pt-0 shadow-inner"
-                >
-                  <div className={STICKY_SECTION_BELOW_TREE_NAV_MATTERS_TOP}>
-                    <div className="mb-[10px] text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
-                      {t('builtUponMatters')}
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 rounded-lg border border-border bg-surface px-2 py-2.5 lg:grid-cols-4">
-                      {MATERIAL_COLUMNS.map((col) => (
-                        <div
-                          key={col}
-                          className="text-center text-[10px] font-semibold uppercase tracking-wide text-muted-foreground sm:text-xs"
-                        >
-                          {t(`builtUponLevel_${col}`)}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-start">
-                    {MATERIAL_COLUMNS.map((col) => (
-                      <div
-                        key={col}
-                        className="grid grid-cols-2 gap-3 [align-content:start]"
-                      >
-                        {bucketsLed.matters[col].map((n) => (
+                  <TreeDimensionSectionHeader
+                    title={t('builtUponTools')}
+                    count={bucketsLed.tools.length}
+                    expanded={treeSectionsOpen.ledTools}
+                    onToggle={() => toggleTreeSection('ledTools')}
+                    stickyClassName={STICKY_SECTION_BELOW_TREE_NAV}
+                    sectionId="explore-led-tools"
+                  />
+                  {treeSectionsOpen.ledTools ? (
+                    <div id="explore-led-tools-content">
+                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+                        {bucketsLed.tools.map((n) => (
                           <ScrollRevealCard
                             key={n.id}
                             scrollRootRef={exploreScrollRef}
@@ -484,15 +514,123 @@ function BuiltUponViewInner({
                             />
                           </ScrollRevealCard>
                         ))}
+                        {bucketsLed.tools.length === 0 ? (
+                          <p className="col-span-2 text-sm text-muted-foreground sm:col-span-4 lg:col-span-8">
+                            {t('builtUponEmpty')}
+                          </p>
+                        ) : null}
                       </div>
-                    ))}
-                  </div>
-                  {MATERIAL_COLUMNS.every(
-                    (c) => bucketsLed.matters[c].length === 0
-                  ) ? (
-                    <p className="py-2 text-sm text-muted-foreground">
-                      {t('ledToNoMatters')}
-                    </p>
+                    </div>
+                  ) : null}
+                </div>
+
+                <div className="rounded-xl glass-card p-4">
+                  <TreeDimensionSectionHeader
+                    title={t('builtUponProcess')}
+                    count={bucketsLed.process.length}
+                    expanded={treeSectionsOpen.ledProcess}
+                    onToggle={() => toggleTreeSection('ledProcess')}
+                    stickyClassName={STICKY_SECTION_BELOW_TREE_NAV}
+                    sectionId="explore-led-process"
+                  />
+                  {treeSectionsOpen.ledProcess ? (
+                    <div id="explore-led-process-content">
+                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+                        {bucketsLed.process.map((n) => (
+                          <ScrollRevealCard
+                            key={n.id}
+                            scrollRootRef={exploreScrollRef}
+                          >
+                            <InventionCard
+                              node={n}
+                              variant="compact"
+                              layoutId={cardLayoutId(n.id)}
+                              imageBust={imageBustByNodeId[n.id] ?? 0}
+                              exploreInteractive
+                              href={treeInventionPath(n.id)}
+                              onClick={() => selectNode(n.id, { center: false })}
+                            />
+                          </ScrollRevealCard>
+                        ))}
+                        {bucketsLed.process.length === 0 ? (
+                          <p className="col-span-2 text-sm text-muted-foreground sm:col-span-4 lg:col-span-8">
+                            {t('builtUponEmpty')}
+                          </p>
+                        ) : null}
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+
+                <div
+                  id={LED_TO_MATTERS_END_ID}
+                  className="rounded-xl glass-card p-4 pt-0 shadow-inner"
+                >
+                  <TreeDimensionSectionHeader
+                    title={t('builtUponMatters')}
+                    count={ledMattersTotal}
+                    expanded={treeSectionsOpen.ledMatters}
+                    onToggle={() => toggleTreeSection('ledMatters')}
+                    stickyClassName={STICKY_SECTION_BELOW_TREE_NAV_MATTERS_TOP}
+                    sectionId="explore-led-matters"
+                  />
+                  {treeSectionsOpen.ledMatters ? (
+                    <div id="explore-led-matters-content">
+                      <div className="mb-[10px] grid grid-cols-2 gap-2 rounded-lg border border-border bg-surface px-2 py-2.5 lg:grid-cols-4">
+                        {MATERIAL_COLUMNS.map((col) => (
+                          <div
+                            key={col}
+                            className="flex flex-col items-center justify-center gap-1 sm:flex-row sm:gap-2"
+                          >
+                            <span className="text-center text-[10px] font-semibold uppercase tracking-wide text-muted-foreground sm:text-xs">
+                              {t(`builtUponLevel_${col}`)}
+                            </span>
+                            <span
+                              className="shrink-0 rounded-md bg-muted/40 px-1.5 py-0.5 text-[10px] font-semibold tabular-nums text-foreground/90 sm:text-xs"
+                              title={t('treeSectionCardCountAria', {
+                                count: bucketsLed.matters[col].length,
+                              })}
+                            >
+                              {bucketsLed.matters[col].length}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-start">
+                        {MATERIAL_COLUMNS.map((col) => (
+                          <div
+                            key={col}
+                            className="grid grid-cols-2 gap-3 [align-content:start]"
+                          >
+                            {bucketsLed.matters[col].map((n) => (
+                              <ScrollRevealCard
+                                key={n.id}
+                                scrollRootRef={exploreScrollRef}
+                              >
+                                <InventionCard
+                                  node={n}
+                                  variant="compact"
+                                  layoutId={cardLayoutId(n.id)}
+                                  imageBust={imageBustByNodeId[n.id] ?? 0}
+                                  exploreInteractive
+                                  href={treeInventionPath(n.id)}
+                                  onClick={() =>
+                                    selectNode(n.id, { center: false })
+                                  }
+                                />
+                              </ScrollRevealCard>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                      {MATERIAL_COLUMNS.every(
+                        (c) => bucketsLed.matters[c].length === 0
+                      ) ? (
+                        <p className="py-2 text-sm text-muted-foreground">
+                          {t('ledToNoMatters')}
+                        </p>
+                      ) : null}
+                    </div>
                   ) : null}
                 </div>
               </div>
@@ -542,28 +680,87 @@ function BuiltUponViewInner({
 
               <div className="-mx-[60px] flex flex-col gap-8">
                 <div className="rounded-xl glass-card p-4 shadow-inner">
-                  <div className={STICKY_SECTION_BELOW_TREE_NAV_MATTERS_TOP}>
-                    <div className="mb-[10px] text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
-                      {t('builtUponMatters')}
+                  <TreeDimensionSectionHeader
+                    title={t('builtUponMatters')}
+                    count={builtMattersTotal}
+                    expanded={treeSectionsOpen.builtMatters}
+                    onToggle={() => toggleTreeSection('builtMatters')}
+                    stickyClassName={STICKY_SECTION_BELOW_TREE_NAV_MATTERS_TOP}
+                    sectionId="explore-built-matters"
+                  />
+                  {treeSectionsOpen.builtMatters ? (
+                    <div id="explore-built-matters-content">
+                      <div className="mb-[10px] grid grid-cols-2 gap-2 rounded-lg border border-border bg-surface px-2 py-2.5 lg:grid-cols-4">
+                        {MATERIAL_COLUMNS.map((col) => (
+                          <div
+                            key={col}
+                            className="flex flex-col items-center justify-center gap-1 sm:flex-row sm:gap-2"
+                          >
+                            <span className="text-center text-[10px] font-semibold uppercase tracking-wide text-muted-foreground sm:text-xs">
+                              {t(`builtUponLevel_${col}`)}
+                            </span>
+                            <span
+                              className="shrink-0 rounded-md bg-muted/40 px-1.5 py-0.5 text-[10px] font-semibold tabular-nums text-foreground/90 sm:text-xs"
+                              title={t('treeSectionCardCountAria', {
+                                count: bucketsBuilt.matters[col].length,
+                              })}
+                            >
+                              {bucketsBuilt.matters[col].length}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-start">
+                        {MATERIAL_COLUMNS.map((col) => (
+                          <div
+                            key={col}
+                            className="grid grid-cols-2 gap-3 [align-content:start]"
+                          >
+                            {bucketsBuilt.matters[col].map((n) => (
+                              <ScrollRevealCard
+                                key={n.id}
+                                scrollRootRef={exploreScrollRef}
+                              >
+                                <InventionCard
+                                  node={n}
+                                  variant="compact"
+                                  layoutId={cardLayoutId(n.id)}
+                                  imageBust={imageBustByNodeId[n.id] ?? 0}
+                                  exploreInteractive
+                                  href={treeInventionPath(n.id)}
+                                  onClick={() =>
+                                    selectNode(n.id, { center: false })
+                                  }
+                                />
+                              </ScrollRevealCard>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                      {MATERIAL_COLUMNS.every(
+                        (c) => bucketsBuilt.matters[c].length === 0
+                      ) ? (
+                        <p className="py-2 text-sm text-muted-foreground">
+                          {t('builtUponNoMatters')}
+                        </p>
+                      ) : null}
                     </div>
-                    <div className="grid grid-cols-2 gap-2 rounded-lg border border-border bg-surface px-2 py-2.5 lg:grid-cols-4">
-                      {MATERIAL_COLUMNS.map((col) => (
-                        <div
-                          key={col}
-                          className="text-center text-[10px] font-semibold uppercase tracking-wide text-muted-foreground sm:text-xs"
-                        >
-                          {t(`builtUponLevel_${col}`)}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-start">
-                    {MATERIAL_COLUMNS.map((col) => (
-                      <div
-                        key={col}
-                        className="grid grid-cols-2 gap-3 [align-content:start]"
-                      >
-                        {bucketsBuilt.matters[col].map((n) => (
+                  ) : null}
+                </div>
+
+                <div className="rounded-xl glass-card p-4">
+                  <TreeDimensionSectionHeader
+                    title={t('builtUponProcess')}
+                    count={bucketsBuilt.process.length}
+                    expanded={treeSectionsOpen.builtProcess}
+                    onToggle={() => toggleTreeSection('builtProcess')}
+                    stickyClassName={STICKY_SECTION_BELOW_TREE_NAV}
+                    sectionId="explore-built-process"
+                  />
+                  {treeSectionsOpen.builtProcess ? (
+                    <div id="explore-built-process-content">
+                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+                        {bucketsBuilt.process.map((n) => (
                           <ScrollRevealCard
                             key={n.id}
                             scrollRootRef={exploreScrollRef}
@@ -575,82 +772,60 @@ function BuiltUponViewInner({
                               imageBust={imageBustByNodeId[n.id] ?? 0}
                               exploreInteractive
                               href={treeInventionPath(n.id)}
-                              onClick={() => selectNode(n.id, { center: false })}
+                              onClick={() =>
+                                selectNode(n.id, { center: false })
+                              }
                             />
                           </ScrollRevealCard>
                         ))}
+                        {bucketsBuilt.process.length === 0 ? (
+                          <p className="col-span-2 text-sm text-muted-foreground sm:col-span-4 lg:col-span-8">
+                            {t('builtUponEmpty')}
+                          </p>
+                        ) : null}
                       </div>
-                    ))}
-                  </div>
-                  {MATERIAL_COLUMNS.every(
-                    (c) => bucketsBuilt.matters[c].length === 0
-                  ) ? (
-                    <p className="py-2 text-sm text-muted-foreground">
-                      {t('builtUponNoMatters')}
-                    </p>
+                    </div>
                   ) : null}
                 </div>
 
                 <div className="rounded-xl glass-card p-4">
-                  <div className={STICKY_SECTION_BELOW_TREE_NAV}>
-                    <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
-                      {t('builtUponProcess')}
+                  <TreeDimensionSectionHeader
+                    title={t('builtUponTools')}
+                    count={bucketsBuilt.tools.length}
+                    expanded={treeSectionsOpen.builtTools}
+                    onToggle={() => toggleTreeSection('builtTools')}
+                    stickyClassName={STICKY_SECTION_BELOW_TREE_NAV}
+                    sectionId="explore-built-tools"
+                  />
+                  {treeSectionsOpen.builtTools ? (
+                    <div id="explore-built-tools-content">
+                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+                        {bucketsBuilt.tools.map((n) => (
+                          <ScrollRevealCard
+                            key={n.id}
+                            scrollRootRef={exploreScrollRef}
+                          >
+                            <InventionCard
+                              node={n}
+                              variant="compact"
+                              layoutId={cardLayoutId(n.id)}
+                              imageBust={imageBustByNodeId[n.id] ?? 0}
+                              exploreInteractive
+                              href={treeInventionPath(n.id)}
+                              onClick={() =>
+                                selectNode(n.id, { center: false })
+                              }
+                            />
+                          </ScrollRevealCard>
+                        ))}
+                        {bucketsBuilt.tools.length === 0 ? (
+                          <p className="col-span-2 text-sm text-muted-foreground sm:col-span-4 lg:col-span-8">
+                            {t('builtUponEmpty')}
+                          </p>
+                        ) : null}
+                      </div>
                     </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
-                    {bucketsBuilt.process.map((n) => (
-                      <ScrollRevealCard
-                        key={n.id}
-                        scrollRootRef={exploreScrollRef}
-                      >
-                        <InventionCard
-                          node={n}
-                          variant="compact"
-                          layoutId={cardLayoutId(n.id)}
-                          imageBust={imageBustByNodeId[n.id] ?? 0}
-                          exploreInteractive
-                          href={treeInventionPath(n.id)}
-                          onClick={() => selectNode(n.id, { center: false })}
-                        />
-                      </ScrollRevealCard>
-                    ))}
-                    {bucketsBuilt.process.length === 0 ? (
-                      <p className="col-span-2 text-sm text-muted-foreground sm:col-span-4 lg:col-span-8">
-                        {t('builtUponEmpty')}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-
-                <div className="rounded-xl glass-card p-4">
-                  <div className={STICKY_SECTION_BELOW_TREE_NAV}>
-                    <div className="text-center text-sm font-bold uppercase tracking-widest text-muted-foreground">
-                      {t('builtUponTools')}
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
-                    {bucketsBuilt.tools.map((n) => (
-                      <ScrollRevealCard
-                        key={n.id}
-                        scrollRootRef={exploreScrollRef}
-                      >
-                        <InventionCard
-                          node={n}
-                          variant="compact"
-                          layoutId={cardLayoutId(n.id)}
-                          imageBust={imageBustByNodeId[n.id] ?? 0}
-                          exploreInteractive
-                          href={treeInventionPath(n.id)}
-                          onClick={() => selectNode(n.id, { center: false })}
-                        />
-                      </ScrollRevealCard>
-                    ))}
-                    {bucketsBuilt.tools.length === 0 ? (
-                      <p className="col-span-2 text-sm text-muted-foreground sm:col-span-4 lg:col-span-8">
-                        {t('builtUponEmpty')}
-                      </p>
-                    ) : null}
-                  </div>
+                  ) : null}
                 </div>
               </div>
             </section>

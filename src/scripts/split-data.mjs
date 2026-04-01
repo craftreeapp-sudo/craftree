@@ -25,7 +25,6 @@ for (const n of data.nodes) {
     id: n.id,
     name: n.name,
     category: n.category,
-    type: n.type,
     era: n.era,
     year_approx: n.year_approx ?? null,
     image_url: n.image_url ?? undefined,

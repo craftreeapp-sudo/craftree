@@ -302,6 +302,9 @@
     "levelComponent": "Component",
     "noLinks": "बिना कड़ी",
     "name": "नाम",
+    "nameEn": "नाम (अंग्रेज़ी)",
+    "descriptionEn": "विवरण (अंग्रेज़ी)",
+    "wikipediaUrl": "विकिपीडिया URL",
     "category": "श्रेणी",
     "type": "प्रकार",
     "era": "युग",
@@ -424,18 +427,11 @@
   "filters": {
     "categories": "श्रेणियाँ",
     "eras": "युग",
-    "types": "प्रकार",
+    "dimensions": "आयाम",
+    "materialLevels": "सामग्री स्तर",
     "closeFilters": "फ़िल्टर बंद करें",
     "showMore": "सभी दिखाएँ",
     "showLess": "कम दिखाएँ"
-  },
-  "types": {
-    "raw_material": "कच्चा माल",
-    "process": "प्रक्रिया",
-    "tool": "उपकरण",
-    "component": "घटक",
-    "end_product": "अंतिम उत्पाद",
-    "material": "सामग्री"
   },
   "relationTypes": {
     "material": "सामग्री",
@@ -446,7 +442,7 @@
   },
   "connectionPopup": {
     "createHeading": "बनाएँ : {name}",
-    "pickHint": "केंद्रीय आविष्कार की ओर श्रेणी, प्रकार और लिंक प्रकार चुनें।",
+    "pickHint": "श्रेणी, आयाम और ज़रूरत हो तो सामग्री स्तर चुनें, फिर केंद्रीय आविष्कार की ओर लिंक प्रकार।",
     "yearPlaceholder": "उदा.: 1939 या −3000",
     "choose": "— चुनें —",
     "creating": "बन रहा है…",

@@ -12,7 +12,6 @@ import {
   cleanDescription,
   normalizeYearApprox,
   normalizeCategory,
-  normalizeTechNodeType,
   normalizeEra,
   normalizeOriginNatureTypes,
   normalizeDimensionMaterialLevel,
@@ -112,10 +111,6 @@ Test : est-ce qu'on le MESURE (kg, litres) ou est-ce qu'on le COMPTE (unités) ?
 ### CATEGORY (une seule valeur parmi) :
 energy, construction, weapon, network, food, transport, software, infrastructure, textile, communication, agriculture, robotics, chemistry, electronics, environment, automation, medical, optical, storage, aeronautics, space, industry, nanotechnology, biotechnology, security, home_automation
 
-### TYPE :
-raw_material, material, process, tool, component
-(NE JAMAIS utiliser "end_product")
-
 ### ERA :
 prehistoric (avant -3000), ancient (-3000 à 500), medieval (500 à 1500), renaissance (1500 à 1750), industrial (1750 à 1900), modern (1900 à 1970), digital (1970 à 2010), contemporary (2010+)
 
@@ -142,7 +137,7 @@ ${existingList}
 Inventions à créer :
 ${lines.join('\n')}
 
-Réponds UNIQUEMENT avec un JSON array, rien d'autre. Chaque élément doit inclure au minimum : "name", "name_en", "dimension", "materialLevel", "origin_type", "nature_type", "category", "type", "era", "year_approx", "origin", "description", "description_en", "wikipedia_url", "tags", "built_upon", "led_to". Utilise l'id attendu quand il est indiqué.`;
+Réponds UNIQUEMENT avec un JSON array, rien d'autre. Chaque élément doit inclure au minimum : "name", "name_en", "dimension", "materialLevel", "origin_type", "nature_type", "category", "era", "year_approx", "origin", "description", "description_en", "wikipedia_url", "tags", "built_upon", "led_to". Utilise l'id attendu quand il est indiqué.`;
 }
 
 function parseJsonArray(text) {
@@ -185,7 +180,6 @@ function nodeFromAiItem(item, preferredId) {
     description: cleanDescription(item.description ?? ''),
     description_en: cleanDescription(item.description_en ?? ''),
     category: normalizeCategory(item.category ?? ''),
-    type: normalizeTechNodeType(item.type ?? ''),
     era: normalizeEra(item.era ?? '') || 'contemporary',
     year_approx: normalizeYearApprox(item.year_approx),
     origin: item.origin ? String(item.origin).trim() || null : null,

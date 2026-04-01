@@ -317,9 +317,11 @@ export async function applyApprovedSuggestion(
       d = {
         node: { ...d.node, ...(o.node ?? {}) },
         link:
-          o.link !== undefined
-            ? { ...(d.link ?? {}), ...o.link }
-            : d.link,
+          o.links !== undefined
+            ? undefined
+            : o.link !== undefined
+              ? { ...(d.link ?? {}), ...o.link }
+              : d.link,
         links: o.links !== undefined ? o.links : d.links,
       };
     }
@@ -404,6 +406,12 @@ export async function applyApprovedSuggestion(
           ? ntRaw
           : null;
 
+    /** Colonne legacy `nodes.type` (NOT NULL en base) — non confondre avec origin_type / nature_type. */
+    const nodeTypeLegacy =
+      typeof d.node.type === 'string' && d.node.type.trim()
+        ? d.node.type.trim()
+        : String(d.node.category);
+
     const insertRow = {
       id: nodeId,
       name: d.node.name,
@@ -411,6 +419,7 @@ export async function applyApprovedSuggestion(
       description: d.node.description ?? '',
       description_en: descEn || null,
       category: d.node.category,
+      type: nodeTypeLegacy,
       era: d.node.era,
       year_approx: d.node.year_approx ?? null,
       origin: d.node.origin ?? null,

@@ -20,7 +20,6 @@ export const EDIT_NODE_FULL_KEYS = [
   'description',
   'description_en',
   'category',
-  'type',
   'era',
   'year_approx',
   'origin',
@@ -65,6 +64,34 @@ export function stripLinkEditsFromPayload(o: Record<string, unknown>) {
   const rest = { ...o };
   delete rest.linkEdits;
   return rest;
+}
+
+/** Texte libre laissé par le contributeur (correction, ajout de carte, etc.). Retours anonymes : `data.message`. */
+export function getContributorFacingMessageFromSuggestion(
+  row: Pick<SuggestionRow, 'suggestion_type' | 'data'>
+): string | null {
+  const data = row.data;
+  if (!data || typeof data !== 'object') return null;
+  const d = data as Record<string, unknown>;
+  if (row.suggestion_type === 'anonymous_feedback') {
+    const msg = d.message;
+    return typeof msg === 'string' && msg.trim() ? msg.trim() : null;
+  }
+  const m = d.contributorMessage;
+  if (typeof m === 'string' && m.trim()) return m.trim();
+  return null;
+}
+
+/** E-mail de contact optionnel (suggestion anonyme / non connecté). */
+export function getContributorContactHintFromSuggestion(
+  row: Pick<SuggestionRow, 'data'>
+): string | null {
+  const data = row.data;
+  if (!data || typeof data !== 'object') return null;
+  const d = data as Record<string, unknown>;
+  const c = d.contactEmail ?? d.email;
+  if (typeof c === 'string' && c.includes('@')) return c.trim().slice(0, 320);
+  return null;
 }
 
 export function formatLinkSnapLine(

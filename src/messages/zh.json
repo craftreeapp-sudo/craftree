@@ -302,6 +302,9 @@
     "levelComponent": "Component",
     "noLinks": "无链接",
     "name": "名称",
+    "nameEn": "名称（英文）",
+    "descriptionEn": "描述（英文）",
+    "wikipediaUrl": "维基百科链接",
     "category": "分类",
     "type": "类型",
     "era": "时代",
@@ -424,18 +427,11 @@
   "filters": {
     "categories": "分类",
     "eras": "时代",
-    "types": "类型",
+    "dimensions": "维度",
+    "materialLevels": "材料层级",
     "closeFilters": "关闭筛选",
     "showMore": "显示全部",
     "showLess": "收起"
-  },
-  "types": {
-    "raw_material": "原材料",
-    "process": "工艺",
-    "tool": "工具",
-    "component": "组件",
-    "end_product": "最终产品",
-    "material": "材料"
   },
   "relationTypes": {
     "material": "材料",
@@ -446,7 +442,7 @@
   },
   "connectionPopup": {
     "createHeading": "创建：{name}",
-    "pickHint": "请选择分类、类型以及指向中心发明的链接类型。",
+    "pickHint": "请选择分类、维度及（如适用）材料层级，再选择指向中心发明的链接类型。",
     "yearPlaceholder": "例：1939 或 −3000",
     "choose": "— 请选择 —",
     "creating": "创建中…",

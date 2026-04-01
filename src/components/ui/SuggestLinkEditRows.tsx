@@ -2,7 +2,12 @@
 
 import { useId, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import type { RelationType, NodeCategory, TechNodeBasic, TechNodeDetails } from '@/lib/types';
+import type {
+  RelationType,
+  NodeCategory,
+  TechNodeBasic,
+  TechNodeDetails,
+} from '@/lib/types';
 import type { SuggestLinkSnapshot } from '@/lib/suggestion-link-snapshot';
 import { getCategoryColor } from '@/lib/colors';
 import { matchesSearchTokens } from '@/lib/suggest-peer-search';

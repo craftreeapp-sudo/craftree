@@ -7,46 +7,36 @@ import { useNodeDetailsStore } from '@/stores/node-details-store';
 import { SuggestLinkSection } from '@/components/ui/SuggestLinkEditRows';
 import { buildPeerSearchBlobMap } from '@/lib/suggest-peer-search';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
-import {
-  ADMIN_DRAFT_PROPOSED_ADD,
-  ADMIN_DRAFT_REMOVED_IDS,
-  type LinkSnap,
-  VALID_RELATIONS,
-} from '@/lib/admin-suggestion-shared';
+import { slugify } from '@/lib/utils';
+import { VALID_RELATIONS } from '@/lib/admin-suggestion-shared';
 import type { SuggestLinkSnapshot } from '@/lib/suggestion-link-snapshot';
 import { NodeCategory, RelationType } from '@/lib/types';
 
-type LinkCtx = {
-  peerName: string;
-  section: 'ledTo' | 'builtUpon';
-  peerId?: string;
+type LinkEdge = {
+  source_id: string;
+  target_id: string;
+  relation_type: string;
 };
 
 type Props = {
-  currentNodeId: string;
+  /** Slug de la future carte (source/target dans `links`). */
+  placeholderNodeId: string;
   draft: Record<string, unknown>;
-  draftAdds: Record<string, unknown>[];
   onEditDraftChange: (d: Record<string, unknown>) => void;
-  /** Noms affichables quand le pair n’est pas encore dans le store graphe. */
   nodeNames: Record<string, string>;
-  linkContext: Record<string, LinkCtx>;
-  origLinkEdits: Record<string, LinkSnap>;
 };
 
-function adminAddLinkIndex(linkId: string): number | null {
-  const m = /^admin-add-(\d+)$/.exec(linkId);
+function linkIndexFromId(linkId: string): number | null {
+  const m = /^newnode-link-(\d+)$/.exec(linkId);
   if (!m) return null;
   return Number(m[1]);
 }
 
-export function AdminEditNodeAddLinkSearches({
-  currentNodeId,
+export function AdminNewNodeLinkSearches({
+  placeholderNodeId,
   draft,
-  draftAdds,
   onEditDraftChange,
   nodeNames,
-  linkContext,
-  origLinkEdits,
 }: Props) {
   const locale = useLocale();
   const tEditor = useTranslations('editor');
@@ -56,7 +46,6 @@ export function AdminEditNodeAddLinkSearches({
   const refreshData = useGraphStore((s) => s.refreshData);
   const detailsById = useNodeDetailsStore((s) => s.byId);
 
-  /** Même logique que la modal « Ajouter une carte » : sans nœuds, la recherche est vide. */
   useEffect(() => {
     if (useGraphStore.getState().nodes.length === 0) {
       void refreshData();
@@ -70,41 +59,78 @@ export function AdminEditNodeAddLinkSearches({
   const [ledToOpen, setLedToOpen] = useState(true);
   const [builtUponOpen, setBuiltUponOpen] = useState(true);
 
-  const draftRemoved = useMemo(() => {
-    const raw = draft[ADMIN_DRAFT_REMOVED_IDS];
-    return Array.isArray(raw) ? raw.map((x) => String(x)) : [];
-  }, [draft]);
+  const draftLinks = useMemo(() => {
+    const raw = draft.links;
+    if (!Array.isArray(raw)) return [] as LinkEdge[];
+    const out: LinkEdge[] = [];
+    for (const x of raw) {
+      if (!x || typeof x !== 'object') continue;
+      const o = x as Record<string, unknown>;
+      const s = String(o.source_id ?? '').trim();
+      const t = String(o.target_id ?? '').trim();
+      const r = String(o.relation_type ?? RelationType.MATERIAL);
+      if (!s || !t) continue;
+      if (!VALID_RELATIONS.has(r)) continue;
+      out.push({ source_id: s, target_id: t, relation_type: r });
+    }
+    return out;
+  }, [draft.links]);
+
+  const n = draft.node as Record<string, unknown> | undefined;
+  const phForEdges = useMemo(() => {
+    const fromProp = placeholderNodeId.trim();
+    const pid =
+      typeof n?.proposed_id === 'string' ? n.proposed_id.trim() : '';
+    const name = typeof n?.name === 'string' ? n.name.trim() : '';
+    return fromProp || pid || (name ? slugify(name) : '') || 'node';
+  }, [placeholderNodeId, n?.proposed_id, n?.name]);
+
+  /** Slugs possibles pour la carte (formulaire + données d’origine + extrémités non résolues dans le graphe). */
+  const phSet = useMemo(() => {
+    const s = new Set<string>();
+    if (phForEdges) s.add(phForEdges);
+    if (placeholderNodeId.trim()) s.add(placeholderNodeId.trim());
+    const pid =
+      typeof n?.proposed_id === 'string' ? n.proposed_id.trim() : '';
+    if (pid) s.add(pid);
+    for (const L of draftLinks) {
+      const srcKnown = Boolean(nodeNames[L.source_id]);
+      const tgtKnown = Boolean(nodeNames[L.target_id]);
+      if (!srcKnown && tgtKnown) s.add(L.source_id);
+      if (srcKnown && !tgtKnown) s.add(L.target_id);
+    }
+    return s;
+  }, [phForEdges, placeholderNodeId, n?.proposed_id, draftLinks, nodeNames]);
 
   const hasEdge = useCallback(
     (source_id: string, target_id: string) =>
-      draftAdds.some(
-        (a) =>
-          String(a.source_id) === source_id &&
-          String(a.target_id) === target_id
+      draftLinks.some(
+        (a) => a.source_id === source_id && a.target_id === target_id
       ),
-    [draftAdds]
+    [draftLinks]
   );
 
   const appendLink = useCallback(
     (section: 'ledTo' | 'builtUpon', peerId: string) => {
-      if (!currentNodeId) return;
-      const source_id = section === 'ledTo' ? currentNodeId : peerId;
-      const target_id = section === 'ledTo' ? peerId : currentNodeId;
+      const ph = phForEdges;
+      if (!ph || !peerId) return;
+      const source_id = section === 'ledTo' ? ph : peerId;
+      const target_id = section === 'ledTo' ? peerId : ph;
       if (hasEdge(source_id, target_id)) return;
       onEditDraftChange({
         ...draft,
-        [ADMIN_DRAFT_PROPOSED_ADD]: [
-          ...draftAdds,
+        link: {},
+        links: [
+          ...draftLinks,
           {
             source_id,
             target_id,
             relation_type: RelationType.MATERIAL,
-            section,
           },
         ],
       });
     },
-    [currentNodeId, draft, draftAdds, hasEdge, onEditDraftChange]
+    [draft, draftLinks, hasEdge, onEditDraftChange, phForEdges]
   );
 
   type Row = {
@@ -113,47 +139,15 @@ export function AdminEditNodeAddLinkSearches({
     peerLabel: string;
     peerCategory: NodeCategory;
     value: SuggestLinkSnapshot;
-    variant: 'pendingAdd' | 'stagedRemoval';
+    variant: 'pendingAdd';
   };
 
   const ledToRows = useMemo(() => {
     const out: Row[] = [];
-    for (const linkId of draftRemoved) {
-      const ctx = linkContext[linkId];
-      if (!ctx || ctx.section !== 'ledTo') continue;
-      const snap = origLinkEdits[linkId];
-      if (!snap) continue;
-      const peerId =
-        typeof ctx.peerId === 'string' && ctx.peerId.trim()
-          ? ctx.peerId.trim()
-          : '';
-      const peer = peerId ? getNodeById(peerId) : undefined;
-      const peerLabel =
-        (ctx.peerName && ctx.peerName.trim()) ||
-        (peerId ? nodeNames[peerId] : '') ||
-        peerId ||
-        linkId;
-      const rel = (VALID_RELATIONS.has(snap.relation_type)
-        ? snap.relation_type
-        : RelationType.MATERIAL) as RelationType;
-      const value: SuggestLinkSnapshot = {
-        id: linkId,
-        relation_type: rel,
-        notes: snap.notes ?? '',
-        is_optional: Boolean(snap.is_optional),
-      };
-      out.push({
-        linkId,
-        peerId: peerId || linkId,
-        peerLabel,
-        peerCategory: (peer?.category ?? NodeCategory.ENERGY) as NodeCategory,
-        value,
-        variant: 'stagedRemoval',
-      });
-    }
-    for (let i = 0; i < draftAdds.length; i++) {
-      const add = draftAdds[i];
-      if (String(add.section ?? '') !== 'ledTo') continue;
+    for (let i = 0; i < draftLinks.length; i++) {
+      const add = draftLinks[i];
+      if (!phSet.has(add.source_id)) continue;
+      if (add.target_id === add.source_id) continue;
       const peerId = String(add.target_id ?? '').trim();
       if (!peerId) continue;
       const peer = getNodeById(peerId);
@@ -169,13 +163,13 @@ export function AdminEditNodeAddLinkSearches({
         ? relRaw
         : RelationType.MATERIAL) as RelationType;
       const value: SuggestLinkSnapshot = {
-        id: `admin-add-${i}`,
+        id: `newnode-link-${i}`,
         relation_type: rel,
         notes: '',
         is_optional: false,
       };
       out.push({
-        linkId: `admin-add-${i}`,
+        linkId: `newnode-link-${i}`,
         peerId,
         peerLabel,
         peerCategory: (peer?.category ?? NodeCategory.ENERGY) as NodeCategory,
@@ -184,55 +178,14 @@ export function AdminEditNodeAddLinkSearches({
       });
     }
     return out;
-  }, [
-    draftRemoved,
-    linkContext,
-    origLinkEdits,
-    draftAdds,
-    getNodeById,
-    locale,
-    detailsById,
-    nodeNames,
-  ]);
+  }, [draftLinks, phSet, getNodeById, locale, detailsById, nodeNames]);
 
   const builtUponRows = useMemo(() => {
     const out: Row[] = [];
-    for (const linkId of draftRemoved) {
-      const ctx = linkContext[linkId];
-      if (!ctx || ctx.section !== 'builtUpon') continue;
-      const snap = origLinkEdits[linkId];
-      if (!snap) continue;
-      const peerId =
-        typeof ctx.peerId === 'string' && ctx.peerId.trim()
-          ? ctx.peerId.trim()
-          : '';
-      const peer = peerId ? getNodeById(peerId) : undefined;
-      const peerLabel =
-        (ctx.peerName && ctx.peerName.trim()) ||
-        (peerId ? nodeNames[peerId] : '') ||
-        peerId ||
-        linkId;
-      const rel = (VALID_RELATIONS.has(snap.relation_type)
-        ? snap.relation_type
-        : RelationType.MATERIAL) as RelationType;
-      const value: SuggestLinkSnapshot = {
-        id: linkId,
-        relation_type: rel,
-        notes: snap.notes ?? '',
-        is_optional: Boolean(snap.is_optional),
-      };
-      out.push({
-        linkId,
-        peerId: peerId || linkId,
-        peerLabel,
-        peerCategory: (peer?.category ?? NodeCategory.ENERGY) as NodeCategory,
-        value,
-        variant: 'stagedRemoval',
-      });
-    }
-    for (let i = 0; i < draftAdds.length; i++) {
-      const add = draftAdds[i];
-      if (String(add.section ?? '') !== 'builtUpon') continue;
+    for (let i = 0; i < draftLinks.length; i++) {
+      const add = draftLinks[i];
+      if (!phSet.has(add.target_id)) continue;
+      if (add.target_id === add.source_id) continue;
       const peerId = String(add.source_id ?? '').trim();
       if (!peerId) continue;
       const peer = getNodeById(peerId);
@@ -248,13 +201,13 @@ export function AdminEditNodeAddLinkSearches({
         ? relRaw
         : RelationType.MATERIAL) as RelationType;
       const value: SuggestLinkSnapshot = {
-        id: `admin-add-${i}`,
+        id: `newnode-link-${i}`,
         relation_type: rel,
         notes: '',
         is_optional: false,
       };
       out.push({
-        linkId: `admin-add-${i}`,
+        linkId: `newnode-link-${i}`,
         peerId,
         peerLabel,
         peerCategory: (peer?.category ?? NodeCategory.ENERGY) as NodeCategory,
@@ -263,38 +216,20 @@ export function AdminEditNodeAddLinkSearches({
       });
     }
     return out;
-  }, [
-    draftRemoved,
-    linkContext,
-    origLinkEdits,
-    draftAdds,
-    getNodeById,
-    locale,
-    detailsById,
-    nodeNames,
-  ]);
+  }, [draftLinks, phSet, getNodeById, locale, detailsById, nodeNames]);
 
   const onRemove = useCallback(
     (linkId: string) => {
-      const idx = adminAddLinkIndex(linkId);
-      if (idx === null || idx < 0 || idx >= draftAdds.length) return;
-      const next = draftAdds.filter((_, j) => j !== idx);
+      const idx = linkIndexFromId(linkId);
+      if (idx === null || idx < 0 || idx >= draftLinks.length) return;
+      const next = draftLinks.filter((_, j) => j !== idx);
       onEditDraftChange({
         ...draft,
-        [ADMIN_DRAFT_PROPOSED_ADD]: next,
+        link: {},
+        links: next,
       });
     },
-    [draft, draftAdds, onEditDraftChange]
-  );
-
-  const onRestoreRemovedLink = useCallback(
-    (linkId: string) => {
-      onEditDraftChange({
-        ...draft,
-        [ADMIN_DRAFT_REMOVED_IDS]: draftRemoved.filter((id) => id !== linkId),
-      });
-    },
-    [draft, draftRemoved, onEditDraftChange]
+    [draft, draftLinks, onEditDraftChange]
   );
 
   return (
@@ -309,14 +244,13 @@ export function AdminEditNodeAddLinkSearches({
         open={ledToOpen}
         onToggleOpen={() => setLedToOpen((v) => !v)}
         emptyLabel={tExplore('noDownstream')}
-        currentNodeId={currentNodeId}
+        currentNodeId={phForEdges}
         locale={locale}
         graphNodes={graphNodes}
         peerSearchBlobMap={peerSearchBlobMap}
         detailsById={detailsById}
         existingRows={ledToRows}
         onRemove={onRemove}
-        onRestoreLink={onRestoreRemovedLink}
         onAddPeer={(peerId) => appendLink('ledTo', peerId)}
       />
       <SuggestLinkSection
@@ -326,14 +260,13 @@ export function AdminEditNodeAddLinkSearches({
         open={builtUponOpen}
         onToggleOpen={() => setBuiltUponOpen((v) => !v)}
         emptyLabel={tExplore('noUpstream')}
-        currentNodeId={currentNodeId}
+        currentNodeId={phForEdges}
         locale={locale}
         graphNodes={graphNodes}
         peerSearchBlobMap={peerSearchBlobMap}
         detailsById={detailsById}
         existingRows={builtUponRows}
         onRemove={onRemove}
-        onRestoreLink={onRestoreRemovedLink}
         onAddPeer={(peerId) => appendLink('builtUpon', peerId)}
       />
     </>

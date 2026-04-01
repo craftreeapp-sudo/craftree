@@ -80,10 +80,12 @@ function proposedIdFromForm(form: SuggestNodeFormState): string {
 
 function suggestFormToAdminBody(form: SuggestNodeFormState) {
   const tagsArr = tagsCsvToArray(form.tags);
+  const name = form.name.trim();
   return {
-    name: form.name.trim(),
-    name_en: form.name.trim(),
+    name,
+    name_en: form.name_en.trim() || name,
     description: form.description.trim(),
+    description_en: form.description_en.trim(),
     category: form.category,
     era: form.era,
     year_approx:
@@ -96,16 +98,24 @@ function suggestFormToAdminBody(form: SuggestNodeFormState) {
       form.naturalOrigin === '' ? null : form.naturalOrigin,
     chemicalNature:
       form.chemicalNature === '' ? null : form.chemicalNature,
+    dimension: form.dimension.trim() === '' ? null : form.dimension,
+    materialLevel:
+      form.dimension === 'matter' && form.materialLevel.trim() !== ''
+        ? form.materialLevel
+        : null,
+    wikipedia_url: form.wikipedia_url.trim() || undefined,
   };
 }
 
 function suggestFormToSuggestionNodePayload(form: SuggestNodeFormState) {
   const tags = tagsCsvToArray(form.tags);
   const pid = proposedIdFromForm(form);
+  const name = form.name.trim();
   return {
-    name: form.name.trim(),
-    name_en: form.name.trim(),
+    name,
+    name_en: form.name_en.trim() || name,
     description: form.description.trim(),
+    description_en: form.description_en.trim(),
     category: form.category,
     era: form.era,
     year_approx:
@@ -119,8 +129,13 @@ function suggestFormToSuggestionNodePayload(form: SuggestNodeFormState) {
       form.naturalOrigin === '' ? null : form.naturalOrigin,
     chemicalNature:
       form.chemicalNature === '' ? null : form.chemicalNature,
-    dimension: null as string | null,
-    materialLevel: null as string | null,
+    dimension:
+      form.dimension.trim() === '' ? null : form.dimension,
+    materialLevel:
+      form.dimension === 'matter' && form.materialLevel.trim() !== ''
+        ? form.materialLevel
+        : null,
+    wikipedia_url: form.wikipedia_url.trim() || null,
   };
 }
 
