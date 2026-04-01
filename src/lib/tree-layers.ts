@@ -1,3 +1,4 @@
+import { isRawMaterialNode } from '@/lib/node-dimension-helpers';
 import type { TechNodeBasic } from './types';
 
 /**
@@ -9,7 +10,7 @@ export function getTreeLayerDisplayIndex(depth: number): number {
 
 /** Profondeur brute dans l’arbre (0 = matière première). */
 export function treeLayerDepthFromNode(node: TechNodeBasic): number {
-  if (node.type === 'raw_material') return 0;
+  if (isRawMaterialNode(node)) return 0;
   return node.complexity_depth ?? 0;
 }
 

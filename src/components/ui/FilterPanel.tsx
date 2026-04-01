@@ -5,14 +5,19 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useUIStore } from '@/stores/ui-store';
 import { getCategoryColor } from '@/lib/colors';
 import {
+  DIMENSION_ORDER,
   ERA_ORDER,
+  MATERIAL_LEVEL_ORDER,
   NODE_CATEGORY_ORDER,
-  TECH_NODE_TYPE_ORDER,
 } from '@/lib/node-labels';
+import {
+  EDITOR_DIM_KEY,
+  EDITOR_LEVEL_KEY,
+} from '@/components/editor/dimension-editor-keys';
 import { eraLabelFromMessages } from '@/lib/era-display';
-import type { Era } from '@/lib/types';
+import type { Era, MaterialLevel, NodeDimension } from '@/lib/types';
 
-type OpenPanel = 'categories' | 'eras' | 'types' | null;
+type OpenPanel = 'categories' | 'eras' | 'dimensions' | 'materialLevels' | null;
 
 const CATEGORY_PREVIEW_COUNT = 5;
 
@@ -27,7 +32,7 @@ export function FilterPanel() {
   const tf = useTranslations('filters');
   const tc = useTranslations('common');
   const tCat = useTranslations('categories');
-  const tType = useTranslations('types');
+  const te = useTranslations('editor');
 
   const [open, setOpen] = useState<OpenPanel>(null);
   const [showAllCategories, setShowAllCategories] = useState(false);
@@ -35,13 +40,16 @@ export function FilterPanel() {
 
   const activeCategories = useUIStore((s) => s.activeCategories);
   const activeEras = useUIStore((s) => s.activeEras);
-  const activeTypes = useUIStore((s) => s.activeTypes);
+  const activeDimensions = useUIStore((s) => s.activeDimensions);
+  const activeMaterialLevels = useUIStore((s) => s.activeMaterialLevels);
   const toggleCategory = useUIStore((s) => s.toggleCategory);
   const toggleEra = useUIStore((s) => s.toggleEra);
-  const toggleType = useUIStore((s) => s.toggleType);
+  const toggleDimension = useUIStore((s) => s.toggleDimension);
+  const toggleMaterialLevel = useUIStore((s) => s.toggleMaterialLevel);
   const setAllCategories = useUIStore((s) => s.setAllCategories);
   const setAllEras = useUIStore((s) => s.setAllEras);
-  const setAllTypes = useUIStore((s) => s.setAllTypes);
+  const setAllDimensions = useUIStore((s) => s.setAllDimensions);
+  const setAllMaterialLevels = useUIStore((s) => s.setAllMaterialLevels);
 
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
@@ -204,56 +212,124 @@ export function FilterPanel() {
         ) : null}
       </div>
 
-      {/* Types */}
+      {/* Dimensions / procédé / outil */}
       <div className="relative">
         <button
           type="button"
           className={panelBtnClass}
-          aria-expanded={open === 'types'}
+          aria-expanded={open === 'dimensions'}
           aria-haspopup="listbox"
-          onClick={() => toggle('types')}
+          onClick={() => toggle('dimensions')}
         >
-          {tf('types')}
+          {tf('dimensions')}
           <span className="text-muted-foreground" aria-hidden>
             ▾
           </span>
         </button>
-        {open === 'types' ? (
-          <div className={dropdownClass} role="listbox" aria-label={tf('types')}>
+        {open === 'dimensions' ? (
+          <div
+            className={dropdownClass}
+            role="listbox"
+            aria-label={tf('dimensions')}
+          >
             <div className="mb-2 flex gap-2 border-b border-border px-3 pb-2">
               <button
                 type="button"
                 className="rounded bg-border/35 px-2 py-1 text-[11px] text-foreground hover:bg-border/55"
-                onClick={() => setAllTypes(true)}
+                onClick={() => setAllDimensions(true)}
               >
                 {tc('all')}
               </button>
               <button
                 type="button"
                 className="rounded bg-border/35 px-2 py-1 text-[11px] text-foreground hover:bg-border/55"
-                onClick={() => setAllTypes(false)}
+                onClick={() => setAllDimensions(false)}
               >
                 {tc('none')}
               </button>
             </div>
             <ul className="space-y-0.5 px-2">
-              {TECH_NODE_TYPE_ORDER.map((t) => {
-                const active = activeTypes.has(t);
+              {DIMENSION_ORDER.map((d) => {
+                const active = activeDimensions.has(d);
                 return (
-                  <li key={t}>
+                  <li key={d}>
                     <button
                       type="button"
                       role="option"
                       aria-selected={active}
-                      className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-start text-sm capitalize transition-colors ${
+                      className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-start text-sm transition-colors ${
                         active
                           ? 'bg-surface-elevated text-foreground'
                           : 'text-muted-foreground hover:bg-surface-elevated/80'
                       }`}
-                      onClick={() => toggleType(t)}
+                      onClick={() => toggleDimension(d as NodeDimension)}
                     >
-                      <span className="flex-1">{tType(t)}</span>
-                      <span className="font-mono text-[10px] text-[#6B7280]">{t}</span>
+                      <span className="flex-1">{te(EDITOR_DIM_KEY[d])}</span>
+                      {active ? (
+                        <span className="text-[10px] text-accent">✓</span>
+                      ) : null}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : null}
+      </div>
+
+      {/* Niveau matière (cartes « matière ») */}
+      <div className="relative">
+        <button
+          type="button"
+          className={panelBtnClass}
+          aria-expanded={open === 'materialLevels'}
+          aria-haspopup="listbox"
+          onClick={() => toggle('materialLevels')}
+        >
+          {tf('materialLevels')}
+          <span className="text-muted-foreground" aria-hidden>
+            ▾
+          </span>
+        </button>
+        {open === 'materialLevels' ? (
+          <div
+            className={dropdownClass}
+            role="listbox"
+            aria-label={tf('materialLevels')}
+          >
+            <div className="mb-2 flex gap-2 border-b border-border px-3 pb-2">
+              <button
+                type="button"
+                className="rounded bg-border/35 px-2 py-1 text-[11px] text-foreground hover:bg-border/55"
+                onClick={() => setAllMaterialLevels(true)}
+              >
+                {tc('all')}
+              </button>
+              <button
+                type="button"
+                className="rounded bg-border/35 px-2 py-1 text-[11px] text-foreground hover:bg-border/55"
+                onClick={() => setAllMaterialLevels(false)}
+              >
+                {tc('none')}
+              </button>
+            </div>
+            <ul className="space-y-0.5 px-2">
+              {MATERIAL_LEVEL_ORDER.map((lv) => {
+                const active = activeMaterialLevels.has(lv);
+                return (
+                  <li key={lv}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={active}
+                      className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-start text-sm transition-colors ${
+                        active
+                          ? 'bg-surface-elevated text-foreground'
+                          : 'text-muted-foreground hover:bg-surface-elevated/80'
+                      }`}
+                      onClick={() => toggleMaterialLevel(lv as MaterialLevel)}
+                    >
+                      <span className="flex-1">{te(EDITOR_LEVEL_KEY[lv])}</span>
                       {active ? (
                         <span className="text-[10px] text-accent">✓</span>
                       ) : null}

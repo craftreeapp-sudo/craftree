@@ -11,7 +11,6 @@ import { useLocale, useTranslations } from 'next-intl';
 import {
   NODE_CATEGORY_ORDER,
   ERA_ORDER,
-  TECH_NODE_TYPE_ORDER,
   DIMENSION_ORDER,
   MATERIAL_LEVEL_ORDER,
 } from '@/lib/node-labels';
@@ -25,7 +24,6 @@ import {
   type NodeCategory,
   type RelationType,
   type SeedNode,
-  type TechNodeType,
   type Era,
 } from '@/lib/types';
 import { SearchableSelect, type SearchableOption } from './SearchableSelect';
@@ -41,7 +39,6 @@ export interface NodeEditFormState {
   name_en: string;
   description: string;
   category: NodeCategory;
-  type: TechNodeType;
   era: Era;
   year_approx: string;
   origin: string;
@@ -58,7 +55,6 @@ export function createEmptyFormState(): NodeEditFormState {
     name_en: '',
     description: '',
     category: NC.INDUSTRY,
-    type: 'component' as TechNodeType,
     era: EraEnum.MODERN,
     year_approx: '',
     origin: '',
@@ -75,7 +71,6 @@ export function seedNodeToFormState(n: SeedNode): NodeEditFormState {
     name_en: n.name_en ?? '',
     description: n.description ?? '',
     category: n.category as NodeCategory,
-    type: n.type as TechNodeType,
     era: n.era as Era,
     year_approx:
       n.year_approx === null || n.year_approx === undefined
@@ -121,7 +116,6 @@ export function NodeEditForm({
   const locale = useLocale();
   const te = useTranslations('editor');
   const tCat = useTranslations('categories');
-  const tType = useTranslations('types');
   const tRel = useTranslations('relationTypes');
   const tc = useTranslations('common');
 
@@ -270,27 +264,6 @@ export function NodeEditForm({
             {NODE_CATEGORY_ORDER.map((c) => (
               <option key={c} value={c}>
                 {tCat(c)}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="mb-1 block text-xs text-muted-foreground">
-            {te('labelType')}
-          </label>
-          <select
-            value={form.type}
-            onChange={(e) =>
-              setForm((f) => ({
-                ...f,
-                type: e.target.value as TechNodeType,
-              }))
-            }
-            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
-          >
-            {TECH_NODE_TYPE_ORDER.map((nt) => (
-              <option key={nt} value={nt}>
-                {tType(nt)}
               </option>
             ))}
           </select>

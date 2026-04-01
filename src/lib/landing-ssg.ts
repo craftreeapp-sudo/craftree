@@ -4,7 +4,8 @@ import type { CraftingLink } from '@/lib/types';
 export type LandingIndexNode = {
   id: string;
   name: string;
-  type: string;
+  dimension?: string | null;
+  materialLevel?: string | null;
   complexity_depth: number;
 };
 
@@ -100,7 +101,12 @@ export function computeLandingPageData(
   let rawMaterialCount = 0;
   for (const id of upstream) {
     const n = byId.get(id);
-    if (n?.type === 'raw_material') rawMaterialCount++;
+    if (
+      n?.dimension === 'matter' &&
+      n?.materialLevel === 'raw'
+    ) {
+      rawMaterialCount++;
+    }
   }
 
   const cache = new Map<string, number>();

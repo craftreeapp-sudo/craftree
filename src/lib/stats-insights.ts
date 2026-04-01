@@ -6,6 +6,7 @@ import {
   collectUpstreamDependencyNodeIds,
   computeCentrality,
 } from '@/lib/graph-utils';
+import { isRawMaterialNode } from '@/lib/node-dimension-helpers';
 import type { CraftingLink, Era, NodeCategory, TechNodeBasic } from '@/lib/types';
 import { Era as EraEnum, NodeCategory as NC } from '@/lib/types';
 
@@ -57,7 +58,7 @@ const ERA_ORDER: Era[] = [
 export function computeStatsInsights(nodes: TechNodeBasic[], edges: CraftingLink[]) {
   const centrality = computeCentrality(nodes, edges);
 
-  const rawMaterials = nodes.filter((n) => n.type === 'raw_material');
+  const rawMaterials = nodes.filter(isRawMaterialNode);
   const topRaw: RawMaterialRank[] = [...rawMaterials]
     .map((n) => ({
       id: n.id,
@@ -68,7 +69,7 @@ export function computeStatsInsights(nodes: TechNodeBasic[], edges: CraftingLink
     .sort((a, b) => b.score - a.score)
     .slice(0, 10);
 
-  const techNodes = nodes.filter((n) => n.type !== 'raw_material');
+  const techNodes = nodes.filter((n) => !isRawMaterialNode(n));
   const topComplex: TechComplexityRank[] = [...techNodes]
     .sort((a, b) => b.complexity_depth - a.complexity_depth)
     .slice(0, 10)
@@ -116,7 +117,7 @@ export function computeStatsInsights(nodes: TechNodeBasic[], edges: CraftingLink
     const upstream = collectUpstreamDependencyNodeIds(candidate.id, edges);
     let rawMaterialCount = 0;
     for (const id of upstream) {
-      if (byId.get(id)?.type === 'raw_material') rawMaterialCount += 1;
+      if (byId.get(id) && isRawMaterialNode(byId.get(id)!)) rawMaterialCount += 1;
     }
     highlight = {
       nodeId: candidate.id,

@@ -71,13 +71,9 @@ export async function POST(request: Request) {
     }
     const description =
       typeof body.description === 'string' ? body.description.trim() : '';
-    if (
-      typeof body.category !== 'string' ||
-      typeof body.type !== 'string' ||
-      typeof body.era !== 'string'
-    ) {
+    if (typeof body.category !== 'string' || typeof body.era !== 'string') {
       return NextResponse.json(
-        { error: 'category, type, and era are required' },
+        { error: 'category and era are required' },
         { status: 400 }
       );
     }
@@ -133,7 +129,10 @@ export async function POST(request: Request) {
         Number.isFinite(body.complexity_depth)
           ? body.complexity_depth
           : 0;
-      const dm = dimensionMaterialLevelFromCreateBody(body);
+      let dm = dimensionMaterialLevelFromCreateBody(body);
+      if (dm.dimension === null) {
+        dm = { dimension: 'matter', materialLevel: 'component' };
+      }
       const naturalOrigin = parseNaturalOrigin(
         typeof body.naturalOrigin === 'string' ? body.naturalOrigin : undefined
       );
@@ -148,7 +147,6 @@ export async function POST(request: Request) {
         name_en: typeof body.name_en === 'string' ? body.name_en.trim() : name,
         description,
         category: body.category,
-        type: body.type,
         era: body.era,
         year_approx:
           year_approx !== undefined && Number.isFinite(year_approx)
@@ -251,7 +249,10 @@ export async function POST(request: Request) {
         ? body.complexity_depth
         : 0;
 
-    const dm = dimensionMaterialLevelFromCreateBody(body);
+    let dm = dimensionMaterialLevelFromCreateBody(body);
+    if (dm.dimension === null) {
+      dm = { dimension: 'matter', materialLevel: 'component' };
+    }
     const naturalOrigin = parseNaturalOrigin(
       typeof body.naturalOrigin === 'string' ? body.naturalOrigin : undefined
     );
@@ -270,7 +271,6 @@ export async function POST(request: Request) {
           ? body.description_en.trim()
           : null,
       category: body.category,
-      type: body.type,
       era: body.era,
       year_approx:
         year_approx !== null && Number.isFinite(year_approx)

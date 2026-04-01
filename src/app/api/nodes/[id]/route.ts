@@ -6,7 +6,12 @@ import {
   createSupabaseServiceRoleClient,
 } from '@/lib/supabase-server';
 import { requireAdminFromRequest } from '@/lib/auth-server';
-import { isMissingNatureColumnsError, mapNodeRowToSeedNode } from '@/lib/data';
+import {
+  FULL_NODES_SELECT,
+  FULL_NODES_SELECT_LEGACY,
+  isMissingNatureColumnsError,
+  mapNodeRowToSeedNode,
+} from '@/lib/data';
 import { nodeRowToTechNodeDetails } from '@/lib/db-map';
 import { mergeDimensionMaterialLevel } from '@/lib/node-dimension';
 import {
@@ -43,12 +48,25 @@ export async function GET(_request: Request, ctx: Ctx) {
     }
 
     const sb = createSupabaseServerReadClient();
-    const { data, error } = await sb.from('nodes').select('*').eq('id', decoded).maybeSingle();
+    let { data, error } = await sb
+      .from('nodes')
+      .select(FULL_NODES_SELECT as never)
+      .eq('id', decoded)
+      .maybeSingle();
+    if (error && isMissingNatureColumnsError(error)) {
+      const second = await sb
+        .from('nodes')
+        .select(FULL_NODES_SELECT_LEGACY as never)
+        .eq('id', decoded)
+        .maybeSingle();
+      data = second.data;
+      error = second.error;
+    }
     if (error) throw error;
     if (!data) {
       return NextResponse.json({ error: 'Node not found' }, { status: 404 });
     }
-    const row = data as Record<string, unknown>;
+    const row = data as unknown as Record<string, unknown>;
     const node = mapNodeRowToSeedNode(row);
     const details = nodeRowToTechNodeDetails(row);
     return NextResponse.json({ node, details });
@@ -99,7 +117,6 @@ export async function PUT(request: Request, ctx: Ctx) {
           typeof body.name_en === 'string' ? body.name_en.trim() : cur.name_en,
         category:
           typeof body.category === 'string' ? body.category : cur.category,
-        type: typeof body.type === 'string' ? body.type : cur.type,
         era: typeof body.era === 'string' ? body.era : cur.era,
         tags,
         origin:
@@ -145,11 +162,25 @@ export async function PUT(request: Request, ctx: Ctx) {
     }
 
     const sb = createSupabaseServiceRoleClient();
-    const { data: prevRow } = await sb.from('nodes').select('*').eq('id', decoded).maybeSingle();
+    let { data: prevRow, error: prevErr } = await sb
+      .from('nodes')
+      .select(FULL_NODES_SELECT as never)
+      .eq('id', decoded)
+      .maybeSingle();
+    if (prevErr && isMissingNatureColumnsError(prevErr)) {
+      const second = await sb
+        .from('nodes')
+        .select(FULL_NODES_SELECT_LEGACY as never)
+        .eq('id', decoded)
+        .maybeSingle();
+      prevRow = second.data;
+      prevErr = second.error;
+    }
+    if (prevErr) throw prevErr;
     if (!prevRow) {
       return NextResponse.json({ error: 'Node not found' }, { status: 404 });
     }
-    const cur = mapNodeRowToSeedNode(prevRow as Record<string, unknown>);
+    const cur = mapNodeRowToSeedNode(prevRow as unknown as Record<string, unknown>);
 
     let tags: string[] | undefined;
     const rawTags = body.tags;
@@ -169,7 +200,6 @@ export async function PUT(request: Request, ctx: Ctx) {
     if (typeof body.description_en === 'string') patch.description_en = body.description_en.trim();
     if (typeof body.name_en === 'string') patch.name_en = body.name_en.trim();
     if (typeof body.category === 'string') patch.category = body.category;
-    if (typeof body.type === 'string') patch.type = body.type;
     if (typeof body.era === 'string') patch.era = body.era;
     if (tags) patch.tags = tags;
     if (typeof body.origin === 'string') patch.origin = body.origin.trim();

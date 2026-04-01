@@ -10,18 +10,28 @@ import { InventionCard } from '@/components/explore/InventionCard';
 import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
 import { useGraphStore } from '@/stores/graph-store';
 import {
+  DIMENSION_LABELS_FR,
   ERA_LABELS_FR,
+  MATERIAL_LEVEL_LABELS_FR,
   NODE_CATEGORY_LABELS_FR,
-  TECH_NODE_TYPE_LABELS_FR,
 } from '@/lib/node-labels';
+import {
+  effectiveDimension,
+  effectiveMaterialLevel,
+} from '@/lib/node-dimension-helpers';
 import type { FilterKind } from '@/lib/category-filter-routes';
 import type {
   Era,
+  MaterialLevel,
   NodeCategory,
-  TechNodeType,
+  NodeDimension,
   TechNodeBasic,
 } from '@/lib/types';
 import { treeInventionPath } from '@/lib/tree-routes';
+import {
+  EDITOR_DIM_KEY,
+  EDITOR_LEVEL_KEY,
+} from '@/components/editor/dimension-editor-keys';
 import { CATEGORY_LIST_GRID_CLASS } from '@/components/categories/category-list-card-layout';
 import {
   CategoryListCardLayoutSwitcher,
@@ -47,8 +57,16 @@ function filterNodes(
     const era = rawId as Era;
     return nodes.filter((n) => n.era === era);
   }
-  const t = rawId as TechNodeType;
-  return nodes.filter((n) => n.type === t);
+  if (kind === 'dimension') {
+    const dim = rawId as NodeDimension;
+    return nodes.filter((n) => effectiveDimension(n) === dim);
+  }
+  const ml = rawId as MaterialLevel;
+  return nodes.filter(
+    (n) =>
+      effectiveDimension(n) === 'matter' &&
+      effectiveMaterialLevel(n) === ml
+  );
 }
 
 function fallbackMetaLabel(kind: FilterKind, id: string): string {
@@ -58,7 +76,10 @@ function fallbackMetaLabel(kind: FilterKind, id: string): string {
   if (kind === 'era') {
     return ERA_LABELS_FR[id as Era] ?? id;
   }
-  return TECH_NODE_TYPE_LABELS_FR[id as TechNodeType] ?? id;
+  if (kind === 'dimension') {
+    return DIMENSION_LABELS_FR[id as NodeDimension] ?? id;
+  }
+  return MATERIAL_LEVEL_LABELS_FR[id as MaterialLevel] ?? id;
 }
 
 function cardLayoutId(nodeId: string) {
@@ -78,7 +99,7 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
   const tPage = useTranslations('categoriesPage');
   const tCat = useTranslations('categories');
   const tEra = useTranslations('eras');
-  const tType = useTranslations('types');
+  const te = useTranslations('editor');
   const isMobile = useIsMobileBreakpoint();
 
   const allNodes = useGraphStore((s) => s.nodes);
@@ -96,13 +117,24 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
     if (kind === 'era') {
       return tEra.has(id) ? tEra(id) : fallbackMetaLabel(kind, id);
     }
-    return tType.has(id) ? tType(id) : fallbackMetaLabel(kind, id);
-  }, [kind, id, tCat, tEra, tType]);
+    if (kind === 'dimension') {
+      const dim = id as NodeDimension;
+      const k = EDITOR_DIM_KEY[dim];
+      return k && te.has(k) ? te(k) : fallbackMetaLabel(kind, id);
+    }
+    if (kind === 'materialLevel') {
+      const lv = id as MaterialLevel;
+      const k = EDITOR_LEVEL_KEY[lv];
+      return k && te.has(k) ? te(k) : fallbackMetaLabel(kind, id);
+    }
+    return fallbackMetaLabel(kind, id);
+  }, [kind, id, tCat, tEra, te]);
 
   const subtitle = useMemo(() => {
     if (kind === 'category') return tPage('listSubtitleCategory');
     if (kind === 'era') return tPage('listSubtitleEra');
-    return tPage('listSubtitleType');
+    if (kind === 'dimension') return tPage('listSubtitleDimension');
+    return tPage('listSubtitleMaterialLevel');
   }, [kind, tPage]);
 
   const items = useMemo(

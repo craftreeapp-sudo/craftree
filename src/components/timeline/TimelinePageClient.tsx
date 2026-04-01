@@ -13,7 +13,6 @@ import { safeCategoryLabel } from '@/lib/safe-category-label';
 
 export function TimelinePageClient() {
   const tCat = useTranslations('categories');
-  const tTypes = useTranslations('types');
   const tEra = useTranslations('eras');
   const tNav = useTranslations('nav');
   const nodes = useGraphStore((s) => s.nodes);
@@ -81,7 +80,7 @@ export function TimelinePageClient() {
                               color: cat,
                             }}
                           >
-                            {safeCategoryLabel(tCat, String(n.category), tTypes)}
+                            {safeCategoryLabel(tCat, String(n.category))}
                           </span>
                           <span className="tabular-nums">
                             {formatYear(n.year_approx ?? null)}

@@ -1,10 +1,11 @@
 import { collectUpstreamDependencyNodeIds } from '@/lib/graph-utils';
-import type {
-  CraftingLink,
-  MaterialLevel,
-  NodeDimension,
-  TechNodeBasic,
-} from '@/lib/types';
+import {
+  effectiveDimension,
+  effectiveMaterialLevel,
+} from '@/lib/node-dimension-helpers';
+import type { CraftingLink, MaterialLevel, TechNodeBasic } from '@/lib/types';
+
+export { effectiveDimension, effectiveMaterialLevel } from '@/lib/node-dimension-helpers';
 
 export const MATERIAL_COLUMNS: MaterialLevel[] = [
   'raw',
@@ -69,28 +70,6 @@ export function totalDownstreamCardCount(
   return Math.max(0, set.size - 1);
 }
 
-/**
- * Infère la dimension quand `dimension` est encore null en base.
- */
-export function effectiveDimension(n: TechNodeBasic): NodeDimension {
-  const d = n.dimension;
-  if (d === 'matter' || d === 'process' || d === 'tool') return d;
-  if (n.type === 'process') return 'process';
-  if (n.type === 'tool') return 'tool';
-  return 'matter';
-}
-
-/**
- * Colonne matière quand `materialLevel` est null : heuristique via `type`.
- */
-export function effectiveMaterialLevel(n: TechNodeBasic): MaterialLevel {
-  if (n.dimension === 'matter' && n.materialLevel) return n.materialLevel;
-  if (n.type === 'raw_material') return 'raw';
-  if (n.type === 'component') return 'component';
-  if (n.type === 'material') return 'processed';
-  return 'processed';
-}
-
 export type BuiltUponBuckets = {
   matters: Record<MaterialLevel, TechNodeBasic[]>;
   process: TechNodeBasic[];
@@ -127,7 +106,7 @@ export function bucketDirectDependencies(
     const dim = effectiveDimension(n);
     if (dim === 'matter') {
       const col = effectiveMaterialLevel(n);
-      matters[col].push(n);
+      if (col) matters[col].push(n);
     } else if (dim === 'process') {
       process.push(n);
     } else {
@@ -170,7 +149,7 @@ export function bucketLedToOutputs(
     const dim = effectiveDimension(n);
     if (dim === 'matter') {
       const col = effectiveMaterialLevel(n);
-      matters[col].push(n);
+      if (col) matters[col].push(n);
     } else if (dim === 'process') {
       process.push(n);
     } else {

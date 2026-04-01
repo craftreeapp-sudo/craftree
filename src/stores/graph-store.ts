@@ -4,7 +4,6 @@ import type {
   CraftingLink,
   NodeCategory,
   Era,
-  TechNodeType,
   RelationType,
   SeedNode,
   TechNodeDetails,
@@ -28,7 +27,6 @@ interface RawNode {
   name: string;
   name_en?: string;
   category: string;
-  type: string;
   era: string;
   year_approx?: number | null;
   complexity_depth: number;
@@ -113,7 +111,6 @@ function normalizeNode(raw: RawNode): TechNodeBasic {
       ? { name_en: raw.name_en }
       : {}),
     category: raw.category as NodeCategory,
-    type: raw.type as TechNodeType,
     era: raw.era as Era,
     year_approx: raw.year_approx ?? undefined,
     complexity_depth: raw.complexity_depth,
@@ -153,7 +150,6 @@ function nodesToRaw(nodes: TechNodeBasic[]): RawNode[] {
     id: n.id,
     name: n.name,
     category: n.category,
-    type: n.type,
     era: n.era,
     year_approx: n.year_approx ?? null,
     complexity_depth: n.complexity_depth,
@@ -254,7 +250,6 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
       name: n.name,
       name_en: n.name_en,
       category: n.category,
-      type: n.type,
       era: n.era,
       year_approx: n.year_approx ?? null,
       complexity_depth: n.complexity_depth,

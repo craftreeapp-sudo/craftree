@@ -1,5 +1,5 @@
 /**
- * Libellés FR pour filtres et UI (catégories, époques, types)
+ * Libellés FR pour filtres et UI (catégories, époques, dimensions, niveaux matière)
  */
 import {
   NodeCategory as NC,
@@ -7,7 +7,6 @@ import {
   type Era,
   type MaterialLevel,
   type NodeDimension,
-  type TechNodeType,
 } from '@/lib/types';
 import { PRIMARY_CARD_CATEGORY_ORDER } from '@/lib/card-primary-categories';
 
@@ -65,24 +64,6 @@ export const NODE_CATEGORY_LABELS_FR: Record<NC, string> = {
 
 /** Ordre d’affichage des catégories (aligné sur les cartes site). */
 export const NODE_CATEGORY_ORDER: NC[] = [...PRIMARY_CARD_CATEGORY_ORDER];
-
-export const TECH_NODE_TYPE_ORDER: TechNodeType[] = [
-  'raw_material',
-  'material',
-  'process',
-  'tool',
-  'component',
-  'end_product',
-];
-
-export const TECH_NODE_TYPE_LABELS_FR: Record<TechNodeType, string> = {
-  raw_material: 'Matière première',
-  material: 'Matériau',
-  process: 'Procédé',
-  tool: 'Outil',
-  component: 'Composant',
-  end_product: 'Produit final',
-};
 
 export const DIMENSION_ORDER: NodeDimension[] = [
   'matter',

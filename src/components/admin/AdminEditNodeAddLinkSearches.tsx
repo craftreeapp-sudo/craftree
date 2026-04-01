@@ -36,7 +36,6 @@ export function AdminEditNodeAddLinkSearches({
   const tConn = useTranslations('connectionPopup');
   const tCommon = useTranslations('common');
   const tCat = useTranslations('categories');
-  const tTypes = useTranslations('types');
   const graphNodes = useGraphStore((s) => s.nodes);
   const detailsById = useNodeDetailsStore((s) => s.byId);
   const peerSearchBlobMap = useMemo(
@@ -138,7 +137,7 @@ export function AdminEditNodeAddLinkSearches({
               {label}
             </span>
             <span className="block text-[10px] text-muted-foreground">
-              {safeCategoryLabel(tCat, String(n.category), tTypes)}
+              {safeCategoryLabel(tCat, String(n.category))}
             </span>
           </span>
         </button>

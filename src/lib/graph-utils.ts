@@ -2,6 +2,7 @@
  * Algorithmes de graphe Craftree : profondeur, centralité, chemins, fermeture amont.
  */
 
+import { isRawMaterialNode } from '@/lib/node-dimension-helpers';
 import type { CraftingLink, TechNodeBasic } from './types';
 
 // ─── Adjacence ───────────────────────────────────────────────────────────────
@@ -53,7 +54,7 @@ export function warnOrphanNodes(
 // ─── Profondeur (complexity_depth) ───────────────────────────────────────────
 
 export function computeComplexityDepth(
-  nodes: Pick<TechNodeBasic, 'id' | 'type'>[],
+  nodes: Pick<TechNodeBasic, 'id' | 'dimension' | 'materialLevel'>[],
   edges: Pick<CraftingLink, 'source_id' | 'target_id'>[]
 ): Map<string, number> {
   const ids = new Set(nodes.map((n) => n.id));
@@ -69,7 +70,7 @@ export function computeComplexityDepth(
 
   function getDepth(nodeId: string, stack: Set<string>): number {
     const self = byId.get(nodeId);
-    if (self?.type === 'raw_material') {
+    if (self && isRawMaterialNode(self)) {
       depths.set(nodeId, 0);
       return 0;
     }

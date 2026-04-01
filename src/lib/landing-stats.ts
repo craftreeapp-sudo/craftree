@@ -15,8 +15,14 @@ export async function getPublicGraphStats(): Promise<LandingStats> {
       (raw) => ({
         id: raw.id,
         name: raw.name,
-        type:
-          'type' in raw && typeof raw.type === 'string' ? raw.type : 'material',
+        dimension:
+          'dimension' in raw && typeof raw.dimension === 'string'
+            ? raw.dimension
+            : null,
+        materialLevel:
+          'materialLevel' in raw && typeof raw.materialLevel === 'string'
+            ? raw.materialLevel
+            : null,
         complexity_depth: raw.complexity_depth,
       })
     );

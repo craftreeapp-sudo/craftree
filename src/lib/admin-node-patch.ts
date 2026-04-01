@@ -54,7 +54,6 @@ export function buildSupabaseNodePatchFromBody(
   }
   if (typeof body.name_en === 'string') patch.name_en = body.name_en.trim();
   if (typeof body.category === 'string') patch.category = body.category;
-  if (typeof body.type === 'string') patch.type = body.type;
   if (typeof body.era === 'string') patch.era = body.era;
   if (typeof body.origin === 'string') patch.origin = body.origin.trim();
   if (typeof body.image_url === 'string') patch.image_url = body.image_url.trim();

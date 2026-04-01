@@ -134,7 +134,6 @@ function SuggestBrowseReadOnlyCard({
   onAdd?: () => void;
 }) {
   const tCat = useTranslations('categories');
-  const tTypes = useTranslations('types');
   const te = useTranslations('editor');
   const label = pickNodeDisplayName(
     locale,
@@ -152,7 +151,7 @@ function SuggestBrowseReadOnlyCard({
       <div className="min-w-0 flex-1">
         <p className="text-sm font-medium leading-snug text-accent">{label}</p>
         <p className="mt-0.5 text-xs text-muted-foreground">
-          {safeCategoryLabel(tCat, String(node.category), tTypes)}
+          {safeCategoryLabel(tCat, String(node.category))}
         </p>
       </div>
     </div>

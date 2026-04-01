@@ -55,10 +55,7 @@ import {
   RelationType as RT,
   type NodeCategory,
   type RelationType,
-  type TechNodeType,
 } from '@/lib/types';
-
-const DEFAULT_NEW_NODE_TYPE = 'component' as TechNodeType;
 
 /** Id fictif pour les sections de liens (aucun nœud réel ne doit utiliser cette valeur). */
 const NEW_NODE_PLACEHOLDER_ID = '__craftree_new_node__';
@@ -88,7 +85,6 @@ function suggestFormToAdminBody(form: SuggestNodeFormState) {
     name_en: form.name.trim(),
     description: form.description.trim(),
     category: form.category,
-    type: DEFAULT_NEW_NODE_TYPE,
     era: form.era,
     year_approx:
       form.year_approx.trim() === ''
@@ -111,7 +107,6 @@ function suggestFormToSuggestionNodePayload(form: SuggestNodeFormState) {
     name_en: form.name.trim(),
     description: form.description.trim(),
     category: form.category,
-    type: DEFAULT_NEW_NODE_TYPE,
     era: form.era,
     year_approx:
       form.year_approx.trim() === ''

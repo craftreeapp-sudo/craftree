@@ -2,11 +2,14 @@
  * Validation des segments d’URL /categories/[kind]/[id]
  */
 import { NodeCategory, Era } from '@/lib/types';
-import type { TechNodeType } from '@/lib/types';
-import { TECH_NODE_TYPE_ORDER } from '@/lib/node-labels';
+import type { MaterialLevel, NodeDimension } from '@/lib/types';
+import { DIMENSION_ORDER, MATERIAL_LEVEL_ORDER } from '@/lib/node-labels';
 
-export const FILTER_KINDS = ['category', 'era', 'type'] as const;
+export const FILTER_KINDS = ['category', 'era', 'dimension', 'materialLevel'] as const;
 export type FilterKind = (typeof FILTER_KINDS)[number];
+
+const DIMENSION_SET = new Set<string>(DIMENSION_ORDER);
+const MATERIAL_LEVEL_SET = new Set<string>(MATERIAL_LEVEL_ORDER);
 
 export function isFilterKind(s: string): s is FilterKind {
   return FILTER_KINDS.includes(s as FilterKind);
@@ -20,8 +23,12 @@ export function isValidEraId(id: string): id is Era {
   return (Object.values(Era) as string[]).includes(id);
 }
 
-export function isValidTypeId(id: string): id is TechNodeType {
-  return TECH_NODE_TYPE_ORDER.includes(id as TechNodeType);
+export function isValidDimensionId(id: string): id is NodeDimension {
+  return DIMENSION_SET.has(id);
+}
+
+export function isValidMaterialLevelId(id: string): id is MaterialLevel {
+  return MATERIAL_LEVEL_SET.has(id);
 }
 
 export function validateFilterParams(
@@ -32,6 +39,9 @@ export function validateFilterParams(
   if (kind === 'category' && isValidCategoryId(id))
     return { ok: true, kind: 'category', id };
   if (kind === 'era' && isValidEraId(id)) return { ok: true, kind: 'era', id };
-  if (kind === 'type' && isValidTypeId(id)) return { ok: true, kind: 'type', id };
+  if (kind === 'dimension' && isValidDimensionId(id))
+    return { ok: true, kind: 'dimension', id };
+  if (kind === 'materialLevel' && isValidMaterialLevelId(id))
+    return { ok: true, kind: 'materialLevel', id };
   return { ok: false };
 }

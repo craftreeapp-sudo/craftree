@@ -36,7 +36,6 @@ import type {
   TechNodeBasic,
   Era,
   TechNodeDetails,
-  TechNodeType,
 } from '@/lib/types';
 import { RelationType } from '@/lib/types';
 
@@ -108,7 +107,7 @@ export function SuggestNodeCorrectionPanel({
   const [baselineForm, setBaselineForm] = useState<SuggestNodeFormState | null>(
     null
   );
-  /** Ligne `nodes` complète (API) — champs non présents dans le formulaire suggestion (type, dimension…). */
+  /** Ligne `nodes` complète (API) — champs non présents dans le formulaire suggestion (dimension…). */
   const [seedNode, setSeedNode] = useState<SeedNode | null>(null);
   /** Liens existants marqués pour suppression : affichage orange + restauration. */
   const [stagedLinkRemovals, setStagedLinkRemovals] = useState<
@@ -473,7 +472,6 @@ export function SuggestNodeCorrectionPanel({
           name: suggestForm.name.trim(),
           name_en: (seedNode.name_en ?? '').trim() || suggestForm.name.trim(),
           category: suggestForm.category,
-          type: seedNode.type as TechNodeType,
           era: suggestForm.era,
           year_approx:
             suggestForm.year_approx.trim() === ''

@@ -41,7 +41,6 @@ export function InventionCard({
 }: Props) {
   const locale = useLocale();
   const tCat = useTranslations('categories');
-  const tTypes = useTranslations('types');
   const tExplore = useTranslations('explore');
   const ctx = useExploreCardOptional();
 
@@ -154,7 +153,7 @@ export function InventionCard({
         className="w-fit max-w-full rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white"
         style={{ backgroundColor: hexToRgba(catColor, 0.42) }}
       >
-        {safeCategoryLabel(tCat, cat, tTypes)}
+        {safeCategoryLabel(tCat, cat)}
       </span>
     </div>
   );

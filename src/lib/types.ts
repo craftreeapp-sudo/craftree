@@ -47,17 +47,7 @@ export enum Era {
   CONTEMPORARY = 'contemporary', // 2010+
 }
 
-// ─── Type de nœud ───────────────────────────────────────────────────────────
-
-export type TechNodeType =
-  | 'raw_material'
-  | 'material'
-  | 'process'
-  | 'tool'
-  | 'component'
-  | 'end_product';
-
-/** Nature de l’invention (orthogonal au champ `type`). */
+/** Nature de l’invention : matière / procédé / outil (+ niveau matière si matter). */
 export type NodeDimension = 'matter' | 'process' | 'tool';
 
 /** Niveau matière — uniquement si dimension = matter. */
@@ -88,7 +78,6 @@ export interface TechNodeBasic {
   /** Présent quand la projection graphe l’inclut (recherche Fuse, affichage). */
   name_en?: string;
   category: NodeCategory;
-  type: TechNodeType;
   era: Era;
   year_approx?: number; // Négatif = avant JC
   complexity_depth: number;
@@ -159,7 +148,6 @@ export interface SeedNode {
   description: string;
   description_en?: string;
   category: string;
-  type: string;
   era: string;
   year_approx?: number | null;
   complexity_depth: number;

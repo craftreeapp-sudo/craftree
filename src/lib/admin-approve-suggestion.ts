@@ -1,5 +1,7 @@
 import { buildSupabaseNodePatchFromBody } from '@/lib/admin-node-patch';
 import {
+  FULL_NODES_SELECT,
+  FULL_NODES_SELECT_LEGACY,
   fetchAllLinkRowsPaginated,
   isMissingNatureColumnsError,
   mapNodeRowToSeedNode,
@@ -115,15 +117,24 @@ export async function applyApprovedSuggestion(
       delete proposed.linkEdits;
     }
 
-    const { data: prevRow, error: prevErr } = await sb
+    let { data: prevRow, error: prevErr } = await sb
       .from('nodes')
-      .select('*')
+      .select(FULL_NODES_SELECT as never)
       .eq('id', nodeId)
       .maybeSingle();
+    if (prevErr && isMissingNatureColumnsError(prevErr)) {
+      const second = await sb
+        .from('nodes')
+        .select(FULL_NODES_SELECT_LEGACY as never)
+        .eq('id', nodeId)
+        .maybeSingle();
+      prevRow = second.data;
+      prevErr = second.error;
+    }
     if (prevErr || !prevRow) {
       throw new Error('Nœud introuvable');
     }
-    const cur = mapNodeRowToSeedNode(prevRow as Record<string, unknown>);
+    const cur = mapNodeRowToSeedNode(prevRow as unknown as Record<string, unknown>);
     const patch = buildSupabaseNodePatchFromBody(proposed, cur);
 
     let { error: upErr } = await sb.from('nodes').update(patch).eq('id', nodeId);
@@ -326,10 +337,13 @@ export async function applyApprovedSuggestion(
       nodeId = await uniqueNodeId(sb, d.node.name);
     }
 
-    const dm = dimensionMaterialLevelFromCreateBody({
+    let dm = dimensionMaterialLevelFromCreateBody({
       dimension: d.node.dimension,
       materialLevel: d.node.materialLevel,
     });
+    if (dm.dimension === null) {
+      dm = { dimension: 'matter', materialLevel: 'component' };
+    }
 
     const tags = Array.isArray(d.node.tags)
       ? (d.node.tags as unknown[]).map(String)
@@ -397,7 +411,6 @@ export async function applyApprovedSuggestion(
       description: d.node.description ?? '',
       description_en: descEn || null,
       category: d.node.category,
-      type: d.node.type ?? 'component',
       era: d.node.era,
       year_approx: d.node.year_approx ?? null,
       origin: d.node.origin ?? null,

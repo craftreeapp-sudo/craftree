@@ -69,7 +69,6 @@ function MiniCraftCard({
 
 export function LandingHeroBackground({ cards }: Props) {
   const tCat = useTranslations('categories');
-  const tTypes = useTranslations('types');
   const isMobile = useIsMobileBreakpoint();
   const count = isMobile ? 5 : Math.min(10, cards.length);
   const visible = cards.slice(0, count);
@@ -106,8 +105,7 @@ export function LandingHeroBackground({ cards }: Props) {
                 category={card.category}
                 categoryLabel={safeCategoryLabel(
                   tCat,
-                  String(card.category),
-                  tTypes
+                  String(card.category)
                 )}
                 compact={isMobile}
               />

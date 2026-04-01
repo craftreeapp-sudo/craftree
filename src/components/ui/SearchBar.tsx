@@ -9,9 +9,10 @@ import { useExploreNavigation } from '@/hooks/use-explore-navigation';
 import { getCategoryColor } from '@/lib/colors';
 import { formatYear } from '@/lib/utils';
 import { eraLabelFromMessages } from '@/lib/era-display';
-import type { Era, NodeCategory } from '@/lib/types';
+import type { Era, MaterialLevel, NodeCategory, NodeDimension } from '@/lib/types';
 import { useGraphStore } from '@/stores/graph-store';
 import { getTreeLayerDisplayIndex } from '@/lib/tree-layers';
+import { isRawMaterialNode } from '@/lib/node-dimension-helpers';
 import {
   isFrenchLocale,
   pickNodeDisplayName,
@@ -27,7 +28,8 @@ interface SearchNode {
   name_en?: string;
   category: string;
   era: string;
-  type: string;
+  dimension?: NodeDimension | null;
+  materialLevel?: MaterialLevel | null;
   complexity_depth: number;
   year_approx?: number | null;
   tags: string[];
@@ -41,7 +43,7 @@ export type SearchBarNavigateOptions = {
 };
 
 function treeLayerForSearchNode(n: SearchNode): number {
-  if (n.type === 'raw_material') return 0;
+  if (isRawMaterialNode(n)) return 0;
   return n.complexity_depth ?? 0;
 }
 
@@ -61,7 +63,6 @@ export function SearchBar({
   const locale = useLocale();
   const tc = useTranslations('common');
   const tCat = useTranslations('categories');
-  const tTypes = useTranslations('types');
   const tExplore = useTranslations('explore');
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchNode[]>([]);
@@ -84,7 +85,8 @@ export function SearchBar({
         name_en: n.name_en?.trim() || getNameEnForNode(n.id),
         category: n.category,
         era: n.era,
-        type: n.type,
+        dimension: n.dimension ?? null,
+        materialLevel: n.materialLevel ?? null,
         complexity_depth: n.complexity_depth,
         year_approx: n.year_approx ?? null,
         tags: n.tags,
@@ -111,6 +113,8 @@ export function SearchBar({
         { name: secondaryName, weight: 0.35 },
         { name: 'tags', weight: 1 },
         { name: 'category', weight: 0.8 },
+        { name: 'dimension', weight: 0.35 },
+        { name: 'materialLevel', weight: 0.35 },
         { name: 'era', weight: 0.35 },
       ],
       threshold: 0.4,
@@ -277,7 +281,7 @@ export function SearchBar({
                 color: categoryColor,
               }}
             >
-              {safeCategoryLabel(tCat, node.category, tTypes)}
+              {safeCategoryLabel(tCat, node.category)}
             </span>
           </div>
           <div

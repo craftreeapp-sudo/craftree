@@ -30,6 +30,11 @@ import {
 import { CardImagePlaceholder } from '@/components/explore/CardImagePlaceholder';
 import { ShareInventionButton } from '@/components/explore/ShareInventionButton';
 import { treeLayerDisplayIndexFromNode } from '@/lib/tree-layers';
+import {
+  effectiveDimension,
+  effectiveMaterialLevel,
+} from '@/lib/node-dimension-helpers';
+import { EDITOR_DIM_KEY, EDITOR_LEVEL_KEY } from '@/components/editor/dimension-editor-keys';
 import { EXPLORE_DETAIL_PANEL_WIDTH_PX } from '@/lib/explore-layout';
 
 const POPUP_MAX_W = EXPLORE_DETAIL_PANEL_WIDTH_PX;
@@ -97,7 +102,6 @@ export function ExploreHoverPopup() {
   const ctx = useExploreCardOptional();
   const locale = useLocale();
   const tCat = useTranslations('categories');
-  const tTypes = useTranslations('types');
   const tExplore = useTranslations('explore');
   const tEd = useTranslations('editor');
 
@@ -224,27 +228,15 @@ export function ExploreHoverPopup() {
 
   const natureLine = useMemo(() => {
     if (!node) return '';
-    const dim = node.dimension;
+    const dim = effectiveDimension(node);
+    const dLabel = tEd(EDITOR_DIM_KEY[dim]);
     if (dim === 'matter') {
-      const d = tEd('dimensionMatter');
-      const ml = node.materialLevel;
-      const lvlKey =
-        ml === 'raw'
-          ? 'levelRaw'
-          : ml === 'processed'
-            ? 'levelProcessed'
-            : ml === 'industrial'
-              ? 'levelIndustrial'
-              : ml === 'component'
-                ? 'levelComponent'
-                : null;
-      const lvl = lvlKey ? tEd(lvlKey) : '';
-      return lvl ? `${d} · ${lvl}` : d;
+      const ml = effectiveMaterialLevel(node);
+      const lvl = ml ? tEd(EDITOR_LEVEL_KEY[ml]) : '';
+      return lvl ? `${dLabel} · ${lvl}` : dLabel;
     }
-    if (dim === 'process') return tEd('dimensionProcess');
-    if (dim === 'tool') return tEd('dimensionTool');
-    return tTypes(node.type);
-  }, [node, tEd, tTypes]);
+    return dLabel;
+  }, [node, tEd]);
 
   const originLine = (node?.origin ?? detail?.origin ?? '').trim();
 
@@ -327,11 +319,7 @@ export function ExploreHoverPopup() {
                 color: categoryColor,
               }}
             >
-              {safeCategoryLabel(
-                tCat,
-                String(node.category),
-                tTypes
-              )}
+              {safeCategoryLabel(tCat, String(node.category))}
             </span>
             <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
               {natureLine}

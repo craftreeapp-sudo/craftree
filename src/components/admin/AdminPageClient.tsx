@@ -41,7 +41,6 @@ import {
   ERA_ORDER,
   MATERIAL_LEVEL_ORDER,
   NODE_CATEGORY_ORDER,
-  TECH_NODE_TYPE_ORDER,
 } from '@/lib/node-labels';
 import {
   CHEMICAL_NATURE_ORDER,
@@ -1452,7 +1451,6 @@ export function AdminSuggestionFormBody({
   const locale = useLocale();
   const tEditor = useTranslations('editor');
   const tCat = useTranslations('categories');
-  const tTypes = useTranslations('types');
   const tExplore = useTranslations('explore');
   const tSidebar = useTranslations('sidebar');
 
@@ -1569,15 +1567,6 @@ export function AdminSuggestionFormBody({
           if (!s) return '—';
           return NODE_CATEGORY_ORDER.includes(s as NodeCategory)
             ? tCat(s as NodeCategory)
-            : s;
-        }
-        if (key === 'type') {
-          const s = typeof v === 'string' ? v : '';
-          if (!s) return '—';
-          return TECH_NODE_TYPE_ORDER.includes(
-            s as (typeof TECH_NODE_TYPE_ORDER)[number]
-          )
-            ? tTypes(s)
             : s;
         }
         if (key === 'era') {
@@ -1747,24 +1736,6 @@ export function AdminSuggestionFormBody({
               {PRIMARY_CARD_CATEGORY_ORDER.map((c) => (
                 <option key={c} value={c}>
                   {tCat(c)}
-                </option>
-              ))}
-            </select>
-          );
-        }
-        if (key === 'type') {
-          const v = fieldValue('type') || TECH_NODE_TYPE_ORDER[0];
-          return (
-            <select
-              className={fieldSelectClass(key)}
-              value={TECH_NODE_TYPE_ORDER.includes(v as (typeof TECH_NODE_TYPE_ORDER)[number]) ? v : TECH_NODE_TYPE_ORDER[0]}
-              onChange={(e) =>
-                onEditDraftChange({ ...draft, type: e.target.value })
-              }
-            >
-              {TECH_NODE_TYPE_ORDER.map((ty) => (
-                <option key={ty} value={ty}>
-                  {tTypes(ty)}
                 </option>
               ))}
             </select>
@@ -2872,12 +2843,13 @@ export function AdminSuggestionFormBody({
       node: {
         name: string;
         category: string;
-        type: string;
         era: string;
         year_approx?: number | null;
         proposed_id?: string;
         description?: string;
         origin?: string | null;
+        dimension?: string | null;
+        materialLevel?: string | null;
       };
       link?: {
         source_id: string;
@@ -2965,28 +2937,6 @@ export function AdminSuggestionFormBody({
               {NODE_CATEGORY_ORDER.map((c) => (
                 <option key={c} value={c}>
                   {tCat(c)}
-                </option>
-              ))}
-            </select>
-          );
-        }
-        if (key === 'type') {
-          const v = nv('type') || TECH_NODE_TYPE_ORDER[0];
-          return (
-            <select
-              className={ic}
-              value={
-                TECH_NODE_TYPE_ORDER.includes(
-                  v as (typeof TECH_NODE_TYPE_ORDER)[number]
-                )
-                  ? v
-                  : TECH_NODE_TYPE_ORDER[0]
-              }
-              onChange={(e) => patchNode({ type: e.target.value })}
-            >
-              {TECH_NODE_TYPE_ORDER.map((ty) => (
-                <option key={ty} value={ty}>
-                  {tTypes(ty)}
                 </option>
               ))}
             </select>
@@ -3188,7 +3138,6 @@ export function AdminSuggestionFormBody({
         'description',
         'description_en',
         'category',
-        'type',
         'era',
         'year_approx',
         'origin',
@@ -3299,8 +3248,38 @@ export function AdminSuggestionFormBody({
               {getCategoryLabelFr(d.node.category as unknown as NodeCategory)}
             </p>
             <p>
-              <span className="text-muted-foreground">Type : </span>
-              {d.node.type}
+              <span className="text-muted-foreground">
+                {fieldLabel('dimension')} :{' '}
+              </span>
+              {typeof d.node.dimension === 'string' &&
+              DIMENSION_ORDER.includes(
+                d.node.dimension as (typeof DIMENSION_ORDER)[number]
+              )
+                ? tEditor(
+                    EDITOR_DIM_KEY[
+                      d.node.dimension as keyof typeof EDITOR_DIM_KEY
+                    ]
+                  )
+                : d.node.dimension
+                  ? String(d.node.dimension)
+                  : '—'}
+            </p>
+            <p>
+              <span className="text-muted-foreground">
+                {fieldLabel('materialLevel')} :{' '}
+              </span>
+              {typeof d.node.materialLevel === 'string' &&
+              MATERIAL_LEVEL_ORDER.includes(
+                d.node.materialLevel as (typeof MATERIAL_LEVEL_ORDER)[number]
+              )
+                ? tEditor(
+                    EDITOR_LEVEL_KEY[
+                      d.node.materialLevel as keyof typeof EDITOR_LEVEL_KEY
+                    ]
+                  )
+                : d.node.materialLevel
+                  ? String(d.node.materialLevel)
+                  : '—'}
             </p>
             <p>
               <span className="text-muted-foreground">Époque : </span>
@@ -3360,8 +3339,38 @@ export function AdminSuggestionFormBody({
             {getCategoryLabelFr(d.node.category as unknown as NodeCategory)}
           </p>
           <p>
-            <span className="text-muted-foreground">Type : </span>
-            {d.node.type}
+            <span className="text-muted-foreground">
+              {fieldLabel('dimension')} :{' '}
+            </span>
+            {typeof d.node.dimension === 'string' &&
+            DIMENSION_ORDER.includes(
+              d.node.dimension as (typeof DIMENSION_ORDER)[number]
+            )
+              ? tEditor(
+                  EDITOR_DIM_KEY[
+                    d.node.dimension as keyof typeof EDITOR_DIM_KEY
+                  ]
+                )
+              : d.node.dimension
+                ? String(d.node.dimension)
+                : '—'}
+          </p>
+          <p>
+            <span className="text-muted-foreground">
+              {fieldLabel('materialLevel')} :{' '}
+            </span>
+            {typeof d.node.materialLevel === 'string' &&
+            MATERIAL_LEVEL_ORDER.includes(
+              d.node.materialLevel as (typeof MATERIAL_LEVEL_ORDER)[number]
+            )
+              ? tEditor(
+                  EDITOR_LEVEL_KEY[
+                    d.node.materialLevel as keyof typeof EDITOR_LEVEL_KEY
+                  ]
+                )
+              : d.node.materialLevel
+                ? String(d.node.materialLevel)
+                : '—'}
           </p>
           <p>
             <span className="text-muted-foreground">Époque : </span>

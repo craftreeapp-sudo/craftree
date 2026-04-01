@@ -11,7 +11,6 @@ import type {
   RelationType,
   SeedNode,
   TechNodeBasic,
-  TechNodeType,
 } from '@/lib/types';
 
 export type OgLocale = 'fr' | 'en';
@@ -27,7 +26,6 @@ function seedNodeToTechBasic(n: SeedNode): TechNodeBasic {
     name: n.name,
     name_en: n.name_en,
     category: n.category as NodeCategory,
-    type: n.type as TechNodeType,
     era: n.era as Era,
     year_approx:
       n.year_approx === null || n.year_approx === undefined

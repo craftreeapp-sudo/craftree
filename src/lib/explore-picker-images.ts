@@ -1,8 +1,12 @@
 /**
  * Visuels pour la page « Catégories » (Unsplash — thématiques cohérentes).
  */
-import { NodeCategory as NC, Era } from '@/lib/types';
-import type { TechNodeType } from '@/lib/types';
+import {
+  NodeCategory as NC,
+  Era,
+  type MaterialLevel,
+  type NodeDimension,
+} from '@/lib/types';
 
 const Q = 'auto=format&fit=crop&w=800&q=82';
 
@@ -55,12 +59,17 @@ export const PICKER_IMAGE_ERA: Record<Era, string> = {
   [Era.CONTEMPORARY]: u('photo-1519389950473-47ba0277781c'),
 };
 
-/** Une image par type de nœud */
-export const PICKER_IMAGE_TYPE: Record<TechNodeType, string> = {
-  raw_material: u('photo-1506905925346-21bda4d32df4'),
-  material: u('photo-1581091226825-a6a2a5aee158'),
+/** Une image par dimension (matière / procédé / outil). */
+export const PICKER_IMAGE_DIMENSION: Record<NodeDimension, string> = {
+  matter: u('photo-1506905925346-21bda4d32df4'),
   process: u('photo-1565043666747-89394e2a4b95'),
   tool: u('photo-1551434678-e076c223a692'),
+};
+
+/** Une image par niveau matière (si dimension = matter). */
+export const PICKER_IMAGE_MATERIAL_LEVEL: Record<MaterialLevel, string> = {
+  raw: u('photo-1506905925346-21bda4d32df4'),
+  processed: u('photo-1581091226825-a6a2a5aee158'),
+  industrial: u('photo-1486406146926-c627a92ad1ab'),
   component: u('photo-1581091226825-a6a2a5aee158'),
-  end_product: u('photo-1558618666-fcd25c85cd64'),
 };

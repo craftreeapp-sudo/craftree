@@ -9,7 +9,6 @@ import { getCategoryColor } from '@/lib/colors';
 import {
   NODE_CATEGORY_ORDER,
   ERA_ORDER,
-  TECH_NODE_TYPE_ORDER,
   DIMENSION_ORDER,
   MATERIAL_LEVEL_ORDER,
 } from '@/lib/node-labels';
@@ -20,7 +19,6 @@ import {
   type RelationType,
   type SeedNode,
   type TechNodeBasic,
-  type TechNodeType,
   type Era,
   type NodeDimension,
   type MaterialLevel,
@@ -54,7 +52,6 @@ type SortDir = 'asc' | 'desc';
 type NodeSortKey =
   | 'name'
   | 'category'
-  | 'type'
   | 'dimension'
   | 'materialLevel'
   | 'era'
@@ -87,7 +84,6 @@ function seedNodeToTechBasic(n: SeedNode): TechNodeBasic {
     name: n.name,
     name_en: n.name_en,
     category: n.category as NodeCategory,
-    type: n.type as TechNodeType,
     era: n.era as Era,
     year_approx:
       n.year_approx === null || n.year_approx === undefined
@@ -124,7 +120,6 @@ export function EditorPageClient() {
   const te = useTranslations('editor');
   const tRel = useTranslations('relationTypes');
   const tCat = useTranslations('categories');
-  const tType = useTranslations('types');
   const tc = useTranslations('common');
   const tExplore = useTranslations('explore');
 
@@ -185,10 +180,7 @@ export function EditorPageClient() {
   /** Même pipeline que le graphe /explore (store) : liens dont les deux extrémités existent. */
   const graphModelEdges = useMemo(() => {
     if (nodes.length === 0) return [];
-    const forGraph = nodes.map((n) => ({
-      id: n.id,
-      type: n.type as TechNodeType,
-    }));
+    const forGraph = nodes.map((n) => ({ id: n.id }));
     return filterValidCraftingLinks(forGraph, links);
   }, [nodes, links]);
 
@@ -207,7 +199,6 @@ export function EditorPageClient() {
   // ——— Inventions ———
   const [qNode, setQNode] = useState('');
   const [catF, setCatF] = useState<string>('all');
-  const [typeF, setTypeF] = useState<string>('all');
   const [eraF, setEraF] = useState<string>('all');
   const [dimensionF, setDimensionF] = useState<string>('all');
   const [materialLevelF, setMaterialLevelF] = useState<string>('all');
@@ -230,7 +221,6 @@ export function EditorPageClient() {
     const qt = qNode.trim().toLowerCase();
     return nodes.filter((n) => {
       if (catF !== 'all' && n.category !== catF) return false;
-      if (typeF !== 'all' && n.type !== typeF) return false;
       if (dimensionF !== 'all') {
         const nd = n.dimension ?? null;
         if (dimensionF === 'unset') {
@@ -263,7 +253,6 @@ export function EditorPageClient() {
     nodes,
     qNode,
     catF,
-    typeF,
     dimensionF,
     materialLevelF,
     eraF,
@@ -282,9 +271,6 @@ export function EditorPageClient() {
           break;
         case 'category':
           cmp = a.category.localeCompare(b.category);
-          break;
-        case 'type':
-          cmp = a.type.localeCompare(b.type);
           break;
         case 'dimension':
           cmp = (a.dimension ?? '').localeCompare(b.dimension ?? '');
@@ -620,18 +606,6 @@ export function EditorPageClient() {
                 ))}
               </select>
               <select
-                value={typeF}
-                onChange={(e) => setTypeF(e.target.value)}
-                className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
-              >
-                <option value="all">{te('allTypes')}</option>
-                {TECH_NODE_TYPE_ORDER.map((nt) => (
-                  <option key={nt} value={nt}>
-                    {tType(nt)}
-                  </option>
-                ))}
-              </select>
-              <select
                 value={eraF}
                 onChange={(e) => setEraF(e.target.value)}
                 title={
@@ -715,16 +689,6 @@ export function EditorPageClient() {
                       >
                         {te('category')}{' '}
                         {sortKey === 'category' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
-                      </button>
-                    </th>
-                    <th className="w-[100px] px-3 py-1">
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-1"
-                        onClick={() => toggleSort('type')}
-                      >
-                        {te('type')}{' '}
-                        {sortKey === 'type' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
                     <th className="w-[100px] px-3 py-1">
@@ -859,16 +823,7 @@ export function EditorPageClient() {
                               color: getCategoryColor(n.category as NodeCategory),
                             }}
                           >
-                            {safeCategoryLabel(
-                              tCat,
-                              String(n.category),
-                              tType
-                            )}
-                          </span>
-                        </td>
-                        <td className="px-3 py-2">
-                          <span className="rounded bg-[#2A3042] px-2 py-0.5 text-xs text-foreground">
-                            {tType(n.type as TechNodeType) ?? n.type}
+                            {safeCategoryLabel(tCat, String(n.category))}
                           </span>
                         </td>
                         <td className="px-3 py-2 text-muted-foreground">

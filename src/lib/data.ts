@@ -62,20 +62,20 @@ function mapRowNatureType(row: Record<string, unknown>): NatureType | null {
   return null;
 }
 
-/** Colonnes minimales pour le graphe /explore (pas de textes longs). */
+/** Colonnes minimales pour le graphe /explore (pas de textes longs). Sans colonne legacy `type`. */
 export const GRAPH_NODES_SELECT =
-  'id, name, name_en, category, type, era, year_approx, image_url, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type';
+  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type';
 
 /** Même projection sans `natural_origin` / `chemical_nature` (bases non migrées). */
 export const GRAPH_NODES_SELECT_LEGACY =
-  'id, name, name_en, category, type, era, year_approx, image_url, complexity_depth, dimension, material_level';
+  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level';
 
 /** Liste admin / API `?full=1` — avec colonnes nature. */
 export const FULL_NODES_SELECT =
-  'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type';
+  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type';
 
 export const FULL_NODES_SELECT_LEGACY =
-  'id, name, name_en, description, description_en, category, type, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level';
+  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level';
 
 export function isMissingNatureColumnsError(
   err: {
@@ -172,7 +172,6 @@ export function mapGraphNodeRowToSeedNode(row: Record<string, unknown>): SeedNod
     description: '',
     description_en: undefined,
     category: String(row.category),
-    type: String(row.type),
     era: eraFromDb,
     year_approx: year,
     complexity_depth: Number(row.complexity_depth ?? 0),
@@ -199,7 +198,6 @@ export function mapNodeRowToSeedNode(row: Record<string, unknown>): SeedNode {
     description_en:
       row.description_en != null ? String(row.description_en) : undefined,
     category: String(row.category),
-    type: String(row.type),
     era: String(row.era ?? ''),
     year_approx:
       row.year_approx === null || row.year_approx === undefined
@@ -249,11 +247,20 @@ export async function getNodeDetailsRow(id: string) {
     return n ?? null;
   }
   const supabase = createSupabaseServerReadClient();
-  const { data, error } = await supabase
+  let { data, error } = await supabase
     .from('nodes')
-    .select('*')
+    .select(FULL_NODES_SELECT as never)
     .eq('id', id)
     .maybeSingle();
+  if (error && isMissingNatureColumnsError(error)) {
+    const second = await supabase
+      .from('nodes')
+      .select(FULL_NODES_SELECT_LEGACY as never)
+      .eq('id', id)
+      .maybeSingle();
+    data = second.data;
+    error = second.error;
+  }
   if (error) throw error;
   return data;
 }

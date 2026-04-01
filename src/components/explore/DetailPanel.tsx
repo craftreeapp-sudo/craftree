@@ -31,22 +31,15 @@ import { CardImagePlaceholder } from '@/components/explore/CardImagePlaceholder'
 import { ShareInventionButton } from '@/components/explore/ShareInventionButton';
 import { treeLayerDisplayIndexFromNode } from '@/lib/tree-layers';
 import {
+  effectiveDimension,
+  effectiveMaterialLevel,
+} from '@/lib/node-dimension-helpers';
+import { EDITOR_DIM_KEY, EDITOR_LEVEL_KEY } from '@/components/editor/dimension-editor-keys';
+import {
   EXPLORE_DETAIL_PANEL_WIDTH_PX,
   EXPLORE_TREE_PANEL_FIXED_TOP_CLASS,
 } from '@/lib/explore-layout';
 const TRANSITION = { duration: 0.35, ease: [0.4, 0, 0.2, 1] as const };
-
-function materialLevelEditorKey(
-  level: NonNullable<import('@/lib/types').TechNodeBasic['materialLevel']>
-) {
-  const map = {
-    raw: 'levelRaw',
-    processed: 'levelProcessed',
-    industrial: 'levelIndustrial',
-    component: 'levelComponent',
-  } as const;
-  return map[level];
-}
 
 export function ExploreDetailPanel() {
   const ctx = useExploreCardOptional();
@@ -55,7 +48,6 @@ export function ExploreDetailPanel() {
   const tSidebar = useTranslations('sidebar');
   const tAuth = useTranslations('auth');
   const tCat = useTranslations('categories');
-  const tTypes = useTranslations('types');
   const tEd = useTranslations('editor');
 
   const getNodeById = useGraphStore((s) => s.getNodeById);
@@ -171,17 +163,15 @@ export function ExploreDetailPanel() {
 
   const natureLine = useMemo(() => {
     if (!node) return '';
-    const dim = node.dimension;
+    const dim = effectiveDimension(node);
+    const dLabel = tEd(EDITOR_DIM_KEY[dim]);
     if (dim === 'matter') {
-      const d = tEd('dimensionMatter');
-      const ml = node.materialLevel;
-      const lvl = ml ? tEd(materialLevelEditorKey(ml)) : '';
-      return lvl ? `${d} · ${lvl}` : d;
+      const ml = effectiveMaterialLevel(node);
+      const lvl = ml ? tEd(EDITOR_LEVEL_KEY[ml]) : '';
+      return lvl ? `${dLabel} · ${lvl}` : dLabel;
     }
-    if (dim === 'process') return tEd('dimensionProcess');
-    if (dim === 'tool') return tEd('dimensionTool');
-    return tTypes(node.type);
-  }, [node, tEd, tTypes]);
+    return dLabel;
+  }, [node, tEd]);
 
   const originLine = (node?.origin ?? detail?.origin ?? '').trim();
 
@@ -316,11 +306,7 @@ export function ExploreDetailPanel() {
               color: categoryColor,
             }}
           >
-            {safeCategoryLabel(
-              tCat,
-              String(node.category),
-              tTypes
-            )}
+            {safeCategoryLabel(tCat, String(node.category))}
           </span>
           <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
             {natureLine}

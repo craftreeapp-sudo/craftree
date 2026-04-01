@@ -42,7 +42,6 @@ export function getMergedSeedNode(id: string): SeedNode | undefined {
     name_en: d.name_en ?? '',
     description: d.description ?? '',
     category: n.category,
-    type: typeof row.type === 'string' ? row.type : 'material',
     era: n.era,
     year_approx: n.year_approx,
     complexity_depth: n.complexity_depth,

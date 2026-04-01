@@ -1,5 +1,10 @@
 import { create } from 'zustand';
-import type { NodeCategory, Era, TechNodeType } from '@/lib/types';
+import type {
+  Era,
+  MaterialLevel,
+  NodeCategory,
+  NodeDimension,
+} from '@/lib/types';
 import { NodeCategory as NC, Era as EraEnum } from '@/lib/types';
 
 export interface SelectNodeOptions {
@@ -11,13 +16,12 @@ export interface SelectNodeOptions {
 
 const ALL_CATEGORIES = new Set(Object.values(NC) as NodeCategory[]);
 const ALL_ERAS = new Set(Object.values(EraEnum) as Era[]);
-const ALL_TYPES = new Set<TechNodeType>([
-  'raw_material',
-  'material',
-  'process',
-  'tool',
+const ALL_DIMENSIONS = new Set<NodeDimension>(['matter', 'process', 'tool']);
+const ALL_MATERIAL_LEVELS = new Set<MaterialLevel>([
+  'raw',
+  'processed',
+  'industrial',
   'component',
-  'end_product',
 ]);
 
 export type EdgeStyle = 'angular' | 'smooth';
@@ -48,7 +52,10 @@ interface UIStore {
   /** Filtres visuels : sous-ensembles actifs (tout activé par défaut) */
   activeCategories: Set<NodeCategory>;
   activeEras: Set<Era>;
-  activeTypes: Set<TechNodeType>;
+  /** Matière / procédé / outil */
+  activeDimensions: Set<NodeDimension>;
+  /** Sous-filtre si dimension = matter (nœuds non-matter ignorés pour ce critère) */
+  activeMaterialLevels: Set<MaterialLevel>;
 
   selectNode: (id: string, options?: SelectNodeOptions) => void;
   closeSidebar: () => void;
@@ -60,15 +67,19 @@ interface UIStore {
 
   toggleCategory: (category: NodeCategory) => void;
   toggleEra: (era: Era) => void;
-  toggleType: (type: TechNodeType) => void;
+  toggleDimension: (dimension: NodeDimension) => void;
+  toggleMaterialLevel: (level: MaterialLevel) => void;
   setAllCategories: (active: boolean) => void;
   setAllEras: (active: boolean) => void;
-  setAllTypes: (active: boolean) => void;
+  setAllDimensions: (active: boolean) => void;
+  setAllMaterialLevels: (active: boolean) => void;
 
   /** Page picker : un seul critère actif, les autres dimensions restent « tout ». */
   setOnlyCategory: (category: NodeCategory) => void;
   setOnlyEra: (era: Era) => void;
-  setOnlyType: (type: TechNodeType) => void;
+  setOnlyDimension: (dimension: NodeDimension) => void;
+  /** Filtre uniquement les cartes matière avec ce niveau (dimension matter implicite). */
+  setOnlyMaterialLevel: (level: MaterialLevel) => void;
 
   /** /explore : liens orthogonaux (angles droits) ou courbes de Bézier */
   edgeStyle: EdgeStyle;
@@ -107,7 +118,8 @@ export const useUIStore = create<UIStore>((set) => ({
 
   activeCategories: new Set(ALL_CATEGORIES),
   activeEras: new Set(ALL_ERAS),
-  activeTypes: new Set(ALL_TYPES),
+  activeDimensions: new Set(ALL_DIMENSIONS),
+  activeMaterialLevels: new Set(ALL_MATERIAL_LEVELS),
 
   selectNode: (id, options) =>
     set((s) => {
@@ -199,12 +211,20 @@ export const useUIStore = create<UIStore>((set) => ({
       return { activeEras: next };
     }),
 
-  toggleType: (type) =>
+  toggleDimension: (dimension) =>
     set((s) => {
-      const next = new Set(s.activeTypes);
-      if (next.has(type)) next.delete(type);
-      else next.add(type);
-      return { activeTypes: next };
+      const next = new Set(s.activeDimensions);
+      if (next.has(dimension)) next.delete(dimension);
+      else next.add(dimension);
+      return { activeDimensions: next };
+    }),
+
+  toggleMaterialLevel: (level) =>
+    set((s) => {
+      const next = new Set(s.activeMaterialLevels);
+      if (next.has(level)) next.delete(level);
+      else next.add(level);
+      return { activeMaterialLevels: next };
     }),
 
   setAllCategories: (active) =>
@@ -217,30 +237,46 @@ export const useUIStore = create<UIStore>((set) => ({
       activeEras: active ? new Set(ALL_ERAS) : new Set(),
     }),
 
-  setAllTypes: (active) =>
+  setAllDimensions: (active) =>
     set({
-      activeTypes: active ? new Set(ALL_TYPES) : new Set(),
+      activeDimensions: active ? new Set(ALL_DIMENSIONS) : new Set(),
+    }),
+
+  setAllMaterialLevels: (active) =>
+    set({
+      activeMaterialLevels: active ? new Set(ALL_MATERIAL_LEVELS) : new Set(),
     }),
 
   setOnlyCategory: (category) =>
     set({
       activeCategories: new Set([category]),
       activeEras: new Set(ALL_ERAS),
-      activeTypes: new Set(ALL_TYPES),
+      activeDimensions: new Set(ALL_DIMENSIONS),
+      activeMaterialLevels: new Set(ALL_MATERIAL_LEVELS),
     }),
 
   setOnlyEra: (era) =>
     set({
       activeCategories: new Set(ALL_CATEGORIES),
       activeEras: new Set([era]),
-      activeTypes: new Set(ALL_TYPES),
+      activeDimensions: new Set(ALL_DIMENSIONS),
+      activeMaterialLevels: new Set(ALL_MATERIAL_LEVELS),
     }),
 
-  setOnlyType: (type) =>
+  setOnlyDimension: (dimension) =>
     set({
       activeCategories: new Set(ALL_CATEGORIES),
       activeEras: new Set(ALL_ERAS),
-      activeTypes: new Set([type]),
+      activeDimensions: new Set([dimension]),
+      activeMaterialLevels: new Set(ALL_MATERIAL_LEVELS),
+    }),
+
+  setOnlyMaterialLevel: (level) =>
+    set({
+      activeCategories: new Set(ALL_CATEGORIES),
+      activeEras: new Set(ALL_ERAS),
+      activeDimensions: new Set(['matter']),
+      activeMaterialLevels: new Set([level]),
     }),
 
   edgeStyle: 'smooth',

@@ -21,6 +21,36 @@ const nextConfig: NextConfig = {
         destination: '/editor',
         permanent: true,
       },
+      {
+        source: '/categories/type/process',
+        destination: '/categories/dimension/process',
+        permanent: true,
+      },
+      {
+        source: '/categories/type/tool',
+        destination: '/categories/dimension/tool',
+        permanent: true,
+      },
+      {
+        source: '/categories/type/raw_material',
+        destination: '/categories/materialLevel/raw',
+        permanent: true,
+      },
+      {
+        source: '/categories/type/component',
+        destination: '/categories/materialLevel/component',
+        permanent: true,
+      },
+      {
+        source: '/categories/type/material',
+        destination: '/categories/dimension/matter',
+        permanent: true,
+      },
+      {
+        source: '/categories/type/end_product',
+        destination: '/categories/materialLevel/component',
+        permanent: true,
+      },
     ];
   },
   async headers() {
