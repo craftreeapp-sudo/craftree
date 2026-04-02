@@ -226,68 +226,105 @@ tr[role='button'] {
   box-shadow: var(--glass-hero-shadow);
 }
 
+/*
+ * Flou : déclaré hors de @supports pour que le flou s’applique toujours quand le moteur le
+ * supporte (évite les builds prod où un bloc @supports réécrit peut ne pas s’appliquer en
+ * Chrome alors que CSS.supports('backdrop-filter', …) est true).
+ */
+.glass-app-header,
+.glass-explore-sticky-nav {
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: blur(16px) saturate(1.2);
+}
+
+.glass-footer {
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: blur(16px) saturate(1.2);
+}
+
+.glass-search-field {
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: blur(16px) saturate(1.2);
+}
+
+.glass-landing {
+  -webkit-backdrop-filter: blur(20px) saturate(1.35);
+  backdrop-filter: blur(20px) saturate(1.35);
+}
+
+.glass-explore-detail,
+.glass-panel-right {
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  backdrop-filter: blur(24px) saturate(1.3);
+}
+
+.glass-explore-legend {
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  backdrop-filter: blur(24px) saturate(1.3);
+}
+
+.glass-explore-legend-sheet {
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  backdrop-filter: blur(24px) saturate(1.3);
+}
+
+.glass-explore-hover,
+.glass-surface {
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  backdrop-filter: blur(20px) saturate(1.2);
+}
+
+.glass-explore-hero-frame,
+.glass-card {
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  backdrop-filter: blur(12px) saturate(1.1);
+}
+
+/* Avec flou : fonds un peu plus transparents (navigateurs sans backdrop-filter ignorent le flou et gardent les --*-fallback du dessus). */
 @supports (backdrop-filter: blur(1px)) {
   .glass-app-header,
   .glass-explore-sticky-nav {
     background-color: var(--glass-header);
-    backdrop-filter: blur(16px) saturate(1.2);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
   }
 
   .glass-footer {
     background-color: var(--glass-header);
-    backdrop-filter: blur(16px) saturate(1.2);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
   }
 
   .glass-search-field {
     background-color: var(--glass-header);
-    backdrop-filter: blur(16px) saturate(1.2);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
   }
 
   .glass-landing {
     background-color: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(20px) saturate(1.35);
-    -webkit-backdrop-filter: blur(20px) saturate(1.35);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
   }
 
   .glass-explore-detail,
   .glass-panel-right {
     background-color: var(--glass-panel);
-    backdrop-filter: blur(24px) saturate(1.3);
-    -webkit-backdrop-filter: blur(24px) saturate(1.3);
     box-shadow: var(--glass-shadow-detail);
   }
 
   .glass-explore-legend {
     background-color: var(--glass-panel);
-    backdrop-filter: blur(24px) saturate(1.3);
-    -webkit-backdrop-filter: blur(24px) saturate(1.3);
     box-shadow: var(--glass-shadow-legend);
   }
 
   .glass-explore-legend-sheet {
     background-color: var(--glass-panel);
-    backdrop-filter: blur(24px) saturate(1.3);
-    -webkit-backdrop-filter: blur(24px) saturate(1.3);
     box-shadow: var(--glass-shadow-legend-sheet);
   }
 
   .glass-explore-hover,
   .glass-surface {
     background-color: var(--glass-hover);
-    backdrop-filter: blur(20px) saturate(1.2);
-    -webkit-backdrop-filter: blur(20px) saturate(1.2);
     box-shadow: var(--glass-shadow-hover);
   }
 
   .glass-explore-hero-frame,
   .glass-card {
     background-color: var(--glass-hero);
-    backdrop-filter: blur(12px) saturate(1.1);
-    -webkit-backdrop-filter: blur(12px) saturate(1.1);
     box-shadow: var(--glass-hero-shadow);
   }
 }
