@@ -12,6 +12,7 @@ import {
   fetchWikipediaImageUrl,
   searchWikipediaImage,
 } from './wikimedia-fetch.mjs';
+import { confirm, hasYesFlag } from './cli-confirm.mjs';
 
 const PAUSE_MS = 300;
 
@@ -33,20 +34,52 @@ function needsRemoteImageUrl(node) {
 
 async function main() {
   const limit = parseLimit();
-  const supabase = createServiceSupabaseClient();
+  const autoYes = hasYesFlag();
   const db = readDB();
   const totalNodes = db.nodes.length;
+  const missingCount = db.nodes.filter(needsRemoteImageUrl).length;
   let todo = db.nodes.filter(needsRemoteImageUrl);
   if (limit != null) {
     todo = todo.slice(0, limit);
   }
 
-  const missingCount = db.nodes.filter(needsRemoteImageUrl).length;
-  console.log(
-    `🖼️  ${missingCount} images manquantes sur ${totalNodes} nœuds${
-      limit != null ? ` (traitement limité à ${limit})` : ''
-    }\n`
+  if (todo.length === 0) {
+    console.log(
+      missingCount === 0
+        ? 'Aucune image manquante.'
+        : 'Rien à traiter avec ces paramètres.'
+    );
+    return;
+  }
+
+  const estMin = Math.max(
+    1,
+    Math.round((todo.length * (PAUSE_MS / 1000 + 12)) / 60)
   );
+
+  console.log('');
+  console.log('╔══════════════════════════════════════════╗');
+  console.log('║      RÉCUPÉRATION DES IMAGES            ║');
+  console.log('╚══════════════════════════════════════════╝');
+  console.log('');
+  console.log(`📋 Images manquantes : ${missingCount} sur ${totalNodes}`);
+  if (limit != null) {
+    console.log(`   → ${todo.length} fiche(s) à traiter (limite --limit ${limit})`);
+  }
+  console.log('💰 Coût : GRATUIT (API Wikimedia)');
+  console.log(`⏱️  Durée estimée : ~${estMin} min`);
+  console.log('🔄 Source : Wikipedia / Wikimedia Commons');
+  console.log('');
+
+  if (!autoYes) {
+    const proceed = await confirm('Continuer ?');
+    if (!proceed) {
+      console.log('❌ Annulé.');
+      process.exit(0);
+    }
+  }
+
+  const supabase = createServiceSupabaseClient();
 
   let ok = 0;
   let miss = 0;

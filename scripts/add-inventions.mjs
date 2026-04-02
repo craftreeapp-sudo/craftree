@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 /**
  * Ajoute de nouvelles inventions (Haiku, sans web search).
+ * Mode --smart : analyse seed-data.json (orphelins, catégories/ères, sauts de profondeur)
+ * puis stratégie + 1 appel découverte + création par lots de 5.
+ * Toutes les fiches créées ont is_draft: true (validation manuelle avant publication).
  */
 import Anthropic from '@anthropic-ai/sdk';
 import { config } from 'dotenv';
@@ -25,6 +28,7 @@ import {
   updateNodeImageUrl,
 } from './supabase-seed-sync.mjs';
 import { fetchWikipediaImageUrl } from './wikimedia-fetch.mjs';
+import { confirm, hasYesFlag } from './cli-confirm.mjs';
 
 config({ path: '.env.local' });
 config({ path: '.env' });
@@ -34,22 +38,187 @@ const BATCH_SIZE = 5;
 const MAX_TOKENS = 8000;
 const PAUSE_MS = 2000;
 
+/** Aligné sur les prompts / seed (liste plate). */
+const ALLOWED_CATEGORIES = new Set([
+  'energy',
+  'construction',
+  'weapon',
+  'network',
+  'food',
+  'transport',
+  'software',
+  'infrastructure',
+  'textile',
+  'communication',
+  'agriculture',
+  'robotics',
+  'chemistry',
+  'electronics',
+  'environment',
+  'automation',
+  'medical',
+  'optical',
+  'storage',
+  'aeronautics',
+  'space',
+  'industry',
+  'nanotechnology',
+  'biotechnology',
+  'security',
+  'home_automation',
+]);
+
+const ALLOWED_ERAS = new Set([
+  'prehistoric',
+  'ancient',
+  'medieval',
+  'renaissance',
+  'industrial',
+  'modern',
+  'digital',
+  'contemporary',
+]);
+
+function splitCommaList(raw) {
+  return String(raw)
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
 function parseArgs() {
-  const argv = process.argv.slice(2);
+  const argv = process.argv.slice(2).filter((a) => a !== '--yes' && a !== '-y');
   let count = null;
-  let category = null;
+  let smart = false;
+  /** @type {string[] | null} */
+  let categoryFilter = null;
+  /** @type {string[] | null} */
+  let eraFilter = null;
+  let afterYear = null;
+  let beforeYear = null;
   let nameArg = null;
+
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
-    if (a === '--count' && argv[i + 1]) {
+    if (a === '--smart') {
+      smart = true;
+    } else if (a === '--count' && argv[i + 1]) {
       count = parseInt(argv[++i], 10);
-    } else if (a === '--category' && argv[i + 1]) {
-      category = argv[++i];
+    } else if (a === '--limit' && argv[i + 1]) {
+      count = parseInt(argv[++i], 10);
     } else if (a === '--name' && argv[i + 1]) {
       nameArg = argv[++i];
+    } else if (a === '--category' && argv[i + 1]) {
+      categoryFilter = splitCommaList(argv[++i]);
+    } else if (a.startsWith('--category=')) {
+      const v = a.slice('--category='.length).trim();
+      if (v) categoryFilter = splitCommaList(v);
+    } else if (
+      a.startsWith('--category') &&
+      a.length > '--category'.length &&
+      !a.startsWith('--category=')
+    ) {
+      const v = a.slice('--category'.length).trim();
+      if (v) categoryFilter = splitCommaList(v);
+    } else if (a === '--era' && argv[i + 1]) {
+      eraFilter = splitCommaList(argv[++i]);
+    } else if (a.startsWith('--era=')) {
+      const v = a.slice('--era='.length).trim();
+      if (v) eraFilter = splitCommaList(v);
+    } else if (
+      a.startsWith('--era') &&
+      a.length > '--era'.length &&
+      !a.startsWith('--era=')
+    ) {
+      const v = a.slice('--era'.length).trim();
+      if (v) eraFilter = splitCommaList(v);
+    } else if (a === '--after' && argv[i + 1]) {
+      afterYear = parseInt(argv[++i], 10);
+    } else if (a.startsWith('--after=')) {
+      afterYear = parseInt(a.slice('--after='.length).trim(), 10);
+    } else if (a === '--before' && argv[i + 1]) {
+      beforeYear = parseInt(argv[++i], 10);
+    } else if (a.startsWith('--before=')) {
+      beforeYear = parseInt(a.slice('--before='.length).trim(), 10);
     }
   }
-  return { count, category, nameArg };
+
+  // Sans « npm run add -- … », npm peut transmettre "- - N" ou "- - count N" au lieu de "--count N".
+  if (
+    count == null &&
+    nameArg == null &&
+    argv.length >= 3 &&
+    argv[0] === '-' &&
+    argv[1] === '-'
+  ) {
+    const nDirect = parseInt(argv[2], 10);
+    if (Number.isFinite(nDirect) && nDirect >= 1) {
+      count = nDirect;
+    } else if (
+      argv.length >= 4 &&
+      argv[2] === 'count' &&
+      Number.isFinite(parseInt(argv[3], 10)) &&
+      parseInt(argv[3], 10) >= 1
+    ) {
+      count = parseInt(argv[3], 10);
+    }
+  }
+
+  return {
+    count,
+    smart,
+    categoryFilter,
+    eraFilter,
+    afterYear,
+    beforeYear,
+    nameArg,
+  };
+}
+
+function validateSuggestFilters({
+  categoryFilter,
+  eraFilter,
+  afterYear,
+  beforeYear,
+}) {
+  if (categoryFilter?.length) {
+    for (const c of categoryFilter) {
+      if (!ALLOWED_CATEGORIES.has(c)) {
+        console.error(
+          `❌ Catégorie invalide : "${c}". Valeurs autorisées : ${[...ALLOWED_CATEGORIES].sort().join(', ')}`
+        );
+        process.exit(1);
+      }
+    }
+  }
+  if (eraFilter?.length) {
+    for (const e of eraFilter) {
+      if (!ALLOWED_ERAS.has(e)) {
+        console.error(
+          `❌ Époque invalide : "${e}". Valeurs autorisées : ${[...ALLOWED_ERAS].join(', ')}`
+        );
+        process.exit(1);
+      }
+    }
+  }
+  if (afterYear != null && !Number.isFinite(afterYear)) {
+    console.error('❌ --after doit être un nombre valide.');
+    process.exit(1);
+  }
+  if (beforeYear != null && !Number.isFinite(beforeYear)) {
+    console.error('❌ --before doit être un nombre valide.');
+    process.exit(1);
+  }
+  if (
+    afterYear != null &&
+    beforeYear != null &&
+    afterYear >= beforeYear
+  ) {
+    console.error(
+      `❌ --after (${afterYear}) doit être strictement inférieur à --before (${beforeYear}).`
+    );
+    process.exit(1);
+  }
 }
 
 function findOrphanIds(db) {
@@ -62,14 +231,397 @@ function findOrphanIds(db) {
   return [...orphans];
 }
 
-function buildSuggestPrompt(existingNamesJoined, count, categoryFilter) {
+/** Mode --smart : catégories / ères « sous-représentées » si effectif strictement inférieur à ce seuil. */
+const UNDERREP_THRESHOLD = 50;
+
+/**
+ * Compte les références par id (liens + champs enrichis _ai_*).
+ * @param {{ nodes: object[], links: object[] }} db
+ */
+function collectReferenceCounts(db) {
+  /** @type {Map<string, number>} */
+  const counts = new Map();
+  const bump = (id) => {
+    if (!id || typeof id !== 'string') return;
+    counts.set(id, (counts.get(id) ?? 0) + 1);
+  };
+  for (const l of db.links) {
+    bump(l.source_id);
+    bump(l.target_id);
+  }
+  for (const n of db.nodes) {
+    for (const key of ['_ai_built_upon', '_ai_led_to']) {
+      const arr = n[key];
+      if (!Array.isArray(arr)) continue;
+      for (const e of arr) {
+        if (e && typeof e.id === 'string') bump(e.id);
+      }
+    }
+  }
+  return counts;
+}
+
+/**
+ * @param {ReturnType<typeof readDB>} db
+ */
+function analyzeGraph(db) {
+  const nodeIds = new Set(db.nodes.map((n) => n.id));
+  const nodeById = new Map(db.nodes.map((n) => [n.id, n]));
+  const refCounts = collectReferenceCounts(db);
+
+  /** @type {{ id: string; refs: number; pretty: string }[]} */
+  const orphanList = [];
+  for (const [id, refs] of refCounts) {
+    if (nodeIds.has(id)) continue;
+    orphanList.push({
+      id,
+      refs,
+      pretty: idToPrettyName(id),
+    });
+  }
+  orphanList.sort((a, b) => b.refs - a.refs);
+
+  /** @type {Record<string, number>} */
+  const categoryCounts = {};
+  /** @type {Record<string, number>} */
+  const eraCounts = {};
+  for (const c of ALLOWED_CATEGORIES) categoryCounts[c] = 0;
+  for (const e of ALLOWED_ERAS) eraCounts[e] = 0;
+  for (const n of db.nodes) {
+    if (n.category && ALLOWED_CATEGORIES.has(n.category)) {
+      categoryCounts[n.category] = (categoryCounts[n.category] ?? 0) + 1;
+    }
+    if (n.era && ALLOWED_ERAS.has(n.era)) {
+      eraCounts[n.era] = (eraCounts[n.era] ?? 0) + 1;
+    }
+  }
+
+  const underrepresentedCategories = [...ALLOWED_CATEGORIES]
+    .filter((c) => (categoryCounts[c] ?? 0) < UNDERREP_THRESHOLD)
+    .sort((a, b) => (categoryCounts[a] ?? 0) - (categoryCounts[b] ?? 0));
+
+  const underrepresentedEras = [...ALLOWED_ERAS]
+    .filter((e) => (eraCounts[e] ?? 0) < UNDERREP_THRESHOLD)
+    .sort((a, b) => (eraCounts[a] ?? 0) - (eraCounts[b] ?? 0));
+
+  /** Degré = nombre de liens (source ou target). */
+  const degree = new Map();
+  for (const n of db.nodes) degree.set(n.id, 0);
+  for (const l of db.links) {
+    degree.set(l.source_id, (degree.get(l.source_id) ?? 0) + 1);
+    degree.set(l.target_id, (degree.get(l.target_id) ?? 0) + 1);
+  }
+  const isolatedIds = db.nodes
+    .filter((n) => (degree.get(n.id) ?? 0) <= 1)
+    .map((n) => n.id);
+
+  /** @type {{ source: string; target: string; sourceId: string; targetId: string; ds: number; dt: number; diff: number }[]} */
+  const depthGaps = [];
+  for (const l of db.links) {
+    const s = nodeById.get(l.source_id);
+    const t = nodeById.get(l.target_id);
+    if (!s || !t) continue;
+    const ds = Number(s.complexity_depth ?? 0);
+    const dt = Number(t.complexity_depth ?? 0);
+    const diff = Math.abs(dt - ds);
+    if (diff > 5) {
+      depthGaps.push({
+        source: s.name,
+        target: t.name,
+        sourceId: l.source_id,
+        targetId: l.target_id,
+        ds,
+        dt,
+        diff,
+      });
+    }
+  }
+  depthGaps.sort((a, b) => b.diff - a.diff);
+
+  return {
+    totalNodes: db.nodes.length,
+    totalLinks: db.links.length,
+    orphanList,
+    categoryCounts,
+    eraCounts,
+    underrepresentedCategories,
+    underrepresentedEras,
+    isolatedCount: isolatedIds.length,
+    depthGaps,
+  };
+}
+
+/**
+ * @param {number} count
+ * @param {ReturnType<typeof analyzeGraph>} diag
+ * @param {string[] | null} categoryForce
+ */
+function allocateSmartSlots(count, diag, categoryForce) {
+  const { orphanList, depthGaps, underrepresentedCategories, underrepresentedEras } =
+    diag;
+  const orphansAvail = orphanList.length;
+
+  let nOrphans = 0;
+  if (orphansAvail >= count * 0.3) {
+    nOrphans = Math.min(
+      orphansAvail,
+      Math.floor(count * 0.5),
+      Math.ceil(count * 0.45)
+    );
+  } else if (orphansAvail > 0) {
+    nOrphans = Math.min(orphansAvail, Math.max(1, Math.round(count * 0.18)));
+  }
+  nOrphans = Math.min(nOrphans, orphansAvail, count);
+
+  let rem = count - nOrphans;
+  const skew =
+    underrepresentedCategories.length + underrepresentedEras.length;
+  let wCat = 0.34;
+  let wEra = 0.34;
+  let wBridge = 0.32;
+  if (skew > 10) {
+    wCat = 0.38;
+    wEra = 0.38;
+    wBridge = 0.24;
+  }
+  if (orphansAvail >= count * 0.5 && skew < 6) {
+    wCat = 0.28;
+    wEra = 0.28;
+    wBridge = 0.24;
+  }
+  if (depthGaps.length === 0) {
+    const s = wCat + wEra;
+    wCat = wCat / s;
+    wEra = wEra / s;
+    wBridge = 0;
+  }
+
+  let nCat = Math.round(rem * wCat);
+  let nEra = Math.round(rem * wEra);
+  let nBridge = rem - nCat - nEra;
+  if (nBridge < 0) {
+    nBridge = 0;
+    nCat = Math.max(0, Math.floor(rem / 2));
+    nEra = rem - nCat;
+  }
+
+  if (categoryForce?.length) {
+    nCat = Math.ceil(rem * 0.55);
+    nEra = Math.floor(rem * 0.25);
+    nBridge = rem - nCat - nEra;
+    if (nBridge < 0) {
+      nBridge = 0;
+      nEra = rem - nCat;
+    }
+  }
+
+  let sum = nOrphans + nCat + nEra + nBridge;
+  while (sum < count) {
+    if (depthGaps.length > 0) nBridge++;
+    else nCat++;
+    sum++;
+  }
+  while (sum > count) {
+    if (nBridge > 0) nBridge--;
+    else if (nCat > 0) nCat--;
+    else if (nEra > 0) nEra--;
+    else if (nOrphans > 0) nOrphans--;
+    sum--;
+  }
+
+  return { nOrphans, nCat, nEra, nBridge };
+}
+
+/**
+ * @param {ReturnType<typeof readDB>} db
+ */
+function snapshotGraphStats(db) {
+  /** @type {Record<string, number>} */
+  const cat = {};
+  /** @type {Record<string, number>} */
+  const era = {};
+  for (const n of db.nodes) {
+    cat[n.category] = (cat[n.category] ?? 0) + 1;
+    era[n.era] = (era[n.era] ?? 0) + 1;
+  }
+  let minCat = null;
+  let minCatN = Infinity;
+  for (const c of ALLOWED_CATEGORIES) {
+    const v = cat[c] ?? 0;
+    if (v < minCatN) {
+      minCatN = v;
+      minCat = c;
+    }
+  }
+  let minEra = null;
+  let minEraN = Infinity;
+  for (const e of ALLOWED_ERAS) {
+    const v = era[e] ?? 0;
+    if (v < minEraN) {
+      minEraN = v;
+      minEra = e;
+    }
+  }
+  return {
+    nodes: db.nodes.length,
+    links: db.links.length,
+    cat,
+    era,
+    minCat,
+    minCatN,
+    minEra,
+    minEraN,
+  };
+}
+
+function printSmartDiagnostic(diag, slots, count) {
+  const topOrphans = diag.orphanList.slice(0, 5);
+  const topCat = diag.underrepresentedCategories
+    .slice(0, 8)
+    .map((c) => `${c}: ${diag.categoryCounts[c] ?? 0}`)
+    .join(' | ');
+  const topEra = diag.underrepresentedEras
+    .slice(0, 8)
+    .map((e) => `${e}: ${diag.eraCounts[e] ?? 0}`)
+    .join(' | ');
+  const topGaps = diag.depthGaps.slice(0, 3);
+
+  console.log('');
+  console.log('╔══════════════════════════════════════════╗');
+  console.log('║       ANALYSE INTELLIGENTE DU GRAPHE    ║');
+  console.log('╚══════════════════════════════════════════╝');
+  console.log('');
+  console.log(
+    `📊 État actuel : ${diag.totalNodes} inventions, ${diag.totalLinks} liens`
+  );
+  console.log('');
+  console.log('🔍 Diagnostic :');
+  console.log(
+    `  Orphelins (référencés mais sans fiche) : ${diag.orphanList.length}`
+  );
+  if (topOrphans.length) {
+    console.log(
+      `    Top 5 : ${topOrphans
+        .map((o) => `${o.pretty} (${o.refs} refs)`)
+        .join(', ')}…`
+    );
+  }
+  console.log('');
+  console.log(
+    `  Catégories sous-représentées (< ${UNDERREP_THRESHOLD} cartes) :`
+  );
+  console.log(`    ${topCat || '(aucune)'}`);
+  console.log('');
+  console.log(
+    `  Époques sous-représentées (< ${UNDERREP_THRESHOLD} cartes) :`
+  );
+  console.log(`    ${topEra || '(aucune)'}`);
+  console.log('');
+  console.log(
+    `  Cartes isolées (0-1 liens) : ${diag.isolatedCount}`
+  );
+  console.log('');
+  console.log(
+    `  Sauts de profondeur (> 5 niveaux) : ${diag.depthGaps.length}`
+  );
+  for (const g of topGaps) {
+    const low = g.ds < g.dt ? g.source : g.target;
+    const high = g.ds < g.dt ? g.target : g.source;
+    const dLow = Math.min(g.ds, g.dt);
+    const dHigh = Math.max(g.ds, g.dt);
+    const missing = Math.max(0, g.diff - 1);
+    console.log(
+      `    Ex: ${low} (depth ${dLow}) → ${high} (depth ${dHigh}) — manque ~${missing} étapes`
+    );
+  }
+  console.log('');
+  console.log(`🧠 Stratégie proposée pour ${count} inventions :`);
+  console.log(`  - ${slots.nOrphans} orphelins prioritaires (les plus référencés)`);
+  console.log(
+    `  - ${slots.nCat} inventions dans catégories sous-représentées (ou forcées)`
+  );
+  console.log(`  - ${slots.nEra} inventions dans époques sous-représentées`);
+  console.log(`  - ${slots.nBridge} inventions pour combler les sauts de profondeur`);
+  console.log('');
+}
+
+/**
+ * @param {object} p
+ */
+function buildSmartDiscoverPrompt({
+  totalNodes,
+  underrepresentedCategories,
+  underrepresentedEras,
+  depthGaps,
+  existingNames,
+  countToDiscover,
+  categorySuggestionCount,
+  eraSuggestionCount,
+  bridgeSuggestionCount,
+  categoryForced,
+}) {
+  const gapLines = depthGaps
+    .slice(0, 15)
+    .map((g) => `- entre ${g.source} et ${g.target}`);
+  const catLine = categoryForced?.length
+    ? categoryForced.join(', ')
+    : underrepresentedCategories.join(', ');
+  const eraLine = underrepresentedEras.join(', ');
+  const gapsStr = depthGaps
+    .slice(0, 12)
+    .map((g) => `${g.source} → ${g.target}`)
+    .join(', ');
+
+  return `Tu es un agent de découverte pour Craftree, un arbre technologique des inventions humaines.
+
+Voici l'état du graphe :
+- ${totalNodes} inventions existantes
+- Catégories sous-représentées : ${catLine || '(équilibré)'}
+- Époques sous-représentées : ${eraLine || '(équilibré)'}
+- Sauts de profondeur à combler : ${gapsStr || '(aucun)'}
+
+Inventions existantes : ${existingNames}
+
+Suggère ${countToDiscover} inventions FONDAMENTALES qui :
+1. Comblent les catégories sous-représentées (${categorySuggestionCount} inventions)
+2. Comblent les époques sous-représentées (${eraSuggestionCount} inventions)
+3. Créent des ponts entre les inventions existantes qui ont des sauts de profondeur (${bridgeSuggestionCount} inventions)
+
+Pour les ponts, suggère des inventions INTERMÉDIAIRES entre :
+${gapLines.length ? gapLines.join('\n') : '- (aucun gap majeur — propose des inventions de liaison pertinentes)'}
+
+Réponds uniquement avec un JSON array de noms en français.`;
+}
+
+/**
+ * @param {object} filters
+ * @param {string[] | null} filters.categoryFilter
+ * @param {string[] | null} filters.eraFilter
+ * @param {number | null} filters.afterYear
+ * @param {number | null} filters.beforeYear
+ */
+function buildSuggestPrompt(existingNamesJoined, count, filters) {
+  const { categoryFilter, eraFilter, afterYear, beforeYear } = filters;
+  const lines = [];
+  if (categoryFilter?.length) {
+    lines.push(`Catégories ciblées : ${categoryFilter.join(', ')}`);
+  }
+  if (eraFilter?.length) {
+    lines.push(`Époques ciblées : ${eraFilter.join(', ')}`);
+  }
+  if (afterYear != null) {
+    lines.push(`Inventions apparues APRÈS ${afterYear}`);
+  }
+  if (beforeYear != null) {
+    lines.push(`Inventions apparues AVANT ${beforeYear}`);
+  }
+  const filterBlock =
+    lines.length > 0 ? `\n\n${lines.join('\n')}\n` : '\n';
+
   return `Voici les inventions existantes dans Craftree : ${existingNamesJoined}
 
-Suggère ${count} inventions fondamentales qui manquent et qui sont importantes pour compléter l'arbre technologique. ${
-    categoryFilter
-      ? `Concentre-toi sur les catégories : ${categoryFilter}. `
-      : ''
-}Réponds uniquement avec un JSON array de noms : ["Dynamite", "Radar", ...]`;
+Suggère ${count} inventions fondamentales qui manquent et qui sont importantes pour compléter l'arbre technologique.${filterBlock}
+Réponds uniquement avec un JSON array de noms : ["Dynamite", "Radar", ...]`;
 }
 
 function buildCreatePrompt(batch, existingNodes) {
@@ -193,6 +745,8 @@ function nodeFromAiItem(item, preferredId) {
     origin_type,
     nature_type,
     image_url: null,
+    /** Toujours brouillon : validation manuelle avant mise en ligne. */
+    is_draft: true,
     _ai_built_upon: built,
     _ai_led_to: led,
   };
@@ -242,97 +796,98 @@ function addLinksForNode(db, nodeId, item, idSet, pendingLinks, existingKeys) {
   }
 }
 
-async function main() {
-  const { count, category, nameArg } = parseArgs();
-  const apiKey = process.env.ANTHROPIC_API_KEY?.trim();
-  if (!apiKey) {
-    console.error('❌ ANTHROPIC_API_KEY manquant (.env.local)');
-    process.exit(1);
-  }
-  const client = new Anthropic({ apiKey });
-  const supabase = createServiceSupabaseClient();
+function printAddSummary({
+  nameArg,
+  count,
+  categoryFilter,
+  eraFilter,
+  afterYear,
+  beforeYear,
+  workList,
+  needSuggest,
+}) {
+  const targetCount = nameArg ? workList.length : count;
+  const suggestCalls = !nameArg && needSuggest > 0 ? 1 : 0;
+  const createCalls = nameArg
+    ? Math.ceil(workList.length / BATCH_SIZE)
+    : Math.ceil(count / BATCH_SIZE);
+  const totalClaude = suggestCalls + createCalls;
+  const estUsd = (totalClaude * 0.01).toFixed(2);
+  const pauseSec = (createCalls * PAUSE_MS) / 1000;
+  const estMin = Math.max(
+    1,
+    Math.round((totalClaude * 30 + pauseSec) / 60)
+  );
 
+  const batchLine =
+    suggestCalls > 0
+      ? `📦 Lots de ${BATCH_SIZE} → ${totalClaude} appel(s) Claude (Haiku) (${suggestCalls} suggestion + ${createCalls} création)`
+      : `📦 Lots de ${BATCH_SIZE} → ${totalClaude} appel(s) Claude (Haiku)`;
+
+  const hasFilters =
+    (categoryFilter?.length ?? 0) > 0 ||
+    (eraFilter?.length ?? 0) > 0 ||
+    afterYear != null ||
+    beforeYear != null;
+
+  console.log('');
+  console.log('╔══════════════════════════════════════════╗');
+  console.log('║       AJOUT DE NOUVELLES INVENTIONS     ║');
+  console.log('╚══════════════════════════════════════════╝');
+  console.log('');
+  console.log(
+    '📝 Les fiches créées seront en brouillon (is_draft) jusqu’à validation.'
+  );
+  console.log('');
+  console.log(`📋 Inventions à ajouter : ${targetCount}`);
+  console.log(batchLine);
+  console.log(`💰 Coût estimé : ~${estUsd}$`);
+  console.log(`⏱️  Durée estimée : ~${estMin} min`);
+  console.log(
+    '🖼️  Images Wikimedia : récupération automatique après chaque lot'
+  );
+  if (nameArg) {
+    console.log('');
+    console.log('Inventions à créer :\n');
+    for (const w of workList) {
+      console.log(w.name);
+    }
+    console.log('');
+  } else {
+    console.log(`Mode : --count ${count} (découverte automatique)`);
+  }
+  console.log('');
+  console.log('Filtres actifs :');
+  if (!hasFilters) {
+    console.log('  (aucun)');
+  } else {
+    if (categoryFilter?.length) {
+      console.log(`  🏷️  Catégories : ${categoryFilter.join(', ')}`);
+    }
+    if (eraFilter?.length) {
+      console.log(`  📅 Époque${eraFilter.length > 1 ? 's' : ''} : ${eraFilter.join(', ')}`);
+    }
+    if (afterYear != null) {
+      console.log(`  📆 Après : ${afterYear}`);
+    }
+    if (beforeYear != null) {
+      console.log(`  📆 Avant : ${beforeYear}`);
+    }
+  }
+  console.log('');
+}
+
+/**
+ * @param {import('@anthropic-ai/sdk').default} client
+ * @param {unknown} supabase
+ * @param {{ name: string, preferredId?: string, smartTag?: string }[]} workList
+ */
+async function runInventionBatches(client, supabase, workList) {
   let db = readDB();
   const nodeIds = new Set(db.nodes.map((n) => n.id));
   const nameLower = new Set(db.nodes.map((n) => n.name.toLowerCase()));
-
-  /** @type {{ name: string, preferredId?: string }[]} */
-  let workList = [];
-
-  if (nameArg) {
-    const parts = nameArg.split(',').map((s) => s.trim()).filter(Boolean);
-    for (const p of parts) {
-      const id = slugify(p);
-      if (nodeIds.has(id) || nameLower.has(p.toLowerCase())) {
-        console.log(`⏭️  « ${p} » existe déjà, ignoré.`);
-        continue;
-      }
-      workList.push({ name: p, preferredId: id });
-    }
-  } else {
-    if (count == null || count < 1) {
-      console.error(
-        'Usage : node scripts/add-inventions.mjs --count N [--category cat] | --name "A,B,C"'
-      );
-      process.exit(1);
-    }
-    const orphans = findOrphanIds(db);
-    const fromOrphans = [];
-    for (const oid of orphans) {
-      if (fromOrphans.length >= count) break;
-      if (nodeIds.has(oid)) continue;
-      const name = idToPrettyName(oid);
-      fromOrphans.push({ name, preferredId: oid });
-    }
-    let need = count - fromOrphans.length;
-    workList = fromOrphans.slice(0, count);
-    if (need > 0) {
-      const allNames = db.nodes.map((n) => n.name).join(', ');
-      const joined =
-        allNames.length > 120_000
-          ? allNames.slice(0, 120_000) + '…'
-          : allNames;
-      const prompt = buildSuggestPrompt(joined, need, category || null);
-      console.log(`\n📡 Suggestion Claude (${need} noms manquants)…`);
-      const res = await callMessages(client, {
-        model: MODEL,
-        max_tokens: 1024,
-        messages: [{ role: 'user', content: prompt }],
-      });
-      const text = res.content
-        .filter((b) => b.type === 'text')
-        .map((b) => b.text)
-        .join('');
-      let suggested = [];
-      try {
-        suggested = parseJsonArray(text);
-      } catch (e) {
-        console.error('❌ JSON suggestion invalide :', e.message);
-        process.exit(1);
-      }
-      if (!Array.isArray(suggested)) {
-        console.error('❌ La suggestion doit être un tableau.');
-        process.exit(1);
-      }
-      for (const raw of suggested) {
-        if (workList.length >= count) break;
-        const name = typeof raw === 'string' ? raw : raw?.name || String(raw);
-        const id = slugify(name);
-        if (nodeIds.has(id) || nameLower.has(name.toLowerCase())) continue;
-        workList.push({ name, preferredId: id });
-      }
-    }
-  }
-
-  if (workList.length === 0) {
-    console.log('Aucune nouvelle invention à ajouter.');
-    return;
-  }
-
-  const estUsd = (workList.length * 0.002 + Math.ceil(workList.length / BATCH_SIZE) * 0.001).toFixed(2);
-  console.log(`🚀 Ajout de ${workList.length} nouvelle(s) invention(s)`);
-  console.log(`   Modèle : ${MODEL}`);
-  console.log(`   Coût estimé : ~${estUsd}$\n`);
+  /** @type {Set<string>} */
+  const createdIds = new Set();
 
   const batches = [];
   for (let i = 0; i < workList.length; i += BATCH_SIZE) {
@@ -414,6 +969,7 @@ async function main() {
 
     for (const node of newNodes) {
       db.nodes.push(node);
+      createdIds.add(node.id);
     }
 
     const addedIds = new Set(newNodes.map((n) => n.id));
@@ -476,13 +1032,426 @@ async function main() {
   }
 
   const sec = ((Date.now() - t0) / 1000).toFixed(1);
-  const estFinal = (workList.length * 0.002).toFixed(2);
+  return { totalLinks, imagesOk, createdIds, sec, workListLength: workList.length };
+}
+
+/** @param {import('@anthropic-ai/sdk').default} client */
+async function buildSmartWorkList(client, db, diag, slots, categoryFilter, count) {
+  const nodeIds = new Set(db.nodes.map((n) => n.id));
+  const nameLower = new Set(db.nodes.map((n) => n.name.toLowerCase()));
+  /** @type {{ name: string, preferredId?: string, smartTag?: string }[]} */
+  const workList = [];
+
+  for (let i = 0; i < slots.nOrphans && workList.length < count; i++) {
+    const o = diag.orphanList[i];
+    if (!o) break;
+    if (nodeIds.has(o.id)) continue;
+    if (nameLower.has(o.pretty.toLowerCase())) continue;
+    workList.push({ name: o.pretty, preferredId: o.id, smartTag: 'orphan' });
+  }
+
+  const needDiscover = count - workList.length;
+  if (needDiscover <= 0) return workList;
+
+  const origSum = slots.nCat + slots.nEra + slots.nBridge;
+  let nCat = slots.nCat;
+  let nEra = slots.nEra;
+  let nBridge = slots.nBridge;
+  if (origSum > 0 && needDiscover !== origSum) {
+    const s = needDiscover / origSum;
+    nCat = Math.max(0, Math.round(slots.nCat * s));
+    nEra = Math.max(0, Math.round(slots.nEra * s));
+    nBridge = needDiscover - nCat - nEra;
+    if (nBridge < 0) {
+      nBridge = 0;
+      nEra = Math.max(0, needDiscover - nCat);
+    }
+  }
+
+  const catCats = categoryFilter?.length
+    ? categoryFilter
+    : diag.underrepresentedCategories;
+  const catEras = diag.underrepresentedEras;
+  const allNames = db.nodes.map((n) => n.name).join(', ');
+  const joined =
+    allNames.length > 120_000 ? allNames.slice(0, 120_000) + '…' : allNames;
+
+  const prompt = buildSmartDiscoverPrompt({
+    totalNodes: diag.totalNodes,
+    underrepresentedCategories: catCats,
+    underrepresentedEras: catEras,
+    depthGaps: diag.depthGaps,
+    existingNames: joined,
+    countToDiscover: needDiscover,
+    categorySuggestionCount: nCat,
+    eraSuggestionCount: nEra,
+    bridgeSuggestionCount: nBridge,
+    categoryForced: categoryFilter ?? null,
+  });
+
+  console.log(
+    `\n📡 Découverte intelligente (${needDiscover} noms) — 1 appel Claude…`
+  );
+  const res = await callMessages(client, {
+    model: MODEL,
+    max_tokens: 4096,
+    messages: [{ role: 'user', content: prompt }],
+  });
+  const text = res.content
+    .filter((b) => b.type === 'text')
+    .map((b) => b.text)
+    .join('');
+  let suggested = [];
+  try {
+    suggested = parseJsonArray(text);
+  } catch (e) {
+    console.error('❌ JSON découverte invalide :', e.message);
+    process.exit(1);
+  }
+  if (!Array.isArray(suggested)) {
+    console.error('❌ La découverte doit être un tableau.');
+    process.exit(1);
+  }
+
+  let discoverIdx = 0;
+  for (const raw of suggested) {
+    if (workList.length >= count) break;
+    const name = typeof raw === 'string' ? raw : raw?.name || String(raw);
+    const id = slugify(name);
+    if (nodeIds.has(id) || nameLower.has(name.toLowerCase())) continue;
+    let tag = 'bridge';
+    if (discoverIdx < nCat) tag = 'category';
+    else if (discoverIdx < nCat + nEra) tag = 'era';
+    discoverIdx++;
+    workList.push({ name, preferredId: id, smartTag: tag });
+    nodeIds.add(id);
+    nameLower.add(name.toLowerCase());
+  }
+
+  return workList;
+}
+
+function printSmartFinalSummary(
+  before,
+  after,
+  workList,
+  createdIds,
+  totalLinks,
+  imagesOk,
+  sec
+) {
+  const orphanNames = [];
+  const catNames = [];
+  const eraNames = [];
+  const bridgeNames = [];
+  for (const w of workList) {
+    const id = w.preferredId || slugify(w.name);
+    if (!createdIds.has(id)) continue;
+    if (w.smartTag === 'orphan') orphanNames.push(w.name);
+    else if (w.smartTag === 'category') catNames.push(w.name);
+    else if (w.smartTag === 'era') eraNames.push(w.name);
+    else if (w.smartTag === 'bridge') bridgeNames.push(w.name);
+  }
+
+  const nAdded = createdIds.size;
+  console.log('');
+  console.log('📊 Résumé intelligent :');
+  console.log(`  Inventions ajoutées : ${nAdded}`);
+  if (orphanNames.length) {
+    console.log(
+      `    - ${orphanNames.length} orphelins comblés (${orphanNames.slice(0, 8).join(', ')}${orphanNames.length > 8 ? '…' : ''})`
+    );
+  }
+  if (catNames.length) {
+    console.log(
+      `    - ${catNames.length} orientées catégories sous-représentées (${catNames.slice(0, 6).join(', ')}${catNames.length > 6 ? '…' : ''})`
+    );
+  }
+  if (eraNames.length) {
+    console.log(
+      `    - ${eraNames.length} orientées époques sous-représentées (${eraNames.slice(0, 6).join(', ')}${eraNames.length > 6 ? '…' : ''})`
+    );
+  }
+  if (bridgeNames.length) {
+    console.log(
+      `    - ${bridgeNames.length} ponts / intermédiaires (${bridgeNames.slice(0, 6).join(', ')}${bridgeNames.length > 6 ? '…' : ''})`
+    );
+  }
+  console.log('');
+  console.log(`  Liens créés : ${totalLinks}`);
+  console.log(`  Images récupérées : ${imagesOk}`);
+  console.log(
+    `  Statut : brouillon (is_draft) — valider dans l’éditeur ou l’explore`
+  );
+  console.log('');
+  console.log(
+    `  Nouvel état : ${after.nodes} inventions, ${after.links} liens`
+  );
+  console.log(
+    `  Catégorie la moins représentée : ${after.minCat} (${after.minCatN})`
+  );
+  console.log(
+    `  Époque la moins représentée : ${after.minEra} (${after.minEraN})`
+  );
+  console.log('');
+  console.log(`  Durée : ${sec}s`);
+  console.log('═'.repeat(46));
+}
+
+async function runSmartMode({ count, categoryFilter, autoYes }) {
+  let db = readDB();
+  const before = snapshotGraphStats(db);
+  const diag = analyzeGraph(db);
+  const slots = allocateSmartSlots(count, diag, categoryFilter);
+
+  printSmartDiagnostic(diag, slots, count);
+
+  console.log(
+    '📝 Les fiches créées seront en brouillon (is_draft) jusqu’à validation.'
+  );
+  console.log('');
+
+  const discoverCalls =
+    slots.nCat + slots.nEra + slots.nBridge > 0 ? 1 : 0;
+  const createCalls = Math.ceil(count / BATCH_SIZE);
+  const totalClaude = discoverCalls + createCalls;
+  const estUsd = (totalClaude * 0.01).toFixed(2);
+  console.log(
+    `📦 1 appel découverte + ${createCalls} lot(s) création (${BATCH_SIZE}/lot) → ${totalClaude} appel(s) Claude (Haiku)`
+  );
+  console.log(`💰 Coût estimé : ~${estUsd}$`);
+  console.log('');
+
+  if (!autoYes) {
+    const ok = await confirm('Continuer ?');
+    if (!ok) {
+      console.log('❌ Annulé.');
+      process.exit(0);
+    }
+  }
+
+  const apiKey = process.env.ANTHROPIC_API_KEY?.trim();
+  if (!apiKey) {
+    console.error('❌ ANTHROPIC_API_KEY manquant (.env.local)');
+    process.exit(1);
+  }
+  const client = new Anthropic({ apiKey });
+  const supabase = createServiceSupabaseClient();
+
+  const workList = await buildSmartWorkList(
+    client,
+    db,
+    diag,
+    slots,
+    categoryFilter,
+    count
+  );
+
+  if (workList.length === 0) {
+    console.log('Aucune nouvelle invention à ajouter.');
+    return;
+  }
+
+  const stats = await runInventionBatches(client, supabase, workList);
+  db = readDB();
+  const after = snapshotGraphStats(db);
+  printSmartFinalSummary(
+    before,
+    after,
+    workList,
+    stats.createdIds,
+    stats.totalLinks,
+    stats.imagesOk,
+    stats.sec
+  );
+}
+
+async function main() {
+  const {
+    count,
+    smart,
+    categoryFilter,
+    eraFilter,
+    afterYear,
+    beforeYear,
+    nameArg,
+  } = parseArgs();
+  const autoYes = hasYesFlag();
+
+  if (smart) {
+    if (nameArg) {
+      console.error(
+        '❌ --smart ne se combine pas avec --name (noms explicites).'
+      );
+      process.exit(1);
+    }
+    if (eraFilter?.length || afterYear != null || beforeYear != null) {
+      console.error(
+        '❌ --smart ne se combine pas avec --era, --after ou --before.'
+      );
+      process.exit(1);
+    }
+    if (count == null || count < 1) {
+      console.error(
+        'Usage : node scripts/add-inventions.mjs --smart --count N\n' +
+          '        node scripts/add-inventions.mjs --smart --limit N\n' +
+          'Options : --category "x,y"  --yes'
+      );
+      process.exit(1);
+    }
+    validateSuggestFilters({ categoryFilter, eraFilter: null, afterYear: null, beforeYear: null });
+    await runSmartMode({ count, categoryFilter, autoYes });
+    return;
+  }
+
+  validateSuggestFilters({
+    categoryFilter,
+    eraFilter,
+    afterYear,
+    beforeYear,
+  });
+
+  let db = readDB();
+  const nodeIds = new Set(db.nodes.map((n) => n.id));
+  const nameLower = new Set(db.nodes.map((n) => n.name.toLowerCase()));
+
+  /** @type {{ name: string, preferredId?: string }[]} */
+  let workList = [];
+  /** Noms encore à obtenir via Claude (mode --count uniquement). */
+  let needSuggest = 0;
+
+  if (nameArg) {
+    const parts = nameArg.split(',').map((s) => s.trim()).filter(Boolean);
+    for (const p of parts) {
+      const id = slugify(p);
+      if (nodeIds.has(id) || nameLower.has(p.toLowerCase())) {
+        console.log(`⏭️  « ${p} » existe déjà, ignoré.`);
+        continue;
+      }
+      workList.push({ name: p, preferredId: id });
+    }
+  } else {
+    if (count == null || count < 1) {
+      console.error(
+        'Usage : node scripts/add-inventions.mjs --count N [options] | --name "A,B,C"\n' +
+          '        node scripts/add-inventions.mjs --smart --count N [--category "x"] [--yes]\n' +
+          'Options (combinables) :\n' +
+          '  --smart                       analyse du graphe + stratégie (avec --count ou --limit)\n' +
+          '  --category "energy,medical"   catégories (liste séparée par des virgules)\n' +
+          '  --era "industrial,modern"     époques\n' +
+          '  --after YEAR                  année min (invention)\n' +
+          '  --before YEAR                 année max (invention)'
+      );
+      console.error(
+        'Avec npm, tout doit être sur une même ligne après -- :\n' +
+          '  npm run add -- --count 5 --category infrastructure\n' +
+          '  npm run add -- - - count 5 --category infrastructure'
+      );
+      process.exit(1);
+    }
+    const orphans = findOrphanIds(db);
+    const fromOrphans = [];
+    for (const oid of orphans) {
+      if (fromOrphans.length >= count) break;
+      if (nodeIds.has(oid)) continue;
+      const name = idToPrettyName(oid);
+      fromOrphans.push({ name, preferredId: oid });
+    }
+    needSuggest = Math.max(0, count - fromOrphans.length);
+    workList = fromOrphans.slice(0, count);
+  }
+
+  if (nameArg && workList.length === 0) {
+    console.log('Aucune nouvelle invention à ajouter.');
+    return;
+  }
+
+  printAddSummary({
+    nameArg,
+    count,
+    categoryFilter,
+    eraFilter,
+    afterYear,
+    beforeYear,
+    workList,
+    needSuggest,
+  });
+
+  if (!autoYes) {
+    const ok = await confirm('Continuer ?');
+    if (!ok) {
+      console.log('❌ Annulé.');
+      process.exit(0);
+    }
+  }
+
+  const apiKey = process.env.ANTHROPIC_API_KEY?.trim();
+  if (!apiKey) {
+    console.error('❌ ANTHROPIC_API_KEY manquant (.env.local)');
+    process.exit(1);
+  }
+  const client = new Anthropic({ apiKey });
+  const supabase = createServiceSupabaseClient();
+
+  if (!nameArg && needSuggest > 0) {
+    const need = needSuggest;
+    const allNames = db.nodes.map((n) => n.name).join(', ');
+    const joined =
+      allNames.length > 120_000
+        ? allNames.slice(0, 120_000) + '…'
+        : allNames;
+    const prompt = buildSuggestPrompt(joined, need, {
+      categoryFilter,
+      eraFilter,
+      afterYear,
+      beforeYear,
+    });
+    console.log(`\n📡 Suggestion Claude (${need} noms manquants)…`);
+    const res = await callMessages(client, {
+      model: MODEL,
+      max_tokens: 1024,
+      messages: [{ role: 'user', content: prompt }],
+    });
+    const text = res.content
+      .filter((b) => b.type === 'text')
+      .map((b) => b.text)
+      .join('');
+    let suggested = [];
+    try {
+      suggested = parseJsonArray(text);
+    } catch (e) {
+      console.error('❌ JSON suggestion invalide :', e.message);
+      process.exit(1);
+    }
+    if (!Array.isArray(suggested)) {
+      console.error('❌ La suggestion doit être un tableau.');
+      process.exit(1);
+    }
+    for (const raw of suggested) {
+      if (workList.length >= count) break;
+      const name = typeof raw === 'string' ? raw : raw?.name || String(raw);
+      const id = slugify(name);
+      if (nodeIds.has(id) || nameLower.has(name.toLowerCase())) continue;
+      workList.push({ name, preferredId: id });
+    }
+  }
+
+  if (workList.length === 0) {
+    console.log('Aucune nouvelle invention à ajouter.');
+    return;
+  }
+
+  const stats = await runInventionBatches(client, supabase, workList);
+  const estFinal = (stats.workListLength * 0.002).toFixed(2);
   console.log('\n' + '═'.repeat(46));
   console.log('📊 Résumé — add-inventions');
-  console.log(`Inventions traitées   : ${workList.length}`);
-  console.log(`Liens ajoutés (lot)   : ${totalLinks}`);
-  console.log(`Images récupérées     : ${imagesOk}`);
-  console.log(`Durée                 : ${sec}s`);
+  console.log(`Inventions traitées   : ${stats.workListLength}`);
+  console.log(`Liens ajoutés (lot)   : ${stats.totalLinks}`);
+  console.log(`Images récupérées     : ${stats.imagesOk}`);
+  console.log(
+    `Statut                : brouillon (is_draft) — valider dans l’éditeur ou l’explore`
+  );
+  console.log(`Durée                 : ${stats.sec}s`);
   console.log(`Coût estimé           : ~${estFinal}$`);
   console.log('═'.repeat(46));
 }

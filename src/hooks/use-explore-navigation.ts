@@ -20,7 +20,7 @@ export function useExploreNavigation() {
         exploreMode?: 'root' | 'push';
       }
     ) => {
-      router.replace(treeInventionPath(id));
+      router.push(treeInventionPath(id));
       selectNode(id, {
         center: opts?.center === true,
         exploreMode: opts?.exploreMode,

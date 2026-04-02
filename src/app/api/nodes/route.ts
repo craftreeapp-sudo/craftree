@@ -37,9 +37,13 @@ function uniqueIdFromName(base: string, existingIds: Set<string>): string {
 
 export async function GET(request: Request) {
   try {
+    const admin = await requireAdminFromRequest();
     if (!isSupabaseConfigured()) {
       const data = readSeedData();
-      return NextResponse.json({ nodes: data.nodes });
+      const nodes = admin
+        ? data.nodes
+        : data.nodes.filter((n) => !n.is_draft);
+      return NextResponse.json({ nodes }, JSON_NO_STORE);
     }
     const { searchParams } = new URL(request.url);
     const full =
@@ -49,9 +53,12 @@ export async function GET(request: Request) {
       supabase,
       full ? 'full' : 'graph'
     );
-    const nodes = rows.map((r) =>
+    let nodes = rows.map((r) =>
       full ? mapNodeRowToSeedNode(r) : mapGraphNodeRowToSeedNode(r)
     );
+    if (!admin) {
+      nodes = nodes.filter((n) => !n.is_draft);
+    }
     return NextResponse.json({ nodes }, JSON_NO_STORE);
   } catch (e) {
     console.error(e);

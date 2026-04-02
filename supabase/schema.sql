@@ -211,6 +211,9 @@ ALTER TABLE nodes ADD CONSTRAINT nodes_chemical_nature_check CHECK (
 -- Classification : origine naturelle + nature chimique/physique (noms alignés seed / populate)
 ALTER TABLE nodes ADD COLUMN IF NOT EXISTS origin_type TEXT;
 ALTER TABLE nodes ADD COLUMN IF NOT EXISTS nature_type TEXT;
+
+/** Brouillon : masqué pour le public ; visible éditeur + explore pour l’admin. */
+ALTER TABLE nodes ADD COLUMN IF NOT EXISTS is_draft BOOLEAN NOT NULL DEFAULT false;
 ALTER TABLE nodes DROP CONSTRAINT IF EXISTS nodes_origin_type_check;
 ALTER TABLE nodes ADD CONSTRAINT nodes_origin_type_check CHECK (
   origin_type IS NULL OR origin_type IN ('mineral', 'vegetal', 'animal')

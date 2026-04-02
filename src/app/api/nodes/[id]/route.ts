@@ -5,10 +5,13 @@ import {
   createSupabaseServerReadClient,
   createSupabaseServiceRoleClient,
 } from '@/lib/supabase-server';
-import { requireAdminFromRequest } from '@/lib/auth-server';
 import {
-  FULL_NODES_SELECT,
-  FULL_NODES_SELECT_LEGACY,
+  requireAdminFromRequest,
+  getViewerIsAdminFromCookies,
+} from '@/lib/auth-server';
+import {
+  fetchFullNodeRowById,
+  isMissingDraftColumnError,
   isMissingNatureColumnsError,
   mapNodeRowToSeedNode,
 } from '@/lib/data';
@@ -33,6 +36,10 @@ export async function GET(_request: Request, ctx: Ctx) {
       if (!n) {
         return NextResponse.json({ error: 'Node not found' }, { status: 404 });
       }
+      const viewerAdmin = await getViewerIsAdminFromCookies();
+      if (n.is_draft && !viewerAdmin) {
+        return NextResponse.json({ error: 'Node not found' }, { status: 404 });
+      }
       return NextResponse.json({
         node: n,
         details: {
@@ -48,26 +55,16 @@ export async function GET(_request: Request, ctx: Ctx) {
     }
 
     const sb = createSupabaseServerReadClient();
-    let { data, error } = await sb
-      .from('nodes')
-      .select(FULL_NODES_SELECT as never)
-      .eq('id', decoded)
-      .maybeSingle();
-    if (error && isMissingNatureColumnsError(error)) {
-      const second = await sb
-        .from('nodes')
-        .select(FULL_NODES_SELECT_LEGACY as never)
-        .eq('id', decoded)
-        .maybeSingle();
-      data = second.data;
-      error = second.error;
-    }
-    if (error) throw error;
+    const data = await fetchFullNodeRowById(sb, decoded);
     if (!data) {
       return NextResponse.json({ error: 'Node not found' }, { status: 404 });
     }
     const row = data as unknown as Record<string, unknown>;
     const node = mapNodeRowToSeedNode(row);
+    const viewerAdmin = await getViewerIsAdminFromCookies();
+    if (node.is_draft && !viewerAdmin) {
+      return NextResponse.json({ error: 'Node not found' }, { status: 404 });
+    }
     const details = nodeRowToTechNodeDetails(row);
     return NextResponse.json({ node, details });
   } catch (e) {
@@ -151,6 +148,14 @@ export async function PUT(request: Request, ctx: Ctx) {
             : parseChemicalNature(String(body.chemicalNature)) || null;
       }
 
+      const adminLocal = await requireAdminFromRequest();
+      if (body.is_draft !== undefined) {
+        if (!adminLocal) {
+          return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+        }
+        merged.is_draft = Boolean(body.is_draft);
+      }
+
       data.nodes[idx] = merged;
       writeSeedData(data);
       return NextResponse.json({ node: merged });
@@ -162,21 +167,7 @@ export async function PUT(request: Request, ctx: Ctx) {
     }
 
     const sb = createSupabaseServiceRoleClient();
-    let { data: prevRow, error: prevErr } = await sb
-      .from('nodes')
-      .select(FULL_NODES_SELECT as never)
-      .eq('id', decoded)
-      .maybeSingle();
-    if (prevErr && isMissingNatureColumnsError(prevErr)) {
-      const second = await sb
-        .from('nodes')
-        .select(FULL_NODES_SELECT_LEGACY as never)
-        .eq('id', decoded)
-        .maybeSingle();
-      prevRow = second.data;
-      prevErr = second.error;
-    }
-    if (prevErr) throw prevErr;
+    const prevRow = await fetchFullNodeRowById(sb, decoded);
     if (!prevRow) {
       return NextResponse.json({ error: 'Node not found' }, { status: 404 });
     }
@@ -231,29 +222,53 @@ export async function PUT(request: Request, ctx: Ctx) {
       }
     }
 
-    let { data: updated, error } = await sb
-      .from('nodes')
-      .update(patch)
-      .eq('id', decoded)
-      .select()
-      .single();
+    if (body.is_draft !== undefined) {
+      patch.is_draft = Boolean(body.is_draft);
+    }
 
-    if (error && isMissingNatureColumnsError(error)) {
-      const patchLegacy = { ...patch };
-      delete patchLegacy.natural_origin;
-      delete patchLegacy.chemical_nature;
-      const second = await sb
+    let attemptPatch: Record<string, unknown> = { ...patch };
+    let updated: unknown = null;
+    let error: {
+      message?: string;
+      details?: string;
+      hint?: string;
+    } | null = null;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const r = await sb
         .from('nodes')
-        .update(patchLegacy)
+        .update(attemptPatch)
         .eq('id', decoded)
         .select()
         .single();
-      updated = second.data;
-      error = second.error;
+      updated = r.data;
+      error = r.error;
+      if (!error) break;
+      if (isMissingNatureColumnsError(error)) {
+        delete attemptPatch.natural_origin;
+        delete attemptPatch.chemical_nature;
+        continue;
+      }
+      if (isMissingDraftColumnError(error) && attemptPatch.is_draft !== undefined) {
+        delete attemptPatch.is_draft;
+        continue;
+      }
+      break;
     }
-
     if (error) throw error;
     const node = mapNodeRowToSeedNode(updated as Record<string, unknown>);
+    if (body.is_draft !== undefined) {
+      const wanted = Boolean(body.is_draft);
+      if (node.is_draft !== wanted) {
+        return NextResponse.json(
+          {
+            error: 'draft_not_persisted',
+            message:
+              'Impossible d’enregistrer le statut brouillon (colonne absente ou migration non appliquée).',
+          },
+          { status: 422 }
+        );
+      }
+    }
     return NextResponse.json({ node });
   } catch (e) {
     console.error(e);

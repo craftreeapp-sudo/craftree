@@ -47,24 +47,14 @@ const BUILT_UPON_CARD_GRID =
 /** Colonnes « matières » (sous-grille par niveau) : même logique, lignes alignées en haut. */
 const BUILT_UPON_MATTERS_SUBGRID = `${BUILT_UPON_CARD_GRID} [align-content:start]`;
 
-/**
- * Débordement horizontal des sections. Pas de marge négative à gauche : le bord gauche des
- * blocs tools/process/matters doit s’aligner sur la carte principale (hero), qui n’a pas
- * de -ml. À droite : léger débordement seulement quand la fiche est fermée ; si la fiche est
- * ouverte, pas de -mr (évite le passage sous le panneau fixe).
- */
-function builtUponSectionBleedXClass(detailOpen: boolean, isMobile: boolean) {
-  if (detailOpen) {
-    return 'ml-0 mr-0';
-  }
-  return 'ml-0 -mr-[60px]';
-}
+/** Pas de marge négative horizontale : évite la troncature des cartes (overflow-x-hidden du scroll). */
+const BUILT_UPON_SECTION_BLEED_X = 'ml-0 mr-0';
 
 const HERO_ID = 'explore-tree-hero';
 /** Bas du bloc Matters (zone Led to) — cible de défilement pour le bouton « Led to ». */
 const LED_TO_MATTERS_END_ID = 'led-to-matters-end';
-/** Après affichage du hero : scroll animé jusqu’à la section « Built upon » (juste sous la carte principale). */
-const TREE_INTRO_SCROLL_TO_BUILT_UPON_MS = 780;
+/** Délai avant le scroll fluide vers « Built upon » (laisser le layout se stabiliser ; pas de scroll hero avant). */
+const TREE_INTRO_SCROLL_TO_BUILT_UPON_MS = 420;
 /**
  * Décalage des sous-barres sticky (Tools, Process, Matters…) pour qu’elles restent
  * sous la barre « How to read / navigation arbre » (sticky z-[90] en haut du scroll).
@@ -394,7 +384,11 @@ function BuiltUponViewInner({
   const activeZone = useExploreActiveZone(exploreScrollRef, focusId);
   const reduceMotion = useReducedMotion();
 
-  /** Au chargement / changement de nœud : ancrage selon `?view=` (défaut = hero centré). */
+  /**
+   * Ancrage initial selon `?view=`.
+   * Vue `built-upon` (défaut) : ne pas centrer le hero ici — ça provoquait un double mouvement
+   * (hero puis scroll smooth vers built upon). Avec reduced motion : un seul scroll instantané vers built upon.
+   */
   useLayoutEffect(() => {
     const initial = parseExploreViewMode(searchParams);
     const run = () => {
@@ -403,17 +397,19 @@ function BuiltUponViewInner({
           behavior: 'auto',
           block: 'end',
         });
-      } else {
-        document.getElementById(HERO_ID)?.scrollIntoView({
+        return;
+      }
+      if (reduceMotion) {
+        document.getElementById('built-upon')?.scrollIntoView({
           behavior: 'auto',
-          block: 'center',
+          block: 'start',
         });
       }
     };
     requestAnimationFrame(() => requestAnimationFrame(run));
-  }, [focusId, searchParams]);
+  }, [focusId, searchParams, reduceMotion]);
 
-  /** Vue par défaut : descendre jusqu’à « Built upon » sous la carte principale (sans reduced motion). */
+  /** Vue par défaut built upon + animations : un seul scroll fluide depuis le haut (pas de scroll hero intermédiaire). */
   useEffect(() => {
     const initial = parseExploreViewMode(searchParams);
     if (initial === 'led-to' || reduceMotion) return;
@@ -545,7 +541,7 @@ function BuiltUponViewInner({
               aria-labelledby="explore-led-to-heading"
             >
               <div
-                className={`${builtUponSectionBleedXClass(detailOpen, isMobile)} flex flex-col gap-6`}
+                className={`${BUILT_UPON_SECTION_BLEED_X} flex flex-col gap-6`}
               >
                 <div className="rounded-xl glass-card p-4">
                   <TreeDimensionSectionHeader
@@ -736,7 +732,7 @@ function BuiltUponViewInner({
               </h2>
 
               <div
-                className={`${builtUponSectionBleedXClass(detailOpen, isMobile)} flex flex-col gap-8`}
+                className={`${BUILT_UPON_SECTION_BLEED_X} flex flex-col gap-8`}
               >
                 <div className="rounded-xl glass-card p-4 shadow-inner">
                   {treeSectionsOpen.builtMatters ? (

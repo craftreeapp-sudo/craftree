@@ -98,6 +98,8 @@ export interface TechNodeBasic {
   origin_type?: OriginType | null;
   /** Classification nature chimique/physique (seed / Supabase). */
   nature_type?: NatureType | null;
+  /** Brouillon (admin uniquement dans les listes / recherche). */
+  is_draft?: boolean;
 }
 
 /** Métadonnées étendues (nodes-details.json ou API — chargées à la demande). */
@@ -165,6 +167,7 @@ export interface SeedNode {
   nature_type?: NatureType | null;
   _ai_built_upon?: string[];
   _ai_led_to?: string[];
+  is_draft?: boolean;
 }
 
 /** Fichier seed-data.json */

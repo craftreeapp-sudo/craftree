@@ -15,6 +15,7 @@ import {
   getTreePageNodeMeta,
 } from '@/lib/data';
 import type { SeedNode } from '@/lib/types';
+import { getViewerIsAdminFromCookies } from '@/lib/auth-server';
 
 export async function generateMetadata({
   params,
@@ -24,8 +25,9 @@ export async function generateMetadata({
   const { id } = await params;
   const base = getSiteUrl();
 
+  const isAdmin = await getViewerIsAdminFromCookies();
   const [n, edgeLinks, metaNodes] = await Promise.all([
-    getTreePageNodeMeta(id),
+    getTreePageNodeMeta(id, { viewerIsAdmin: isAdmin }),
     getExploreMetadataLinks(),
     getExploreMetadataNodes(),
   ]);
@@ -81,15 +83,23 @@ export default async function TreePage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const meta = await getTreePageNodeMeta(id);
+  const viewerIsAdmin = await getViewerIsAdminFromCookies();
+  const meta = await getTreePageNodeMeta(id, { viewerIsAdmin });
   if (!meta) {
     redirect(treeInventionPath(getDefaultTreeNodeId()));
   }
 
   let initialGraph: { nodes: SeedNode[]; links: CraftingLink[] } | null = null;
   if (isSupabaseConfigured()) {
-    const [nodes, links] = await Promise.all([getAllNodes(), getAllLinks()]);
-    initialGraph = { nodes, links };
+    const [nodes, links] = await Promise.all([
+      getAllNodes({ includeDrafts: viewerIsAdmin }),
+      getAllLinks(),
+    ]);
+    const visibleIds = new Set(nodes.map((n) => n.id));
+    const filteredLinks = links.filter(
+      (l) => visibleIds.has(l.source_id) && visibleIds.has(l.target_id)
+    );
+    initialGraph = { nodes, links: filteredLinks };
   }
 
   const base = getSiteUrl();

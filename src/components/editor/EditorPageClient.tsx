@@ -31,6 +31,7 @@ import {
   chemicalNatureTableLabel,
   naturalOriginTableLabel,
 } from '@/lib/nature-table-labels';
+import { rowIsDraft } from '@/lib/draft-flag';
 import { treeInventionPath, getDefaultTreeNodeId } from '@/lib/tree-routes';
 import { EXPLORE_DETAIL_PANEL_WIDTH_PX } from '@/lib/explore-layout';
 import { useGraphStore } from '@/stores/graph-store';
@@ -99,6 +100,7 @@ function seedNodeToTechBasic(n: SeedNode): TechNodeBasic {
     chemicalNature: n.chemicalNature ?? null,
     origin_type: n.origin_type ?? null,
     nature_type: n.nature_type ?? null,
+    is_draft: n.is_draft === true,
   };
 }
 
@@ -133,6 +135,14 @@ export function EditorPageClient() {
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
   const hydrateFromRaw = useGraphStore((s) => s.hydrateFromRaw);
   const { toasts, push } = useToasts();
+
+  /** Refs pour que `loadAll` reste stable (évite boucle useEffect si `te` change de référence à chaque rendu). */
+  const teRef = useRef(te);
+  teRef.current = te;
+  const pushRef = useRef(push);
+  pushRef.current = push;
+  const hydrateFromRawRef = useRef(hydrateFromRaw);
+  hydrateFromRawRef.current = hydrateFromRaw;
   const [tab, setTab] = useState<'nodes' | 'links'>('nodes');
   const [nodes, setNodes] = useState<SeedNode[]>([]);
   const [links, setLinks] = useState<CraftingLink[]>([]);
@@ -142,22 +152,33 @@ export function EditorPageClient() {
     setLoading(true);
     try {
       const [nr, lr] = await Promise.all([
-        fetch('/api/nodes?full=1', { cache: 'no-store' }),
-        fetch('/api/links', { cache: 'no-store' }),
+        fetch('/api/nodes?full=1', {
+          cache: 'no-store',
+          credentials: 'same-origin',
+        }),
+        fetch('/api/links', { cache: 'no-store', credentials: 'same-origin' }),
       ]);
+      if (!nr.ok || !lr.ok) {
+        pushRef.current(teRef.current('toastLoadError'), 'err');
+        return;
+      }
       const nj = await nr.json();
       const lj = await lr.json();
-      const nextNodes = nj.nodes ?? [];
+      const rawNodes = (nj.nodes ?? []) as SeedNode[];
+      const nextNodes = rawNodes.map((n) => ({
+        ...n,
+        is_draft: rowIsDraft(n as unknown as Record<string, unknown>),
+      }));
       const nextLinks = lj.links ?? [];
       setNodes(nextNodes);
       setLinks(nextLinks);
-      hydrateFromRaw(nextNodes, nextLinks);
+      hydrateFromRawRef.current(nextNodes, nextLinks);
     } catch {
-      push(te('toastLoadError'), 'err');
+      pushRef.current(teRef.current('toastLoadError'), 'err');
     } finally {
       setLoading(false);
     }
-  }, [push, te, hydrateFromRaw]);
+  }, []);
 
   useEffect(() => {
     void loadAll();
@@ -204,6 +225,8 @@ export function EditorPageClient() {
   const [materialLevelF, setMaterialLevelF] = useState<string>('all');
   /** Nœuds sans aucun lien entrant ni sortant. */
   const [isolatedOnly, setIsolatedOnly] = useState(false);
+  /** Admin : n’afficher que les fiches marquées brouillon. */
+  const [draftsOnly, setDraftsOnly] = useState(false);
   const [sortKey, setSortKey] = useState<NodeSortKey>('name');
   const [sortDir, setSortDir] = useState<SortDir>('asc');
 
@@ -216,6 +239,54 @@ export function EditorPageClient() {
   );
 
   const [deleteTarget, setDeleteTarget] = useState<SeedNode | null>(null);
+  const [draftPublishingId, setDraftPublishingId] = useState<string | null>(
+    null
+  );
+
+  const publishDraftFromRow = useCallback(
+    async (n: SeedNode) => {
+      if (!rowIsDraft(n as unknown as Record<string, unknown>)) return;
+      setDraftPublishingId(n.id);
+      try {
+        const res = await fetch(`/api/nodes/${encodeURIComponent(n.id)}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin',
+          body: JSON.stringify({ is_draft: false }),
+        });
+        if (!res.ok) {
+          let msg = te('toastSaveError');
+          try {
+            const errBody = (await res.json()) as { message?: string };
+            if (errBody.message) msg = errBody.message;
+          } catch {
+            /* ignore */
+          }
+          push(msg, 'err');
+          return;
+        }
+        const json = (await res.json()) as { node?: Record<string, unknown> };
+        setNodes((prev) => {
+          const next = prev.map((x) =>
+            x.id === n.id
+              ? {
+                  ...x,
+                  is_draft: json.node ? rowIsDraft(json.node) : false,
+                }
+              : x
+          );
+          hydrateFromRaw(next, links);
+          return next;
+        });
+        push(te('toastNodeUpdated'), 'ok');
+      } catch {
+        push(te('toastNetworkError'), 'err');
+      } finally {
+        setDraftPublishingId(null);
+      }
+    },
+    [te, push, hydrateFromRaw, links]
+  );
 
   const filteredNodes = useMemo(() => {
     const qt = qNode.trim().toLowerCase();
@@ -234,6 +305,8 @@ export function EditorPageClient() {
         } else if (nl !== materialLevelF) return false;
       }
       if (eraF !== 'all' && n.era !== eraF) return false;
+      if (draftsOnly && !rowIsDraft(n as unknown as Record<string, unknown>))
+        return false;
       if (isolatedOnly) {
         const lc = linkCounts(n.id, graphModelEdges);
         if (lc.in !== 0 || lc.out !== 0) return false;
@@ -257,6 +330,7 @@ export function EditorPageClient() {
     materialLevelF,
     eraF,
     isolatedOnly,
+    draftsOnly,
     graphModelEdges,
   ]);
 
@@ -649,15 +723,59 @@ export function EditorPageClient() {
               <button
                 type="button"
                 title={te('isolatedOnlyTitle')}
+                aria-label={te('noLinks')}
                 aria-pressed={isolatedOnly}
                 onClick={() => setIsolatedOnly((v) => !v)}
-                className={`shrink-0 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
+                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border text-sm transition-colors ${
                   isolatedOnly
                     ? 'border-[#F87171] bg-[#7f1d1d]/35 text-[#fecaca] hover:bg-[#7f1d1d]/50'
                     : 'border-border bg-surface-elevated text-foreground hover:bg-border'
                 }`}
               >
-                {te('noLinks')}
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                  <line x1="4" y1="4" x2="20" y2="20" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                title={te('draftsOnlyTitle')}
+                aria-label={te('draftsOnlyTitle')}
+                aria-pressed={draftsOnly}
+                onClick={() => setDraftsOnly((v) => !v)}
+                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border text-sm transition-colors ${
+                  draftsOnly
+                    ? 'border-orange-500/80 bg-orange-950/40 text-orange-200 hover:bg-orange-950/60'
+                    : 'border-border bg-surface-elevated text-foreground hover:bg-border'
+                }`}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <path d="M10 13h4" />
+                  <path d="M12 11v4" />
+                </svg>
               </button>
               <span className="text-sm text-muted-foreground">
                 {te('nodeCount', { count: sortedNodes.length })}
@@ -761,7 +879,9 @@ export function EditorPageClient() {
                         {sortKey === 'links' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
-                    <th className="w-[120px] px-3 py-1">{te('actionsColumn')}</th>
+                    <th className="min-w-[152px] w-[152px] px-3 py-1 text-end">
+                      {te('actionsColumn')}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -808,12 +928,21 @@ export function EditorPageClient() {
                           </div>
                         </td>
                         <td className="px-3 py-2 font-bold text-foreground">
-                          <Link
-                            href={treeInventionPath(n.id)}
-                            className="text-foreground underline-offset-2 hover:text-accent hover:underline"
-                          >
-                            {n.name}
-                          </Link>
+                          <span className="inline-flex max-w-full items-center gap-2">
+                            <Link
+                              href={treeInventionPath(n.id)}
+                              className="min-w-0 truncate text-foreground underline-offset-2 hover:text-accent hover:underline"
+                            >
+                              {n.name}
+                            </Link>
+                            {n.is_draft ? (
+                              <span
+                                className="inline-block h-2 w-2 shrink-0 rounded-full bg-orange-500"
+                                title={te('draftRowIndicator')}
+                                aria-label={te('draftRowIndicator')}
+                              />
+                            ) : null}
+                          </span>
                         </td>
                         <td className="px-3 py-2">
                           <span
@@ -857,22 +986,77 @@ export function EditorPageClient() {
                           ↓{lc.in} ↑{lc.out}
                         </td>
                         <td className="px-3 py-2">
-                          <div className="flex items-center justify-end gap-1">
+                          <div className="flex items-center justify-end gap-0.5">
+                            {rowIsDraft(n as unknown as Record<string, unknown>) ? (
+                              <button
+                                type="button"
+                                disabled={draftPublishingId === n.id}
+                                className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-emerald-500/40 bg-transparent text-emerald-500 transition-colors hover:bg-emerald-500/15 hover:text-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 disabled:cursor-not-allowed disabled:opacity-40"
+                                title={te('rowActionPublishDraft')}
+                                aria-label={te('rowActionPublishDraft')}
+                                onClick={() => void publishDraftFromRow(n)}
+                              >
+                                <svg
+                                  width="18"
+                                  height="18"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  aria-hidden
+                                >
+                                  <path d="M9 12.75L11.25 15L15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+                              </button>
+                            ) : null}
                             <button
                               type="button"
-                              className="rounded p-1 hover:bg-border"
+                              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-transparent text-muted-foreground transition-colors hover:bg-border/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
                               aria-label={te('panelEditInvention')}
+                              title={te('panelEditInvention')}
                               onClick={() => openEdit(n)}
                             >
-                              ✏️
+                              <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden
+                              >
+                                <path d="M12 20h9" />
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                              </svg>
                             </button>
                             <button
                               type="button"
-                              className="ml-3 rounded p-1 text-[#EF4444] transition-colors hover:text-[#F87171]"
+                              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-transparent text-red-400 transition-colors hover:bg-red-500/10 hover:text-red-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/30"
                               aria-label={tc('delete')}
+                              title={tc('delete')}
                               onClick={() => setDeleteTarget(n)}
                             >
-                              <span className="text-lg leading-none">×</span>
+                              <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden
+                              >
+                                <path d="M3 6h18" />
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                                <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                <line x1="10" x2="10" y1="11" y2="17" />
+                                <line x1="14" x2="14" y1="11" y2="17" />
+                              </svg>
                             </button>
                           </div>
                         </td>
@@ -1034,7 +1218,9 @@ export function EditorPageClient() {
                         {linkSortKey === 'notes' ? (linkSortDir === 'asc' ? '↑' : '↓') : ''}
                       </button>
                     </th>
-                    <th className="w-[100px] px-3 py-2">{te('actionsColumn')}</th>
+                    <th className="min-w-[104px] w-[104px] px-3 py-2 text-end">
+                      {te('actionsColumn')}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1064,27 +1250,62 @@ export function EditorPageClient() {
                           {l.notes?.trim() ? l.notes : '—'}
                         </td>
                         <td className="px-3 py-2">
-                          <button
-                            type="button"
-                            className="mr-2 rounded p-1 hover:bg-border"
-                            onClick={() => {
-                              setLinkPanel(l);
-                              setLinkForm({
-                                relation_type: l.relation_type,
-                                is_optional: l.is_optional,
-                                notes: l.notes ?? '',
-                              });
-                            }}
-                          >
-                            ✏️
-                          </button>
-                          <button
-                            type="button"
-                            className="rounded p-1 hover:bg-border"
-                            onClick={() => deleteLink(l)}
-                          >
-                            🗑️
-                          </button>
+                          <div className="flex items-center justify-end gap-0.5">
+                            <button
+                              type="button"
+                              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-transparent text-muted-foreground transition-colors hover:bg-border/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+                              aria-label={te('editLink')}
+                              title={te('editLink')}
+                              onClick={() => {
+                                setLinkPanel(l);
+                                setLinkForm({
+                                  relation_type: l.relation_type,
+                                  is_optional: l.is_optional,
+                                  notes: l.notes ?? '',
+                                });
+                              }}
+                            >
+                              <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden
+                              >
+                                <path d="M12 20h9" />
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                              </svg>
+                            </button>
+                            <button
+                              type="button"
+                              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-transparent text-red-400 transition-colors hover:bg-red-500/10 hover:text-red-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/30"
+                              aria-label={tc('delete')}
+                              title={tc('delete')}
+                              onClick={() => deleteLink(l)}
+                            >
+                              <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden
+                              >
+                                <path d="M3 6h18" />
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                                <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                <line x1="10" x2="10" y1="11" y2="17" />
+                                <line x1="14" x2="14" y1="11" y2="17" />
+                              </svg>
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     );

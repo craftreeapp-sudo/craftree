@@ -9,6 +9,7 @@ import { ExploreHoverPopup } from '@/components/explore/HoverPopup';
 import { InventionCard } from '@/components/explore/InventionCard';
 import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
 import { useGraphStore } from '@/stores/graph-store';
+import { useAuthStore } from '@/stores/auth-store';
 import {
   DIMENSION_LABELS_FR,
   ERA_LABELS_FR,
@@ -105,6 +106,7 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
   const allNodes = useGraphStore((s) => s.nodes);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
   const refreshData = useGraphStore((s) => s.refreshData);
+  const isAdmin = useAuthStore((s) => s.isAdmin);
 
   useEffect(() => {
     if (allNodes.length === 0) void refreshData();
@@ -137,13 +139,15 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
     return tPage('listSubtitleMaterialLevel');
   }, [kind, tPage]);
 
-  const items = useMemo(
-    () =>
-      [...filterNodes(allNodes, kind, id)].sort((a, b) =>
-        a.name.localeCompare(b.name, 'fr')
-      ),
-    [allNodes, kind, id]
-  );
+  const items = useMemo(() => {
+    const base = filterNodes(allNodes, kind, id);
+    const visible = isAdmin
+      ? base
+      : base.filter((n) => !n.is_draft);
+    return [...visible].sort((a, b) =>
+      a.name.localeCompare(b.name, 'fr')
+    );
+  }, [allNodes, kind, id, isAdmin]);
 
   const [searchQuery, setSearchQuery] = useState('');
 

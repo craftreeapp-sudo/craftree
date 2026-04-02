@@ -348,6 +348,33 @@ export function formatNodeWithMissingFields(n) {
   return lines.join('\n');
 }
 
+/**
+ * Compte par champ les fiches où le champ est encore « À REMPLIR » (même logique que formatNodeWithMissingFields).
+ * @param {object[]} nodes
+ * @returns {Map<string, number>}
+ */
+export function countEnrichmentMissingByField(nodes) {
+  const counts = new Map();
+  const bump = (key) => counts.set(key, (counts.get(key) ?? 0) + 1);
+  for (const n of nodes) {
+    if (isEmptyForMerge(n.category)) bump('category');
+    if (isEmptyForMerge(n.dimension)) bump('dimension');
+    if (n.dimension === 'matter' && isEmptyForMerge(n.materialLevel)) {
+      bump('materialLevel');
+    }
+    if (isEmptyForMerge(n.origin_type)) bump('origin_type');
+    if (isEmptyForMerge(n.nature_type)) bump('nature_type');
+    if (isEmptyForMerge(n.era)) bump('era');
+    if (n.year_approx == null || n.year_approx === '') bump('year_approx');
+    if (isEmptyForMerge(n.origin)) bump('origin');
+    if (isEmptyForMerge(n.description)) bump('description');
+    if (isEmptyForMerge(n.description_en)) bump('description_en');
+    if (isEmptyForMerge(n.wikipedia_url)) bump('wikipedia_url');
+    if (!Array.isArray(n.tags) || n.tags.length === 0) bump('tags');
+  }
+  return counts;
+}
+
 export function uniqueLinkId(dbLinks, pendingLinks) {
   const existing = new Set([
     ...dbLinks.map((l) => l.id),

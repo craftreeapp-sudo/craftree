@@ -36,6 +36,7 @@ import type {
 } from '@/lib/types';
 import { RelationType } from '@/lib/types';
 import { mergeDimensionMaterialLevel } from '@/lib/node-dimension';
+import { rowIsDraft } from '@/lib/draft-flag';
 
 type PendingAddLink = {
   tempId: string;
@@ -73,6 +74,7 @@ export function SuggestNodeCorrectionPanel({
   const tEditor = useTranslations('editor');
 
   const getNodeById = useGraphStore((s) => s.getNodeById);
+  const updateNode = useGraphStore((s) => s.updateNode);
   const graphNodes = useGraphStore((s) => s.nodes);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
   const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
@@ -244,6 +246,13 @@ export function SuggestNodeCorrectionPanel({
     setSuggestContactEmail('');
     setSuggestContributorMessage('');
   }, [node.id]);
+
+  const isDraftCard = useMemo(() => {
+    if (seedNode) {
+      return rowIsDraft(seedNode as unknown as Record<string, unknown>);
+    }
+    return node.is_draft === true;
+  }, [seedNode, node.is_draft]);
 
   const addPendingPeer = useCallback(
     (section: 'ledTo' | 'builtUpon', peerId: string) => {
@@ -438,176 +447,235 @@ export function SuggestNodeCorrectionPanel({
     onClose,
   ]);
 
-  const submitAdminSave = useCallback(async () => {
-    if (variant !== 'admin' || !originalSnapshot || !originalLinkEdits || !seedNode) {
-      return;
-    }
-    setSuggestSubmitting(true);
-    try {
-      const proposedNode = snapshotFromForm(suggestForm, locale);
-      const diff = computeDiff(originalSnapshot, proposedNode);
-      const linkDiff = computeLinkSuggestionDiff(
-        originalLinkEdits,
-        suggestLinkEdits
-      );
-      const removedLinkIds = computeRemovedLinkIds(
-        originalLinkEdits,
-        suggestLinkEdits
-      );
-      const proposedAddLinks = pendingAddLinks.map((p) => ({
-        source_id: p.section === 'ledTo' ? node.id : p.peerId,
-        target_id: p.section === 'ledTo' ? p.peerId : node.id,
-        relation_type: p.relation_type,
-        section: p.section,
-      }));
-
-      const hasNodeChange = Object.keys(diff).length > 0;
-      const hasLinkChange =
-        Object.keys(linkDiff).length > 0 ||
-        removedLinkIds.length > 0 ||
-        proposedAddLinks.length > 0;
-      if (!hasNodeChange && !hasLinkChange) {
-        pushToast(tAuth('suggestionNothingToSubmit'), 'error');
+  const persistAdminPanel = useCallback(
+    async (mode: 'save' | 'publish') => {
+      if (
+        variant !== 'admin' ||
+        !originalSnapshot ||
+        !originalLinkEdits ||
+        !seedNode
+      ) {
         return;
       }
+      const publish = mode === 'publish';
+      setSuggestSubmitting(true);
+      try {
+        const proposedNode = snapshotFromForm(suggestForm, locale);
+        const diff = computeDiff(originalSnapshot, proposedNode);
+        const linkDiff = computeLinkSuggestionDiff(
+          originalLinkEdits,
+          suggestLinkEdits
+        );
+        const removedLinkIds = computeRemovedLinkIds(
+          originalLinkEdits,
+          suggestLinkEdits
+        );
+        const proposedAddLinks = pendingAddLinks.map((p) => ({
+          source_id: p.section === 'ledTo' ? node.id : p.peerId,
+          target_id: p.section === 'ledTo' ? p.peerId : node.id,
+          relation_type: p.relation_type,
+          section: p.section,
+        }));
 
-      const tagsArr = suggestForm.tags
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean);
+        const hasNodeChange = Object.keys(diff).length > 0;
+        const hasLinkChange =
+          Object.keys(linkDiff).length > 0 ||
+          removedLinkIds.length > 0 ||
+          proposedAddLinks.length > 0;
 
-      if (hasNodeChange) {
-        const dm = mergeDimensionMaterialLevel(seedNode, {
-          dimension:
-            suggestForm.dimension.trim() === ''
-              ? null
-              : suggestForm.dimension,
-          materialLevel:
-            suggestForm.materialLevel.trim() === ''
-              ? null
-              : suggestForm.materialLevel,
-        });
-        const putBody: Record<string, unknown> = {
-          name: suggestForm.name.trim(),
-          name_en:
-            suggestForm.name_en.trim() ||
-            suggestForm.name.trim(),
-          category: suggestForm.category,
-          era: suggestForm.era,
-          year_approx:
-            suggestForm.year_approx.trim() === ''
-              ? null
-              : Number(suggestForm.year_approx.trim()),
-          origin: suggestForm.origin.trim() || undefined,
-          tags: tagsArr,
-          description: suggestForm.description.trim(),
-          description_en: suggestForm.description_en.trim(),
-          wikipedia_url: suggestForm.wikipedia_url.trim() || null,
-          dimension: dm.dimension,
-          materialLevel: dm.materialLevel,
-          naturalOrigin:
-            suggestForm.naturalOrigin === ''
-              ? null
-              : String(suggestForm.naturalOrigin),
-          chemicalNature:
-            suggestForm.chemicalNature === ''
-              ? null
-              : String(suggestForm.chemicalNature),
+        const tagsArr = suggestForm.tags
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean);
+
+        const buildFullPutBody = (): Record<string, unknown> => {
+          const dm = mergeDimensionMaterialLevel(seedNode, {
+            dimension:
+              suggestForm.dimension.trim() === ''
+                ? null
+                : suggestForm.dimension,
+            materialLevel:
+              suggestForm.materialLevel.trim() === ''
+                ? null
+                : suggestForm.materialLevel,
+          });
+          return {
+            name: suggestForm.name.trim(),
+            name_en:
+              suggestForm.name_en.trim() ||
+              suggestForm.name.trim(),
+            category: suggestForm.category,
+            era: suggestForm.era,
+            year_approx:
+              suggestForm.year_approx.trim() === ''
+                ? null
+                : Number(suggestForm.year_approx.trim()),
+            origin: suggestForm.origin.trim() || undefined,
+            tags: tagsArr,
+            description: suggestForm.description.trim(),
+            description_en: suggestForm.description_en.trim(),
+            wikipedia_url: suggestForm.wikipedia_url.trim() || null,
+            dimension: dm.dimension,
+            materialLevel: dm.materialLevel,
+            naturalOrigin:
+              suggestForm.naturalOrigin === ''
+                ? null
+                : String(suggestForm.naturalOrigin),
+            chemicalNature:
+              suggestForm.chemicalNature === ''
+                ? null
+                : String(suggestForm.chemicalNature),
+          };
         };
 
-        const putRes = await fetch(
-          `/api/nodes/${encodeURIComponent(node.id)}`,
-          {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(putBody),
+        let nodePutBody: Record<string, unknown> | null = null;
+        if (publish) {
+          if (hasNodeChange) {
+            nodePutBody = { ...buildFullPutBody(), is_draft: false };
+          } else if (isDraftCard) {
+            nodePutBody = { is_draft: false };
           }
-        );
-        if (!putRes.ok) {
-          const err = await putRes.json().catch(() => ({}));
-          pushToast(
-            String((err as { error?: string }).error ?? tEditor('toastError')),
-            'error'
+        } else if (hasNodeChange) {
+          nodePutBody = buildFullPutBody();
+        }
+
+        if (!nodePutBody && !hasLinkChange) {
+          pushToast(tEditor('toastAdminSaveNoChanges'), 'success');
+          await onAdminSaved?.();
+          onClose();
+          return;
+        }
+
+        if (nodePutBody) {
+          const putRes = await fetch(
+            `/api/nodes/${encodeURIComponent(node.id)}`,
+            {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'same-origin',
+              body: JSON.stringify(nodePutBody),
+            }
           );
-          return;
+          if (!putRes.ok) {
+            const err = await putRes.json().catch(() => ({}));
+            pushToast(
+              String((err as { error?: string }).error ?? tEditor('toastError')),
+              'error'
+            );
+            return;
+          }
+          const putJson = (await putRes.json()) as {
+            node?: Record<string, unknown>;
+          };
+          if (putJson.node) {
+            updateNode(node.id, {
+              is_draft: rowIsDraft(putJson.node),
+            });
+          }
         }
-      }
 
-      for (const linkId of removedLinkIds) {
-        const delRes = await fetch(
-          `/api/links/${encodeURIComponent(linkId)}`,
-          { method: 'DELETE' }
-        );
-        if (!delRes.ok) {
-          pushToast(tEditor('toastSaveError'), 'error');
-          return;
+        for (const linkId of removedLinkIds) {
+          const delRes = await fetch(
+            `/api/links/${encodeURIComponent(linkId)}`,
+            { method: 'DELETE', credentials: 'same-origin' }
+          );
+          if (!delRes.ok) {
+            pushToast(tEditor('toastSaveError'), 'error');
+            return;
+          }
         }
-      }
 
-      for (const [linkId, { to }] of Object.entries(linkDiff)) {
-        const putL = await fetch(
-          `/api/links/${encodeURIComponent(linkId)}`,
-          {
-            method: 'PUT',
+        for (const [linkId, { to }] of Object.entries(linkDiff)) {
+          const putL = await fetch(
+            `/api/links/${encodeURIComponent(linkId)}`,
+            {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'same-origin',
+              body: JSON.stringify({
+                relation_type: to.relation_type,
+                notes: to.notes.trim() || undefined,
+                is_optional: to.is_optional,
+              }),
+            }
+          );
+          if (!putL.ok) {
+            pushToast(tEditor('toastSaveError'), 'error');
+            return;
+          }
+        }
+
+        for (const p of pendingAddLinks) {
+          const postRes = await fetch('/api/links', {
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
             body: JSON.stringify({
-              relation_type: to.relation_type,
-              notes: to.notes.trim() || undefined,
-              is_optional: to.is_optional,
+              source_id: p.section === 'ledTo' ? node.id : p.peerId,
+              target_id: p.section === 'ledTo' ? p.peerId : node.id,
+              relation_type: p.relation_type,
+              is_optional: false,
+              notes: '',
             }),
+          });
+          if (!postRes.ok) {
+            const err = await postRes.json().catch(() => ({}));
+            pushToast(
+              String(
+                (err as { error?: string }).error ?? tEditor('toastSaveError')
+              ),
+              'error'
+            );
+            return;
           }
-        );
-        if (!putL.ok) {
-          pushToast(tEditor('toastSaveError'), 'error');
-          return;
         }
-      }
 
-      for (const p of pendingAddLinks) {
-        const postRes = await fetch('/api/links', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            source_id: p.section === 'ledTo' ? node.id : p.peerId,
-            target_id: p.section === 'ledTo' ? p.peerId : node.id,
-            relation_type: p.relation_type,
-            is_optional: false,
-            notes: '',
-          }),
-        });
-        if (!postRes.ok) {
-          const err = await postRes.json().catch(() => ({}));
-          pushToast(
-            String((err as { error?: string }).error ?? tEditor('toastSaveError')),
-            'error'
-          );
-          return;
+        pushToast(tEditor('toastNodeUpdated'), 'success');
+        await onAdminSaved?.();
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('craftree:editor-refresh'));
         }
+        onClose();
+      } catch {
+        pushToast(tEditor('toastNetworkError'), 'error');
+      } finally {
+        setSuggestSubmitting(false);
       }
+    },
+    [
+      variant,
+      originalSnapshot,
+      originalLinkEdits,
+      seedNode,
+      suggestForm,
+      suggestLinkEdits,
+      pendingAddLinks,
+      node.id,
+      locale,
+      snapshotFromForm,
+      pushToast,
+      tEditor,
+      onAdminSaved,
+      onClose,
+      isDraftCard,
+      updateNode,
+    ]
+  );
 
-      pushToast(tEditor('toastNodeUpdated'), 'success');
-      await onAdminSaved?.();
-      onClose();
-    } finally {
-      setSuggestSubmitting(false);
+  const handleAdminCancel = useCallback(() => {
+    if (baselineForm && originalLinkEdits) {
+      setSuggestForm(structuredClone(baselineForm));
+      setSuggestLinkEdits(
+        JSON.parse(JSON.stringify(originalLinkEdits)) as Record<
+          string,
+          SuggestLinkSnapshot
+        >
+      );
+      setPendingAddLinks([]);
+      setStagedLinkRemovals({});
     }
-  }, [
-    variant,
-    originalSnapshot,
-    originalLinkEdits,
-    seedNode,
-    suggestForm,
-    suggestLinkEdits,
-    pendingAddLinks,
-    node.id,
-    locale,
-    snapshotFromForm,
-    pushToast,
-    tAuth,
-    tEditor,
-    onAdminSaved,
-    onClose,
-  ]);
+    onClose();
+  }, [baselineForm, originalLinkEdits, onClose]);
 
   const peerSearchBlobMap = useMemo(
     () => buildPeerSearchBlobMap(graphNodes, detailsById),
@@ -966,11 +1034,23 @@ export function SuggestNodeCorrectionPanel({
         </div>
         <div className="shrink-0 glass-footer px-5 pb-4 pt-3">
           <div className="flex flex-col gap-2">
+            {variant === 'admin' && isDraftCard ? (
+              <button
+                type="button"
+                disabled={suggestSubmitting || !originalSnapshot}
+                onClick={() => void persistAdminPanel('publish')}
+                className="rounded-lg border border-emerald-500/45 bg-emerald-600/25 px-4 py-3 text-sm font-semibold text-emerald-100 shadow-md transition-colors hover:bg-emerald-600/40 disabled:opacity-50"
+              >
+                {tEditor('toggleDraftOnline')}
+              </button>
+            ) : null}
             <button
               type="button"
               disabled={suggestSubmitting}
               onClick={() =>
-                void (variant === 'admin' ? submitAdminSave() : submitSuggestion())
+                void (variant === 'admin'
+                  ? persistAdminPanel('save')
+                  : submitSuggestion())
               }
               className="rounded-lg bg-amber-600 px-4 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-amber-500 disabled:opacity-50"
             >
@@ -978,8 +1058,11 @@ export function SuggestNodeCorrectionPanel({
             </button>
             <button
               type="button"
-              onClick={requestClose}
-              className="rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-red-500"
+              disabled={suggestSubmitting}
+              onClick={
+                variant === 'admin' ? handleAdminCancel : requestClose
+              }
+              className="rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-red-500 disabled:opacity-50"
             >
               {tCommon('cancel')}
             </button>

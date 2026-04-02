@@ -7,7 +7,9 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useGraphStore, getNodeDetails } from '@/stores/graph-store';
 import { useNodeDetailsStore } from '@/stores/node-details-store';
 import { useAuthStore } from '@/stores/auth-store';
+import { useToastStore } from '@/stores/toast-store';
 import { useExploreCardOptional } from '@/components/explore/explore-card-context';
+import { rowIsDraft } from '@/lib/draft-flag';
 import { formatYear } from '@/lib/utils';
 import { getCategoryColor, hexToRgba } from '@/lib/colors';
 import { trackEvent } from '@/lib/analytics';
@@ -50,17 +52,19 @@ export function ExploreDetailPanel() {
   const tCat = useTranslations('categories');
   const tEd = useTranslations('editor');
 
-  const getNodeById = useGraphStore((s) => s.getNodeById);
   const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
   const getUsagesOfNode = useGraphStore((s) => s.getUsagesOfNode);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
   const mergeDetail = useNodeDetailsStore((s) => s.mergeDetail);
   const detailsById = useNodeDetailsStore((s) => s.byId);
   const { isAdmin } = useAuthStore();
+  const pushToast = useToastStore((s) => s.pushToast);
   const refreshData = useGraphStore((s) => s.refreshData);
+  const updateNode = useGraphStore((s) => s.updateNode);
 
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
+  const [draftSaving, setDraftSaving] = useState(false);
   const [mainImgErr, setMainImgErr] = useState(false);
   const [ledToOpen, setLedToOpen] = useState(true);
   const [builtUponOpen, setBuiltUponOpen] = useState(true);
@@ -69,7 +73,13 @@ export function ExploreDetailPanel() {
   const detailSubview = ctx?.detailSubview ?? 'detail';
   const isMobile = ctx?.isMobile ?? false;
 
-  const node = detailNodeId ? getNodeById(detailNodeId) : undefined;
+  const node = useGraphStore((s) =>
+    detailNodeId ? s.nodes.find((n) => n.id === detailNodeId) : undefined
+  );
+  const getNodeById = useCallback(
+    (id: string) => useGraphStore.getState().getNodeById(id),
+    []
+  );
   const detail: TechNodeDetails | undefined = node
     ? detailsById[node.id]
     : undefined;
@@ -112,6 +122,44 @@ export function ExploreDetailPanel() {
     if (!node) return;
     ctx?.openAdminEditSubview();
   }, [node, ctx]);
+
+  const toggleDraftStatus = useCallback(async () => {
+    if (!node) return;
+    setDraftSaving(true);
+    try {
+      const res = await fetch(`/api/nodes/${encodeURIComponent(node.id)}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ is_draft: !node.is_draft }),
+      });
+      if (!res.ok) {
+        let msg = tEd('toastSaveError');
+        try {
+          const errBody = (await res.json()) as { message?: string };
+          if (errBody.message) msg = errBody.message;
+        } catch {
+          /* ignore */
+        }
+        pushToast(msg, 'error');
+        return;
+      }
+      const json = (await res.json()) as { node?: Record<string, unknown> };
+      await refreshData();
+      if (json.node) {
+        updateNode(node.id, {
+          is_draft: rowIsDraft(json.node),
+        });
+      }
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('craftree:editor-refresh'));
+      }
+    } catch {
+      pushToast(tEd('toastNetworkError'), 'error');
+    } finally {
+      setDraftSaving(false);
+    }
+  }, [node, refreshData, updateNode, pushToast, tEd]);
 
   const displayName = useMemo(() => {
     if (!node) return '';
@@ -251,6 +299,60 @@ export function ExploreDetailPanel() {
                 <path d="M12 20h9" />
                 <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
               </svg>
+            </button>
+          ) : null}
+          {isAdmin ? (
+            <button
+              type="button"
+              onClick={() => void toggleDraftStatus()}
+              disabled={draftSaving}
+              title={
+                node.is_draft
+                  ? tEd('toggleDraftOnline')
+                  : tEd('toggleDraftOffline')
+              }
+              aria-label={
+                node.is_draft
+                  ? tEd('toggleDraftOnline')
+                  : tEd('toggleDraftOffline')
+              }
+              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-border/30 hover:text-foreground disabled:opacity-50"
+            >
+              {node.is_draft ? (
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-orange-400"
+                  aria-hidden
+                >
+                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <path d="m10 13 2 2 4-4" />
+                </svg>
+              ) : (
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="10" y1="13" x2="14" y2="17" />
+                  <line x1="14" y1="13" x2="10" y2="17" />
+                </svg>
+              )}
             </button>
           ) : null}
           <div className="relative shrink-0" ref={moreRef}>

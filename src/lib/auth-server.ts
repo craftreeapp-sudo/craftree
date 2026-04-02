@@ -15,3 +15,8 @@ export async function requireAdminFromRequest(): Promise<boolean> {
   const user = await getRouteHandlerUser();
   return isAdminEmail(user?.email);
 }
+
+/** Session courante (cookies) — pages serveur et handlers API. */
+export async function getViewerIsAdminFromCookies(): Promise<boolean> {
+  return requireAdminFromRequest();
+}

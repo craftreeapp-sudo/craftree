@@ -16,7 +16,10 @@ import type {
   OriginType,
   SeedNode,
 } from '@/lib/types';
+import { rowIsDraft } from '@/lib/draft-flag';
 import { getEraFromYear } from '@/lib/utils';
+
+export { rowIsDraft };
 
 function mapRowDimension(row: Record<string, unknown>): NodeDimension | null {
   const d = row.dimension;
@@ -64,17 +67,30 @@ function mapRowNatureType(row: Record<string, unknown>): NatureType | null {
 
 /** Colonnes minimales pour le graphe /explore (pas de textes longs). Sans colonne legacy `type`. */
 export const GRAPH_NODES_SELECT =
-  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type';
+  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type, is_draft';
 
 /** Même projection sans `natural_origin` / `chemical_nature` (bases non migrées). */
 export const GRAPH_NODES_SELECT_LEGACY =
-  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level';
+  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, is_draft';
 
 /** Liste admin / API `?full=1` — avec colonnes nature. */
 export const FULL_NODES_SELECT =
-  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type';
+  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type, is_draft';
 
 export const FULL_NODES_SELECT_LEGACY =
+  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, is_draft';
+
+/** Même projection sans `is_draft` (migration non appliquée sur Supabase). */
+export const GRAPH_NODES_SELECT_NO_DRAFT =
+  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type';
+
+export const GRAPH_NODES_SELECT_LEGACY_NO_DRAFT =
+  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level';
+
+export const FULL_NODES_SELECT_NO_DRAFT =
+  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type';
+
+export const FULL_NODES_SELECT_LEGACY_NO_DRAFT =
   'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level';
 
 export function isMissingNatureColumnsError(
@@ -94,33 +110,88 @@ export function isMissingNatureColumnsError(
   return m.includes('natural_origin') || m.includes('chemical_nature');
 }
 
+/** Colonne `is_draft` absente (migration non appliquée). */
+export function isMissingDraftColumnError(
+  err: {
+    code?: string;
+    message?: string;
+    details?: string;
+    hint?: string;
+  } | null
+): boolean {
+  if (!err) return false;
+  const m = [
+    String(err.message ?? ''),
+    String(err.details ?? ''),
+    String(err.hint ?? ''),
+  ].join(' ');
+  return m.includes('is_draft');
+}
+
 type NodesFetchMode = 'graph' | 'full';
 
-/** Lecture `nodes` avec repli si les colonnes nature ne sont pas encore en base (Postgres 42703). */
+/**
+ * Lecture `nodes` avec repli : nature legacy, puis `is_draft` absent (ordre couvre les combinaisons).
+ */
 export async function fetchNodesOrdered(
   supabase: ReturnType<typeof createSupabaseServerReadClient>,
   mode: NodesFetchMode
 ): Promise<{ rows: Record<string, unknown>[] }> {
-  const primary =
-    mode === 'graph' ? GRAPH_NODES_SELECT : FULL_NODES_SELECT;
-  const legacy =
-    mode === 'graph' ? GRAPH_NODES_SELECT_LEGACY : FULL_NODES_SELECT_LEGACY;
-  let { data, error } = await supabase
-    .from('nodes')
-    .select(primary as never)
-    .order('name');
-  if (error && isMissingNatureColumnsError(error)) {
-    const second = await supabase
+  const chain =
+    mode === 'graph'
+      ? [
+          GRAPH_NODES_SELECT,
+          GRAPH_NODES_SELECT_NO_DRAFT,
+          GRAPH_NODES_SELECT_LEGACY,
+          GRAPH_NODES_SELECT_LEGACY_NO_DRAFT,
+        ]
+      : [
+          FULL_NODES_SELECT,
+          FULL_NODES_SELECT_NO_DRAFT,
+          FULL_NODES_SELECT_LEGACY,
+          FULL_NODES_SELECT_LEGACY_NO_DRAFT,
+        ];
+
+  let lastError: unknown = null;
+  for (const select of chain) {
+    const { data, error } = await supabase
       .from('nodes')
-      .select(legacy as never)
+      .select(select as never)
       .order('name');
-    data = second.data;
-    error = second.error;
+    if (!error) {
+      return {
+        rows: (data ?? []) as unknown as Record<string, unknown>[],
+      };
+    }
+    lastError = error;
   }
-  if (error) throw error;
-  return {
-    rows: (data ?? []) as unknown as Record<string, unknown>[],
-  };
+  throw lastError;
+}
+
+/** Une ligne `nodes` complète (lecture fiche) avec la même chaîne de repli que `fetchNodesOrdered`. */
+export async function fetchFullNodeRowById(
+  supabase: ReturnType<typeof createSupabaseServerReadClient>,
+  id: string
+): Promise<Record<string, unknown> | null> {
+  const chain = [
+    FULL_NODES_SELECT,
+    FULL_NODES_SELECT_NO_DRAFT,
+    FULL_NODES_SELECT_LEGACY,
+    FULL_NODES_SELECT_LEGACY_NO_DRAFT,
+  ];
+  let lastError: unknown = null;
+  for (const select of chain) {
+    const { data, error } = await supabase
+      .from('nodes')
+      .select(select as never)
+      .eq('id', id)
+      .maybeSingle();
+    if (!error) {
+      return (data ?? null) as Record<string, unknown> | null;
+    }
+    lastError = error;
+  }
+  throw lastError;
 }
 
 /** Liens : champs nécessaires au rendu et à l’éditeur (pas de métadonnées inutiles). */
@@ -185,6 +256,7 @@ export function mapGraphNodeRowToSeedNode(row: Record<string, unknown>): SeedNod
     chemicalNature: mapRowChemicalNature(row),
     origin_type: mapRowOriginType(row),
     nature_type: mapRowNatureType(row),
+    is_draft: rowIsDraft(row),
   };
 }
 
@@ -214,6 +286,7 @@ export function mapNodeRowToSeedNode(row: Record<string, unknown>): SeedNode {
     chemicalNature: mapRowChemicalNature(row),
     origin_type: mapRowOriginType(row),
     nature_type: mapRowNatureType(row),
+    is_draft: rowIsDraft(row),
   };
 }
 
@@ -230,14 +303,21 @@ export function mapLinkRowToCraftingLink(
   };
 }
 
-export async function getAllNodes(): Promise<SeedNode[]> {
+export async function getAllNodes(options?: {
+  /** Inclure les fiches brouillon (admin). Défaut : false. */
+  includeDrafts?: boolean;
+}): Promise<SeedNode[]> {
   if (!isSupabaseConfigured()) {
     const { readSeedData } = await import('@/lib/seed-data-fs');
-    return readSeedData().nodes;
+    const all = readSeedData().nodes;
+    if (options?.includeDrafts) return all;
+    return all.filter((n) => !n.is_draft);
   }
   const supabase = createSupabaseServerReadClient();
   const { rows } = await fetchNodesOrdered(supabase, 'graph');
-  return rows.map((r) => mapGraphNodeRowToSeedNode(r));
+  const mapped = rows.map((r) => mapGraphNodeRowToSeedNode(r));
+  if (options?.includeDrafts) return mapped;
+  return mapped.filter((n) => !n.is_draft);
 }
 
 export async function getNodeDetailsRow(id: string) {
@@ -247,42 +327,43 @@ export async function getNodeDetailsRow(id: string) {
     return n ?? null;
   }
   const supabase = createSupabaseServerReadClient();
-  let { data, error } = await supabase
-    .from('nodes')
-    .select(FULL_NODES_SELECT as never)
-    .eq('id', id)
-    .maybeSingle();
-  if (error && isMissingNatureColumnsError(error)) {
-    const second = await supabase
-      .from('nodes')
-      .select(FULL_NODES_SELECT_LEGACY as never)
-      .eq('id', id)
-      .maybeSingle();
-    data = second.data;
-    error = second.error;
-  }
-  if (error) throw error;
-  return data;
+  return fetchFullNodeRowById(supabase, id);
 }
 
 /**
  * Existence + nom pour `/tree/[id]` : base Supabase si configurée, sinon `nodes-index.json` (build).
  */
 export async function getTreePageNodeMeta(
-  id: string
+  id: string,
+  options?: { viewerIsAdmin?: boolean }
 ): Promise<{ id: string; name: string } | null> {
   if (!isSupabaseConfigured()) {
-    return getTreeMetadataNode(id) ?? null;
+    const n = getTreeMetadataNode(id);
+    if (!n) return null;
+    if (n.is_draft && !options?.viewerIsAdmin) return null;
+    return { id: n.id, name: n.name };
   }
   const supabase = createSupabaseServerReadClient();
-  const { data, error } = await supabase
+  const first = await supabase
     .from('nodes')
-    .select('id, name')
+    .select('id, name, is_draft')
     .eq('id', id)
     .maybeSingle();
+  let data = first.data as { id: string; name: string; is_draft?: boolean } | null;
+  let error = first.error;
+  if (error && isMissingDraftColumnError(error)) {
+    const second = await supabase
+      .from('nodes')
+      .select('id, name')
+      .eq('id', id)
+      .maybeSingle();
+    data = second.data as { id: string; name: string; is_draft?: boolean } | null;
+    error = second.error;
+  }
   if (error) throw error;
   if (!data) return null;
-  const row = data as { id: string; name: string };
+  const row = data;
+  if (row.is_draft && !options?.viewerIsAdmin) return null;
   return { id: String(row.id), name: String(row.name) };
 }
 
@@ -319,16 +400,30 @@ export async function getExploreMetadataNodes(): Promise<
     return getExploreMetadataNodesFromSeed();
   }
   const supabase = createSupabaseServerReadClient();
-  const { data, error } = await supabase
+  const firstMeta = await supabase
     .from('nodes')
-    .select('id, name, description')
+    .select('id, name, description, is_draft')
     .order('name');
+  let data = firstMeta.data as
+    | { id: string; name: string; description?: string | null; is_draft?: boolean }[]
+    | null;
+  let error = firstMeta.error;
+  if (error && isMissingDraftColumnError(error)) {
+    const second = await supabase
+      .from('nodes')
+      .select('id, name, description')
+      .order('name');
+    data = second.data as typeof data;
+    error = second.error;
+  }
   if (error) throw error;
-  return (data ?? []).map((n) => ({
-    id: String((n as { id: string }).id),
-    name: String((n as { name: string }).name),
-    description: (n as { description?: string | null }).description ?? undefined,
-  }));
+  return (data ?? [])
+    .filter((row) => !row.is_draft)
+    .map((n) => ({
+      id: String((n as { id: string }).id),
+      name: String((n as { name: string }).name),
+      description: (n as { description?: string | null }).description ?? undefined,
+    }));
 }
 
 /** Liens minimalistes pour SEO (graphe de description). */

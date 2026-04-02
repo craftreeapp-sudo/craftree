@@ -48,6 +48,19 @@ function mapSeedNatureTypeToDb(raw) {
 }
 
 /**
+ * Colonne legacy `nodes.type` (NOT NULL en base) — ne pas confondre avec origin_type / nature_type.
+ * @see src/lib/admin-approve-suggestion.ts (new_node)
+ */
+function mapSeedLegacyNodeType(node) {
+  const t = node.type;
+  if (typeof t === 'string' && t.trim()) return t.trim();
+  if (node.category != null && String(node.category).trim()) {
+    return String(node.category).trim();
+  }
+  return 'process';
+}
+
+/**
  * Nœud tel que dans seed-data.json (camelCase materialLevel, champs _ai_* ignorés).
  */
 export function mapSeedNodeToSupabaseRow(node) {
@@ -58,6 +71,7 @@ export function mapSeedNodeToSupabaseRow(node) {
     description: node.description || null,
     description_en: node.description_en || null,
     category: node.category,
+    type: mapSeedLegacyNodeType(node),
     era: node.era || null,
     year_approx: node.year_approx ?? null,
     origin: node.origin || null,
@@ -73,6 +87,7 @@ export function mapSeedNodeToSupabaseRow(node) {
     nature_type: mapSeedNatureTypeToDb(
       node.nature_type ?? node.chemicalNature ?? null
     ),
+    is_draft: node.is_draft === true,
   };
   return row;
 }

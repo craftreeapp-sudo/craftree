@@ -14,6 +14,7 @@ import type {
   OriginType,
   NatureType,
 } from '@/lib/types';
+import { rowIsDraft } from '@/lib/draft-flag';
 import {
   computeComplexityDepth,
   computeCentrality,
@@ -39,6 +40,7 @@ interface RawNode {
   chemicalNature?: ChemicalNature | null;
   origin_type?: OriginType | null;
   nature_type?: NatureType | null;
+  is_draft?: boolean;
 }
 
 interface RawLink {
@@ -55,7 +57,7 @@ const detailsMemoryCache = new Map<string, TechNodeDetails | null>();
 function patchNeedsFullLayout(patch: Partial<TechNodeBasic>): boolean {
   return Object.keys(patch).some(
     (k) =>
-      !['image_url', 'tags', 'origin', 'name'].includes(k)
+      !['image_url', 'tags', 'origin', 'name', 'is_draft'].includes(k)
   );
 }
 
@@ -131,6 +133,8 @@ function normalizeNode(raw: RawNode): TechNodeBasic {
       : {}),
     ...(raw.origin_type !== undefined ? { origin_type: raw.origin_type } : {}),
     ...(raw.nature_type !== undefined ? { nature_type: raw.nature_type } : {}),
+    /** Toujours un booléen — sinon `undefined` vs `false` casse l’abonnement / l’UI brouillon. */
+    is_draft: rowIsDraft(raw as unknown as Record<string, unknown>),
   };
 }
 
@@ -162,6 +166,7 @@ function nodesToRaw(nodes: TechNodeBasic[]): RawNode[] {
     chemicalNature: n.chemicalNature ?? null,
     origin_type: n.origin_type ?? null,
     nature_type: n.nature_type ?? null,
+    is_draft: n.is_draft,
   }));
 }
 
@@ -262,6 +267,7 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
       chemicalNature: n.chemicalNature ?? null,
       origin_type: n.origin_type ?? null,
       nature_type: n.nature_type ?? null,
+      is_draft: rowIsDraft(n as unknown as Record<string, unknown>),
     }));
     const rawLinks: RawLink[] = craftingLinks.map((l) => ({
       id: l.id,
@@ -366,8 +372,8 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
 
   refreshData: async () => {
     const [nodesRes, linksRes] = await Promise.all([
-      fetch('/api/nodes', { cache: 'no-store' }),
-      fetch('/api/links', { cache: 'no-store' }),
+      fetch('/api/nodes', { cache: 'no-store', credentials: 'same-origin' }),
+      fetch('/api/links', { cache: 'no-store', credentials: 'same-origin' }),
     ]);
     if (!nodesRes.ok || !linksRes.ok) {
       console.warn('refreshData: API error');

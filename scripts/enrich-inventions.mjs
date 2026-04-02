@@ -12,8 +12,10 @@ import {
   formatNodeWithMissingFields,
   enrichItemToClaudePatch,
   mergeUpdatedNodeFields,
+  countEnrichmentMissingByField,
 } from './seed-helpers.mjs';
 import { createServiceSupabaseClient, upsertNodes } from './supabase-seed-sync.mjs';
+import { confirm, hasYesFlag } from './cli-confirm.mjs';
 
 config({ path: '.env.local' });
 config({ path: '.env' });
@@ -22,6 +24,16 @@ const MODEL = 'claude-haiku-4-5-20251001';
 const BATCH_SIZE = 10;
 const MAX_TOKENS = 4000;
 const PAUSE_MS = 1000;
+
+/** Valeur prête pour Supabase : plage [-10000, 2030] ; < -10000 → -10000 ; > 2030 → null. */
+function normalizeYearApprox(year) {
+  if (year == null) return null;
+  const n = typeof year === 'number' ? year : Number(year);
+  if (!Number.isFinite(n)) return null;
+  if (n < -10000) return -10000;
+  if (n > 2030) return null;
+  return Math.round(n);
+}
 
 function parseLimit() {
   const i = process.argv.indexOf('--limit');
@@ -103,15 +115,48 @@ async function callMessages(client, body) {
   }
 }
 
+function printEnrichSummary(incomplete, total) {
+  const numBatches = Math.ceil(incomplete.length / BATCH_SIZE);
+  // Haiku: ~$0.01 par appel API ; Sonnet serait ~$0.03 (non utilisé ici).
+  const estUsd = (numBatches * 0.01).toFixed(2);
+  const pauseSec = (numBatches * PAUSE_MS) / 1000;
+  const estMin = Math.max(
+    1,
+    Math.round((numBatches * 25 + pauseSec) / 60)
+  );
+
+  console.log('');
+  console.log('╔══════════════════════════════════════════╗');
+  console.log('║        ENRICHISSEMENT DES FICHES        ║');
+  console.log('╚══════════════════════════════════════════╝');
+  console.log('');
+  console.log(`📋 Fiches incomplètes : ${incomplete.length} sur ${total}`);
+  console.log(
+    `📦 Lots de ${BATCH_SIZE} → ${numBatches} appel(s) Claude (Haiku)`
+  );
+  console.log(`💰 Coût estimé : ~${estUsd}$`);
+  console.log(`⏱️  Durée estimée : ~${estMin} min`);
+  console.log(
+    '🔒 Protection : les champs déjà remplis ne seront PAS écrasés'
+  );
+  console.log('Champs à compléter :\n');
+
+  const counts = countEnrichmentMissingByField(incomplete);
+  const entries = [...counts.entries()]
+    .filter(([, c]) => c > 0)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  for (const [field, c] of entries) {
+    console.log(`${field} : ${c} fiche${c > 1 ? 's' : ''}`);
+  }
+  if (entries.length === 0) {
+    console.log('(aucun détail par champ)');
+  }
+  console.log('');
+}
+
 async function main() {
   const limit = parseLimit();
-  const apiKey = process.env.ANTHROPIC_API_KEY?.trim();
-  if (!apiKey) {
-    console.error('❌ ANTHROPIC_API_KEY manquant (.env.local)');
-    process.exit(1);
-  }
-  const client = new Anthropic({ apiKey });
-  const supabase = createServiceSupabaseClient();
+  const autoYes = hasYesFlag();
 
   let db = readDB();
   const total = db.nodes.length;
@@ -120,11 +165,28 @@ async function main() {
     incomplete = incomplete.slice(0, limit);
   }
 
-  console.log(`🔍 ${incomplete.length} fiche(s) incomplète(s) trouvée(s) sur ${total} total`);
   if (incomplete.length === 0) {
     console.log('Rien à faire.');
     return;
   }
+
+  printEnrichSummary(incomplete, total);
+
+  if (!autoYes) {
+    const ok = await confirm('Continuer ?');
+    if (!ok) {
+      console.log('❌ Annulé.');
+      process.exit(0);
+    }
+  }
+
+  const apiKey = process.env.ANTHROPIC_API_KEY?.trim();
+  if (!apiKey) {
+    console.error('❌ ANTHROPIC_API_KEY manquant (.env.local)');
+    process.exit(1);
+  }
+  const client = new Anthropic({ apiKey });
+  const supabase = createServiceSupabaseClient();
 
   const batches = [];
   for (let i = 0; i < incomplete.length; i += BATCH_SIZE) {
@@ -184,7 +246,11 @@ async function main() {
         continue;
       }
       const snap = { ...node };
-      const claudePatch = enrichItemToClaudePatch(item);
+      const itemNormalized = { ...item };
+      if (Object.prototype.hasOwnProperty.call(itemNormalized, 'year_approx')) {
+        itemNormalized.year_approx = normalizeYearApprox(itemNormalized.year_approx);
+      }
+      const claudePatch = enrichItemToClaudePatch(itemNormalized);
       const patch = mergeUpdatedNodeFields(node, claudePatch, false);
       const changed = [];
       for (const k of Object.keys(patch)) {
@@ -207,7 +273,12 @@ async function main() {
 
     writeDB(db);
     if (toUpsert.length) {
-      await upsertNodes(supabase, toUpsert);
+      try {
+        await upsertNodes(supabase, toUpsert);
+      } catch (e) {
+        const msg = e?.message ?? String(e);
+        console.warn(`⚠️ Erreur Supabase pour ce lot : ${msg}`);
+      }
     }
     await sleep(PAUSE_MS);
     db = readDB();

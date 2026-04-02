@@ -166,7 +166,10 @@ export function InventionCard({
   );
 
   const isInteractive = !isHero && (!!href || !!onClick);
-  const cardClass = `relative flex flex-col overflow-hidden rounded-xl glass-card transition-[border-color,transform,box-shadow] duration-200 hover:border-[var(--card-cat)] hover:shadow-lg ${isInteractive ? 'hover:scale-[1.02] active:scale-[0.99]' : ''} ${isHero ? 'w-full max-w-[min(100%,23rem)] sm:max-w-[min(100%,27rem)]' : 'w-full min-w-0'} ${isInteractive ? 'cursor-pointer' : ''} ${className}`;
+  /** Pas de scale au survol si aperçu latéral : le transform déplace les bords sous le curseur et peut provoquer pointerleave/enter en boucle. */
+  const scaleHoverClass =
+    isInteractive && !canHover ? 'hover:scale-[1.02] active:scale-[0.99]' : '';
+  const cardClass = `relative flex flex-col overflow-hidden rounded-xl glass-card transition-[border-color,transform,box-shadow] duration-200 hover:border-[var(--card-cat)] hover:shadow-lg ${scaleHoverClass} ${isHero ? 'w-full max-w-[min(100%,23rem)] sm:max-w-[min(100%,27rem)]' : 'w-full min-w-0'} ${isInteractive ? 'cursor-pointer' : ''} ${className}`;
 
   const clickProps =
     !href && exploreInteractive && onClick
@@ -209,7 +212,6 @@ export function InventionCard({
       <Link
         ref={rootRef as React.Ref<HTMLAnchorElement>}
         href={href}
-        replace
         scroll={false}
         className={cardClass}
         style={style}

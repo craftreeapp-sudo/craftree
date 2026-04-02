@@ -11,6 +11,7 @@ import { formatYear } from '@/lib/utils';
 import { eraLabelFromMessages } from '@/lib/era-display';
 import type { Era, MaterialLevel, NodeCategory, NodeDimension } from '@/lib/types';
 import { useGraphStore } from '@/stores/graph-store';
+import { useAuthStore } from '@/stores/auth-store';
 import { getTreeLayerDisplayIndex } from '@/lib/tree-layers';
 import { isRawMaterialNode } from '@/lib/node-dimension-helpers';
 import {
@@ -77,9 +78,10 @@ export function SearchBar({
     (pathname?.startsWith('/tree/') ?? false) && isMobile;
 
   const graphNodes = useGraphStore((s) => s.nodes);
+  const isAdmin = useAuthStore((s) => s.isAdmin);
   const nodes = useMemo(
     () =>
-      graphNodes.map((n) => ({
+      (isAdmin ? graphNodes : graphNodes.filter((n) => !n.is_draft)).map((n) => ({
         id: n.id,
         name: n.name,
         name_en: n.name_en?.trim() || getNameEnForNode(n.id),
@@ -92,7 +94,7 @@ export function SearchBar({
         tags: n.tags,
         image_url: n.image_url,
       })) as SearchNode[],
-    [graphNodes]
+    [graphNodes, isAdmin]
   );
 
   const defaultSortedNodes = useMemo(() => {

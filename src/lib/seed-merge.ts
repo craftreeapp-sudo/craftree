@@ -71,16 +71,23 @@ export function getExploreMetadataNodes(): {
   name: string;
   description?: string;
 }[] {
-  return nodesIndex.nodes.map((n) => ({
-    id: n.id,
-    name: n.name,
-    description: details[n.id]?.description,
-  }));
+  return nodesIndex.nodes
+    .filter((n) => (n as Record<string, unknown>).is_draft !== true)
+    .map((n) => ({
+      id: n.id,
+      name: n.name,
+      description: details[n.id]?.description,
+    }));
 }
 
-export function getTreeMetadataNode(id: string): { id: string; name: string } | undefined {
+export function getTreeMetadataNode(id: string):
+  | { id: string; name: string; is_draft?: boolean }
+  | undefined {
   const n = nodesIndex.nodes.find((x) => x.id === id);
-  return n ? { id: n.id, name: n.name } : undefined;
+  if (!n) return undefined;
+  const row = n as Record<string, unknown>;
+  const isDraft = row.is_draft === true;
+  return { id: n.id, name: n.name, ...(isDraft ? { is_draft: true } : {}) };
 }
 
 export function getLinksForMetadata(): Pick<CraftingLink, 'source_id' | 'target_id'>[] {
