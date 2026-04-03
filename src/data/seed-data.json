@@ -52522,6 +52522,3100 @@
           "relation_type": "process"
         }
       ]
+    },
+    {
+      "id": "metal",
+      "name": "Métal",
+      "name_en": "Metal",
+      "description": "Substance brillante et conductrice extraite du minerai par fusion et réduction. Les métaux forment la base de la civilisation industrielle et possèdent des propriétés de malléabilité, ductilité et conductivité thermique et électrique exceptionnelles.",
+      "description_en": "Shiny conductive substance extracted from ore through smelting and reduction. Metals form the foundation of industrial civilization and possess exceptional properties of malleability, ductility, and thermal and electrical conductivity.",
+      "category": "industry",
+      "era": "ancient",
+      "year_approx": -3500,
+      "origin": null,
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Metal",
+      "tags": [
+        "alliage",
+        "conductivité",
+        "industrie",
+        "minerai",
+        "élément",
+        "malléabilité"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "element",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Iron_electrolytic_and_1cm3_cube.jpg/600px-Iron_electrolytic_and_1cm3_cube.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "minerai-fer",
+          "relation_type": "material"
+        },
+        {
+          "id": "four",
+          "relation_type": "tool"
+        },
+        {
+          "id": "feu",
+          "relation_type": "energy"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "acier",
+          "relation_type": "material"
+        },
+        {
+          "id": "cuivre",
+          "relation_type": "material"
+        },
+        {
+          "id": "bronze",
+          "relation_type": "material"
+        },
+        {
+          "id": "aluminium",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "statistique",
+      "name": "Statistique",
+      "name_en": "Statistics",
+      "description": "Méthode scientifique de collecte, analyse et interprétation de données numériques pour identifier des tendances et patterns. La statistique permet de prendre des décisions éclairées basées sur des données empiriques et constitue le fondement de nombreuses disciplines scientifiques.",
+      "description_en": "Scientific method of collecting, analyzing and interpreting numerical data to identify trends and patterns. Statistics enables informed decision-making based on empirical data and forms the foundation of many scientific disciplines.",
+      "category": "software",
+      "era": "modern",
+      "year_approx": 1749,
+      "origin": "Allemagne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Statistics",
+      "tags": [
+        "données",
+        "analyse",
+        "probabilités",
+        "mathématiques",
+        "recherche",
+        "science"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Standard_Normal_Distribution-en.svg/600px-Standard_Normal_Distribution-en.svg.png",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "nombre",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "mathematiques",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "probabilites",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "epidemiologie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "theorie-de-l-information",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "apprentissage-automatique",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "nickel",
+      "name": "Nickel",
+      "name_en": "Nickel",
+      "description": "Élément métallique de numéro atomique 28, résistant à la corrosion et à l'oxydation. Le nickel est extrait de minerais comme la pentlandite et utilisé principalement dans la production d'aciers inoxydables et d'alliages haute performance.",
+      "description_en": "Metallic element with atomic number 28, resistant to corrosion and oxidation. Nickel is extracted from ores such as pentlandite and used primarily in the production of stainless steels and high-performance alloys.",
+      "category": "industry",
+      "era": "modern",
+      "year_approx": 1751,
+      "origin": "Allemagne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Nickel",
+      "tags": [
+        "acier inoxydable",
+        "alliage",
+        "corrosion",
+        "élément",
+        "minéral",
+        "réfractaire"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "element",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Nickel_electrolytic_and_1cm3_cube.jpg/600px-Nickel_electrolytic_and_1cm3_cube.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "minerai-fer",
+          "relation_type": "material"
+        },
+        {
+          "id": "four-haute-temp",
+          "relation_type": "tool"
+        },
+        {
+          "id": "metallurgie-extractive",
+          "relation_type": "process"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "acier-inox",
+          "relation_type": "material"
+        },
+        {
+          "id": "alliage-de-nickel",
+          "relation_type": "material"
+        },
+        {
+          "id": "batterie-nickel-cadmium",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "servomoteur",
+      "name": "Servomoteur",
+      "name_en": "Servomotor",
+      "description": "Moteur électrique asservi capable de maintenir une position ou une vitesse précise grâce à une boucle de rétroaction. Le servomoteur intègre un capteur, un contrôleur et un engrenage réducteur pour assurer une commande précise en position ou en couple.",
+      "description_en": "Electric motor with feedback control capable of maintaining precise position or speed. The servomotor integrates a sensor, controller and gear reducer to ensure precise command of position or torque.",
+      "category": "robotics",
+      "era": "contemporary",
+      "year_approx": 1960,
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Servo_motor",
+      "tags": [
+        "automatisation",
+        "commande",
+        "contrôle",
+        "moteur",
+        "rétroaction",
+        "robotique"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "moteur-electrique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "capteur-de-position",
+          "relation_type": "tool"
+        },
+        {
+          "id": "systeme-de-retroaction-feedback",
+          "relation_type": "process"
+        },
+        {
+          "id": "engrenage",
+          "relation_type": "tool"
+        },
+        {
+          "id": "controleur-programmable-plc",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "bras-robotise",
+          "relation_type": "tool"
+        },
+        {
+          "id": "drone",
+          "relation_type": "tool"
+        },
+        {
+          "id": "robot-mobile-autonome",
+          "relation_type": "tool"
+        },
+        {
+          "id": "mecatronique",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "silex",
+      "name": "Silex",
+      "name_en": "Flint",
+      "description": "Pierre cryptocristalline très dure formée de dioxyde de silicium, capable de produire des étincelles au choc. Le silex a été le premier matériau utilisé par l'homme préhistorique pour fabriquer des outils tranchants et créer du feu.",
+      "description_en": "Very hard cryptocrystalline stone made of silicon dioxide, capable of producing sparks when struck. Flint was the first material used by prehistoric humans to make sharp tools and create fire.",
+      "category": "industry",
+      "era": "prehistoric",
+      "year_approx": -10000,
+      "origin": null,
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Flint",
+      "tags": [
+        "outil",
+        "préhistoire",
+        "pierre",
+        "tranchant",
+        "minéral",
+        "feu"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Miorcani_flint.jpg/600px-Miorcani_flint.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "terre",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "silex-taille",
+          "relation_type": "tool"
+        },
+        {
+          "id": "hache",
+          "relation_type": "tool"
+        },
+        {
+          "id": "feu-de-camp",
+          "relation_type": "process"
+        },
+        {
+          "id": "taille-du-silex",
+          "relation_type": "process"
+        }
+      ]
+    },
+    {
+      "id": "navigation",
+      "name": "Navigation",
+      "name_en": "Navigation",
+      "description": "Ensemble de techniques et de méthodes permettant de se repérer et de se déplacer sur l'eau, utilisant des références célestes, côtières et des instruments de mesure. La navigation repose sur l'observation des astres, la connaissance des courants et la cartographie pour traverser les mers en toute sécurité.",
+      "description_en": "Set of techniques and methods for orientation and movement at sea, using celestial references, coastal landmarks and measurement instruments. Navigation relies on observation of stars, knowledge of currents and cartography to cross the seas safely.",
+      "category": "transport",
+      "era": "ancient",
+      "year_approx": -3000,
+      "origin": "Phéniciens (Méditerranée)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Navigation",
+      "tags": [
+        "maritime",
+        "orientation",
+        "astronomie",
+        "exploration",
+        "cartographie",
+        "technique"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Navigation_system_on_a_merchant_ship.jpg/600px-Navigation_system_on_a_merchant_ship.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "astronomie-ancienne",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "boussole-magnetique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "bateau-a-voile",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "commerce",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "cartes-marines",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "coke",
+      "name": "Coke",
+      "name_en": "Coke",
+      "description": "Combustible solide obtenu par distillation sèche de la houille dans des fours fermés, éliminant les matières volatiles. Le coke possède une teneur en carbone très élevée et une meilleure qualité que le charbon brut pour la fusion des minerais métalliques.",
+      "description_en": "Solid fuel obtained by dry distillation of coal in closed furnaces, removing volatile matter. Coke has a very high carbon content and better quality than raw coal for melting metal ores.",
+      "category": "energy",
+      "era": "industrial",
+      "year_approx": 1750,
+      "origin": "Abraham Darby (Royaume-Uni)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Coke_(fuel)",
+      "tags": [
+        "combustible",
+        "charbon",
+        "métallurgie",
+        "énergie",
+        "distillation",
+        "sidérurgie"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Koks_Brennstoff.jpg/600px-Koks_Brennstoff.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "houille",
+          "relation_type": "material"
+        },
+        {
+          "id": "distillation",
+          "relation_type": "process"
+        },
+        {
+          "id": "four-haute-temp",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "revolution-industrielle",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "metallurgie-extractive",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "acier",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "revolution-industrielle",
+      "name": "Révolution Industrielle",
+      "name_en": "Industrial Revolution",
+      "description": "Transformation économique et sociale majeure marquée par le passage d'une économie agraire à une économie industrielle basée sur la mécanisation et la production en masse. Elle est caractérisée par l'exploitation systématique du charbon, l'invention de machines à vapeur et la concentration de la production dans des usines.",
+      "description_en": "Major economic and social transformation marked by the transition from an agrarian economy to an industrial economy based on mechanization and mass production. It is characterized by systematic exploitation of coal, invention of steam engines and concentration of production in factories.",
+      "category": "industry",
+      "era": "industrial",
+      "year_approx": 1760,
+      "origin": "Royaume-Uni",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Industrial_Revolution",
+      "tags": [
+        "industrialisation",
+        "mécanisation",
+        "production",
+        "économie",
+        "technologie",
+        "société"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Powerloom_weaving_in_1835.jpg/600px-Powerloom_weaving_in_1835.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "coke",
+          "relation_type": "material"
+        },
+        {
+          "id": "machine-a-vapeur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "metallurgie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "charbon",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "locomotive",
+          "relation_type": "tool"
+        },
+        {
+          "id": "chemin-de-fer",
+          "relation_type": "infrastructure"
+        },
+        {
+          "id": "usine",
+          "relation_type": "infrastructure"
+        },
+        {
+          "id": "textile-synthetique",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "gaz-de-houille",
+      "name": "Gaz de Houille",
+      "name_en": "Coal Gas",
+      "description": "Gaz combustible produit par la distillation destructive de la houille dans des retortes, composé d'hydrogène, de méthane et d'oxyde de carbone. Le gaz de houille a revolutionné l'éclairage urbain et l'énergie domestique au XIXe siècle avant l'électrification.",
+      "description_en": "Combustible gas produced by destructive distillation of coal in retorts, composed of hydrogen, methane and carbon monoxide. Coal gas revolutionized urban lighting and domestic energy in the 19th century before electrification.",
+      "category": "energy",
+      "era": "industrial",
+      "year_approx": 1800,
+      "origin": "William Murdoch (Royaume-Uni)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Coal_gas",
+      "tags": [
+        "gaz",
+        "combustible",
+        "éclairage",
+        "distillation",
+        "houille",
+        "énergie"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "houille",
+          "relation_type": "material"
+        },
+        {
+          "id": "distillation",
+          "relation_type": "process"
+        },
+        {
+          "id": "coke",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "eclairage-artificiel",
+          "relation_type": "tool"
+        },
+        {
+          "id": "tuyau",
+          "relation_type": "infrastructure"
+        },
+        {
+          "id": "canalisations-d-eau",
+          "relation_type": "infrastructure"
+        }
+      ]
+    },
+    {
+      "id": "farine",
+      "name": "Farine",
+      "name_en": "Flour",
+      "description": "Poudre fine obtenue par le broyage de grains, principalement le blé, l'orge ou le seigle. La farine est la matière première fondamentale pour la fabrication du pain et de nombreux aliments transformés, servant de base à l'alimentation humaine depuis l'invention de l'agriculture.",
+      "description_en": "Fine powder obtained by grinding grains, mainly wheat, barley or rye. Flour is the fundamental raw material for bread making and many processed foods, serving as a basis for human nutrition since the invention of agriculture.",
+      "category": "food",
+      "era": "prehistoric",
+      "year_approx": -8000,
+      "origin": "Préhistoire (monde entier)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Flour",
+      "tags": [
+        "grain",
+        "céréale",
+        "mouture",
+        "aliment",
+        "blé",
+        "alimentation"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Soy_powder.jpg/600px-Soy_powder.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "ble",
+          "relation_type": "material"
+        },
+        {
+          "id": "meule-a-grain",
+          "relation_type": "tool"
+        },
+        {
+          "id": "agriculture",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "pain",
+          "relation_type": "material"
+        },
+        {
+          "id": "confiserie",
+          "relation_type": "material"
+        },
+        {
+          "id": "moulin-a-eau",
+          "relation_type": "tool"
+        },
+        {
+          "id": "moulin-a-vent",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "outils-fer",
+      "name": "Outils en Fer",
+      "name_en": "Iron Tools",
+      "description": "Outils façonnés à partir de fer forgé ou fondu, marquant la transition vers l'Âge du Fer. Ces outils offrent une meilleure durabilité et tranchant que le bronze, révolutionnant l'agriculture, le travail du bois et la fabrication.",
+      "description_en": "Tools crafted from forged or cast iron, marking the transition to the Iron Age. These tools offer superior durability and cutting edge compared to bronze, revolutionizing agriculture, woodworking, and manufacturing.",
+      "category": "industry",
+      "era": "ancient",
+      "year_approx": -1200,
+      "origin": "Proche-Orient Ancien",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Iron_Age",
+      "tags": [
+        "fer",
+        "outils",
+        "forge",
+        "âge du fer",
+        "agriculture",
+        "travail du bois",
+        "métallurgie"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "fer",
+          "relation_type": "material"
+        },
+        {
+          "id": "forge",
+          "relation_type": "tool"
+        },
+        {
+          "id": "marteau",
+          "relation_type": "tool"
+        },
+        {
+          "id": "bronze",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "charrue",
+          "relation_type": "tool"
+        },
+        {
+          "id": "araire",
+          "relation_type": "tool"
+        },
+        {
+          "id": "scie",
+          "relation_type": "tool"
+        },
+        {
+          "id": "acier",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "usine-moderne",
+      "name": "Usine Moderne",
+      "name_en": "Modern Factory",
+      "description": "Installation de production centralisée regroupant machines mécanisées, chaînes de montage et main-d'œuvre organisée. L'usine moderne introduit la fabrication en série, l'optimisation des processus et une hiérarchie managériale, transformant l'économie et la société.",
+      "description_en": "Centralized production facility combining mechanized machines, assembly lines, and organized labor. The modern factory introduces mass manufacturing, process optimization, and managerial hierarchy, transforming economy and society.",
+      "category": "industry",
+      "era": "industrial",
+      "year_approx": 1800,
+      "origin": "Royaume-Uni (Grande-Bretagne)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Factory",
+      "tags": [
+        "usine",
+        "industrie",
+        "fabrication en série",
+        "chaîne de montage",
+        "mécanisation",
+        "production"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Wolfsburg_VW-Werk.jpg/600px-Wolfsburg_VW-Werk.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "machine-a-vapeur",
+          "relation_type": "energy"
+        },
+        {
+          "id": "moteur-electrique",
+          "relation_type": "energy"
+        },
+        {
+          "id": "engrenage",
+          "relation_type": "tool"
+        },
+        {
+          "id": "genie-mecanique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "division-du-travail",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "revolution-industrielle",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "automation-industrielle",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "robotique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "mecanisation-agricole",
+          "relation_type": "catalyst"
+        }
+      ]
+    },
+    {
+      "id": "world-wide-web",
+      "name": "World Wide Web",
+      "name_en": "World Wide Web",
+      "description": "Système d'information distribué basé sur le protocole HTTP et le langage HTML permettant de consulter des documents interconnectés via des hyperliens. Le Web transforme Internet en plateforme accessible au grand public et devient le fondement d'une révolution numérique globale.",
+      "description_en": "Distributed information system based on HTTP protocol and HTML language enabling access to interconnected documents via hyperlinks. The Web transforms the Internet into a publicly accessible platform and becomes the foundation of a global digital revolution.",
+      "category": "network",
+      "era": "digital",
+      "year_approx": 1989,
+      "origin": "Tim Berners-Lee (Suisse - CERN)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/World_Wide_Web",
+      "tags": [
+        "web",
+        "internet",
+        "HTTP",
+        "HTML",
+        "hyperlien",
+        "document numérique",
+        "protocole"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Chrome_on_Linux.png/600px-Chrome_on_Linux.png",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "internet",
+          "relation_type": "infrastructure"
+        },
+        {
+          "id": "protocole-tcp-ip",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "ordinateur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "reseau-informatique",
+          "relation_type": "infrastructure"
+        },
+        {
+          "id": "cryptographie",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "email",
+          "relation_type": "tool"
+        },
+        {
+          "id": "cloud-computing",
+          "relation_type": "process"
+        },
+        {
+          "id": "moteur-de-recherche",
+          "relation_type": "tool"
+        },
+        {
+          "id": "commerce-electronique",
+          "relation_type": "process"
+        }
+      ]
+    },
+    {
+      "id": "cloud-computing",
+      "name": "Cloud Computing",
+      "name_en": "Cloud Computing",
+      "description": "Paradigme de calcul permettant d'accéder à des ressources informatiques (serveurs, stockage, logiciels) à la demande via Internet. Le cloud computing élimine l'investissement en infrastructure locale et offre une scalabilité flexible, révolutionnant les modèles d'affaires informatiques.",
+      "description_en": "Computing paradigm enabling on-demand access to computational resources (servers, storage, software) via Internet. Cloud computing eliminates local infrastructure investment and offers flexible scalability, revolutionizing IT business models.",
+      "category": "software",
+      "era": "contemporary",
+      "year_approx": 2006,
+      "origin": "Amazon Web Services (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Cloud_computing",
+      "tags": [
+        "cloud",
+        "informatique distribuée",
+        "serveur",
+        "virtualisation",
+        "SaaS",
+        "infrastructure"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Cloud_computing.svg/600px-Cloud_computing.svg.png",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "internet",
+          "relation_type": "infrastructure"
+        },
+        {
+          "id": "serveur-informatique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "base-de-donnees",
+          "relation_type": "tool"
+        },
+        {
+          "id": "virtualisation",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "protocole-tcp-ip",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "intelligence-artificielle",
+          "relation_type": "tool"
+        },
+        {
+          "id": "big-data",
+          "relation_type": "process"
+        },
+        {
+          "id": "blockchain",
+          "relation_type": "tool"
+        },
+        {
+          "id": "edge-computing",
+          "relation_type": "process"
+        }
+      ]
+    },
+    {
+      "id": "email",
+      "name": "Courrier Électronique",
+      "name_en": "Email",
+      "description": "Système de transmission de messages texte et fichiers sur réseau informatique, utilisant des boîtes aux lettres électroniques identifiées par des adresses. L'email devient le principal moyen de communication professionnelle et personnelle, remplaçant progressivement la correspondance papier.",
+      "description_en": "System for transmitting text messages and files over computer networks using electronic mailboxes identified by addresses. Email becomes the primary means of professional and personal communication, progressively replacing paper correspondence.",
+      "category": "communication",
+      "era": "digital",
+      "year_approx": 1971,
+      "origin": "Ray Tomlinson (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Email",
+      "tags": [
+        "email",
+        "courrier électronique",
+        "messagerie",
+        "communication",
+        "Internet",
+        "protocole SMTP"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Evolution_36_mail.png/600px-Evolution_36_mail.png",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "internet",
+          "relation_type": "infrastructure"
+        },
+        {
+          "id": "world-wide-web",
+          "relation_type": "tool"
+        },
+        {
+          "id": "ordinateur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "protocole-tcp-ip",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "base-de-donnees",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "webmail",
+          "relation_type": "tool"
+        },
+        {
+          "id": "spam-filtering",
+          "relation_type": "process"
+        },
+        {
+          "id": "chiffrement-asymetrique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "signature-numerique",
+          "relation_type": "process"
+        }
+      ]
+    },
+    {
+      "id": "commerce-electronique",
+      "name": "Commerce Électronique",
+      "name_en": "E-commerce",
+      "description": "Processus d'achat et de vente de biens et services sur Internet utilisant des plateformes numériques sécurisées. Le commerce électronique transforme la distribution et le retail en permettant les transactions à distance via des interfaces web et des systèmes de paiement numériques. Il repose sur Internet, les serveurs, les bases de données et les protocoles de sécurisation des transactions.",
+      "description_en": "Process of buying and selling goods and services over the Internet using secure digital platforms. E-commerce transforms distribution and retail by enabling remote transactions through web interfaces and digital payment systems. It relies on the Internet, servers, databases, and transaction security protocols.",
+      "category": "network",
+      "era": "contemporary",
+      "year_approx": 1995,
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/E-commerce",
+      "tags": [
+        "vente en ligne",
+        "achat numérique",
+        "plateforme marchande",
+        "transaction internet",
+        "paiement électronique",
+        "distribution digitale"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "internet",
+          "relation_type": "tool"
+        },
+        {
+          "id": "serveur-informatique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "base-de-donnees",
+          "relation_type": "tool"
+        },
+        {
+          "id": "chiffrement-asymetrique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "signature-numerique",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "portefeuille-numerique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "logistique",
+          "relation_type": "process"
+        },
+        {
+          "id": "cloud-computing",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "huiles-essentielles",
+      "name": "Huiles Essentielles",
+      "name_en": "Essential Oils",
+      "description": "Liquides concentrés extraits des plantes par distillation ou expression mécanique, contenant les composés aromatiques et actifs de la plante. Les huiles essentielles sont utilisées depuis l'Antiquité pour la cosmétique, la parfumerie, la médecine et les rituels religieux. Leur extraction requiert une source de chaleur et des techniques de séparation pour concentrer les principes actifs volatiles.",
+      "description_en": "Concentrated liquids extracted from plants through distillation or mechanical pressing, containing the plant's aromatic and active compounds. Essential oils have been used since antiquity for cosmetics, perfumery, medicine, and religious rituals. Their extraction requires heat sources and separation techniques to concentrate volatile active principles.",
+      "category": "chemistry",
+      "era": "ancient",
+      "year_approx": -2000,
+      "origin": "Égypte Ancienne / Moyen-Orient",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Essential_oil",
+      "tags": [
+        "distillation",
+        "plantes aromatiques",
+        "extraction botanique",
+        "principes actifs",
+        "aromathérapie",
+        "cosmétique naturelle"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/SandalwoodEssOil.png/600px-SandalwoodEssOil.png",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "plantes-medicinales",
+          "relation_type": "material"
+        },
+        {
+          "id": "extraits-vegetaux",
+          "relation_type": "material"
+        },
+        {
+          "id": "distillation",
+          "relation_type": "process"
+        },
+        {
+          "id": "feu",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "parfumerie",
+          "relation_type": "process"
+        },
+        {
+          "id": "cosmetique",
+          "relation_type": "matter"
+        },
+        {
+          "id": "aromatherapie",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "conservation-aliments",
+      "name": "Conservation des Aliments",
+      "name_en": "Food Preservation",
+      "description": "Ensemble de techniques et procédés permettant de ralentir ou arrêter la détérioration des aliments en inhibant la croissance microbienne et les réactions chimiques d'oxydation. La conservation comprend le séchage, le fumage, le salage, la congélation, la fermentation et l'appertisation. Ces méthodes ont été développées empiriquement au cours des millénaires pour assurer la survie pendant les périodes de pénurie alimentaire.",
+      "description_en": "Set of techniques and processes that slow or stop food deterioration by inhibiting microbial growth and oxidation reactions. Preservation includes drying, smoking, salting, freezing, fermentation, and canning. These methods were developed empirically over millennia to ensure survival during periods of food scarcity.",
+      "category": "food",
+      "era": "prehistoric",
+      "year_approx": -8000,
+      "origin": "Préhistoire / Diverses civilisations",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Food_preservation",
+      "tags": [
+        "salaison",
+        "fumage",
+        "séchage",
+        "fermentation",
+        "appertisation",
+        "conservation"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Food_lab_scientist_packages_food_for_spaceflight_at_Space_Food_Lab.jpg/600px-Food_lab_scientist_packages_food_for_spaceflight_at_Space_Food_Lab.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "feu",
+          "relation_type": "tool"
+        },
+        {
+          "id": "sel",
+          "relation_type": "material"
+        },
+        {
+          "id": "fermentation",
+          "relation_type": "process"
+        },
+        {
+          "id": "levure",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "conserve",
+          "relation_type": "matter"
+        },
+        {
+          "id": "pasteurisation",
+          "relation_type": "process"
+        },
+        {
+          "id": "salaison",
+          "relation_type": "process"
+        },
+        {
+          "id": "refrigerateur",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "industrie-textile",
+      "name": "Industrie Textile",
+      "name_en": "Textile Industry",
+      "description": "Processus industrialisé de production de tissus et de vêtements impliquant le filage, le tissage et la teinture mécanisés à grande échelle. L'industrie textile moderne débute avec l'invention du métier à tisser mécanique et des machines à vapeur qui révolutionnent la productivité. Elle transforme les fibres naturelles ou synthétiques en tissus finis destinés à l'habillement, à l'ameublement et aux applications techniques.",
+      "description_en": "Industrialized process of producing fabrics and clothing involving large-scale mechanized spinning, weaving, and dyeing. Modern textile industry began with mechanical looms and steam engines that revolutionized productivity. It transforms natural or synthetic fibers into finished fabrics for clothing, furnishing, and technical applications.",
+      "category": "textile",
+      "era": "industrial",
+      "year_approx": 1769,
+      "origin": "Royaume-Uni (Richard Arkwright)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Textile_industry",
+      "tags": [
+        "mécanisation",
+        "production en masse",
+        "filature",
+        "tissage mécanique",
+        "industrie manufacturière",
+        "révolution industrielle"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Cvernovka_1.jpg/600px-Cvernovka_1.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "metier-tisser",
+          "relation_type": "tool"
+        },
+        {
+          "id": "machine-a-vapeur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "fil-de-coton",
+          "relation_type": "material"
+        },
+        {
+          "id": "fil-de-laine",
+          "relation_type": "material"
+        },
+        {
+          "id": "teinture-textile",
+          "relation_type": "process"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "vetement",
+          "relation_type": "matter"
+        },
+        {
+          "id": "textile-synthetique",
+          "relation_type": "matter"
+        },
+        {
+          "id": "machine-a-coudre",
+          "relation_type": "tool"
+        },
+        {
+          "id": "usine-moderne",
+          "relation_type": "infrastructure"
+        }
+      ]
+    },
+    {
+      "id": "moulin",
+      "name": "Moulin",
+      "name_en": "Mill",
+      "description": "Machine mécanique utilisant une source d'énergie (eau, vent ou force humaine/animale) pour transformer les grains en farine ou moudre d'autres matériaux. Le moulin est l'une des premières machines complexes qui démultiplie la force humaine à grande échelle via des mécanismes d'engrenages et de rotation. Il constitue un élément fondateur de l'industrie et de l'économie agraire.",
+      "description_en": "Mechanical machine using an energy source (water, wind, or human/animal power) to transform grains into flour or grind other materials. The mill is one of the first complex machines that amplifies human effort at scale through gearing and rotation mechanisms. It is a founding element of industry and agrarian economy.",
+      "category": "industry",
+      "era": "ancient",
+      "year_approx": -500,
+      "origin": "Égypte Ancienne / Proche-Orient",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Mill_(grinding)",
+      "tags": [
+        "moudre",
+        "farine",
+        "énergie hydraulique",
+        "machine mécanique",
+        "production agricole",
+        "engrenage"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Hammer_mill_open_front_full.jpg/600px-Hammer_mill_open_front_full.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "roue",
+          "relation_type": "tool"
+        },
+        {
+          "id": "eau",
+          "relation_type": "energy"
+        },
+        {
+          "id": "engrenage",
+          "relation_type": "tool"
+        },
+        {
+          "id": "levier",
+          "relation_type": "tool"
+        },
+        {
+          "id": "ble",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "meule-a-grain",
+          "relation_type": "tool"
+        },
+        {
+          "id": "farine",
+          "relation_type": "matter"
+        },
+        {
+          "id": "pain",
+          "relation_type": "matter"
+        },
+        {
+          "id": "moulin-a-eau",
+          "relation_type": "tool"
+        },
+        {
+          "id": "moulin-a-vent",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "industrie-automobile",
+      "name": "Industrie Automobile",
+      "name_en": "Automotive Industry",
+      "description": "Ensemble des procédés de fabrication en série des automobiles, intégrant l'assemblage mécanique, l'approvisionnement de composants standardisés et l'organisation du travail à la chaîne. L'industrie automobile revolutionne les transports terrestres et devient un moteur économique majeur des sociétés modernes.",
+      "description_en": "The set of mass production processes for automobiles, integrating mechanical assembly, standardized component supply, and assembly line work organization. The automotive industry revolutionizes land transportation and becomes a major economic driver of modern societies.",
+      "category": "industry",
+      "era": "modern",
+      "year_approx": 1890,
+      "origin": "Karl Benz (Allemagne)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Automotive_industry",
+      "tags": [
+        "automobile",
+        "fabrication",
+        "industrie",
+        "chaîne de montage",
+        "production de masse",
+        "transport"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/002_Production_line_-_car_assembly_line_in_General_Motors_Manufacturing_Poland_-_Gliwice%2C_Poland.jpg/600px-002_Production_line_-_car_assembly_line_in_General_Motors_Manufacturing_Poland_-_Gliwice%2C_Poland.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "automobile",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "moteur-a-explosion",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "acier",
+          "relation_type": "material"
+        },
+        {
+          "id": "pneu",
+          "relation_type": "material"
+        },
+        {
+          "id": "machine-a-vapeur",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "carburant-synthetique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "route-bitee",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "petrole",
+          "relation_type": "energy"
+        }
+      ]
+    },
+    {
+      "id": "aile-d-avion",
+      "name": "Aile d'avion",
+      "name_en": "Aircraft Wing",
+      "description": "Structure aérodynamique portante formée d'une armature en bois ou métal recouverte de toile ou de matériaux composites, générant la portance nécessaire au vol. L'aile d'avion intègre les principes de l'aérodynamique pour optimiser la sustentation et la stabilité de l'appareil.",
+      "description_en": "Load-bearing aerodynamic structure made of a wooden or metal framework covered with canvas or composite materials, generating the lift necessary for flight. The aircraft wing integrates aerodynamic principles to optimize the aircraft's lift and stability.",
+      "category": "aeronautics",
+      "era": "modern",
+      "year_approx": 1903,
+      "origin": "Frères Wright (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Wing",
+      "tags": [
+        "aile",
+        "aérodynamique",
+        "portance",
+        "aviation",
+        "structure",
+        "vol"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Wing.two.arp.600pix.jpg/600px-Wing.two.arp.600pix.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "avion",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "acier",
+          "relation_type": "material"
+        },
+        {
+          "id": "aluminium",
+          "relation_type": "material"
+        },
+        {
+          "id": "materiau-composite",
+          "relation_type": "material"
+        },
+        {
+          "id": "optique",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "helicoptere",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "propulsion-spatiale",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "moteur-de-fusee",
+      "name": "Moteur de fusée",
+      "name_en": "Rocket Engine",
+      "description": "Dispositif de propulsion utilisant la réaction chimique de carburants liquides ou solides pour générer une poussée directionnelle. Le moteur de fusée fonctionne selon le principe de conservation de la quantité de mouvement, permettant la mise en orbite de satellites et l'exploration spatiale.",
+      "description_en": "Propulsion device using the chemical reaction of liquid or solid fuels to generate directional thrust. The rocket engine operates on the principle of conservation of momentum, enabling satellite launches and space exploration.",
+      "category": "space",
+      "era": "digital",
+      "year_approx": 1926,
+      "origin": "Robert Goddard (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Rocket_engine",
+      "tags": [
+        "fusée",
+        "propulsion",
+        "combustion",
+        "espace",
+        "poussée",
+        "moteur"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/RS-68_rocket_engine_test.jpg/600px-RS-68_rocket_engine_test.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "fusee",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "combustion",
+          "relation_type": "process"
+        },
+        {
+          "id": "poudre-a-canon",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "thermodynamique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "hydrogene-liquide",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "station-spatiale",
+          "relation_type": "tool"
+        },
+        {
+          "id": "satellite-artificiel",
+          "relation_type": "tool"
+        },
+        {
+          "id": "fusee-multitages",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "panneau-photovoltaique",
+      "name": "Panneau photovoltaïque",
+      "name_en": "Photovoltaic Panel",
+      "description": "Dispositif constitué de cellules photovoltaïques à base de silicium convertissant directement le rayonnement solaire en électricité. Le panneau photovoltaïque représente la technologie clé des énergies renouvelables modernes et contribue à la transition énergétique vers des sources décarbonées.",
+      "description_en": "Device made of silicon-based photovoltaic cells that directly converts solar radiation into electricity. The photovoltaic panel is the key technology for modern renewable energy and contributes to the energy transition towards decarbonized sources.",
+      "category": "energy",
+      "era": "digital",
+      "year_approx": 1954,
+      "origin": "Bell Labs (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Photovoltaic_panel",
+      "tags": [
+        "énergie solaire",
+        "photovoltaïque",
+        "silicium",
+        "électricité",
+        "renouvelable",
+        "cellule"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "energie-solaire",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "silicium",
+          "relation_type": "material"
+        },
+        {
+          "id": "effet-photoelectrique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "physique-quantique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "transistor",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "batterie-de-stockage-d-energie",
+          "relation_type": "tool"
+        },
+        {
+          "id": "onduleur-solaire",
+          "relation_type": "tool"
+        },
+        {
+          "id": "reseau-intelligent-smart-grid",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "disque-optique",
+      "name": "Disque optique",
+      "name_en": "Optical Disc",
+      "description": "Support de stockage des données utilisant des sillons microscopiques gravés à la surface d'un disque en polycarbonate, lus par un faisceau laser. Le disque optique (CD, DVD, Blu-ray) offre une grande capacité de stockage et une durabilité améliorée par rapport aux supports magnétiques antérieurs.",
+      "description_en": "Data storage medium using microscopic grooves engraved on the surface of a polycarbonate disc, read by a laser beam. The optical disc (CD, DVD, Blu-ray) offers high storage capacity and improved durability compared to previous magnetic media.",
+      "category": "storage",
+      "era": "digital",
+      "year_approx": 1982,
+      "origin": "Philips et Sony (Pays-Bas et Japon)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Optical_disc",
+      "tags": [
+        "stockage",
+        "optique",
+        "laser",
+        "CD",
+        "DVD",
+        "données",
+        "disque"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Compact_Disc.png/600px-Compact_Disc.png",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "laser",
+          "relation_type": "tool"
+        },
+        {
+          "id": "polycarbonate",
+          "relation_type": "material"
+        },
+        {
+          "id": "fibre-optique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "lentille-optique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "signal-numerique",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "disque-dur",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "memoire-flash",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "streaming-video",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "fibre-textile-artificielle",
+      "name": "Fibre textile artificielle",
+      "name_en": "Artificial textile fiber",
+      "description": "Fibre synthétique produite par extrusion de polymères dissous, créant un matériau textile artificiel comparable à la soie. Première fibre complètement synthétique capable de remplacer les fibres naturelles à grande échelle. Révolutionne l'industrie textile en permettant une production standardisée et rentable.",
+      "description_en": "Synthetic fiber produced by extrusion of dissolved polymers, creating an artificial textile material comparable to silk. First completely synthetic fiber capable of replacing natural fibers on a large scale. Revolutionizes the textile industry by enabling standardized and profitable production.",
+      "category": "textile",
+      "era": "modern",
+      "year_approx": 1885,
+      "origin": "Hilaire de Chardonnet (France)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Rayon",
+      "tags": [
+        "textile synthétique",
+        "polymère",
+        "production industrielle",
+        "fibre continue",
+        "soie artificielle",
+        "extrusion"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": null,
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Rayon_synthesis.webm/600px--Rayon_synthesis.webm.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "polymeres",
+          "relation_type": "material"
+        },
+        {
+          "id": "chimie-organique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "cellulose",
+          "relation_type": "material"
+        },
+        {
+          "id": "acide-sulfurique",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "nylon",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "fibres-synthetiques",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "textile-synthetique",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "capteur-biologique",
+      "name": "Capteur biologique",
+      "name_en": "Biosensor",
+      "description": "Dispositif intégrant un élément biologique sensible couplé à un transducteur pour convertir une réaction biochimique en signal mesurable. Combine enzyme, anticorps ou ADN avec électrodes ou optiques pour détecter et quantifier des analytes spécifiques. Fondamental pour le diagnostic médical, l'analyse environnementale et le suivi industriel.",
+      "description_en": "Device integrating a sensitive biological element coupled to a transducer to convert a biochemical reaction into a measurable signal. Combines enzymes, antibodies or DNA with electrodes or optics to detect and quantify specific analytes. Fundamental for medical diagnostics, environmental analysis and industrial monitoring.",
+      "category": "biotechnology",
+      "era": "contemporary",
+      "year_approx": 1962,
+      "origin": "Leland C. Clark Jr. (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Biosensor",
+      "tags": [
+        "biocapteur",
+        "enzyme",
+        "transduction",
+        "diagnostic médical",
+        "détection",
+        "électrochimie"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "enzyme",
+          "relation_type": "material"
+        },
+        {
+          "id": "electrolyse",
+          "relation_type": "process"
+        },
+        {
+          "id": "immunologie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "microbiologie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "circuit-integre",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "test-diagnostique-rapide",
+          "relation_type": "tool"
+        },
+        {
+          "id": "capteur-de-glucose",
+          "relation_type": "tool"
+        },
+        {
+          "id": "test-covid",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "protocole-de-securite-reseau",
+      "name": "Protocole de sécurité réseau",
+      "name_en": "Network security protocol",
+      "description": "Ensemble de règles standardisées et d'algorithmes cryptographiques pour sécuriser la transmission de données sur les réseaux informatiques. Inclut protocoles d'authentification, de chiffrement et de contrôle d'intégrité. Essentiel pour protéger les communications contre l'interception, la modification et l'usurpation d'identité.",
+      "description_en": "Set of standardized rules and cryptographic algorithms to secure data transmission over computer networks. Includes authentication, encryption and integrity verification protocols. Essential for protecting communications against interception, modification and identity spoofing.",
+      "category": "security",
+      "era": "digital",
+      "year_approx": 1995,
+      "origin": "Équipe Internet Engineering Task Force (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Network_security",
+      "tags": [
+        "chiffrement",
+        "authentification",
+        "SSL/TLS",
+        "cybersécurité",
+        "cryptographie",
+        "intégrité des données"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "cryptographie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "chiffrement-asymetrique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "signature-numerique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "internet",
+          "relation_type": "tool"
+        },
+        {
+          "id": "protocole-tcp-ip",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "vpn",
+          "relation_type": "tool"
+        },
+        {
+          "id": "firewall",
+          "relation_type": "tool"
+        },
+        {
+          "id": "certificat-numerique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "authentification-multifacteur",
+          "relation_type": "process"
+        }
+      ]
+    },
+    {
+      "id": "systeme-de-communication-sans-fil",
+      "name": "Système de communication sans fil",
+      "name_en": "Wireless communication system",
+      "description": "Ensemble de technologies permettant la transmission de données ou de signaux sans câble de connexion physique, utilisant les ondes électromagnétiques pour la propagation. Comprend la radiodiffusion, les systèmes cellulaires, Wi-Fi, satellite et autres. Fondamental pour la connectivité mobile et les communications à distance.",
+      "description_en": "Set of technologies enabling data or signal transmission without physical connection cables, using electromagnetic waves for propagation. Includes broadcasting, cellular systems, Wi-Fi, satellite and others. Fundamental for mobile connectivity and long-distance communications.",
+      "category": "network",
+      "era": "digital",
+      "year_approx": 1895,
+      "origin": "Guglielmo Marconi (Italie)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Wireless_communication",
+      "tags": [
+        "radiocommunication",
+        "ondes électromagnétiques",
+        "télécommunications",
+        "modulation",
+        "antenne",
+        "transmission hertzienne"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "spectro-electromagnetique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "equations-de-maxwell",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "oscillateur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "antenne-radio",
+          "relation_type": "tool"
+        },
+        {
+          "id": "amplificateur-electronique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "modulation-de-frequence",
+          "relation_type": "process"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "radio",
+          "relation_type": "tool"
+        },
+        {
+          "id": "television",
+          "relation_type": "tool"
+        },
+        {
+          "id": "telephone-mobile",
+          "relation_type": "tool"
+        },
+        {
+          "id": "wifi",
+          "relation_type": "tool"
+        },
+        {
+          "id": "satellite-de-communication",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "reacteur-thermonucleaire",
+      "name": "Réacteur thermonucléaire",
+      "name_en": "Thermonuclear reactor",
+      "description": "Installation expérimentale conçue pour confiner et contrôler une réaction de fusion nucléaire où le plasma atteint des températures extrêmes. Utilise des champs magnétiques intenses pour maintenir le plasma et générer l'énergie de fusion. Objectif ultime : produire de l'électricité propre et inépuisable par fusion thermonucléaire contrôlée.",
+      "description_en": "Experimental facility designed to confine and control a nuclear fusion reaction where plasma reaches extreme temperatures. Uses intense magnetic fields to maintain plasma and generate fusion energy. Ultimate goal: produce clean and inexhaustible electricity through controlled thermonuclear fusion.",
+      "category": "energy",
+      "era": "contemporary",
+      "year_approx": 1958,
+      "origin": "Programme ITER et recherche internationale (Fusion)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Fusion_power",
+      "tags": [
+        "fusion nucléaire",
+        "plasma",
+        "énergie propre",
+        "confinement magnétique",
+        "tokamak",
+        "énergie renouvelable"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/EAST_Tokamak_plasma_image3.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "fusion-nucleaire",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "energie-nucleaire",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "relativite",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "physique-quantique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "electroaimant",
+          "relation_type": "tool"
+        },
+        {
+          "id": "supraconductivite",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "hydrogene-liquide",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "energie-fusion-commerciale",
+          "relation_type": "energy"
+        },
+        {
+          "id": "reseau-intelligent-smart-grid",
+          "relation_type": "tool"
+        },
+        {
+          "id": "batterie-de-stockage-d-energie",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "bras-robotique-industriel",
+      "name": "Bras robotique industriel",
+      "name_en": "Industrial robotic arm",
+      "description": "Bras mécanique multi-articulé commandé par ordinateur, capable de saisir et manipuler des objets avec précision. Utilise des moteurs, des capteurs et un système de contrôle programmable pour automatiser les tâches répétitives en usine, notamment l'assemblage et la soudure.",
+      "description_en": "Computer-controlled multi-articulated mechanical arm capable of grasping and manipulating objects with precision. Uses motors, sensors, and programmable control systems to automate repetitive factory tasks, including assembly and welding.",
+      "category": "robotics",
+      "era": "digital",
+      "year_approx": 1961,
+      "origin": "George Devol, Joseph Engelberger (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Robotic_arm",
+      "tags": [
+        "robot",
+        "automatisation",
+        "industrie",
+        "mécatronique",
+        "contrôle",
+        "manipulation",
+        "précision"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/STS-3_Canadarm_captures_PDP.jpg/600px-STS-3_Canadarm_captures_PDP.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "moteur-electrique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "controleur-programmable-plc",
+          "relation_type": "tool"
+        },
+        {
+          "id": "capteur-de-distance",
+          "relation_type": "tool"
+        },
+        {
+          "id": "servo-moteur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "articulation-mecanique",
+          "relation_type": "material"
+        },
+        {
+          "id": "mecanique-classique",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "systeme-de-vision-industrielle",
+          "relation_type": "tool"
+        },
+        {
+          "id": "grappins-robotiques",
+          "relation_type": "tool"
+        },
+        {
+          "id": "robot-mobile-autonome",
+          "relation_type": "catalyst"
+        }
+      ]
+    },
+    {
+      "id": "conteneur-maritime",
+      "name": "Conteneur maritime",
+      "name_en": "Shipping container",
+      "description": "Boîte métallique standardisée de dimensions normalisées (20 ou 40 pieds) permettant de transporter des marchandises par bateau, train ou camion. Révolutionne la logistique mondiale en réduisant considérablement les coûts et les délais de transport et de manutention.",
+      "description_en": "Standardized metal box with normalized dimensions (20 or 40 feet) designed to transport cargo by ship, train, or truck. Revolutionizes global logistics by significantly reducing transportation and handling costs and delivery times.",
+      "category": "transport",
+      "era": "modern",
+      "year_approx": 1956,
+      "origin": "Malcolm McLean (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Shipping_container",
+      "tags": [
+        "logistique",
+        "transport",
+        "commerce",
+        "standardisation",
+        "manutention",
+        "cargo",
+        "infrastructure"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "acier",
+          "relation_type": "material"
+        },
+        {
+          "id": "soudure",
+          "relation_type": "process"
+        },
+        {
+          "id": "bateau-a-voile",
+          "relation_type": "tool"
+        },
+        {
+          "id": "locomotive",
+          "relation_type": "tool"
+        },
+        {
+          "id": "automobile",
+          "relation_type": "tool"
+        },
+        {
+          "id": "commerce",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "logistique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "commerce-electronique",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "usine-moderne",
+          "relation_type": "catalyst"
+        }
+      ]
+    },
+    {
+      "id": "alchimie-renaissance",
+      "name": "Alchimie Renaissance",
+      "name_en": "Renaissance alchemy",
+      "description": "Évolution de l'alchimie antique intégrant l'observation expérimentale et les techniques de distillation affinées. Cherche à transformer les matières et isoler les principes actifs, posant les fondements de la chimie moderne et de la pharmacologie.",
+      "description_en": "Evolution of ancient alchemy integrating experimental observation and refined distillation techniques. Seeks to transform matter and isolate active principles, laying the foundations for modern chemistry and pharmacology.",
+      "category": "chemistry",
+      "era": "renaissance",
+      "year_approx": 1550,
+      "origin": "Paracelsus, Robert Boyle (Europe)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Alchemy#Renaissance_alchemy",
+      "tags": [
+        "chimie",
+        "expérimentation",
+        "distillation",
+        "transmutation",
+        "pharmacologie",
+        "alchimie",
+        "renaissance"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/E-codices_zbz-Ms-Rh-0172_044_max_copy.jpg/600px-E-codices_zbz-Ms-Rh-0172_044_max_copy.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "alchimie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "distillation",
+          "relation_type": "process"
+        },
+        {
+          "id": "distillation-fractionnee",
+          "relation_type": "process"
+        },
+        {
+          "id": "four",
+          "relation_type": "tool"
+        },
+        {
+          "id": "moule",
+          "relation_type": "tool"
+        },
+        {
+          "id": "principes-actifs",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "chimie-organique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "chimie-minerale",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "chimie-analytique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "pharmacologie",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "imprimerie-renaissance",
+      "name": "Imprimerie Renaissance",
+      "name_en": "Renaissance printing",
+      "description": "Perfectionnement de la presse d'imprimerie avec polices de caractères raffinées et techniques d'impression améliorées. Permet la reproduction massive de livres illustrés, diffusant largement les savoirs scientifiques et culturels à travers l'Europe.",
+      "description_en": "Refinement of the printing press with sophisticated typefaces and improved printing techniques. Enables mass production of illustrated books, widely disseminating scientific and cultural knowledge throughout Europe.",
+      "category": "communication",
+      "era": "renaissance",
+      "year_approx": 1520,
+      "origin": "Aldus Manutius, Christophe Plantin (Europe)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Printing_press#Renaissance",
+      "tags": [
+        "imprimerie",
+        "édition",
+        "diffusion",
+        "presse",
+        "typographie",
+        "renaissance",
+        "savoir"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/PrintMus_038.jpg/600px-PrintMus_038.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "imprimerie-a-caracteres-mobiles",
+          "relation_type": "tool"
+        },
+        {
+          "id": "presse-d-imprimerie-mecanique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "encre",
+          "relation_type": "material"
+        },
+        {
+          "id": "papier",
+          "relation_type": "material"
+        },
+        {
+          "id": "fonte",
+          "relation_type": "material"
+        },
+        {
+          "id": "livre",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "imprimerie-industrielle",
+          "relation_type": "process"
+        },
+        {
+          "id": "journal",
+          "relation_type": "tool"
+        },
+        {
+          "id": "encyclopedie",
+          "relation_type": "tool"
+        },
+        {
+          "id": "propagation-du-savoir",
+          "relation_type": "catalyst"
+        }
+      ]
+    },
+    {
+      "id": "astronomie-observationnelle",
+      "name": "Astronomie observationnelle",
+      "name_en": "Observational astronomy",
+      "description": "Discipline scientifique fondée sur l'observation directe du ciel nocturne utilisant le télescope optique. Remplace l'astronomie purement théorique par une démarche expérimentale, révélant les cratères lunaires, les satellites de Jupiter et confirmant l'héliocentrisme.",
+      "description_en": "Scientific discipline founded on direct observation of the night sky using the optical telescope. Replaces purely theoretical astronomy with an experimental approach, revealing lunar craters, Jupiter's moons, and confirming heliocentrism.",
+      "category": "optical",
+      "era": "renaissance",
+      "year_approx": 1610,
+      "origin": "Galileo Galilei (Italie)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Observational_astronomy",
+      "tags": [
+        "astronomie",
+        "observation",
+        "télescope",
+        "expérimentation",
+        "ciel",
+        "optique",
+        "univers"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Mayall_Telescope.jpg/600px-Mayall_Telescope.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "telescope-optique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "lentille-optique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "verre-optique",
+          "relation_type": "material"
+        },
+        {
+          "id": "astronomie-ancienne",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "astronomie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "optique",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "telescope",
+          "relation_type": "tool"
+        },
+        {
+          "id": "spectroscopie",
+          "relation_type": "process"
+        },
+        {
+          "id": "astrophysique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "cosmologie",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "perspective-mathematique",
+      "name": "Perspective mathématique",
+      "name_en": "Mathematical perspective",
+      "description": "Technique de représentation graphique utilisant les principes mathématiques de la géométrie pour créer l'illusion de profondeur et de distance sur une surface plane. Fondée sur le concept du point de fuite et des lignes convergeantes, elle révolutionne la peinture et l'architecture en permettant une représentation réaliste de l'espace tridimensionnel.",
+      "description_en": "Graphic representation technique using mathematical principles of geometry to create the illusion of depth and distance on a flat surface. Based on the concept of vanishing point and converging lines, it revolutionizes painting and architecture by enabling realistic representation of three-dimensional space.",
+      "category": "industry",
+      "era": "renaissance",
+      "year_approx": 1413,
+      "origin": "Filippo Brunelleschi (Italie)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Linear_perspective",
+      "tags": [
+        "géométrie",
+        "dessin",
+        "mathématiques",
+        "représentation",
+        "profondeur",
+        "espace"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "geometrie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "optique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "mathematiques",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "optique-geometrique-renaissance",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "anatomie-descriptive-renaissance",
+          "relation_type": "catalyst"
+        }
+      ]
+    },
+    {
+      "id": "optique-geometrique-renaissance",
+      "name": "Optique géométrique Renaissance",
+      "name_en": "Renaissance geometric optics",
+      "description": "Étude scientifique des propriétés de la lumière et de la vision basée sur les lois géométriques de la réflexion et de la réfraction. Ce savoir permet le développement des instruments optiques comme la lunette et le microscope en comprenant comment la lumière traverse les lentilles et forme les images.",
+      "description_en": "Scientific study of light properties and vision based on geometric laws of reflection and refraction. This knowledge enables the development of optical instruments such as the telescope and microscope by understanding how light passes through lenses and forms images.",
+      "category": "industry",
+      "era": "renaissance",
+      "year_approx": 1572,
+      "origin": "Giambattista della Porta (Italie)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Geometric_optics",
+      "tags": [
+        "optique",
+        "lumière",
+        "géométrie",
+        "réfraction",
+        "lentilles",
+        "vision"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "optique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "perspective-mathematique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "lentille",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "telescope",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "microscope",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "lunettes",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "anatomie-descriptive-renaissance",
+      "name": "Anatomie descriptive Renaissance",
+      "name_en": "Renaissance descriptive anatomy",
+      "description": "Étude systématique et minutieuse de la structure interne du corps humain par dissection et observation directe, consignée dans des illustrations détaillées. Cette approche scientifique remplace les théories anciennes par des connaissances empiriques précises, posant les fondements de la médecine moderne et de la chirurgie.",
+      "description_en": "Systematic and meticulous study of the internal structure of the human body through dissection and direct observation, recorded in detailed illustrations. This scientific approach replaces ancient theories with precise empirical knowledge, laying the foundations for modern medicine and surgery.",
+      "category": "industry",
+      "era": "renaissance",
+      "year_approx": 1543,
+      "origin": "Andreas Vesalius (Belgique/Italie)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Andreas_Vesalius",
+      "tags": [
+        "anatomie",
+        "médecine",
+        "dissection",
+        "corps humain",
+        "observation",
+        "chirurgie"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Man_dressed_in_Black_by_Calcar_%28Hermitage%29.jpg/600px-Man_dressed_in_Black_by_Calcar_%28Hermitage%29.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "medecine-ancienne",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "perspective-mathematique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "anatomie-humaine",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "chirurgie-generale",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "cardiologie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "microscopie",
+          "relation_type": "catalyst"
+        }
+      ]
+    },
+    {
+      "id": "chimie-experimentale-renaissance",
+      "name": "Chimie expérimentale Renaissance",
+      "name_en": "Renaissance experimental chemistry",
+      "description": "Approche scientifique basée sur l'expérimentation pratique et l'observation empirique plutôt que sur la théorie alchimique pure. Elle introduit le test systématique des réactions chimiques, l'analyse des substances et l'application de la chimie à la médecine et à l'industrie, jetant les bases de la chimie moderne.",
+      "description_en": "Scientific approach based on practical experimentation and empirical observation rather than pure alchemical theory. It introduces systematic testing of chemical reactions, substance analysis, and the application of chemistry to medicine and industry, laying the groundwork for modern chemistry.",
+      "category": "industry",
+      "era": "renaissance",
+      "year_approx": 1520,
+      "origin": "Paracelse (Suisse/Allemagne)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Paracelsus",
+      "tags": [
+        "chimie",
+        "expérimentation",
+        "réactions",
+        "substances",
+        "médecine",
+        "analyse"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Aureolus_Theophrastus_Bombastus_von_Hohenheim_%28Paracelsus%29._Wellcome_V0004455.jpg/600px-Aureolus_Theophrastus_Bombastus_von_Hohenheim_%28Paracelsus%29._Wellcome_V0004455.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "alchimie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "medecine-ancienne",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "chimie-minerale",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "chimie-analytique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "pharmacologie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "chimie-organique",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "horlogerie-renaissance",
+      "name": "Horlogerie Renaissance",
+      "name_en": "Renaissance watchmaking",
+      "description": "Art et technique de fabrication de montres portables précises utilisant des ressorts et des engrenages miniaturisés. Combinant horlogerie mécanique, métallurgie fine et géométrie, elle marque la transition vers des instruments de mesure du temps miniaturisés et transportables, essentiels à la navigation et à la science.",
+      "description_en": "Art and technique of manufacturing accurate portable watches using miniaturized springs and gears. Combining mechanical watchmaking, fine metallurgy and geometry, it marks the transition to miniaturized and portable timekeeping instruments, essential for navigation and science.",
+      "category": "industry",
+      "era": "renaissance",
+      "year_approx": 1500,
+      "origin": "Peter Henlein (Allemagne)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Peter_Henlein",
+      "tags": [
+        "horlogerie",
+        "montre",
+        "ressort",
+        "engrenage",
+        "précision",
+        "mécanique"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Peter_Henlein%2B.jpg/600px-Peter_Henlein%2B.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "horloge-mecanique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "ressort",
+          "relation_type": "material"
+        },
+        {
+          "id": "engrenage",
+          "relation_type": "tool"
+        },
+        {
+          "id": "metallurgie",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "chronometre",
+          "relation_type": "tool"
+        },
+        {
+          "id": "naviguation",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "precision-mecanique",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "mecanique-renaissance",
+      "name": "Mécanique Renaissance",
+      "name_en": "Renaissance Mechanics",
+      "description": "Ensemble des principes et méthodes pour concevoir et analyser les machines complexes, combinant leviers, poulies et engrenages. Développée par des ingénieurs comme Léonard de Vinci et Agostino Ramelli, elle applique les lois de la mécanique à des systèmes sophistiqués pour amplifier la force ou transformer les mouvements.",
+      "description_en": "Body of principles and methods for designing and analyzing complex machines, combining levers, pulleys and gears. Developed by engineers like Leonardo da Vinci and Agostino Ramelli, it applies mechanical laws to sophisticated systems to amplify force or transform movements.",
+      "category": "industry",
+      "era": "renaissance",
+      "year_approx": 1550,
+      "origin": "Italie, France",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/History_of_mechanics",
+      "tags": [
+        "ingénierie",
+        "machines",
+        "leviers",
+        "poulies",
+        "engrenages",
+        "Leonardo da Vinci"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "levier",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "poulie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "engrenage",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "mécanique-classique",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "machine-a-vapeur",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "usine-moderne",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "hydraulique-renaissance",
+      "name": "Hydraulique Renaissance",
+      "name_en": "Renaissance Hydraulics",
+      "description": "Étude et application des propriétés de l'eau en mouvement pour transmettre la puissance et réaliser des travaux mécaniques. Utilisée pour alimenter les fontaines, les moulins et les systèmes d'irrigation sophistiqués dans les jardins et palais de la Renaissance.",
+      "description_en": "Study and application of the properties of flowing water to transmit power and perform mechanical work. Used to power fountains, mills and sophisticated irrigation systems in Renaissance gardens and palaces.",
+      "category": "infrastructure",
+      "era": "renaissance",
+      "year_approx": 1580,
+      "origin": "Italie",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/History_of_hydraulics",
+      "tags": [
+        "eau",
+        "puissance",
+        "fontaines",
+        "moulins",
+        "irrigation",
+        "Renaissance"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "eau",
+          "relation_type": "material"
+        },
+        {
+          "id": "moulin-a-eau",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "pompe",
+          "relation_type": "tool"
+        },
+        {
+          "id": "mécanique-classique",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "presse-hydraulique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "mécanique-des-fluides",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "serveur-web",
+      "name": "Serveur Web",
+      "name_en": "Web Server",
+      "description": "Ordinateur dédié qui stocke et distribue des pages web sur Internet en réponse aux requêtes des clients. Utilise le protocole HTTP pour communiquer et gère le contenu accessibles via des adresses web. C'est l'infrastructure fondamentale du World Wide Web.",
+      "description_en": "Dedicated computer that stores and distributes web pages over the Internet in response to client requests. Uses the HTTP protocol to communicate and manages content accessible via web addresses. It is the fundamental infrastructure of the World Wide Web.",
+      "category": "network",
+      "era": "digital",
+      "year_approx": 1990,
+      "origin": "Tim Berners-Lee (Suisse/Royaume-Uni)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Web_server",
+      "tags": [
+        "HTTP",
+        "web",
+        "réseau",
+        "internet",
+        "infrastructure",
+        "Tim Berners-Lee"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Web_server_serving_static_content.png",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "ordinateur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "internet",
+          "relation_type": "infrastructure"
+        },
+        {
+          "id": "world-wide-web",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "protocole-tcp-ip",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "cloud-computing",
+          "relation_type": "tool"
+        },
+        {
+          "id": "commerce-electronique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "serveur-informatique",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "contrat-intelligent-smart-contract",
+      "name": "Contrat Intelligent (Smart Contract)",
+      "name_en": "Smart Contract",
+      "description": "Programme informatique exécuté automatiquement sur une blockchain pour appliquer les termes d'un accord sans intermédiaire. Le code encode les règles et conséquences d'un contrat, s'exécutant lorsque les conditions prédéfinies sont remplies, garantissant transparence et immuabilité.",
+      "description_en": "Computer program automatically executed on a blockchain to enforce the terms of an agreement without intermediaries. The code encodes the rules and consequences of a contract, executing when predefined conditions are met, ensuring transparency and immutability.",
+      "category": "software",
+      "era": "contemporary",
+      "year_approx": 2015,
+      "origin": "Vitalik Buterin, Ethereum (Canada/Suisse)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Smart_contract",
+      "tags": [
+        "blockchain",
+        "automatisation",
+        "contrat",
+        "décentralisé",
+        "Ethereum",
+        "immutable"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "blockchain",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "programmation-informatique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "cryptographie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "code-binaire",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "portefeuille-numerique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "fintech-decentralisee",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "ecran-lcd-couleur",
+      "name": "Écran LCD couleur",
+      "name_en": "Color LCD Screen",
+      "description": "Affichage utilisant la technologie des cristaux liquides avec trois sous-pixels (rouge, vert, bleu) pour générer les couleurs. Chaque pixel est contrôlé électriquement pour moduler la lumière transmise, permettant l'affichage d'images complexes et colorées avec une consommation énergétique modérée.",
+      "description_en": "Display using liquid crystal technology with three sub-pixels (red, green, blue) to generate colors. Each pixel is electrically controlled to modulate transmitted light, enabling display of complex colored images with moderate energy consumption.",
+      "category": "electronics",
+      "era": "digital",
+      "year_approx": 1990,
+      "origin": "Sharp, Seiko Epson, Fujitsu (Japon)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Liquid-crystal_display",
+      "tags": [
+        "LCD",
+        "couleur",
+        "cristaux liquides",
+        "affichage",
+        "écran",
+        "Japon"
+      ],
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Wiktionnaire_sur_IPhone_%281%29.JPG/600px-Wiktionnaire_sur_IPhone_%281%29.JPG",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "ecran-lcd",
+          "relation_type": "tool"
+        },
+        {
+          "id": "transistor",
+          "relation_type": "component"
+        },
+        {
+          "id": "verre",
+          "relation_type": "material"
+        },
+        {
+          "id": "polymeres",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "smartphone",
+          "relation_type": "tool"
+        },
+        {
+          "id": "television-couleur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "ordinateur",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "systeme-de-positionnement-precis",
+      "name": "Système de positionnement précis",
+      "name_en": "Precise Positioning System",
+      "description": "Ensemble de technologies permettant de déterminer avec précision la position d'un objet ou d'une personne sur Terre, initialement développé par le département de la Défense américain. Combine des satellites, des récepteurs et des algorithmes de triangulation pour fournir des coordonnées géographiques avec une marge d'erreur réduite. Utilisé dans les applications civiles et militaires de géolocalisation, de navigation et de synchronisation temporelle.",
+      "description_en": "Set of technologies enabling precise determination of an object or person's position on Earth, initially developed by the U.S. Department of Defense. Combines satellites, receivers, and triangulation algorithms to provide geographic coordinates with reduced error margins. Used in civilian and military applications for geolocation, navigation, and time synchronization.",
+      "category": "infrastructure",
+      "era": "digital",
+      "year_approx": 1973,
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Global_Positioning_System",
+      "tags": [
+        "géolocalisation",
+        "navigation",
+        "satellites",
+        "triangulation",
+        "synchronisation",
+        "précision"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/GPS_Block_IIIA.jpg/600px-GPS_Block_IIIA.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "satellite-de-communication",
+          "relation_type": "tool"
+        },
+        {
+          "id": "theorie-des-ondes",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "relativite",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "signal-numerique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "microprocesseur",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "gps",
+          "relation_type": "tool"
+        },
+        {
+          "id": "systeme-de-navigation-gps-ins",
+          "relation_type": "tool"
+        },
+        {
+          "id": "georeferencement",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "capteur-d-acceleration",
+      "name": "Capteur d'accélération",
+      "name_en": "Acceleration Sensor",
+      "description": "Instrument électronique capable de mesurer l'accélération linéaire dans une ou plusieurs directions, basé sur la piézoélectricité ou les technologies MEMS. Convertit les variations de force en signaux électriques analysables par un microcontrôleur. Essentiel pour les systèmes de navigation inertielle, la stabilisation de véhicules et les applications de détection de mouvement.",
+      "description_en": "Electronic instrument capable of measuring linear acceleration in one or more directions, based on piezoelectricity or MEMS technologies. Converts force variations into electrical signals analyzable by a microcontroller. Essential for inertial navigation systems, vehicle stabilization, and motion detection applications.",
+      "category": "electronics",
+      "era": "digital",
+      "year_approx": 1989,
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Accelerometer",
+      "tags": [
+        "capteur",
+        "accélération",
+        "MEMS",
+        "inertie",
+        "mouvement",
+        "stabilisation"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Acelerometro_1.JPG/600px-Acelerometro_1.JPG",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "piezoelectricite",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "transistor",
+          "relation_type": "tool"
+        },
+        {
+          "id": "circuit-integre",
+          "relation_type": "tool"
+        },
+        {
+          "id": "signal-numerique",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "capteur-inertiel-imu",
+          "relation_type": "tool"
+        },
+        {
+          "id": "systeme-de-navigation-gps-ins",
+          "relation_type": "tool"
+        },
+        {
+          "id": "drone",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "multiplexage-par-longueur-d-onde",
+      "name": "Multiplexage par longueur d'onde",
+      "name_en": "Wavelength Division Multiplexing",
+      "description": "Technique de transmission permettant d'envoyer plusieurs signaux de lumière à différentes longueurs d'onde simultanément sur une même fibre optique. Augmente considérablement la capacité de transmission en exploitant les propriétés de la lumière visible et infrarouge. Fondamental pour les réseaux de télécommunications haut débit et l'infrastructure Internet moderne.",
+      "description_en": "Transmission technique enabling simultaneous transmission of multiple light signals at different wavelengths over the same optical fiber. Significantly increases transmission capacity by exploiting the properties of visible and infrared light. Fundamental for high-speed telecommunications networks and modern Internet infrastructure.",
+      "category": "network",
+      "era": "digital",
+      "year_approx": 1985,
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Wavelength-division_multiplexing",
+      "tags": [
+        "multiplexage",
+        "fibre optique",
+        "transmission",
+        "longueur d'onde",
+        "télécommunications",
+        "bande passante"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Multiplexing_diagram.svg/600px-Multiplexing_diagram.svg.png",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "fibre-optique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "laser",
+          "relation_type": "tool"
+        },
+        {
+          "id": "theorie-des-ondes",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "spectre-electromagnetique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "lentille",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "fibre-optique-monomode",
+          "relation_type": "tool"
+        },
+        {
+          "id": "internet",
+          "relation_type": "infrastructure"
+        },
+        {
+          "id": "reseau-intelligent-smart-grid",
+          "relation_type": "infrastructure"
+        }
+      ]
+    },
+    {
+      "id": "commutateur-reseau-switch",
+      "name": "Commutateur réseau (Switch)",
+      "name_en": "Network Switch",
+      "description": "Dispositif réseau capable de diriger les paquets de données vers le port de destination approprié en fonction des adresses MAC, améliorant les performances par rapport aux concentrateurs traditionnels. Fonctionne au niveau 2 de la couche OSI et crée des domaines de collision isolés. Élément essentiel des réseaux locaux modernes pour segmenter le trafic et optimiser la bande passante.",
+      "description_en": "Network device capable of directing data packets to the appropriate destination port based on MAC addresses, improving performance compared to traditional hubs. Operates at Layer 2 of the OSI model and creates isolated collision domains. Essential element of modern local networks for segmenting traffic and optimizing bandwidth.",
+      "category": "network",
+      "era": "digital",
+      "year_approx": 1990,
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Network_switch",
+      "tags": [
+        "réseau",
+        "commutation",
+        "switch",
+        "LAN",
+        "paquet",
+        "segmentation"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "routeur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "circuit-integre",
+          "relation_type": "tool"
+        },
+        {
+          "id": "protocole-ethernet-industriel",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "cable-electrique",
+          "relation_type": "material"
+        },
+        {
+          "id": "microprocesseur",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "internet",
+          "relation_type": "infrastructure"
+        },
+        {
+          "id": "reseau-intelligent-smart-grid",
+          "relation_type": "infrastructure"
+        },
+        {
+          "id": "cloud-computing",
+          "relation_type": "infrastructure"
+        }
+      ]
+    },
+    {
+      "id": "modem-haut-debit",
+      "name": "Modem haut débit",
+      "name_en": "Broadband Modem",
+      "description": "Équipement de télécommunication convertissant les signaux numériques en signaux adaptés aux lignes haut débit (xDSL, câble ou fibre) et inversement, permettant des débits de transmission bien supérieurs aux modems classiques. Facilite la connexion Internet rapide pour les utilisateurs domestiques et professionnels. Associe modulation/démodulation, gestion de la qualité de service et compression de données.",
+      "description_en": "Telecommunications equipment converting digital signals into signals adapted to broadband lines (xDSL, cable, or fiber) and vice versa, enabling transmission speeds far exceeding classic modems. Facilitates fast Internet connection for domestic and professional users. Combines modulation/demodulation, quality of service management, and data compression.",
+      "category": "network",
+      "era": "digital",
+      "year_approx": 1998,
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Broadband_modem",
+      "tags": [
+        "modem",
+        "haut débit",
+        "xDSL",
+        "accès Internet",
+        "modulation",
+        "connexion"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "modem",
+          "relation_type": "tool"
+        },
+        {
+          "id": "modulation-electronique",
+          "relation_type": "process"
+        },
+        {
+          "id": "demodulation",
+          "relation_type": "process"
+        },
+        {
+          "id": "compression-de-donnees",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "microprocesseur",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "internet",
+          "relation_type": "infrastructure"
+        },
+        {
+          "id": "commerce-electronique",
+          "relation_type": "infrastructure"
+        },
+        {
+          "id": "cloud-computing",
+          "relation_type": "infrastructure"
+        }
+      ]
     }
   ],
   "links": [
@@ -88982,6 +92076,2718 @@
       "source_id": "protocole-tcp-ip",
       "target_id": "portefeuille-numerique",
       "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-efef6db0ae33",
+      "source_id": "minerai-fer",
+      "target_id": "metal",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-95720115d70d",
+      "source_id": "four",
+      "target_id": "metal",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ba66d8ecef18",
+      "source_id": "feu",
+      "target_id": "metal",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4746571cb021",
+      "source_id": "metal",
+      "target_id": "acier",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8f32c4c516b9",
+      "source_id": "metal",
+      "target_id": "cuivre",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3e970823ac8a",
+      "source_id": "metal",
+      "target_id": "bronze",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7465216effc9",
+      "source_id": "metal",
+      "target_id": "aluminium",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7a2402c68a32",
+      "source_id": "nombre",
+      "target_id": "statistique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bee975e45495",
+      "source_id": "mathematiques",
+      "target_id": "statistique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-57bcbd82826f",
+      "source_id": "statistique",
+      "target_id": "epidemiologie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c3b6ea2a79b2",
+      "source_id": "statistique",
+      "target_id": "theorie-de-l-information",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f127f6d5f7a2",
+      "source_id": "statistique",
+      "target_id": "apprentissage-automatique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-09cd71514a6a",
+      "source_id": "minerai-fer",
+      "target_id": "nickel",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d8c5a9a2f884",
+      "source_id": "four-haute-temp",
+      "target_id": "nickel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0d3de9e53063",
+      "source_id": "metallurgie-extractive",
+      "target_id": "nickel",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1a6b8004f3f0",
+      "source_id": "nickel",
+      "target_id": "acier-inox",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c33b88025c20",
+      "source_id": "nickel",
+      "target_id": "alliage-de-nickel",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-beb26cb79e41",
+      "source_id": "nickel",
+      "target_id": "batterie-nickel-cadmium",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-025daa630c1b",
+      "source_id": "moteur-electrique",
+      "target_id": "servomoteur",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8e361da4d0fe",
+      "source_id": "systeme-de-retroaction-feedback",
+      "target_id": "servomoteur",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-01db0da183bf",
+      "source_id": "engrenage",
+      "target_id": "servomoteur",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2590c55969f7",
+      "source_id": "controleur-programmable-plc",
+      "target_id": "servomoteur",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4c62bcab0f19",
+      "source_id": "servomoteur",
+      "target_id": "bras-robotise",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e9032b1dc5f6",
+      "source_id": "servomoteur",
+      "target_id": "drone",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6c1cae25bcee",
+      "source_id": "servomoteur",
+      "target_id": "robot-mobile-autonome",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e6489e2bf36a",
+      "source_id": "servomoteur",
+      "target_id": "mecatronique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-56bfe95accfa",
+      "source_id": "terre",
+      "target_id": "silex",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6cff7bbaa6b6",
+      "source_id": "silex",
+      "target_id": "silex-taille",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a783f74cbf1c",
+      "source_id": "silex",
+      "target_id": "hache",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e792ee1cd84e",
+      "source_id": "silex",
+      "target_id": "feu-de-camp",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9a9efce4f287",
+      "source_id": "silex",
+      "target_id": "taille-du-silex",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c16bf4b25dc2",
+      "source_id": "astronomie-ancienne",
+      "target_id": "navigation",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-13c9ae446d59",
+      "source_id": "boussole-magnetique",
+      "target_id": "navigation",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1cea10f6901d",
+      "source_id": "bateau-a-voile",
+      "target_id": "navigation",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b02ee5081a90",
+      "source_id": "navigation",
+      "target_id": "commerce",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f1f2d9ebe2bf",
+      "source_id": "navigation",
+      "target_id": "cartes-marines",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1420a0312fe2",
+      "source_id": "houille",
+      "target_id": "coke",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-23b2bc5a6c7e",
+      "source_id": "distillation",
+      "target_id": "coke",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c20366608e9b",
+      "source_id": "four-haute-temp",
+      "target_id": "coke",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6bbc67253ec4",
+      "source_id": "coke",
+      "target_id": "revolution-industrielle",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-897e35e58572",
+      "source_id": "coke",
+      "target_id": "metallurgie-extractive",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b07aa7b0a2e8",
+      "source_id": "coke",
+      "target_id": "acier",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3d282276db97",
+      "source_id": "machine-a-vapeur",
+      "target_id": "revolution-industrielle",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a2dc263036b5",
+      "source_id": "metallurgie",
+      "target_id": "revolution-industrielle",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d153060dafeb",
+      "source_id": "charbon",
+      "target_id": "revolution-industrielle",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4aa0640762c9",
+      "source_id": "revolution-industrielle",
+      "target_id": "locomotive",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d33825426419",
+      "source_id": "revolution-industrielle",
+      "target_id": "chemin-de-fer",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-69a3611f7860",
+      "source_id": "revolution-industrielle",
+      "target_id": "textile-synthetique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6924c0ea3362",
+      "source_id": "houille",
+      "target_id": "gaz-de-houille",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-41e798f17498",
+      "source_id": "distillation",
+      "target_id": "gaz-de-houille",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8037c30550c0",
+      "source_id": "coke",
+      "target_id": "gaz-de-houille",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f1005208430c",
+      "source_id": "gaz-de-houille",
+      "target_id": "eclairage-artificiel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6eb0c36aeb6a",
+      "source_id": "gaz-de-houille",
+      "target_id": "tuyau",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e80fcb795b33",
+      "source_id": "gaz-de-houille",
+      "target_id": "canalisations-d-eau",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9ad744fc3ca8",
+      "source_id": "ble",
+      "target_id": "farine",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-06bc9006cec8",
+      "source_id": "meule-a-grain",
+      "target_id": "farine",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f1dad19a84e8",
+      "source_id": "agriculture",
+      "target_id": "farine",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-047848615976",
+      "source_id": "farine",
+      "target_id": "pain",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-965c656d9b31",
+      "source_id": "farine",
+      "target_id": "confiserie",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1bf42ca1392b",
+      "source_id": "farine",
+      "target_id": "moulin-a-eau",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b36269d95bf4",
+      "source_id": "farine",
+      "target_id": "moulin-a-vent",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-77eb5379958d",
+      "source_id": "fer",
+      "target_id": "outils-fer",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cf7085807dd8",
+      "source_id": "forge",
+      "target_id": "outils-fer",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4f7ad0cb3729",
+      "source_id": "marteau",
+      "target_id": "outils-fer",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-508e1592f254",
+      "source_id": "bronze",
+      "target_id": "outils-fer",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c079eafd2acc",
+      "source_id": "outils-fer",
+      "target_id": "charrue",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f94aac4996e6",
+      "source_id": "outils-fer",
+      "target_id": "araire",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e7fd0521f60f",
+      "source_id": "outils-fer",
+      "target_id": "scie",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-010f4546f197",
+      "source_id": "outils-fer",
+      "target_id": "acier",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e728594f3d9c",
+      "source_id": "machine-a-vapeur",
+      "target_id": "usine-moderne",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c9b929788739",
+      "source_id": "moteur-electrique",
+      "target_id": "usine-moderne",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9a2ba4d2e4ea",
+      "source_id": "engrenage",
+      "target_id": "usine-moderne",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3966611c46ab",
+      "source_id": "genie-mecanique",
+      "target_id": "usine-moderne",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-de78754672be",
+      "source_id": "usine-moderne",
+      "target_id": "revolution-industrielle",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-417d6e719012",
+      "source_id": "usine-moderne",
+      "target_id": "robotique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-500433cfd1e9",
+      "source_id": "usine-moderne",
+      "target_id": "mecanisation-agricole",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-14c99a17a431",
+      "source_id": "internet",
+      "target_id": "world-wide-web",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0399db24bc53",
+      "source_id": "protocole-tcp-ip",
+      "target_id": "world-wide-web",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4976c9465e58",
+      "source_id": "ordinateur",
+      "target_id": "world-wide-web",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8648704fb458",
+      "source_id": "cryptographie",
+      "target_id": "world-wide-web",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-12b739136c6d",
+      "source_id": "world-wide-web",
+      "target_id": "email",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-137c20a78f26",
+      "source_id": "world-wide-web",
+      "target_id": "cloud-computing",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-67c0edda71f7",
+      "source_id": "internet",
+      "target_id": "cloud-computing",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-170af4e08ce8",
+      "source_id": "serveur-informatique",
+      "target_id": "cloud-computing",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7b603e266b05",
+      "source_id": "base-de-donnees",
+      "target_id": "cloud-computing",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0e5530d615e2",
+      "source_id": "protocole-tcp-ip",
+      "target_id": "cloud-computing",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b43d57258b05",
+      "source_id": "cloud-computing",
+      "target_id": "intelligence-artificielle",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dc78495c66f4",
+      "source_id": "cloud-computing",
+      "target_id": "blockchain",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3897b27449db",
+      "source_id": "internet",
+      "target_id": "email",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7673adc60529",
+      "source_id": "ordinateur",
+      "target_id": "email",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-61385c61e907",
+      "source_id": "protocole-tcp-ip",
+      "target_id": "email",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3af2f448fd3b",
+      "source_id": "base-de-donnees",
+      "target_id": "email",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-edb3e3512596",
+      "source_id": "email",
+      "target_id": "chiffrement-asymetrique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ff8ada8582bf",
+      "source_id": "email",
+      "target_id": "signature-numerique",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-83b52e2b2c1b",
+      "source_id": "internet",
+      "target_id": "commerce-electronique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dada9e6dbe20",
+      "source_id": "serveur-informatique",
+      "target_id": "commerce-electronique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-43b531f878f6",
+      "source_id": "base-de-donnees",
+      "target_id": "commerce-electronique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dbce63ebcc17",
+      "source_id": "chiffrement-asymetrique",
+      "target_id": "commerce-electronique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c25b66862da1",
+      "source_id": "signature-numerique",
+      "target_id": "commerce-electronique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b5b51b66618d",
+      "source_id": "commerce-electronique",
+      "target_id": "portefeuille-numerique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ad704b60b612",
+      "source_id": "commerce-electronique",
+      "target_id": "logistique",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b3961c927abb",
+      "source_id": "commerce-electronique",
+      "target_id": "cloud-computing",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aee5b17a8727",
+      "source_id": "plantes-medicinales",
+      "target_id": "huiles-essentielles",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b68bd512225a",
+      "source_id": "extraits-vegetaux",
+      "target_id": "huiles-essentielles",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dd17ab40b9ab",
+      "source_id": "distillation",
+      "target_id": "huiles-essentielles",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-749d33da8604",
+      "source_id": "feu",
+      "target_id": "huiles-essentielles",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c4d99e8df447",
+      "source_id": "huiles-essentielles",
+      "target_id": "cosmetique",
+      "relation_type": "matter",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-85a913b978cf",
+      "source_id": "feu",
+      "target_id": "conservation-aliments",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ce19cdaf77de",
+      "source_id": "sel",
+      "target_id": "conservation-aliments",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-57cce1b82b0c",
+      "source_id": "fermentation",
+      "target_id": "conservation-aliments",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1227db44f60d",
+      "source_id": "levure",
+      "target_id": "conservation-aliments",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-095611b51cf4",
+      "source_id": "conservation-aliments",
+      "target_id": "conserve",
+      "relation_type": "matter",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-755190ab544e",
+      "source_id": "conservation-aliments",
+      "target_id": "pasteurisation",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d82f6fcf5c67",
+      "source_id": "conservation-aliments",
+      "target_id": "salaison",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e50b1216352c",
+      "source_id": "conservation-aliments",
+      "target_id": "refrigerateur",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c2d56e5f384f",
+      "source_id": "metier-tisser",
+      "target_id": "industrie-textile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6305ce962fa1",
+      "source_id": "machine-a-vapeur",
+      "target_id": "industrie-textile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5e67cbefa023",
+      "source_id": "fil-de-coton",
+      "target_id": "industrie-textile",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b3c72c9678a7",
+      "source_id": "fil-de-laine",
+      "target_id": "industrie-textile",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-234da5ba298e",
+      "source_id": "teinture-textile",
+      "target_id": "industrie-textile",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e4173096d03b",
+      "source_id": "industrie-textile",
+      "target_id": "vetement",
+      "relation_type": "matter",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7d3ca96a370b",
+      "source_id": "industrie-textile",
+      "target_id": "textile-synthetique",
+      "relation_type": "matter",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-39d99a3c5b77",
+      "source_id": "industrie-textile",
+      "target_id": "machine-a-coudre",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2f6debe33898",
+      "source_id": "industrie-textile",
+      "target_id": "usine-moderne",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7f114c51d9aa",
+      "source_id": "roue",
+      "target_id": "moulin",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-15a01ae7fc27",
+      "source_id": "eau",
+      "target_id": "moulin",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b73e68b0e6d6",
+      "source_id": "engrenage",
+      "target_id": "moulin",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1fe735d22e77",
+      "source_id": "levier",
+      "target_id": "moulin",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-80cdcd78dab9",
+      "source_id": "ble",
+      "target_id": "moulin",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cf555825b15c",
+      "source_id": "moulin",
+      "target_id": "meule-a-grain",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c0bea2a4c077",
+      "source_id": "moulin",
+      "target_id": "farine",
+      "relation_type": "matter",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0b5fb595a0c9",
+      "source_id": "moulin",
+      "target_id": "pain",
+      "relation_type": "matter",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-48428d77aca4",
+      "source_id": "moulin",
+      "target_id": "moulin-a-eau",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f1e2a95d968e",
+      "source_id": "moulin",
+      "target_id": "moulin-a-vent",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f2140630301b",
+      "source_id": "automobile",
+      "target_id": "industrie-automobile",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3f48ba071959",
+      "source_id": "moteur-a-explosion",
+      "target_id": "industrie-automobile",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-17a35929be8b",
+      "source_id": "acier",
+      "target_id": "industrie-automobile",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3e6a5bb821ef",
+      "source_id": "pneu",
+      "target_id": "industrie-automobile",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0730e35745b7",
+      "source_id": "machine-a-vapeur",
+      "target_id": "industrie-automobile",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aead4675ed08",
+      "source_id": "industrie-automobile",
+      "target_id": "carburant-synthetique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3b1e56f7cf30",
+      "source_id": "industrie-automobile",
+      "target_id": "route-bitee",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-209e431de91e",
+      "source_id": "industrie-automobile",
+      "target_id": "petrole",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-140aed473684",
+      "source_id": "avion",
+      "target_id": "aile-d-avion",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-63422a01ab35",
+      "source_id": "acier",
+      "target_id": "aile-d-avion",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c54419c4ca6d",
+      "source_id": "aluminium",
+      "target_id": "aile-d-avion",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cb179d49074b",
+      "source_id": "materiau-composite",
+      "target_id": "aile-d-avion",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-93775ad5471e",
+      "source_id": "optique",
+      "target_id": "aile-d-avion",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c170cfd464ac",
+      "source_id": "aile-d-avion",
+      "target_id": "helicoptere",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4dc7391f76b1",
+      "source_id": "aile-d-avion",
+      "target_id": "propulsion-spatiale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bb02cb2bc942",
+      "source_id": "fusee",
+      "target_id": "moteur-de-fusee",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-db5bb4573651",
+      "source_id": "combustion",
+      "target_id": "moteur-de-fusee",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-853b72a1069d",
+      "source_id": "poudre-a-canon",
+      "target_id": "moteur-de-fusee",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dee32c33cbfc",
+      "source_id": "thermodynamique",
+      "target_id": "moteur-de-fusee",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3944350d932f",
+      "source_id": "hydrogene-liquide",
+      "target_id": "moteur-de-fusee",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ac96b42450f4",
+      "source_id": "moteur-de-fusee",
+      "target_id": "station-spatiale",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9926e68155b1",
+      "source_id": "moteur-de-fusee",
+      "target_id": "satellite-artificiel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f5c8d213d902",
+      "source_id": "moteur-de-fusee",
+      "target_id": "fusee-multitages",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-eb601a5a6a4e",
+      "source_id": "energie-solaire",
+      "target_id": "panneau-photovoltaique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cc03cdc038d1",
+      "source_id": "silicium",
+      "target_id": "panneau-photovoltaique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c7e5eefe31a3",
+      "source_id": "physique-quantique",
+      "target_id": "panneau-photovoltaique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5de6177fd3d8",
+      "source_id": "transistor",
+      "target_id": "panneau-photovoltaique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3698bc0c507e",
+      "source_id": "panneau-photovoltaique",
+      "target_id": "batterie-de-stockage-d-energie",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e3f941873a1b",
+      "source_id": "panneau-photovoltaique",
+      "target_id": "onduleur-solaire",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1a93d367012f",
+      "source_id": "panneau-photovoltaique",
+      "target_id": "reseau-intelligent-smart-grid",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2284b7756d15",
+      "source_id": "laser",
+      "target_id": "disque-optique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-048ad1118e46",
+      "source_id": "polycarbonate",
+      "target_id": "disque-optique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-00d29fe22136",
+      "source_id": "fibre-optique",
+      "target_id": "disque-optique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-972727f4d5fa",
+      "source_id": "signal-numerique",
+      "target_id": "disque-optique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dea75c2aa3ce",
+      "source_id": "disque-optique",
+      "target_id": "disque-dur",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0c69736bee93",
+      "source_id": "disque-optique",
+      "target_id": "memoire-flash",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4b2a4c78626f",
+      "source_id": "polymeres",
+      "target_id": "fibre-textile-artificielle",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-53e46046c789",
+      "source_id": "chimie-organique",
+      "target_id": "fibre-textile-artificielle",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2dbc6d6c8e1e",
+      "source_id": "cellulose",
+      "target_id": "fibre-textile-artificielle",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-65ed075a6edc",
+      "source_id": "acide-sulfurique",
+      "target_id": "fibre-textile-artificielle",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7a6a32d899f3",
+      "source_id": "fibre-textile-artificielle",
+      "target_id": "nylon",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7a110c0b0941",
+      "source_id": "fibre-textile-artificielle",
+      "target_id": "fibres-synthetiques",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-60789f4e320c",
+      "source_id": "fibre-textile-artificielle",
+      "target_id": "textile-synthetique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dca493e549cd",
+      "source_id": "enzyme",
+      "target_id": "capteur-biologique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cd51ff0ee21c",
+      "source_id": "electrolyse",
+      "target_id": "capteur-biologique",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-528bc820c159",
+      "source_id": "immunologie",
+      "target_id": "capteur-biologique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-47f0f2abb7ab",
+      "source_id": "microbiologie",
+      "target_id": "capteur-biologique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-692e6f5734eb",
+      "source_id": "circuit-integre",
+      "target_id": "capteur-biologique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-91e1c23f7dda",
+      "source_id": "cryptographie",
+      "target_id": "protocole-de-securite-reseau",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a58316400551",
+      "source_id": "chiffrement-asymetrique",
+      "target_id": "protocole-de-securite-reseau",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-45a74b2c39c1",
+      "source_id": "signature-numerique",
+      "target_id": "protocole-de-securite-reseau",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-16750ef4ea30",
+      "source_id": "internet",
+      "target_id": "protocole-de-securite-reseau",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-81d8d40df6b3",
+      "source_id": "protocole-tcp-ip",
+      "target_id": "protocole-de-securite-reseau",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-507ab2819e49",
+      "source_id": "equations-de-maxwell",
+      "target_id": "systeme-de-communication-sans-fil",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-09ba28f8da8f",
+      "source_id": "oscillateur",
+      "target_id": "systeme-de-communication-sans-fil",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0153948f5fb1",
+      "source_id": "antenne-radio",
+      "target_id": "systeme-de-communication-sans-fil",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-864fe86721a8",
+      "source_id": "amplificateur-electronique",
+      "target_id": "systeme-de-communication-sans-fil",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a164f1705b7a",
+      "source_id": "modulation-de-frequence",
+      "target_id": "systeme-de-communication-sans-fil",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-babef611c8a7",
+      "source_id": "systeme-de-communication-sans-fil",
+      "target_id": "radio",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-706f760e1b77",
+      "source_id": "systeme-de-communication-sans-fil",
+      "target_id": "television",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c5bf8558b2d1",
+      "source_id": "systeme-de-communication-sans-fil",
+      "target_id": "satellite-de-communication",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c123a95b5a94",
+      "source_id": "fusion-nucleaire",
+      "target_id": "reacteur-thermonucleaire",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d34d51f9a033",
+      "source_id": "energie-nucleaire",
+      "target_id": "reacteur-thermonucleaire",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a02eb139b1a0",
+      "source_id": "relativite",
+      "target_id": "reacteur-thermonucleaire",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-50b7a230842c",
+      "source_id": "physique-quantique",
+      "target_id": "reacteur-thermonucleaire",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f17467d6a3d0",
+      "source_id": "electroaimant",
+      "target_id": "reacteur-thermonucleaire",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7cf9237c4779",
+      "source_id": "supraconductivite",
+      "target_id": "reacteur-thermonucleaire",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f16a120938f8",
+      "source_id": "hydrogene-liquide",
+      "target_id": "reacteur-thermonucleaire",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d34ee24cd319",
+      "source_id": "reacteur-thermonucleaire",
+      "target_id": "reseau-intelligent-smart-grid",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fc19ec5a6431",
+      "source_id": "reacteur-thermonucleaire",
+      "target_id": "batterie-de-stockage-d-energie",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-62eec1010c26",
+      "source_id": "moteur-electrique",
+      "target_id": "bras-robotique-industriel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-54458a0ee7eb",
+      "source_id": "controleur-programmable-plc",
+      "target_id": "bras-robotique-industriel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1d27b77da67b",
+      "source_id": "capteur-de-distance",
+      "target_id": "bras-robotique-industriel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-109fb38bc1f8",
+      "source_id": "servo-moteur",
+      "target_id": "bras-robotique-industriel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ad684f06e6e8",
+      "source_id": "articulation-mecanique",
+      "target_id": "bras-robotique-industriel",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9ea694e832df",
+      "source_id": "mecanique-classique",
+      "target_id": "bras-robotique-industriel",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-61763d620491",
+      "source_id": "bras-robotique-industriel",
+      "target_id": "systeme-de-vision-industrielle",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bd870e35253f",
+      "source_id": "bras-robotique-industriel",
+      "target_id": "grappins-robotiques",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f24da5a97921",
+      "source_id": "bras-robotique-industriel",
+      "target_id": "robot-mobile-autonome",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-285ea760b1f4",
+      "source_id": "acier",
+      "target_id": "conteneur-maritime",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-91a29ced11fe",
+      "source_id": "soudure",
+      "target_id": "conteneur-maritime",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e4d2d32f650e",
+      "source_id": "bateau-a-voile",
+      "target_id": "conteneur-maritime",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-284d6992ab43",
+      "source_id": "locomotive",
+      "target_id": "conteneur-maritime",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-209413037e99",
+      "source_id": "automobile",
+      "target_id": "conteneur-maritime",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4893ac4f544e",
+      "source_id": "commerce",
+      "target_id": "conteneur-maritime",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c7d47e663ae0",
+      "source_id": "conteneur-maritime",
+      "target_id": "logistique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ab6567454967",
+      "source_id": "conteneur-maritime",
+      "target_id": "commerce-electronique",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d1a86ffc58d0",
+      "source_id": "conteneur-maritime",
+      "target_id": "usine-moderne",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3fe04fdf2c61",
+      "source_id": "alchimie",
+      "target_id": "alchimie-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c8bcc41bcd67",
+      "source_id": "distillation",
+      "target_id": "alchimie-renaissance",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9940c02b9035",
+      "source_id": "distillation-fractionnee",
+      "target_id": "alchimie-renaissance",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-84b1f3474543",
+      "source_id": "four",
+      "target_id": "alchimie-renaissance",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bc600709abd3",
+      "source_id": "moule",
+      "target_id": "alchimie-renaissance",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c376eeaf03c2",
+      "source_id": "principes-actifs",
+      "target_id": "alchimie-renaissance",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c4e146edae22",
+      "source_id": "alchimie-renaissance",
+      "target_id": "chimie-organique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b15f062c20b1",
+      "source_id": "alchimie-renaissance",
+      "target_id": "chimie-minerale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-67780ce132b4",
+      "source_id": "alchimie-renaissance",
+      "target_id": "chimie-analytique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-86549dd66246",
+      "source_id": "alchimie-renaissance",
+      "target_id": "pharmacologie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1015abda4e39",
+      "source_id": "imprimerie-a-caracteres-mobiles",
+      "target_id": "imprimerie-renaissance",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b55c3a5b2fe5",
+      "source_id": "presse-d-imprimerie-mecanique",
+      "target_id": "imprimerie-renaissance",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2615d4ccb687",
+      "source_id": "encre",
+      "target_id": "imprimerie-renaissance",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bb194d94e250",
+      "source_id": "papier",
+      "target_id": "imprimerie-renaissance",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-564a7df26ac0",
+      "source_id": "fonte",
+      "target_id": "imprimerie-renaissance",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0f79b82002cc",
+      "source_id": "livre",
+      "target_id": "imprimerie-renaissance",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-75b0cd3e728d",
+      "source_id": "imprimerie-renaissance",
+      "target_id": "journal",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3cd8d4ffc5a7",
+      "source_id": "telescope-optique",
+      "target_id": "astronomie-observationnelle",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-843fd44d6a9d",
+      "source_id": "verre-optique",
+      "target_id": "astronomie-observationnelle",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1ceadec8f33d",
+      "source_id": "astronomie-ancienne",
+      "target_id": "astronomie-observationnelle",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-53cfad10d0c2",
+      "source_id": "astronomie",
+      "target_id": "astronomie-observationnelle",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-625a8ef5df39",
+      "source_id": "optique",
+      "target_id": "astronomie-observationnelle",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9c8615e8f93d",
+      "source_id": "astronomie-observationnelle",
+      "target_id": "telescope",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-df058552bfd8",
+      "source_id": "astronomie-observationnelle",
+      "target_id": "spectroscopie",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-619e14269c66",
+      "source_id": "astronomie-observationnelle",
+      "target_id": "cosmologie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ec5b1276638e",
+      "source_id": "geometrie",
+      "target_id": "perspective-mathematique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-af54b30ccdf1",
+      "source_id": "optique",
+      "target_id": "perspective-mathematique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6a4039270768",
+      "source_id": "mathematiques",
+      "target_id": "perspective-mathematique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9c48ab3f7a40",
+      "source_id": "perspective-mathematique",
+      "target_id": "optique-geometrique-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c4b7641d4a3a",
+      "source_id": "perspective-mathematique",
+      "target_id": "anatomie-descriptive-renaissance",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e4a4e8d26dbc",
+      "source_id": "optique",
+      "target_id": "optique-geometrique-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d7566794b22a",
+      "source_id": "lentille",
+      "target_id": "optique-geometrique-renaissance",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bc184e25a8dd",
+      "source_id": "optique-geometrique-renaissance",
+      "target_id": "telescope",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6e3eb0dce2c7",
+      "source_id": "optique-geometrique-renaissance",
+      "target_id": "microscope",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ac140056d8a3",
+      "source_id": "optique-geometrique-renaissance",
+      "target_id": "lunettes",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-457658a542a6",
+      "source_id": "medecine-ancienne",
+      "target_id": "anatomie-descriptive-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aafc3393e24d",
+      "source_id": "anatomie-humaine",
+      "target_id": "anatomie-descriptive-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-39edf2a8de62",
+      "source_id": "anatomie-descriptive-renaissance",
+      "target_id": "chirurgie-generale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ddae3053bcb4",
+      "source_id": "anatomie-descriptive-renaissance",
+      "target_id": "cardiologie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-616fefe2e0cb",
+      "source_id": "alchimie",
+      "target_id": "chimie-experimentale-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ca2548341a45",
+      "source_id": "medecine-ancienne",
+      "target_id": "chimie-experimentale-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3678d051221f",
+      "source_id": "chimie-minerale",
+      "target_id": "chimie-experimentale-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-143f39dc14bd",
+      "source_id": "chimie-experimentale-renaissance",
+      "target_id": "chimie-analytique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-257d3be6274b",
+      "source_id": "chimie-experimentale-renaissance",
+      "target_id": "pharmacologie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-92f956187107",
+      "source_id": "chimie-experimentale-renaissance",
+      "target_id": "chimie-organique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6c20eaf911cb",
+      "source_id": "horloge-mecanique",
+      "target_id": "horlogerie-renaissance",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7ecfd2603e8f",
+      "source_id": "ressort",
+      "target_id": "horlogerie-renaissance",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3c8ce89d90b6",
+      "source_id": "engrenage",
+      "target_id": "horlogerie-renaissance",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5f84ab8f95b2",
+      "source_id": "metallurgie",
+      "target_id": "horlogerie-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-026cb442583b",
+      "source_id": "horlogerie-renaissance",
+      "target_id": "chronometre",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b63b1b9a0daf",
+      "source_id": "levier",
+      "target_id": "mecanique-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-11e9bb710579",
+      "source_id": "poulie",
+      "target_id": "mecanique-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fe5a41964d86",
+      "source_id": "engrenage",
+      "target_id": "mecanique-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1792f19f0f23",
+      "source_id": "mecanique-renaissance",
+      "target_id": "machine-a-vapeur",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-544d78e412d4",
+      "source_id": "mecanique-renaissance",
+      "target_id": "usine-moderne",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6f174a9deb7f",
+      "source_id": "eau",
+      "target_id": "hydraulique-renaissance",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-149bf88b2261",
+      "source_id": "moulin-a-eau",
+      "target_id": "hydraulique-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-edf89f56aea0",
+      "source_id": "pompe",
+      "target_id": "hydraulique-renaissance",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-36539049dacf",
+      "source_id": "hydraulique-renaissance",
+      "target_id": "presse-hydraulique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-293d2c0a9130",
+      "source_id": "ordinateur",
+      "target_id": "serveur-web",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5e1be804fc19",
+      "source_id": "internet",
+      "target_id": "serveur-web",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c6aaefd116ff",
+      "source_id": "world-wide-web",
+      "target_id": "serveur-web",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-52f7d4acf40c",
+      "source_id": "protocole-tcp-ip",
+      "target_id": "serveur-web",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-af3c4ebb043b",
+      "source_id": "serveur-web",
+      "target_id": "cloud-computing",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e065869c78f1",
+      "source_id": "serveur-web",
+      "target_id": "commerce-electronique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d12de90897e3",
+      "source_id": "serveur-web",
+      "target_id": "serveur-informatique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a4c5cdcda345",
+      "source_id": "blockchain",
+      "target_id": "contrat-intelligent-smart-contract",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5854825bebb4",
+      "source_id": "programmation-informatique",
+      "target_id": "contrat-intelligent-smart-contract",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-576a03a2aed7",
+      "source_id": "cryptographie",
+      "target_id": "contrat-intelligent-smart-contract",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-564616d3328e",
+      "source_id": "code-binaire",
+      "target_id": "contrat-intelligent-smart-contract",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2a15635b94f9",
+      "source_id": "contrat-intelligent-smart-contract",
+      "target_id": "portefeuille-numerique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cf12f0d39876",
+      "source_id": "ecran-lcd",
+      "target_id": "ecran-lcd-couleur",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-392f1f109465",
+      "source_id": "transistor",
+      "target_id": "ecran-lcd-couleur",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-86c20d8c05ad",
+      "source_id": "verre",
+      "target_id": "ecran-lcd-couleur",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3076b3567a39",
+      "source_id": "polymeres",
+      "target_id": "ecran-lcd-couleur",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-94145c2e31c1",
+      "source_id": "ecran-lcd-couleur",
+      "target_id": "smartphone",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e7c523476260",
+      "source_id": "ecran-lcd-couleur",
+      "target_id": "television-couleur",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d64e7a165124",
+      "source_id": "ecran-lcd-couleur",
+      "target_id": "ordinateur",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-477fa1438692",
+      "source_id": "satellite-de-communication",
+      "target_id": "systeme-de-positionnement-precis",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c960707c98aa",
+      "source_id": "theorie-des-ondes",
+      "target_id": "systeme-de-positionnement-precis",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bb7b12cf2ecf",
+      "source_id": "relativite",
+      "target_id": "systeme-de-positionnement-precis",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5d465f520e88",
+      "source_id": "signal-numerique",
+      "target_id": "systeme-de-positionnement-precis",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e657aba1e78e",
+      "source_id": "microprocesseur",
+      "target_id": "systeme-de-positionnement-precis",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8a8caab91a3f",
+      "source_id": "systeme-de-positionnement-precis",
+      "target_id": "gps",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aa5cd39e6736",
+      "source_id": "systeme-de-positionnement-precis",
+      "target_id": "systeme-de-navigation-gps-ins",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-916dda448530",
+      "source_id": "systeme-de-positionnement-precis",
+      "target_id": "georeferencement",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ef84ed31d981",
+      "source_id": "piezoelectricite",
+      "target_id": "capteur-d-acceleration",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c479d8902419",
+      "source_id": "transistor",
+      "target_id": "capteur-d-acceleration",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0c19597ef348",
+      "source_id": "circuit-integre",
+      "target_id": "capteur-d-acceleration",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1a166a914a74",
+      "source_id": "signal-numerique",
+      "target_id": "capteur-d-acceleration",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-28960c71bf54",
+      "source_id": "capteur-d-acceleration",
+      "target_id": "capteur-inertiel-imu",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b43cd81d446c",
+      "source_id": "capteur-d-acceleration",
+      "target_id": "systeme-de-navigation-gps-ins",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3be7cf4e1e89",
+      "source_id": "capteur-d-acceleration",
+      "target_id": "drone",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-96f411f2173f",
+      "source_id": "fibre-optique",
+      "target_id": "multiplexage-par-longueur-d-onde",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5e85a2a589fc",
+      "source_id": "laser",
+      "target_id": "multiplexage-par-longueur-d-onde",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ff36b2e5cd5e",
+      "source_id": "theorie-des-ondes",
+      "target_id": "multiplexage-par-longueur-d-onde",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-75a9783f1cbf",
+      "source_id": "spectre-electromagnetique",
+      "target_id": "multiplexage-par-longueur-d-onde",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ab901fe708c5",
+      "source_id": "lentille",
+      "target_id": "multiplexage-par-longueur-d-onde",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-46a035aba42d",
+      "source_id": "multiplexage-par-longueur-d-onde",
+      "target_id": "fibre-optique-monomode",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-43901869fa54",
+      "source_id": "multiplexage-par-longueur-d-onde",
+      "target_id": "internet",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e35ffbd7e0ba",
+      "source_id": "multiplexage-par-longueur-d-onde",
+      "target_id": "reseau-intelligent-smart-grid",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7d01ba420b24",
+      "source_id": "routeur",
+      "target_id": "commutateur-reseau-switch",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5ff47c76e182",
+      "source_id": "circuit-integre",
+      "target_id": "commutateur-reseau-switch",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7a9b874e129f",
+      "source_id": "protocole-ethernet-industriel",
+      "target_id": "commutateur-reseau-switch",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-791156bdd559",
+      "source_id": "cable-electrique",
+      "target_id": "commutateur-reseau-switch",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c1d39e7deeaa",
+      "source_id": "microprocesseur",
+      "target_id": "commutateur-reseau-switch",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-62b9d461c0c1",
+      "source_id": "commutateur-reseau-switch",
+      "target_id": "internet",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a0b1ef3e216a",
+      "source_id": "commutateur-reseau-switch",
+      "target_id": "reseau-intelligent-smart-grid",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bb5a03975283",
+      "source_id": "commutateur-reseau-switch",
+      "target_id": "cloud-computing",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1313604ef10d",
+      "source_id": "modem",
+      "target_id": "modem-haut-debit",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3f41c775fb39",
+      "source_id": "modulation-electronique",
+      "target_id": "modem-haut-debit",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3b4d09c8bdb9",
+      "source_id": "demodulation",
+      "target_id": "modem-haut-debit",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-da397728647c",
+      "source_id": "compression-de-donnees",
+      "target_id": "modem-haut-debit",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b098aa7327a8",
+      "source_id": "microprocesseur",
+      "target_id": "modem-haut-debit",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0f2dc307992d",
+      "source_id": "modem-haut-debit",
+      "target_id": "internet",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-185e90fd21f3",
+      "source_id": "modem-haut-debit",
+      "target_id": "commerce-electronique",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ac84791d294a",
+      "source_id": "modem-haut-debit",
+      "target_id": "cloud-computing",
+      "relation_type": "infrastructure",
       "is_optional": false,
       "notes": null
     }

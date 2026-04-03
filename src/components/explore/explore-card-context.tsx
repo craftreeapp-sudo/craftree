@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -62,6 +63,8 @@ export function ExploreCardProvider({
   const [hoverPreview, setHoverPreview] = useState<ExploreHoverPreview | null>(
     null
   );
+  const hoverPreviewRef = useRef<ExploreHoverPreview | null>(null);
+  hoverPreviewRef.current = hoverPreview;
   const hoverLeaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const cancelHoverClose = useCallback(() => {
@@ -77,6 +80,29 @@ export function ExploreCardProvider({
       hoverLeaveTimerRef.current = null;
       setHoverPreview(null);
     }, HOVER_LEAVE_DELAY_MS);
+  }, [cancelHoverClose]);
+
+  /** Clic en dehors de la carte source et du popup : ferme l’aperçu tout de suite. */
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const onPointerDownCapture = (e: PointerEvent) => {
+      const p = hoverPreviewRef.current;
+      if (!p) return;
+      const target = e.target;
+      if (!(target instanceof Node)) return;
+      if (target instanceof Element && target.closest('[data-explore-hover-popup]')) {
+        return;
+      }
+      if (p.anchorEl?.isConnected && p.anchorEl.contains(target)) {
+        return;
+      }
+      cancelHoverClose();
+      setHoverPreview(null);
+    };
+    document.addEventListener('pointerdown', onPointerDownCapture, true);
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDownCapture, true);
+    };
   }, [cancelHoverClose]);
 
   const closeLegend = useCallback(() => {

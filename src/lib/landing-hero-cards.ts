@@ -20,23 +20,26 @@ export const LANDING_HERO_NODE_IDS = [
   'electricite',
 ] as const;
 
-/** Positions (%), durée float (s), délai float (s), délai ligne (s) si la carte est l’extrémité « from » d’un lien */
+/**
+ * Positions (% du viewport) = centre de la carte (voir `translate(-50%,-50%)` dans l’animation).
+ * Espacement rehaussé pour éviter le chevauchement avec mini-cartes ~30 % plus grandes.
+ */
 export const LANDING_HERO_LAYOUT: {
   cx: number;
   cy: number;
   duration: number;
   delay: number;
 }[] = [
-  { cx: 10, cy: 20, duration: 5.5, delay: 0 },
-  { cx: 22, cy: 48, duration: 7.2, delay: 1.1 },
-  { cx: 16, cy: 78, duration: 6.1, delay: 2.4 },
-  { cx: 38, cy: 14, duration: 8.4, delay: 0.3 },
-  { cx: 44, cy: 42, duration: 5.8, delay: 3.2 },
-  { cx: 52, cy: 72, duration: 7.8, delay: 1.6 },
-  { cx: 62, cy: 18, duration: 6.4, delay: 0.8 },
-  { cx: 70, cy: 46, duration: 5.2, delay: 2.9 },
-  { cx: 78, cy: 76, duration: 8.1, delay: 0.2 },
-  { cx: 90, cy: 38, duration: 6.7, delay: 3.8 },
+  { cx: 8, cy: 12, duration: 5.5, delay: 0 },
+  { cx: 26, cy: 11, duration: 7.2, delay: 1.1 },
+  { cx: 44, cy: 13, duration: 6.1, delay: 2.4 },
+  { cx: 62, cy: 11, duration: 8.4, delay: 0.3 },
+  { cx: 80, cy: 12, duration: 5.8, delay: 3.2 },
+  { cx: 14, cy: 42, duration: 7.8, delay: 1.6 },
+  { cx: 32, cy: 44, duration: 6.4, delay: 0.8 },
+  { cx: 50, cy: 41, duration: 5.2, delay: 2.9 },
+  { cx: 68, cy: 43, duration: 8.1, delay: 0.2 },
+  { cx: 86, cy: 42, duration: 6.7, delay: 3.8 },
 ];
 
 /** Paires d’indices (cartes connectées) — lignes SVG pointillées */

@@ -31,8 +31,8 @@ function MiniCraftCard({
 
   return (
     <div
-      className={`shrink-0 overflow-hidden rounded-[8px] border-[0.5px] border-border ${
-        compact ? 'h-[75px] w-[60px]' : 'h-[100px] w-[80px]'
+      className={`shrink-0 overflow-hidden rounded-[10px] border-[0.5px] border-border ${
+        compact ? 'h-[98px] w-[78px]' : 'h-[130px] w-[104px]'
       }`}
     >
       <div
@@ -41,7 +41,7 @@ function MiniCraftCard({
       >
         <span
           className={`text-center font-bold leading-tight text-white ${
-            compact ? 'text-[7px]' : 'text-[9px]'
+            compact ? 'text-[9px]' : 'text-[12px]'
           }`}
         >
           {name}
@@ -50,14 +50,14 @@ function MiniCraftCard({
       <div className="flex h-1/2 flex-col items-center justify-center gap-0.5 bg-[#1E2432] px-0.5">
         <span
           className={`line-clamp-2 text-center font-normal leading-tight text-muted-foreground ${
-            compact ? 'text-[6px]' : 'text-[8px]'
+            compact ? 'text-[8px]' : 'text-[10px]'
           }`}
         >
           {name}
         </span>
         <span
           className={`max-w-full truncate text-center font-medium uppercase tracking-wide text-muted-foreground ${
-            compact ? 'text-[5px]' : 'text-[6px]'
+            compact ? 'text-[6px]' : 'text-[8px]'
           }`}
         >
           {categoryLabel}

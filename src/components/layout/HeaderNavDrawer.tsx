@@ -3,11 +3,21 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import {
+  HEADER_DRAWER_NAV_ITEM,
+  HEADER_DRAWER_NAV_ITEM_ACTIVE,
   HEADER_ICON_BUTTON,
   HEADER_ICON_IN_BUTTON,
 } from '@/components/layout/header-controls';
+import {
+  IconCategoriesGrid,
+  IconGitHubMark,
+  IconInfoCircle,
+  IconMail,
+  IconPlusCard,
+} from '@/components/layout/nav-icons';
 import { useUIStore } from '@/stores/ui-store';
 
 const GITHUB_URL = 'https://github.com/craftreeapp-sudo/craftree';
@@ -38,10 +48,15 @@ function IconNavMenu({ className }: { className?: string }) {
 export function HeaderNavDrawer() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
   const tFooter = useTranslations('footer');
   const tNav = useTranslations('nav');
   const tContact = useTranslations('contactPage');
   const setAddCardModalOpen = useUIStore((s) => s.setAddCardModalOpen);
+
+  const activeCategories = pathname?.startsWith('/categories') ?? false;
+  const activeAbout = pathname === '/about' || pathname?.startsWith('/about/');
+  const activeContact = pathname === '/contact' || pathname?.startsWith('/contact/');
 
   useEffect(() => {
     setMounted(true);
@@ -71,47 +86,62 @@ export function HeaderNavDrawer() {
       />
       <nav
         id="header-nav-drawer"
-        className="fixed bottom-0 left-0 top-14 z-[201] flex w-[min(100%,280px)] flex-col gap-1 overflow-y-auto border-r border-white/15 bg-[#14141c] px-4 pb-8 pt-4 text-foreground shadow-2xl"
+        className="glass-nav-drawer fixed bottom-0 left-0 top-14 z-[201] flex w-[min(100%,280px)] flex-col gap-2 overflow-y-auto px-3 pb-8 pt-4 text-foreground"
         aria-label={tNav('drawerNavigation')}
       >
         <button
           type="button"
-          className="w-full rounded-lg px-3 py-3 text-left text-sm font-medium text-white transition-colors hover:bg-white/10"
+          className={HEADER_DRAWER_NAV_ITEM}
           onClick={() => {
             setAddCardModalOpen(true);
             setOpen(false);
           }}
         >
+          <IconPlusCard
+            className={`${HEADER_ICON_IN_BUTTON} shrink-0 text-muted-foreground`}
+          />
           {tNav('addCard')}
         </button>
         <Link
           href="/categories"
-          className="rounded-lg px-3 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10"
+          className={`${HEADER_DRAWER_NAV_ITEM} ${activeCategories ? HEADER_DRAWER_NAV_ITEM_ACTIVE : ''}`}
           onClick={() => setOpen(false)}
         >
+          <IconCategoriesGrid
+            className={`${HEADER_ICON_IN_BUTTON} shrink-0 ${activeCategories ? 'text-foreground' : 'text-muted-foreground'}`}
+          />
           {tNav('categories')}
         </Link>
         <Link
           href="/about"
-          className="rounded-lg px-3 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10"
+          className={`${HEADER_DRAWER_NAV_ITEM} ${activeAbout ? HEADER_DRAWER_NAV_ITEM_ACTIVE : ''}`}
           onClick={() => setOpen(false)}
         >
+          <IconInfoCircle
+            className={`${HEADER_ICON_IN_BUTTON} shrink-0 ${activeAbout ? 'text-foreground' : 'text-muted-foreground'}`}
+          />
           {tFooter('about')}
         </Link>
         <a
           href={GITHUB_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-lg px-3 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10"
+          className={HEADER_DRAWER_NAV_ITEM}
           onClick={() => setOpen(false)}
         >
+          <IconGitHubMark
+            className={`${HEADER_ICON_IN_BUTTON} shrink-0 text-muted-foreground`}
+          />
           {tFooter('github')}
         </a>
         <Link
           href="/contact"
-          className="rounded-lg px-3 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10"
+          className={`${HEADER_DRAWER_NAV_ITEM} ${activeContact ? HEADER_DRAWER_NAV_ITEM_ACTIVE : ''}`}
           onClick={() => setOpen(false)}
         >
+          <IconMail
+            className={`${HEADER_ICON_IN_BUTTON} shrink-0 ${activeContact ? 'text-foreground' : 'text-muted-foreground'}`}
+          />
           {tContact('title')}
         </Link>
       </nav>

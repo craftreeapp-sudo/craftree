@@ -12,3 +12,10 @@ export const HEADER_PRIMARY_TEXT_BUTTON =
   'inline-flex h-10 shrink-0 items-center justify-center rounded-md border border-border/60 bg-transparent px-3.5 text-[13px] font-medium text-muted-foreground transition-colors hover:border-accent hover:bg-accent/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus';
 
 export const HEADER_ICON_IN_BUTTON = 'h-5 w-5';
+
+/** Lignes du menu latéral (HeaderNavDrawer) — même langage que HEADER_COMPACT_TEXT_BUTTON, pleine largeur. */
+export const HEADER_DRAWER_NAV_ITEM =
+  'flex w-full items-center gap-3 rounded-md border border-border/60 bg-transparent px-3 py-2.5 text-left text-[13px] font-medium text-muted-foreground transition-colors hover:border-accent hover:bg-accent/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus';
+
+export const HEADER_DRAWER_NAV_ITEM_ACTIVE =
+  'border-accent/40 bg-accent/10 text-foreground ring-1 ring-accent/25';

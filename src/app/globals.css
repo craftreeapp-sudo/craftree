@@ -176,6 +176,13 @@ tr[role='button'] {
   border-bottom: 1px solid var(--glass-header-border);
 }
 
+/* Menu latéral (HeaderNavDrawer) — même vitrage que le header, bordure à droite */
+.glass-nav-drawer {
+  background-color: var(--glass-header-fallback);
+  border-right: 1px solid var(--glass-header-border);
+  box-shadow: var(--glass-shadow-legend);
+}
+
 .glass-footer {
   background-color: var(--glass-header-fallback);
   border-top: 1px solid var(--glass-header-border);
@@ -232,7 +239,8 @@ tr[role='button'] {
  * Chrome alors que CSS.supports('backdrop-filter', …) est true).
  */
 .glass-app-header,
-.glass-explore-sticky-nav {
+.glass-explore-sticky-nav,
+.glass-nav-drawer {
   -webkit-backdrop-filter: blur(16px) saturate(1.2);
   backdrop-filter: blur(16px) saturate(1.2);
 }
@@ -284,6 +292,10 @@ tr[role='button'] {
 @supports (backdrop-filter: blur(1px)) {
   .glass-app-header,
   .glass-explore-sticky-nav {
+    background-color: var(--glass-header);
+  }
+
+  .glass-nav-drawer {
     background-color: var(--glass-header);
   }
 
@@ -348,10 +360,10 @@ tr[role='button'] {
 /* Landing — mini-cartes hero + lignes (désactivé si prefers-reduced-motion) */
 @keyframes landing-hero-card-float {
   from {
-    transform: translate(-50%, -50%) translateY(-15px);
+    transform: translate(-50%, -50%) translate3d(-14px, -26px, 0);
   }
   to {
-    transform: translate(-50%, -50%) translateY(15px);
+    transform: translate(-50%, -50%) translate3d(14px, 26px, 0);
   }
 }
 
@@ -402,5 +414,22 @@ tr[role='button'] {
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
     will-change: transform;
+  }
+
+  /* Liste époque (par catégorie) — halo après clic sur une entrée du panneau latéral */
+  @keyframes era-category-anchor-flash {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent);
+    }
+    40% {
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+
+  .era-category-anchor-flash {
+    animation: era-category-anchor-flash 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
 }

@@ -138,25 +138,36 @@ export function useCategoryListCardLayout(): [
 export function CategoryListCardLayoutSwitcher({
   layout,
   onChange,
+  compact = false,
 }: {
   layout: CategoryListCardLayout;
   onChange: (next: CategoryListCardLayout) => void;
+  /** Réduit libellé et boutons (ex. header liste époque en mode compact). */
+  compact?: boolean;
 }) {
   const tPage = useTranslations('categoriesPage');
   const groupLabel = tPage('cardLayoutLabel');
 
   return (
-    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+    <div
+      className={
+        compact
+          ? 'flex flex-row flex-wrap items-center gap-2'
+          : 'flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4'
+      }
+    >
       <span
         id="category-list-card-layout-label"
-        className="text-sm text-muted-foreground"
+        className={compact ? 'sr-only' : 'text-sm text-muted-foreground'}
       >
         {groupLabel}
       </span>
       <div
         role="radiogroup"
         aria-labelledby="category-list-card-layout-label"
-        className="inline-flex gap-0.5 rounded-lg glass-search-field p-0.5"
+        className={`inline-flex gap-0.5 rounded-lg glass-search-field ${
+          compact ? 'p-0' : 'p-0.5'
+        }`}
       >
         {MODES.map(({ id, Icon }) => {
           const selected = layout === id;
@@ -175,14 +186,16 @@ export function CategoryListCardLayoutSwitcher({
               aria-label={title}
               title={title}
               onClick={() => onChange(id)}
-              className={`inline-flex h-10 w-10 items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus ${
+              className={`inline-flex items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus ${
+                compact ? 'h-8 w-8' : 'h-10 w-10'
+              } ${
                 selected
                   ? 'border border-accent/50 bg-accent/15 text-accent shadow-sm ring-1 ring-accent/30'
                   : 'border border-transparent text-muted-foreground hover:border-border/60 hover:bg-surface hover:text-foreground'
               }`}
             >
               <Icon
-                className={`h-5 w-5 shrink-0 ${selected ? 'text-accent' : ''}`}
+                className={`shrink-0 ${compact ? 'h-4 w-4' : 'h-5 w-5'} ${selected ? 'text-accent' : ''}`}
               />
             </button>
           );
