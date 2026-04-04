@@ -18,8 +18,13 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/admin/inventions',
-        destination: '/editor',
+        destination: '/admin',
         permanent: true,
+      },
+      {
+        source: '/editor',
+        destination: '/admin',
+        permanent: false,
       },
       {
         source: '/categories/type/process',

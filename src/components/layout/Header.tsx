@@ -1,8 +1,10 @@
 'use client';
 
+import { useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { useGraphStore } from '@/stores/graph-store';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { HeaderAuth } from '@/components/layout/HeaderAuth';
@@ -18,9 +20,24 @@ import { IconCategoriesGrid } from '@/components/layout/nav-icons';
 
 export function Header() {
   const pathname = usePathname();
+  const locale = useLocale();
   const tNav = useTranslations('nav');
   const closeSidebar = useUIStore((s) => s.closeSidebar);
   const setAddCardModalOpen = useUIStore((s) => s.setAddCardModalOpen);
+  const inventionCount = useGraphStore((s) => s.nodes.length);
+  const refreshGraph = useGraphStore((s) => s.refreshData);
+  const graphPrefetchDone = useRef(false);
+  useEffect(() => {
+    if (graphPrefetchDone.current) return;
+    graphPrefetchDone.current = true;
+    if (useGraphStore.getState().nodes.length === 0) {
+      void refreshGraph();
+    }
+  }, [refreshGraph]);
+  const inventionCountFormatted = useMemo(
+    () => new Intl.NumberFormat(locale).format(inventionCount),
+    [locale, inventionCount]
+  );
 
   const hideHeaderSearch = pathname === '/';
 
@@ -71,6 +88,18 @@ export function Header() {
         ) : null}
 
         <div className="relative z-[12] flex shrink-0 items-center justify-end gap-2">
+          <span
+            role="status"
+            className="hidden min-[480px]:inline-flex items-center rounded-md border border-border/70 bg-surface-elevated/90 px-2 py-1 text-xs font-semibold tabular-nums text-foreground shadow-sm"
+            title={tNav('inventionCountTitle', {
+              count: inventionCount,
+            })}
+            aria-label={tNav('inventionCountTitle', {
+              count: inventionCount,
+            })}
+          >
+            {inventionCountFormatted}
+          </span>
           <button
             type="button"
             onClick={() => setAddCardModalOpen(true)}

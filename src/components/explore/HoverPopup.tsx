@@ -14,7 +14,7 @@ import { useNodeDetailsStore } from '@/stores/node-details-store';
 import { useExploreCardOptional } from '@/components/explore/explore-card-context';
 import type { ExploreHoverPreview } from '@/components/explore/explore-card-context';
 import { formatYear } from '@/lib/utils';
-import { getCategoryColor, hexToRgba } from '@/lib/colors';
+import { getCategoryColor } from '@/lib/colors';
 import {
   pickNodeDisplayName,
   pickNodeDescriptionForLocale,
@@ -29,7 +29,7 @@ import {
 } from '@/lib/explore-classification-badges';
 import { CardImagePlaceholder } from '@/components/explore/CardImagePlaceholder';
 import { ShareInventionButton } from '@/components/explore/ShareInventionButton';
-import { treeLayerDisplayIndexFromNode } from '@/lib/tree-layers';
+import { BuiltUponBadgePopover } from '@/components/explore/BuiltUponBadgePopover';
 import {
   effectiveDimension,
   effectiveMaterialLevel,
@@ -211,9 +211,10 @@ export function ExploreHoverPopup() {
     ? getCategoryColor(node.category as NodeCategory)
     : '#3B82F6';
 
-  const layerDisplay = useMemo(
-    () => (node ? treeLayerDisplayIndexFromNode(node) : 0),
-    [node]
+  const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
+  const builtUponCount = useMemo(
+    () => (node ? getRecipeForNode(node.id).length : 0),
+    [node, getRecipeForNode]
   );
 
   const popupImageUrl = useMemo(() => {
@@ -286,27 +287,23 @@ export function ExploreHoverPopup() {
         }}
       >
         <div className="flex min-h-0 min-w-0 flex-col">
-          <div className="grid shrink-0 grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-x-2 border-b border-border px-5 pb-3 pt-4">
-            <h2
-              className="min-w-0 line-clamp-2 text-xl font-bold leading-tight text-foreground"
-              style={{
-                fontFamily:
-                  'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
-              }}
-            >
-              {displayName}
-            </h2>
-            <span
-              className="flex h-7 w-7 shrink-0 items-center justify-center rounded border-2 text-xs font-semibold tabular-nums text-foreground"
-              style={{
-                borderColor: categoryColor,
-                backgroundColor: hexToRgba(categoryColor, 0.12),
-              }}
-              title={tExplore('layerShort', { layer: layerDisplay })}
-            >
-              {layerDisplay}
-            </span>
-            <div className="flex justify-end">
+          <div className="flex min-w-0 shrink-0 items-start gap-x-2 border-b border-border px-5 pb-3 pt-4">
+            <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-2 gap-y-1">
+              <h2
+                className="min-w-0 line-clamp-2 text-xl font-bold leading-tight text-foreground"
+                style={{
+                  fontFamily:
+                    'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+                }}
+              >
+                {displayName}
+              </h2>
+              <BuiltUponBadgePopover
+                count={builtUponCount}
+                borderColor={categoryColor}
+              />
+            </div>
+            <div className="flex shrink-0 justify-end">
               <ShareInventionButton nodeId={node.id} />
             </div>
           </div>

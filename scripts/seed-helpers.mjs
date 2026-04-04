@@ -60,6 +60,7 @@ export const NODE_CATEGORY_VALUES = new Set([
   'textile',
   'communication',
   'agriculture',
+  'animal',
   'robotics',
   'chemistry',
   'electronics',

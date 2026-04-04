@@ -67,6 +67,66 @@ function TableOrigins() {
   );
 }
 
+function TableMattersLevels() {
+  const t = useTranslations('explore');
+  const headers = [
+    t('legendMattersLevelsCol1'),
+    t('legendMattersLevelsCol2'),
+    t('legendMattersLevelsCol3'),
+  ];
+  const rows = [
+    [
+      t('legendMattersLevelsRow1c1'),
+      t('legendMattersLevelsRow1c2'),
+      t('legendMattersLevelsRow1c3'),
+    ],
+    [
+      t('legendMattersLevelsRow2c1'),
+      t('legendMattersLevelsRow2c2'),
+      t('legendMattersLevelsRow2c3'),
+    ],
+    [
+      t('legendMattersLevelsRow3c1'),
+      t('legendMattersLevelsRow3c2'),
+      t('legendMattersLevelsRow3c3'),
+    ],
+    [
+      t('legendMattersLevelsRow4c1'),
+      t('legendMattersLevelsRow4c2'),
+      t('legendMattersLevelsRow4c3'),
+    ],
+  ];
+  return (
+    <div className="overflow-x-auto rounded-lg border border-border">
+      <table className="w-full min-w-[260px] border-collapse text-left text-[11px] text-foreground sm:text-xs">
+        <thead>
+          <tr className="border-b border-border bg-border/10">
+            {headers.map((h, hi) => (
+              <th key={hi} className="px-2 py-1.5 font-semibold text-foreground">
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((cells, ri) => (
+            <tr
+              key={`m-${ri}`}
+              className="border-b border-border/40 last:border-b-0"
+            >
+              {cells.map((c, ci) => (
+                <td key={ci} className="px-2 py-1.5 align-top text-muted-foreground">
+                  {c}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 function TableNature() {
   const t = useTranslations('explore');
   const headers = [
@@ -150,9 +210,9 @@ export function LegendPanel() {
         <p className="mt-1 text-sm font-medium text-foreground">
           {t('legendMattersSubtitle')}
         </p>
-        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-          {t('legendMattersExamples')}
-        </p>
+        <div className="mt-3">
+          <TableMattersLevels />
+        </div>
       </section>
       <section>
         <h3 className="text-[11px] font-bold uppercase tracking-widest text-accent">

@@ -19,6 +19,7 @@ export const NODE_CATEGORY_COLORS: Record<NodeCategory, string> = {
   [NodeCategory.TEXTILE]: '#E879F9',
   [NodeCategory.COMMUNICATION]: '#06B6D4',
   [NodeCategory.AGRICULTURE]: '#65A30D',
+  [NodeCategory.ANIMAL]: '#C2410C',
   [NodeCategory.ROBOTICS]: '#7C3AED',
   [NodeCategory.CHEMISTRY]: '#14B8A6',
   [NodeCategory.ELECTRONICS]: '#3B82F6',

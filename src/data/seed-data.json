@@ -2834,7 +2834,8 @@
       "nature_type": "materiau",
       "origin": "Chili",
       "dimension": "matter",
-      "materialLevel": null
+      "materialLevel": "processed",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Fil_de_cuivre"
     },
     {
       "id": "cable-electrique",
@@ -2923,7 +2924,8 @@
       "nature_type": "compose",
       "origin": "Royaume-Uni",
       "dimension": "tool",
-      "materialLevel": null
+      "materialLevel": null,
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/G%C3%A9n%C3%A9rateur_%C3%A9lectrique"
     },
     {
       "id": "electricite",
@@ -4774,7 +4776,7 @@
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Indigo_cake.jpg/600px-Indigo_cake.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Plante_tinctoriale",
       "dimension": "matter",
-      "materialLevel": null
+      "materialLevel": "raw"
     },
     {
       "id": "mordant",
@@ -5802,8 +5804,8 @@
       ],
       "description_en": "Photovoltaic modules converting light into direct current.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
+      "origin_type": "mineral",
+      "nature_type": "compose",
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Solar_water_heater_on_top_of_Santos_Place.jpg/600px-Solar_water_heater_on_top_of_Santos_Place.jpg",
       "origin": "États-Unis",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Panneau_solaire",
@@ -5831,7 +5833,7 @@
       "origin": "Europe",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Charpente",
       "dimension": "matter",
-      "materialLevel": null
+      "materialLevel": "processed"
     },
     {
       "id": "pierre",
@@ -5855,7 +5857,7 @@
       "nature_type": "materiau",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Pierre_de_taille",
       "dimension": "matter",
-      "materialLevel": null
+      "materialLevel": "raw"
     },
     {
       "id": "taille-pierre",
@@ -5873,7 +5875,7 @@
       "description_en": "Shaping of blocks by sawing and dressing for assembly.",
       "chemicalNature": "compound",
       "origin_type": "mineral",
-      "nature_type": null,
+      "nature_type": "compose",
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Pierres_de_taille_livr%C3%A9es_par_la_carri%C3%A8re.JPG/600px-Pierres_de_taille_livr%C3%A9es_par_la_carri%C3%A8re.JPG",
       "origin": "Égypte",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Taille_de_pierre",
@@ -5901,7 +5903,7 @@
       "origin": "Égypte",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Mur",
       "dimension": "matter",
-      "materialLevel": null
+      "materialLevel": "industrial"
     },
     {
       "id": "chaux",
@@ -5924,7 +5926,7 @@
       "origin": "Méditerranée",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Chaux_(mati%C3%A8re)",
       "dimension": "matter",
-      "materialLevel": null
+      "materialLevel": "processed"
     },
     {
       "id": "mortier",
@@ -5947,7 +5949,7 @@
       "origin": "Méditerranée",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Mortier_(mati%C3%A8re)",
       "dimension": "matter",
-      "materialLevel": null
+      "materialLevel": "industrial"
     },
     {
       "id": "vitre",
@@ -5970,7 +5972,7 @@
       "origin": "Empire romain",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Vitre",
       "dimension": "matter",
-      "materialLevel": null
+      "materialLevel": "processed"
     },
     {
       "id": "fenetre",
@@ -6016,7 +6018,7 @@
       "origin": "Égypte",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Papyrus",
       "dimension": "matter",
-      "materialLevel": null
+      "materialLevel": "raw"
     },
     {
       "id": "parchemin",
@@ -6033,9 +6035,13 @@
       ],
       "description_en": "Skin prepared for writing, durable and smooth.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/%D7%A7%D7%9C%D7%A3%2C_%D7%A0%D7%95%D7%A6%D7%94_%D7%95%D7%93%D7%99%D7%95.jpg/600px-%D7%A7%D7%9C%D7%A3%2C_%D7%A0%D7%95%D7%A6%D7%94_%D7%95%D7%93%D7%99%D7%95.jpg"
+      "origin_type": "animal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/%D7%A7%D7%9C%D7%A3%2C_%D7%A0%D7%95%D7%A6%D7%94_%D7%95%D7%93%D7%99%D7%95.jpg/600px-%D7%A7%D7%9C%D7%A3%2C_%D7%A0%D7%95%D7%A6%D7%94_%D7%95%D7%93%D7%99%D7%95.jpg",
+      "origin": "Asie Mineure",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Parchemin",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "imprimerie",
@@ -6054,7 +6060,11 @@
       "chemicalNature": "compound",
       "origin_type": null,
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Indienne%2C_Wesserling.JPG/600px-Indienne%2C_Wesserling.JPG"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Indienne%2C_Wesserling.JPG/600px-Indienne%2C_Wesserling.JPG",
+      "origin": "Grande-Bretagne",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Imprimerie",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "journal",
@@ -6071,9 +6081,13 @@
       ],
       "description_en": "Printed information periodical on cheap paper.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/1945%EB%85%84_11%EC%9B%94_23%EC%9D%BC_%EC%84%9C%EC%9A%B8%EC%8B%A0%EB%AC%B8.jpg/600px-1945%EB%85%84_11%EC%9B%94_23%EC%9D%BC_%EC%84%9C%EC%9A%B8%EC%8B%A0%EB%AC%B8.jpg"
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/1945%EB%85%84_11%EC%9B%94_23%EC%9D%BC_%EC%84%9C%EC%9A%B8%EC%8B%A0%EB%AC%B8.jpg/600px-1945%EB%85%84_11%EC%9B%94_23%EC%9D%BC_%EC%84%9C%EC%9A%B8%EC%8B%A0%EB%AC%B8.jpg",
+      "origin": "Allemagne",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Journal",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "radio",
@@ -6092,7 +6106,11 @@
       "chemicalNature": "material",
       "origin_type": null,
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Icom_IC-R7000_radio_receiver.jpg/600px-Icom_IC-R7000_radio_receiver.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Icom_IC-R7000_radio_receiver.jpg/600px-Icom_IC-R7000_radio_receiver.jpg",
+      "origin": "Italie",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Radio",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "television",
@@ -6111,7 +6129,11 @@
       "chemicalNature": "material",
       "origin_type": null,
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Braun_HF_1.jpg/600px-Braun_HF_1.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Braun_HF_1.jpg/600px-Braun_HF_1.jpg",
+      "origin": "Royaume-Uni",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Télévision",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "ordinateur",
@@ -6130,7 +6152,11 @@
       "chemicalNature": "material",
       "origin_type": null,
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/ENIAC-changing_a_tube_%28cropped%29.jpg/600px-ENIAC-changing_a_tube_%28cropped%29.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/ENIAC-changing_a_tube_%28cropped%29.jpg/600px-ENIAC-changing_a_tube_%28cropped%29.jpg",
+      "origin": "États-Unis",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Ordinateur",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "smartphone",
@@ -6149,7 +6175,11 @@
       "chemicalNature": "material",
       "origin_type": null,
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/HA0478-006_%286011470974%29.jpg/600px-HA0478-006_%286011470974%29.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/HA0478-006_%286011470974%29.jpg/600px-HA0478-006_%286011470974%29.jpg",
+      "origin": "États-Unis",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Smartphone",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "plastique",
@@ -6166,9 +6196,13 @@
       ],
       "description_en": "Moldable thermoplastic polymer for packaging and parts.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Plastic_objects.jpg/600px-Plastic_objects.jpg"
+      "origin_type": "vegetal",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Plastic_objects.jpg/600px-Plastic_objects.jpg",
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Plastic",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "bouteille-plastique",
@@ -6185,9 +6219,13 @@
       ],
       "description_en": "Blown PET container for food liquids.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Inyecci%C3%B3n-soplado.gif"
+      "origin_type": "vegetal",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Inyecci%C3%B3n-soplado.gif",
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Plastic_bottle",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "engrais",
@@ -6204,9 +6242,13 @@
       ],
       "description_en": "Amendment from the Haber-Bosch process or from nitrate.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Flexible_intermediate_bulk_containers-Fertilizer.jpg/600px-Flexible_intermediate_bulk_containers-Fertilizer.jpg"
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Flexible_intermediate_bulk_containers-Fertilizer.jpg/600px-Flexible_intermediate_bulk_containers-Fertilizer.jpg",
+      "origin": "Allemagne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Nitrogen_fertilizer",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "salpetre",
@@ -6225,9 +6267,12 @@
       "description_en": "Potassium nitrate, major oxidizer in powders.",
       "chemicalNature": "element",
       "naturalOrigin": "mineral",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Potassium_nitrate_structure.png"
+      "origin_type": "mineral",
+      "nature_type": "element",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Potassium_nitrate_structure.png",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Potassium_nitrate",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "soufre",
@@ -6246,9 +6291,12 @@
       "description_en": "Yellow oxidizing element secondary in explosive mixtures.",
       "chemicalNature": "element",
       "naturalOrigin": "mineral",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Sulfur-sample.jpg/600px-Sulfur-sample.jpg"
+      "origin_type": "mineral",
+      "nature_type": "element",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Sulfur-sample.jpg/600px-Sulfur-sample.jpg",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Sulfur",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "poudre-a-canon",
@@ -6265,9 +6313,13 @@
       ],
       "description_en": "Saltpeter-charcoal-sulfur mixture deflagrating under shock or flame.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Black_Powder-1.JPG/600px-Black_Powder-1.JPG"
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Black_Powder-1.JPG/600px-Black_Powder-1.JPG",
+      "origin": "Chine",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Gunpowder",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "lentille",
@@ -6284,9 +6336,13 @@
       ],
       "description_en": "Curved polished glass used to converge or diverge light.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Candle_light_projected_through_a_glass_orb.jpg/600px-Candle_light_projected_through_a_glass_orb.jpg"
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Candle_light_projected_through_a_glass_orb.jpg/600px-Candle_light_projected_through_a_glass_orb.jpg",
+      "origin": "Italie",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Lens_(optics)",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "lunettes",
@@ -6303,9 +6359,13 @@
       ],
       "description_en": "Frame carrying corrective lenses for vision.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/2023_Okulary_korekcyjne.jpg/600px-2023_Okulary_korekcyjne.jpg"
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/2023_Okulary_korekcyjne.jpg/600px-2023_Okulary_korekcyjne.jpg",
+      "origin": "Italie",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Glasses",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "microscope",
@@ -6322,9 +6382,13 @@
       ],
       "description_en": "Instrument magnifying the very small by combined lenses.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Leitz_117298_frei.jpg"
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Leitz_117298_frei.jpg",
+      "origin": "Pays-Bas",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Microscope",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "telescope",
@@ -6341,9 +6405,13 @@
       ],
       "description_en": "Astronomical instrument collecting distant light.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/OHP_T193_Pano.jpg/600px-OHP_T193_Pano.jpg"
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/OHP_T193_Pano.jpg/600px-OHP_T193_Pano.jpg",
+      "origin": "Pays-Bas",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Telescope",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "viande",
@@ -6362,9 +6430,12 @@
       "description_en": "Fresh or prepared animal muscle, rich in protein.",
       "chemicalNature": "element",
       "naturalOrigin": "animal",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/FoodMeat.jpg/600px-FoodMeat.jpg"
+      "origin_type": "animal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/FoodMeat.jpg/600px-FoodMeat.jpg",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Viande",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "salaison",
@@ -6381,9 +6452,13 @@
       ],
       "description_en": "Meat preserved by brining and drying for long-term storage.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Saint_Etienne_de_Ba%C3%AFgorry_Salaisons.jpg/600px-Saint_Etienne_de_Ba%C3%AFgorry_Salaisons.jpg"
+      "origin_type": "animal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Saint_Etienne_de_Ba%C3%AFgorry_Salaisons.jpg/600px-Saint_Etienne_de_Ba%C3%AFgorry_Salaisons.jpg",
+      "origin": "Égypte",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Salaison",
+      "dimension": "process",
+      "materialLevel": null
     },
     {
       "id": "canne-a-sucre",
@@ -6402,9 +6477,12 @@
       "description_en": "Tropical grass whose juice is rich in sucrose.",
       "chemicalNature": "element",
       "naturalOrigin": "vegetal",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Cut_sugarcane.jpg/600px-Cut_sugarcane.jpg"
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Cut_sugarcane.jpg/600px-Cut_sugarcane.jpg",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Canne_%C3%A0_sucre",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "sucre",
@@ -6421,9 +6499,13 @@
       ],
       "description_en": "Crystallized sucrose after evaporation and refining.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Cut_sugarcane.jpg/600px-Cut_sugarcane.jpg"
+      "origin_type": "vegetal",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Cut_sugarcane.jpg/600px-Cut_sugarcane.jpg",
+      "origin": "Inde",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Sucre",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "confiserie",
@@ -6440,9 +6522,13 @@
       ],
       "description_en": "Candies and pastes made from cooked sugar and flavorings.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Confectionary_and_candy_at_display_in_Kiwi_Allehelgensgate_grocery_store-supermarket_in_Bergen%2C_Norway_2017-10-18_a.jpg/600px-Confectionary_and_candy_at_display_in_Kiwi_Allehelgensgate_grocery_store-supermarket_in_Bergen%2C_Norway_2017-10-18_a.jpg"
+      "origin_type": "vegetal",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Confectionary_and_candy_at_display_in_Kiwi_Allehelgensgate_grocery_store-supermarket_in_Bergen%2C_Norway_2017-10-18_a.jpg/600px-Confectionary_and_candy_at_display_in_Kiwi_Allehelgensgate_grocery_store-supermarket_in_Bergen%2C_Norway_2017-10-18_a.jpg",
+      "origin": "Moyen-Orient",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Confiserie",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "cacao",
@@ -6461,9 +6547,12 @@
       "description_en": "Fermented seeds of the cacao tree, the base of chocolate.",
       "chemicalNature": "element",
       "naturalOrigin": "vegetal",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Cacao-pod-k4636-14.jpg/600px-Cacao-pod-k4636-14.jpg"
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Cacao-pod-k4636-14.jpg/600px-Cacao-pod-k4636-14.jpg",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Cacao",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "chocolat",
@@ -6480,9 +6569,13 @@
       ],
       "description_en": "Preparation made from cocoa paste, sugar and often milk.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/00_Ganach%C3%A9_de_chocolate.jpg/600px-00_Ganach%C3%A9_de_chocolate.jpg"
+      "origin_type": "vegetal",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/00_Ganach%C3%A9_de_chocolate.jpg/600px-00_Ganach%C3%A9_de_chocolate.jpg",
+      "origin": "Espagne",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Chocolat",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "houblon",
@@ -6501,9 +6594,12 @@
       "description_en": "American and beer-preserving inflorescences.",
       "chemicalNature": "element",
       "naturalOrigin": "vegetal",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Humulus_lupulus_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-072.jpg/600px-Humulus_lupulus_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-072.jpg"
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Humulus_lupulus_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-072.jpg/600px-Humulus_lupulus_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-072.jpg",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Houblon",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "orge",
@@ -6522,9 +6618,12 @@
       "description_en": "Malted cereal for brewing beer and feeding the wort.",
       "chemicalNature": "element",
       "naturalOrigin": "vegetal",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Savigny-sur-Orge_061.jpg/600px-Savigny-sur-Orge_061.jpg"
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Savigny-sur-Orge_061.jpg/600px-Savigny-sur-Orge_061.jpg",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Orge",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "biere",
@@ -6541,9 +6640,13 @@
       ],
       "description_en": "Fermented beverage made from malt, hopped and carbonated.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Beer_mug_transparent.png/600px-Beer_mug_transparent.png"
+      "origin_type": "vegetal",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Beer_mug_transparent.png/600px-Beer_mug_transparent.png",
+      "origin": "Mésopotamie",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Bi%C3%A8re",
+      "dimension": "process",
+      "materialLevel": null
     },
     {
       "id": "metier-tisser",
@@ -6562,7 +6665,11 @@
       "chemicalNature": "material",
       "origin_type": null,
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Weaving_profile.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Weaving_profile.jpg",
+      "origin": "Égypte ancienne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Loom",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "eau-de-chaux",
@@ -6579,9 +6686,13 @@
       ],
       "description_en": "Calcium hydroxide solution for mortars and paints.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Limewater.jpg/600px-Limewater.jpg"
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Limewater.jpg/600px-Limewater.jpg",
+      "origin": "Égypte ancienne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Lime_water",
+      "dimension": "matter",
+      "materialLevel": "processed"
     },
     {
       "id": "bauxite",
@@ -6600,9 +6711,12 @@
       "description_en": "Aluminous ore used to produce aluminum by electrolysis.",
       "chemicalNature": "element",
       "naturalOrigin": "mineral",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Bauxite.jpg"
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Bauxite.jpg",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Bauxite",
+      "dimension": "matter",
+      "materialLevel": "raw"
     },
     {
       "id": "raffinerie",
@@ -6621,7 +6735,11 @@
       "chemicalNature": "compound",
       "origin_type": null,
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Anacortes_Refinery_31911.JPG/600px-Anacortes_Refinery_31911.JPG"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Anacortes_Refinery_31911.JPG/600px-Anacortes_Refinery_31911.JPG",
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Oil_refinery",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "antenne-radio",
@@ -6640,7 +6758,11 @@
       "chemicalNature": "material",
       "origin_type": null,
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Moosbrunn_SW_Antenna.jpg/600px-Moosbrunn_SW_Antenna.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Moosbrunn_SW_Antenna.jpg/600px-Moosbrunn_SW_Antenna.jpg",
+      "origin": "Guglielmo Marconi (Italie)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Antenna_(radio)",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "tube-cathodique",
@@ -6659,7 +6781,11 @@
       "chemicalNature": "material",
       "origin_type": null,
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Cathode_ray_tube2.png/600px-Cathode_ray_tube2.png"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Cathode_ray_tube2.png/600px-Cathode_ray_tube2.png",
+      "origin": "Karl Ferdinand Braun (Allemagne)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Cathode_ray_tube",
+      "dimension": null,
+      "materialLevel": null
     },
     {
       "id": "eau-lourde",
@@ -6676,9 +6802,13 @@
       ],
       "description_en": "Possible moderator in certain reactors (educational role).",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Heavy_water.svg/600px-Heavy_water.svg.png"
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Heavy_water.svg/600px-Heavy_water.svg.png",
+      "origin": "Urey (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Deuterium_oxide",
+      "dimension": "matter",
+      "materialLevel": "processed"
     },
     {
       "id": "beton-arme",
@@ -6695,9 +6825,13 @@
       ],
       "description_en": "Concrete poured over steel reinforcement for tensile strength.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Trebar.jpg"
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Trebar.jpg",
+      "origin": "François Coignet (France)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Reinforced_concrete",
+      "dimension": "matter",
+      "materialLevel": "industrial"
     },
     {
       "id": "pneu",
@@ -6714,9 +6848,13 @@
       ],
       "description_en": "Inflated rubber casing ensuring road grip.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Si%C3%A8ge_de_Michelin_%C3%A0_Clermont-Ferrand_II.jpg/600px-Si%C3%A8ge_de_Michelin_%C3%A0_Clermont-Ferrand_II.jpg"
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Si%C3%A8ge_de_Michelin_%C3%A0_Clermont-Ferrand_II.jpg/600px-Si%C3%A8ge_de_Michelin_%C3%A0_Clermont-Ferrand_II.jpg",
+      "origin": "John Boyd Dunlop (Irlande)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Tire",
+      "dimension": "matter",
+      "materialLevel": "processed"
     },
     {
       "id": "chassis-auto",
@@ -6735,7 +6873,11 @@
       "chemicalNature": "material",
       "origin_type": null,
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Chassis_with_suspension_and_exhaust_system.jpg/600px-Chassis_with_suspension_and_exhaust_system.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Chassis_with_suspension_and_exhaust_system.jpg/600px-Chassis_with_suspension_and_exhaust_system.jpg",
+      "origin": "France",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Chassis",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "carlingue",
@@ -6752,9 +6894,13 @@
       ],
       "description_en": "Structural envelope of the aircraft in light alloys.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Plaque_Gestapo_fran%C3%A7aise%2C_93_rue_Lauriston%2C_Paris_16.jpg/600px-Plaque_Gestapo_fran%C3%A7aise%2C_93_rue_Lauriston%2C_Paris_16.jpg"
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Plaque_Gestapo_fran%C3%A7aise%2C_93_rue_Lauriston%2C_Paris_16.jpg/600px-Plaque_Gestapo_fran%C3%A7aise%2C_93_rue_Lauriston%2C_Paris_16.jpg",
+      "origin": "France",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Carlingue",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "gazole",
@@ -6771,9 +6917,13 @@
       ],
       "description_en": "Heavy cutting for industrial diesel engines and trains.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Diesel_in_mason_jar.JPG/600px-Diesel_in_mason_jar.JPG"
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Diesel_in_mason_jar.JPG/600px-Diesel_in_mason_jar.JPG",
+      "origin": "Allemagne",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Gazole",
+      "dimension": "matter",
+      "materialLevel": "processed"
     },
     {
       "id": "turbine-vapeur",
@@ -6792,7 +6942,11 @@
       "chemicalNature": "material",
       "origin_type": null,
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Dampfturbine_Laeufer01.jpg/600px-Dampfturbine_Laeufer01.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Dampfturbine_Laeufer01.jpg/600px-Dampfturbine_Laeufer01.jpg",
+      "origin": "Charles Parsons (Royaume-Uni)",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Turbine_%C3%A0_vapeur",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "alternateur",
@@ -6809,9 +6963,13 @@
       ],
       "description_en": "Generator producing three-phase alternating current.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm/600px--Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm.jpg"
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm/600px--Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm.jpg",
+      "origin": "Nikola Tesla (États-Unis)",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Alternateur",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "reseau-electrique",
@@ -6830,7 +6988,11 @@
       "chemicalNature": "compound",
       "origin_type": null,
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Poste_Waconichi06.JPG/600px-Poste_Waconichi06.JPG"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Poste_Waconichi06.JPG/600px-Poste_Waconichi06.JPG",
+      "origin": "États-Unis",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/R%C3%A9seau_%C3%A9lectrique",
+      "dimension": "process",
+      "materialLevel": null
     },
     {
       "id": "onduleur-solaire",
@@ -6849,7 +7011,11 @@
       "chemicalNature": "material",
       "origin_type": null,
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Sunny_Boy_3000.jpg/600px-Sunny_Boy_3000.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Sunny_Boy_3000.jpg/600px-Sunny_Boy_3000.jpg",
+      "origin": "Allemagne",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Onduleur",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "fonte",
@@ -6866,9 +7032,13 @@
       ],
       "description_en": "Cast iron-carbon alloy, stage between iron and steel.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Poids_fonte_5_kg_trapezoidal.jpg/600px-Poids_fonte_5_kg_trapezoidal.jpg"
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Poids_fonte_5_kg_trapezoidal.jpg/600px-Poids_fonte_5_kg_trapezoidal.jpg",
+      "origin": "France",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Fonte_(mati%C3%A8re)",
+      "dimension": "matter",
+      "materialLevel": "industrial"
     },
     {
       "id": "acier-inox",
@@ -6885,9 +7055,13 @@
       ],
       "description_en": "Chrome alloy steel resistant to corrosion.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Sink_and_taps_in_the_men%27s_locker_room_3_BW.jpg/600px-Sink_and_taps_in_the_men%27s_locker_room_3_BW.jpg"
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Sink_and_taps_in_the_men%27s_locker_room_3_BW.jpg/600px-Sink_and_taps_in_the_men%27s_locker_room_3_BW.jpg",
+      "origin": "Harry Brearley (Royaume-Uni)",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Acier_inoxydable",
+      "dimension": "matter",
+      "materialLevel": "industrial"
     },
     {
       "id": "tissu-teint",
@@ -6904,9 +7078,13 @@
       ],
       "description_en": "Fabric after pigment fixation and mordanting.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Casquette_marine.jpg/600px-Casquette_marine.jpg"
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Casquette_marine.jpg/600px-Casquette_marine.jpg",
+      "origin": "Égypte ancienne",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Teinture",
+      "dimension": "matter",
+      "materialLevel": "processed"
     },
     {
       "id": "filature",
@@ -6923,9 +7101,13 @@
       ],
       "description_en": "Mechanized workshop aligning fibers into continuous yarn.",
       "chemicalNature": "compound",
-      "origin_type": null,
+      "origin_type": "vegetal",
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Fabricante_de_fil_pour_tisserand.jpg/600px-Fabricante_de_fil_pour_tisserand.jpg"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Fabricante_de_fil_pour_tisserand.jpg/600px-Fabricante_de_fil_pour_tisserand.jpg",
+      "origin": "Royaume-Uni",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Filature",
+      "dimension": "process",
+      "materialLevel": null
     },
     {
       "id": "mouton",
@@ -6944,9 +7126,12 @@
       "description_en": "Ruminant raised for wool, meat and milk.",
       "chemicalNature": "element",
       "naturalOrigin": "animal",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flock_of_sheep.jpg/600px-Flock_of_sheep.jpg"
+      "origin_type": "animal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flock_of_sheep.jpg/600px-Flock_of_sheep.jpg",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Mouton",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "mulberry",
@@ -6965,9 +7150,12 @@
       "description_en": "Nourishing tree of the silkworm bombyx.",
       "chemicalNature": "element",
       "naturalOrigin": "vegetal",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Morus-nigra.JPG/600px-Morus-nigra.JPG"
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Morus-nigra.JPG/600px-Morus-nigra.JPG",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/M%C3%BBrier",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "feuille-or",
@@ -6984,9 +7172,13 @@
       ],
       "description_en": "Beaten gold for decorative gilding on wood or paper.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Kinpaku.JPG/600px-Kinpaku.JPG"
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Kinpaku.JPG/600px-Kinpaku.JPG",
+      "origin": "Nature",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Feuille_d%27or",
+      "dimension": "matter",
+      "materialLevel": "processed"
     },
     {
       "id": "or",
@@ -7005,9 +7197,12 @@
       "description_en": "Noble ductile metal, resistant to oxidation.",
       "chemicalNature": "element",
       "naturalOrigin": "mineral",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Gold_nugget_%28placer_gold%29_1_%2817001285916%29.jpg/600px-Gold_nugget_%28placer_gold%29_1_%2817001285916%29.jpg"
+      "origin_type": "mineral",
+      "nature_type": "element",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Gold_nugget_%28placer_gold%29_1_%2817001285916%29.jpg/600px-Gold_nugget_%28placer_gold%29_1_%2817001285916%29.jpg",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Or",
+      "dimension": "matter",
+      "materialLevel": "raw"
     },
     {
       "id": "scierie",
@@ -7026,7 +7221,11 @@
       "chemicalNature": "compound",
       "origin_type": null,
       "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Moteur_Deutz_-_Fourneau_St-Michel.JPG/600px-Moteur_Deutz_-_Fourneau_St-Michel.JPG"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Moteur_Deutz_-_Fourneau_St-Michel.JPG/600px-Moteur_Deutz_-_Fourneau_St-Michel.JPG",
+      "origin": "Europe",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Scierie",
+      "dimension": "tool",
+      "materialLevel": null
     },
     {
       "id": "planche-bois",
@@ -7043,9 +7242,13 @@
       ],
       "description_en": "Sawed piece used for carpentry and joinery.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Wood_Seller.jpg/600px-Wood_Seller.jpg"
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Wood_Seller.jpg/600px-Wood_Seller.jpg",
+      "origin": "Nature",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Planche",
+      "dimension": "matter",
+      "materialLevel": "processed"
     },
     {
       "id": "verre-trempe",
@@ -7062,9 +7265,13 @@
       ],
       "description_en": "Thermally reinforced glass for facade safety.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/EclatSecurit.JPG/600px-EclatSecurit.JPG"
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/EclatSecurit.JPG/600px-EclatSecurit.JPG",
+      "origin": "France",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Verre_tremp%C3%A9",
+      "dimension": "matter",
+      "materialLevel": "processed"
     },
     {
       "id": "acier-structure",
@@ -7081,9 +7288,13 @@
       ],
       "description_en": "Hot-rolled beams for industrial frameworks.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Galvanized_Steelbeams.jpg/600px-Galvanized_Steelbeams.jpg"
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Galvanized_Steelbeams.jpg/600px-Galvanized_Steelbeams.jpg",
+      "origin": "France",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Profil%C3%A9_d%27acier",
+      "dimension": "matter",
+      "materialLevel": "processed"
     },
     {
       "id": "hydrogene",
@@ -7101,9 +7312,12 @@
       "origin": "Nature",
       "description_en": "Light gas used in ammonia synthesis (Haber).",
       "chemicalNature": "element",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Liquid_hydrogen_bubblechamber.jpg/600px-Liquid_hydrogen_bubblechamber.jpg"
+      "origin_type": "mineral",
+      "nature_type": "element",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Liquid_hydrogen_bubblechamber.jpg/600px-Liquid_hydrogen_bubblechamber.jpg",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Hydrog%C3%A8ne",
+      "dimension": "matter",
+      "materialLevel": "raw"
     },
     {
       "id": "azote",
@@ -7121,9 +7335,12 @@
       "origin": "Nature",
       "description_en": "Industrial fixation of atmospheric gas for fertilizer.",
       "chemicalNature": "element",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/LN22.jpg/600px-LN22.jpg"
+      "origin_type": "mineral",
+      "nature_type": "element",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/LN22.jpg/600px-LN22.jpg",
+      "wikipedia_url": "https://fr.wikipedia.org/wiki/Azote",
+      "dimension": "matter",
+      "materialLevel": "raw"
     },
     {
       "id": "ammoniac",
@@ -7140,9 +7357,13 @@
       ],
       "description_en": "Precursor of nitrogen fertilizers and nitrated explosives.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Ammonia_lone_electron_pair_2.svg/600px-Ammonia_lone_electron_pair_2.svg.png"
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Ammonia_lone_electron_pair_2.svg/600px-Ammonia_lone_electron_pair_2.svg.png",
+      "origin": "Allemagne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Ammonia",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "nitrate",
@@ -7159,9 +7380,13 @@
       ],
       "description_en": "Soluble fertilizer derived from industrial nitrogen chains.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Nitrate_anion.svg/600px-Nitrate_anion.svg.png"
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Nitrate_anion.svg/600px-Nitrate_anion.svg.png",
+      "origin": "Allemagne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Calcium_nitrate",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "polycarbonate",
@@ -7178,9 +7403,13 @@
       ],
       "description_en": "Transparent resistant plastic for bottles and visors.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null,
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/%D0%9F%D0%BE%D0%BB%D0%B8%D0%BA%D0%B0%D1%80%D0%B1%D0%BE%D0%BD%D0%B0%D1%82.jpg/600px-%D0%9F%D0%BE%D0%BB%D0%B8%D0%BA%D0%B0%D1%80%D0%B1%D0%BE%D0%BD%D0%B0%D1%82.jpg"
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/%D0%9F%D0%BE%D0%BB%D0%B8%D0%BA%D0%B0%D1%80%D0%B1%D0%BE%D0%BD%D0%B0%D1%82.jpg/600px-%D0%9F%D0%BE%D0%BB%D0%B8%D0%BA%D0%B0%D1%80%D0%B1%D0%BE%D0%BD%D0%B0%D1%82.jpg",
+      "origin": "Allemagne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Polycarbonate",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "route-bitee",
@@ -7198,8 +7427,12 @@
       "description_en": "Roadway bound with petroleum bitumen for motorized traffic.",
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Transfagaras.jpg/600px-Transfagaras.jpg",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Asphalt_concrete",
+      "dimension": "matter",
+      "materialLevel": null
     },
     {
       "id": "bitume",
@@ -7216,8 +7449,13 @@
       ],
       "description_en": "Viscous fraction of petroleum for road surfacing.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Bitumen",
+      "dimension": "matter",
+      "materialLevel": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Bitumen.jpg/600px-Bitumen.jpg"
     },
     {
       "id": "signal-numerique",
@@ -7235,7 +7473,12 @@
       "description_en": "Discretized information for processing by logic circuits.",
       "chemicalNature": "compound",
       "origin_type": null,
-      "nature_type": null
+      "nature_type": null,
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Digital_signal",
+      "dimension": "process",
+      "materialLevel": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Digital-signal-noise.svg/600px-Digital-signal-noise.svg.png"
     },
     {
       "id": "ecran-lcd",
@@ -7252,8 +7495,13 @@
       ],
       "description_en": "Polarized liquid crystal matrix for low-power display.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "origin": "Suisse",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Liquid-crystal_display",
+      "dimension": "matter",
+      "materialLevel": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Wiktionnaire_sur_IPhone_%281%29.JPG/600px-Wiktionnaire_sur_IPhone_%281%29.JPG"
     },
     {
       "id": "batterie-li",
@@ -7270,8 +7518,13 @@
       ],
       "description_en": "Lightweight high-density battery for mobile devices and vehicles.",
       "chemicalNature": "material",
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "origin": "Japon",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Lithium-ion_battery",
+      "dimension": "matter",
+      "materialLevel": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Li_ion_laptop_battery.jpg/600px-Li_ion_laptop_battery.jpg"
     },
     {
       "id": "reseau-cellulaire",
@@ -7289,7 +7542,12 @@
       "description_en": "4G/5G radio infrastructure for mobile data.",
       "chemicalNature": "compound",
       "origin_type": null,
-      "nature_type": null
+      "nature_type": null,
+      "origin": "Suède",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Cellular_network",
+      "dimension": "tool",
+      "materialLevel": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/CellTowerRichmondHill.jpg/600px-CellTowerRichmondHill.jpg"
     },
     {
       "id": "blockchain",
@@ -7300,13 +7558,21 @@
       "era": "contemporary",
       "year_approx": 2010,
       "complexity_depth": 0,
-      "tags": [],
+      "tags": [
+        "décentralisé",
+        "crypto-monnaie",
+        "ledger",
+        "consensus",
+        "sécurité"
+      ],
       "origin": "Satoshi Nakamoto",
       "wikipedia_url": "https://en.wikipedia.org/wiki/Blockchain",
       "description_en": "Decentralized network",
       "chemicalNature": "material",
       "origin_type": null,
-      "nature_type": null
+      "nature_type": null,
+      "dimension": "process",
+      "materialLevel": null
     },
     {
       "id": "pierre-de-taille",
@@ -7521,7 +7787,7 @@
       "era": "modern",
       "year_approx": 1954,
       "origin": "Laboratoires Bell (États-Unis)",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Paneles_solares_en_Cari%C3%B1ena%2C_Espa%C3%B1a%2C_2015-01-08%2C_DD_08.JPG/600px-Paneles_solares_en_Cari%C3%B1ena%2C_Espa%C3%B1a%2C_2015-01-08%2C_DD_08.JPG",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Histoire_de_l'énergie_solaire",
       "tags": [
         "renouvelable",
@@ -7839,7 +8105,8 @@
       "chemicalNature": "element",
       "naturalOrigin": "mineral",
       "origin_type": null,
-      "nature_type": null
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Jinshu_Xi.JPG/600px-Jinshu_Xi.JPG"
     },
     {
       "id": "vis",
@@ -7921,7 +8188,7 @@
       "era": "renaissance",
       "year_approx": 1745,
       "origin": "Jacques de Vaucanson (France)",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/HwacheonCentreLathe_460x1000.jpg/600px-HwacheonCentreLathe_460x1000.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Tour_(machine-outil)",
       "tags": [
         "usinage",
@@ -9181,7 +9448,7 @@
       "era": "industrial",
       "year_approx": 1885,
       "origin": "John Kemp Starley (bicyclette de sécurité moderne)",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Cycliste_%C3%A0_place_d%27Italie-Paris.jpg/600px-Cycliste_%C3%A0_place_d%27Italie-Paris.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Bicyclette",
       "tags": [
         "transport",
@@ -11486,7 +11753,7 @@
       "era": "modern",
       "year_approx": 1935,
       "origin": "Wallace Carothers, DuPont (États-Unis)",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Nylon_6_and_Nylon_6-6.svg/600px-Nylon_6_and_Nylon_6-6.svg.png",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Nylon",
       "tags": [
         "polymère",
@@ -12447,7 +12714,7 @@
       "era": "prehistoric",
       "year_approx": -50000,
       "origin": null,
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Food_lab_scientist_packages_food_for_spaceflight_at_Space_Food_Lab.jpg/600px-Food_lab_scientist_packages_food_for_spaceflight_at_Space_Food_Lab.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Conservation_des_aliments",
       "tags": [
         "preservation",
@@ -13227,7 +13494,7 @@
       "era": "industrial",
       "year_approx": 1827,
       "origin": "France (tunnel de Terre-Noire)",
-      "image_url": "/images/nodes/tunnel-ferroviaire.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Thames_tunnel_construction_1830.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Tunnel_ferroviaire",
       "tags": [
         "chemin de fer",
@@ -14348,7 +14615,7 @@
       "era": "ancient",
       "year_approx": 800,
       "origin": "Jabir ibn Hayyan",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Hydrochloric_acid_30_percent.jpg/600px-Hydrochloric_acid_30_percent.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Acide_chlorhydrique",
       "tags": [
         "chimie",
@@ -15022,7 +15289,7 @@
       "era": "industrial",
       "year_approx": 1860,
       "origin": "France",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/DeTomasoPanteraBlack.jpg/600px-DeTomasoPanteraBlack.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Poutrelle_(construction)",
       "tags": [
         "construction",
@@ -15633,7 +15900,7 @@
       "era": "modern",
       "year_approx": 1930,
       "origin": "Frank Whittle (Royaume-Uni) et Hans von Ohain (Allemagne)",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/B747-engine.jpg/600px-B747-engine.jpg",
       "wikipedia_url": "https://fr.wikipedia.org/wiki/Turbor%C3%A9acteur",
       "tags": [
         "propulsion",
@@ -17331,7 +17598,7 @@
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null,
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/68/Fraction_collector_-_sampler_LAMBDA_OMNICOLL.jpg",
       "_ai_built_upon": [
         {
           "id": "chimie-organique",
@@ -18014,7 +18281,7 @@
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null,
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Canal_d%27Ille_et_Rance_%C3%A0_Chevaign%C3%A9.jpg/600px-Canal_d%27Ille_et_Rance_%C3%A0_Chevaign%C3%A9.jpg",
       "_ai_built_upon": [
         {
           "id": "plomberie",
@@ -18068,7 +18335,7 @@
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null,
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Avlopp_-_Ystad-2018.jpg/600px-Avlopp_-_Ystad-2018.jpg",
       "_ai_built_upon": [
         {
           "id": "pierre",
@@ -18272,7 +18539,7 @@
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null,
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Maglite_Flashlight.jpg/600px-Maglite_Flashlight.jpg",
       "_ai_built_upon": [
         {
           "id": "feu",
@@ -18484,7 +18751,7 @@
       "materialLevel": "processed",
       "origin_type": "vegetal",
       "nature_type": "compose",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Ethanol-3D-balls.png/600px-Ethanol-3D-balls.png",
       "_ai_built_upon": [
         {
           "id": "levure",
@@ -18538,7 +18805,7 @@
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null,
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Fractional_distillation_lab_apparatus-fr.svg/600px-Fractional_distillation_lab_apparatus-fr.svg.png",
       "_ai_built_upon": [
         {
           "id": "distillation",
@@ -18596,7 +18863,7 @@
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null,
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/LDLimeShaftKilnBasic.jpg/600px-LDLimeShaftKilnBasic.jpg",
       "_ai_built_upon": [
         {
           "id": "calcaire",
@@ -19381,7 +19648,7 @@
       "materialLevel": "processed",
       "origin_type": "mineral",
       "nature_type": "compose",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Masse_volumique_isopropanol.svg/600px-Masse_volumique_isopropanol.svg.png",
       "_ai_built_upon": [
         {
           "id": "petrole",
@@ -19509,7 +19776,7 @@
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null,
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Digital_Pressure_Sensor.jpg/600px-Digital_Pressure_Sensor.jpg",
       "_ai_built_upon": [
         {
           "id": "transistor",
@@ -19606,7 +19873,7 @@
       "materialLevel": "processed",
       "origin_type": "mineral",
       "nature_type": "materiau",
-      "image_url": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Catalyst_2156.jpg/600px-Catalyst_2156.jpg",
       "_ai_built_upon": [
         {
           "id": "chimie-organique",
@@ -55614,6 +55881,1233 @@
         {
           "id": "cloud-computing",
           "relation_type": "infrastructure"
+        }
+      ]
+    },
+    {
+      "id": "microscopie",
+      "name": "Microscopie",
+      "name_en": "Microscopy",
+      "description": "Technique d'observation des objets microscopiques utilisant des lentilles optiques pour magnifier les détails invisibles à l'oeil nu. La microscopie a révolutionné l'étude de la matière vivante et inerte en permettant l'observation de cellules, de micro-organismes et de structures fines.",
+      "description_en": "Technique for observing microscopic objects using optical lenses to magnify details invisible to the naked eye. Microscopy revolutionized the study of living and non-living matter by enabling observation of cells, microorganisms, and fine structures.",
+      "category": "optical",
+      "era": "renaissance",
+      "year_approx": 1590,
+      "origin": "Pays-Bas",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Microscopy",
+      "tags": [
+        "observation",
+        "optique",
+        "biologie",
+        "cellules",
+        "magnification",
+        "lentilles"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Misc_pollen_colorized.jpg/600px-Misc_pollen_colorized.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "lentille",
+          "relation_type": "tool"
+        },
+        {
+          "id": "verre",
+          "relation_type": "material"
+        },
+        {
+          "id": "optique",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "microscope",
+          "relation_type": "tool"
+        },
+        {
+          "id": "biologie-cellulaire",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "microbiologie",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "wifi",
+      "name": "WiFi",
+      "name_en": "WiFi",
+      "description": "Protocole de communication sans fil basé sur la norme IEEE 802.11 permettant la transmission de données en radioélectricité sur courte distance. Le WiFi a rendu possible la connectivité Internet mobile et ubiquitaire dans les bâtiments et espaces publics.",
+      "description_en": "Wireless communication protocol based on IEEE 802.11 standard enabling radio-frequency data transmission over short distances. WiFi made mobile and ubiquitous Internet connectivity possible in buildings and public spaces.",
+      "category": "network",
+      "era": "digital",
+      "year_approx": 1997,
+      "origin": "Pays-Bas (Agere Systems)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Wi-Fi",
+      "tags": [
+        "réseau",
+        "sans-fil",
+        "radioélectricité",
+        "Internet",
+        "communication",
+        "802.11"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/WiFi_Logo.svg/600px-WiFi_Logo.svg.png",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "equations-de-maxwell",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "electromagnetisme",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "transistor",
+          "relation_type": "tool"
+        },
+        {
+          "id": "circuit-integre",
+          "relation_type": "tool"
+        },
+        {
+          "id": "antenne-radio",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "smartphone",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "internet",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "domotique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "protocole-sans-fil-wi-fi",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "telephone-mobile",
+      "name": "Téléphone Mobile",
+      "name_en": "Mobile Phone",
+      "description": "Appareil de communication portatif fonctionnant sans fil grâce à un réseau cellulaire. Le téléphone mobile intègre un processeur, une batterie, un écran et un transcepteur radio permettant les appels et la transmission de données à distance.",
+      "description_en": "Portable wireless communication device functioning through a cellular network. The mobile phone integrates a processor, battery, screen, and radio transceiver enabling calls and remote data transmission.",
+      "category": "communication",
+      "era": "digital",
+      "year_approx": 1973,
+      "origin": "Martin Cooper (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Mobile_phone",
+      "tags": [
+        "communication",
+        "sans-fil",
+        "portable",
+        "téléphonie",
+        "électronique",
+        "réseau cellulaire"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Mobile_Phone_Evolution_1992_-_2014.jpg/600px-Mobile_Phone_Evolution_1992_-_2014.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "telephone",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "microprocesseur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "batterie-rechargeable",
+          "relation_type": "tool"
+        },
+        {
+          "id": "transistor",
+          "relation_type": "tool"
+        },
+        {
+          "id": "ecran-lcd",
+          "relation_type": "tool"
+        },
+        {
+          "id": "reseau-cellulaire",
+          "relation_type": "infrastructure"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "smartphone",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "sms",
+          "relation_type": "process"
+        },
+        {
+          "id": "internet",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "gps",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "centrale-nucleaire",
+      "name": "Centrale Nucléaire",
+      "name_en": "Nuclear Power Plant",
+      "description": "Installation industrielle produisant de l'électricité par fission nucléaire contrôlée. Une centrale nucléaire utilise la chaleur dégagée par la réaction de fission pour générer de la vapeur, entraîner une turbine et produire de l'électricité en masse.",
+      "description_en": "Industrial facility producing electricity through controlled nuclear fission. A nuclear power plant uses heat released by fission reaction to generate steam, drive a turbine, and produce electricity at scale.",
+      "category": "energy",
+      "era": "modern",
+      "year_approx": 1954,
+      "origin": "Union Soviétique (Obninsk)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Nuclear_power_plant",
+      "tags": [
+        "nucléaire",
+        "énergie",
+        "électricité",
+        "fission",
+        "infrastructure",
+        "industrie"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Centrale-nucl%C3%A9aire-de-saint-alban-1.jpg/600px-Centrale-nucl%C3%A9aire-de-saint-alban-1.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "reacteur-nucleaire",
+          "relation_type": "tool"
+        },
+        {
+          "id": "energie-nucleaire",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "turbine-vapeur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "alternateur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "reseau-electrique",
+          "relation_type": "infrastructure"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "energie-nucleaire",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "medecine-nucleaire",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "dechets-nucleaires",
+          "relation_type": "process"
+        }
+      ]
+    },
+    {
+      "id": "medecine-nucleaire",
+      "name": "Médecine Nucléaire",
+      "name_en": "Nuclear Medicine",
+      "description": "Spécialité médicale utilisant des isotopes radioactifs pour le diagnostic et le traitement de maladies. La médecine nucléaire emploie des traceurs radioactifs pour imager les organes, détecter les cancers et traiter certains types de tumeurs par irradiation ciblée.",
+      "description_en": "Medical specialty using radioactive isotopes for diagnosis and treatment of diseases. Nuclear medicine uses radioactive tracers to image organs, detect cancers, and treat certain tumor types through targeted irradiation.",
+      "category": "medical",
+      "era": "modern",
+      "year_approx": 1950,
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Nuclear_medicine",
+      "tags": [
+        "nucléaire",
+        "médecine",
+        "diagnostic",
+        "traitement",
+        "isotopes",
+        "imagerie"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Viewer_medecine_nucleaire_keosys.JPG/600px-Viewer_medecine_nucleaire_keosys.JPG",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "uranium",
+          "relation_type": "material"
+        },
+        {
+          "id": "energie-nucleaire",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "rayons-x",
+          "relation_type": "tool"
+        },
+        {
+          "id": "radiographie",
+          "relation_type": "process"
+        },
+        {
+          "id": "centrale-nucleaire",
+          "relation_type": "infrastructure"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "radiotherapie",
+          "relation_type": "process"
+        },
+        {
+          "id": "scintigraphie",
+          "relation_type": "process"
+        },
+        {
+          "id": "tomographie-par-emission-de-positons",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "construction-navale",
+      "name": "Construction Navale",
+      "name_en": "Shipbuilding",
+      "description": "Technique de conception et de fabrication de navires en bois ou en matériaux composites. La construction navale permet la création de bateaux de pêche, de commerce et de guerre adaptés à différents environnements marins. Cette discipline combine menuiserie, géométrie navale et connaissance des matériaux.",
+      "description_en": "Technique for designing and manufacturing ships using wood or composite materials. Shipbuilding enables the creation of fishing, merchant and war vessels suited to different marine environments. This discipline combines carpentry, naval geometry and materials science.",
+      "category": "transport",
+      "era": "ancient",
+      "year_approx": -4000,
+      "origin": "Égypte ancienne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Shipbuilding",
+      "tags": [
+        "bateau",
+        "navire",
+        "maritime",
+        "bois",
+        "technique",
+        "navigation",
+        "commerce"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Shipbuilding.png/600px-Shipbuilding.png",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "bois",
+          "relation_type": "material"
+        },
+        {
+          "id": "hache",
+          "relation_type": "tool"
+        },
+        {
+          "id": "scie",
+          "relation_type": "tool"
+        },
+        {
+          "id": "soudure",
+          "relation_type": "process"
+        },
+        {
+          "id": "navigation",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "bateau-a-voile",
+          "relation_type": "tool"
+        },
+        {
+          "id": "navire-a-vapeur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "sous-marin",
+          "relation_type": "tool"
+        },
+        {
+          "id": "conteneur-maritime",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "machine-outil",
+      "name": "Machine Outil",
+      "name_en": "Machine Tool",
+      "description": "Machine destinée à transformer des matières premières en pièces finies par enlèvement de matière ou déformation. Les machines-outils incluent tours, fraiseuses, presses et autres équipements de précision actionnés mécaniquement puis électriquement. Elles sont fondamentales à la fabrication industrielle en série.",
+      "description_en": "Machine designed to transform raw materials into finished parts through material removal or deformation. Machine tools include lathes, milling machines, presses and other precision equipment driven mechanically then electrically. They are fundamental to industrial series manufacturing.",
+      "category": "industry",
+      "era": "industrial",
+      "year_approx": 1775,
+      "origin": "Grande-Bretagne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Machine_tool",
+      "tags": [
+        "machine",
+        "fabrication",
+        "précision",
+        "usinage",
+        "industrie",
+        "automatisation",
+        "production"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Conventional-lathe.jpg/600px-Conventional-lathe.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "tour",
+          "relation_type": "tool"
+        },
+        {
+          "id": "forge",
+          "relation_type": "tool"
+        },
+        {
+          "id": "acier",
+          "relation_type": "material"
+        },
+        {
+          "id": "machine-a-vapeur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "engrenage",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "industrie-automobile",
+          "relation_type": "tool"
+        },
+        {
+          "id": "usine-moderne",
+          "relation_type": "tool"
+        },
+        {
+          "id": "bras-robotique-industriel",
+          "relation_type": "tool"
+        },
+        {
+          "id": "mecanisation-agricole",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "chien-domestique",
+      "name": "Chien domestique",
+      "name_en": "Domestic Dog",
+      "description": "Animal domestiqué issu de la sélection du loup gris, servant à la chasse, la garde et la compagnie. Le chien domestique représente le premier animal domestiqué par l'homme et a joué un rôle crucial dans le développement des sociétés humaines. Sa domestication a permis l'amélioration de la chasse et de l'élevage.",
+      "description_en": "Animal domesticated from selective breeding of the grey wolf, used for hunting, guarding and companionship. The domestic dog represents the first animal domesticated by humans and played a crucial role in the development of human societies. Its domestication improved hunting and herding practices.",
+      "category": "animal",
+      "era": "prehistoric",
+      "year_approx": -10000,
+      "origin": "Inconnu",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Dog",
+      "tags": [
+        "animal",
+        "domestication",
+        "chasse",
+        "compagnie",
+        "garde",
+        "élevage",
+        "sélection"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "component",
+      "origin_type": "animal",
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Huskiesatrest.jpg/600px-Huskiesatrest.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "loup",
+          "relation_type": "material"
+        },
+        {
+          "id": "selection-animale",
+          "relation_type": "process"
+        },
+        {
+          "id": "elevage",
+          "relation_type": "process"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "selection-animale",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "elevage",
+          "relation_type": "process"
+        },
+        {
+          "id": "chasse-a-l-arc",
+          "relation_type": "process"
+        },
+        {
+          "id": "agriculture",
+          "relation_type": "process"
+        }
+      ]
+    },
+    {
+      "id": "chat-domestique",
+      "name": "Chat domestique",
+      "name_en": "Domestic Cat",
+      "description": "Animal domestiqué issu du chat sauvage africain, utilisé principalement pour la capture de rongeurs et la compagnie. Le chat domestique a été adopté par les sociétés agricoles pour protéger les récoltes et les stocks alimentaires. Son indépendance naturelle en fait un compagnon peu exigeant.",
+      "description_en": "Animal domesticated from the African wildcat, used primarily for rodent control and companionship. The domestic cat was adopted by agricultural societies to protect crops and food stores. Its natural independence makes it a low-maintenance companion.",
+      "category": "animal",
+      "era": "ancient",
+      "year_approx": -10000,
+      "origin": "Moyen-Orient",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Cat",
+      "tags": [
+        "animal",
+        "domestication",
+        "prédateur",
+        "compagnie",
+        "rongeurs",
+        "agriculture",
+        "félin"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "component",
+      "origin_type": "animal",
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/600px-Cat_August_2010-4.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "chat-sauvage",
+          "relation_type": "material"
+        },
+        {
+          "id": "selection-animale",
+          "relation_type": "process"
+        },
+        {
+          "id": "agriculture",
+          "relation_type": "process"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "selection-animale",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "agriculture",
+          "relation_type": "process"
+        },
+        {
+          "id": "zootechnie",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "cheval-de-trait",
+      "name": "Cheval de trait",
+      "name_en": "Draft Horse",
+      "description": "Cheval sélectionné et élevé pour la force et l'endurance, utilisé pour le transport, l'agriculture et les travaux lourds. Le cheval de trait est plus massif et puissant que le cheval de selle, capable de tirer des charges importantes. Sa domestication a révolutionné le commerce, la guerre et l'agriculture.",
+      "description_en": "Horse selectively bred for strength and endurance, used for transport, agriculture and heavy labor. The draft horse is larger and more powerful than a riding horse, capable of pulling heavy loads. Its domestication revolutionized commerce, warfare and agriculture.",
+      "category": "animal",
+      "era": "ancient",
+      "year_approx": -4000,
+      "origin": "Asie centrale",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Draft_horse",
+      "tags": [
+        "animal",
+        "cheval",
+        "trait",
+        "force",
+        "agriculture",
+        "transport",
+        "sélection"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "component",
+      "origin_type": "animal",
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Aa_shirehorse.jpg/600px-Aa_shirehorse.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "cheval",
+          "relation_type": "material"
+        },
+        {
+          "id": "selection-animale",
+          "relation_type": "process"
+        },
+        {
+          "id": "harnais-de-cheval",
+          "relation_type": "tool"
+        },
+        {
+          "id": "fer-a-cheval",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "chariot",
+          "relation_type": "tool"
+        },
+        {
+          "id": "labourage",
+          "relation_type": "process"
+        },
+        {
+          "id": "agriculture",
+          "relation_type": "process"
+        },
+        {
+          "id": "transport",
+          "relation_type": "process"
+        },
+        {
+          "id": "commerce",
+          "relation_type": "process"
+        }
+      ]
+    },
+    {
+      "id": "abeille-domestique",
+      "name": "Abeille domestique",
+      "name_en": "Honeybee",
+      "description": "Insecte hyménoptère domestiqué pour la production de miel et de cire. L'abeille mellifère a été élevée systématiquement par les humains depuis l'Antiquité, particulièrement en Égypte et en Méditerranée. Elle constitue une ressource agricole majeure et un agent de pollinisation essentiel.",
+      "description_en": "Hymenopteran insect domesticated for honey and wax production. The honeybee has been systematically raised by humans since antiquity, particularly in Egypt and the Mediterranean. It is a major agricultural resource and essential pollination agent.",
+      "category": "animal",
+      "era": "ancient",
+      "year_approx": -8000,
+      "origin": "Moyen-Orient",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Honey_bee",
+      "tags": [
+        "miel",
+        "cire",
+        "pollinisation",
+        "élevage",
+        "abeille",
+        "apiculture",
+        "agriculture"
+      ],
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": "animal",
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/The_Lone_Pollinator.jpg/600px-The_Lone_Pollinator.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "fleur",
+          "relation_type": "material"
+        },
+        {
+          "id": "agriculture",
+          "relation_type": "catalyst"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "apiculture",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "miel",
+          "relation_type": "material"
+        },
+        {
+          "id": "cire-d-abeille",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "poule-domestique",
+      "name": "Poule domestique",
+      "name_en": "Domestic chicken",
+      "description": "Gallinacé domestiqué pour la production d'œufs et de viande. La poule domestique est issue de la Poule rouge du Bankiva et représente l'une des premières espèces animales élevées par l'homme. Elle constitue une source proteïque majeure dans l'alimentation humaine.",
+      "description_en": "Gallinaceous bird domesticated for egg and meat production. The domestic chicken descends from the Red Junglefowl and represents one of the first animal species raised by humans. It is a major protein source in human nutrition.",
+      "category": "animal",
+      "era": "ancient",
+      "year_approx": -8000,
+      "origin": "Asie du Sud",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Chicken",
+      "tags": [
+        "poule",
+        "œuf",
+        "viande",
+        "élevage",
+        "volaille",
+        "agriculture",
+        "domestication"
+      ],
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": "animal",
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Male_and_female_chicken_sitting_together.jpg/600px-Male_and_female_chicken_sitting_together.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "domestication-animale",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "agriculture",
+          "relation_type": "catalyst"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "œuf",
+          "relation_type": "material"
+        },
+        {
+          "id": "viande",
+          "relation_type": "material"
+        },
+        {
+          "id": "elevage",
+          "relation_type": "process"
+        },
+        {
+          "id": "selection-animale",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "poisson-d-elevage",
+      "name": "Poisson d'élevage",
+      "name_en": "Farmed fish",
+      "description": "Poisson élevé en captivité dans des bassins ou des enclos pour la production alimentaire. La pisciculture chinoise antique représente l'une des formes les plus anciennes d'aquaculture. Cet élevage contrôlé permet une production de protéines adaptée aux besoins humains.",
+      "description_en": "Fish raised in captivity in ponds or enclosures for food production. Ancient Chinese fish farming represents one of the oldest forms of aquaculture. This controlled breeding allows protein production adapted to human needs.",
+      "category": "animal",
+      "era": "ancient",
+      "year_approx": -4000,
+      "origin": "Chine",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Fish_farming",
+      "tags": [
+        "aquaculture",
+        "pisciculture",
+        "poisson",
+        "élevage",
+        "protéine",
+        "eau douce",
+        "alimentation"
+      ],
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": "animal",
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Fish_farm_Amarynthos_Euboea_Greece_-_edit1.jpg/600px-Fish_farm_Amarynthos_Euboea_Greece_-_edit1.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "bassin-d-eau",
+          "relation_type": "tool"
+        },
+        {
+          "id": "irrigation",
+          "relation_type": "process"
+        },
+        {
+          "id": "domestication-animale",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "aquaculture-durable",
+          "relation_type": "process"
+        },
+        {
+          "id": "viande",
+          "relation_type": "material"
+        },
+        {
+          "id": "selection-animale",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "vers-de-terre-cultives",
+      "name": "Vers de terre cultivés",
+      "name_en": "Cultivated earthworms",
+      "description": "Vers de terre élevés systématiquement pour l'amélioration des sols et la production de compost. L'élevage contrôlé de lombrics enrichit la terre agricole en matière organique et améliore sa structure. Cette pratique est devenue centrale en agriculture biologique.",
+      "description_en": "Earthworms raised systematically for soil improvement and compost production. Controlled breeding of earthworms enriches agricultural soil with organic matter and improves its structure. This practice has become central to organic farming.",
+      "category": "animal",
+      "era": "modern",
+      "year_approx": 1920,
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Earthworm",
+      "tags": [
+        "lombric",
+        "ver",
+        "compostage",
+        "sol",
+        "agriculture biologique",
+        "fumure",
+        "élevage"
+      ],
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": "animal",
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Eisenia_foetida_R.H._%288%29.JPG/600px-Eisenia_foetida_R.H._%288%29.JPG",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "compost",
+          "relation_type": "material"
+        },
+        {
+          "id": "agriculture",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "culture-biologique",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "compostage-industriel",
+          "relation_type": "process"
+        },
+        {
+          "id": "compost",
+          "relation_type": "material"
+        },
+        {
+          "id": "fertilisant-naturel",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "insecte-pollinisateur-controle",
+      "name": "Insecte pollinisateur contrôlé",
+      "name_en": "Controlled pollinator insect",
+      "description": "Insecte pollinisateur élevé intentionnellement pour assurer la pollinisation contrôlée des cultures sous serre. Les bourdons et autres insectes auxiliaires sont reproduits en captivité et utilisés en agriculture intensive. Cette technique garantit une pollinisation efficace et une meilleure productivité.",
+      "description_en": "Pollinator insect intentionally bred to ensure controlled pollination of greenhouse crops. Bumblebees and other beneficial insects are reproduced in captivity and used in intensive agriculture. This technique ensures efficient pollination and better productivity.",
+      "category": "animal",
+      "era": "modern",
+      "year_approx": 1970,
+      "origin": "Pays-Bas",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Pollinator",
+      "tags": [
+        "pollinisateur",
+        "bourdon",
+        "pollinisation contrôlée",
+        "serre",
+        "agriculture intensive",
+        "insecte auxiliaire",
+        "élevage"
+      ],
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": "animal",
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Eristalinus_October_2007-6.jpg/600px-Eristalinus_October_2007-6.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "serre",
+          "relation_type": "tool"
+        },
+        {
+          "id": "agriculture-intensive",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "pollinisation-controlee",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "agriculture-intensive",
+          "relation_type": "process"
+        },
+        {
+          "id": "selection-animale",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "mecanisation-agricole",
+          "relation_type": "catalyst"
+        }
+      ]
+    },
+    {
+      "id": "perspective-lineaire-renaissance",
+      "name": "Perspective linéaire Renaissance",
+      "name_en": "Linear Perspective Renaissance",
+      "description": "Technique mathématique de représentation graphique permettant de créer l'illusion de profondeur et de distance sur une surface plane. Utilise des points de fuite, des lignes parallèles et des proportions pour recréer la vision humaine en perspective. Fondamentale pour l'art occidental et l'architecture.",
+      "description_en": "Mathematical technique for graphical representation creating the illusion of depth and distance on a flat surface. Uses vanishing points, parallel lines and proportions to recreate human vision in perspective. Fundamental for Western art and architecture.",
+      "category": "optical",
+      "era": "renaissance",
+      "year_approx": 1415,
+      "origin": "Filippo Brunelleschi (Italie)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Linear_perspective",
+      "tags": [
+        "géométrie",
+        "optique",
+        "représentation",
+        "dessin",
+        "architecture",
+        "art"
+      ],
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "geometrie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "optique-geometrique-renaissance",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "anatomie-descriptive-renaissance",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "architecture-en-pierre",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "appareil-photo",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "photographie-numerique",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "memoire-associative",
+      "name": "Mémoire associative",
+      "name_en": "Associative Memory",
+      "description": "Type de mémoire informatique permettant d'accéder aux données par leur contenu plutôt que par une adresse précise. Fonctionne en associant des motifs d'entrée avec des motifs stockés, inspirée par le fonctionnement de la mémoire biologique. Utilisée en réseaux de neurones et systèmes d'apprentissage machine.",
+      "description_en": "Type of computer memory allowing data access by content rather than a specific address. Works by associating input patterns with stored patterns, inspired by biological memory function. Used in neural networks and machine learning systems.",
+      "category": "electronics",
+      "era": "contemporary",
+      "year_approx": 1982,
+      "origin": "John Hopfield (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Associative_memory",
+      "tags": [
+        "mémoire",
+        "informatique",
+        "neurones",
+        "apprentissage",
+        "reconnaissance de motifs"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "circuit-logique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "transistor",
+          "relation_type": "material"
+        },
+        {
+          "id": "reseau-de-neurones",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "intelligence-artificielle",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "apprentissage-automatique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "reseau-de-neurones",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "vision-par-ordinateur",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "batterie-miniaturisee",
+      "name": "Batterie miniaturisée",
+      "name_en": "Miniaturized Battery",
+      "description": "Cellule énergétique extrêmement compacte intégrant les anode, cathode et électrolyte dans un format de quelques millimètres. Développée pour alimenter les appareils portables et implants médicaux. Utilisée massivement dans les montres intelligentes, capteurs wireless et microsystèmes embarqués.",
+      "description_en": "Extremely compact energy cell integrating anode, cathode and electrolyte in a few millimeter format. Developed to power portable devices and medical implants. Widely used in smartwatches, wireless sensors and embedded microsystems.",
+      "category": "electronics",
+      "era": "contemporary",
+      "year_approx": 1990,
+      "origin": "Tadiran Batteries (Israël)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Thin_film_battery",
+      "tags": [
+        "batterie",
+        "miniaturisation",
+        "électronique",
+        "énergie portative",
+        "microsystème"
+      ],
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "batterie-li",
+          "relation_type": "material"
+        },
+        {
+          "id": "electrolyte",
+          "relation_type": "material"
+        },
+        {
+          "id": "transistor",
+          "relation_type": "tool"
+        },
+        {
+          "id": "nanotechnologie",
+          "relation_type": "process"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "smartphone",
+          "relation_type": "material"
+        },
+        {
+          "id": "capteur-biologique",
+          "relation_type": "material"
+        },
+        {
+          "id": "drone",
+          "relation_type": "material"
+        },
+        {
+          "id": "wearable",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "recepteur-gps",
+      "name": "Récepteur GPS",
+      "name_en": "GPS Receiver",
+      "description": "Appareil électronique capturant et traitant les signaux radio émis par les satellites du système GPS pour déterminer la position géographique, l'altitude et l'heure précise. Intègre des circuits de démodulation, des oscillateurs de très haute précision et des processeurs de signal. Révolutionne la navigation, la cartographie et la géolocalisation.",
+      "description_en": "Electronic device capturing and processing radio signals emitted by GPS satellites to determine geographical position, altitude and precise time. Integrates demodulation circuits, ultra-precise oscillators and signal processors. Revolutionizes navigation, mapping and geolocation.",
+      "category": "network",
+      "era": "contemporary",
+      "year_approx": 1985,
+      "origin": "United States Department of Defense (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/GPS_receiver",
+      "tags": [
+        "GPS",
+        "navigation",
+        "positionnement",
+        "satellite",
+        "géolocalisation",
+        "électronique"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "gps",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "satellite-de-communication",
+          "relation_type": "tool"
+        },
+        {
+          "id": "transistor",
+          "relation_type": "material"
+        },
+        {
+          "id": "circuit-integre",
+          "relation_type": "material"
+        },
+        {
+          "id": "antenne-radio",
+          "relation_type": "tool"
+        },
+        {
+          "id": "oscillateur",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "smartphone",
+          "relation_type": "material"
+        },
+        {
+          "id": "systeme-de-positionnement-precis",
+          "relation_type": "material"
+        },
+        {
+          "id": "drone",
+          "relation_type": "material"
+        },
+        {
+          "id": "gestion-intelligente-de-la-recharge-ev",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "ecran-tactile-capacitif",
+      "name": "Écran tactile capacitif",
+      "name_en": "Capacitive Touchscreen",
+      "description": "Interface de saisie détectant le contact du doigt par mesure de variation de capacitance électrique. Utilise une couche conductrice (ITO) sur verre ou polymère pour créer un champ électrique. Le doigt modifie ce champ, générant des signaux traités par des processeurs de gestion tactile. Technologie dominante des smartphones et tablettes modernes.",
+      "description_en": "Input interface detecting finger contact by measuring electrical capacitance variation. Uses a conductive layer (ITO) on glass or polymer to create an electric field. The finger modifies this field, generating signals processed by touch controllers. Dominant technology in modern smartphones and tablets.",
+      "category": "electronics",
+      "era": "contemporary",
+      "year_approx": 2001,
+      "origin": "Éric Larson (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Capacitive_sensing",
+      "tags": [
+        "écran tactile",
+        "capacitance",
+        "interface",
+        "smartphone",
+        "électronique"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "ecran-tactile",
+          "relation_type": "material"
+        },
+        {
+          "id": "circuit-integre",
+          "relation_type": "material"
+        },
+        {
+          "id": "transistor",
+          "relation_type": "material"
+        },
+        {
+          "id": "condensateur",
+          "relation_type": "material"
+        },
+        {
+          "id": "verre-trempe",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "smartphone",
+          "relation_type": "material"
+        },
+        {
+          "id": "tablette",
+          "relation_type": "material"
+        },
+        {
+          "id": "interface-homme-machine-ihm",
+          "relation_type": "tool"
+        },
+        {
+          "id": "ecran-lcd-couleur",
+          "relation_type": "material"
         }
       ]
     }
@@ -94788,6 +96282,1078 @@
       "source_id": "modem-haut-debit",
       "target_id": "cloud-computing",
       "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-faa77840da61",
+      "source_id": "lentille",
+      "target_id": "microscopie",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c2102e9cbf29",
+      "source_id": "verre",
+      "target_id": "microscopie",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-395fcea04880",
+      "source_id": "optique",
+      "target_id": "microscopie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bf3182ba82ea",
+      "source_id": "microscopie",
+      "target_id": "microscope",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-166474d9ad22",
+      "source_id": "microscopie",
+      "target_id": "biologie-cellulaire",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3dfc92aa3de4",
+      "source_id": "microscopie",
+      "target_id": "microbiologie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f8828dcad7f0",
+      "source_id": "equations-de-maxwell",
+      "target_id": "wifi",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-eed8c010bbd6",
+      "source_id": "electromagnetisme",
+      "target_id": "wifi",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-76b04a8adcb1",
+      "source_id": "transistor",
+      "target_id": "wifi",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9bdc5168e7a6",
+      "source_id": "circuit-integre",
+      "target_id": "wifi",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5a0911084318",
+      "source_id": "antenne-radio",
+      "target_id": "wifi",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-191a7e0327ca",
+      "source_id": "wifi",
+      "target_id": "smartphone",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-14c708df1499",
+      "source_id": "wifi",
+      "target_id": "internet",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b4399f5d5e24",
+      "source_id": "wifi",
+      "target_id": "domotique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a911da00c4b1",
+      "source_id": "wifi",
+      "target_id": "protocole-sans-fil-wi-fi",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3d9eecb42b7b",
+      "source_id": "telephone",
+      "target_id": "telephone-mobile",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9decf046fe7b",
+      "source_id": "microprocesseur",
+      "target_id": "telephone-mobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bbda5960cdb9",
+      "source_id": "batterie-rechargeable",
+      "target_id": "telephone-mobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6d7c70e74422",
+      "source_id": "transistor",
+      "target_id": "telephone-mobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1806b1e41e46",
+      "source_id": "ecran-lcd",
+      "target_id": "telephone-mobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b2d8f3fe1d7b",
+      "source_id": "reseau-cellulaire",
+      "target_id": "telephone-mobile",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-655846907103",
+      "source_id": "telephone-mobile",
+      "target_id": "smartphone",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-405f78583919",
+      "source_id": "telephone-mobile",
+      "target_id": "internet",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-046dd64e496b",
+      "source_id": "telephone-mobile",
+      "target_id": "gps",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-26c0685f3888",
+      "source_id": "reacteur-nucleaire",
+      "target_id": "centrale-nucleaire",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d642fc6b8c70",
+      "source_id": "energie-nucleaire",
+      "target_id": "centrale-nucleaire",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0882d72c00e6",
+      "source_id": "turbine-vapeur",
+      "target_id": "centrale-nucleaire",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d6f295b81c33",
+      "source_id": "alternateur",
+      "target_id": "centrale-nucleaire",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1ee79a8fdb53",
+      "source_id": "reseau-electrique",
+      "target_id": "centrale-nucleaire",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-71f94fbc38b8",
+      "source_id": "centrale-nucleaire",
+      "target_id": "energie-nucleaire",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1ae3a60cd72d",
+      "source_id": "centrale-nucleaire",
+      "target_id": "medecine-nucleaire",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-81ba6db45441",
+      "source_id": "uranium",
+      "target_id": "medecine-nucleaire",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-04c01c7cbcd5",
+      "source_id": "energie-nucleaire",
+      "target_id": "medecine-nucleaire",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fbca4f50c327",
+      "source_id": "rayons-x",
+      "target_id": "medecine-nucleaire",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-23c996ae6370",
+      "source_id": "radiographie",
+      "target_id": "medecine-nucleaire",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-902f14df64bf",
+      "source_id": "medecine-nucleaire",
+      "target_id": "radiotherapie",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-46bf68e45905",
+      "source_id": "bois",
+      "target_id": "construction-navale",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ca340e72e7f4",
+      "source_id": "hache",
+      "target_id": "construction-navale",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-04070d99aef9",
+      "source_id": "scie",
+      "target_id": "construction-navale",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-632da4127c34",
+      "source_id": "soudure",
+      "target_id": "construction-navale",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-69e477fe6443",
+      "source_id": "navigation",
+      "target_id": "construction-navale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a950916a63e3",
+      "source_id": "construction-navale",
+      "target_id": "bateau-a-voile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6ae81d706a79",
+      "source_id": "construction-navale",
+      "target_id": "navire-a-vapeur",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f7ce087f5ab1",
+      "source_id": "construction-navale",
+      "target_id": "sous-marin",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2184a19f870a",
+      "source_id": "construction-navale",
+      "target_id": "conteneur-maritime",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6ea4ea3ef9a6",
+      "source_id": "tour",
+      "target_id": "machine-outil",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-52162e49da44",
+      "source_id": "forge",
+      "target_id": "machine-outil",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f1a4b1aa9750",
+      "source_id": "acier",
+      "target_id": "machine-outil",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8b866b07f6ac",
+      "source_id": "machine-a-vapeur",
+      "target_id": "machine-outil",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d86f572827bf",
+      "source_id": "engrenage",
+      "target_id": "machine-outil",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-22c0e1c77d1a",
+      "source_id": "machine-outil",
+      "target_id": "industrie-automobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c4009b5c3bbb",
+      "source_id": "machine-outil",
+      "target_id": "usine-moderne",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-146bf7d2dcec",
+      "source_id": "machine-outil",
+      "target_id": "bras-robotique-industriel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c5c715e6c935",
+      "source_id": "machine-outil",
+      "target_id": "mecanisation-agricole",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f8ff767c0306",
+      "source_id": "selection-animale",
+      "target_id": "chien-domestique",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-08b8648bb2bf",
+      "source_id": "elevage",
+      "target_id": "chien-domestique",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1a5baae24a45",
+      "source_id": "chien-domestique",
+      "target_id": "selection-animale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-71fb1eea8124",
+      "source_id": "chien-domestique",
+      "target_id": "elevage",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-87f887904aa5",
+      "source_id": "chien-domestique",
+      "target_id": "chasse-a-l-arc",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5b8cfdee4dd8",
+      "source_id": "chien-domestique",
+      "target_id": "agriculture",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cecd6c484e03",
+      "source_id": "selection-animale",
+      "target_id": "chat-domestique",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-be5ca9389a75",
+      "source_id": "agriculture",
+      "target_id": "chat-domestique",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7987df2b2921",
+      "source_id": "chat-domestique",
+      "target_id": "selection-animale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6c7aa856ee53",
+      "source_id": "chat-domestique",
+      "target_id": "agriculture",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d880bc4ea7c0",
+      "source_id": "chat-domestique",
+      "target_id": "zootechnie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cce9f6cc3969",
+      "source_id": "cheval",
+      "target_id": "cheval-de-trait",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1a9b4d603fe1",
+      "source_id": "selection-animale",
+      "target_id": "cheval-de-trait",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cf982d796a20",
+      "source_id": "harnais-de-cheval",
+      "target_id": "cheval-de-trait",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2a9025e08482",
+      "source_id": "fer-a-cheval",
+      "target_id": "cheval-de-trait",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9368a3719927",
+      "source_id": "cheval-de-trait",
+      "target_id": "chariot",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fd772d94460b",
+      "source_id": "cheval-de-trait",
+      "target_id": "labourage",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e16ee2a7a3b3",
+      "source_id": "cheval-de-trait",
+      "target_id": "agriculture",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2ade99b7f22b",
+      "source_id": "cheval-de-trait",
+      "target_id": "commerce",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f907d5aa5104",
+      "source_id": "agriculture",
+      "target_id": "abeille-domestique",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c00ad277c296",
+      "source_id": "abeille-domestique",
+      "target_id": "apiculture",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-404ecd49aade",
+      "source_id": "domestication-animale",
+      "target_id": "poule-domestique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fa85ff891c18",
+      "source_id": "agriculture",
+      "target_id": "poule-domestique",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-99549d493153",
+      "source_id": "poule-domestique",
+      "target_id": "viande",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8254a750784b",
+      "source_id": "poule-domestique",
+      "target_id": "elevage",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3cf1ede1d4cb",
+      "source_id": "poule-domestique",
+      "target_id": "selection-animale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-517613409447",
+      "source_id": "irrigation",
+      "target_id": "poisson-d-elevage",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-61f6c81d0ab4",
+      "source_id": "domestication-animale",
+      "target_id": "poisson-d-elevage",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-223d4c01a0d6",
+      "source_id": "poisson-d-elevage",
+      "target_id": "aquaculture-durable",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6a730a886284",
+      "source_id": "poisson-d-elevage",
+      "target_id": "viande",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a163003e4db7",
+      "source_id": "poisson-d-elevage",
+      "target_id": "selection-animale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-57b0a7131699",
+      "source_id": "compost",
+      "target_id": "vers-de-terre-cultives",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f46d20b5c69a",
+      "source_id": "agriculture",
+      "target_id": "vers-de-terre-cultives",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9ba68572ed93",
+      "source_id": "culture-biologique",
+      "target_id": "vers-de-terre-cultives",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-368c2790498b",
+      "source_id": "vers-de-terre-cultives",
+      "target_id": "compostage-industriel",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-93073b2e64da",
+      "source_id": "vers-de-terre-cultives",
+      "target_id": "compost",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dd7bcd7cf8c5",
+      "source_id": "serre",
+      "target_id": "insecte-pollinisateur-controle",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b87814983e0a",
+      "source_id": "agriculture-intensive",
+      "target_id": "insecte-pollinisateur-controle",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-810b3e74c63c",
+      "source_id": "pollinisation-controlee",
+      "target_id": "insecte-pollinisateur-controle",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f427b77b76b3",
+      "source_id": "insecte-pollinisateur-controle",
+      "target_id": "agriculture-intensive",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2381bc88e117",
+      "source_id": "insecte-pollinisateur-controle",
+      "target_id": "selection-animale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b225931b8c81",
+      "source_id": "insecte-pollinisateur-controle",
+      "target_id": "mecanisation-agricole",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f71b2f9eca26",
+      "source_id": "geometrie",
+      "target_id": "perspective-lineaire-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f38764c736c2",
+      "source_id": "optique-geometrique-renaissance",
+      "target_id": "perspective-lineaire-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-df921777c9b8",
+      "source_id": "anatomie-descriptive-renaissance",
+      "target_id": "perspective-lineaire-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2fd1c08d4b38",
+      "source_id": "perspective-lineaire-renaissance",
+      "target_id": "architecture-en-pierre",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-97513d9ffd57",
+      "source_id": "perspective-lineaire-renaissance",
+      "target_id": "appareil-photo",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-61685e2591f3",
+      "source_id": "perspective-lineaire-renaissance",
+      "target_id": "photographie-numerique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0a774c603f45",
+      "source_id": "circuit-logique",
+      "target_id": "memoire-associative",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1cf276a83a4a",
+      "source_id": "transistor",
+      "target_id": "memoire-associative",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-972bcbfbb056",
+      "source_id": "reseau-de-neurones",
+      "target_id": "memoire-associative",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e6a6eacd6cd6",
+      "source_id": "intelligence-artificielle",
+      "target_id": "memoire-associative",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9dcaab537a64",
+      "source_id": "memoire-associative",
+      "target_id": "apprentissage-automatique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-24a922468f4f",
+      "source_id": "memoire-associative",
+      "target_id": "reseau-de-neurones",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4fd1dd2be149",
+      "source_id": "memoire-associative",
+      "target_id": "vision-par-ordinateur",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d1ba844a7e38",
+      "source_id": "batterie-li",
+      "target_id": "batterie-miniaturisee",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ab67750f1c8f",
+      "source_id": "electrolyte",
+      "target_id": "batterie-miniaturisee",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-953f0d55f681",
+      "source_id": "transistor",
+      "target_id": "batterie-miniaturisee",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3a4dd359840e",
+      "source_id": "nanotechnologie",
+      "target_id": "batterie-miniaturisee",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ebf59b3fc0c5",
+      "source_id": "batterie-miniaturisee",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-62ad16e05a33",
+      "source_id": "batterie-miniaturisee",
+      "target_id": "capteur-biologique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2f4ba51222f2",
+      "source_id": "batterie-miniaturisee",
+      "target_id": "drone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2b590a06346b",
+      "source_id": "gps",
+      "target_id": "recepteur-gps",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dea145b207cf",
+      "source_id": "satellite-de-communication",
+      "target_id": "recepteur-gps",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b2a673b23300",
+      "source_id": "transistor",
+      "target_id": "recepteur-gps",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f2044aafc4e9",
+      "source_id": "circuit-integre",
+      "target_id": "recepteur-gps",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-618f989c37fb",
+      "source_id": "antenne-radio",
+      "target_id": "recepteur-gps",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4eb0756d373e",
+      "source_id": "oscillateur",
+      "target_id": "recepteur-gps",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-37e98f242945",
+      "source_id": "recepteur-gps",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1aa58060d180",
+      "source_id": "recepteur-gps",
+      "target_id": "systeme-de-positionnement-precis",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-78f84b8d8161",
+      "source_id": "recepteur-gps",
+      "target_id": "drone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-97956a3c7a46",
+      "source_id": "recepteur-gps",
+      "target_id": "gestion-intelligente-de-la-recharge-ev",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f7bc1cfb20e7",
+      "source_id": "ecran-tactile",
+      "target_id": "ecran-tactile-capacitif",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7c2a7f4e3e8b",
+      "source_id": "circuit-integre",
+      "target_id": "ecran-tactile-capacitif",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2775fa3aa342",
+      "source_id": "transistor",
+      "target_id": "ecran-tactile-capacitif",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a78ae117e0b8",
+      "source_id": "condensateur",
+      "target_id": "ecran-tactile-capacitif",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ca3085d8f8a5",
+      "source_id": "verre-trempe",
+      "target_id": "ecran-tactile-capacitif",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1e0a1d61ac69",
+      "source_id": "ecran-tactile-capacitif",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-21ddbc5fa2c4",
+      "source_id": "ecran-tactile-capacitif",
+      "target_id": "interface-homme-machine-ihm",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f32481dd1547",
+      "source_id": "ecran-tactile-capacitif",
+      "target_id": "ecran-lcd-couleur",
+      "relation_type": "material",
       "is_optional": false,
       "notes": null
     }

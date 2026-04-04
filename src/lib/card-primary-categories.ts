@@ -15,6 +15,7 @@ export const PRIMARY_CARD_CATEGORY_ORDER: readonly NodeCategory[] = [
   NodeCategory.TEXTILE,
   NodeCategory.COMMUNICATION,
   NodeCategory.AGRICULTURE,
+  NodeCategory.ANIMAL,
   NodeCategory.ROBOTICS,
   NodeCategory.CHEMISTRY,
   NodeCategory.ELECTRONICS,

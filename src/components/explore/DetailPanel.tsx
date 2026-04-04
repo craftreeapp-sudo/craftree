@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
@@ -11,7 +12,7 @@ import { useToastStore } from '@/stores/toast-store';
 import { useExploreCardOptional } from '@/components/explore/explore-card-context';
 import { rowIsDraft } from '@/lib/draft-flag';
 import { formatYear } from '@/lib/utils';
-import { getCategoryColor, hexToRgba } from '@/lib/colors';
+import { getCategoryColor } from '@/lib/colors';
 import { trackEvent } from '@/lib/analytics';
 import {
   pickNodeDisplayName,
@@ -31,7 +32,8 @@ import {
 } from '@/components/explore/ExploreDetailLinkRows';
 import { CardImagePlaceholder } from '@/components/explore/CardImagePlaceholder';
 import { ShareInventionButton } from '@/components/explore/ShareInventionButton';
-import { treeLayerDisplayIndexFromNode } from '@/lib/tree-layers';
+import { findDuplicatePeerNodeId } from '@/lib/editor-duplicates';
+import { BuiltUponBadgePopover } from '@/components/explore/BuiltUponBadgePopover';
 import {
   effectiveDimension,
   effectiveMaterialLevel,
@@ -51,7 +53,9 @@ export function ExploreDetailPanel() {
   const tAuth = useTranslations('auth');
   const tCat = useTranslations('categories');
   const tEd = useTranslations('editor');
+  const tCommon = useTranslations('common');
 
+  const graphNodes = useGraphStore((s) => s.nodes);
   const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
   const getUsagesOfNode = useGraphStore((s) => s.getUsagesOfNode);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
@@ -64,6 +68,7 @@ export function ExploreDetailPanel() {
 
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
+  const detailAsideRef = useRef<HTMLElement | null>(null);
   const [draftSaving, setDraftSaving] = useState(false);
   const [mainImgErr, setMainImgErr] = useState(false);
   const [ledToOpen, setLedToOpen] = useState(true);
@@ -113,6 +118,22 @@ export function ExploreDetailPanel() {
     return () => document.removeEventListener('mousedown', onDoc);
   }, [moreOpen]);
 
+  /** Clic « dans le vide » : quitter l’édition admin, revenir à la fiche détail. */
+  useEffect(() => {
+    if (detailSubview !== 'adminEdit' || !isAdmin || !ctx) return;
+    const onPointerDownCapture = (e: PointerEvent) => {
+      const aside = detailAsideRef.current;
+      if (!aside) return;
+      const t = e.target;
+      if (!(t instanceof Node)) return;
+      if (aside.contains(t)) return;
+      ctx.closeSuggestSubview();
+    };
+    document.addEventListener('pointerdown', onPointerDownCapture, true);
+    return () =>
+      document.removeEventListener('pointerdown', onPointerDownCapture, true);
+  }, [detailSubview, isAdmin, ctx]);
+
   const enterSuggest = useCallback(() => {
     if (!node) return;
     ctx?.openSuggestSubview();
@@ -122,6 +143,15 @@ export function ExploreDetailPanel() {
     if (!node) return;
     ctx?.openAdminEditSubview();
   }, [node, ctx]);
+
+  const shareDetailToClipboard = useCallback(() => {
+    if (!node) return;
+    trackEvent('share', node.id);
+    const url = `${window.location.origin}/invention/${encodeURIComponent(node.id)}`;
+    void navigator.clipboard.writeText(url);
+    pushToast(tCommon('linkCopied'), 'success');
+    setMoreOpen(false);
+  }, [node, pushToast, tCommon]);
 
   const toggleDraftStatus = useCallback(async () => {
     if (!node) return;
@@ -233,10 +263,10 @@ export function ExploreDetailPanel() {
     [node, getUsagesOfNode]
   );
 
-  const layerDisplay = useMemo(
-    () => (node ? treeLayerDisplayIndexFromNode(node) : 0),
-    [node]
-  );
+  const duplicatePeerId = useMemo(() => {
+    if (!node) return null;
+    return findDuplicatePeerNodeId(graphNodes, node.id);
+  }, [graphNodes, node]);
 
   const openPeerDetail = useCallback(
     (id: string, direction: 'upstream' | 'downstream') => {
@@ -254,52 +284,73 @@ export function ExploreDetailPanel() {
   const panelInner =
     !node ? null : (
       <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
-        {/* 1. Titre + couche (adjacents) | actions */}
-        <div className="grid shrink-0 grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-x-2 border-b border-border px-5 pb-3 pt-4">
-          <h2
-            id="explore-detail-title"
-            className="min-w-0 line-clamp-2 text-xl font-bold leading-tight text-foreground"
-            style={{
-              fontFamily:
-                'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
-            }}
-          >
-            {displayName}
-          </h2>
-          <span
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded border-2 text-xs font-semibold tabular-nums text-foreground"
-            style={{
-              borderColor: categoryColor,
-              backgroundColor: hexToRgba(categoryColor, 0.12),
-            }}
-            title={tExplore('layerShort', { layer: layerDisplay })}
-          >
-            {layerDisplay}
-          </span>
-          <div className="flex shrink-0 items-center justify-end gap-0.5">
-          <ShareInventionButton nodeId={node.id} />
-          {isAdmin ? (
-            <button
-              type="button"
-              onClick={() => void enterEdit()}
-              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-border/30 hover:text-foreground"
-              aria-label={tSidebar('editInvention')}
+        {/* 1. Titre + badge (nombre de cartes built upon) | actions */}
+        <div className="flex min-w-0 shrink-0 items-start gap-x-2 border-b border-border px-5 pb-3 pt-4">
+          <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-2 gap-y-1">
+            <h2
+              id="explore-detail-title"
+              className="min-w-0 line-clamp-2 text-xl font-bold leading-tight text-foreground"
+              style={{
+                fontFamily:
+                  'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+              }}
             >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden
+              {displayName}
+            </h2>
+            <BuiltUponBadgePopover
+              count={recipeLinks.length}
+              borderColor={categoryColor}
+            />
+          </div>
+          <div className="flex shrink-0 items-center justify-end gap-0.5">
+          {!isAdmin ? <ShareInventionButton nodeId={node.id} /> : null}
+          {isAdmin ? (
+            duplicatePeerId ? (
+              <Link
+                href={`/admin?duplicates=1&focus=${encodeURIComponent(duplicatePeerId)}`}
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-amber-500/80 bg-amber-950/45 text-sm text-amber-100 transition-colors hover:bg-amber-950/65"
+                title={tEd('detailDuplicateOpenAdminTitle')}
+                aria-label={tEd('detailDuplicateOpenAdminTitle')}
               >
-                <path d="M12 20h9" />
-                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-              </svg>
-            </button>
+                <svg
+                  width={18}
+                  height={18}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <rect x="8" y="8" width="12" height="12" rx="2" />
+                  <rect x="4" y="4" width="12" height="12" rx="2" />
+                </svg>
+              </Link>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className="flex h-9 w-9 shrink-0 cursor-not-allowed items-center justify-center rounded-lg border border-border bg-surface-elevated text-sm text-foreground opacity-60"
+                title={tEd('detailDuplicateNoPeer')}
+                aria-label={tEd('detailDuplicateNoPeer')}
+              >
+                <svg
+                  width={18}
+                  height={18}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <rect x="8" y="8" width="12" height="12" rx="2" />
+                  <rect x="4" y="4" width="12" height="12" rx="2" />
+                </svg>
+              </button>
+            )
           ) : null}
           {isAdmin ? (
             <button
@@ -355,6 +406,29 @@ export function ExploreDetailPanel() {
               )}
             </button>
           ) : null}
+          {isAdmin ? (
+            <button
+              type="button"
+              onClick={() => void enterEdit()}
+              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-border/30 hover:text-foreground"
+              aria-label={tSidebar('editInvention')}
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+              </svg>
+            </button>
+          ) : null}
           <div className="relative shrink-0" ref={moreRef}>
               <button
                 type="button"
@@ -381,6 +455,33 @@ export function ExploreDetailPanel() {
                   className="absolute end-0 top-[calc(100%+6px)] z-[90] min-w-[180px] rounded-md glass-surface py-1 shadow-lg"
                   role="menu"
                 >
+                  {isAdmin ? (
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={() => void shareDetailToClipboard()}
+                      className="flex w-full items-center gap-2 px-3 py-2 text-[13px] text-foreground hover:bg-border/25"
+                    >
+                      <svg
+                        width={18}
+                        height={18}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden
+                      >
+                        <circle cx="18" cy="5" r="3" />
+                        <circle cx="6" cy="12" r="3" />
+                        <circle cx="18" cy="19" r="3" />
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                      </svg>
+                      {tCommon('share')}
+                    </button>
+                  ) : null}
                   {detail?.wikipedia_url ? (
                     <a
                       href={detail.wikipedia_url}
@@ -615,6 +716,7 @@ export function ExploreDetailPanel() {
     <AnimatePresence>
       {detailNodeId && node ? (
         <motion.aside
+          ref={detailAsideRef}
           key="explore-detail"
           role="complementary"
           aria-labelledby="explore-detail-title"

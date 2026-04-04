@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useGraphStore } from '@/stores/graph-store';
 import { AppContentShell } from '@/components/layout/AppContentShell';
@@ -37,6 +38,44 @@ export function CategoriesPickerClient() {
   };
 
   const [cardLayout, setCardLayout] = useCategoryListCardLayout();
+  const reduceMotion = useReducedMotion();
+
+  const { listVariants, cardVariants } = useMemo(() => {
+    if (reduceMotion) {
+      return {
+        listVariants: {
+          hidden: {},
+          show: {},
+        },
+        cardVariants: {
+          hidden: { opacity: 1 },
+          show: { opacity: 1 },
+        },
+      };
+    }
+    return {
+      listVariants: {
+        hidden: {},
+        show: {
+          transition: {
+            staggerChildren: 0.065,
+            delayChildren: 0.06,
+          },
+        },
+      },
+      cardVariants: {
+        hidden: { opacity: 0, y: 18 },
+        show: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: 0.42,
+            ease: [0.22, 1, 0.36, 1],
+          },
+        },
+      },
+    };
+  }, [reduceMotion]);
 
   return (
     <AppContentShell
@@ -106,17 +145,22 @@ export function CategoriesPickerClient() {
         />
       </div>
 
-      <div
+      <motion.div
+        key={pickerTab}
         className={CATEGORY_LIST_GRID_CLASS[cardLayout]}
         role="list"
+        variants={listVariants}
+        initial="hidden"
+        animate="show"
         suppressHydrationWarning
       >
         {pickerTab === 'category'
           ? NODE_CATEGORY_ORDER.map((cat) => (
-              <button
+              <motion.button
                 key={cat}
                 type="button"
                 role="listitem"
+                variants={cardVariants}
                 onClick={() => onPickCategory(cat)}
                 className="group relative overflow-hidden rounded-xl glass-card text-left shadow-lg transition-transform hover:-translate-y-0.5 hover:border-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus"
               >
@@ -127,20 +171,21 @@ export function CategoriesPickerClient() {
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    loading="lazy"
+                    loading="eager"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/50 to-transparent" />
                   <span className="absolute bottom-0 left-0 right-0 p-3 text-sm font-semibold leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] md:p-4 md:text-base">
                     {tCat(cat)}
                   </span>
                 </div>
-              </button>
+              </motion.button>
             ))
           : ERA_ORDER.map((era) => (
-              <button
+              <motion.button
                 key={era}
                 type="button"
                 role="listitem"
+                variants={cardVariants}
                 onClick={() => onPickEra(era)}
                 className="group relative overflow-hidden rounded-xl glass-card text-left shadow-lg transition-transform hover:-translate-y-0.5 hover:border-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring-focus"
               >
@@ -151,16 +196,16 @@ export function CategoriesPickerClient() {
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    loading="lazy"
+                    loading="eager"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/50 to-transparent" />
                   <span className="absolute bottom-0 left-0 right-0 p-3 text-sm font-semibold leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] md:p-4 md:text-base">
                     {tEra(era)}
                   </span>
                 </div>
-              </button>
+              </motion.button>
             ))}
-      </div>
+      </motion.div>
     </AppContentShell>
   );
 }

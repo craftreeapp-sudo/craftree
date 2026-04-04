@@ -227,7 +227,7 @@ function initialsFromProfile(p: ProfileLite | undefined, fallback: string): stri
   return s.slice(0, 2).toUpperCase();
 }
 
-export function AdminPageClient() {
+export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {}) {
   const router = useRouter();
   const t = useTranslations('admin');
   const tAuth = useTranslations('auth');
@@ -608,7 +608,11 @@ export function AdminPageClient() {
   ]);
 
   if (isLoading || !isAdmin) {
-    return (
+    return embedded ? (
+      <div className="flex min-h-[40vh] w-full flex-1 flex-col items-center justify-center text-center text-muted-foreground">
+        {tCommon('loading')}
+      </div>
+    ) : (
       <AppContentShell
         variant="admin"
         className="flex min-h-[50vh] w-full flex-1 flex-col items-center justify-center text-center text-muted-foreground"
@@ -620,23 +624,22 @@ export function AdminPageClient() {
 
   const pendingBadge = stats?.pending ?? 0;
 
-  return (
-    <AppContentShell
-      variant="admin"
-      className="flex w-full flex-1 flex-col text-[15px] text-foreground"
-    >
-      <div className="pb-3">
-        <BackToExploreLink />
-        <h1
-          className="text-xl font-semibold tracking-tight text-foreground md:text-2xl"
-          style={{
-            fontFamily:
-              'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
-          }}
-        >
-          {t('title')}
-        </h1>
-      </div>
+  const inner = (
+    <>
+      {!embedded ? (
+        <div className="pb-3">
+          <BackToExploreLink />
+          <h1
+            className="text-xl font-semibold tracking-tight text-foreground md:text-2xl"
+            style={{
+              fontFamily:
+                'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+            }}
+          >
+            {t('title')}
+          </h1>
+        </div>
+      ) : null}
 
       <div className="border-b border-transparent">
         <div className="flex flex-wrap gap-6">
@@ -1184,6 +1187,19 @@ export function AdminPageClient() {
           </div>
         )}
       </main>
+    </>
+  );
+
+  return embedded ? (
+    <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden text-[15px] text-foreground">
+      {inner}
+    </div>
+  ) : (
+    <AppContentShell
+      variant="admin"
+      className="flex w-full flex-1 flex-col text-[15px] text-foreground"
+    >
+      {inner}
     </AppContentShell>
   );
 }

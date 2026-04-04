@@ -16,6 +16,7 @@ import {
 } from './seed-helpers.mjs';
 import { createServiceSupabaseClient, upsertNodes } from './supabase-seed-sync.mjs';
 import { confirm, hasYesFlag } from './cli-confirm.mjs';
+import { CRAFTREE_SCOPE_FOR_LLM_FR } from './craftree-prompt-scope.mjs';
 
 config({ path: '.env.local' });
 config({ path: '.env' });
@@ -47,6 +48,9 @@ function parseLimit() {
 function buildEnrichPrompt(batch) {
   const blocks = batch.map((n) => formatNodeWithMissingFields(n)).join('\n\n---\n\n');
   return `Tu es un agent de classification pour Craftree.
+
+${CRAFTREE_SCOPE_FOR_LLM_FR}
+
 Pour chaque invention ci-dessous, remplis UNIQUEMENT les champs marqués comme "À REMPLIR". Ne touche pas aux champs déjà remplis.
 
 ## RÈGLES DE CLASSIFICATION
@@ -64,7 +68,7 @@ Pour chaque invention ci-dessous, remplis UNIQUEMENT les champs marqués comme "
 ### NATURE TYPE (null si non applicable) : element, compose, materiau
 
 ### CATEGORY
-energy, construction, weapon, network, food, transport, software, infrastructure, textile, communication, agriculture, robotics, chemistry, electronics, environment, automation, medical, optical, storage, aeronautics, space, industry, nanotechnology, biotechnology, security, home_automation
+energy, construction, weapon, network, food, transport, software, infrastructure, textile, communication, agriculture, animal, robotics, chemistry, electronics, environment, automation, medical, optical, storage, aeronautics, space, industry, nanotechnology, biotechnology, security, home_automation
 
 ### TYPE :
 raw_material, material, process, tool, component (jamais end_product)

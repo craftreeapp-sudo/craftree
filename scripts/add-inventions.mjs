@@ -29,6 +29,7 @@ import {
 } from './supabase-seed-sync.mjs';
 import { fetchWikipediaImageUrl } from './wikimedia-fetch.mjs';
 import { confirm, hasYesFlag } from './cli-confirm.mjs';
+import { CRAFTREE_SCOPE_FOR_LLM_FR } from './craftree-prompt-scope.mjs';
 
 config({ path: '.env.local' });
 config({ path: '.env' });
@@ -51,6 +52,7 @@ const ALLOWED_CATEGORIES = new Set([
   'textile',
   'communication',
   'agriculture',
+  'animal',
   'robotics',
   'chemistry',
   'electronics',
@@ -574,6 +576,8 @@ function buildSmartDiscoverPrompt({
 
   return `Tu es un agent de découverte pour Craftree, un arbre technologique des inventions humaines.
 
+${CRAFTREE_SCOPE_FOR_LLM_FR}
+
 Voici l'état du graphe :
 - ${totalNodes} inventions existantes
 - Catégories sous-représentées : ${catLine || '(équilibré)'}
@@ -618,7 +622,9 @@ function buildSuggestPrompt(existingNamesJoined, count, filters) {
   const filterBlock =
     lines.length > 0 ? `\n\n${lines.join('\n')}\n` : '\n';
 
-  return `Voici les inventions existantes dans Craftree : ${existingNamesJoined}
+  return `${CRAFTREE_SCOPE_FOR_LLM_FR}
+
+Voici les inventions existantes dans Craftree : ${existingNamesJoined}
 
 Suggère ${count} inventions fondamentales qui manquent et qui sont importantes pour compléter l'arbre technologique.${filterBlock}
 Réponds uniquement avec un JSON array de noms : ["Dynamite", "Radar", ...]`;
@@ -634,6 +640,9 @@ function buildCreatePrompt(batch, existingNodes) {
       : `- ${b.name}`
   );
   return `Tu es un agent de création pour Craftree, un arbre technologique des inventions humaines.
+
+${CRAFTREE_SCOPE_FOR_LLM_FR}
+
 Crée une fiche complète pour chaque invention ci-dessous.
 
 ## RÈGLES DE CLASSIFICATION
@@ -661,7 +670,7 @@ Test : est-ce qu'on le MESURE (kg, litres) ou est-ce qu'on le COMPTE (unités) ?
 - "materiau" : mélange/alliage défini par ses propriétés. Ex: acier, béton, verre, plastique
 
 ### CATEGORY (une seule valeur parmi) :
-energy, construction, weapon, network, food, transport, software, infrastructure, textile, communication, agriculture, robotics, chemistry, electronics, environment, automation, medical, optical, storage, aeronautics, space, industry, nanotechnology, biotechnology, security, home_automation
+energy, construction, weapon, network, food, transport, software, infrastructure, textile, communication, agriculture, animal, robotics, chemistry, electronics, environment, automation, medical, optical, storage, aeronautics, space, industry, nanotechnology, biotechnology, security, home_automation
 
 ### ERA :
 prehistoric (avant -3000), ancient (-3000 à 500), medieval (500 à 1500), renaissance (1500 à 1750), industrial (1750 à 1900), modern (1900 à 1970), digital (1970 à 2010), contemporary (2010+)

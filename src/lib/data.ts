@@ -130,8 +130,12 @@ export function isMissingDraftColumnError(
 
 type NodesFetchMode = 'graph' | 'full';
 
+/** Même plafond PostgREST que pour les liens : une requête sans `.range()` ne renvoie que les N premières lignes. */
+const NODES_PAGE_SIZE = 1000;
+
 /**
  * Lecture `nodes` avec repli : nature legacy, puis `is_draft` absent (ordre couvre les combinaisons).
+ * Paginé pour dépasser la limite par défaut (~1000 lignes).
  */
 export async function fetchNodesOrdered(
   supabase: ReturnType<typeof createSupabaseServerReadClient>,
@@ -154,16 +158,28 @@ export async function fetchNodesOrdered(
 
   let lastError: unknown = null;
   for (const select of chain) {
-    const { data, error } = await supabase
-      .from('nodes')
-      .select(select as never)
-      .order('name');
-    if (!error) {
-      return {
-        rows: (data ?? []) as unknown as Record<string, unknown>[],
-      };
+    const rows: Record<string, unknown>[] = [];
+    let from = 0;
+    let chainFailed = false;
+    for (;;) {
+      const { data, error } = await supabase
+        .from('nodes')
+        .select(select as never)
+        .order('name')
+        .range(from, from + NODES_PAGE_SIZE - 1);
+      if (error) {
+        lastError = error;
+        chainFailed = true;
+        break;
+      }
+      const batch = (data ?? []) as unknown as Record<string, unknown>[];
+      rows.push(...batch);
+      if (batch.length < NODES_PAGE_SIZE) break;
+      from += NODES_PAGE_SIZE;
     }
-    lastError = error;
+    if (!chainFailed) {
+      return { rows };
+    }
   }
   throw lastError;
 }

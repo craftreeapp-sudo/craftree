@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import { treeInventionPath, getDefaultTreeNodeId } from '@/lib/tree-routes';
+
+const DEFAULT_AFTER_AUTH = '/categories';
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const oauthError = url.searchParams.get('error');
-  const nextPath =
-    url.searchParams.get('next') ?? treeInventionPath(getDefaultTreeNodeId());
+  const nextPath = url.searchParams.get('next') ?? DEFAULT_AFTER_AUTH;
   const safeNext = nextPath.startsWith('/') ? nextPath : '/';
 
   if (oauthError) {

@@ -12,7 +12,6 @@ import { HEADER_PRIMARY_TEXT_BUTTON } from '@/components/layout/header-controls'
 export function HeaderAuth() {
   const t = useTranslations('auth');
   const tAdmin = useTranslations('admin');
-  const tCommon = useTranslations('common');
   const pushToast = useToastStore((s) => s.pushToast);
   const { user, isLoading, isAdmin } = useAuthStore();
   const [open, setOpen] = useState(false);
@@ -131,24 +130,14 @@ export function HeaderAuth() {
             {t('myProfile')}
           </Link>
           {isAdmin ? (
-            <>
-              <Link
-                href="/admin"
-                className="block px-3 py-2 text-[13px] text-white hover:bg-surface"
-                role="menuitem"
-                onClick={() => setOpen(false)}
-              >
-                {tAdmin('navLink')}
-              </Link>
-              <Link
-                href="/editor"
-                className="block px-3 py-2 text-[13px] text-white hover:bg-surface"
-                role="menuitem"
-                onClick={() => setOpen(false)}
-              >
-                {tCommon('allInventions')}
-              </Link>
-            </>
+            <Link
+              href="/admin"
+              className="block px-3 py-2 text-[13px] text-white hover:bg-surface"
+              role="menuitem"
+              onClick={() => setOpen(false)}
+            >
+              {tAdmin('navLink')}
+            </Link>
           ) : null}
           <div className="border-t border-border pt-1">
             <button

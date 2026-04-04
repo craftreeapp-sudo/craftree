@@ -17,6 +17,7 @@ export enum NodeCategory {
   TEXTILE = 'textile',
   COMMUNICATION = 'communication',
   AGRICULTURE = 'agriculture',
+  ANIMAL = 'animal',
   ROBOTICS = 'robotics',
   CHEMISTRY = 'chemistry',
   ELECTRONICS = 'electronics',

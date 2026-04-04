@@ -109,8 +109,9 @@ export function ExploreCardProvider({
     setLegendOpen(false);
   }, []);
 
+  /** Bascule la légende (bouton « How to read » ouvre et referme). */
   const openLegend = useCallback(() => {
-    setLegendOpen(true);
+    setLegendOpen((prev) => !prev);
     cancelHoverClose();
     setHoverPreview(null);
   }, [cancelHoverClose]);

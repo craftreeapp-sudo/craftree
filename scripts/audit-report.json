@@ -1,0 +1,332 @@
+{
+  "generatedAt": "2026-04-03T22:44:52.531Z",
+  "metricsNote": {
+    "uiBadge": "Explore card badge = count of links with target_id = this node (direct upstream / built upon).",
+    "complexity_depth": "DB field: stored graph depth; used for editor sort and scripts; not the same as the badge count."
+  },
+  "global": {
+    "totalInventions": 1007,
+    "totalLinks": 4930,
+    "byDimension": {
+      "matter": 152,
+      "process": 335,
+      "tool": 312,
+      "unset": 208
+    },
+    "byMaterialLevel": {
+      "raw": 25,
+      "processed": 71,
+      "industrial": 16,
+      "component": 26,
+      "unset": 869
+    }
+  },
+  "categoryCoverage": [
+    {
+      "category": "electronics",
+      "count": 83,
+      "underrepresented": false
+    },
+    {
+      "category": "medical",
+      "count": 82,
+      "underrepresented": false
+    },
+    {
+      "category": "industry",
+      "count": 80,
+      "underrepresented": false
+    },
+    {
+      "category": "chemistry",
+      "count": 76,
+      "underrepresented": false
+    },
+    {
+      "category": "infrastructure",
+      "count": 66,
+      "underrepresented": false
+    },
+    {
+      "category": "construction",
+      "count": 55,
+      "underrepresented": false
+    },
+    {
+      "category": "energy",
+      "count": 51,
+      "underrepresented": false
+    },
+    {
+      "category": "communication",
+      "count": 48,
+      "underrepresented": false
+    },
+    {
+      "category": "agriculture",
+      "count": 46,
+      "underrepresented": false
+    },
+    {
+      "category": "security",
+      "count": 43,
+      "underrepresented": false
+    },
+    {
+      "category": "software",
+      "count": 35,
+      "underrepresented": false
+    },
+    {
+      "category": "transport",
+      "count": 34,
+      "underrepresented": false
+    },
+    {
+      "category": "automation",
+      "count": 27,
+      "underrepresented": false
+    },
+    {
+      "category": "food",
+      "count": 25,
+      "underrepresented": false
+    },
+    {
+      "category": "network",
+      "count": 25,
+      "underrepresented": false
+    },
+    {
+      "category": "optical",
+      "count": 25,
+      "underrepresented": false
+    },
+    {
+      "category": "robotics",
+      "count": 21,
+      "underrepresented": false
+    },
+    {
+      "category": "weapon",
+      "count": 21,
+      "underrepresented": false
+    },
+    {
+      "category": "environment",
+      "count": 20,
+      "underrepresented": false
+    },
+    {
+      "category": "home_automation",
+      "count": 20,
+      "underrepresented": false
+    },
+    {
+      "category": "textile",
+      "count": 19,
+      "underrepresented": false
+    },
+    {
+      "category": "material",
+      "count": 13,
+      "underrepresented": false
+    },
+    {
+      "category": "process",
+      "count": 12,
+      "underrepresented": false
+    },
+    {
+      "category": "tool",
+      "count": 12,
+      "underrepresented": false
+    },
+    {
+      "category": "biotechnology",
+      "count": 12,
+      "underrepresented": false
+    },
+    {
+      "category": "machine",
+      "count": 11,
+      "underrepresented": false
+    },
+    {
+      "category": "storage",
+      "count": 10,
+      "underrepresented": false
+    },
+    {
+      "category": "mineral",
+      "count": 8,
+      "underrepresented": true
+    },
+    {
+      "category": "space",
+      "count": 7,
+      "underrepresented": true
+    },
+    {
+      "category": "element",
+      "count": 5,
+      "underrepresented": true
+    },
+    {
+      "category": "vegetal",
+      "count": 5,
+      "underrepresented": true
+    },
+    {
+      "category": "aeronautics",
+      "count": 4,
+      "underrepresented": true
+    },
+    {
+      "category": "animal",
+      "count": 3,
+      "underrepresented": true
+    },
+    {
+      "category": "nanotechnology",
+      "count": 3,
+      "underrepresented": true
+    }
+  ],
+  "qualityIssues": {
+    "noImage": {
+      "count": 247,
+      "sampleIds": [
+        "principes-actifs",
+        "fondations",
+        "bitume",
+        "signal-numerique",
+        "ecran-lcd",
+        "batterie-li",
+        "reseau-cellulaire",
+        "blockchain",
+        "minerai-de-cuivre",
+        "energie-solaire",
+        "etain",
+        "tour",
+        "boulon",
+        "velo",
+        "nylon",
+        "conservation-des-aliments",
+        "batterie",
+        "fongicide",
+        "acide-chlorhydrique",
+        "alcool-ethylique",
+        "alliage-de-nickel",
+        "piege-a-animaux",
+        "alcool-isopropylique",
+        "poutre-en-acier",
+        "moteur-a-reaction",
+        "caverne-saline",
+        "protocole-tcp-ip",
+        "commutation-de-paquets",
+        "aqueduc",
+        "asphalte-naturel"
+      ]
+    },
+    "noDescriptionEn": {
+      "count": 3,
+      "sampleIds": [
+        "etain",
+        "presse-a-imprimer",
+        "test-2"
+      ]
+    },
+    "orphanNodes": {
+      "count": 1,
+      "sampleIds": [
+        "ambre"
+      ]
+    },
+    "noYearApprox": {
+      "count": 3,
+      "sampleIds": [
+        "eau",
+        "sable",
+        "calcaire"
+      ]
+    },
+    "noWikipediaUrl": {
+      "count": 77,
+      "sampleIds": [
+        "eau",
+        "sable",
+        "minerai-fer",
+        "calcaire",
+        "wafer-silicium",
+        "acide-gravure",
+        "fibre-verre",
+        "fil-cuivre",
+        "viande",
+        "parchemin",
+        "journal",
+        "television",
+        "ordinateur",
+        "plastique",
+        "bouteille-plastique",
+        "engrais",
+        "soufre",
+        "poudre-a-canon",
+        "lunettes",
+        "microscope",
+        "telescope",
+        "canne-a-sucre",
+        "sucre",
+        "cacao",
+        "chocolat",
+        "houblon",
+        "biere",
+        "metier-tisser",
+        "raffinerie",
+        "antenne-radio"
+      ]
+    }
+  },
+  "brokenChains": {
+    "incompleteFinalProducts": [],
+    "deadRawMaterials": [
+      {
+        "id": "ambre",
+        "name": "Ambre",
+        "name_en": "Amber"
+      }
+    ],
+    "counts": {
+      "incompleteFinalProducts": 0,
+      "deadRawMaterials": 1
+    }
+  },
+  "missingEssentials": [
+    {
+      "name_en": "Semiconductor"
+    },
+    {
+      "name_en": "Penicillin"
+    },
+    {
+      "name_en": "Vaccination"
+    },
+    {
+      "name_en": "Solar cell"
+    },
+    {
+      "name_en": "Nuclear power"
+    },
+    {
+      "name_en": "Fiber optic"
+    },
+    {
+      "name_en": "Antibiotics"
+    }
+  ],
+  "recommendations": {
+    "addCommand": "npm run add -- --category animal --count 7",
+    "enrichCommand": "npm run enrich -- --limit 80",
+    "fixImagesCommand": "npm run fix:images"
+  }
+}

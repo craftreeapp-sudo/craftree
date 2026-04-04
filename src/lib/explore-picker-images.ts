@@ -29,6 +29,7 @@ export const PICKER_IMAGE_CATEGORY: Record<NC, string> = {
   /** Télécoms, médias (distinct de « network » câbles / infra numérique). */
   [NC.COMMUNICATION]: u('photo-1522071820081-009f0129c71c'),
   [NC.AGRICULTURE]: u('photo-1464226184884-fa280b87c399'),
+  [NC.ANIMAL]: u('photo-1437625569349-dfaaba4bec77'),
   [NC.ROBOTICS]: u('photo-1581091226825-a6a2a5aee158'),
   [NC.CHEMISTRY]: u('photo-1532094349884-543bc11b234d'),
   [NC.ELECTRONICS]: u('photo-1518770660439-4636190af475'),

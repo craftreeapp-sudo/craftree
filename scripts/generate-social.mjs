@@ -31,6 +31,10 @@
 //   node scripts/generate-social.mjs --setup
 //
 // Env: loads project root `.env` then `.env.local` (overrides), like a typical Next.js setup.
+//
+// Métriques dans les prompts :
+// - complexity_depth = profondeur stockée en base (sélection d’inventions « profondes »).
+// - Nombre d’entrées directes (liens target → cette fiche) = même chose que le badge « built upon » sur le site.
 // ============================================
 
 import { createClient } from "@supabase/supabase-js";
@@ -283,10 +287,10 @@ Write ONE tweet about this invention. Rules:
 
 Invention: ${invention.name_en}
 Description: ${invention.description_en}
-Complexity depth: ${invention.complexity_depth} layers
+Graph depth (complexity_depth in DB): ${invention.complexity_depth}
+Direct upstream cards (same count as the site badge): ${deps.length}
 Year: ${invention.year_approx ?? "unknown"}
-Direct inputs: ${deps.map((d) => d.name).filter(Boolean).join(", ")}
-Number of direct inputs: ${deps.length}
+Direct inputs (names): ${deps.map((d) => d.name).filter(Boolean).join(", ")}
 
 Reply with ONLY the tweet text, nothing else.`,
 
@@ -303,7 +307,8 @@ Write a thread of 5-7 tweets tracing the fabrication chain of "${invention.name_
 - Tone: educational, fascinating, like a mini-documentary
 
 Invention: ${invention.name_en}
-Complexity depth: ${invention.complexity_depth} layers
+Graph depth (complexity_depth in DB): ${invention.complexity_depth}
+Direct upstream cards (same count as the site badge): ${deps.length}
 Dependencies: ${deps
     .map((d) => `${d.name} (${d.dimension}/${d.material_level})`)
     .filter((d) => d !== "undefined")
@@ -318,7 +323,7 @@ Reply with ONLY the tweets, separated by "---" on its own line. No numbering, no
       "r/satisfactory":
         'You\'re posting in r/satisfactory, a community of factory-building game fans. Angle: "Real-world production chains are even more complex than Satisfactory"',
       "r/dataisbeautiful":
-        "You're posting in r/dataisbeautiful, a community that loves data visualizations. Focus on the data: number of dependencies, layers of transformation.",
+        "You're posting in r/dataisbeautiful, a community that loves data visualizations. Focus on the data: number of direct upstream links and graph depth when relevant.",
       "r/interestingasfuck":
         "You're posting in r/interestingasfuck. The post needs to be genuinely mind-blowing. Lead with the most surprising fact.",
       "r/technology":
@@ -334,15 +339,15 @@ Write a Reddit post (title + body) about "${invention.name_en}". Rules:
 - Title: engaging but NOT clickbait. Reddit hates clickbait.
 - Body: 3-5 short paragraphs. Informative, genuine, not promotional.
 - Mention craftree.app naturally (not as an ad — as a tool you built/found)
-- Include specific numbers (X raw materials, Y layers of transformation)
+- Include specific numbers (e.g. direct upstream link count, graph depth when useful)
 - End with an invitation to explore, not a hard sell
 - Reddit tone: conversational, humble, community-oriented
 
 Invention: ${invention.name_en}
 Description: ${invention.description_en}
-Complexity depth: ${invention.complexity_depth} layers
-Direct inputs: ${deps.map((d) => d.name).filter(Boolean).join(", ")}
-Number of direct inputs: ${deps.length}
+Graph depth (complexity_depth in DB): ${invention.complexity_depth}
+Direct upstream cards (same count as the site badge): ${deps.length}
+Direct inputs (names): ${deps.map((d) => d.name).filter(Boolean).join(", ")}
 
 Reply in this format:
 TITLE: [your title]
@@ -385,7 +390,7 @@ This week's featured inventions:
 ${inventions
   .map(
     (i) =>
-      `- ${i.name_en} (depth: ${i.complexity_depth}, id: ${i.id}): ${i.description_en?.slice(0, 100)}`
+      `- ${i.name_en} (graph depth: ${i.complexity_depth}, direct upstream links: ${i.upstreamLinkCount}, id: ${i.id}): ${i.description_en?.slice(0, 100)}`
   )
   .join("\n")}
 
@@ -535,7 +540,13 @@ async function generateHN() {
 
 async function generateEmailDigest() {
   console.log(`\n📧 Generating email digest...`);
-  const inventions = await getHighComplexityInventions(3);
+  const raw = await getHighComplexityInventions(3);
+  const inventions = await Promise.all(
+    raw.map(async (inv) => {
+      const deps = await getInventionWithDependencies(inv.id);
+      return { ...inv, upstreamLinkCount: deps.length };
+    })
+  );
   const content = await callClaude(PROMPTS.email_digest(inventions));
   const [subjectLine, ...bodyParts] = content.split("---");
   const subject = subjectLine.replace("SUBJECT:", "").trim();

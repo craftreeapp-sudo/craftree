@@ -1,22 +1,6 @@
-import type { Metadata } from 'next';
-import { Suspense } from 'react';
-import { EditorPageClient } from '@/components/editor/EditorPageClient';
+import { redirect } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title: { absolute: 'Craftree — Éditeur' },
-  description: 'Gestion des inventions et des liens du graphe.',
-};
-
-export default function EditorPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex min-h-[50dvh] items-center justify-center pt-14 text-muted-foreground">
-          …
-        </div>
-      }
-    >
-      <EditorPageClient />
-    </Suspense>
-  );
+/** Ancienne route ; le tableau des inventions et l’admin unifié sont sur `/admin`. */
+export default function EditorPageRedirect() {
+  redirect('/admin');
 }

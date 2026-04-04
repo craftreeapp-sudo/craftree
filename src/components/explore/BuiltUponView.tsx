@@ -439,12 +439,14 @@ function BuiltUponViewInner({
         ref={treeToolbarRef}
         id="explore-tree-toolbar"
         className={`glass-explore-sticky-nav z-[90] flex min-h-[3.5rem] w-full min-w-0 shrink-0 items-center gap-3 px-3 py-2 transition-[margin] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] sm:px-4 ${
-          legendOpen && !isMobile ? 'sm:ml-[300px]' : ''
-        } ${detailOpen && !isMobile ? 'sm:mr-[400px]' : ''}`}
+          detailOpen && !isMobile ? 'sm:mr-[400px]' : ''
+        }`}
       >
           <button
             type="button"
             onClick={() => openLegend()}
+            aria-expanded={legendOpen}
+            aria-pressed={legendOpen}
             className="shrink-0 rounded-md border border-border bg-transparent px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-accent hover:text-foreground sm:text-sm"
           >
             {t('legendButton')}

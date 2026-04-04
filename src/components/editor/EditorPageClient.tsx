@@ -1,11 +1,19 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type DragEvent,
+  type ReactNode,
+} from 'react';
 import { SuggestNodeCorrectionPanel } from '@/components/ui/SuggestNodeCorrectionPanel';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { getCategoryColor } from '@/lib/colors';
 import {
   NODE_CATEGORY_ORDER,
   ERA_ORDER,
@@ -27,17 +35,28 @@ import { EDITOR_DIM_KEY, EDITOR_LEVEL_KEY } from './dimension-editor-keys';
 import { SearchableSelect, type SearchableOption } from './SearchableSelect';
 import { eraLabelFromMessages } from '@/lib/era-display';
 import { filterValidCraftingLinks } from '@/lib/graph-utils';
-import {
-  chemicalNatureTableLabel,
-  naturalOriginTableLabel,
-} from '@/lib/nature-table-labels';
 import { rowIsDraft } from '@/lib/draft-flag';
+import { pickNodeDisplayName } from '@/lib/node-display-name';
 import { treeInventionPath, getDefaultTreeNodeId } from '@/lib/tree-routes';
 import { EXPLORE_DETAIL_PANEL_WIDTH_PX } from '@/lib/explore-layout';
 import { useGraphStore } from '@/stores/graph-store';
-import { safeCategoryLabel } from '@/lib/safe-category-label';
 import { useAuthStore } from '@/stores/auth-store';
 import { useUIStore } from '@/stores/ui-store';
+import { AdminPageClient } from '@/components/admin/AdminPageClient';
+import {
+  DEFAULT_EDITOR_INVENTION_COLUMN_ORDER,
+  EDITOR_INVENTION_COLUMN_STORAGE_KEY,
+  loadEditorInventionColumnOrder,
+  moveColumnInOrder,
+  type EditorInventionColumnId,
+} from '@/lib/editor-invention-column-order';
+import {
+  ColumnReorderHandle,
+  renderEditorInventionColumnCell,
+  renderEditorInventionColumnHeader,
+  type NodeSortKey,
+} from './EditorInventionColumnCells';
+import { duplicateNodeIdsFromNodes } from '@/lib/editor-duplicates';
 
 const RELATION_BADGE_COLORS: Record<RelationType, string> = {
   [RT.MATERIAL]: 'bg-teal-500/20 text-teal-200 border-teal-500/40',
@@ -50,15 +69,6 @@ const RELATION_BADGE_COLORS: Record<RelationType, string> = {
 type Toast = { id: number; kind: 'ok' | 'err'; text: string };
 
 type SortDir = 'asc' | 'desc';
-type NodeSortKey =
-  | 'name'
-  | 'category'
-  | 'dimension'
-  | 'materialLevel'
-  | 'era'
-  | 'year_approx'
-  | 'origin'
-  | 'links';
 
 type LinkSortKey =
   | 'source'
@@ -117,6 +127,148 @@ function linkCounts(
   return { in: inc, out: out };
 }
 
+/** Filtres liste (catégorie, époque, recherche…) — sans les bascules « isolé / brouillon / … ». */
+function nodePassesEditorBaseFilters(
+  n: SeedNode,
+  qNode: string,
+  catF: string,
+  dimensionF: string,
+  materialLevelF: string,
+  eraF: string
+): boolean {
+  if (catF !== 'all' && n.category !== catF) return false;
+  if (dimensionF !== 'all') {
+    const nd = n.dimension ?? null;
+    if (dimensionF === 'unset') {
+      if (nd !== null && nd !== undefined) return false;
+    } else if (nd !== dimensionF) return false;
+  }
+  if (materialLevelF !== 'all') {
+    const nl = n.materialLevel ?? null;
+    if (materialLevelF === 'unset') {
+      if (nl !== null && nl !== undefined) return false;
+    } else if (nl !== materialLevelF) return false;
+  }
+  if (eraF !== 'all' && n.era !== eraF) return false;
+  const qt = qNode.trim().toLowerCase();
+  if (!qt) return true;
+  const blob = [
+    n.name,
+    n.name_en,
+    n.description,
+    n.description_en ?? '',
+    n.category,
+    n.origin ?? '',
+  ]
+    .join(' ')
+    .toLowerCase();
+  return blob.includes(qt);
+}
+
+function EditorToolbarFilterIconButton({
+  tip,
+  pressed,
+  onToggle,
+  activeClass,
+  inactiveClass,
+  badgeCount,
+  children,
+}: {
+  tip: string;
+  pressed: boolean;
+  onToggle: () => void;
+  activeClass: string;
+  inactiveClass: string;
+  /** Effectif (après catégorie / époque / recherche…) — affiché en badge. */
+  badgeCount: number;
+  children: ReactNode;
+}) {
+  const label = `${tip} (${badgeCount})`;
+  return (
+    <div className="relative inline-flex max-w-full">
+      <button
+        type="button"
+        aria-pressed={pressed}
+        aria-label={label}
+        title={label}
+        onClick={onToggle}
+        className={`peer relative flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border text-sm transition-colors ${
+          pressed ? activeClass : inactiveClass
+        }`}
+      >
+        {children}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -right-1 -top-1 z-[1] flex h-[18px] min-w-[18px] items-center justify-center rounded-full border border-red-700/90 bg-red-600 px-1 text-[10px] font-bold tabular-nums leading-none text-white shadow-sm ring-1 ring-red-900/30 dark:border-red-500/80 dark:bg-red-600 dark:ring-red-950/50"
+        >
+          {badgeCount > 9999 ? '9999+' : badgeCount}
+        </span>
+      </button>
+      <span
+        aria-hidden
+        className="pointer-events-none absolute bottom-full left-1/2 z-[60] mb-2 w-max max-w-[min(20rem,calc(100vw-3rem))] -translate-x-1/2 rounded-md border border-border bg-surface-elevated px-2.5 py-1.5 text-center text-[11px] leading-snug text-foreground shadow-lg opacity-0 shadow-black/15 invisible transition-opacity duration-150 peer-hover:opacity-100 peer-hover:visible peer-focus-visible:opacity-100 peer-focus-visible:visible dark:shadow-black/40"
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
+
+function EditorToolbarFilterTextButton({
+  tip,
+  pressed,
+  onClick,
+  activeClass,
+  inactiveClass,
+  children,
+}: {
+  tip: string;
+  pressed: boolean;
+  onClick: () => void;
+  activeClass: string;
+  inactiveClass: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="relative inline-flex max-w-full">
+      <button
+        type="button"
+        aria-pressed={pressed}
+        aria-label={tip}
+        onClick={onClick}
+        className={`peer flex h-9 shrink-0 items-center gap-1 rounded-lg border px-2.5 text-xs font-medium transition-colors ${
+          pressed ? activeClass : inactiveClass
+        }`}
+      >
+        {children}
+      </button>
+      <span
+        aria-hidden
+        className="pointer-events-none absolute bottom-full left-1/2 z-[60] mb-2 w-max max-w-[min(22rem,calc(100vw-3rem))] -translate-x-1/2 rounded-md border border-border bg-surface-elevated px-2.5 py-1.5 text-center text-[11px] leading-snug text-foreground shadow-lg opacity-0 shadow-black/15 invisible transition-opacity duration-150 peer-hover:opacity-100 peer-hover:visible peer-focus-visible:opacity-100 peer-focus-visible:visible dark:shadow-black/40"
+      >
+        {tip}
+      </span>
+    </div>
+  );
+}
+
+/** Champ considéré vide pour le filtre « Incomplete » (hors year_approx). */
+function isEmptyishField(v: unknown): boolean {
+  if (v === null || v === undefined) return true;
+  if (typeof v === 'string' && v.trim() === '') return true;
+  return false;
+}
+
+/** Au moins un des champs requis manquant (aligné audit / fiches complètes). */
+function nodeIsIncompleteForFilter(n: SeedNode): boolean {
+  if (isEmptyishField(n.description_en)) return true;
+  if (isEmptyishField(n.dimension)) return true;
+  if (isEmptyishField(n.materialLevel)) return true;
+  if (isEmptyishField(n.category)) return true;
+  if (n.year_approx === null || n.year_approx === undefined) return true;
+  return false;
+}
+
 export function EditorPageClient() {
   const locale = useLocale();
   const te = useTranslations('editor');
@@ -143,7 +295,7 @@ export function EditorPageClient() {
   pushRef.current = push;
   const hydrateFromRawRef = useRef(hydrateFromRaw);
   hydrateFromRawRef.current = hydrateFromRaw;
-  const [tab, setTab] = useState<'nodes' | 'links'>('nodes');
+  const [tab, setTab] = useState<'nodes' | 'suggestions' | 'links'>('nodes');
   const [nodes, setNodes] = useState<SeedNode[]>([]);
   const [links, setLinks] = useState<CraftingLink[]>([]);
   const [loading, setLoading] = useState(true);
@@ -198,6 +350,89 @@ export function EditorPageClient() {
     [nodes]
   );
 
+  const inventionTotalFormatted = useMemo(
+    () => new Intl.NumberFormat(locale).format(nodes.length),
+    [locale, nodes.length]
+  );
+
+  const [columnOrder, setColumnOrder] = useState<EditorInventionColumnId[]>(
+    DEFAULT_EDITOR_INVENTION_COLUMN_ORDER
+  );
+  const columnOrderPersistReady = useRef(false);
+  useEffect(() => {
+    setColumnOrder(loadEditorInventionColumnOrder());
+  }, []);
+  useEffect(() => {
+    if (!columnOrderPersistReady.current) {
+      columnOrderPersistReady.current = true;
+      return;
+    }
+    if (typeof window === 'undefined') return;
+    localStorage.setItem(
+      EDITOR_INVENTION_COLUMN_STORAGE_KEY,
+      JSON.stringify(columnOrder)
+    );
+  }, [columnOrder]);
+
+  const stickyActionsColumn =
+    columnOrder[columnOrder.length - 1] === 'actions';
+
+  const [draggingColumnId, setDraggingColumnId] =
+    useState<EditorInventionColumnId | null>(null);
+  const [dragOverColumnId, setDragOverColumnId] =
+    useState<EditorInventionColumnId | null>(null);
+
+  const onColumnDragStart = useCallback((id: EditorInventionColumnId) => {
+    setDraggingColumnId(id);
+  }, []);
+  const onColumnDragEnd = useCallback(() => {
+    setDraggingColumnId(null);
+    setDragOverColumnId(null);
+  }, []);
+
+  const onColumnDragOver = useCallback(
+    (e: DragEvent, id: EditorInventionColumnId) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      setDragOverColumnId(id);
+    },
+    []
+  );
+
+  const onColumnDrop = useCallback(
+    (e: DragEvent, targetId: EditorInventionColumnId) => {
+      e.preventDefault();
+      const from = e.dataTransfer.getData(
+        'text/plain'
+      ) as EditorInventionColumnId;
+      if (!from || from === targetId) {
+        setDragOverColumnId(null);
+        setDraggingColumnId(null);
+        return;
+      }
+      setColumnOrder((o) => moveColumnInOrder(o, from, targetId));
+      setDragOverColumnId(null);
+      setDraggingColumnId(null);
+    },
+    []
+  );
+
+  const onColumnDragEnter = useCallback((id: EditorInventionColumnId) => {
+    setDragOverColumnId(id);
+  }, []);
+
+  const onColumnDragLeave = useCallback((e: DragEvent) => {
+    if (e.currentTarget === e.target) {
+      setDragOverColumnId(null);
+    }
+  }, []);
+
+  /** IDs des fiches dont le nom (ou le nom EN) est en double par rapport à une autre fiche. */
+  const duplicateNodeIds = useMemo(
+    () => duplicateNodeIdsFromNodes(nodes),
+    [nodes]
+  );
+
   /** Même pipeline que le graphe /explore (store) : liens dont les deux extrémités existent. */
   const graphModelEdges = useMemo(() => {
     if (nodes.length === 0) return [];
@@ -208,13 +443,19 @@ export function EditorPageClient() {
   const nodeOptions: SearchableOption[] = useMemo(
     () =>
       [...nodes]
-        .sort((a, b) => a.name.localeCompare(b.name, 'fr'))
+        .sort((a, b) =>
+          pickNodeDisplayName(locale, a.name, a.name_en).localeCompare(
+            pickNodeDisplayName(locale, b.name, b.name_en),
+            locale,
+            { sensitivity: 'base' }
+          )
+        )
         .map((n) => ({
           value: n.id,
-          label: n.name,
+          label: pickNodeDisplayName(locale, n.name, n.name_en),
           category: n.category as NodeCategory,
         })),
-    [nodes]
+    [nodes, locale]
   );
 
   // ——— Inventions ———
@@ -227,6 +468,18 @@ export function EditorPageClient() {
   const [isolatedOnly, setIsolatedOnly] = useState(false);
   /** Admin : n’afficher que les fiches marquées brouillon. */
   const [draftsOnly, setDraftsOnly] = useState(false);
+  /** Fiches dont le nom ou le nom (EN) est en double. */
+  const [duplicatesOnly, setDuplicatesOnly] = useState(
+    () => searchParams.get('duplicates') === '1'
+  );
+  /** image_url vide / absent. */
+  const [noImageOnly, setNoImageOnly] = useState(false);
+  /** description_en vide / absente. */
+  const [noDescriptionOnly, setNoDescriptionOnly] = useState(false);
+  /** Au moins un champ clé manquant (voir nodeIsIncompleteForFilter). */
+  const [incompleteOnly, setIncompleteOnly] = useState(false);
+  /** Au moins un lien entrant (built_upon) et aucun sortant (led_to). */
+  const [deadEndsOnly, setDeadEndsOnly] = useState(false);
   const [sortKey, setSortKey] = useState<NodeSortKey>('name');
   const [sortDir, setSortDir] = useState<SortDir>('asc');
 
@@ -288,39 +541,86 @@ export function EditorPageClient() {
     [te, push, hydrateFromRaw, links]
   );
 
+  const filterBadgeCounts = useMemo(() => {
+    let isolated = 0;
+    let drafts = 0;
+    let duplicates = 0;
+    let noImage = 0;
+    let noDescription = 0;
+    let incomplete = 0;
+    let deadEnds = 0;
+    for (const n of nodes) {
+      if (
+        !nodePassesEditorBaseFilters(
+          n,
+          qNode,
+          catF,
+          dimensionF,
+          materialLevelF,
+          eraF
+        )
+      ) {
+        continue;
+      }
+      const lc = linkCounts(n.id, graphModelEdges);
+      if (lc.in === 0 && lc.out === 0) isolated += 1;
+      if (rowIsDraft(n as unknown as Record<string, unknown>)) drafts += 1;
+      if (duplicateNodeIds.has(n.id)) duplicates += 1;
+      if ((n.image_url?.trim() ?? '') === '') noImage += 1;
+      if ((n.description_en?.trim() ?? '') === '') noDescription += 1;
+      if (nodeIsIncompleteForFilter(n)) incomplete += 1;
+      if (lc.in > 0 && lc.out === 0) deadEnds += 1;
+    }
+    return {
+      isolated,
+      drafts,
+      duplicates,
+      noImage,
+      noDescription,
+      incomplete,
+      deadEnds,
+    };
+  }, [
+    nodes,
+    qNode,
+    catF,
+    dimensionF,
+    materialLevelF,
+    eraF,
+    graphModelEdges,
+    duplicateNodeIds,
+  ]);
+
   const filteredNodes = useMemo(() => {
-    const qt = qNode.trim().toLowerCase();
     return nodes.filter((n) => {
-      if (catF !== 'all' && n.category !== catF) return false;
-      if (dimensionF !== 'all') {
-        const nd = n.dimension ?? null;
-        if (dimensionF === 'unset') {
-          if (nd !== null && nd !== undefined) return false;
-        } else if (nd !== dimensionF) return false;
+      if (
+        !nodePassesEditorBaseFilters(
+          n,
+          qNode,
+          catF,
+          dimensionF,
+          materialLevelF,
+          eraF
+        )
+      ) {
+        return false;
       }
-      if (materialLevelF !== 'all') {
-        const nl = n.materialLevel ?? null;
-        if (materialLevelF === 'unset') {
-          if (nl !== null && nl !== undefined) return false;
-        } else if (nl !== materialLevelF) return false;
-      }
-      if (eraF !== 'all' && n.era !== eraF) return false;
       if (draftsOnly && !rowIsDraft(n as unknown as Record<string, unknown>))
         return false;
       if (isolatedOnly) {
         const lc = linkCounts(n.id, graphModelEdges);
         if (lc.in !== 0 || lc.out !== 0) return false;
       }
-      if (!qt) return true;
-      const blob = [
-        n.name,
-        n.description,
-        n.category,
-        n.origin ?? '',
-      ]
-        .join(' ')
-        .toLowerCase();
-      return blob.includes(qt);
+      if (duplicatesOnly && !duplicateNodeIds.has(n.id)) return false;
+      if (noImageOnly && (n.image_url?.trim() ?? '') !== '') return false;
+      if (noDescriptionOnly && (n.description_en?.trim() ?? '') !== '')
+        return false;
+      if (incompleteOnly && !nodeIsIncompleteForFilter(n)) return false;
+      if (deadEndsOnly) {
+        const lc = linkCounts(n.id, graphModelEdges);
+        if (!(lc.in > 0 && lc.out === 0)) return false;
+      }
+      return true;
     });
   }, [
     nodes,
@@ -331,6 +631,12 @@ export function EditorPageClient() {
     eraF,
     isolatedOnly,
     draftsOnly,
+    duplicatesOnly,
+    duplicateNodeIds,
+    noImageOnly,
+    noDescriptionOnly,
+    incompleteOnly,
+    deadEndsOnly,
     graphModelEdges,
   ]);
 
@@ -341,7 +647,11 @@ export function EditorPageClient() {
       let cmp = 0;
       switch (sortKey) {
         case 'name':
-          cmp = a.name.localeCompare(b.name, 'fr');
+          cmp = pickNodeDisplayName(locale, a.name, a.name_en).localeCompare(
+            pickNodeDisplayName(locale, b.name, b.name_en),
+            locale,
+            { sensitivity: 'base' }
+          );
           break;
         case 'category':
           cmp = a.category.localeCompare(b.category);
@@ -367,13 +677,19 @@ export function EditorPageClient() {
           cmp = ca.in + ca.out - (cb.in + cb.out);
           break;
         }
+        case 'upstream_in': {
+          const ia = linkCounts(a.id, graphModelEdges).in;
+          const ib = linkCounts(b.id, graphModelEdges).in;
+          cmp = ia - ib;
+          break;
+        }
         default:
           cmp = 0;
       }
       return cmp * dir;
     });
     return arr;
-  }, [filteredNodes, sortKey, sortDir, graphModelEdges]);
+  }, [filteredNodes, sortKey, sortDir, graphModelEdges, locale]);
 
   const toggleSort = (k: NodeSortKey) => {
     if (sortKey === k) setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
@@ -407,7 +723,7 @@ export function EditorPageClient() {
     openedEditFromUrl.current = true;
     setEditingId(n.id);
     setPanelOpen(true);
-    router.replace('/editor', { scroll: false });
+    router.replace('/admin', { scroll: false });
   }, [loading, nodes, searchParams, router]);
 
   useEffect(() => {
@@ -416,8 +732,36 @@ export function EditorPageClient() {
     if (searchParams.get('edit')) return;
     openedNewFromUrl.current = true;
     setAddCardModalOpen(true);
-    router.replace('/editor', { scroll: false });
+    router.replace('/admin', { scroll: false });
   }, [loading, searchParams, router, setAddCardModalOpen]);
+
+  useEffect(() => {
+    if (searchParams.get('duplicates') === '1') setDuplicatesOnly(true);
+  }, [searchParams]);
+
+  const adminTableFocusHandledRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!searchParams.get('focus')) adminTableFocusHandledRef.current = null;
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (loading || tab !== 'nodes') return;
+    const raw = searchParams.get('focus');
+    if (!raw) return;
+    if (adminTableFocusHandledRef.current === raw) return;
+    if (!sortedNodes.some((n) => n.id === raw)) return;
+    adminTableFocusHandledRef.current = raw;
+    requestAnimationFrame(() => {
+      document
+        .getElementById(`editor-invention-row-${raw}`)
+        ?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      const next = new URLSearchParams(searchParams.toString());
+      next.delete('focus');
+      const qs = next.toString();
+      router.replace(qs ? `/admin?${qs}` : '/admin', { scroll: false });
+    });
+  }, [loading, tab, searchParams, sortedNodes, router]);
 
   const confirmDelete = async () => {
     if (!deleteTarget) return;
@@ -462,14 +806,18 @@ export function EditorPageClient() {
     const sf = srcFilter.trim().toLowerCase();
     const tf = tgtFilter.trim().toLowerCase();
     const lq = linkQ.trim().toLowerCase();
+    const nameBlob = (n: SeedNode | undefined) =>
+      n
+        ? `${n.name} ${n.name_en ?? ''}`.toLowerCase()
+        : '';
     return links.filter((l) => {
       if (relFilter !== 'all' && l.relation_type !== relFilter) return false;
       const s = nodeById.get(l.source_id);
       const t = nodeById.get(l.target_id);
-      if (sf && !(s?.name.toLowerCase().includes(sf) ?? false)) return false;
-      if (tf && !(t?.name.toLowerCase().includes(tf) ?? false)) return false;
+      if (sf && !nameBlob(s).includes(sf)) return false;
+      if (tf && !nameBlob(t).includes(tf)) return false;
       if (lq) {
-        const blob = `${s?.name ?? ''} ${t?.name ?? ''} ${l.notes ?? ''}`.toLowerCase();
+        const blob = `${nameBlob(s)} ${nameBlob(t)} ${l.notes ?? ''}`.toLowerCase();
         if (!blob.includes(lq)) return false;
       }
       return true;
@@ -479,18 +827,24 @@ export function EditorPageClient() {
   const sortedLinks = useMemo(() => {
     const arr = [...filteredLinks];
     const dir = linkSortDir === 'asc' ? 1 : -1;
+    const dn = (id: string) => {
+      const n = nodeById.get(id);
+      return n
+        ? pickNodeDisplayName(locale, n.name, n.name_en)
+        : '';
+    };
     arr.sort((a, b) => {
-      const sa = nodeById.get(a.source_id)?.name ?? '';
-      const sb = nodeById.get(b.source_id)?.name ?? '';
-      const ta = nodeById.get(a.target_id)?.name ?? '';
-      const tb = nodeById.get(b.target_id)?.name ?? '';
+      const sa = dn(a.source_id);
+      const sb = dn(b.source_id);
+      const ta = dn(a.target_id);
+      const tb = dn(b.target_id);
       let cmp = 0;
       switch (linkSortKey) {
         case 'source':
-          cmp = sa.localeCompare(sb, 'fr');
+          cmp = sa.localeCompare(sb, locale, { sensitivity: 'base' });
           break;
         case 'target':
-          cmp = ta.localeCompare(tb, 'fr');
+          cmp = ta.localeCompare(tb, locale, { sensitivity: 'base' });
           break;
         case 'relation':
           cmp = a.relation_type.localeCompare(b.relation_type);
@@ -507,7 +861,7 @@ export function EditorPageClient() {
       return cmp * dir;
     });
     return arr;
-  }, [filteredLinks, linkSortKey, linkSortDir, nodeById]);
+  }, [filteredLinks, linkSortKey, linkSortDir, nodeById, locale]);
 
   const toggleLinkSort = (k: LinkSortKey) => {
     if (linkSortKey === k) setLinkSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
@@ -618,27 +972,40 @@ export function EditorPageClient() {
 
   return (
     <div className="flex min-h-0 flex-1 flex-col bg-page pt-14 text-foreground">
-      <header className="sticky top-14 z-40 flex shrink-0 items-center border-b border-border bg-page px-6 py-4">
-        <h1 className="text-lg font-semibold">{te('pageTitle')}</h1>
+      <header className="sticky top-14 z-40 shrink-0 border-b border-border bg-page px-6 py-4">
+        <h1 className="text-lg font-semibold md:text-xl">
+          {te('pageAdminTitle')}
+        </h1>
       </header>
 
       <div className="flex min-h-0 flex-1 flex-col px-6 py-4">
-        <div className="mb-4 flex gap-6 border-b border-border">
+        <div className="mb-4 flex flex-wrap gap-6 border-b border-border">
           <button
             type="button"
             onClick={() => setTab('nodes')}
-            className={`border-b-2 pb-3 text-sm font-medium transition-colors ${
+            className={`relative border-b-2 pb-3 text-sm font-medium transition-colors ${
               tab === 'nodes'
                 ? 'border-[#3B82F6] text-white'
                 : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >
-            {te('inventions')}
+            {te('tabAllInventions', { count: inventionTotalFormatted })}
+          </button>
+          <button
+            type="button"
+            onClick={() => setTab('suggestions')}
+            className={`relative border-b-2 pb-3 text-sm font-medium transition-colors ${
+              tab === 'suggestions'
+                ? 'border-[#3B82F6] text-white'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            {te('tabSuggestions')}
           </button>
           <button
             type="button"
             onClick={() => setTab('links')}
-            className={`border-b-2 pb-3 text-sm font-medium transition-colors ${
+            className={`relative border-b-2 pb-3 text-sm font-medium transition-colors ${
               tab === 'links'
                 ? 'border-[#3B82F6] text-white'
                 : 'border-transparent text-muted-foreground hover:text-foreground'
@@ -650,6 +1017,10 @@ export function EditorPageClient() {
 
         {loading ? (
           <p className="text-muted-foreground">{te('loading')}</p>
+        ) : tab === 'suggestions' ? (
+          <div className="flex min-h-0 min-h-[50vh] flex-1 flex-col overflow-hidden">
+            <AdminPageClient embedded />
+          </div>
         ) : tab === 'nodes' ? (
           <>
             <div className="mb-4 flex flex-wrap items-center gap-3">
@@ -720,17 +1091,13 @@ export function EditorPageClient() {
                   </option>
                 ))}
               </select>
-              <button
-                type="button"
-                title={te('isolatedOnlyTitle')}
-                aria-label={te('noLinks')}
-                aria-pressed={isolatedOnly}
-                onClick={() => setIsolatedOnly((v) => !v)}
-                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border text-sm transition-colors ${
-                  isolatedOnly
-                    ? 'border-[#F87171] bg-[#7f1d1d]/35 text-[#fecaca] hover:bg-[#7f1d1d]/50'
-                    : 'border-border bg-surface-elevated text-foreground hover:bg-border'
-                }`}
+              <EditorToolbarFilterIconButton
+                tip={te('isolatedOnlyTitle')}
+                pressed={isolatedOnly}
+                onToggle={() => setIsolatedOnly((v) => !v)}
+                activeClass="border-[#F87171] bg-[#7f1d1d]/35 text-[#fecaca] hover:bg-[#7f1d1d]/50"
+                inactiveClass="border-border bg-surface-elevated text-foreground hover:bg-border"
+                badgeCount={filterBadgeCounts.isolated}
               >
                 <svg
                   width="18"
@@ -747,18 +1114,14 @@ export function EditorPageClient() {
                   <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
                   <line x1="4" y1="4" x2="20" y2="20" />
                 </svg>
-              </button>
-              <button
-                type="button"
-                title={te('draftsOnlyTitle')}
-                aria-label={te('draftsOnlyTitle')}
-                aria-pressed={draftsOnly}
-                onClick={() => setDraftsOnly((v) => !v)}
-                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border text-sm transition-colors ${
-                  draftsOnly
-                    ? 'border-orange-500/80 bg-orange-950/40 text-orange-200 hover:bg-orange-950/60'
-                    : 'border-border bg-surface-elevated text-foreground hover:bg-border'
-                }`}
+              </EditorToolbarFilterIconButton>
+              <EditorToolbarFilterIconButton
+                tip={te('draftsOnlyTitle')}
+                pressed={draftsOnly}
+                onToggle={() => setDraftsOnly((v) => !v)}
+                activeClass="border-orange-500/80 bg-orange-950/40 text-orange-200 hover:bg-orange-950/60"
+                inactiveClass="border-border bg-surface-elevated text-foreground hover:bg-border"
+                badgeCount={filterBadgeCounts.drafts}
               >
                 <svg
                   width="18"
@@ -776,290 +1139,214 @@ export function EditorPageClient() {
                   <path d="M10 13h4" />
                   <path d="M12 11v4" />
                 </svg>
-              </button>
-              <span className="text-sm text-muted-foreground">
-                {te('nodeCount', { count: sortedNodes.length })}
-              </span>
+              </EditorToolbarFilterIconButton>
+              <EditorToolbarFilterIconButton
+                tip={te('duplicatesOnlyTitle')}
+                pressed={duplicatesOnly}
+                onToggle={() => setDuplicatesOnly((v) => !v)}
+                activeClass="border-amber-500/80 bg-amber-950/45 text-amber-100 hover:bg-amber-950/65"
+                inactiveClass="border-border bg-surface-elevated text-foreground hover:bg-border"
+                badgeCount={filterBadgeCounts.duplicates}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <rect x="8" y="8" width="12" height="12" rx="2" />
+                  <rect x="4" y="4" width="12" height="12" rx="2" />
+                </svg>
+              </EditorToolbarFilterIconButton>
+              <EditorToolbarFilterIconButton
+                tip={te('filterNoImageTitle')}
+                pressed={noImageOnly}
+                onToggle={() => setNoImageOnly((v) => !v)}
+                activeClass="border-sky-500/80 bg-sky-950/40 text-sky-100 hover:bg-sky-950/60"
+                inactiveClass="border-border bg-surface-elevated text-foreground hover:bg-border"
+                badgeCount={filterBadgeCounts.noImage}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <circle cx="9" cy="11" r="2" />
+                  <path d="m3 19 6-6M14 8l7-7M21 3l-4 4" />
+                </svg>
+              </EditorToolbarFilterIconButton>
+              <EditorToolbarFilterIconButton
+                tip={te('filterNoDescriptionTitle')}
+                pressed={noDescriptionOnly}
+                onToggle={() => setNoDescriptionOnly((v) => !v)}
+                activeClass="border-violet-500/80 bg-violet-950/40 text-violet-100 hover:bg-violet-950/60"
+                inactiveClass="border-border bg-surface-elevated text-foreground hover:bg-border"
+                badgeCount={filterBadgeCounts.noDescription}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="4" y1="22" x2="22" y2="4" />
+                </svg>
+              </EditorToolbarFilterIconButton>
+              <EditorToolbarFilterIconButton
+                tip={te('filterIncompleteTitle')}
+                pressed={incompleteOnly}
+                onToggle={() => setIncompleteOnly((v) => !v)}
+                activeClass="border-rose-500/80 bg-rose-950/40 text-rose-100 hover:bg-rose-950/60"
+                inactiveClass="border-border bg-surface-elevated text-foreground hover:bg-border"
+                badgeCount={filterBadgeCounts.incomplete}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                  <line x1="12" y1="9" x2="12" y2="13" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+              </EditorToolbarFilterIconButton>
+              <EditorToolbarFilterIconButton
+                tip={te('filterDeadEndsTitle')}
+                pressed={deadEndsOnly}
+                onToggle={() => setDeadEndsOnly((v) => !v)}
+                activeClass="border-emerald-500/80 bg-emerald-950/35 text-emerald-100 hover:bg-emerald-950/55"
+                inactiveClass="border-border bg-surface-elevated text-foreground hover:bg-border"
+                badgeCount={filterBadgeCounts.deadEnds}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <circle cx="12" cy="5" r="2" />
+                  <path d="M12 7v4" />
+                  <path d="M8 21h8" />
+                  <path d="M12 11v6l-3 4M12 17l3 4" />
+                </svg>
+              </EditorToolbarFilterIconButton>
+              <EditorToolbarFilterTextButton
+                tip={te('sortByDepthTitle')}
+                pressed={sortKey === 'upstream_in'}
+                onClick={() => {
+                  if (sortKey === 'upstream_in') {
+                    setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
+                  } else {
+                    setSortKey('upstream_in');
+                    setSortDir('asc');
+                  }
+                }}
+                activeClass="border-cyan-500/80 bg-cyan-950/40 text-cyan-100 hover:bg-cyan-950/60"
+                inactiveClass="border-border bg-surface-elevated text-foreground hover:bg-border"
+              >
+                <span>{te('sortByDepthLabel')}</span>
+                <span aria-hidden className="font-mono tabular-nums">
+                  {sortKey === 'upstream_in'
+                    ? sortDir === 'asc'
+                      ? '↑'
+                      : '↓'
+                    : '↑'}
+                </span>
+              </EditorToolbarFilterTextButton>
             </div>
 
             <div className="editor-scrollbar min-h-0 flex-1 overflow-auto rounded-lg border border-border">
-              <table className="w-full min-w-[1380px] border-collapse text-sm">
+              <table className="w-full min-w-[1450px] border-collapse text-sm">
                 <thead className="sticky top-0 z-10 bg-surface-elevated text-start text-xs font-bold uppercase tracking-wide text-muted-foreground">
                   <tr>
-                    <th className="w-12 px-1 py-1 text-center text-muted-foreground">
-                      {te('imageColumn')}
-                    </th>
-                    <th className="w-[200px] px-3 py-1 text-foreground">
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-1"
-                        onClick={() => toggleSort('name')}
-                      >
-                        {te('name')}{' '}
-                        {sortKey === 'name' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
-                      </button>
-                    </th>
-                    <th className="w-[130px] px-3 py-1">
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-1"
-                        onClick={() => toggleSort('category')}
-                      >
-                        {te('category')}{' '}
-                        {sortKey === 'category' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
-                      </button>
-                    </th>
-                    <th className="w-[100px] px-3 py-1">
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-1"
-                        onClick={() => toggleSort('dimension')}
-                      >
-                        {te('columnDimension')}{' '}
-                        {sortKey === 'dimension' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
-                      </button>
-                    </th>
-                    <th className="w-[100px] px-3 py-1">
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-1"
-                        onClick={() => toggleSort('materialLevel')}
-                      >
-                        {te('columnLevel')}{' '}
-                        {sortKey === 'materialLevel'
-                          ? sortDir === 'asc'
-                            ? '↑'
-                            : '↓'
-                          : ''}
-                      </button>
-                    </th>
-                    <th className="w-[120px] px-3 py-1">
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-1"
-                        onClick={() => toggleSort('era')}
-                      >
-                        {te('era')}{' '}
-                        {sortKey === 'era' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
-                      </button>
-                    </th>
-                    <th className="w-[80px] px-3 py-1">
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-1"
-                        onClick={() => toggleSort('year_approx')}
-                      >
-                        {te('date')}{' '}
-                        {sortKey === 'year_approx' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
-                      </button>
-                    </th>
-                    <th className="w-[150px] px-3 py-1">
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-1"
-                        onClick={() => toggleSort('origin')}
-                      >
-                        {te('origin')}{' '}
-                        {sortKey === 'origin' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
-                      </button>
-                    </th>
-                    <th className="w-[120px] px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
-                      {te('columnNaturalOrigins')}
-                    </th>
-                    <th className="w-[120px] px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
-                      {te('columnChemicalNature')}
-                    </th>
-                    <th className="w-[60px] px-3 py-1 text-center">
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-1"
-                        onClick={() => toggleSort('links')}
-                      >
-                        {te('links')}{' '}
-                        {sortKey === 'links' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
-                      </button>
-                    </th>
-                    <th className="min-w-[152px] w-[152px] px-3 py-1 text-end">
-                      {te('actionsColumn')}
-                    </th>
+                    {columnOrder.map((columnId) => (
+                      <Fragment key={columnId}>
+                        {renderEditorInventionColumnHeader({
+                          columnId,
+                          te,
+                          sortKey,
+                          sortDir,
+                          toggleSort,
+                          dragHandle: (
+                            <ColumnReorderHandle
+                              columnId={columnId}
+                              title={te('columnReorderHint')}
+                              onDragStart={onColumnDragStart}
+                              onDragEnd={onColumnDragEnd}
+                            />
+                          ),
+                          dragOverColumnId,
+                          draggingColumnId,
+                          drag: {
+                            onDragOver: onColumnDragOver,
+                            onDrop: onColumnDrop,
+                            onDragEnter: onColumnDragEnter,
+                            onDragLeave: onColumnDragLeave,
+                          },
+                          stickyActionsColumn,
+                        })}
+                      </Fragment>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
                   {sortedNodes.map((n, i) => {
-                    const lc = linkCounts(n.id, graphModelEdges);
                     const bg = i % 2 === 0 ? 'bg-surface' : 'bg-[#0F1420]';
                     return (
                       <tr
+                        id={`editor-invention-row-${n.id}`}
                         key={n.id}
                         className={`border-t border-border ${bg}`}
                       >
-                        <td
-                          className="w-12 px-1 py-2 align-middle"
-                          onClick={(e) => e.stopPropagation()}
-                          onKeyDown={(e) => e.stopPropagation()}
-                        >
-                          <div className="flex justify-center">
-                            {n.image_url?.trim() ? (
-                              // eslint-disable-next-line @next/next/no-img-element
-                              <img
-                                src={
-                                  (imageBustByNodeId[n.id] ?? 0) > 0
-                                    ? `${n.image_url}${n.image_url.includes('?') ? '&' : '?'}t=${imageBustByNodeId[n.id]}`
-                                    : n.image_url
-                                }
-                                alt=""
-                                width={40}
-                                height={40}
-                                className="h-10 w-10 rounded-md object-cover"
-                              />
-                            ) : (
-                              <div
-                                className="flex h-10 w-10 items-center justify-center rounded-md text-sm font-bold text-white"
-                                style={{
-                                  backgroundColor: getCategoryColor(
-                                    n.category as NodeCategory
-                                  ),
-                                }}
-                                aria-hidden
-                              >
-                                {n.name.trim().charAt(0).toUpperCase() || '?'}
-                              </div>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-3 py-2 font-bold text-foreground">
-                          <span className="inline-flex max-w-full items-center gap-2">
-                            <Link
-                              href={treeInventionPath(n.id)}
-                              className="min-w-0 truncate text-foreground underline-offset-2 hover:text-accent hover:underline"
-                            >
-                              {n.name}
-                            </Link>
-                            {n.is_draft ? (
-                              <span
-                                className="inline-block h-2 w-2 shrink-0 rounded-full bg-orange-500"
-                                title={te('draftRowIndicator')}
-                                aria-label={te('draftRowIndicator')}
-                              />
-                            ) : null}
-                          </span>
-                        </td>
-                        <td className="px-3 py-2">
-                          <span
-                            className="inline-flex items-center gap-1 rounded border px-2 py-0.5 text-xs"
-                            style={{
-                              borderColor: getCategoryColor(n.category as NodeCategory),
-                              color: getCategoryColor(n.category as NodeCategory),
-                            }}
-                          >
-                            {safeCategoryLabel(tCat, String(n.category))}
-                          </span>
-                        </td>
-                        <td className="px-3 py-2 text-muted-foreground">
-                          {n.dimension
-                            ? te(EDITOR_DIM_KEY[n.dimension as NodeDimension])
-                            : '—'}
-                        </td>
-                        <td className="px-3 py-2 text-muted-foreground">
-                          {n.dimension === 'matter' && n.materialLevel
-                            ? te(EDITOR_LEVEL_KEY[n.materialLevel as MaterialLevel])
-                            : '—'}
-                        </td>
-                        <td className="px-3 py-2 text-muted-foreground">
-                          {eraLabelFromMessages(locale, n.era as Era)}
-                        </td>
-                        <td className="px-3 py-2">
-                          {n.year_approx === null || n.year_approx === undefined
-                            ? '—'
-                            : String(n.year_approx)}
-                        </td>
-                        <td className="max-w-[150px] truncate px-3 py-2 text-muted-foreground">
-                          {n.origin?.trim() ? n.origin : '—'}
-                        </td>
-                        <td className="max-w-[120px] truncate px-3 py-2 text-muted-foreground">
-                          {naturalOriginTableLabel(n, tExplore)}
-                        </td>
-                        <td className="max-w-[120px] truncate px-3 py-2 text-muted-foreground">
-                          {chemicalNatureTableLabel(n, tExplore)}
-                        </td>
-                        <td className="px-3 py-2 text-center font-mono text-xs text-muted-foreground">
-                          ↓{lc.in} ↑{lc.out}
-                        </td>
-                        <td className="px-3 py-2">
-                          <div className="flex items-center justify-end gap-0.5">
-                            {rowIsDraft(n as unknown as Record<string, unknown>) ? (
-                              <button
-                                type="button"
-                                disabled={draftPublishingId === n.id}
-                                className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-emerald-500/40 bg-transparent text-emerald-500 transition-colors hover:bg-emerald-500/15 hover:text-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 disabled:cursor-not-allowed disabled:opacity-40"
-                                title={te('rowActionPublishDraft')}
-                                aria-label={te('rowActionPublishDraft')}
-                                onClick={() => void publishDraftFromRow(n)}
-                              >
-                                <svg
-                                  width="18"
-                                  height="18"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  aria-hidden
-                                >
-                                  <path d="M9 12.75L11.25 15L15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                              </button>
-                            ) : null}
-                            <button
-                              type="button"
-                              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-transparent text-muted-foreground transition-colors hover:bg-border/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
-                              aria-label={te('panelEditInvention')}
-                              title={te('panelEditInvention')}
-                              onClick={() => openEdit(n)}
-                            >
-                              <svg
-                                width="18"
-                                height="18"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                aria-hidden
-                              >
-                                <path d="M12 20h9" />
-                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-                              </svg>
-                            </button>
-                            <button
-                              type="button"
-                              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-transparent text-red-400 transition-colors hover:bg-red-500/10 hover:text-red-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/30"
-                              aria-label={tc('delete')}
-                              title={tc('delete')}
-                              onClick={() => setDeleteTarget(n)}
-                            >
-                              <svg
-                                width="18"
-                                height="18"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                aria-hidden
-                              >
-                                <path d="M3 6h18" />
-                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
-                                <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                                <line x1="10" x2="10" y1="11" y2="17" />
-                                <line x1="14" x2="14" y1="11" y2="17" />
-                              </svg>
-                            </button>
-                          </div>
-                        </td>
+                        {columnOrder.map((columnId) =>
+                          renderEditorInventionColumnCell({
+                            columnId,
+                            n,
+                            graphModelEdges,
+                            imageBustByNodeId,
+                            locale,
+                            te,
+                            tCat,
+                            tExplore,
+                            tc,
+                            openEdit,
+                            publishDraftFromRow,
+                            setDeleteTarget,
+                            draftPublishingId,
+                            stickyActionsColumn,
+                            rowStripeClass: bg,
+                          })
+                        )}
                       </tr>
                     );
                   })}
@@ -1233,9 +1520,17 @@ export function EditorPageClient() {
                         key={l.id}
                         className={`border-t border-border ${bg} hover:bg-surface-elevated`}
                       >
-                        <td className="px-3 py-2 font-medium">{s?.name ?? l.source_id}</td>
+                        <td className="px-3 py-2 font-medium">
+                          {s
+                            ? pickNodeDisplayName(locale, s.name, s.name_en)
+                            : l.source_id}
+                        </td>
                         <td className="px-1 text-center text-muted-foreground">→</td>
-                        <td className="px-3 py-2 font-medium">{tgt?.name ?? l.target_id}</td>
+                        <td className="px-3 py-2 font-medium">
+                          {tgt
+                            ? pickNodeDisplayName(locale, tgt.name, tgt.name_en)
+                            : l.target_id}
+                        </td>
                         <td className="px-3 py-2">
                           <span
                             className={`inline-block rounded border px-2 py-0.5 text-xs ${RELATION_BADGE_COLORS[l.relation_type]}`}
@@ -1344,7 +1639,11 @@ export function EditorPageClient() {
           <div className="w-full max-w-md rounded-lg glass-surface p-6 shadow-xl">
             <p className="text-sm text-foreground">
               {te('deleteConfirmRich', {
-                name: deleteTarget.name,
+                name: pickNodeDisplayName(
+                  locale,
+                  deleteTarget.name,
+                  deleteTarget.name_en
+                ),
                 count: deleteLinkCount,
               })}
             </p>
@@ -1402,7 +1701,12 @@ export function EditorPageClient() {
                 <input
                   readOnly
                   disabled
-                  value={nodeById.get(linkPanel.source_id)?.name ?? linkPanel.source_id}
+                  value={(() => {
+                    const sn = nodeById.get(linkPanel.source_id);
+                    return sn
+                      ? pickNodeDisplayName(locale, sn.name, sn.name_en)
+                      : linkPanel.source_id;
+                  })()}
                   className="w-full rounded-lg border border-border bg-page px-3 py-2 text-sm text-muted-foreground"
                 />
               </div>
@@ -1413,7 +1717,12 @@ export function EditorPageClient() {
                 <input
                   readOnly
                   disabled
-                  value={nodeById.get(linkPanel.target_id)?.name ?? linkPanel.target_id}
+                  value={(() => {
+                    const tn = nodeById.get(linkPanel.target_id);
+                    return tn
+                      ? pickNodeDisplayName(locale, tn.name, tn.name_en)
+                      : linkPanel.target_id;
+                  })()}
                   className="w-full rounded-lg border border-border bg-page px-3 py-2 text-sm text-muted-foreground"
                 />
               </div>

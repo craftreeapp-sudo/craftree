@@ -12,8 +12,6 @@ import { eraLabelFromMessages } from '@/lib/era-display';
 import type { Era, MaterialLevel, NodeCategory, NodeDimension } from '@/lib/types';
 import { useGraphStore } from '@/stores/graph-store';
 import { useAuthStore } from '@/stores/auth-store';
-import { getTreeLayerDisplayIndex } from '@/lib/tree-layers';
-import { isRawMaterialNode } from '@/lib/node-dimension-helpers';
 import {
   isFrenchLocale,
   pickNodeDisplayName,
@@ -42,11 +40,6 @@ const MAX_RESULTS = 8;
 export type SearchBarNavigateOptions = {
   center?: boolean;
 };
-
-function treeLayerForSearchNode(n: SearchNode): number {
-  if (isRawMaterialNode(n)) return 0;
-  return n.complexity_depth ?? 0;
-}
 
 export function SearchBar({
   placeholder,
@@ -78,6 +71,7 @@ export function SearchBar({
     (pathname?.startsWith('/tree/') ?? false) && isMobile;
 
   const graphNodes = useGraphStore((s) => s.nodes);
+  const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
   const isAdmin = useAuthStore((s) => s.isAdmin);
   const nodes = useMemo(
     () =>
@@ -230,7 +224,7 @@ export function SearchBar({
     );
     const thumbUrl = node.image_url?.trim();
     const yearStr = formatYear(node.year_approx ?? undefined);
-    const layerIdx = getTreeLayerDisplayIndex(treeLayerForSearchNode(node));
+    const builtUponCount = getRecipeForNode(node.id).length;
     const rowHighlight =
       index === highlightedIndex
         ? isLanding
@@ -297,7 +291,9 @@ export function SearchBar({
                 <span className="opacity-50">·</span>
               </>
             ) : null}
-            <span>{tExplore('layerShort', { layer: layerIdx })}</span>
+            <span>
+              {tExplore('searchBuiltUponMeta', { count: builtUponCount })}
+            </span>
             <span className="opacity-50">·</span>
             <span>{eraLabelFromMessages(locale, node.era as Era)}</span>
           </div>

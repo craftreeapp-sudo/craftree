@@ -29,6 +29,7 @@ export const CATEGORY_LABELS_FR: Record<NodeCategory, string> = {
   [NodeCategory.TEXTILE]: 'TEXTILE',
   [NodeCategory.COMMUNICATION]: 'COMMUNICATION',
   [NodeCategory.AGRICULTURE]: 'AGRICULTURE',
+  [NodeCategory.ANIMAL]: 'ANIMAL',
   [NodeCategory.ROBOTICS]: 'ROBOTIQUE',
   [NodeCategory.CHEMISTRY]: 'CHIMIE',
   [NodeCategory.ELECTRONICS]: 'ÉLECTRONIQUE',
