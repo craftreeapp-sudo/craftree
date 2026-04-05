@@ -14,12 +14,14 @@ import { matchesSearchTokens } from '@/lib/suggest-peer-search';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
 import { safeCategoryLabel } from '@/lib/safe-category-label';
 
-const RELATION_DOT: Record<RelationType, string> = {
+/** Inclut `process` : valeur parfois présente en base (confusion avec la dimension nœud), hors enum RelationType. */
+const RELATION_DOT: Record<RelationType | 'process', string> = {
   material: '#94A3B8',
   tool: '#A78BFA',
   energy: '#EF4444',
   knowledge: '#38BDF8',
   catalyst: 'rgba(139, 149, 168, 0.5)',
+  process: '#4ADE80',
 };
 
 const MAX_GLOBAL_RESULTS = 200;
@@ -55,7 +57,7 @@ export function SuggestLinkEditCard({
   const dotColor =
     rel === 'material'
       ? getCategoryColor(peerCategory)
-      : RELATION_DOT[rel];
+      : RELATION_DOT[rel as RelationType | 'process'] ?? RELATION_DOT.knowledge;
 
   const isOrange =
     variant === 'stagedRemoval' || variant === 'pendingAdd';

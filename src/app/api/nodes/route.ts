@@ -148,6 +148,8 @@ export async function POST(request: Request) {
           ? body.chemicalNature
           : undefined
       );
+      const is_draft =
+        typeof body.is_draft === 'boolean' ? body.is_draft : false;
       const node: SeedNode = {
         id,
         name,
@@ -188,6 +190,7 @@ export async function POST(request: Request) {
         ...(chemicalNature !== ''
           ? { chemicalNature }
           : {}),
+        ...(is_draft ? { is_draft: true } : {}),
       };
       data.nodes.push(node);
       writeSeedData(data);
@@ -267,6 +270,9 @@ export async function POST(request: Request) {
       typeof body.chemicalNature === 'string' ? body.chemicalNature : undefined
     );
 
+    const is_draft =
+      typeof body.is_draft === 'boolean' ? body.is_draft : false;
+
     const insertRow = {
       id,
       name,
@@ -307,6 +313,7 @@ export async function POST(request: Request) {
       material_level: dm.materialLevel,
       natural_origin: naturalOrigin === '' ? null : naturalOrigin,
       chemical_nature: chemicalNature === '' ? null : chemicalNature,
+      is_draft,
     };
 
     const firstAttempt = await sb

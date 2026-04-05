@@ -2,6 +2,17 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import nodesIndex from './src/data/nodes-index.json';
+
+/** Aligné sur `getDefaultTreeNodeId` (tree-routes) — import JSON direct pour éviter @/ dans next.config. */
+function exploreRedirectDestination(): string {
+  const nodes = nodesIndex.nodes as { id: string; name: string }[];
+  if (nodes.length === 0) return '/tree/feu';
+  const sorted = [...nodes].sort((a, b) =>
+    a.name.localeCompare(b.name, 'fr')
+  );
+  return `/tree/${encodeURIComponent(sorted[0]!.id)}`;
+}
 
 /** Répertoire du dépôt craftree (évite que Turbopack prenne un parent à cause d’un autre lockfile). */
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
@@ -15,7 +26,13 @@ const nextConfig: NextConfig = {
   },
   compress: true,
   async redirects() {
+    const exploreDestination = exploreRedirectDestination();
     return [
+      {
+        source: '/explore',
+        destination: exploreDestination,
+        permanent: true,
+      },
       {
         source: '/admin/inventions',
         destination: '/admin',

@@ -12,6 +12,7 @@ import {
 import {
   fetchFullNodeRowById,
   isMissingDraftColumnError,
+  isMissingLockedColumnError,
   isMissingNatureColumnsError,
   mapNodeRowToSeedNode,
 } from '@/lib/data';
@@ -90,6 +91,13 @@ export async function PUT(request: Request, ctx: Ctx) {
       }
 
       const cur = data.nodes[idx]!;
+      if (cur.is_locked) {
+        const willUnlock = body.is_locked === false;
+        const otherKeys = Object.keys(body).filter((k) => k !== 'is_locked');
+        if (otherKeys.length > 0 && !willUnlock) {
+          return NextResponse.json({ error: 'node_locked' }, { status: 423 });
+        }
+      }
       let tags: string[] = cur.tags;
       const rawTags = body.tags;
       if (Array.isArray(rawTags)) tags = rawTags.map(String);
@@ -155,6 +163,12 @@ export async function PUT(request: Request, ctx: Ctx) {
         }
         merged.is_draft = Boolean(body.is_draft);
       }
+      if (body.is_locked !== undefined) {
+        if (!adminLocal) {
+          return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+        }
+        merged.is_locked = Boolean(body.is_locked);
+      }
 
       data.nodes[idx] = merged;
       writeSeedData(data);
@@ -172,6 +186,14 @@ export async function PUT(request: Request, ctx: Ctx) {
       return NextResponse.json({ error: 'Node not found' }, { status: 404 });
     }
     const cur = mapNodeRowToSeedNode(prevRow as unknown as Record<string, unknown>);
+
+    if (cur.is_locked) {
+      const willUnlock = body.is_locked === false;
+      const otherKeys = Object.keys(body).filter((k) => k !== 'is_locked');
+      if (otherKeys.length > 0 && !willUnlock) {
+        return NextResponse.json({ error: 'node_locked' }, { status: 423 });
+      }
+    }
 
     let tags: string[] | undefined;
     const rawTags = body.tags;
@@ -225,8 +247,11 @@ export async function PUT(request: Request, ctx: Ctx) {
     if (body.is_draft !== undefined) {
       patch.is_draft = Boolean(body.is_draft);
     }
+    if (body.is_locked !== undefined) {
+      patch.is_locked = Boolean(body.is_locked);
+    }
 
-    let attemptPatch: Record<string, unknown> = { ...patch };
+    const attemptPatch: Record<string, unknown> = { ...patch };
     let updated: unknown = null;
     let error: {
       message?: string;
@@ -250,6 +275,10 @@ export async function PUT(request: Request, ctx: Ctx) {
       }
       if (isMissingDraftColumnError(error) && attemptPatch.is_draft !== undefined) {
         delete attemptPatch.is_draft;
+        continue;
+      }
+      if (isMissingLockedColumnError(error) && attemptPatch.is_locked !== undefined) {
+        delete attemptPatch.is_locked;
         continue;
       }
       break;
@@ -286,6 +315,10 @@ export async function DELETE(_request: Request, ctx: Ctx) {
 
     if (!isSupabaseConfigured()) {
       const data = readSeedData();
+      const victim = data.nodes.find((n) => n.id === decoded);
+      if (victim?.is_locked) {
+        return NextResponse.json({ error: 'node_locked' }, { status: 423 });
+      }
       const before = data.nodes.length;
       data.nodes = data.nodes.filter((n) => n.id !== decoded);
       if (data.nodes.length === before) {
@@ -304,6 +337,13 @@ export async function DELETE(_request: Request, ctx: Ctx) {
     }
 
     const sb = createSupabaseServiceRoleClient();
+    const prevRow = await fetchFullNodeRowById(sb, decoded);
+    if (!prevRow) {
+      return NextResponse.json({ error: 'Node not found' }, { status: 404 });
+    }
+    if (mapNodeRowToSeedNode(prevRow as Record<string, unknown>).is_locked) {
+      return NextResponse.json({ error: 'node_locked' }, { status: 423 });
+    }
     const { error } = await sb.from('nodes').delete().eq('id', decoded);
     if (error) throw error;
     return NextResponse.json({ ok: true });

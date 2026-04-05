@@ -18,19 +18,26 @@ import { BackToExploreLink } from '@/components/layout/BackToExploreLink';
 import { useAuthStore } from '@/stores/auth-store';
 import { useToastStore } from '@/stores/toast-store';
 import {
+  SuggestionSourceBadge,
+  suggestionRowIsAi,
+} from '@/components/admin/AIBadge';
+import {
   ADMIN_DRAFT_PROPOSED_ADD,
   ADMIN_DRAFT_REMOVED_IDS,
   type AdminEditNodeLinkListsOverride,
+  getAiExplanationFromSuggestion,
   getContributorContactHintFromSuggestion,
   getContributorFacingMessageFromSuggestion,
   getExploreNodeId,
   initSuggestionEditDraft,
+  isEditNodeSuggestionType,
   type LinkSnap,
   type SuggestionRow,
   sanitizeAdminProposedAddLinks,
   VALID_RELATIONS,
   formatLinkSnapLine,
   stripLinkEditsFromPayload,
+  stripProposedAddLinksFromPayload,
 } from '@/lib/admin-suggestion-shared';
 import { PRIMARY_CARD_CATEGORY_ORDER } from '@/lib/card-primary-categories';
 import {
@@ -114,11 +121,14 @@ type AnalyticsPayload = {
 type FilterKey =
   | 'all'
   | 'edit_node'
+  | 'enrichment'
   | 'add_link'
   | 'new_node'
   | 'anonymous_users'
   | 'delete_link'
   | 'anonymous_feedback';
+
+type SourceFilterKey = 'all' | 'human' | 'ai';
 
 type SortKey = 'recent' | 'reliability' | 'type';
 
@@ -126,6 +136,8 @@ type ReliabilityTier = 'trusted' | 'new' | 'anonymous';
 
 const TYPE_SORT_ORDER: Record<string, number> = {
   edit_node: 0,
+  ai_review: 0,
+  enrichment: 0,
   add_link: 1,
   new_node: 2,
   delete_link: 3,
@@ -162,7 +174,7 @@ function getSuggestionCardTitle(
   row: SuggestionRow,
   nodeNames: Record<string, string>
 ): string {
-  if (row.suggestion_type === 'edit_node') {
+  if (isEditNodeSuggestionType(row.suggestion_type)) {
     const d = row.data as {
       proposed?: { name?: string };
       original?: { name?: string };
@@ -248,6 +260,7 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
   const [stats, setStats] = useState<Stats | null>(null);
   const [contributorList, setContributorList] = useState<ContributorRow[]>([]);
   const [filter, setFilter] = useState<FilterKey>('all');
+  const [sourceFilter, setSourceFilter] = useState<SourceFilterKey>('all');
   const [sortKey, setSortKey] = useState<SortKey>('recent');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [bulkProcessing, setBulkProcessing] = useState(false);
@@ -498,6 +511,11 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
     } else if (filter !== 'all') {
       list = list.filter((s) => s.suggestion_type === filter);
     }
+    if (sourceFilter === 'ai') {
+      list = list.filter((s) => suggestionRowIsAi(s));
+    } else if (sourceFilter === 'human') {
+      list = list.filter((s) => !suggestionRowIsAi(s));
+    }
     const tierOf = (s: SuggestionRow) =>
       getReliabilityTier(s, s.user_id ? profiles[s.user_id] : undefined);
     const sorted = [...list];
@@ -526,7 +544,7 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
       });
     }
     return sorted;
-  }, [suggestions, filter, sortKey, profiles]);
+  }, [suggestions, filter, sourceFilter, sortKey, profiles]);
 
   const selectedDetailRow = useMemo(() => {
     if (!detailPanelId) return null;
@@ -646,7 +664,7 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
           <button
             type="button"
             onClick={() => setTab('pending')}
-            className={`relative pb-2 text-base font-medium ${
+            className={`relative pb-2 text-sm font-medium ${
               tab === 'pending' ? 'text-foreground' : 'text-muted-foreground'
             }`}
           >
@@ -666,7 +684,7 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
           <button
             type="button"
             onClick={() => setTab('history')}
-            className={`relative pb-2 text-base font-medium ${
+            className={`relative pb-2 text-sm font-medium ${
               tab === 'history' ? 'text-foreground' : 'text-muted-foreground'
             }`}
           >
@@ -678,7 +696,7 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
           <button
             type="button"
             onClick={() => setTab('contributors')}
-            className={`relative pb-2 text-base font-medium ${
+            className={`relative pb-2 text-sm font-medium ${
               tab === 'contributors' ? 'text-foreground' : 'text-muted-foreground'
             }`}
           >
@@ -690,7 +708,7 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
           <button
             type="button"
             onClick={() => setTab('analytics')}
-            className={`relative pb-2 text-base font-medium ${
+            className={`relative pb-2 text-sm font-medium ${
               tab === 'analytics' ? 'text-foreground' : 'text-muted-foreground'
             }`}
           >
@@ -728,25 +746,67 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
       ) : null}
 
       {tab === 'pending' ? (
-        <div className="flex w-full min-w-0 flex-col gap-3 pb-2 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex min-w-0 flex-wrap gap-2">
+        <div className="flex w-full min-w-0 flex-col gap-2 pb-2">
+          <div className="flex w-full min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex min-w-0 flex-wrap gap-2">
+              {(
+                [
+                  ['all', 'Tout'],
+                  ['edit_node', 'Corrections'],
+                  ['enrichment', 'Enrichissement IA'],
+                  ['add_link', 'Nouveaux liens'],
+                  ['new_node', 'Nouvelles inventions'],
+                  ['anonymous_users', 'Anonymes'],
+                  ['delete_link', 'Suppressions liens'],
+                  ['anonymous_feedback', 'Retours anonymes'],
+                ] as const
+              ).map(([key, label]) => (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setFilter(key)}
+                  className={`rounded-[6px] border px-3 py-[5px] text-[13px] ${
+                    filter === key
+                      ? 'border-accent text-foreground'
+                      : 'border-border text-muted-foreground'
+                  } bg-surface`}
+                  style={{ borderWidth: '0.5px' }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <label className="flex shrink-0 items-center gap-2 text-[13px] text-muted-foreground">
+              <span>Trier par</span>
+              <select
+                value={sortKey}
+                onChange={(e) => setSortKey(e.target.value as SortKey)}
+                className="rounded-[6px] border border-border bg-surface px-2 py-1.5 text-[13px] text-foreground"
+                style={{ borderWidth: '0.5px' }}
+              >
+                <option value="recent">Plus récentes</option>
+                <option value="reliability">Fiabilité</option>
+                <option value="type">{t('sortBySuggestionKind')}</option>
+              </select>
+            </label>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[13px] text-muted-foreground">
+              {t('sourceFilterLabel')}
+            </span>
             {(
               [
-                ['all', 'Tout'],
-                ['edit_node', 'Corrections'],
-                ['add_link', 'Nouveaux liens'],
-                ['new_node', 'Nouvelles inventions'],
-                ['anonymous_users', 'Anonymes'],
-                ['delete_link', 'Suppressions liens'],
-                ['anonymous_feedback', 'Retours anonymes'],
+                ['all', t('sourceFilterAll')],
+                ['human', t('sourceFilterHuman')],
+                ['ai', t('sourceFilterAi')],
               ] as const
             ).map(([key, label]) => (
               <button
                 key={key}
                 type="button"
-                onClick={() => setFilter(key)}
+                onClick={() => setSourceFilter(key as SourceFilterKey)}
                 className={`rounded-[6px] border px-3 py-[5px] text-[13px] ${
-                  filter === key
+                  sourceFilter === key
                     ? 'border-accent text-foreground'
                     : 'border-border text-muted-foreground'
                 } bg-surface`}
@@ -756,28 +816,15 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
               </button>
             ))}
           </div>
-          <label className="flex shrink-0 items-center gap-2 text-[13px] text-muted-foreground">
-            <span>Trier par</span>
-            <select
-              value={sortKey}
-              onChange={(e) => setSortKey(e.target.value as SortKey)}
-              className="rounded-[6px] border border-border bg-surface px-2 py-1.5 text-[13px] text-foreground"
-              style={{ borderWidth: '0.5px' }}
-            >
-              <option value="recent">Plus récentes</option>
-              <option value="reliability">Fiabilité</option>
-              <option value="type">{t('sortBySuggestionKind')}</option>
-            </select>
-          </label>
         </div>
       ) : null}
 
-      <main className="min-w-0 flex-1 overflow-x-auto py-4">
+      <main className="min-w-0 flex-1 overflow-x-auto pb-4 pt-0">
         {loading ? (
-          <p className="text-muted-foreground">{tCommon('loading')}</p>
+          <p className="pt-4 text-muted-foreground">{tCommon('loading')}</p>
         ) : tab === 'analytics' ? (
           analyticsPayload ? (
-            <div className="flex min-w-0 flex-col gap-8">
+            <div className="flex min-w-0 flex-col gap-8 pt-4">
               <div className="grid w-full min-w-0 grid-cols-1 gap-[10px] sm:grid-cols-2 lg:grid-cols-4">
                 <StatCard
                   value={analyticsPayload.summary.sessionsToday}
@@ -908,10 +955,10 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
               </section>
             </div>
           ) : (
-            <p className="text-muted-foreground">{t('analyticsNoData')}</p>
+            <p className="pt-4 text-muted-foreground">{t('analyticsNoData')}</p>
           )
         ) : tab === 'contributors' ? (
-          <ul className="space-y-2">
+          <ul className="space-y-2 pt-4">
             {contributorList.map((p) => (
               <li
                 key={p.id}
@@ -1014,84 +1061,91 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
             </Link>
           </div>
         ) : filteredSuggestions.length === 0 ? (
-          <p className="text-muted-foreground">{t('noSuggestions')}</p>
+          <p className="pt-4 text-muted-foreground">{t('noSuggestions')}</p>
         ) : (
-          <div className="relative flex min-w-0 flex-col gap-4 pb-10 xl:flex-row xl:items-start xl:gap-6">
-            <div className="relative min-w-0 flex-1">
-              {tab === 'pending' && selectedIds.size > 0 ? (
-                <div
-                  className="mb-3 flex flex-wrap items-center gap-3 px-[14px] py-2"
-                  style={{
-                    background: '#111827',
-                    border: '0.5px solid rgba(59, 130, 246, 0.13)',
-                    borderRadius: 8,
-                  }}
-                >
-                  <label className="flex cursor-pointer items-center gap-2 text-[13px] text-[#8B95A8]">
-                    <input
-                      type="checkbox"
-                      className="h-[14px] w-[14px] cursor-pointer rounded-[3px] border border-[#2A3042] bg-transparent accent-[#22C55E]"
-                      checked={allPendingVisibleSelected}
-                      ref={(el) => {
-                        if (el) el.indeterminate = !allPendingVisibleSelected && selectedIds.size > 0;
-                      }}
-                      onChange={() => {
-                        if (allPendingVisibleSelected) {
-                          setSelectedIds(new Set());
-                        } else {
-                          setSelectedIds(new Set(pendingVisibleIds));
-                        }
-                      }}
-                    />
-                    Tout sélectionner
-                  </label>
-                  <span className="text-[13px] text-[#8B95A8]">
-                    {selectedIds.size} sélectionnées
-                  </span>
-                  <button
-                    type="button"
-                    disabled={bulkProcessing}
-                    onClick={() => void bulkApprove()}
+          <div className="relative flex min-w-0 flex-col gap-0 pb-10">
+            {tab === 'pending' && selectedIds.size > 0 ? (
+              <div
+                className="mb-3 flex min-w-0 flex-wrap items-center gap-3 px-[14px] py-2"
+                style={{
+                  background: '#111827',
+                  border: '0.5px solid rgba(59, 130, 246, 0.13)',
+                  borderRadius: 8,
+                }}
+              >
+                <label className="flex cursor-pointer items-center gap-2 text-[13px] text-[#8B95A8]">
+                  <input
+                    type="checkbox"
+                    className="h-[14px] w-[14px] cursor-pointer rounded-[3px] border border-[#2A3042] bg-transparent accent-[#22C55E]"
+                    checked={allPendingVisibleSelected}
+                    ref={(el) => {
+                      if (el) el.indeterminate = !allPendingVisibleSelected && selectedIds.size > 0;
+                    }}
+                    onChange={() => {
+                      if (allPendingVisibleSelected) {
+                        setSelectedIds(new Set());
+                      } else {
+                        setSelectedIds(new Set(pendingVisibleIds));
+                      }
+                    }}
+                  />
+                  Tout sélectionner
+                </label>
+                <span className="text-[13px] text-[#8B95A8]">
+                  {selectedIds.size} sélectionnées
+                </span>
+                <button
+                  type="button"
+                  disabled={bulkProcessing}
+                  onClick={() => void bulkApprove()}
                   className="rounded px-2 py-1 text-[12px] font-medium text-white disabled:opacity-50"
                   style={{ background: '#22C55E' }}
-                  >
-                    Tout approuver
-                  </button>
-                  <button
-                    type="button"
-                    disabled={bulkProcessing}
-                    onClick={() => void bulkReject()}
+                >
+                  Tout approuver
+                </button>
+                <button
+                  type="button"
+                  disabled={bulkProcessing}
+                  onClick={() => void bulkReject()}
                   className="rounded border px-2 py-1 text-[12px] font-medium text-[#EF4444] disabled:opacity-50"
                   style={{ borderColor: '#EF4444' }}
-                  >
-                    Tout rejeter
-                  </button>
-                  {bulkProcessing ? (
-                    <div className="h-1 min-w-[120px] flex-1 overflow-hidden rounded-full bg-[#1F2937]">
-                      <div
-                        className="h-full rounded-full bg-[#22C55E] transition-[width] duration-200"
-                        style={{ width: `${Math.round(bulkProgress * 100)}%` }}
-                      />
-                    </div>
-                  ) : null}
-                </div>
-              ) : null}
+                >
+                  Tout rejeter
+                </button>
+                {bulkProcessing ? (
+                  <div className="h-1 min-w-[120px] flex-1 overflow-hidden rounded-full bg-[#1F2937]">
+                    <div
+                      className="h-full rounded-full bg-[#22C55E] transition-[width] duration-200"
+                      style={{ width: `${Math.round(bulkProgress * 100)}%` }}
+                    />
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
+            <div className="relative flex min-w-0 min-h-0 flex-1 flex-col gap-4 pb-0 xl:grid xl:min-h-0 xl:grid-cols-[minmax(0,55fr)_minmax(0,20fr)_minmax(0,25fr)] xl:items-start xl:gap-4">
+              <div className="relative min-w-0 self-start xl:min-w-0">
               <div className="overflow-x-auto rounded-lg border border-border">
-                <table className="w-full min-w-[640px] border-collapse text-left text-[14px]">
+                <table className="w-full min-w-0 table-fixed border-collapse text-left text-[13px]">
+                  <colgroup>
+                    {tab === 'pending' ? <col className="w-9" /> : null}
+                    <col className="min-w-0" />
+                    <col className="min-w-0" />
+                    <col className="min-w-0" />
+                  </colgroup>
                   <thead>
                     <tr className="border-b border-border bg-surface-elevated/40">
                       {tab === 'pending' ? (
-                        <th className="w-10 px-2 py-2" scope="col">
+                        <th className="px-1.5 py-2" scope="col">
                           <span className="sr-only">{t('tableSelectColumn')}</span>
                         </th>
                       ) : null}
-                      <th className="px-3 py-2 font-medium text-muted-foreground" scope="col">
+                      <th className="px-2 py-2 font-medium text-muted-foreground" scope="col">
                         {t('tableColInvention')}
                       </th>
-                      <th className="px-3 py-2 font-medium text-muted-foreground" scope="col">
+                      <th className="px-2 py-2 font-medium text-muted-foreground" scope="col">
                         {t('tableColContributor')}
                       </th>
-                    <th className="px-3 py-2 font-medium text-muted-foreground" scope="col">
+                    <th className="px-2 py-2 font-medium text-muted-foreground" scope="col">
                       {t('tableColDate')}
                     </th>
                   </tr>
@@ -1130,7 +1184,7 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
                           } ${rowSelected ? 'bg-accent/10' : ''}`}
                         >
                           {tab === 'pending' ? (
-                            <td className="px-2 py-2 align-top">
+                            <td className="px-1.5 py-2 align-top">
                               <input
                                 type="checkbox"
                                 checked={selectedIds.has(s.id)}
@@ -1148,13 +1202,16 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
                               />
                             </td>
                           ) : null}
-                          <td className="max-w-[220px] px-3 py-2 align-top font-medium text-foreground">
-                            <span className="line-clamp-2">{title}</span>
+                          <td className="px-2 py-2 align-top font-medium text-foreground">
+                            <div className="flex min-w-0 flex-wrap items-center gap-1">
+                              <span className="line-clamp-2 break-words">{title}</span>
+                              <SuggestionSourceBadge row={s} />
+                            </div>
                           </td>
-                          <td className="max-w-[180px] px-3 py-2 align-top text-muted-foreground">
-                            <span className="line-clamp-2">{contrib}</span>
+                          <td className="px-2 py-2 align-top text-muted-foreground">
+                            <span className="line-clamp-2 break-words">{contrib}</span>
                           </td>
-                          <td className="whitespace-nowrap px-3 py-2 align-top text-muted-foreground">
+                          <td className="whitespace-nowrap px-2 py-2 align-top text-[12px] text-muted-foreground">
                             {formatRelativeFr(dateIso)}
                           </td>
                         </tr>
@@ -1165,7 +1222,7 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
               </div>
               {tab === 'pending' && shortcutTargetId ? (
                 <p
-                  className="pointer-events-none fixed bottom-4 right-4 z-10 max-w-[min(100vw-2rem,22rem)] text-[12px] xl:right-[min(28rem,42vw)]"
+                  className="pointer-events-none fixed bottom-4 left-4 z-10 max-w-[min(100vw-2rem,22rem)] text-[12px] xl:left-auto xl:right-6"
                   style={{ color: '#3D4555' }}
                 >
                   {t('keyboardHintOpenRejectView')}
@@ -1173,7 +1230,13 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
               ) : null}
             </div>
             <aside
-              className="w-full shrink-0 rounded-lg border border-border bg-surface-elevated/30 p-4 xl:sticky xl:top-4 xl:max-h-[calc(100vh-3rem)] xl:w-[min(420px,38vw)] xl:max-w-[480px] xl:overflow-y-auto"
+              className="min-w-0 w-full shrink-0 self-start rounded-lg border border-border bg-surface-elevated/25 p-3 xl:sticky xl:top-0 xl:max-h-[calc(100vh-3rem)] xl:overflow-y-auto"
+              aria-label={t('panelAiExplanationAria')}
+            >
+              <AdminSuggestionAiExplanationPanel row={selectedDetailRow} />
+            </aside>
+            <aside
+              className="min-w-0 w-full shrink-0 self-start rounded-lg border border-border bg-surface-elevated/30 p-4 xl:sticky xl:top-0 xl:max-h-[calc(100vh-3rem)] xl:overflow-y-auto"
               aria-label={t('panelApprovalAria')}
             >
               <AdminSuggestionApprovalPanel
@@ -1184,6 +1247,7 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
                 onResolved={removeAfterExit}
               />
             </aside>
+          </div>
           </div>
         )}
       </main>
@@ -1201,6 +1265,49 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
     >
       {inner}
     </AppContentShell>
+  );
+}
+
+function AdminSuggestionAiExplanationPanel({
+  row,
+}: {
+  row: SuggestionRow | null;
+}) {
+  const t = useTranslations('admin');
+  const aiExplanation = row ? getAiExplanationFromSuggestion(row) : null;
+
+  if (!row) {
+    return (
+      <div className="flex min-h-[180px] flex-col items-center justify-center px-2 text-center">
+        <p className="text-[14px] text-muted-foreground">
+          {t('panelSelectSuggestion')}
+        </p>
+      </div>
+    );
+  }
+
+  if (!aiExplanation || !suggestionRowIsAi(row)) {
+    return (
+      <div className="flex min-h-[140px] flex-col items-center justify-center rounded-lg border border-dashed border-border/50 bg-surface/20 px-3 py-6 text-center">
+        <p className="text-[12px] leading-snug text-muted-foreground">
+          {t('aiExplanationPanelPlaceholder')}
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-xl border border-violet-500/40 bg-violet-950/30 p-3 sm:p-4 ring-1 ring-violet-500/25">
+      <p className="text-[11px] font-semibold uppercase tracking-wide text-violet-200/95">
+        {t('aiExplanationTitle')}
+      </p>
+      <p className="mt-2 whitespace-pre-wrap text-[13px] leading-relaxed text-foreground">
+        {aiExplanation}
+      </p>
+      <p className="mt-2 text-[11px] text-muted-foreground">
+        {t('aiExplanationHint')}
+      </p>
+    </div>
   );
 }
 
@@ -1250,7 +1357,7 @@ function AdminSuggestionApprovalPanel({
         admin_comment: adminComment.trim() || null,
       };
 
-      if (row.suggestion_type === 'edit_node') {
+      if (isEditNodeSuggestionType(row.suggestion_type)) {
         const raw = { ...editDraft };
         const removed = raw[ADMIN_DRAFT_REMOVED_IDS];
         const adds = raw[ADMIN_DRAFT_PROPOSED_ADD];
@@ -1337,10 +1444,9 @@ function AdminSuggestionApprovalPanel({
   const exploreId = getExploreNodeId(row);
   const isAnonFeedback = row.suggestion_type === 'anonymous_feedback';
   const cardTitle = getSuggestionCardTitle(row, nodeNames);
-  const headline =
-    row.suggestion_type === 'edit_node'
-      ? `${cardTitle} — ${t('editNodeCorrectionTitle')}`
-      : cardTitle;
+  const headline = isEditNodeSuggestionType(row.suggestion_type)
+    ? `${cardTitle} — ${t('editNodeCorrectionTitle')}`
+    : cardTitle;
 
   return (
     <div className="space-y-4 text-[15px]">
@@ -1428,7 +1534,7 @@ function AdminSuggestionApprovalPanel({
         editDraft={editDraft}
         onEditDraftChange={setEditDraft}
         moderationUi
-        editNodeMode={row.suggestion_type === 'edit_node' ? 'full' : 'diff'}
+        editNodeMode={isEditNodeSuggestionType(row.suggestion_type) ? 'full' : 'diff'}
         readOnly={readOnly}
         comfortableText
         suggestedFieldHighlight
@@ -1571,7 +1677,7 @@ export function AdminSuggestionFormBody({
 
   const data = row.data;
 
-  if (row.suggestion_type === 'edit_node') {
+  if (isEditNodeSuggestionType(row.suggestion_type)) {
     const d = data as {
       original?: Record<string, unknown>;
       proposed?: Record<string, unknown>;
@@ -1594,15 +1700,26 @@ export function AdminSuggestionFormBody({
     const nodeDiff =
       d.diff ??
       computeDiff(
-        stripLinkEditsFromPayload(orig) as Record<string, unknown>,
-        stripLinkEditsFromPayload(prop) as Record<string, unknown>
+        stripProposedAddLinksFromPayload(
+          stripLinkEditsFromPayload(orig) as Record<string, unknown>
+        ) as Record<string, unknown>,
+        stripProposedAddLinksFromPayload(
+          stripLinkEditsFromPayload(prop) as Record<string, unknown>
+        ) as Record<string, unknown>
       );
     const linkDiff = d.linkDiff ?? {};
     const linkContext = d.linkContext ?? {};
     const removedLinkIds = Array.isArray(d.removedLinkIds) ? d.removedLinkIds : [];
-    const proposedAddLinks = Array.isArray(d.proposedAddLinks)
+    const propNested = prop as { proposedAddLinks?: unknown };
+    const nestedAdds = Array.isArray(propNested.proposedAddLinks)
+      ? propNested.proposedAddLinks
+      : [];
+    let proposedAddLinks = Array.isArray(d.proposedAddLinks)
       ? d.proposedAddLinks
       : [];
+    if (proposedAddLinks.length === 0 && nestedAdds.length > 0) {
+      proposedAddLinks = nestedAdds as typeof proposedAddLinks;
+    }
     const origLinkEdits =
       (orig as { linkEdits?: Record<string, LinkSnap> }).linkEdits ?? {};
 
@@ -2615,7 +2732,9 @@ export function AdminSuggestionFormBody({
       relation_type: string;
       is_optional?: boolean;
       notes?: string | null;
+      source?: string;
     };
+    const isAiAddLink = d.source === 'ai';
     const srcName = nodeNames[d.source_id] ?? d.source_id;
     const tgtName = nodeNames[d.target_id] ?? d.target_id;
     const relTypeLabel = tRel(d.relation_type as Parameters<typeof tRel>[0]);
@@ -2696,6 +2815,11 @@ export function AdminSuggestionFormBody({
           </p>
           <label className={addLinkLabelClass}>
             {ta('field_link_notes')}
+            {isAiAddLink ? (
+              <span className="mt-0.5 block text-[11px] font-normal text-violet-300/90">
+                {ta('addLinkAiNotesHint')}
+              </span>
+            ) : null}
             <input
               className={addLinkFieldClass}
               value={draft.notes ?? d.notes ?? ''}
@@ -3448,6 +3572,8 @@ export function AdminSuggestionFormBody({
       link_id?: string;
       source_id?: string;
       target_id?: string;
+      ai_reason?: string | null;
+      source?: string;
     };
     const srcName = nodeNames[d.source_id ?? ''] ?? d.source_id ?? '—';
     const tgtName = nodeNames[d.target_id ?? ''] ?? d.target_id ?? '—';
@@ -3487,6 +3613,18 @@ export function AdminSuggestionFormBody({
               {d.link_id}
             </p>
           ) : null}
+          {typeof d.ai_reason === 'string' && d.ai_reason.trim() ? (
+            <p
+              className={`${
+                comfortableText ? 'text-[14px]' : 'text-[12px]'
+              } rounded-md border border-violet-500/30 bg-violet-950/20 px-3 py-2 text-foreground`}
+            >
+              <span className="font-medium text-violet-200/95">
+                {ta('deleteLinkAiReasonLabel')}
+              </span>{' '}
+              {d.ai_reason.trim()}
+            </p>
+          ) : null}
         </div>
       );
     }
@@ -3511,6 +3649,18 @@ export function AdminSuggestionFormBody({
         {d.link_id ? (
           <p className="text-[10px] font-mono text-muted-foreground">
             {d.link_id}
+          </p>
+        ) : null}
+        {typeof d.ai_reason === 'string' && d.ai_reason.trim() ? (
+          <p
+            className={`${
+              comfortableText ? 'text-[14px]' : 'text-[12px]'
+            } text-muted-foreground`}
+          >
+            <span className="font-medium text-violet-300/90">
+              {ta('deleteLinkAiReasonLabel')}
+            </span>{' '}
+            {d.ai_reason.trim()}
           </p>
         ) : null}
       </div>

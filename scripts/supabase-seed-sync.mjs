@@ -141,6 +141,40 @@ export async function upsertSeedLinks(supabase, seedLinks) {
 export const upsertNodes = upsertSeedNodes;
 export const upsertLinks = upsertSeedLinks;
 
+const IDENTITY_PAGE_SIZE = 1000;
+
+/**
+ * Tous les ids et libellés (name / name_en en minuscules) pour éviter les doublons
+ * entre seed local et base distante (add-inventions).
+ * @param {import('@supabase/supabase-js').SupabaseClient} supabase
+ * @returns {Promise<{ ids: Set<string>, namesLower: Set<string> }>}
+ */
+export async function fetchExistingNodeIdentity(supabase) {
+  const ids = new Set();
+  const namesLower = new Set();
+  let from = 0;
+  for (;;) {
+    const { data, error } = await supabase
+      .from('nodes')
+      .select('id,name,name_en')
+      .order('id', { ascending: true })
+      .range(from, from + IDENTITY_PAGE_SIZE - 1);
+    if (error) {
+      console.error('Supabase fetch nodes (identity):', error);
+      process.exit(1);
+    }
+    if (!data?.length) break;
+    for (const row of data) {
+      if (row.id) ids.add(String(row.id));
+      if (row.name) namesLower.add(String(row.name).toLowerCase());
+      if (row.name_en) namesLower.add(String(row.name_en).toLowerCase());
+    }
+    if (data.length < IDENTITY_PAGE_SIZE) break;
+    from += IDENTITY_PAGE_SIZE;
+  }
+  return { ids, namesLower };
+}
+
 /**
  * Mise à jour d’image seule (évite un upsert partiel qui écraserait name, etc.).
  * @param {import('@supabase/supabase-js').SupabaseClient} supabase

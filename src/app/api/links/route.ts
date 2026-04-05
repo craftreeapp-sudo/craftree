@@ -12,10 +12,12 @@ import {
 import { requireAdminFromRequest } from '@/lib/auth-server';
 import {
   fetchAllLinkRowsPaginated,
+  fetchAllNodeIdsSet,
   GRAPH_LINKS_SELECT,
   mapLinkRowToCraftingLink,
 } from '@/lib/data';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
+import { linkEndpointsLockedFromSeed } from '@/lib/node-lock';
 
 const JSON_NO_STORE = {
   headers: {
@@ -98,6 +100,9 @@ export async function POST(request: Request) {
           { status: 400 }
         );
       }
+      if (linkEndpointsLockedFromSeed(data.nodes, source_id, target_id)) {
+        return NextResponse.json({ error: 'node_locked' }, { status: 423 });
+      }
 
       const dup = data.links.some(
         (l) =>
@@ -136,13 +141,24 @@ export async function POST(request: Request) {
     }
 
     const sb = createSupabaseServiceRoleClient();
-    const { data: nodes } = await sb.from('nodes').select('id');
-    const nodeIds = new Set((nodes ?? []).map((n) => String(n.id)));
+    const nodeIds = await fetchAllNodeIdsSet(sb);
     if (!nodeIds.has(source_id) || !nodeIds.has(target_id)) {
       return NextResponse.json(
         { error: 'source_id or target_id does not exist' },
         { status: 400 }
       );
+    }
+
+    const { data: lockRows } = await sb
+      .from('nodes')
+      .select('id, is_locked')
+      .in('id', [source_id, target_id]);
+    if (
+      lockRows?.some(
+        (r: { is_locked?: boolean }) => r.is_locked === true
+      )
+    ) {
+      return NextResponse.json({ error: 'node_locked' }, { status: 423 });
     }
 
     const existingRows = await fetchAllLinkRowsPaginated(sb, '*');

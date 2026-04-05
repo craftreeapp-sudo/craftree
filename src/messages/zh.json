@@ -353,6 +353,7 @@
     "pageAdminTitle": "管理",
     "tabAllInventions": "全部发明（{count}）",
     "tabSuggestions": "建议",
+    "tabSuggestionsWithCount": "建议（{count}）",
     "allInventionsHeading": "全部发明（{count}）",
     "adminOnly": "仅限管理员访问。",
     "backToExplore": "← 返回树",
@@ -411,11 +412,14 @@
     "addCardHintOrigin": "出现地点、文明或背景（若已知）。",
     "addCardHintDescription": "简要说明该发明及其在制造链中的作用。",
     "addCardHintLinks": "连接到图谱：下游产出与上游依赖。",
+    "addCardPublishLive": "发布",
+    "addCardSaveDraft": "保存草稿",
     "similarNameMatches": "相近名称（站点已有）",
     "toastNameAlreadyExists": "已存在同名卡片",
     "toastError": "错误",
     "toastNodeUpdated": "发明已更新",
     "toastNodeCreated": "发明已创建",
+    "toastNodeCreatedDraft": "草稿已保存",
     "toastNetworkError": "网络错误",
     "toastDeleteFailed": "无法删除",
     "toastNodeDeleted": "发明已删除",
@@ -491,7 +495,8 @@
     "tool": "工具",
     "energy": "能源",
     "knowledge": "知识",
-    "catalyst": "催化剂"
+    "catalyst": "催化剂",
+    "process": "工艺"
   },
   "connectionPopup": {
     "createHeading": "创建：{name}",

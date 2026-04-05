@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import type { TranslationValues, useTranslations } from 'next-intl';
-import type { DragEvent, ReactNode } from 'react';
+import { useEffect, useRef, type DragEvent, type ReactNode } from 'react';
 import { BuiltUponBadgePopover } from '@/components/explore/BuiltUponBadgePopover';
 import { getCategoryColor } from '@/lib/colors';
 import { eraLabelFromMessages } from '@/lib/era-display';
@@ -18,6 +18,8 @@ import { rowIsDraft } from '@/lib/draft-flag';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
 import { treeInventionPath } from '@/lib/tree-routes';
 import { safeCategoryLabel } from '@/lib/safe-category-label';
+import { seedNodeIsLocked } from '@/lib/node-lock';
+import { AIReviewButton } from '@/components/admin/AIReviewButton';
 import { EDITOR_DIM_KEY, EDITOR_LEVEL_KEY } from './dimension-editor-keys';
 import type {
   CraftingLink,
@@ -86,6 +88,34 @@ export function ColumnReorderHandle({
   );
 }
 
+function SelectAllCheckbox({
+  allSelected,
+  someSelected,
+  onToggle,
+  ariaLabel,
+}: {
+  allSelected: boolean;
+  someSelected: boolean;
+  onToggle: () => void;
+  ariaLabel: string;
+}) {
+  const ref = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (ref.current) ref.current.indeterminate = someSelected && !allSelected;
+  }, [someSelected, allSelected]);
+  return (
+    <input
+      ref={ref}
+      type="checkbox"
+      className="h-4 w-4 rounded border-border accent-accent"
+      checked={allSelected}
+      onChange={onToggle}
+      aria-label={ariaLabel}
+      title={ariaLabel}
+    />
+  );
+}
+
 function thWrap(
   columnId: EditorInventionColumnId,
   dragOver: boolean,
@@ -98,7 +128,8 @@ function thWrap(
     onDragEnter: (id: EditorInventionColumnId) => void;
     onDragLeave: (e: DragEvent) => void;
   },
-  stickyTrailing = false
+  stickyTrailing = false,
+  stickyLeading = false
 ) {
   const base = EDITOR_INVENTION_COLUMN_TH_CLASS[columnId];
   const ring =
@@ -107,6 +138,9 @@ function thWrap(
       : dragging
         ? ' opacity-60'
         : '';
+  const stickyLeadingCls = stickyLeading
+    ? ' sticky left-0 z-30 border-r border-border bg-surface-elevated shadow-[8px_0_14px_-6px_rgba(0,0,0,0.35)] dark:shadow-[8px_0_14px_-6px_rgba(0,0,0,0.55)]'
+    : '';
   const stickyTrailingCls = stickyTrailing
     ? ' sticky right-0 z-30 border-l border-border bg-surface-elevated shadow-[-8px_0_14px_-6px_rgba(0,0,0,0.35)] dark:shadow-[-8px_0_14px_-6px_rgba(0,0,0,0.55)]'
     : '';
@@ -118,7 +152,7 @@ function thWrap(
         : 'justify-start';
   return (
     <th
-      className={`${base}${ring}${stickyTrailingCls}`}
+      className={`${base}${ring}${stickyLeadingCls}${stickyTrailingCls}`}
       onDragOver={(e) => drag.onDragOver(e, columnId)}
       onDrop={(e) => drag.onDrop(e, columnId)}
       onDragEnter={() => drag.onDragEnter(columnId)}
@@ -140,6 +174,8 @@ export function renderEditorInventionColumnHeader({
   draggingColumnId,
   drag,
   stickyActionsColumn,
+  stickySelectColumn,
+  selectColumnHeader,
 }: {
   columnId: EditorInventionColumnId;
   te: (key: string, values?: TranslationValues) => string;
@@ -150,6 +186,12 @@ export function renderEditorInventionColumnHeader({
   dragOverColumnId: EditorInventionColumnId | null;
   draggingColumnId: EditorInventionColumnId | null;
   stickyActionsColumn: boolean;
+  stickySelectColumn: boolean;
+  selectColumnHeader: {
+    allVisibleSelected: boolean;
+    someVisibleSelected: boolean;
+    onToggleAllVisible: () => void;
+  } | null;
   drag: {
     onDragOver: (e: DragEvent, id: EditorInventionColumnId) => void;
     onDrop: (e: DragEvent, id: EditorInventionColumnId) => void;
@@ -164,6 +206,23 @@ export function renderEditorInventionColumnHeader({
     sortKey === k ? (sortDir === 'asc' ? '↑' : '↓') : '';
 
   switch (columnId) {
+    case 'select':
+      return thWrap(columnId, dragOver, dragging, 'center', [
+        dragHandle,
+        selectColumnHeader ? (
+          <SelectAllCheckbox
+            key="cb"
+            allSelected={selectColumnHeader.allVisibleSelected}
+            someSelected={selectColumnHeader.someVisibleSelected}
+            onToggle={selectColumnHeader.onToggleAllVisible}
+            ariaLabel={te('columnSelectAllAria')}
+          />
+        ) : (
+          <span key="e" className="text-[10px] text-muted-foreground">
+            —
+          </span>
+        ),
+      ], drag, false, stickySelectColumn);
     case 'image':
       return thWrap(columnId, dragOver, dragging, 'center', [
         dragHandle,
@@ -332,6 +391,14 @@ export function renderEditorInventionColumnCell({
   draftPublishingId,
   stickyActionsColumn,
   rowStripeClass,
+  duplicatePeerId = null,
+  onCompareDuplicates,
+  selectedIds,
+  onToggleRowSelect,
+  stickySelectColumn,
+  onToggleNodeLock,
+  toggleLockBusyId,
+  onAiReviewToast,
 }: {
   columnId: EditorInventionColumnId;
   n: SeedNode;
@@ -347,12 +414,44 @@ export function renderEditorInventionColumnCell({
   setDeleteTarget: (n: SeedNode) => void;
   draftPublishingId: string | null;
   stickyActionsColumn: boolean;
+  stickySelectColumn: boolean;
   rowStripeClass: string;
+  duplicatePeerId?: string | null;
+  onCompareDuplicates?: (n: SeedNode) => void;
+  selectedIds: Set<string>;
+  onToggleRowSelect: (id: string) => void;
+  onToggleNodeLock: (n: SeedNode) => void;
+  toggleLockBusyId: string | null;
+  onAiReviewToast?: (message: string, kind: 'ok' | 'err') => void;
 }): ReactNode {
   const lc = linkCounts(n.id, graphModelEdges);
   const displayName = pickNodeDisplayName(locale, n.name, n.name_en);
+  const locked = seedNodeIsLocked(n);
 
   switch (columnId) {
+    case 'select': {
+      const stickyCls = stickySelectColumn
+        ? `sticky left-0 z-20 border-r border-border ${rowStripeClass}`
+        : '';
+      return (
+        <td
+          key={columnId}
+          className={`w-10 px-1 py-2 align-middle${stickyCls ? ` ${stickyCls}` : ''}`}
+        >
+          <div className="flex justify-center">
+            <input
+              type="checkbox"
+              className="h-4 w-4 rounded border-border accent-accent"
+              checked={selectedIds.has(n.id)}
+              onChange={() => onToggleRowSelect(n.id)}
+              aria-label={te('rowSelectAria')}
+              title={te('rowSelectAria')}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+        </td>
+      );
+    }
     case 'image':
       return (
         <td
@@ -409,6 +508,26 @@ export function renderEditorInventionColumnCell({
                 title={te('draftRowIndicator')}
                 aria-label={te('draftRowIndicator')}
               />
+            ) : null}
+            {locked ? (
+              <span
+                className="inline-flex shrink-0 text-amber-400/95"
+                title={te('rowLockedBadge')}
+                aria-label={te('rowLockedBadge')}
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden
+                >
+                  <rect x="5" y="11" width="14" height="10" rx="2" />
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                </svg>
+              </span>
             ) : null}
           </span>
         </td>
@@ -511,11 +630,55 @@ export function renderEditorInventionColumnCell({
           key={columnId}
           className={`px-3 py-2${stickyCls ? ` ${stickyCls}` : ''}`}
         >
-          <div className="flex items-center justify-end gap-0.5">
+          <div className="flex flex-wrap items-center justify-end gap-0.5">
+            <button
+              type="button"
+              disabled={toggleLockBusyId === n.id}
+              className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border bg-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-40 ${
+                locked
+                  ? 'border-amber-500/55 text-amber-300 hover:bg-amber-500/15 focus-visible:ring-amber-500/40'
+                  : 'border-border/60 text-muted-foreground hover:bg-border/40 hover:text-foreground focus-visible:ring-accent/50'
+              }`}
+              title={locked ? te('rowActionUnlock') : te('rowActionLock')}
+              aria-label={locked ? te('rowActionUnlock') : te('rowActionLock')}
+              onClick={() => onToggleNodeLock(n)}
+            >
+              {locked ? (
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <rect x="5" y="11" width="14" height="10" rx="2" />
+                  <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+                </svg>
+              ) : (
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <rect x="5" y="11" width="14" height="10" rx="2" />
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                </svg>
+              )}
+            </button>
             {rowIsDraft(n as unknown as Record<string, unknown>) ? (
               <button
                 type="button"
-                disabled={draftPublishingId === n.id}
+                disabled={locked || draftPublishingId === n.id}
                 className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-emerald-500/40 bg-transparent text-emerald-500 transition-colors hover:bg-emerald-500/15 hover:text-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 disabled:cursor-not-allowed disabled:opacity-40"
                 title={te('rowActionPublishDraft')}
                 aria-label={te('rowActionPublishDraft')}
@@ -536,9 +699,17 @@ export function renderEditorInventionColumnCell({
                 </svg>
               </button>
             ) : null}
+            {onAiReviewToast ? (
+              <AIReviewButton
+                inventionId={n.id}
+                disabled={locked}
+                onResult={onAiReviewToast}
+              />
+            ) : null}
             <button
               type="button"
-              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-transparent text-muted-foreground transition-colors hover:bg-border/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+              disabled={locked}
+              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-transparent text-muted-foreground transition-colors hover:bg-border/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 disabled:cursor-not-allowed disabled:opacity-40"
               aria-label={te('panelEditInvention')}
               title={te('panelEditInvention')}
               onClick={() => openEdit(n)}
@@ -558,9 +729,39 @@ export function renderEditorInventionColumnCell({
                 <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
               </svg>
             </button>
+            {duplicatePeerId && onCompareDuplicates ? (
+              <button
+                type="button"
+                disabled={locked}
+                className="inline-flex h-8 max-w-[9rem] shrink-0 items-center justify-center gap-1 rounded-lg border border-amber-500/50 bg-transparent px-1.5 text-amber-200/90 transition-colors hover:bg-amber-500/15 hover:text-amber-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/40 disabled:cursor-not-allowed disabled:opacity-40"
+                aria-label={te('rowActionCompareDuplicates')}
+                title={te('rowActionCompareDuplicates')}
+                onClick={() => onCompareDuplicates(n)}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="shrink-0"
+                  aria-hidden
+                >
+                  <rect x="8" y="8" width="12" height="12" rx="2" />
+                  <rect x="4" y="4" width="12" height="12" rx="2" />
+                </svg>
+                <span className="hidden text-left text-[10px] font-medium leading-tight sm:inline">
+                  {te('rowActionCompareDuplicatesLabel')}
+                </span>
+              </button>
+            ) : null}
             <button
               type="button"
-              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-transparent text-red-400 transition-colors hover:bg-red-500/10 hover:text-red-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/30"
+              disabled={locked}
+              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-transparent text-red-400 transition-colors hover:bg-red-500/10 hover:text-red-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/30 disabled:cursor-not-allowed disabled:opacity-40"
               aria-label={tc('delete')}
               title={tc('delete')}
               onClick={() => setDeleteTarget(n)}

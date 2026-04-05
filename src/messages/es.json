@@ -353,6 +353,7 @@
     "pageAdminTitle": "Administración",
     "tabAllInventions": "Todas las invenciones ({count})",
     "tabSuggestions": "Sugerencias",
+    "tabSuggestionsWithCount": "Sugerencias ({count})",
     "allInventionsHeading": "Todas las invenciones ({count})",
     "adminOnly": "Acceso reservado a administradores.",
     "backToExplore": "← Volver al árbol",
@@ -411,11 +412,14 @@
     "addCardHintOrigin": "Lugar, pueblo o contexto de aparición si se conoce.",
     "addCardHintDescription": "Breve descripción del papel de esta invención en una cadena de fabricación.",
     "addCardHintLinks": "Conecta la tarjeta al grafo: salidas (aguas abajo) y dependencias (aguas arriba).",
+    "addCardPublishLive": "Publicar",
+    "addCardSaveDraft": "Guardar borrador",
     "similarNameMatches": "Nombres parecidos (ya en el sitio)",
     "toastNameAlreadyExists": "Ya existe una tarjeta con este nombre",
     "toastError": "Error",
     "toastNodeUpdated": "Invención actualizada",
     "toastNodeCreated": "Invención creada",
+    "toastNodeCreatedDraft": "Borrador guardado",
     "toastNetworkError": "Error de red",
     "toastDeleteFailed": "No se pudo eliminar",
     "toastNodeDeleted": "Invención eliminada",
@@ -491,7 +495,8 @@
     "tool": "Herramienta",
     "energy": "Energía",
     "knowledge": "Conocimiento",
-    "catalyst": "Catalizador"
+    "catalyst": "Catalizador",
+    "process": "Proceso"
   },
   "connectionPopup": {
     "createHeading": "Crear: {name}",

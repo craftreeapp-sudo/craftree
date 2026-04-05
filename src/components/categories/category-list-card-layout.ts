@@ -9,11 +9,11 @@ export const CATEGORY_LIST_GRID_CLASS: Record<
   string
 > = {
   comfort:
-    'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4',
+    'grid w-full min-w-0 grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4',
   balanced:
-    'grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6',
+    'grid w-full min-w-0 grid-cols-2 items-stretch gap-3 sm:grid-cols-3 lg:grid-cols-6',
   dense:
-    'grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-8',
+    'grid w-full min-w-0 grid-cols-2 items-stretch gap-3 sm:grid-cols-3 lg:grid-cols-8',
 };
 
 export function isCategoryListCardLayout(

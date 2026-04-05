@@ -353,6 +353,7 @@
     "pageAdminTitle": "प्रशासन",
     "tabAllInventions": "सभी आविष्कार ({count})",
     "tabSuggestions": "सुझाव",
+    "tabSuggestionsWithCount": "सुझाव ({count})",
     "allInventionsHeading": "सभी आविष्कार ({count})",
     "adminOnly": "यह पृष्ठ केवल प्रशासकों के लिए है।",
     "backToExplore": "← वृक्ष पर वापस",
@@ -411,11 +412,14 @@
     "addCardHintOrigin": "उत्पत्ति का स्थान या संदर्भ (यदि ज्ञात हो)।",
     "addCardHintDescription": "इस आविष्कार का संक्षिप्त विवरण और भूमिका।",
     "addCardHintLinks": "ग्राफ़ से जोड़ें: निर्गम (आउटपुट) और निर्भरताएँ (इनपुट)।",
+    "addCardPublishLive": "प्रकाशित करें",
+    "addCardSaveDraft": "ड्राफ़्ट सहेजें",
     "similarNameMatches": "मिलते-जुलते नाम (साइट पर पहले से)",
     "toastNameAlreadyExists": "इस नाम से पहले से एक कार्ड मौजूद है",
     "toastError": "त्रुटि",
     "toastNodeUpdated": "आविष्कार अपडेट हुआ",
     "toastNodeCreated": "आविष्कार बनाया गया",
+    "toastNodeCreatedDraft": "ड्राफ़्ट सहेजा गया",
     "toastNetworkError": "नेटवर्क त्रुटि",
     "toastDeleteFailed": "हटाया नहीं जा सका",
     "toastNodeDeleted": "आविष्कार हटाया गया",
@@ -491,7 +495,8 @@
     "tool": "उपकरण",
     "energy": "ऊर्जा",
     "knowledge": "ज्ञान",
-    "catalyst": "उत्प्रेरक"
+    "catalyst": "उत्प्रेरक",
+    "process": "प्रक्रिया"
   },
   "connectionPopup": {
     "createHeading": "बनाएँ : {name}",

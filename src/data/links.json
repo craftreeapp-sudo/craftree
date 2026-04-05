@@ -39171,6 +39171,2638 @@
       "relation_type": "infrastructure",
       "is_optional": false,
       "notes": null
+    },
+    {
+      "id": "l-faa77840da61",
+      "source_id": "lentille",
+      "target_id": "microscopie",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c2102e9cbf29",
+      "source_id": "verre",
+      "target_id": "microscopie",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-395fcea04880",
+      "source_id": "optique",
+      "target_id": "microscopie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bf3182ba82ea",
+      "source_id": "microscopie",
+      "target_id": "microscope",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-166474d9ad22",
+      "source_id": "microscopie",
+      "target_id": "biologie-cellulaire",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3dfc92aa3de4",
+      "source_id": "microscopie",
+      "target_id": "microbiologie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f8828dcad7f0",
+      "source_id": "equations-de-maxwell",
+      "target_id": "wifi",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-eed8c010bbd6",
+      "source_id": "electromagnetisme",
+      "target_id": "wifi",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-76b04a8adcb1",
+      "source_id": "transistor",
+      "target_id": "wifi",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9bdc5168e7a6",
+      "source_id": "circuit-integre",
+      "target_id": "wifi",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5a0911084318",
+      "source_id": "antenne-radio",
+      "target_id": "wifi",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-191a7e0327ca",
+      "source_id": "wifi",
+      "target_id": "smartphone",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-14c708df1499",
+      "source_id": "wifi",
+      "target_id": "internet",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b4399f5d5e24",
+      "source_id": "wifi",
+      "target_id": "domotique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a911da00c4b1",
+      "source_id": "wifi",
+      "target_id": "protocole-sans-fil-wi-fi",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3d9eecb42b7b",
+      "source_id": "telephone",
+      "target_id": "telephone-mobile",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9decf046fe7b",
+      "source_id": "microprocesseur",
+      "target_id": "telephone-mobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bbda5960cdb9",
+      "source_id": "batterie-rechargeable",
+      "target_id": "telephone-mobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6d7c70e74422",
+      "source_id": "transistor",
+      "target_id": "telephone-mobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1806b1e41e46",
+      "source_id": "ecran-lcd",
+      "target_id": "telephone-mobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b2d8f3fe1d7b",
+      "source_id": "reseau-cellulaire",
+      "target_id": "telephone-mobile",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-655846907103",
+      "source_id": "telephone-mobile",
+      "target_id": "smartphone",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-405f78583919",
+      "source_id": "telephone-mobile",
+      "target_id": "internet",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-046dd64e496b",
+      "source_id": "telephone-mobile",
+      "target_id": "gps",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-26c0685f3888",
+      "source_id": "reacteur-nucleaire",
+      "target_id": "centrale-nucleaire",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d642fc6b8c70",
+      "source_id": "energie-nucleaire",
+      "target_id": "centrale-nucleaire",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0882d72c00e6",
+      "source_id": "turbine-vapeur",
+      "target_id": "centrale-nucleaire",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d6f295b81c33",
+      "source_id": "alternateur",
+      "target_id": "centrale-nucleaire",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1ee79a8fdb53",
+      "source_id": "reseau-electrique",
+      "target_id": "centrale-nucleaire",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-71f94fbc38b8",
+      "source_id": "centrale-nucleaire",
+      "target_id": "energie-nucleaire",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1ae3a60cd72d",
+      "source_id": "centrale-nucleaire",
+      "target_id": "medecine-nucleaire",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-81ba6db45441",
+      "source_id": "uranium",
+      "target_id": "medecine-nucleaire",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-04c01c7cbcd5",
+      "source_id": "energie-nucleaire",
+      "target_id": "medecine-nucleaire",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fbca4f50c327",
+      "source_id": "rayons-x",
+      "target_id": "medecine-nucleaire",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-23c996ae6370",
+      "source_id": "radiographie",
+      "target_id": "medecine-nucleaire",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-902f14df64bf",
+      "source_id": "medecine-nucleaire",
+      "target_id": "radiotherapie",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-46bf68e45905",
+      "source_id": "bois",
+      "target_id": "construction-navale",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ca340e72e7f4",
+      "source_id": "hache",
+      "target_id": "construction-navale",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-04070d99aef9",
+      "source_id": "scie",
+      "target_id": "construction-navale",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-632da4127c34",
+      "source_id": "soudure",
+      "target_id": "construction-navale",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-69e477fe6443",
+      "source_id": "navigation",
+      "target_id": "construction-navale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a950916a63e3",
+      "source_id": "construction-navale",
+      "target_id": "bateau-a-voile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6ae81d706a79",
+      "source_id": "construction-navale",
+      "target_id": "navire-a-vapeur",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f7ce087f5ab1",
+      "source_id": "construction-navale",
+      "target_id": "sous-marin",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2184a19f870a",
+      "source_id": "construction-navale",
+      "target_id": "conteneur-maritime",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6ea4ea3ef9a6",
+      "source_id": "tour",
+      "target_id": "machine-outil",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-52162e49da44",
+      "source_id": "forge",
+      "target_id": "machine-outil",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f1a4b1aa9750",
+      "source_id": "acier",
+      "target_id": "machine-outil",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8b866b07f6ac",
+      "source_id": "machine-a-vapeur",
+      "target_id": "machine-outil",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d86f572827bf",
+      "source_id": "engrenage",
+      "target_id": "machine-outil",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-22c0e1c77d1a",
+      "source_id": "machine-outil",
+      "target_id": "industrie-automobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c4009b5c3bbb",
+      "source_id": "machine-outil",
+      "target_id": "usine-moderne",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-146bf7d2dcec",
+      "source_id": "machine-outil",
+      "target_id": "bras-robotique-industriel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c5c715e6c935",
+      "source_id": "machine-outil",
+      "target_id": "mecanisation-agricole",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f8ff767c0306",
+      "source_id": "selection-animale",
+      "target_id": "chien-domestique",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-08b8648bb2bf",
+      "source_id": "elevage",
+      "target_id": "chien-domestique",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1a5baae24a45",
+      "source_id": "chien-domestique",
+      "target_id": "selection-animale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-71fb1eea8124",
+      "source_id": "chien-domestique",
+      "target_id": "elevage",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-87f887904aa5",
+      "source_id": "chien-domestique",
+      "target_id": "chasse-a-l-arc",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5b8cfdee4dd8",
+      "source_id": "chien-domestique",
+      "target_id": "agriculture",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cecd6c484e03",
+      "source_id": "selection-animale",
+      "target_id": "chat-domestique",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-be5ca9389a75",
+      "source_id": "agriculture",
+      "target_id": "chat-domestique",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7987df2b2921",
+      "source_id": "chat-domestique",
+      "target_id": "selection-animale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6c7aa856ee53",
+      "source_id": "chat-domestique",
+      "target_id": "agriculture",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d880bc4ea7c0",
+      "source_id": "chat-domestique",
+      "target_id": "zootechnie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cce9f6cc3969",
+      "source_id": "cheval",
+      "target_id": "cheval-de-trait",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1a9b4d603fe1",
+      "source_id": "selection-animale",
+      "target_id": "cheval-de-trait",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cf982d796a20",
+      "source_id": "harnais-de-cheval",
+      "target_id": "cheval-de-trait",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2a9025e08482",
+      "source_id": "fer-a-cheval",
+      "target_id": "cheval-de-trait",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9368a3719927",
+      "source_id": "cheval-de-trait",
+      "target_id": "chariot",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fd772d94460b",
+      "source_id": "cheval-de-trait",
+      "target_id": "labourage",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e16ee2a7a3b3",
+      "source_id": "cheval-de-trait",
+      "target_id": "agriculture",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2ade99b7f22b",
+      "source_id": "cheval-de-trait",
+      "target_id": "commerce",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f907d5aa5104",
+      "source_id": "agriculture",
+      "target_id": "abeille-domestique",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c00ad277c296",
+      "source_id": "abeille-domestique",
+      "target_id": "apiculture",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-404ecd49aade",
+      "source_id": "domestication-animale",
+      "target_id": "poule-domestique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fa85ff891c18",
+      "source_id": "agriculture",
+      "target_id": "poule-domestique",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-99549d493153",
+      "source_id": "poule-domestique",
+      "target_id": "viande",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8254a750784b",
+      "source_id": "poule-domestique",
+      "target_id": "elevage",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3cf1ede1d4cb",
+      "source_id": "poule-domestique",
+      "target_id": "selection-animale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-517613409447",
+      "source_id": "irrigation",
+      "target_id": "poisson-d-elevage",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-61f6c81d0ab4",
+      "source_id": "domestication-animale",
+      "target_id": "poisson-d-elevage",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-223d4c01a0d6",
+      "source_id": "poisson-d-elevage",
+      "target_id": "aquaculture-durable",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6a730a886284",
+      "source_id": "poisson-d-elevage",
+      "target_id": "viande",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a163003e4db7",
+      "source_id": "poisson-d-elevage",
+      "target_id": "selection-animale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-57b0a7131699",
+      "source_id": "compost",
+      "target_id": "vers-de-terre-cultives",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f46d20b5c69a",
+      "source_id": "agriculture",
+      "target_id": "vers-de-terre-cultives",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9ba68572ed93",
+      "source_id": "culture-biologique",
+      "target_id": "vers-de-terre-cultives",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-368c2790498b",
+      "source_id": "vers-de-terre-cultives",
+      "target_id": "compostage-industriel",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-93073b2e64da",
+      "source_id": "vers-de-terre-cultives",
+      "target_id": "compost",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dd7bcd7cf8c5",
+      "source_id": "serre",
+      "target_id": "insecte-pollinisateur-controle",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b87814983e0a",
+      "source_id": "agriculture-intensive",
+      "target_id": "insecte-pollinisateur-controle",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-810b3e74c63c",
+      "source_id": "pollinisation-controlee",
+      "target_id": "insecte-pollinisateur-controle",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f427b77b76b3",
+      "source_id": "insecte-pollinisateur-controle",
+      "target_id": "agriculture-intensive",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2381bc88e117",
+      "source_id": "insecte-pollinisateur-controle",
+      "target_id": "selection-animale",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b225931b8c81",
+      "source_id": "insecte-pollinisateur-controle",
+      "target_id": "mecanisation-agricole",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f71b2f9eca26",
+      "source_id": "geometrie",
+      "target_id": "perspective-lineaire-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f38764c736c2",
+      "source_id": "optique-geometrique-renaissance",
+      "target_id": "perspective-lineaire-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-df921777c9b8",
+      "source_id": "anatomie-descriptive-renaissance",
+      "target_id": "perspective-lineaire-renaissance",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2fd1c08d4b38",
+      "source_id": "perspective-lineaire-renaissance",
+      "target_id": "architecture-en-pierre",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-97513d9ffd57",
+      "source_id": "perspective-lineaire-renaissance",
+      "target_id": "appareil-photo",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-61685e2591f3",
+      "source_id": "perspective-lineaire-renaissance",
+      "target_id": "photographie-numerique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0a774c603f45",
+      "source_id": "circuit-logique",
+      "target_id": "memoire-associative",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1cf276a83a4a",
+      "source_id": "transistor",
+      "target_id": "memoire-associative",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-972bcbfbb056",
+      "source_id": "reseau-de-neurones",
+      "target_id": "memoire-associative",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e6a6eacd6cd6",
+      "source_id": "intelligence-artificielle",
+      "target_id": "memoire-associative",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9dcaab537a64",
+      "source_id": "memoire-associative",
+      "target_id": "apprentissage-automatique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-24a922468f4f",
+      "source_id": "memoire-associative",
+      "target_id": "reseau-de-neurones",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4fd1dd2be149",
+      "source_id": "memoire-associative",
+      "target_id": "vision-par-ordinateur",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d1ba844a7e38",
+      "source_id": "batterie-li",
+      "target_id": "batterie-miniaturisee",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ab67750f1c8f",
+      "source_id": "electrolyte",
+      "target_id": "batterie-miniaturisee",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-953f0d55f681",
+      "source_id": "transistor",
+      "target_id": "batterie-miniaturisee",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3a4dd359840e",
+      "source_id": "nanotechnologie",
+      "target_id": "batterie-miniaturisee",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ebf59b3fc0c5",
+      "source_id": "batterie-miniaturisee",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-62ad16e05a33",
+      "source_id": "batterie-miniaturisee",
+      "target_id": "capteur-biologique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2f4ba51222f2",
+      "source_id": "batterie-miniaturisee",
+      "target_id": "drone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2b590a06346b",
+      "source_id": "gps",
+      "target_id": "recepteur-gps",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dea145b207cf",
+      "source_id": "satellite-de-communication",
+      "target_id": "recepteur-gps",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b2a673b23300",
+      "source_id": "transistor",
+      "target_id": "recepteur-gps",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f2044aafc4e9",
+      "source_id": "circuit-integre",
+      "target_id": "recepteur-gps",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-618f989c37fb",
+      "source_id": "antenne-radio",
+      "target_id": "recepteur-gps",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4eb0756d373e",
+      "source_id": "oscillateur",
+      "target_id": "recepteur-gps",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-37e98f242945",
+      "source_id": "recepteur-gps",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1aa58060d180",
+      "source_id": "recepteur-gps",
+      "target_id": "systeme-de-positionnement-precis",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-78f84b8d8161",
+      "source_id": "recepteur-gps",
+      "target_id": "drone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-97956a3c7a46",
+      "source_id": "recepteur-gps",
+      "target_id": "gestion-intelligente-de-la-recharge-ev",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f7bc1cfb20e7",
+      "source_id": "ecran-tactile",
+      "target_id": "ecran-tactile-capacitif",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7c2a7f4e3e8b",
+      "source_id": "circuit-integre",
+      "target_id": "ecran-tactile-capacitif",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2775fa3aa342",
+      "source_id": "transistor",
+      "target_id": "ecran-tactile-capacitif",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a78ae117e0b8",
+      "source_id": "condensateur",
+      "target_id": "ecran-tactile-capacitif",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ca3085d8f8a5",
+      "source_id": "verre-trempe",
+      "target_id": "ecran-tactile-capacitif",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1e0a1d61ac69",
+      "source_id": "ecran-tactile-capacitif",
+      "target_id": "smartphone",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-21ddbc5fa2c4",
+      "source_id": "ecran-tactile-capacitif",
+      "target_id": "interface-homme-machine-ihm",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f32481dd1547",
+      "source_id": "ecran-tactile-capacitif",
+      "target_id": "ecran-lcd-couleur",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3e50c8fc9479",
+      "source_id": "fil-de-laine",
+      "target_id": "knitwear",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-489999f8c0cb",
+      "source_id": "fil-de-coton",
+      "target_id": "knitwear",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6ed739d3e4bf",
+      "source_id": "soie-naturelle",
+      "target_id": "knitwear",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-42da5121658f",
+      "source_id": "fibres-synthetiques",
+      "target_id": "knitwear",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bb871be6386a",
+      "source_id": "knitwear",
+      "target_id": "vetement",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d5b2a51a2186",
+      "source_id": "knitwear",
+      "target_id": "machine-a-coudre",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b06aefe844a5",
+      "source_id": "knitwear",
+      "target_id": "industrie-textile",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-464f488b266b",
+      "source_id": "terre",
+      "target_id": "petrole-brut",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cb601fc4d7db",
+      "source_id": "petrole-brut",
+      "target_id": "essence",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-43b5df33d379",
+      "source_id": "petrole-brut",
+      "target_id": "gazole",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f34499a48b77",
+      "source_id": "petrole-brut",
+      "target_id": "raffinerie",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-77d0ab8053a2",
+      "source_id": "petrole-brut",
+      "target_id": "petrochimie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3292cb700e72",
+      "source_id": "petrole-brut",
+      "target_id": "plastique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a786ec22ac4b",
+      "source_id": "terre",
+      "target_id": "gaz-naturel",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-34f30453b9d5",
+      "source_id": "gaz-naturel",
+      "target_id": "gaz-de-houille",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-14731d835ae7",
+      "source_id": "gaz-naturel",
+      "target_id": "ammoniac",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aba35d6cba58",
+      "source_id": "gaz-naturel",
+      "target_id": "hydrogene",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-71a7c97ad9d3",
+      "source_id": "gaz-naturel",
+      "target_id": "electricite",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d6df19eec981",
+      "source_id": "bois",
+      "target_id": "lin",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9fdfe3419997",
+      "source_id": "lin",
+      "target_id": "filature",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-be6ee91b8b4a",
+      "source_id": "lin",
+      "target_id": "tissu",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-13d54bb0eda6",
+      "source_id": "lin",
+      "target_id": "vetement",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9ee1e14db8a0",
+      "source_id": "bois",
+      "target_id": "caoutchouc-naturel",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3a6c8e931ccc",
+      "source_id": "caoutchouc-naturel",
+      "target_id": "caoutchouc",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e37d149509da",
+      "source_id": "caoutchouc-naturel",
+      "target_id": "vulcanisation",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-68377b71e168",
+      "source_id": "caoutchouc-naturel",
+      "target_id": "pneu",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1a20bf299a22",
+      "source_id": "phosphore",
+      "target_id": "engrais",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0afa9eac0355",
+      "source_id": "phosphore",
+      "target_id": "acide-phosphorique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fa106e24b4db",
+      "source_id": "phosphore",
+      "target_id": "nitrate",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-76a51c29f71f",
+      "source_id": "phosphore",
+      "target_id": "agriculture-intensive",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f9b05fe88460",
+      "source_id": "bauxite-aluminium",
+      "target_id": "aluminium",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d53b2fbea30a",
+      "source_id": "bauxite-aluminium",
+      "target_id": "alliage-d-aluminium",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0fb9f3ddb173",
+      "source_id": "minerai-d-etain",
+      "target_id": "etain",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d75feaadb3e2",
+      "source_id": "minerai-d-etain",
+      "target_id": "bronze",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4abd8bba5bdc",
+      "source_id": "minerai-de-zinc",
+      "target_id": "zinc",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c1147979ed4a",
+      "source_id": "minerai-de-zinc",
+      "target_id": "galvanisation",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0a88ae1272a0",
+      "source_id": "granite",
+      "target_id": "pierre-de-taille",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b19830aaa115",
+      "source_id": "granite",
+      "target_id": "mur-pierre",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fe764fbca2b0",
+      "source_id": "granite",
+      "target_id": "taille-pierre",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d46614a5e530",
+      "source_id": "calcaire",
+      "target_id": "marbre",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7bc945f1ae4d",
+      "source_id": "marbre",
+      "target_id": "pierre-de-taille",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fe7fcbb1b8a5",
+      "source_id": "marbre",
+      "target_id": "sculpture-sur-pierre",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-09bacd065a3e",
+      "source_id": "air",
+      "target_id": "latex",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-01a5b4ca5a9d",
+      "source_id": "latex",
+      "target_id": "caoutchouc",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-46af6d6c4712",
+      "source_id": "latex",
+      "target_id": "vulcanisation",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0f566287247f",
+      "source_id": "abeille-domestique",
+      "target_id": "cire-d-abeille",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-108c06a028b0",
+      "source_id": "cire-d-abeille",
+      "target_id": "cosmetique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2c8090451107",
+      "source_id": "viande",
+      "target_id": "cuir-brut",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-023c5648a489",
+      "source_id": "cuir-brut",
+      "target_id": "vetement",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-991318efeb39",
+      "source_id": "eau",
+      "target_id": "chanvre",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-33b6d1589a14",
+      "source_id": "air",
+      "target_id": "chanvre",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-551d1a24b704",
+      "source_id": "chanvre",
+      "target_id": "tissu",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-088b2941540c",
+      "source_id": "chanvre",
+      "target_id": "corde",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c549a48fe954",
+      "source_id": "eau",
+      "target_id": "tourbe",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3b8cdd9cbcf3",
+      "source_id": "bois",
+      "target_id": "tourbe",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-50569188f0b1",
+      "source_id": "tourbe",
+      "target_id": "charbon",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d7207d29415d",
+      "source_id": "tourbe",
+      "target_id": "feu",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e7607a53815c",
+      "source_id": "petrole",
+      "target_id": "plastique-pe",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0f6c9c9fc3d6",
+      "source_id": "polymeres",
+      "target_id": "plastique-pe",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-21ac523e0315",
+      "source_id": "plastique-pe",
+      "target_id": "bouteille-plastique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3cf83e469a71",
+      "source_id": "petrole",
+      "target_id": "pp",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ed417e7f6e26",
+      "source_id": "polymeres",
+      "target_id": "pp",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d7b9732738bd",
+      "source_id": "pp",
+      "target_id": "tuyau",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-48f1cacc9a37",
+      "source_id": "pp",
+      "target_id": "conteneur-maritime",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-39d56b32baa3",
+      "source_id": "petrole",
+      "target_id": "pvc",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-daa18631bcac",
+      "source_id": "chlore-gazeux",
+      "target_id": "pvc",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f23f176859a9",
+      "source_id": "polymeres",
+      "target_id": "pvc",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a75f4b90ab3b",
+      "source_id": "pvc",
+      "target_id": "tuyau",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cd7a6a8c69b3",
+      "source_id": "pvc",
+      "target_id": "cable-electrique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c1f59e90595a",
+      "source_id": "pvc",
+      "target_id": "fenetre",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-622d47d206b5",
+      "source_id": "caoutchouc",
+      "target_id": "caoutchouc-vulcanise",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-80c70dc7786e",
+      "source_id": "soufre",
+      "target_id": "caoutchouc-vulcanise",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-435d15863dae",
+      "source_id": "vulcanisation",
+      "target_id": "caoutchouc-vulcanise",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-21b753fa420d",
+      "source_id": "caoutchouc-vulcanise",
+      "target_id": "pneu",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-74fc0cb5094f",
+      "source_id": "caoutchouc-vulcanise",
+      "target_id": "automobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8c8faee02009",
+      "source_id": "cuivre",
+      "target_id": "laiton",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3fbb941a459b",
+      "source_id": "zinc",
+      "target_id": "laiton",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-54fdfb258212",
+      "source_id": "metallurgie",
+      "target_id": "laiton",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-05efee4a369c",
+      "source_id": "laiton",
+      "target_id": "tuyau",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f1256262327b",
+      "source_id": "laiton",
+      "target_id": "engrenage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-34536bd7cdda",
+      "source_id": "graphite",
+      "target_id": "batterie-li",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4e19d0602ca0",
+      "source_id": "feu",
+      "target_id": "platre",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-be013e80d410",
+      "source_id": "calcination",
+      "target_id": "platre",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cb59c48722d4",
+      "source_id": "four-haute-temp",
+      "target_id": "porcelaine",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-57c631b866ba",
+      "source_id": "sucre",
+      "target_id": "alcool",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7c121d0f05e7",
+      "source_id": "levure",
+      "target_id": "alcool",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-806edea5ea50",
+      "source_id": "fermentation",
+      "target_id": "alcool",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c85924d2e5c2",
+      "source_id": "distillation",
+      "target_id": "alcool",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c539c542c947",
+      "source_id": "alcool",
+      "target_id": "alcool-ethylique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5b1e0721daba",
+      "source_id": "feu",
+      "target_id": "moulage",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-937ad0cd1d4b",
+      "source_id": "moule",
+      "target_id": "moulage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1ef65fe00291",
+      "source_id": "four",
+      "target_id": "moulage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b88872fea490",
+      "source_id": "moulage",
+      "target_id": "fonderie",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b5e0258d332c",
+      "source_id": "moulage",
+      "target_id": "bronze",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1e3a85e29dd8",
+      "source_id": "moulage",
+      "target_id": "fer",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7033e0abb589",
+      "source_id": "fil-de-coton",
+      "target_id": "tissage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ed93fa731347",
+      "source_id": "fil-de-laine",
+      "target_id": "tissage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b7e19bba6300",
+      "source_id": "soie-naturelle",
+      "target_id": "tissage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d46529757e20",
+      "source_id": "metier-tisser",
+      "target_id": "tissage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a3556fd90c9f",
+      "source_id": "tissage",
+      "target_id": "tissu",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d747cc09ccc8",
+      "source_id": "tissage",
+      "target_id": "vetement",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-621e4ca4e5d6",
+      "source_id": "tissage",
+      "target_id": "industrie-textile",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dab79c568b3d",
+      "source_id": "cuir-brut",
+      "target_id": "tannage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2579c80e3f33",
+      "source_id": "acide-sulfurique",
+      "target_id": "tannage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b3e9663d48ec",
+      "source_id": "eau",
+      "target_id": "tannage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-50c3e99e6240",
+      "source_id": "tannage",
+      "target_id": "vetement",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-453f3c370941",
+      "source_id": "petrole-brut",
+      "target_id": "raffinage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aa982040ce4b",
+      "source_id": "raffinerie",
+      "target_id": "raffinage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1439b4cbe065",
+      "source_id": "distillation-fractionnee",
+      "target_id": "raffinage",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-81c435507484",
+      "source_id": "raffinage",
+      "target_id": "essence",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-59160f7348ea",
+      "source_id": "raffinage",
+      "target_id": "gazole",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3063ceaf651f",
+      "source_id": "raffinage",
+      "target_id": "carburant-synthetique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1d61c2be954e",
+      "source_id": "raffinage",
+      "target_id": "petrochimie",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d0fa39ccb9de",
+      "source_id": "four-haute-temp",
+      "target_id": "frittage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-57f770e29ee0",
+      "source_id": "thermodynamique",
+      "target_id": "frittage",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-995c4cbe361d",
+      "source_id": "frittage",
+      "target_id": "ceramique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-13b93a16743f",
+      "source_id": "frittage",
+      "target_id": "beton-precontraint",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9c62f1546986",
+      "source_id": "frittage",
+      "target_id": "materiaux-composites",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-78afad52c137",
+      "source_id": "machine-outil",
+      "target_id": "usinage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d6d0a686f55e",
+      "source_id": "metallurgie",
+      "target_id": "usinage",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-107079963cf7",
+      "source_id": "acier",
+      "target_id": "usinage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2f3d7206f715",
+      "source_id": "mecanique-classique",
+      "target_id": "usinage",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-66f070b59064",
+      "source_id": "usinage",
+      "target_id": "industrie-automobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-672d1295d253",
+      "source_id": "machine-outil",
+      "target_id": "extrusion",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ea7bdeb227ac",
+      "source_id": "polymeres",
+      "target_id": "extrusion",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-81440b827e77",
+      "source_id": "acier",
+      "target_id": "extrusion",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-618a0b7b1e3c",
+      "source_id": "thermodynamique",
+      "target_id": "extrusion",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-830446a12615",
+      "source_id": "presse-hydraulique",
+      "target_id": "extrusion",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-750b80d711fd",
+      "source_id": "extrusion",
+      "target_id": "tuyau",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-72a3e83479f3",
+      "source_id": "extrusion",
+      "target_id": "cable-electrique",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b7df629ee99f",
+      "source_id": "moule",
+      "target_id": "injection-plastique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cbbfe0a11ac4",
+      "source_id": "polymeres",
+      "target_id": "injection-plastique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-eeef766af1ff",
+      "source_id": "plastique",
+      "target_id": "injection-plastique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7bf1c8ee4d46",
+      "source_id": "machine-outil",
+      "target_id": "injection-plastique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-90b55f50a0cf",
+      "source_id": "thermodynamique",
+      "target_id": "injection-plastique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c973036805f6",
+      "source_id": "presse-hydraulique",
+      "target_id": "injection-plastique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-be729d94ae22",
+      "source_id": "injection-plastique",
+      "target_id": "smartphone",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9af83364c587",
+      "source_id": "injection-plastique",
+      "target_id": "automobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6762c0101e0f",
+      "source_id": "injection-plastique",
+      "target_id": "gps",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-380134dcfe38",
+      "source_id": "injection-plastique",
+      "target_id": "electronique-numerique",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bb9f630e3986",
+      "source_id": "forge",
+      "target_id": "laminage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b21f55a29ad4",
+      "source_id": "metallurgie",
+      "target_id": "laminage",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e2817080e826",
+      "source_id": "acier",
+      "target_id": "laminage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-da6ff563c6db",
+      "source_id": "fer",
+      "target_id": "laminage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-38e0ed3d5221",
+      "source_id": "machine-a-vapeur",
+      "target_id": "laminage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b75e03682dcc",
+      "source_id": "mecanique-classique",
+      "target_id": "laminage",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a4a579804fe4",
+      "source_id": "laminage",
+      "target_id": "poutre-acier",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5766eb19a805",
+      "source_id": "laminage",
+      "target_id": "structure-metallique",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-84d95c838ef2",
+      "source_id": "laminage",
+      "target_id": "automobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-97547c3d5e94",
+      "source_id": "laminage",
+      "target_id": "gratte-ciel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-780361229bb6",
+      "source_id": "laminage",
+      "target_id": "chassis-auto",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8858c8e4b1a7",
+      "source_id": "four-haute-temp",
+      "target_id": "haut-fourneau",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9f0cd22b372c",
+      "source_id": "minerai-fer",
+      "target_id": "haut-fourneau",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8bf90f904f63",
+      "source_id": "charbon",
+      "target_id": "haut-fourneau",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-50a9695092c7",
+      "source_id": "combustion",
+      "target_id": "haut-fourneau",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d744d4f4a8f0",
+      "source_id": "haut-fourneau",
+      "target_id": "fonte",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d5dfd31c446b",
+      "source_id": "haut-fourneau",
+      "target_id": "acier",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-54b9547057e9",
+      "source_id": "haut-fourneau",
+      "target_id": "revolution-industrielle",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1a5156fb9a58",
+      "source_id": "fer",
+      "target_id": "enclume",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-717edda55a8c",
+      "source_id": "acier",
+      "target_id": "enclume",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-35bbdb6c5173",
+      "source_id": "forge",
+      "target_id": "enclume",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-666a88c02cc8",
+      "source_id": "marteau",
+      "target_id": "enclume",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f63f4257a9dc",
+      "source_id": "enclume",
+      "target_id": "clou",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-009325a1c5bb",
+      "source_id": "enclume",
+      "target_id": "vis",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aaf3d0d4dfb4",
+      "source_id": "enclume",
+      "target_id": "boulon",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0e381b2ef567",
+      "source_id": "enclume",
+      "target_id": "epee",
+      "relation_type": "weapon",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b84af3fb3ccd",
+      "source_id": "moteur-electrique",
+      "target_id": "robot-industriel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e6f6a5a11690",
+      "source_id": "microprocesseur",
+      "target_id": "robot-industriel",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-867e2dcbc943",
+      "source_id": "systeme-de-controle-en-temps-reel",
+      "target_id": "robot-industriel",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ec2fbec5e538",
+      "source_id": "capteur-de-distance",
+      "target_id": "robot-industriel",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3a3502ee2990",
+      "source_id": "servo-moteur",
+      "target_id": "robot-industriel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a9bf74058c15",
+      "source_id": "programmation-informatique",
+      "target_id": "robot-industriel",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-80c989e9871f",
+      "source_id": "robot-industriel",
+      "target_id": "bras-robotise",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a92f9af326dc",
+      "source_id": "robot-industriel",
+      "target_id": "robotique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b6d5b021b443",
+      "source_id": "robot-industriel",
+      "target_id": "usine-moderne",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a3538c366c78",
+      "source_id": "bois",
+      "target_id": "navire",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-16d9c64c8a83",
+      "source_id": "roue",
+      "target_id": "navire",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aaffdc25492a",
+      "source_id": "corde",
+      "target_id": "navire",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3ae16df8bb53",
+      "source_id": "voile",
+      "target_id": "navire",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8dde35a8d8eb",
+      "source_id": "navire",
+      "target_id": "commerce",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f92ca4e15a46",
+      "source_id": "navire",
+      "target_id": "navigation",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-616c9d342713",
+      "source_id": "navire",
+      "target_id": "bateau-a-voile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-16be3ff50557",
+      "source_id": "navire",
+      "target_id": "navire-a-vapeur",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6266e51125c3",
+      "source_id": "engrenage",
+      "target_id": "horloge",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e2fdc8b4f1ce",
+      "source_id": "ressort",
+      "target_id": "horloge",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b8cd10c88fb2",
+      "source_id": "acier",
+      "target_id": "horloge",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-483d5b4b87e4",
+      "source_id": "horloge",
+      "target_id": "horloge-mecanique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-961a62a2f492",
+      "source_id": "horloge",
+      "target_id": "chronometre",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fda6c21dd629",
+      "source_id": "horloge",
+      "target_id": "synchronisation-temporelle-ntp",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d0b6f65881a8",
+      "source_id": "diode",
+      "target_id": "led",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4ed8aebc069b",
+      "source_id": "silicium",
+      "target_id": "led",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e88d2a00e8b8",
+      "source_id": "led",
+      "target_id": "ecran-lcd",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-46e721efa58b",
+      "source_id": "led",
+      "target_id": "eclairage-led-connecte",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-01c37e04116b",
+      "source_id": "led",
+      "target_id": "variateur-de-lumiere-dimmer",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c63246efb9a0",
+      "source_id": "led",
+      "target_id": "photographie-numerique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
     }
   ]
 }

@@ -353,6 +353,7 @@
     "pageAdminTitle": "الإدارة",
     "tabAllInventions": "جميع الاختراعات ({count})",
     "tabSuggestions": "اقتراحات",
+    "tabSuggestionsWithCount": "اقتراحات ({count})",
     "allInventionsHeading": "جميع الاختراعات ({count})",
     "adminOnly": "هذه الصفحة للمسؤولين فقط.",
     "backToExplore": "← العودة للشجرة",
@@ -411,11 +412,14 @@
     "addCardHintOrigin": "مكان أو سياق الظهور إن وُجد.",
     "addCardHintDescription": "وصف موجز للاختراع ودوره في سلسلة تصنيع.",
     "addCardHintLinks": "اربط البطاقة بالرسم: المخرجات والاعتمادات.",
+    "addCardPublishLive": "نشر",
+    "addCardSaveDraft": "حفظ كمسودة",
     "similarNameMatches": "أسماء مشابهة (موجودة مسبقًا)",
     "toastNameAlreadyExists": "توجد بطاقة بهذا الاسم بالفعل",
     "toastError": "خطأ",
     "toastNodeUpdated": "تم تحديث الاختراع",
     "toastNodeCreated": "تم إنشاء الاختراع",
+    "toastNodeCreatedDraft": "تم حفظ المسودة",
     "toastNetworkError": "خطأ في الشبكة",
     "toastDeleteFailed": "تعذّر الحذف",
     "toastNodeDeleted": "تم حذف الاختراع",
@@ -491,7 +495,8 @@
     "tool": "أداة",
     "energy": "طاقة",
     "knowledge": "معرفة",
-    "catalyst": "محفّز"
+    "catalyst": "محفّز",
+    "process": "إجراء"
   },
   "connectionPopup": {
     "createHeading": "إنشاء: {name}",

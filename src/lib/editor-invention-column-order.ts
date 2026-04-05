@@ -6,6 +6,7 @@ export const EDITOR_INVENTION_COLUMN_STORAGE_KEY =
   'craftree:editor-inventions-column-order';
 
 export const EDITOR_INVENTION_COLUMN_IDS = [
+  'select',
   'image',
   'name',
   'upstream',
@@ -82,6 +83,7 @@ export const EDITOR_INVENTION_COLUMN_TH_CLASS: Record<
   EditorInventionColumnId,
   string
 > = {
+  select: 'w-10 px-1 py-1 text-center text-muted-foreground',
   image: 'w-12 px-1 py-1 text-center text-muted-foreground',
   name: 'w-[200px] px-3 py-1 text-foreground',
   upstream: 'w-[72px] px-2 py-1 text-center tabular-nums',
@@ -96,5 +98,5 @@ export const EDITOR_INVENTION_COLUMN_TH_CLASS: Record<
   chemicalNature:
     'w-[120px] px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-muted-foreground',
   links: 'w-[60px] px-3 py-1 text-center',
-  actions: 'min-w-[152px] w-[152px] px-3 py-1 text-end',
+  actions: 'min-w-[188px] w-[188px] px-3 py-1 text-end',
 };

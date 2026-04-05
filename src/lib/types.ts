@@ -101,6 +101,8 @@ export interface TechNodeBasic {
   nature_type?: NatureType | null;
   /** Brouillon (admin uniquement dans les listes / recherche). */
   is_draft?: boolean;
+  /** Verrouillage admin : aucune modification de la fiche ni des liens. */
+  is_locked?: boolean;
 }
 
 /** Métadonnées étendues (nodes-details.json ou API — chargées à la demande). */
@@ -169,6 +171,8 @@ export interface SeedNode {
   _ai_built_upon?: string[];
   _ai_led_to?: string[];
   is_draft?: boolean;
+  /** Admin : empêche toute modification de la fiche et des liens attachés. */
+  is_locked?: boolean;
 }
 
 /** Fichier seed-data.json */

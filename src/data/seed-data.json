@@ -57110,6 +57110,2192 @@
           "relation_type": "material"
         }
       ]
+    },
+    {
+      "id": "knitwear",
+      "name": "Tricot",
+      "name_en": "Knitwear",
+      "description": "Vêtement ou tissu créé par l'entrelacement de fils à l'aide d'aiguilles, formant des boucles interconnectées. Le tricot permet une grande flexibilité et confort comparé aux tissus tissés, et peut être produit à la main ou à la machine. Cette technique révolutionne la production textile et devient dominante pour les vêtements ajustés et stretch.",
+      "description_en": "Garment or fabric created by interlocking loops of yarn with needles, forming interconnected loops. Knitting provides great flexibility and comfort compared to woven fabrics, and can be produced by hand or machine. This technique revolutionizes textile production and becomes dominant for fitted and stretch clothing.",
+      "category": "textile",
+      "era": "medieval",
+      "year_approx": 1000,
+      "origin": "Moyen-Orient / Europe médiévale",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Knitting",
+      "tags": [
+        "tricot",
+        "textile",
+        "vêtement",
+        "maille",
+        "fibre",
+        "artisanat",
+        "confection"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "industrial",
+      "origin_type": null,
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Oma_strickt_Str%C3%BCmpfe.jpg/600px-Oma_strickt_Str%C3%BCmpfe.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "fil-de-laine",
+          "relation_type": "material"
+        },
+        {
+          "id": "fil-de-coton",
+          "relation_type": "material"
+        },
+        {
+          "id": "soie-naturelle",
+          "relation_type": "material"
+        },
+        {
+          "id": "fibres-synthetiques",
+          "relation_type": "material"
+        },
+        {
+          "id": "needle",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "vetement",
+          "relation_type": "material"
+        },
+        {
+          "id": "machine-a-coudre",
+          "relation_type": "tool"
+        },
+        {
+          "id": "industrie-textile",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "petrole-brut",
+      "name": "Pétrole brut",
+      "name_en": "Crude oil",
+      "description": "Fluide naturel composé d'hydrocarbures extraits du sous-sol terrestre. Le pétrole brut est la source principale d'énergie fossile et de matières premières pour la pétrochimie moderne. Son extraction et raffinage ont transformé l'économie mondiale depuis le XIXe siècle.",
+      "description_en": "Natural fluid composed of hydrocarbons extracted from Earth's subsurface. Crude oil is the primary source of fossil fuel energy and raw materials for modern petrochemistry. Its extraction and refining have transformed the global economy since the 19th century.",
+      "category": "energy",
+      "era": "modern",
+      "year_approx": 1859,
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Petroleum",
+      "tags": [
+        "énergie",
+        "hydrocarbures",
+        "fossile",
+        "extraction",
+        "raffinerie",
+        "combustible"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Petroleum_sample.jpg/600px-Petroleum_sample.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "terre",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "essence",
+          "relation_type": "material"
+        },
+        {
+          "id": "gazole",
+          "relation_type": "material"
+        },
+        {
+          "id": "raffinerie",
+          "relation_type": "process"
+        },
+        {
+          "id": "petrochimie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "plastique",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "gaz-naturel",
+      "name": "Gaz naturel",
+      "name_en": "Natural gas",
+      "description": "Gaz fossile composé principalement de méthane, extrait du sous-sol en association avec le pétrole ou isolément. Le gaz naturel est une source d'énergie propre et polyvalente utilisée pour le chauffage, l'électricité et les matières premières chimiques.",
+      "description_en": "Fossil gas composed mainly of methane, extracted from the subsurface in association with oil or independently. Natural gas is a clean and versatile energy source used for heating, electricity, and chemical feedstocks.",
+      "category": "energy",
+      "era": "modern",
+      "year_approx": 1821,
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Natural_gas",
+      "tags": [
+        "énergie",
+        "gaz",
+        "fossile",
+        "méthane",
+        "chauffage",
+        "électricité"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "compose",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Gas-natural.jpg/600px-Gas-natural.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "terre",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "gaz-de-houille",
+          "relation_type": "material"
+        },
+        {
+          "id": "ammoniac",
+          "relation_type": "material"
+        },
+        {
+          "id": "hydrogene",
+          "relation_type": "material"
+        },
+        {
+          "id": "electricite",
+          "relation_type": "energy"
+        }
+      ]
+    },
+    {
+      "id": "lin",
+      "name": "Lin",
+      "name_en": "Flax",
+      "description": "Fibre naturelle extraite des tiges de la plante Linum usitatissimum. Le lin est l'une des fibres textiles les plus anciennes, utilisée depuis l'Antiquité pour fabriquer des vêtements, des voiles et des toiles. Ses fibres sont résistantes et absorbantes.",
+      "description_en": "Natural fiber extracted from the stems of Linum usitatissimum plant. Flax is one of the oldest textile fibers, used since antiquity to make clothes, sails, and canvases. Its fibers are resistant and absorbent.",
+      "category": "textile",
+      "era": "ancient",
+      "year_approx": -5000,
+      "origin": "Mésopotamie",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Flax",
+      "tags": [
+        "textile",
+        "fibre naturelle",
+        "vêtement",
+        "toile",
+        "lin",
+        "plante"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "vegetal",
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/K%C3%B6hler%27s_Medizinal-Pflanzen_in_naturgetreuen_Abbildungen_mit_kurz_erl%C3%A4uterndem_Texte_%28Plate_16%29_BHL303594.jpg/600px-K%C3%B6hler%27s_Medizinal-Pflanzen_in_naturgetreuen_Abbildungen_mit_kurz_erl%C3%A4uterndem_Texte_%28Plate_16%29_BHL303594.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "bois",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "filature",
+          "relation_type": "process"
+        },
+        {
+          "id": "tissu",
+          "relation_type": "material"
+        },
+        {
+          "id": "vetement",
+          "relation_type": "material"
+        },
+        {
+          "id": "toile",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "caoutchouc-naturel",
+      "name": "Caoutchouc naturel",
+      "name_en": "Natural rubber",
+      "description": "Polymère naturel issu de la sève de l'hévéa et d'autres plantes tropicales. Le caoutchouc naturel possède des propriétés d'élasticité et d'étanchéité remarquables. Il a été utilisé par les civilisations précolombiennes avant sa vulcanisation au XIXe siècle.",
+      "description_en": "Natural polymer derived from the sap of rubber trees and other tropical plants. Natural rubber has remarkable elasticity and waterproofing properties. It was used by pre-Columbian civilizations before its vulcanization in the 19th century.",
+      "category": "industry",
+      "era": "ancient",
+      "year_approx": -1500,
+      "origin": "Amérique centrale",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Natural_rubber",
+      "tags": [
+        "caoutchouc",
+        "élasticité",
+        "polymère",
+        "hévéa",
+        "tropical",
+        "étanchéité"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Caoutchouc_naturel.jpg/600px-Caoutchouc_naturel.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "bois",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "caoutchouc",
+          "relation_type": "material"
+        },
+        {
+          "id": "vulcanisation",
+          "relation_type": "process"
+        },
+        {
+          "id": "pneu",
+          "relation_type": "material"
+        },
+        {
+          "id": "joint-etancheite",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "phosphore",
+      "name": "Phosphore",
+      "name_en": "Phosphorus",
+      "description": "Élément chimique de numéro atomique 15 extrait de minéraux phosphatés. Le phosphore existe sous plusieurs formes allotropiques dont le phosphore blanc et le phosphore rouge. Il est essentiel en agriculture, dans les engrais, et en chimie industrielle.",
+      "description_en": "Chemical element with atomic number 15 extracted from phosphate minerals. Phosphorus exists in several allotropic forms including white phosphorus and red phosphorus. It is essential in agriculture, fertilizers, and industrial chemistry.",
+      "category": "chemistry",
+      "era": "modern",
+      "year_approx": 1669,
+      "origin": "Henning Brand (Allemagne)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Phosphorus",
+      "tags": [
+        "élément chimique",
+        "phosphate",
+        "engrais",
+        "agriculture",
+        "allotrope",
+        "luminescence"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "element",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Phosphor_rot.jpg/600px-Phosphor_rot.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "minerai-de-phosphate",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "engrais",
+          "relation_type": "material"
+        },
+        {
+          "id": "acide-phosphorique",
+          "relation_type": "material"
+        },
+        {
+          "id": "nitrate",
+          "relation_type": "material"
+        },
+        {
+          "id": "agriculture-intensive",
+          "relation_type": "process"
+        }
+      ]
+    },
+    {
+      "id": "bauxite-aluminium",
+      "name": "Bauxite (minerai d'aluminium)",
+      "name_en": "Bauxite (aluminium ore)",
+      "description": "Minerai naturel contenant de l'alumine, principal composant rocheux d'où est extrait l'aluminium. Se présente sous forme de gisements terrestres, particulièrement en zones tropicales et subtropicales. Indispensable à la production industrielle d'aluminium par électrolyse.",
+      "description_en": "Natural ore containing alumina, the primary rock component from which aluminum is extracted. Found in terrestrial deposits, especially in tropical and subtropical zones. Essential for industrial aluminum production through electrolysis.",
+      "category": "industry",
+      "era": "modern",
+      "year_approx": 1821,
+      "origin": "Pierre Berthier (France)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Bauxite",
+      "tags": [
+        "minerai",
+        "aluminium",
+        "extraction",
+        "géologie",
+        "ressource naturelle"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Bauxite_h%C3%A9rault.JPG/600px-Bauxite_h%C3%A9rault.JPG",
+      "is_draft": true,
+      "_ai_built_upon": [],
+      "_ai_led_to": [
+        {
+          "id": "aluminium",
+          "relation_type": "material"
+        },
+        {
+          "id": "alliage-d-aluminium",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "minerai-d-etain",
+      "name": "Minerai d'étain",
+      "name_en": "Tin ore",
+      "description": "Cassitérite et autres minerais naturels contenant l'étain à l'état natif. Extrait des gisements alluviaux et filoniens depuis l'Antiquité. Constituant essentiel du bronze avec le cuivre, il a permis le développement des civilisations anciennes.",
+      "description_en": "Cassiterite and other naturally occurring ores containing tin. Extracted from alluvial and vein deposits since antiquity. Essential component of bronze with copper, it enabled the development of ancient civilizations.",
+      "category": "industry",
+      "era": "ancient",
+      "year_approx": -3500,
+      "origin": "Cornouailles (Royaume-Uni), Bolivie",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Tin_ore",
+      "tags": [
+        "étain",
+        "minerai",
+        "bronze",
+        "alliage",
+        "ressource naturelle"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [],
+      "_ai_led_to": [
+        {
+          "id": "etain",
+          "relation_type": "material"
+        },
+        {
+          "id": "bronze",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "minerai-de-zinc",
+      "name": "Minerai de zinc",
+      "name_en": "Zinc ore",
+      "description": "Sphalérite et calamine sont les principaux minerais naturels de zinc. Gisements souterrains formés par processus géologiques. Exploité depuis l'Antiquité pour produire du laiton et utilisé ensuite en galvanisation et en alliages modernes.",
+      "description_en": "Sphalerite and calamine are the primary natural zinc ores. Underground deposits formed by geological processes. Exploited since antiquity to produce brass and later used in galvanization and modern alloys.",
+      "category": "industry",
+      "era": "ancient",
+      "year_approx": -1000,
+      "origin": "Chine, Pologne, Australie",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Zinc_ore",
+      "tags": [
+        "zinc",
+        "minerai",
+        "galvanisation",
+        "laiton",
+        "ressource naturelle"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [],
+      "_ai_led_to": [
+        {
+          "id": "zinc",
+          "relation_type": "material"
+        },
+        {
+          "id": "galvanisation",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "granite",
+      "name": "Granite",
+      "name_en": "Granite",
+      "description": "Roche ignée cristalline composée de quartz, feldspath et mica, formée par refroidissement lent du magma en profondeur. Très dure et durable, utilisée depuis la Préhistoire pour la construction et la sculpture. Pierre de choix pour monuments, pavages et œuvres d'art.",
+      "description_en": "Crystalline igneous rock composed of quartz, feldspar and mica, formed by slow cooling of magma deep underground. Very hard and durable, used since Prehistory for construction and sculpture. Preferred stone for monuments, paving and artworks.",
+      "category": "construction",
+      "era": "prehistoric",
+      "year_approx": -5000,
+      "origin": "Monde entier (géologie naturelle)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Granite",
+      "tags": [
+        "pierre",
+        "roche",
+        "construction",
+        "sculpture",
+        "géologie"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Bianco_Sardo_Granit_mit_polierter_Oberfl%C3%A4che.jpg/600px-Bianco_Sardo_Granit_mit_polierter_Oberfl%C3%A4che.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [],
+      "_ai_led_to": [
+        {
+          "id": "pierre-de-taille",
+          "relation_type": "material"
+        },
+        {
+          "id": "mur-pierre",
+          "relation_type": "material"
+        },
+        {
+          "id": "taille-pierre",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "marbre",
+      "name": "Marbre",
+      "name_en": "Marble",
+      "description": "Roche métamorphe résultant de la transformation du calcaire sous chaleur et pression. Possède une structure cristalline fine, translucide et extrêmement travaillable. Prisé depuis l'Antiquité pour la sculpture, l'architecture et l'ornementation des édifices prestigieux.",
+      "description_en": "Metamorphic rock resulting from the transformation of limestone under heat and pressure. Fine crystalline structure, translucent and extremely workable. Prized since antiquity for sculpture, architecture and ornamentation of prestigious buildings.",
+      "category": "construction",
+      "era": "ancient",
+      "year_approx": -2000,
+      "origin": "Italie (Carrare), Grèce, Espagne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Marble",
+      "tags": [
+        "marbre",
+        "pierre",
+        "sculpture",
+        "architecture",
+        "géologie"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Marmo_z17.JPG/600px-Marmo_z17.JPG",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "calcaire",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "pierre-de-taille",
+          "relation_type": "material"
+        },
+        {
+          "id": "sculpture-sur-pierre",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "latex",
+      "name": "Latex",
+      "name_en": "Latex",
+      "description": "Liquide blanc laiteux extrait de l'écorce de l'hévéa et d'autres plantes tropicales. Substance naturelle contenant des polymères qui se solidifient à l'air. Base du caoutchouc naturel et de nombreuses applications industrielles.",
+      "description_en": "White milky liquid extracted from the bark of the rubber tree and other tropical plants. Natural substance containing polymers that solidify in air. Base of natural rubber and many industrial applications.",
+      "category": "chemistry",
+      "era": "ancient",
+      "year_approx": -2000,
+      "origin": "Amérique centrale et du Sud",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Latex",
+      "tags": [
+        "liquide blanc",
+        "polymère naturel",
+        "plante tropicale",
+        "caoutchouc",
+        "résine"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Latex-production.jpg/600px-Latex-production.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "air",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "caoutchouc",
+          "relation_type": "material"
+        },
+        {
+          "id": "vulcanisation",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "cire-d-abeille",
+      "name": "Cire d'abeille",
+      "name_en": "Beeswax",
+      "description": "Substance solide crémeuse sécrétée par les abeilles mellifères pour construire les rayons. Cire naturelle aux propriétés hydrophobes et plastiques, utilisée depuis l'antiquité pour l'éclairage et le cosmétique. Mélange complexe d'hydrocarbures et d'esters.",
+      "description_en": "Creamy solid substance secreted by honeybees to build honeycombs. Natural wax with hydrophobic and plastic properties, used since antiquity for lighting and cosmetics. Complex mixture of hydrocarbons and esters.",
+      "category": "food",
+      "era": "ancient",
+      "year_approx": -6000,
+      "origin": null,
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Beeswax",
+      "tags": [
+        "abeille",
+        "cire naturelle",
+        "rayon de miel",
+        "éclairage",
+        "cosmétique"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "animal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Honey_comb.jpg/600px-Honey_comb.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "abeille-domestique",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "chandelle",
+          "relation_type": "material"
+        },
+        {
+          "id": "cosmetique",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "cuir-brut",
+      "name": "Cuir brut",
+      "name_en": "Raw leather",
+      "description": "Peau d'animal nettoyée et séchée, transformée par tannage pour préserver sa souplesse et résistance. Matériau durable obtenu par traitement chimique ou naturel de la peau brute. Utilisé pour la confection de vêtements, chaussures et équipements.",
+      "description_en": "Cleaned and dried animal skin, transformed by tanning to preserve its flexibility and resistance. Durable material obtained by chemical or natural treatment of raw hide. Used for making clothing, footwear and equipment.",
+      "category": "textile",
+      "era": "prehistoric",
+      "year_approx": -8000,
+      "origin": null,
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Leather",
+      "tags": [
+        "peau d'animal",
+        "tannage",
+        "tannin",
+        "vêtement",
+        "chaussure"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "animal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Leathertools.jpg/600px-Leathertools.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "viande",
+          "relation_type": "material"
+        },
+        {
+          "id": "tannin",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "vetement",
+          "relation_type": "material"
+        },
+        {
+          "id": "chaussure",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "chanvre",
+      "name": "Chanvre",
+      "name_en": "Hemp",
+      "description": "Plante herbacée dont les fibres de la tige sont extraites et transformées en fil et tissu. Fibre naturelle robuste et durable aux propriétés isolantes et respirantes. Utilisée depuis l'antiquité pour les cordes, voiles, vêtements et tissage.",
+      "description_en": "Herbaceous plant whose stem fibers are extracted and transformed into thread and fabric. Robust and durable natural fiber with insulating and breathable properties. Used since antiquity for ropes, sails, clothing and weaving.",
+      "category": "textile",
+      "era": "ancient",
+      "year_approx": -4000,
+      "origin": "Asie centrale",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Hemp",
+      "tags": [
+        "plante fibreuse",
+        "tissu naturel",
+        "corde",
+        "voile",
+        "vêtement"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/La_Roche_Jagu_chanvre_1.JPG/600px-La_Roche_Jagu_chanvre_1.JPG",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "eau",
+          "relation_type": "material"
+        },
+        {
+          "id": "air",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "fil-de-chanvre",
+          "relation_type": "material"
+        },
+        {
+          "id": "tissu",
+          "relation_type": "material"
+        },
+        {
+          "id": "corde",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "tourbe",
+      "name": "Tourbe",
+      "name_en": "Peat",
+      "description": "Combustible fossile formé par l'accumulation de matière organique végétale décomposée partiellement dans les zones humides. Matière brune riche en carbone extraite des tourbières. Utilisée historiquement comme source d'énergie de chauffage avant le charbon et le gaz naturel.",
+      "description_en": "Fossil fuel formed by the accumulation of partially decomposed plant organic matter in wetlands. Brown matter rich in carbon extracted from peatlands. Historically used as a heating energy source before coal and natural gas.",
+      "category": "energy",
+      "era": "medieval",
+      "year_approx": 1000,
+      "origin": null,
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Peat",
+      "tags": [
+        "combustible fossile",
+        "carbone",
+        "tourbière",
+        "chauffage",
+        "énergie"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Peat_%2849302157252%29.jpg/600px-Peat_%2849302157252%29.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "eau",
+          "relation_type": "material"
+        },
+        {
+          "id": "bois",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "charbon",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "feu",
+          "relation_type": "energy"
+        }
+      ]
+    },
+    {
+      "id": "plastique-pe",
+      "name": "Plastique PE (Polyéthylène)",
+      "name_en": "Polyethylene (PE) Plastic",
+      "description": "Polymère thermoplastique léger et flexible obtenu par polymérisation de l'éthylène. Le polyéthylène est le plastique le plus produit et le plus utilisé au monde, notamment pour les emballages souples, les sacs, les films et les conteneurs. Il existe en deux formes principales : haute densité (HDPE) et basse densité (LDPE).",
+      "description_en": "A lightweight and flexible thermoplastic polymer made from ethylene polymerization. Polyethylene is the most produced and widely used plastic globally, particularly for flexible packaging, bags, films, and containers. It exists in two main forms: high-density (HDPE) and low-density (LDPE).",
+      "category": "chemistry",
+      "era": "contemporary",
+      "year_approx": 1933,
+      "origin": "Eric Fawcett & Reginald Gibson (Royaume-Uni)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Polyethylene",
+      "tags": [
+        "plastique",
+        "polymère",
+        "emballage",
+        "synthétique",
+        "thermoplastique",
+        "polyéthylène"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Polyethylene_balls1.jpg/600px-Polyethylene_balls1.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "petrole",
+          "relation_type": "material"
+        },
+        {
+          "id": "raffinage",
+          "relation_type": "process"
+        },
+        {
+          "id": "polymeres",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "bouteille-plastique",
+          "relation_type": "material"
+        },
+        {
+          "id": "sachet",
+          "relation_type": "material"
+        },
+        {
+          "id": "film-plastique",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "pp",
+      "name": "Polypropylène (PP)",
+      "name_en": "Polypropylene (PP)",
+      "description": "Polymère thermoplastique semi-cristallin dérivé du propylène. Le polypropylène combine légèreté, rigidité et résistance thermique, ce qui le rend idéal pour les pièces automobiles, les emballages alimentaires, les tuyaux et les articles ménagers. Il résiste bien aux chocs et aux produits chimiques.",
+      "description_en": "A semi-crystalline thermoplastic polymer derived from propylene. Polypropylene combines lightness, rigidity, and thermal resistance, making it ideal for automotive parts, food packaging, pipes, and household items. It resists impacts and chemicals well.",
+      "category": "chemistry",
+      "era": "contemporary",
+      "year_approx": 1954,
+      "origin": "Giulio Natta (Italie)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Polypropylene",
+      "tags": [
+        "plastique",
+        "polymère",
+        "propylène",
+        "thermoplastique",
+        "emballage",
+        "rigidité"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Polypropylene_isotactic_mini_trp.png/600px-Polypropylene_isotactic_mini_trp.png",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "petrole",
+          "relation_type": "material"
+        },
+        {
+          "id": "raffinage",
+          "relation_type": "process"
+        },
+        {
+          "id": "polymeres",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "tuyau",
+          "relation_type": "material"
+        },
+        {
+          "id": "conteneur-maritime",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "pvc",
+      "name": "Chlorure de polyvinyle (PVC)",
+      "name_en": "Polyvinyl Chloride (PVC)",
+      "description": "Polymère thermoplastique rigide ou flexible selon sa formulation, obtenu par polymérisation du chlorure de vinyle. Le PVC est largement utilisé pour les tuyauteries, les câbles électriques, les revêtements de sol, les fenêtres et les articles de mobilier. Il offre une bonne durabilité et une excellente résistance au feu.",
+      "description_en": "A rigid or flexible thermoplastic polymer depending on its formulation, obtained from vinyl chloride polymerization. PVC is widely used for pipes, electrical cables, flooring, windows, and furniture items. It offers good durability and excellent fire resistance.",
+      "category": "chemistry",
+      "era": "modern",
+      "year_approx": 1912,
+      "origin": "Fritz Klatte (Allemagne)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Polyvinyl_chloride",
+      "tags": [
+        "plastique",
+        "polymère",
+        "vinyle",
+        "tuyau",
+        "câble",
+        "construction"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Pure_Polyvinyl_Chloride_powder.jpg/600px-Pure_Polyvinyl_Chloride_powder.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "petrole",
+          "relation_type": "material"
+        },
+        {
+          "id": "chlore-gazeux",
+          "relation_type": "material"
+        },
+        {
+          "id": "polymeres",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "tuyau",
+          "relation_type": "material"
+        },
+        {
+          "id": "cable-electrique",
+          "relation_type": "material"
+        },
+        {
+          "id": "fenetre",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "caoutchouc-vulcanise",
+      "name": "Caoutchouc vulcanisé",
+      "name_en": "Vulcanized Rubber",
+      "description": "Caoutchouc naturel traité par ajout de soufre et chauffage, rendant le matériau plus élastique, durable et résistant aux variations de température. La vulcanisation a révolutionné l'industrie en permettant la production de pneus, de joints, de tuyaux et d'objets élastiques stables et durables.",
+      "description_en": "Natural rubber treated by adding sulfur and heating, making the material more elastic, durable, and resistant to temperature variations. Vulcanization revolutionized the industry by enabling the production of tires, seals, hoses, and stable, durable elastic objects.",
+      "category": "chemistry",
+      "era": "industrial",
+      "year_approx": 1844,
+      "origin": "Charles Goodyear (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Vulcanization",
+      "tags": [
+        "caoutchouc",
+        "traitement",
+        "soufre",
+        "pneu",
+        "élastique",
+        "chimie"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "vegetal",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/VulcanizationMold1941.jpg/600px-VulcanizationMold1941.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "caoutchouc",
+          "relation_type": "material"
+        },
+        {
+          "id": "soufre",
+          "relation_type": "material"
+        },
+        {
+          "id": "vulcanisation",
+          "relation_type": "process"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "pneu",
+          "relation_type": "material"
+        },
+        {
+          "id": "joint-elastique",
+          "relation_type": "material"
+        },
+        {
+          "id": "automobile",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "laiton",
+      "name": "Laiton",
+      "name_en": "Brass",
+      "description": "Alliage de cuivre et de zinc offrant une excellent malléabilité, une belle couleur jaune dorée et une bonne résistance à la corrosion. Le laiton est utilisé depuis l'Antiquité pour les instruments musicaux, les ornements, les conduites d'eau, les articles de quincaillerie et les pièces de mécanique de précision.",
+      "description_en": "An alloy of copper and zinc offering excellent malleability, a beautiful golden-yellow color, and good corrosion resistance. Brass has been used since ancient times for musical instruments, ornaments, water pipes, hardware items, and precision mechanical parts.",
+      "category": "chemistry",
+      "era": "ancient",
+      "year_approx": -500,
+      "origin": "Moyen-Orient & Méditerranée antique",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Brass",
+      "tags": [
+        "alliage",
+        "cuivre",
+        "zinc",
+        "conducteur",
+        "ornement",
+        "mécanique"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Planispheric_Astrolabe_MET_DP105325.jpg/600px-Planispheric_Astrolabe_MET_DP105325.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "cuivre",
+          "relation_type": "material"
+        },
+        {
+          "id": "zinc",
+          "relation_type": "material"
+        },
+        {
+          "id": "metallurgie",
+          "relation_type": "process"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "instrument-musique",
+          "relation_type": "material"
+        },
+        {
+          "id": "tuyau",
+          "relation_type": "material"
+        },
+        {
+          "id": "engrenage",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "graphite",
+      "name": "Graphite",
+      "name_en": "Graphite",
+      "description": "Forme cristalline du carbone extraite de gisements naturels, caractérisée par sa structure en feuillets. Le graphite se distingue par sa conductivité électrique, son inertie chimique et sa capacité de lubrification. Découvert et nommé au XVIe siècle en Angleterre, il devient rapidement un matériau stratégique pour de nombreuses applications.",
+      "description_en": "Crystalline form of carbon extracted from natural deposits, characterized by its layered structure. Graphite is distinguished by its electrical conductivity, chemical inertness, and lubricating ability. Discovered and named in the 16th century in England, it quickly becomes a strategic material for numerous applications.",
+      "category": "industry",
+      "era": "modern",
+      "year_approx": 1564,
+      "origin": "Royaume-Uni",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Graphite",
+      "tags": [
+        "carbone",
+        "minéral",
+        "conducteur",
+        "lubrifiant",
+        "électricité"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "element",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Graphite-233436.jpg/600px-Graphite-233436.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [],
+      "_ai_led_to": [
+        {
+          "id": "crayon",
+          "relation_type": "material"
+        },
+        {
+          "id": "lubrification",
+          "relation_type": "material"
+        },
+        {
+          "id": "electrodes",
+          "relation_type": "material"
+        },
+        {
+          "id": "batterie-li",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "platre",
+      "name": "Plâtre",
+      "name_en": "Plaster",
+      "description": "Matériau de construction obtenu par calcination du gypse et réhydratation contrôlée. Le plâtre durcit rapidement et adhère bien aux surfaces, ce qui le rend idéal pour les finitions intérieures et le modelage. Utilisé depuis l'Antiquité égyptienne, il reste un élément fondamental de la construction.",
+      "description_en": "Construction material obtained by calcining gypsum and controlled rehydration. Plaster hardens quickly and adheres well to surfaces, making it ideal for interior finishes and modeling. Used since ancient Egypt, it remains a fundamental element of construction.",
+      "category": "construction",
+      "era": "ancient",
+      "year_approx": -2000,
+      "origin": "Égypte ancienne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Plaster",
+      "tags": [
+        "construction",
+        "gypse",
+        "revêtement",
+        "intérieur",
+        "finition"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Fontainebleau_escalier_roi5.jpg/600px-Fontainebleau_escalier_roi5.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "gypse",
+          "relation_type": "material"
+        },
+        {
+          "id": "feu",
+          "relation_type": "energy"
+        },
+        {
+          "id": "calcination",
+          "relation_type": "process"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "enduit",
+          "relation_type": "material"
+        },
+        {
+          "id": "moulure",
+          "relation_type": "material"
+        },
+        {
+          "id": "sculpture",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "porcelaine",
+      "name": "Porcelaine",
+      "name_en": "Porcelain",
+      "description": "Céramique fine obtenue par cuisson à haute température d'un mélange de kaolin, feldspath et silice. La porcelaine se distingue par sa dureté, sa blancheur, sa translucidité et son étanchéité. Perfectionnée en Chine lors de la dynastie Tang, elle devient un matériau de prestige pour la vaisselle, la décoration et les objets rituels.",
+      "description_en": "Fine ceramic obtained by high-temperature firing of a mixture of kaolin, feldspar, and silica. Porcelain is distinguished by its hardness, whiteness, translucency, and impermeability. Perfected in China during the Tang dynasty, it becomes a prestigious material for tableware, decoration, and ritual objects.",
+      "category": "construction",
+      "era": "ancient",
+      "year_approx": 620,
+      "origin": "Chine",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Porcelain",
+      "tags": [
+        "céramique",
+        "kaolin",
+        "blanche",
+        "fine",
+        "luxe"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "materiau",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/%E6%B1%9D%E7%AA%AF_%E9%9D%92%E7%93%B7%E8%86%BD%E7%93%B6.png/600px-%E6%B1%9D%E7%AA%AF_%E9%9D%92%E7%93%B7%E8%86%BD%E7%93%B6.png",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "kaolin",
+          "relation_type": "material"
+        },
+        {
+          "id": "feldspath",
+          "relation_type": "material"
+        },
+        {
+          "id": "silice",
+          "relation_type": "material"
+        },
+        {
+          "id": "four-haute-temp",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "assiette",
+          "relation_type": "material"
+        },
+        {
+          "id": "bol",
+          "relation_type": "material"
+        },
+        {
+          "id": "objet-decoratif",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "alcool",
+      "name": "Alcool",
+      "name_en": "Alcohol",
+      "description": "Substance organique obtenue par fermentation microbienne de sucres, particulièrement l'éthanol (C2H5OH). L'alcool a d'abord été produit comme boisson fermentée avant de devenir un solvant, un désinfectant et un matière première en synthèse chimique. C'est un composé fondamental de la chimie organique et de l'industrie pharmaceutique.",
+      "description_en": "Organic substance obtained by microbial fermentation of sugars, particularly ethanol (C2H5OH). Alcohol was first produced as a fermented beverage before becoming a solvent, disinfectant, and raw material in chemical synthesis. It is a fundamental compound in organic chemistry and the pharmaceutical industry.",
+      "category": "chemistry",
+      "era": "ancient",
+      "year_approx": -5000,
+      "origin": "Mésopotamie / Égypte",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Alcohol",
+      "tags": [
+        "fermentation",
+        "éthanol",
+        "solvant",
+        "désinfectant",
+        "chimie"
+      ],
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "vegetal",
+      "nature_type": "compose",
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "sucre",
+          "relation_type": "material"
+        },
+        {
+          "id": "levure",
+          "relation_type": "catalyst"
+        },
+        {
+          "id": "fermentation",
+          "relation_type": "process"
+        },
+        {
+          "id": "distillation",
+          "relation_type": "process"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "alcool-ethylique",
+          "relation_type": "material"
+        },
+        {
+          "id": "parfum",
+          "relation_type": "material"
+        },
+        {
+          "id": "medicament",
+          "relation_type": "material"
+        },
+        {
+          "id": "desinfectant",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "moulage",
+      "name": "Moulage",
+      "name_en": "Casting",
+      "description": "Procédé de transformation de matière liquide (métal fondu, cire, résine) versée dans un moule pour obtenir une forme définie. Le moulage permet de créer des objets complexes en une seule opération, sans avoir besoin de forger ou d'usiner. C'est une technique fondamentale pour la production de pièces en métal, céramique et polymères.",
+      "description_en": "Process of pouring liquid material (molten metal, wax, resin) into a mold to obtain a defined shape. Casting enables creation of complex objects in a single operation without forging or machining. It is fundamental for producing metal, ceramic and polymer parts.",
+      "category": "industry",
+      "era": "ancient",
+      "year_approx": -3000,
+      "origin": "Égypte ancienne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Casting_(metalworking)",
+      "tags": [
+        "transformation",
+        "moule",
+        "métal",
+        "forme",
+        "production",
+        "technique"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "feu",
+          "relation_type": "energy"
+        },
+        {
+          "id": "moule",
+          "relation_type": "tool"
+        },
+        {
+          "id": "four",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "fonderie",
+          "relation_type": "tool"
+        },
+        {
+          "id": "bronze",
+          "relation_type": "material"
+        },
+        {
+          "id": "fer",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "tissage",
+      "name": "Tissage",
+      "name_en": "Weaving",
+      "description": "Procédé d'entrecroisement de fils pour créer un tissu. Le tissage combine des fils de chaîne et de trame perpendiculaires, permettant de produire des textiles robustes à partir de fibres végétales ou animales. C'est une technique ancestrale fondamentale pour l'habillement et les matériaux textiles.",
+      "description_en": "Process of interlacing threads to create fabric. Weaving combines warp and weft threads perpendicularly, enabling production of sturdy textiles from plant or animal fibers. It is an ancestral technique fundamental for clothing and textile materials.",
+      "category": "textile",
+      "era": "prehistoric",
+      "year_approx": -6000,
+      "origin": "Moyen-Orient préhistorique",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Weaving",
+      "tags": [
+        "fil",
+        "textile",
+        "entrecroisement",
+        "tissu",
+        "trame",
+        "chaîne"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Warp_and_weft_2.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "fil-de-coton",
+          "relation_type": "material"
+        },
+        {
+          "id": "fil-de-laine",
+          "relation_type": "material"
+        },
+        {
+          "id": "soie-naturelle",
+          "relation_type": "material"
+        },
+        {
+          "id": "metier-tisser",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "tissu",
+          "relation_type": "material"
+        },
+        {
+          "id": "vetement",
+          "relation_type": "material"
+        },
+        {
+          "id": "industrie-textile",
+          "relation_type": "process"
+        }
+      ]
+    },
+    {
+      "id": "tannage",
+      "name": "Tannage",
+      "name_en": "Tanning",
+      "description": "Procédé chimique de transformation de peau brute en cuir durable et flexible. Le tannage utilise des agents chimiques (tanins, sels de chrome) pour fixer les protéines de la peau et la protéger contre la décomposition. Cette technique est essentielle pour produire du cuir utilisé en vêtements, chaussures et équipements.",
+      "description_en": "Chemical process transforming raw hide into durable and flexible leather. Tanning uses chemical agents (tannins, chromium salts) to fix skin proteins and protect against decomposition. This technique is essential for producing leather used in clothing, footwear and equipment.",
+      "category": "chemistry",
+      "era": "ancient",
+      "year_approx": -2000,
+      "origin": "Égypte ancienne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Tanning_(leather)",
+      "tags": [
+        "cuir",
+        "peau",
+        "chimie",
+        "transformation",
+        "conservation",
+        "matière"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/JBS_Tannery.jpg/600px-JBS_Tannery.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "cuir-brut",
+          "relation_type": "material"
+        },
+        {
+          "id": "acide-sulfurique",
+          "relation_type": "material"
+        },
+        {
+          "id": "eau",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "cuir",
+          "relation_type": "material"
+        },
+        {
+          "id": "vetement",
+          "relation_type": "material"
+        },
+        {
+          "id": "chaussure",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "raffinage",
+      "name": "Raffinage",
+      "name_en": "Refining",
+      "description": "Procédé de purification et de transformation du pétrole brut en produits utilisables. Le raffinage utilise la distillation fractionnée pour séparer les hydrocarbures selon leur point d'ébullition, produisant essence, gazole, fioul et autres fractions. C'est un procédé industriel critique pour l'énergie et la pétrochimie modernes.",
+      "description_en": "Process of purifying and transforming crude oil into usable products. Refining uses fractional distillation to separate hydrocarbons by boiling point, producing gasoline, diesel, fuel oil and other fractions. It is a critical industrial process for modern energy and petrochemistry.",
+      "category": "industry",
+      "era": "modern",
+      "year_approx": 1850,
+      "origin": "États-Unis",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Oil_refinery",
+      "tags": [
+        "pétrole",
+        "distillation",
+        "essence",
+        "carburant",
+        "transformation",
+        "industrie"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Anacortes_Refinery_31911.JPG/600px-Anacortes_Refinery_31911.JPG",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "petrole-brut",
+          "relation_type": "material"
+        },
+        {
+          "id": "raffinerie",
+          "relation_type": "tool"
+        },
+        {
+          "id": "distillation-fractionnee",
+          "relation_type": "process"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "essence",
+          "relation_type": "material"
+        },
+        {
+          "id": "gazole",
+          "relation_type": "material"
+        },
+        {
+          "id": "carburant-synthetique",
+          "relation_type": "material"
+        },
+        {
+          "id": "petrochimie",
+          "relation_type": "process"
+        }
+      ]
+    },
+    {
+      "id": "frittage",
+      "name": "Frittage",
+      "name_en": "Sintering",
+      "description": "Procédé de consolidation de poudres minérales ou métalliques par chauffage à température contrôlée sans fusion complète. Les particules se soudent par diffusion atomique, créant un matériau solide et dense. Le frittage permet de produire céramiques, métaux et composites avec une porosité maîtrisée.",
+      "description_en": "Process of consolidating mineral or metal powders by heating at controlled temperature without complete fusion. Particles bond through atomic diffusion, creating solid and dense material. Sintering produces ceramics, metals and composites with controlled porosity.",
+      "category": "industry",
+      "era": "modern",
+      "year_approx": 1900,
+      "origin": "Allemagne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Sintering",
+      "tags": [
+        "poudre",
+        "céramique",
+        "consolidation",
+        "chauffage",
+        "matériau",
+        "densification"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/LDClinkerScaled.jpg/600px-LDClinkerScaled.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "four-haute-temp",
+          "relation_type": "tool"
+        },
+        {
+          "id": "poudre",
+          "relation_type": "material"
+        },
+        {
+          "id": "thermodynamique",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "ceramique",
+          "relation_type": "material"
+        },
+        {
+          "id": "beton-precontraint",
+          "relation_type": "material"
+        },
+        {
+          "id": "materiaux-composites",
+          "relation_type": "material"
+        }
+      ]
+    },
+    {
+      "id": "usinage",
+      "name": "Usinage",
+      "name_en": "Machining",
+      "description": "Procédé de transformation de matériaux par enlèvement de matière à l'aide d'outils coupants montés sur des machines-outils. L'usinage permet de créer des pièces de précision en façonnant des matériaux comme les métaux, le plastique ou le bois selon des formes et dimensions définies. C'est un processus fondamental de la fabrication industrielle et de la production de composants.",
+      "description_en": "Process of transforming materials by removing material using cutting tools mounted on machine tools. Machining creates precision parts by shaping materials like metals, plastics, or wood to defined shapes and dimensions. It is a fundamental process in industrial manufacturing and component production.",
+      "category": "industry",
+      "era": "industrial",
+      "year_approx": 1800,
+      "origin": "Royaume-Uni",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Machining",
+      "tags": [
+        "usinage",
+        "fabrication",
+        "machine-outil",
+        "précision",
+        "enlèvement de matière",
+        "transformation"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Wheel_Machining.jpg/600px-Wheel_Machining.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "machine-outil",
+          "relation_type": "tool"
+        },
+        {
+          "id": "metallurgie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "acier",
+          "relation_type": "material"
+        },
+        {
+          "id": "mecanique-classique",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "composant",
+          "relation_type": "material"
+        },
+        {
+          "id": "precision-manufacturing",
+          "relation_type": "process"
+        },
+        {
+          "id": "industrie-automobile",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "extrusion",
+      "name": "Extrusion",
+      "name_en": "Extrusion",
+      "description": "Procédé de transformation de matériaux plastiques ou métalliques en les forçant à passer à travers une filière sous forte pression. L'extrusion produit des profils, tubes, fils ou tiges avec une section transversale constante. C'est une méthode efficace et économique pour fabriquer des pièces de grandes longueurs avec des formes complexes.",
+      "description_en": "Process of transforming plastic or metal materials by forcing them through a die under high pressure. Extrusion produces profiles, tubes, wires, or rods with a constant cross-section. It is an efficient and economical method for manufacturing long pieces with complex shapes.",
+      "category": "industry",
+      "era": "industrial",
+      "year_approx": 1820,
+      "origin": "Royaume-Uni",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Extrusion",
+      "tags": [
+        "extrusion",
+        "fabrication",
+        "filière",
+        "polymères",
+        "métaux",
+        "profilé"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/S%C3%A8vres_-_Moulin_-_boudineuse-d%C3%A9sa%C3%A9reuse_027.jpg/600px-S%C3%A8vres_-_Moulin_-_boudineuse-d%C3%A9sa%C3%A9reuse_027.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "machine-outil",
+          "relation_type": "tool"
+        },
+        {
+          "id": "polymeres",
+          "relation_type": "material"
+        },
+        {
+          "id": "acier",
+          "relation_type": "material"
+        },
+        {
+          "id": "thermodynamique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "presse-hydraulique",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "profile-acier",
+          "relation_type": "material"
+        },
+        {
+          "id": "fibre-synthetique",
+          "relation_type": "material"
+        },
+        {
+          "id": "tuyau",
+          "relation_type": "component"
+        },
+        {
+          "id": "cable-electrique",
+          "relation_type": "component"
+        }
+      ]
+    },
+    {
+      "id": "injection-plastique",
+      "name": "Injection plastique",
+      "name_en": "Plastic injection molding",
+      "description": "Procédé de fabrication de pièces en plastique en injectant du matériau fondu sous pression dans un moule. L'injection plastique permet de produire des formes complexes en grande série avec une excellente précision et une haute productivité. C'est la méthode dominante pour fabriquer des composants plastiques dans presque tous les secteurs industriels.",
+      "description_en": "Manufacturing process that creates plastic parts by injecting melted material under pressure into a mold. Plastic injection molding enables mass production of complex shapes with excellent precision and high productivity. It is the dominant method for manufacturing plastic components across nearly all industrial sectors.",
+      "category": "industry",
+      "era": "modern",
+      "year_approx": 1950,
+      "origin": "Allemagne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Injection_molding",
+      "tags": [
+        "injection plastique",
+        "moulage",
+        "polymères",
+        "fabrication rapide",
+        "grande série",
+        "moule"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": null,
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "moule",
+          "relation_type": "tool"
+        },
+        {
+          "id": "polymeres",
+          "relation_type": "material"
+        },
+        {
+          "id": "plastique",
+          "relation_type": "material"
+        },
+        {
+          "id": "machine-outil",
+          "relation_type": "tool"
+        },
+        {
+          "id": "thermodynamique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "presse-hydraulique",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "composant",
+          "relation_type": "material"
+        },
+        {
+          "id": "smartphone",
+          "relation_type": "tool"
+        },
+        {
+          "id": "automobile",
+          "relation_type": "tool"
+        },
+        {
+          "id": "gps",
+          "relation_type": "component"
+        },
+        {
+          "id": "electronique-numerique",
+          "relation_type": "process"
+        }
+      ]
+    },
+    {
+      "id": "laminage",
+      "name": "Laminage",
+      "name_en": "Rolling (metalworking)",
+      "description": "Procédé de déformation plastique de métaux ou de polymères en les faisant passer entre deux rouleaux tournants qui réduisent progressivement l'épaisseur. Le laminage produit des tôles, plaques, feuilles ou bandes avec une épaisseur uniforme et des propriétés mécaniques contrôlées. C'est une technique essentielle pour fabriquer les matériaux de base de la construction et de l'industrie.",
+      "description_en": "Process of plastic deformation of metals or polymers by passing them between two rotating rollers that progressively reduce thickness. Rolling produces sheets, plates, or strips with uniform thickness and controlled mechanical properties. It is an essential technique for manufacturing basic materials for construction and industry.",
+      "category": "industry",
+      "era": "industrial",
+      "year_approx": 1750,
+      "origin": "Royaume-Uni",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Rolling_(metalworking)",
+      "tags": [
+        "laminage",
+        "tôle",
+        "métaux",
+        "fabrication",
+        "rouleaux",
+        "déformation"
+      ],
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Laminage_schema_gene.svg/600px-Laminage_schema_gene.svg.png",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "forge",
+          "relation_type": "tool"
+        },
+        {
+          "id": "metallurgie",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "acier",
+          "relation_type": "material"
+        },
+        {
+          "id": "fer",
+          "relation_type": "material"
+        },
+        {
+          "id": "machine-a-vapeur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "mecanique-classique",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "poutre-acier",
+          "relation_type": "material"
+        },
+        {
+          "id": "tole",
+          "relation_type": "material"
+        },
+        {
+          "id": "structure-metallique",
+          "relation_type": "component"
+        },
+        {
+          "id": "automobile",
+          "relation_type": "tool"
+        },
+        {
+          "id": "gratte-ciel",
+          "relation_type": "tool"
+        },
+        {
+          "id": "chassis-auto",
+          "relation_type": "component"
+        }
+      ]
+    },
+    {
+      "id": "haut-fourneau",
+      "name": "Haut fourneau",
+      "name_en": "Blast furnace",
+      "description": "Grand four de fusion capable de atteindre des températures extrêmement élevées grâce à l'injection d'air sous pression. Permet la production d'acier et de fonte en quantités industrielles bien supérieures aux forges traditionnelles. Révolutionne la métallurgie en rendant l'acier accessible à grande échelle.",
+      "description_en": "A large smelting furnace capable of reaching extremely high temperatures through forced air injection. Enables the production of steel and cast iron in industrial quantities far exceeding traditional forges. Revolutionizes metallurgy by making steel accessible at large scale.",
+      "category": "industry",
+      "era": "medieval",
+      "year_approx": 1340,
+      "origin": "Europe (Pays-Bas/Belgique)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Blast_furnace",
+      "tags": [
+        "fusion",
+        "métallurgie",
+        "acier",
+        "fonte",
+        "production",
+        "industrie"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Alto_Horno%2C_Puerto_de_Sagunto%2C_Espa%C3%B1a%2C_2015-01-04%2C_DD_91.JPG/600px-Alto_Horno%2C_Puerto_de_Sagunto%2C_Espa%C3%B1a%2C_2015-01-04%2C_DD_91.JPG",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "four-haute-temp",
+          "relation_type": "tool"
+        },
+        {
+          "id": "minerai-fer",
+          "relation_type": "material"
+        },
+        {
+          "id": "charbon",
+          "relation_type": "energy"
+        },
+        {
+          "id": "combustion",
+          "relation_type": "process"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "fonte",
+          "relation_type": "material"
+        },
+        {
+          "id": "acier",
+          "relation_type": "material"
+        },
+        {
+          "id": "revolution-industrielle",
+          "relation_type": "catalyst"
+        }
+      ]
+    },
+    {
+      "id": "enclume",
+      "name": "Enclume",
+      "name_en": "Anvil",
+      "description": "Bloc massif de métal, généralement en fer ou acier, servant de surface de travail pour façonner et forger des métaux au marteau. Outil fondamental du forgeron, permettant la fabrication d'outils, d'armes et de pièces métalliques complexes. L'enclume est essentielle à toute activité de forge.",
+      "description_en": "A massive block of metal, typically iron or steel, serving as a work surface for shaping and forging metals with a hammer. A fundamental blacksmith's tool enabling the manufacture of tools, weapons, and complex metal parts. Essential to all forge activities.",
+      "category": "industry",
+      "era": "ancient",
+      "year_approx": -1500,
+      "origin": "Moyen-Orient/Égypte ancienne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Anvil",
+      "tags": [
+        "forge",
+        "métal",
+        "forgeage",
+        "outil",
+        "marteau",
+        "artisanat"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/2011-09-17._%D0%9A%D1%83%D0%B7%D0%BD%D0%B5%D1%87%D0%BD%D1%8B%D0%B9_%D1%84%D0%B5%D1%81%D1%82%D0%B8%D0%B2%D0%B0%D0%BB%D1%8C_%D0%B2_%D0%94%D0%BE%D0%BD%D0%B5%D1%86%D0%BA%D0%B5_286.jpg/600px-2011-09-17._%D0%9A%D1%83%D0%B7%D0%BD%D0%B5%D1%87%D0%BD%D1%8B%D0%B9_%D1%84%D0%B5%D1%81%D1%82%D0%B8%D0%B2%D0%B0%D0%BB%D1%8C_%D0%B2_%D0%94%D0%BE%D0%BD%D0%B5%D1%86%D0%BA%D0%B5_286.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "fer",
+          "relation_type": "material"
+        },
+        {
+          "id": "acier",
+          "relation_type": "material"
+        },
+        {
+          "id": "forge",
+          "relation_type": "tool"
+        },
+        {
+          "id": "marteau",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "clou",
+          "relation_type": "tool"
+        },
+        {
+          "id": "vis",
+          "relation_type": "tool"
+        },
+        {
+          "id": "boulon",
+          "relation_type": "tool"
+        },
+        {
+          "id": "epee",
+          "relation_type": "weapon"
+        }
+      ]
+    },
+    {
+      "id": "robot-industriel",
+      "name": "Robot industriel",
+      "name_en": "Industrial robot",
+      "description": "Machine programmable capable de réaliser automatiquement des tâches répétitives, précises et souvent dangereuses dans un environnement industriel. Équipé de bras articules, de capteurs et d'un système de contrôle numérique. Augmente la productivité, la précision et la sécurité dans les usines modernes.",
+      "description_en": "A programmable machine capable of automatically performing repetitive, precise, and often dangerous tasks in an industrial environment. Equipped with articulated arms, sensors, and digital control systems. Increases productivity, precision, and safety in modern factories.",
+      "category": "robotics",
+      "era": "modern",
+      "year_approx": 1961,
+      "origin": "États-Unis (George Devol, Joseph Engelberger)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Industrial_robot",
+      "tags": [
+        "robot",
+        "automatisation",
+        "industrie",
+        "bras robotique",
+        "programmation",
+        "precision"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Automation_of_foundry_with_robot.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "moteur-electrique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "microprocesseur",
+          "relation_type": "component"
+        },
+        {
+          "id": "systeme-de-controle-en-temps-reel",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "capteur-de-distance",
+          "relation_type": "component"
+        },
+        {
+          "id": "servo-moteur",
+          "relation_type": "tool"
+        },
+        {
+          "id": "programmation-informatique",
+          "relation_type": "knowledge"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "bras-robotise",
+          "relation_type": "tool"
+        },
+        {
+          "id": "robotique",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "automation",
+          "relation_type": "process"
+        },
+        {
+          "id": "usine-moderne",
+          "relation_type": "infrastructure"
+        }
+      ]
+    },
+    {
+      "id": "navire",
+      "name": "Navire",
+      "name_en": "Ship",
+      "description": "Construction flottante destinée au transport de personnes et de marchandises sur l'eau. Les premiers navires égyptiens utilisaient des roseaux et du bois pour naviguer sur le Nil et la Méditerranée. Ils sont devenus progressivement plus sophistiqués avec l'ajout de voiles et de structures en bois renforcées.",
+      "description_en": "Floating vessel designed for transporting people and cargo on water. Early Egyptian ships used reeds and wood to navigate the Nile and Mediterranean. They became progressively more sophisticated with the addition of sails and reinforced wooden structures.",
+      "category": "transport",
+      "era": "ancient",
+      "year_approx": -3000,
+      "origin": "Égypte ancienne",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Ship",
+      "tags": [
+        "transport",
+        "navigation",
+        "maritime",
+        "commerce",
+        "exploration",
+        "construction navale"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Containerterminal_Altenwerder_%28Hamburg-Altenwerder%29.Iris_Bolten.4.phb.ajb.jpg/600px-Containerterminal_Altenwerder_%28Hamburg-Altenwerder%29.Iris_Bolten.4.phb.ajb.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "bois",
+          "relation_type": "material"
+        },
+        {
+          "id": "roue",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "corde",
+          "relation_type": "material"
+        },
+        {
+          "id": "voile",
+          "relation_type": "tool"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "commerce",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "navigation",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "bateau-a-voile",
+          "relation_type": "tool"
+        },
+        {
+          "id": "navire-a-vapeur",
+          "relation_type": "tool"
+        }
+      ]
+    },
+    {
+      "id": "horloge",
+      "name": "Horloge",
+      "name_en": "Clock",
+      "description": "Instrument de mesure du temps utilisant un système mécanique de roues et d'engrenages. Les premières horloges médiévales étaient des dispositifs à eau (clepsydres améliorées) puis des mécanismes à ressorts et poids. Elles ont révolutionné l'organisation du temps social et religieux.",
+      "description_en": "Time-measuring instrument using a mechanical system of wheels and gears. Early medieval clocks were water-driven devices (improved clepsydras) then mechanisms with springs and weights. They revolutionized the social and religious organization of time.",
+      "category": "infrastructure",
+      "era": "medieval",
+      "year_approx": 1300,
+      "origin": "Europe médiévale",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Clock",
+      "tags": [
+        "temps",
+        "mécanique",
+        "précision",
+        "calendrier",
+        "synchronisation",
+        "instrument"
+      ],
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Pendulum_clock_by_Jacob_Kock%2C_antique_furniture_photography%2C_IMG_0931_edit.jpg/600px-Pendulum_clock_by_Jacob_Kock%2C_antique_furniture_photography%2C_IMG_0931_edit.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "engrenage",
+          "relation_type": "tool"
+        },
+        {
+          "id": "ressort",
+          "relation_type": "material"
+        },
+        {
+          "id": "metier-a-tisser",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "acier",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "horloge-mecanique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "chronometre",
+          "relation_type": "tool"
+        },
+        {
+          "id": "synchronisation-temporelle-ntp",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "calendrier",
+          "relation_type": "knowledge"
+        }
+      ]
+    },
+    {
+      "id": "led",
+      "name": "Diode électroluminescente (LED)",
+      "name_en": "Light-emitting diode (LED)",
+      "description": "Composant électronique qui émet de la lumière visible lorsqu'un courant électrique le traverse. Basée sur la jonction de deux matériaux semiconducteurs dopés, la LED convertit directement l'énergie électrique en lumière. Elle est devenue l'élément fondamental de l'éclairage moderne et de l'affichage numérique.",
+      "description_en": "Electronic component that emits visible light when electric current flows through it. Based on the junction of two doped semiconductor materials, the LED directly converts electrical energy into light. It has become the fundamental element of modern lighting and digital displays.",
+      "category": "electronics",
+      "era": "digital",
+      "year_approx": 1962,
+      "origin": "Nick Holonyak (États-Unis)",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/Light-emitting_diode",
+      "tags": [
+        "électronique",
+        "lumière",
+        "semiconducteur",
+        "éclairage",
+        "affichage",
+        "énergie"
+      ],
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/RBG-LED.jpg/600px-RBG-LED.jpg",
+      "is_draft": true,
+      "_ai_built_upon": [
+        {
+          "id": "diode",
+          "relation_type": "material"
+        },
+        {
+          "id": "silicium",
+          "relation_type": "material"
+        },
+        {
+          "id": "semiconducteur",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "jonction pn",
+          "relation_type": "knowledge"
+        },
+        {
+          "id": "materiau-semiconducteur",
+          "relation_type": "material"
+        }
+      ],
+      "_ai_led_to": [
+        {
+          "id": "ecran-lcd",
+          "relation_type": "tool"
+        },
+        {
+          "id": "eclairage-led-connecte",
+          "relation_type": "tool"
+        },
+        {
+          "id": "variateur-de-lumiere-dimmer",
+          "relation_type": "tool"
+        },
+        {
+          "id": "affichage-numerique",
+          "relation_type": "tool"
+        },
+        {
+          "id": "photographie-numerique",
+          "relation_type": "tool"
+        }
+      ]
     }
   ],
   "links": [
@@ -97354,6 +99540,1566 @@
       "source_id": "ecran-tactile-capacitif",
       "target_id": "ecran-lcd-couleur",
       "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3e50c8fc9479",
+      "source_id": "fil-de-laine",
+      "target_id": "knitwear",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-489999f8c0cb",
+      "source_id": "fil-de-coton",
+      "target_id": "knitwear",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6ed739d3e4bf",
+      "source_id": "soie-naturelle",
+      "target_id": "knitwear",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-42da5121658f",
+      "source_id": "fibres-synthetiques",
+      "target_id": "knitwear",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bb871be6386a",
+      "source_id": "knitwear",
+      "target_id": "vetement",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d5b2a51a2186",
+      "source_id": "knitwear",
+      "target_id": "machine-a-coudre",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b06aefe844a5",
+      "source_id": "knitwear",
+      "target_id": "industrie-textile",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-464f488b266b",
+      "source_id": "terre",
+      "target_id": "petrole-brut",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cb601fc4d7db",
+      "source_id": "petrole-brut",
+      "target_id": "essence",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-43b5df33d379",
+      "source_id": "petrole-brut",
+      "target_id": "gazole",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f34499a48b77",
+      "source_id": "petrole-brut",
+      "target_id": "raffinerie",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-77d0ab8053a2",
+      "source_id": "petrole-brut",
+      "target_id": "petrochimie",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3292cb700e72",
+      "source_id": "petrole-brut",
+      "target_id": "plastique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a786ec22ac4b",
+      "source_id": "terre",
+      "target_id": "gaz-naturel",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-34f30453b9d5",
+      "source_id": "gaz-naturel",
+      "target_id": "gaz-de-houille",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-14731d835ae7",
+      "source_id": "gaz-naturel",
+      "target_id": "ammoniac",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aba35d6cba58",
+      "source_id": "gaz-naturel",
+      "target_id": "hydrogene",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-71a7c97ad9d3",
+      "source_id": "gaz-naturel",
+      "target_id": "electricite",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d6df19eec981",
+      "source_id": "bois",
+      "target_id": "lin",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9fdfe3419997",
+      "source_id": "lin",
+      "target_id": "filature",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-be6ee91b8b4a",
+      "source_id": "lin",
+      "target_id": "tissu",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-13d54bb0eda6",
+      "source_id": "lin",
+      "target_id": "vetement",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9ee1e14db8a0",
+      "source_id": "bois",
+      "target_id": "caoutchouc-naturel",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3a6c8e931ccc",
+      "source_id": "caoutchouc-naturel",
+      "target_id": "caoutchouc",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e37d149509da",
+      "source_id": "caoutchouc-naturel",
+      "target_id": "vulcanisation",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-68377b71e168",
+      "source_id": "caoutchouc-naturel",
+      "target_id": "pneu",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1a20bf299a22",
+      "source_id": "phosphore",
+      "target_id": "engrais",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0afa9eac0355",
+      "source_id": "phosphore",
+      "target_id": "acide-phosphorique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fa106e24b4db",
+      "source_id": "phosphore",
+      "target_id": "nitrate",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-76a51c29f71f",
+      "source_id": "phosphore",
+      "target_id": "agriculture-intensive",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f9b05fe88460",
+      "source_id": "bauxite-aluminium",
+      "target_id": "aluminium",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d53b2fbea30a",
+      "source_id": "bauxite-aluminium",
+      "target_id": "alliage-d-aluminium",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0fb9f3ddb173",
+      "source_id": "minerai-d-etain",
+      "target_id": "etain",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d75feaadb3e2",
+      "source_id": "minerai-d-etain",
+      "target_id": "bronze",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4abd8bba5bdc",
+      "source_id": "minerai-de-zinc",
+      "target_id": "zinc",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c1147979ed4a",
+      "source_id": "minerai-de-zinc",
+      "target_id": "galvanisation",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0a88ae1272a0",
+      "source_id": "granite",
+      "target_id": "pierre-de-taille",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b19830aaa115",
+      "source_id": "granite",
+      "target_id": "mur-pierre",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fe764fbca2b0",
+      "source_id": "granite",
+      "target_id": "taille-pierre",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d46614a5e530",
+      "source_id": "calcaire",
+      "target_id": "marbre",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7bc945f1ae4d",
+      "source_id": "marbre",
+      "target_id": "pierre-de-taille",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fe7fcbb1b8a5",
+      "source_id": "marbre",
+      "target_id": "sculpture-sur-pierre",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-09bacd065a3e",
+      "source_id": "air",
+      "target_id": "latex",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-01a5b4ca5a9d",
+      "source_id": "latex",
+      "target_id": "caoutchouc",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-46af6d6c4712",
+      "source_id": "latex",
+      "target_id": "vulcanisation",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0f566287247f",
+      "source_id": "abeille-domestique",
+      "target_id": "cire-d-abeille",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-108c06a028b0",
+      "source_id": "cire-d-abeille",
+      "target_id": "cosmetique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2c8090451107",
+      "source_id": "viande",
+      "target_id": "cuir-brut",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-023c5648a489",
+      "source_id": "cuir-brut",
+      "target_id": "vetement",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-991318efeb39",
+      "source_id": "eau",
+      "target_id": "chanvre",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-33b6d1589a14",
+      "source_id": "air",
+      "target_id": "chanvre",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-551d1a24b704",
+      "source_id": "chanvre",
+      "target_id": "tissu",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-088b2941540c",
+      "source_id": "chanvre",
+      "target_id": "corde",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c549a48fe954",
+      "source_id": "eau",
+      "target_id": "tourbe",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3b8cdd9cbcf3",
+      "source_id": "bois",
+      "target_id": "tourbe",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-50569188f0b1",
+      "source_id": "tourbe",
+      "target_id": "charbon",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d7207d29415d",
+      "source_id": "tourbe",
+      "target_id": "feu",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e7607a53815c",
+      "source_id": "petrole",
+      "target_id": "plastique-pe",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0f6c9c9fc3d6",
+      "source_id": "polymeres",
+      "target_id": "plastique-pe",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-21ac523e0315",
+      "source_id": "plastique-pe",
+      "target_id": "bouteille-plastique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3cf83e469a71",
+      "source_id": "petrole",
+      "target_id": "pp",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ed417e7f6e26",
+      "source_id": "polymeres",
+      "target_id": "pp",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d7b9732738bd",
+      "source_id": "pp",
+      "target_id": "tuyau",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-48f1cacc9a37",
+      "source_id": "pp",
+      "target_id": "conteneur-maritime",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-39d56b32baa3",
+      "source_id": "petrole",
+      "target_id": "pvc",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-daa18631bcac",
+      "source_id": "chlore-gazeux",
+      "target_id": "pvc",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f23f176859a9",
+      "source_id": "polymeres",
+      "target_id": "pvc",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a75f4b90ab3b",
+      "source_id": "pvc",
+      "target_id": "tuyau",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cd7a6a8c69b3",
+      "source_id": "pvc",
+      "target_id": "cable-electrique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c1f59e90595a",
+      "source_id": "pvc",
+      "target_id": "fenetre",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-622d47d206b5",
+      "source_id": "caoutchouc",
+      "target_id": "caoutchouc-vulcanise",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-80c70dc7786e",
+      "source_id": "soufre",
+      "target_id": "caoutchouc-vulcanise",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-435d15863dae",
+      "source_id": "vulcanisation",
+      "target_id": "caoutchouc-vulcanise",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-21b753fa420d",
+      "source_id": "caoutchouc-vulcanise",
+      "target_id": "pneu",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-74fc0cb5094f",
+      "source_id": "caoutchouc-vulcanise",
+      "target_id": "automobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8c8faee02009",
+      "source_id": "cuivre",
+      "target_id": "laiton",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3fbb941a459b",
+      "source_id": "zinc",
+      "target_id": "laiton",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-54fdfb258212",
+      "source_id": "metallurgie",
+      "target_id": "laiton",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-05efee4a369c",
+      "source_id": "laiton",
+      "target_id": "tuyau",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f1256262327b",
+      "source_id": "laiton",
+      "target_id": "engrenage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-34536bd7cdda",
+      "source_id": "graphite",
+      "target_id": "batterie-li",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4e19d0602ca0",
+      "source_id": "feu",
+      "target_id": "platre",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-be013e80d410",
+      "source_id": "calcination",
+      "target_id": "platre",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cb59c48722d4",
+      "source_id": "four-haute-temp",
+      "target_id": "porcelaine",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-57c631b866ba",
+      "source_id": "sucre",
+      "target_id": "alcool",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7c121d0f05e7",
+      "source_id": "levure",
+      "target_id": "alcool",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-806edea5ea50",
+      "source_id": "fermentation",
+      "target_id": "alcool",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c85924d2e5c2",
+      "source_id": "distillation",
+      "target_id": "alcool",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c539c542c947",
+      "source_id": "alcool",
+      "target_id": "alcool-ethylique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5b1e0721daba",
+      "source_id": "feu",
+      "target_id": "moulage",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-937ad0cd1d4b",
+      "source_id": "moule",
+      "target_id": "moulage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1ef65fe00291",
+      "source_id": "four",
+      "target_id": "moulage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b88872fea490",
+      "source_id": "moulage",
+      "target_id": "fonderie",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b5e0258d332c",
+      "source_id": "moulage",
+      "target_id": "bronze",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1e3a85e29dd8",
+      "source_id": "moulage",
+      "target_id": "fer",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7033e0abb589",
+      "source_id": "fil-de-coton",
+      "target_id": "tissage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ed93fa731347",
+      "source_id": "fil-de-laine",
+      "target_id": "tissage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b7e19bba6300",
+      "source_id": "soie-naturelle",
+      "target_id": "tissage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d46529757e20",
+      "source_id": "metier-tisser",
+      "target_id": "tissage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a3556fd90c9f",
+      "source_id": "tissage",
+      "target_id": "tissu",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d747cc09ccc8",
+      "source_id": "tissage",
+      "target_id": "vetement",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-621e4ca4e5d6",
+      "source_id": "tissage",
+      "target_id": "industrie-textile",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-dab79c568b3d",
+      "source_id": "cuir-brut",
+      "target_id": "tannage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2579c80e3f33",
+      "source_id": "acide-sulfurique",
+      "target_id": "tannage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b3e9663d48ec",
+      "source_id": "eau",
+      "target_id": "tannage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-50c3e99e6240",
+      "source_id": "tannage",
+      "target_id": "vetement",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-453f3c370941",
+      "source_id": "petrole-brut",
+      "target_id": "raffinage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aa982040ce4b",
+      "source_id": "raffinerie",
+      "target_id": "raffinage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1439b4cbe065",
+      "source_id": "distillation-fractionnee",
+      "target_id": "raffinage",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-81c435507484",
+      "source_id": "raffinage",
+      "target_id": "essence",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-59160f7348ea",
+      "source_id": "raffinage",
+      "target_id": "gazole",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3063ceaf651f",
+      "source_id": "raffinage",
+      "target_id": "carburant-synthetique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1d61c2be954e",
+      "source_id": "raffinage",
+      "target_id": "petrochimie",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d0fa39ccb9de",
+      "source_id": "four-haute-temp",
+      "target_id": "frittage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-57f770e29ee0",
+      "source_id": "thermodynamique",
+      "target_id": "frittage",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-995c4cbe361d",
+      "source_id": "frittage",
+      "target_id": "ceramique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-13b93a16743f",
+      "source_id": "frittage",
+      "target_id": "beton-precontraint",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9c62f1546986",
+      "source_id": "frittage",
+      "target_id": "materiaux-composites",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-78afad52c137",
+      "source_id": "machine-outil",
+      "target_id": "usinage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d6d0a686f55e",
+      "source_id": "metallurgie",
+      "target_id": "usinage",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-107079963cf7",
+      "source_id": "acier",
+      "target_id": "usinage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-2f3d7206f715",
+      "source_id": "mecanique-classique",
+      "target_id": "usinage",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-66f070b59064",
+      "source_id": "usinage",
+      "target_id": "industrie-automobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-672d1295d253",
+      "source_id": "machine-outil",
+      "target_id": "extrusion",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ea7bdeb227ac",
+      "source_id": "polymeres",
+      "target_id": "extrusion",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-81440b827e77",
+      "source_id": "acier",
+      "target_id": "extrusion",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-618a0b7b1e3c",
+      "source_id": "thermodynamique",
+      "target_id": "extrusion",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-830446a12615",
+      "source_id": "presse-hydraulique",
+      "target_id": "extrusion",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-750b80d711fd",
+      "source_id": "extrusion",
+      "target_id": "tuyau",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-72a3e83479f3",
+      "source_id": "extrusion",
+      "target_id": "cable-electrique",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b7df629ee99f",
+      "source_id": "moule",
+      "target_id": "injection-plastique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-cbbfe0a11ac4",
+      "source_id": "polymeres",
+      "target_id": "injection-plastique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-eeef766af1ff",
+      "source_id": "plastique",
+      "target_id": "injection-plastique",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-7bf1c8ee4d46",
+      "source_id": "machine-outil",
+      "target_id": "injection-plastique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-90b55f50a0cf",
+      "source_id": "thermodynamique",
+      "target_id": "injection-plastique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c973036805f6",
+      "source_id": "presse-hydraulique",
+      "target_id": "injection-plastique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-be729d94ae22",
+      "source_id": "injection-plastique",
+      "target_id": "smartphone",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9af83364c587",
+      "source_id": "injection-plastique",
+      "target_id": "automobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6762c0101e0f",
+      "source_id": "injection-plastique",
+      "target_id": "gps",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-380134dcfe38",
+      "source_id": "injection-plastique",
+      "target_id": "electronique-numerique",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-bb9f630e3986",
+      "source_id": "forge",
+      "target_id": "laminage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b21f55a29ad4",
+      "source_id": "metallurgie",
+      "target_id": "laminage",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e2817080e826",
+      "source_id": "acier",
+      "target_id": "laminage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-da6ff563c6db",
+      "source_id": "fer",
+      "target_id": "laminage",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-38e0ed3d5221",
+      "source_id": "machine-a-vapeur",
+      "target_id": "laminage",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b75e03682dcc",
+      "source_id": "mecanique-classique",
+      "target_id": "laminage",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a4a579804fe4",
+      "source_id": "laminage",
+      "target_id": "poutre-acier",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-5766eb19a805",
+      "source_id": "laminage",
+      "target_id": "structure-metallique",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-84d95c838ef2",
+      "source_id": "laminage",
+      "target_id": "automobile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-97547c3d5e94",
+      "source_id": "laminage",
+      "target_id": "gratte-ciel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-780361229bb6",
+      "source_id": "laminage",
+      "target_id": "chassis-auto",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8858c8e4b1a7",
+      "source_id": "four-haute-temp",
+      "target_id": "haut-fourneau",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-9f0cd22b372c",
+      "source_id": "minerai-fer",
+      "target_id": "haut-fourneau",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8bf90f904f63",
+      "source_id": "charbon",
+      "target_id": "haut-fourneau",
+      "relation_type": "energy",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-50a9695092c7",
+      "source_id": "combustion",
+      "target_id": "haut-fourneau",
+      "relation_type": "process",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d744d4f4a8f0",
+      "source_id": "haut-fourneau",
+      "target_id": "fonte",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d5dfd31c446b",
+      "source_id": "haut-fourneau",
+      "target_id": "acier",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-54b9547057e9",
+      "source_id": "haut-fourneau",
+      "target_id": "revolution-industrielle",
+      "relation_type": "catalyst",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-1a5156fb9a58",
+      "source_id": "fer",
+      "target_id": "enclume",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-717edda55a8c",
+      "source_id": "acier",
+      "target_id": "enclume",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-35bbdb6c5173",
+      "source_id": "forge",
+      "target_id": "enclume",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-666a88c02cc8",
+      "source_id": "marteau",
+      "target_id": "enclume",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f63f4257a9dc",
+      "source_id": "enclume",
+      "target_id": "clou",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-009325a1c5bb",
+      "source_id": "enclume",
+      "target_id": "vis",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aaf3d0d4dfb4",
+      "source_id": "enclume",
+      "target_id": "boulon",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-0e381b2ef567",
+      "source_id": "enclume",
+      "target_id": "epee",
+      "relation_type": "weapon",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b84af3fb3ccd",
+      "source_id": "moteur-electrique",
+      "target_id": "robot-industriel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e6f6a5a11690",
+      "source_id": "microprocesseur",
+      "target_id": "robot-industriel",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-867e2dcbc943",
+      "source_id": "systeme-de-controle-en-temps-reel",
+      "target_id": "robot-industriel",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-ec2fbec5e538",
+      "source_id": "capteur-de-distance",
+      "target_id": "robot-industriel",
+      "relation_type": "component",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3a3502ee2990",
+      "source_id": "servo-moteur",
+      "target_id": "robot-industriel",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a9bf74058c15",
+      "source_id": "programmation-informatique",
+      "target_id": "robot-industriel",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-80c989e9871f",
+      "source_id": "robot-industriel",
+      "target_id": "bras-robotise",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a92f9af326dc",
+      "source_id": "robot-industriel",
+      "target_id": "robotique",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b6d5b021b443",
+      "source_id": "robot-industriel",
+      "target_id": "usine-moderne",
+      "relation_type": "infrastructure",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-a3538c366c78",
+      "source_id": "bois",
+      "target_id": "navire",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-16d9c64c8a83",
+      "source_id": "roue",
+      "target_id": "navire",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-aaffdc25492a",
+      "source_id": "corde",
+      "target_id": "navire",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-3ae16df8bb53",
+      "source_id": "voile",
+      "target_id": "navire",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-8dde35a8d8eb",
+      "source_id": "navire",
+      "target_id": "commerce",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-f92ca4e15a46",
+      "source_id": "navire",
+      "target_id": "navigation",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-616c9d342713",
+      "source_id": "navire",
+      "target_id": "bateau-a-voile",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-16be3ff50557",
+      "source_id": "navire",
+      "target_id": "navire-a-vapeur",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-6266e51125c3",
+      "source_id": "engrenage",
+      "target_id": "horloge",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e2fdc8b4f1ce",
+      "source_id": "ressort",
+      "target_id": "horloge",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-b8cd10c88fb2",
+      "source_id": "acier",
+      "target_id": "horloge",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-483d5b4b87e4",
+      "source_id": "horloge",
+      "target_id": "horloge-mecanique",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-961a62a2f492",
+      "source_id": "horloge",
+      "target_id": "chronometre",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-fda6c21dd629",
+      "source_id": "horloge",
+      "target_id": "synchronisation-temporelle-ntp",
+      "relation_type": "knowledge",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-d0b6f65881a8",
+      "source_id": "diode",
+      "target_id": "led",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-4ed8aebc069b",
+      "source_id": "silicium",
+      "target_id": "led",
+      "relation_type": "material",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-e88d2a00e8b8",
+      "source_id": "led",
+      "target_id": "ecran-lcd",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-46e721efa58b",
+      "source_id": "led",
+      "target_id": "eclairage-led-connecte",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-01c37e04116b",
+      "source_id": "led",
+      "target_id": "variateur-de-lumiere-dimmer",
+      "relation_type": "tool",
+      "is_optional": false,
+      "notes": null
+    },
+    {
+      "id": "l-c63246efb9a0",
+      "source_id": "led",
+      "target_id": "photographie-numerique",
+      "relation_type": "tool",
       "is_optional": false,
       "notes": null
     }

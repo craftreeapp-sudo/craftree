@@ -8,6 +8,10 @@ import {
 import { createSupabaseServiceRoleClient } from '@/lib/supabase-server';
 import { requireAdminFromRequest } from '@/lib/auth-server';
 import { mapLinkRowToCraftingLink } from '@/lib/data';
+import {
+  linkEndpointsLockedFromSeed,
+  linkEndpointsLockedFromSupabase,
+} from '@/lib/node-lock';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 const RELATIONS: RelationType[] = [
@@ -38,6 +42,11 @@ export async function PUT(request: Request, ctx: Ctx) {
       }
 
       const cur = data.links[idx]!;
+      if (
+        linkEndpointsLockedFromSeed(data.nodes, cur.source_id, cur.target_id)
+      ) {
+        return NextResponse.json({ error: 'node_locked' }, { status: 423 });
+      }
       if (
         body.relation_type !== undefined &&
         !isRelationType(String(body.relation_type))
@@ -82,6 +91,16 @@ export async function PUT(request: Request, ctx: Ctx) {
     const { data: cur } = await sb.from('links').select('*').eq('id', decoded).maybeSingle();
     if (!cur) {
       return NextResponse.json({ error: 'Link not found' }, { status: 404 });
+    }
+
+    if (
+      await linkEndpointsLockedFromSupabase(
+        sb,
+        String(cur.source_id),
+        String(cur.target_id)
+      )
+    ) {
+      return NextResponse.json({ error: 'node_locked' }, { status: 423 });
     }
 
     if (
@@ -134,6 +153,15 @@ export async function DELETE(_request: Request, ctx: Ctx) {
 
     if (!isSupabaseConfigured()) {
       const data = readSeedData();
+      const cur = data.links.find((l) => l.id === decoded);
+      if (!cur) {
+        return NextResponse.json({ error: 'Link not found' }, { status: 404 });
+      }
+      if (
+        linkEndpointsLockedFromSeed(data.nodes, cur.source_id, cur.target_id)
+      ) {
+        return NextResponse.json({ error: 'node_locked' }, { status: 423 });
+      }
       const before = data.links.length;
       data.links = data.links.filter((l) => l.id !== decoded);
       if (data.links.length === before) {
@@ -149,6 +177,23 @@ export async function DELETE(_request: Request, ctx: Ctx) {
     }
 
     const sb = createSupabaseServiceRoleClient();
+    const { data: curLink } = await sb
+      .from('links')
+      .select('source_id, target_id')
+      .eq('id', decoded)
+      .maybeSingle();
+    if (!curLink) {
+      return NextResponse.json({ error: 'Link not found' }, { status: 404 });
+    }
+    if (
+      await linkEndpointsLockedFromSupabase(
+        sb,
+        String(curLink.source_id),
+        String(curLink.target_id)
+      )
+    ) {
+      return NextResponse.json({ error: 'node_locked' }, { status: 423 });
+    }
     const { data: deleted, error } = await sb
       .from('links')
       .delete()

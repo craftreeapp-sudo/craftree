@@ -1,13 +1,20 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { Suspense, use, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { BuiltUponView } from '@/components/explore/BuiltUponView';
+import { TreeExploreSkeleton } from '@/components/performance/route-loading-skeletons';
 import { useUIStore } from '@/stores/ui-store';
 import { useGraphStore } from '@/stores/graph-store';
 import type { CraftingLink, SeedNode } from '@/lib/types';
 import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
+
+const BuiltUponView = dynamic(
+  () =>
+    import('@/components/explore/BuiltUponView').then((m) => m.BuiltUponView),
+  { loading: () => <TreeExploreSkeleton /> }
+);
 
 function TreeExploreInner({
   inventionId,

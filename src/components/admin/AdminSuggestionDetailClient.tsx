@@ -16,6 +16,7 @@ import {
   getContributorFacingMessageFromSuggestion,
   getExploreNodeId,
   initSuggestionEditDraft,
+  isEditNodeSuggestionType,
   sanitizeAdminProposedAddLinks,
 } from '@/lib/admin-suggestion-shared';
 import { AdminSuggestionFormBody } from '@/components/admin/AdminPageClient';
@@ -81,7 +82,7 @@ export function AdminSuggestionDetailClient({ id }: { id: string }) {
         admin_comment: adminComment.trim() || null,
       };
 
-      if (row.suggestion_type === 'edit_node') {
+      if (isEditNodeSuggestionType(row.suggestion_type)) {
         const raw = { ...editDraft };
         const removed = raw[ADMIN_DRAFT_REMOVED_IDS];
         const adds = raw[ADMIN_DRAFT_PROPOSED_ADD];
@@ -257,7 +258,7 @@ export function AdminSuggestionDetailClient({ id }: { id: string }) {
         editDraft={editDraft}
         onEditDraftChange={setEditDraft}
         moderationUi
-        editNodeMode={row.suggestion_type === 'edit_node' ? 'full' : 'diff'}
+        editNodeMode={isEditNodeSuggestionType(row.suggestion_type) ? 'full' : 'diff'}
         readOnly={readOnly}
       />
 

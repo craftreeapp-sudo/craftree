@@ -2323,6 +2323,7 @@
       "transmission"
     ],
     "origin": "Chili",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Fil_de_cuivre",
     "description_en": "Conductive metal wire for transmitting electricity.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Wire.agr.jpg/600px-Wire.agr.jpg"
   },
@@ -2390,6 +2391,7 @@
       "courant"
     ],
     "origin": "Royaume-Uni",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/G%C3%A9n%C3%A9rateur_%C3%A9lectrique",
     "description_en": "Machine converting mechanical energy into electricity.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm/600px--Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm.jpg"
   },
@@ -4912,6 +4914,8 @@
       "manuscrit",
       "livre"
     ],
+    "origin": "Asie Mineure",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Parchemin",
     "description_en": "Skin prepared for writing, durable and smooth.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/%D7%A7%D7%9C%D7%A3%2C_%D7%A0%D7%95%D7%A6%D7%94_%D7%95%D7%93%D7%99%D7%95.jpg/600px-%D7%A7%D7%9C%D7%A3%2C_%D7%A0%D7%95%D7%A6%D7%94_%D7%95%D7%93%D7%99%D7%95.jpg"
   },
@@ -4922,6 +4926,8 @@
       "presse",
       "journal"
     ],
+    "origin": "Grande-Bretagne",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Imprimerie",
     "description_en": "Set of rotary presses and composition for mass printing.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Indienne%2C_Wesserling.JPG/600px-Indienne%2C_Wesserling.JPG"
   },
@@ -4932,6 +4938,8 @@
       "presse",
       "actualité"
     ],
+    "origin": "Allemagne",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Journal",
     "description_en": "Printed information periodical on cheap paper.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/1945%EB%85%84_11%EC%9B%94_23%EC%9D%BC_%EC%84%9C%EC%9A%B8%EC%8B%A0%EB%AC%B8.jpg/600px-1945%EB%85%84_11%EC%9B%94_23%EC%9D%BC_%EC%84%9C%EC%9A%B8%EC%8B%A0%EB%AC%B8.jpg"
   },
@@ -4942,6 +4950,8 @@
       "ondes",
       "audio"
     ],
+    "origin": "Italie",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Radio",
     "description_en": "Receiver demodulating electromagnetic waves into sound.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Icom_IC-R7000_radio_receiver.jpg/600px-Icom_IC-R7000_radio_receiver.jpg"
   },
@@ -4952,6 +4962,8 @@
       "image",
       "broadcast"
     ],
+    "origin": "Royaume-Uni",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Télévision",
     "description_en": "Device displaying images and sound broadcast by waves or cable.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Braun_HF_1.jpg/600px-Braun_HF_1.jpg"
   },
@@ -4962,6 +4974,8 @@
       "calcul",
       "logiciel"
     ],
+    "origin": "États-Unis",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Ordinateur",
     "description_en": "Programmable machine processing digital information.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/ENIAC-changing_a_tube_%28cropped%29.jpg/600px-ENIAC-changing_a_tube_%28cropped%29.jpg"
   },
@@ -4972,6 +4986,8 @@
       "mobile",
       "app"
     ],
+    "origin": "États-Unis",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Smartphone",
     "description_en": "Mobile touch terminal connected to Internet and cellular networks.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/HA0478-006_%286011470974%29.jpg/600px-HA0478-006_%286011470974%29.jpg"
   },
@@ -4982,6 +4998,8 @@
       "PE",
       "moulage"
     ],
+    "origin": "États-Unis",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Plastic",
     "description_en": "Moldable thermoplastic polymer for packaging and parts.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Plastic_objects.jpg/600px-Plastic_objects.jpg"
   },
@@ -4992,6 +5010,8 @@
       "emballage",
       "recyclage"
     ],
+    "origin": "États-Unis",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Plastic_bottle",
     "description_en": "Blown PET container for food liquids.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Inyecci%C3%B3n-soplado.gif"
   },
@@ -5002,6 +5022,8 @@
       "agriculture",
       "rendement"
     ],
+    "origin": "Allemagne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Nitrogen_fertilizer",
     "description_en": "Amendment from the Haber-Bosch process or from nitrate.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Flexible_intermediate_bulk_containers-Fertilizer.jpg/600px-Flexible_intermediate_bulk_containers-Fertilizer.jpg"
   },
@@ -5013,6 +5035,7 @@
       "chimie"
     ],
     "origin": "Nature",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Potassium_nitrate",
     "description_en": "Potassium nitrate, major oxidizer in powders.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Potassium_nitrate_structure.png"
   },
@@ -5024,6 +5047,7 @@
       "acide"
     ],
     "origin": "Nature",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sulfur",
     "description_en": "Yellow oxidizing element secondary in explosive mixtures.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Sulfur-sample.jpg/600px-Sulfur-sample.jpg"
   },
@@ -5034,6 +5058,8 @@
       "explosif",
       "arme"
     ],
+    "origin": "Chine",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gunpowder",
     "description_en": "Saltpeter-charcoal-sulfur mixture deflagrating under shock or flame.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Black_Powder-1.JPG/600px-Black_Powder-1.JPG"
   },
@@ -5044,6 +5070,8 @@
       "optique",
       "verre"
     ],
+    "origin": "Italie",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lens_(optics)",
     "description_en": "Curved polished glass used to converge or diverge light.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Candle_light_projected_through_a_glass_orb.jpg/600px-Candle_light_projected_through_a_glass_orb.jpg"
   },
@@ -5054,6 +5082,8 @@
       "vue",
       "correction"
     ],
+    "origin": "Italie",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Glasses",
     "description_en": "Frame carrying corrective lenses for vision.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/2023_Okulary_korekcyjne.jpg/600px-2023_Okulary_korekcyjne.jpg"
   },
@@ -5064,6 +5094,8 @@
       "science",
       "lentille"
     ],
+    "origin": "Pays-Bas",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Microscope",
     "description_en": "Instrument magnifying the very small by combined lenses.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Leitz_117298_frei.jpg"
   },
@@ -5074,6 +5106,8 @@
       "astronomie",
       "lunette"
     ],
+    "origin": "Pays-Bas",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Telescope",
     "description_en": "Astronomical instrument collecting distant light.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/OHP_T193_Pano.jpg/600px-OHP_T193_Pano.jpg"
   },
@@ -5085,6 +5119,7 @@
       "aliment"
     ],
     "origin": "Nature",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Viande",
     "description_en": "Fresh or prepared animal muscle, rich in protein.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/FoodMeat.jpg/600px-FoodMeat.jpg"
   },
@@ -5095,6 +5130,8 @@
       "conservation",
       "sel"
     ],
+    "origin": "Égypte",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Salaison",
     "description_en": "Meat preserved by brining and drying for long-term storage.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Saint_Etienne_de_Ba%C3%AFgorry_Salaisons.jpg/600px-Saint_Etienne_de_Ba%C3%AFgorry_Salaisons.jpg"
   },
@@ -5106,6 +5143,7 @@
       "tropical"
     ],
     "origin": "Nature",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Canne_%C3%A0_sucre",
     "description_en": "Tropical grass whose juice is rich in sucrose.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Cut_sugarcane.jpg/600px-Cut_sugarcane.jpg"
   },
@@ -5116,6 +5154,8 @@
       "sucré",
       "pâtisserie"
     ],
+    "origin": "Inde",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Sucre",
     "description_en": "Crystallized sucrose after evaporation and refining.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Cut_sugarcane.jpg/600px-Cut_sugarcane.jpg"
   },
@@ -5126,6 +5166,8 @@
       "bonbon",
       "dessert"
     ],
+    "origin": "Moyen-Orient",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Confiserie",
     "description_en": "Candies and pastes made from cooked sugar and flavorings.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Confectionary_and_candy_at_display_in_Kiwi_Allehelgensgate_grocery_store-supermarket_in_Bergen%2C_Norway_2017-10-18_a.jpg/600px-Confectionary_and_candy_at_display_in_Kiwi_Allehelgensgate_grocery_store-supermarket_in_Bergen%2C_Norway_2017-10-18_a.jpg"
   },
@@ -5137,6 +5179,7 @@
       "Mesoamérique"
     ],
     "origin": "Nature",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Cacao",
     "description_en": "Fermented seeds of the cacao tree, the base of chocolate.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Cacao-pod-k4636-14.jpg/600px-Cacao-pod-k4636-14.jpg"
   },
@@ -5147,6 +5190,8 @@
       "dessert",
       "industrie"
     ],
+    "origin": "Espagne",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Chocolat",
     "description_en": "Preparation made from cocoa paste, sugar and often milk.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/00_Ganach%C3%A9_de_chocolate.jpg/600px-00_Ganach%C3%A9_de_chocolate.jpg"
   },
@@ -5158,6 +5203,7 @@
       "amer"
     ],
     "origin": "Nature",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Houblon",
     "description_en": "American and beer-preserving inflorescences.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Humulus_lupulus_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-072.jpg/600px-Humulus_lupulus_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-072.jpg"
   },
@@ -5169,6 +5215,7 @@
       "brasserie"
     ],
     "origin": "Nature",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Orge",
     "description_en": "Malted cereal for brewing beer and feeding the wort.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Savigny-sur-Orge_061.jpg/600px-Savigny-sur-Orge_061.jpg"
   },
@@ -5179,6 +5226,8 @@
       "fermentation",
       "brasserie"
     ],
+    "origin": "Mésopotamie",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Bi%C3%A8re",
     "description_en": "Fermented beverage made from malt, hopped and carbonated.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Beer_mug_transparent.png/600px-Beer_mug_transparent.png"
   },
@@ -5189,6 +5238,8 @@
       "textile",
       "tissage"
     ],
+    "origin": "Égypte ancienne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Loom",
     "description_en": "Machine for interlacing threads to form fabric.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Weaving_profile.jpg"
   },
@@ -5199,6 +5250,8 @@
       "mortier",
       "chaux"
     ],
+    "origin": "Égypte ancienne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lime_water",
     "description_en": "Calcium hydroxide solution for mortars and paints.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Limewater.jpg/600px-Limewater.jpg"
   },
@@ -5210,6 +5263,7 @@
       "mine"
     ],
     "origin": "Nature",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bauxite",
     "description_en": "Aluminous ore used to produce aluminum by electrolysis.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Bauxite.jpg"
   },
@@ -5220,6 +5274,8 @@
       "pétrole",
       "essence"
     ],
+    "origin": "États-Unis",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Oil_refinery",
     "description_en": "Fractional distillation plant for crude oil.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Anacortes_Refinery_31911.JPG/600px-Anacortes_Refinery_31911.JPG"
   },
@@ -5230,6 +5286,8 @@
       "RF",
       "ondes"
     ],
+    "origin": "Guglielmo Marconi (Italie)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Antenna_(radio)",
     "description_en": "Structure capturing HF waves for reception and transmission.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Moosbrunn_SW_Antenna.jpg/600px-Moosbrunn_SW_Antenna.jpg"
   },
@@ -5240,6 +5298,8 @@
       "image",
       "TV"
     ],
+    "origin": "Karl Ferdinand Braun (Allemagne)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cathode_ray_tube",
     "description_en": "Electronic scanning display for analog display.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Cathode_ray_tube2.png/600px-Cathode_ray_tube2.png"
   },
@@ -5250,6 +5310,8 @@
       "nucléaire",
       "modérateur"
     ],
+    "origin": "Urey (États-Unis)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Deuterium_oxide",
     "description_en": "Possible moderator in certain reactors (educational role).",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Heavy_water.svg/600px-Heavy_water.svg.png"
   },
@@ -5260,6 +5322,8 @@
       "génie civil",
       "pont"
     ],
+    "origin": "François Coignet (France)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Reinforced_concrete",
     "description_en": "Concrete poured over steel reinforcement for tensile strength.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Trebar.jpg"
   },
@@ -5270,6 +5334,8 @@
       "caoutchouc",
       "roue"
     ],
+    "origin": "John Boyd Dunlop (Irlande)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tire",
     "description_en": "Inflated rubber casing ensuring road grip.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Si%C3%A8ge_de_Michelin_%C3%A0_Clermont-Ferrand_II.jpg/600px-Si%C3%A8ge_de_Michelin_%C3%A0_Clermont-Ferrand_II.jpg"
   },
@@ -5280,6 +5346,8 @@
       "assemblage",
       "acier"
     ],
+    "origin": "France",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chassis",
     "description_en": "Load-bearing steel or aluminum structure of the vehicle.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Chassis_with_suspension_and_exhaust_system.jpg/600px-Chassis_with_suspension_and_exhaust_system.jpg"
   },
@@ -5290,6 +5358,8 @@
       "aéronautique",
       "alu"
     ],
+    "origin": "France",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Carlingue",
     "description_en": "Structural envelope of the aircraft in light alloys.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Plaque_Gestapo_fran%C3%A7aise%2C_93_rue_Lauriston%2C_Paris_16.jpg/600px-Plaque_Gestapo_fran%C3%A7aise%2C_93_rue_Lauriston%2C_Paris_16.jpg"
   },
@@ -5300,6 +5370,8 @@
       "diesel",
       "pétrole"
     ],
+    "origin": "Allemagne",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Gazole",
     "description_en": "Heavy cutting for industrial diesel engines and trains.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Diesel_in_mason_jar.JPG/600px-Diesel_in_mason_jar.JPG"
   },
@@ -5310,6 +5382,8 @@
       "thermique",
       "électricité"
     ],
+    "origin": "Charles Parsons (Royaume-Uni)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Turbine_%C3%A0_vapeur",
     "description_en": "Thermal engine driving alternators in power plants.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Dampfturbine_Laeufer01.jpg/600px-Dampfturbine_Laeufer01.jpg"
   },
@@ -5320,6 +5394,8 @@
       "réseau",
       "AC"
     ],
+    "origin": "Nikola Tesla (États-Unis)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Alternateur",
     "description_en": "Generator producing three-phase alternating current.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm/600px--Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm.jpg"
   },
@@ -5330,6 +5406,8 @@
       "HT",
       "transport"
     ],
+    "origin": "États-Unis",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/R%C3%A9seau_%C3%A9lectrique",
     "description_en": "Large-scale electricity transmission and distribution.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Poste_Waconichi06.JPG/600px-Poste_Waconichi06.JPG"
   },
@@ -5340,6 +5418,8 @@
       "PV",
       "grille"
     ],
+    "origin": "Allemagne",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Onduleur",
     "description_en": "Converts the direct current from the panels to AC for the grid.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Sunny_Boy_3000.jpg/600px-Sunny_Boy_3000.jpg"
   },
@@ -5350,6 +5430,8 @@
       "sidérurgie",
       "moule"
     ],
+    "origin": "France",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Fonte_(mati%C3%A8re)",
     "description_en": "Cast iron-carbon alloy, stage between iron and steel.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Poids_fonte_5_kg_trapezoidal.jpg/600px-Poids_fonte_5_kg_trapezoidal.jpg"
   },
@@ -5360,6 +5442,8 @@
       "chimie",
       "alimentaire"
     ],
+    "origin": "Harry Brearley (Royaume-Uni)",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Acier_inoxydable",
     "description_en": "Chrome alloy steel resistant to corrosion.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Sink_and_taps_in_the_men%27s_locker_room_3_BW.jpg/600px-Sink_and_taps_in_the_men%27s_locker_room_3_BW.jpg"
   },
@@ -5370,6 +5454,8 @@
       "mode",
       "couleur"
     ],
+    "origin": "Égypte ancienne",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Teinture",
     "description_en": "Fabric after pigment fixation and mordanting.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Casquette_marine.jpg/600px-Casquette_marine.jpg"
   },
@@ -5380,6 +5466,8 @@
       "industrie",
       "coton"
     ],
+    "origin": "Royaume-Uni",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Filature",
     "description_en": "Mechanized workshop aligning fibers into continuous yarn.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Fabricante_de_fil_pour_tisserand.jpg/600px-Fabricante_de_fil_pour_tisserand.jpg"
   },
@@ -5391,6 +5479,7 @@
       "laine"
     ],
     "origin": "Nature",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Mouton",
     "description_en": "Ruminant raised for wool, meat and milk.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flock_of_sheep.jpg/600px-Flock_of_sheep.jpg"
   },
@@ -5402,6 +5491,7 @@
       "feuille"
     ],
     "origin": "Nature",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/M%C3%BBrier",
     "description_en": "Nourishing tree of the silkworm bombyx.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Morus-nigra.JPG/600px-Morus-nigra.JPG"
   },
@@ -5412,6 +5502,8 @@
       "luxe",
       "dorure"
     ],
+    "origin": "Nature",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Feuille_d%27or",
     "description_en": "Beaten gold for decorative gilding on wood or paper.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Kinpaku.JPG/600px-Kinpaku.JPG"
   },
@@ -5423,6 +5515,7 @@
       "bijou"
     ],
     "origin": "Nature",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Or",
     "description_en": "Noble ductile metal, resistant to oxidation.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Gold_nugget_%28placer_gold%29_1_%2817001285916%29.jpg/600px-Gold_nugget_%28placer_gold%29_1_%2817001285916%29.jpg"
   },
@@ -5433,6 +5526,8 @@
       "bois",
       "charpente"
     ],
+    "origin": "Europe",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Scierie",
     "description_en": "Factory cutting logs into planks and beams.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Moteur_Deutz_-_Fourneau_St-Michel.JPG/600px-Moteur_Deutz_-_Fourneau_St-Michel.JPG"
   },
@@ -5443,6 +5538,8 @@
       "construction",
       "bois"
     ],
+    "origin": "Nature",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Planche",
     "description_en": "Sawed piece used for carpentry and joinery.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Wood_Seller.jpg/600px-Wood_Seller.jpg"
   },
@@ -5453,6 +5550,8 @@
       "sécurité",
       "bâtiment"
     ],
+    "origin": "France",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Verre_tremp%C3%A9",
     "description_en": "Thermally reinforced glass for facade safety.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/EclatSecurit.JPG/600px-EclatSecurit.JPG"
   },
@@ -5463,6 +5562,8 @@
       "pont",
       "gratte-ciel"
     ],
+    "origin": "France",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Profil%C3%A9_d%27acier",
     "description_en": "Hot-rolled beams for industrial frameworks.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Galvanized_Steelbeams.jpg/600px-Galvanized_Steelbeams.jpg"
   },
@@ -5474,6 +5575,7 @@
       "engrais"
     ],
     "origin": "Nature",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Hydrog%C3%A8ne",
     "description_en": "Light gas used in ammonia synthesis (Haber).",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Liquid_hydrogen_bubblechamber.jpg/600px-Liquid_hydrogen_bubblechamber.jpg"
   },
@@ -5485,6 +5587,7 @@
       "engrais"
     ],
     "origin": "Nature",
+    "wikipedia_url": "https://fr.wikipedia.org/wiki/Azote",
     "description_en": "Industrial fixation of atmospheric gas for fertilizer.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/LN22.jpg/600px-LN22.jpg"
   },
@@ -5495,6 +5598,8 @@
       "synthèse",
       "engrais"
     ],
+    "origin": "Allemagne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ammonia",
     "description_en": "Precursor of nitrogen fertilizers and nitrated explosives.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Ammonia_lone_electron_pair_2.svg/600px-Ammonia_lone_electron_pair_2.svg.png"
   },
@@ -5505,6 +5610,8 @@
       "sol",
       "engrais"
     ],
+    "origin": "Allemagne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Calcium_nitrate",
     "description_en": "Soluble fertilizer derived from industrial nitrogen chains.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Nitrate_anion.svg/600px-Nitrate_anion.svg.png"
   },
@@ -5515,6 +5622,8 @@
       "transparent",
       "sécurité"
     ],
+    "origin": "Allemagne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polycarbonate",
     "description_en": "Transparent resistant plastic for bottles and visors.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/%D0%9F%D0%BE%D0%BB%D0%B8%D0%BA%D0%B0%D1%80%D0%B1%D0%BE%D0%BD%D0%B0%D1%82.jpg/600px-%D0%9F%D0%BE%D0%BB%D0%B8%D0%BA%D0%B0%D1%80%D0%B1%D0%BE%D0%BD%D0%B0%D1%82.jpg"
   },
@@ -5525,6 +5634,8 @@
       "pétrole",
       "transport"
     ],
+    "origin": "États-Unis",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Asphalt_concrete",
     "description_en": "Roadway bound with petroleum bitumen for motorized traffic.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Transfagaras.jpg/600px-Transfagaras.jpg"
   },
@@ -5535,7 +5646,10 @@
       "route",
       "étanchéité"
     ],
-    "description_en": "Viscous fraction of petroleum for road surfacing."
+    "origin": "États-Unis",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bitumen",
+    "description_en": "Viscous fraction of petroleum for road surfacing.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Bitumen.jpg/600px-Bitumen.jpg"
   },
   "signal-numerique": {
     "name_en": "Digital signal",
@@ -5544,7 +5658,10 @@
       "DSP",
       "télécom"
     ],
-    "description_en": "Discretized information for processing by logic circuits."
+    "origin": "États-Unis",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Digital_signal",
+    "description_en": "Discretized information for processing by logic circuits.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Digital-signal-noise.svg/600px-Digital-signal-noise.svg.png"
   },
   "ecran-lcd": {
     "name_en": "LCD display",
@@ -5553,7 +5670,10 @@
       "mobile",
       "affichage"
     ],
-    "description_en": "Polarized liquid crystal matrix for low-power display."
+    "origin": "Suisse",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Liquid-crystal_display",
+    "description_en": "Polarized liquid crystal matrix for low-power display.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Wiktionnaire_sur_IPhone_%281%29.JPG/600px-Wiktionnaire_sur_IPhone_%281%29.JPG"
   },
   "batterie-li": {
     "name_en": "Li-ion battery",
@@ -5562,7 +5682,10 @@
       "stockage",
       "mobile"
     ],
-    "description_en": "Lightweight high-density battery for mobile devices and vehicles."
+    "origin": "Japon",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lithium-ion_battery",
+    "description_en": "Lightweight high-density battery for mobile devices and vehicles.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Li_ion_laptop_battery.jpg/600px-Li_ion_laptop_battery.jpg"
   },
   "reseau-cellulaire": {
     "name_en": "Cellular network",
@@ -5571,12 +5694,21 @@
       "5G",
       "opérateur"
     ],
-    "description_en": "4G/5G radio infrastructure for mobile data."
+    "origin": "Suède",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cellular_network",
+    "description_en": "4G/5G radio infrastructure for mobile data.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/CellTowerRichmondHill.jpg/600px-CellTowerRichmondHill.jpg"
   },
   "blockchain": {
     "name_en": "Blockchain",
     "description": "Réseau décentralisé",
-    "tags": [],
+    "tags": [
+      "décentralisé",
+      "crypto-monnaie",
+      "ledger",
+      "consensus",
+      "sécurité"
+    ],
     "origin": "Satoshi Nakamoto",
     "wikipedia_url": "https://en.wikipedia.org/wiki/Blockchain",
     "description_en": "Decentralized network"
@@ -5741,6 +5873,7 @@
     "origin": "Laboratoires Bell (États-Unis)",
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Histoire_de_l'énergie_solaire",
     "description_en": "Energy produced by converting sunlight into electricity or heat. Photovoltaic technology directly transforms photons into electricity through solar cells, while thermal technology captures heat for various applications. This clean and renewable technology is becoming a major energy source in the global energy transition.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Paneles_solares_en_Cari%C3%B1ena%2C_Espa%C3%B1a%2C_2015-01-08%2C_DD_08.JPG/600px-Paneles_solares_en_Cari%C3%B1ena%2C_Espa%C3%B1a%2C_2015-01-08%2C_DD_08.JPG",
     "_ai_built_upon": [
       {
         "id": "silicium",
@@ -6008,7 +6141,8 @@
   "etain": {
     "name_en": "Étain",
     "description": "",
-    "tags": []
+    "tags": [],
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Jinshu_Xi.JPG/600px-Jinshu_Xi.JPG"
   },
   "vis": {
     "name_en": "Screw",
@@ -6085,6 +6219,7 @@
     "origin": "Jacques de Vaucanson (France)",
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Tour_(machine-outil)",
     "description_en": "The lathe is a machine tool that enables the production of mechanical parts by chip removal (machining). In the case of the lathe, the workpiece rotates and the tool is stationary. Turning consists of rotating a workpiece, generally cylindrical in shape, and machining it with a tool that is mounted on a turret. The origin of the lathe is lost in the mists of time; we only know with certainty that some of its applications were found in Egypt more than nineteen hundred years before our era.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/HwacheonCentreLathe_460x1000.jpg/600px-HwacheonCentreLathe_460x1000.jpg",
     "_ai_built_upon": [
       {
         "id": "fer",
@@ -7205,6 +7340,7 @@
     "origin": "John Kemp Starley (bicyclette de sécurité moderne)",
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Bicyclette",
     "description_en": "Land vehicle propelled by human muscular energy, composed of two aligned wheels connected by a frame, with a pedaling and steering system. Revolutionary for personal mobility since the 19th century.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Cycliste_%C3%A0_place_d%27Italie-Paris.jpg/600px-Cycliste_%C3%A0_place_d%27Italie-Paris.jpg",
     "_ai_built_upon": [
       {
         "id": "acier",
@@ -9258,6 +9394,7 @@
     "origin": "Wallace Carothers, DuPont (États-Unis)",
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Nylon",
     "description_en": "First entirely artificial synthetic polymer created by reaction between adipic acid and hexamethylenediamine. This revolutionary fiber launched in 1938 possesses properties superior to natural silk and opens the era of modern synthetic materials.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Nylon_6_and_Nylon_6-6.svg/600px-Nylon_6_and_Nylon_6-6.svg.png",
     "_ai_built_upon": [
       {
         "id": "petrole",
@@ -10110,6 +10247,7 @@
     "origin": null,
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Conservation_des_aliments",
     "description_en": "Set of techniques used to prevent or slow down food deterioration to ensure their preservation over extended periods. These processes aim to eliminate or inhibit microorganisms responsible for decomposition while preserving the nutritional and taste qualities of food products. Food preservation is fundamental for human survival and has evolved from primitive techniques of drying and smoking to modern methods of sterilization and refrigeration.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Food_lab_scientist_packages_food_for_spaceflight_at_Space_Food_Lab.jpg/600px-Food_lab_scientist_packages_food_for_spaceflight_at_Space_Food_Lab.jpg",
     "_ai_built_upon": [
       {
         "id": "feu",
@@ -10799,7 +10937,7 @@
     "origin": "France (tunnel de Terre-Noire)",
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Tunnel_ferroviaire",
     "description_en": "Underground structure specifically designed for train passage. The development of the railway network in the 19th century led to the boring of numerous tunnels to avoid steep gradients. It was during this period that shield technology was developed to protect workers from cave-ins, and compressed air drills that allowed for faster excavation. The first railway tunnel is the Terre-Noire tunnel, 1477 meters long. Railway tunnels revolutionized transportation by making it possible to overcome natural obstacles such as mountains.",
-    "image_url": "/images/nodes/tunnel-ferroviaire.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Thames_tunnel_construction_1830.jpg",
     "_ai_built_upon": [
       {
         "id": "explosifs",
@@ -11790,6 +11928,7 @@
     "origin": "Jabir ibn Hayyan",
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Acide_chlorhydrique",
     "description_en": "Aqueous solution of hydrogen chloride, strong and highly corrosive acid discovered around 800 AD. Major industrial chemical reagent used in numerous sectors.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Hydrochloric_acid_30_percent.jpg/600px-Hydrochloric_acid_30_percent.jpg",
     "_ai_built_upon": [
       {
         "id": "sel",
@@ -12376,6 +12515,7 @@
     "origin": "France",
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Poutrelle_(construction)",
     "description_en": "Structural steel element obtained by hot rolling of steel, designed to support and distribute heavy loads in construction. Steel beams come in different profiles (IPE, IPN, HEA, UPN) according to their shape and use, revolutionizing steel construction from the end of the 19th century.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/DeTomasoPanteraBlack.jpg/600px-DeTomasoPanteraBlack.jpg",
     "_ai_built_upon": [
       {
         "id": "acier",
@@ -12905,6 +13045,7 @@
     "origin": "Frank Whittle (Royaume-Uni) et Hans von Ohain (Allemagne)",
     "wikipedia_url": "https://fr.wikipedia.org/wiki/Turbor%C3%A9acteur",
     "description_en": "Propulsion system that transforms chemical energy from fuel into kinetic energy to generate a reaction force, propelling the aircraft forward. The jet engine uses ambient air as oxidizer and operates on Newton's action-reaction principle.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/B747-engine.jpg/600px-B747-engine.jpg",
     "_ai_built_upon": [
       {
         "id": "acier",
@@ -14267,6 +14408,7 @@
     "origin": "Mikhail Tsvet (Russie)",
     "wikipedia_url": "https://en.wikipedia.org/wiki/Chromatography",
     "description_en": "Separation and analysis technique for mixture components based on their different migration rates in a mobile fluid through a stationary medium. Allows precise identification and purification of organic and inorganic substances. Fundamental in analytical chemistry, pharmacology, and food science.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/68/Fraction_collector_-_sampler_LAMBDA_OMNICOLL.jpg",
     "_ai_built_upon": [
       {
         "id": "chimie-organique",
@@ -14819,6 +14961,7 @@
     "origin": "Assyrie",
     "wikipedia_url": "https://en.wikipedia.org/wiki/Water_pipe",
     "description_en": "Network of pipes in various materials (stone, clay, copper, cast iron, PVC) allowing transport of drinking water or wastewater over long distances. Can be buried or above ground and requires joints, taps and regulation valves. Fundamental element of public hygiene and modern urban planning.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Canal_d%27Ille_et_Rance_%C3%A0_Chevaign%C3%A9.jpg/600px-Canal_d%27Ille_et_Rance_%C3%A0_Chevaign%C3%A9.jpg",
     "_ai_built_upon": [
       {
         "id": "plomberie",
@@ -14862,6 +15005,7 @@
     "origin": "Civilisation minoenne (Crète)",
     "wikipedia_url": "https://en.wikipedia.org/wiki/Sewer",
     "description_en": "Underground network of pipes designed to evacuate wastewater and waste. Fundamental system of urban sanitation that ensures public hygiene and prevents disease spread. Usually built with stone, brick or concrete with slopes facilitating gravity flow.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Avlopp_-_Ystad-2018.jpg/600px-Avlopp_-_Ystad-2018.jpg",
     "_ai_built_upon": [
       {
         "id": "pierre",
@@ -15025,6 +15169,7 @@
     "origin": "Homo erectus",
     "wikipedia_url": "https://en.wikipedia.org/wiki/Artificial_lighting",
     "description_en": "System for generating light in a controlled and autonomous manner, initially through fire then by combustion of materials (torches, candles, oil lamps) and finally through electricity. Revolutionizes human activities by removing dependence on the day-night cycle and enables activities to extend beyond nightfall.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Maglite_Flashlight.jpg/600px-Maglite_Flashlight.jpg",
     "_ai_built_upon": [
       {
         "id": "feu",
@@ -15185,6 +15330,7 @@
     "origin": "Mésopotamie",
     "wikipedia_url": "https://en.wikipedia.org/wiki/Ethanol",
     "description_en": "Organic molecule produced by yeast fermentation of sugars. Main active constituent of beer, wine and distilled spirits. Used since antiquity as a fermented beverage and preservative, becoming a major industrial chemical raw material.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Ethanol-3D-balls.png/600px-Ethanol-3D-balls.png",
     "_ai_built_upon": [
       {
         "id": "levure",
@@ -15228,6 +15374,7 @@
     "origin": "Scottish chemists (Royaume-Uni)",
     "wikipedia_url": "https://en.wikipedia.org/wiki/Fractional_distillation",
     "description_en": "Process of separating components of a liquid mixture based on their different boiling points. Uses a heated distillation column to progressively transform crude oil into lighter fractions such as gasoline, diesel and fuel oil. This technique revolutionizes the petroleum industry by extracting multiple marketable products from a single raw material.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Fractional_distillation_lab_apparatus-fr.svg/600px-Fractional_distillation_lab_apparatus-fr.svg.png",
     "_ai_built_upon": [
       {
         "id": "distillation",
@@ -15275,6 +15422,7 @@
     "origin": "Égypte ancienne",
     "wikipedia_url": "https://en.wikipedia.org/wiki/Calcination",
     "description_en": "Process of intense heating of a solid substance until decomposition or chemical transformation, without melting. Applied to limestone, it produces quicklime, an essential component of mortar and concrete. Calcination is a fundamental technique for transforming natural minerals into construction materials.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/LDLimeShaftKilnBasic.jpg/600px-LDLimeShaftKilnBasic.jpg",
     "_ai_built_upon": [
       {
         "id": "calcaire",
@@ -15908,6 +16056,7 @@
     "origin": "Hermann Ostwald (Allemagne)",
     "wikipedia_url": "https://en.wikipedia.org/wiki/Isopropyl_alcohol",
     "description_en": "Secondary alcohol synthesized from petroleum or propylene. Universal solvent and powerful disinfectant, used in laboratories, electronics, industrial cleaning, and sanitary applications.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Masse_volumique_isopropanol.svg/600px-Masse_volumique_isopropanol.svg.png",
     "_ai_built_upon": [
       {
         "id": "petrole",
@@ -16005,6 +16154,7 @@
     "origin": "États-Unis",
     "wikipedia_url": "https://en.wikipedia.org/wiki/Pressure_sensor",
     "description_en": "Electronic instrument converting pressure variation into a measurable electrical signal. Used in automotive, aeronautics, medicine, and industry to control hydraulic, pneumatic, and health systems.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Digital_Pressure_Sensor.jpg/600px-Digital_Pressure_Sensor.jpg",
     "_ai_built_upon": [
       {
         "id": "transistor",
@@ -16081,6 +16231,7 @@
     "origin": "Allemagne",
     "wikipedia_url": "https://en.wikipedia.org/wiki/Catalyst",
     "description_en": "Substance that accelerates a chemical reaction without being consumed. Used extensively in ammonia synthesis, gasoline production and pollutant treatment. Increases efficiency and reduces energy costs of chemical processes.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Catalyst_2156.jpg/600px-Catalyst_2156.jpg",
     "_ai_built_upon": [
       {
         "id": "chimie-organique",
@@ -45246,6 +45397,2749 @@
       {
         "id": "cloud-computing",
         "relation_type": "infrastructure"
+      }
+    ]
+  },
+  "microscopie": {
+    "name_en": "Microscopy",
+    "description": "Technique d'observation des objets microscopiques utilisant des lentilles optiques pour magnifier les détails invisibles à l'oeil nu. La microscopie a révolutionné l'étude de la matière vivante et inerte en permettant l'observation de cellules, de micro-organismes et de structures fines.",
+    "tags": [
+      "observation",
+      "optique",
+      "biologie",
+      "cellules",
+      "magnification",
+      "lentilles"
+    ],
+    "origin": "Pays-Bas",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Microscopy",
+    "description_en": "Technique for observing microscopic objects using optical lenses to magnify details invisible to the naked eye. Microscopy revolutionized the study of living and non-living matter by enabling observation of cells, microorganisms, and fine structures.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Misc_pollen_colorized.jpg/600px-Misc_pollen_colorized.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "lentille",
+        "relation_type": "tool"
+      },
+      {
+        "id": "verre",
+        "relation_type": "material"
+      },
+      {
+        "id": "optique",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "microscope",
+        "relation_type": "tool"
+      },
+      {
+        "id": "biologie-cellulaire",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "microbiologie",
+        "relation_type": "knowledge"
+      }
+    ]
+  },
+  "wifi": {
+    "name_en": "WiFi",
+    "description": "Protocole de communication sans fil basé sur la norme IEEE 802.11 permettant la transmission de données en radioélectricité sur courte distance. Le WiFi a rendu possible la connectivité Internet mobile et ubiquitaire dans les bâtiments et espaces publics.",
+    "tags": [
+      "réseau",
+      "sans-fil",
+      "radioélectricité",
+      "Internet",
+      "communication",
+      "802.11"
+    ],
+    "origin": "Pays-Bas (Agere Systems)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Wi-Fi",
+    "description_en": "Wireless communication protocol based on IEEE 802.11 standard enabling radio-frequency data transmission over short distances. WiFi made mobile and ubiquitous Internet connectivity possible in buildings and public spaces.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/WiFi_Logo.svg/600px-WiFi_Logo.svg.png",
+    "_ai_built_upon": [
+      {
+        "id": "equations-de-maxwell",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "electromagnetisme",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "transistor",
+        "relation_type": "tool"
+      },
+      {
+        "id": "circuit-integre",
+        "relation_type": "tool"
+      },
+      {
+        "id": "antenne-radio",
+        "relation_type": "tool"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "smartphone",
+        "relation_type": "catalyst"
+      },
+      {
+        "id": "internet",
+        "relation_type": "catalyst"
+      },
+      {
+        "id": "domotique",
+        "relation_type": "tool"
+      },
+      {
+        "id": "protocole-sans-fil-wi-fi",
+        "relation_type": "knowledge"
+      }
+    ]
+  },
+  "telephone-mobile": {
+    "name_en": "Mobile Phone",
+    "description": "Appareil de communication portatif fonctionnant sans fil grâce à un réseau cellulaire. Le téléphone mobile intègre un processeur, une batterie, un écran et un transcepteur radio permettant les appels et la transmission de données à distance.",
+    "tags": [
+      "communication",
+      "sans-fil",
+      "portable",
+      "téléphonie",
+      "électronique",
+      "réseau cellulaire"
+    ],
+    "origin": "Martin Cooper (États-Unis)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mobile_phone",
+    "description_en": "Portable wireless communication device functioning through a cellular network. The mobile phone integrates a processor, battery, screen, and radio transceiver enabling calls and remote data transmission.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Mobile_Phone_Evolution_1992_-_2014.jpg/600px-Mobile_Phone_Evolution_1992_-_2014.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "telephone",
+        "relation_type": "catalyst"
+      },
+      {
+        "id": "microprocesseur",
+        "relation_type": "tool"
+      },
+      {
+        "id": "batterie-rechargeable",
+        "relation_type": "tool"
+      },
+      {
+        "id": "transistor",
+        "relation_type": "tool"
+      },
+      {
+        "id": "ecran-lcd",
+        "relation_type": "tool"
+      },
+      {
+        "id": "reseau-cellulaire",
+        "relation_type": "infrastructure"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "smartphone",
+        "relation_type": "catalyst"
+      },
+      {
+        "id": "sms",
+        "relation_type": "process"
+      },
+      {
+        "id": "internet",
+        "relation_type": "catalyst"
+      },
+      {
+        "id": "gps",
+        "relation_type": "tool"
+      }
+    ]
+  },
+  "centrale-nucleaire": {
+    "name_en": "Nuclear Power Plant",
+    "description": "Installation industrielle produisant de l'électricité par fission nucléaire contrôlée. Une centrale nucléaire utilise la chaleur dégagée par la réaction de fission pour générer de la vapeur, entraîner une turbine et produire de l'électricité en masse.",
+    "tags": [
+      "nucléaire",
+      "énergie",
+      "électricité",
+      "fission",
+      "infrastructure",
+      "industrie"
+    ],
+    "origin": "Union Soviétique (Obninsk)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Nuclear_power_plant",
+    "description_en": "Industrial facility producing electricity through controlled nuclear fission. A nuclear power plant uses heat released by fission reaction to generate steam, drive a turbine, and produce electricity at scale.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Centrale-nucl%C3%A9aire-de-saint-alban-1.jpg/600px-Centrale-nucl%C3%A9aire-de-saint-alban-1.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "reacteur-nucleaire",
+        "relation_type": "tool"
+      },
+      {
+        "id": "energie-nucleaire",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "turbine-vapeur",
+        "relation_type": "tool"
+      },
+      {
+        "id": "alternateur",
+        "relation_type": "tool"
+      },
+      {
+        "id": "reseau-electrique",
+        "relation_type": "infrastructure"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "energie-nucleaire",
+        "relation_type": "catalyst"
+      },
+      {
+        "id": "medecine-nucleaire",
+        "relation_type": "catalyst"
+      },
+      {
+        "id": "dechets-nucleaires",
+        "relation_type": "process"
+      }
+    ]
+  },
+  "medecine-nucleaire": {
+    "name_en": "Nuclear Medicine",
+    "description": "Spécialité médicale utilisant des isotopes radioactifs pour le diagnostic et le traitement de maladies. La médecine nucléaire emploie des traceurs radioactifs pour imager les organes, détecter les cancers et traiter certains types de tumeurs par irradiation ciblée.",
+    "tags": [
+      "nucléaire",
+      "médecine",
+      "diagnostic",
+      "traitement",
+      "isotopes",
+      "imagerie"
+    ],
+    "origin": "États-Unis",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Nuclear_medicine",
+    "description_en": "Medical specialty using radioactive isotopes for diagnosis and treatment of diseases. Nuclear medicine uses radioactive tracers to image organs, detect cancers, and treat certain tumor types through targeted irradiation.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Viewer_medecine_nucleaire_keosys.JPG/600px-Viewer_medecine_nucleaire_keosys.JPG",
+    "_ai_built_upon": [
+      {
+        "id": "uranium",
+        "relation_type": "material"
+      },
+      {
+        "id": "energie-nucleaire",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "rayons-x",
+        "relation_type": "tool"
+      },
+      {
+        "id": "radiographie",
+        "relation_type": "process"
+      },
+      {
+        "id": "centrale-nucleaire",
+        "relation_type": "infrastructure"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "radiotherapie",
+        "relation_type": "process"
+      },
+      {
+        "id": "scintigraphie",
+        "relation_type": "process"
+      },
+      {
+        "id": "tomographie-par-emission-de-positons",
+        "relation_type": "tool"
+      }
+    ]
+  },
+  "construction-navale": {
+    "name_en": "Shipbuilding",
+    "description": "Technique de conception et de fabrication de navires en bois ou en matériaux composites. La construction navale permet la création de bateaux de pêche, de commerce et de guerre adaptés à différents environnements marins. Cette discipline combine menuiserie, géométrie navale et connaissance des matériaux.",
+    "tags": [
+      "bateau",
+      "navire",
+      "maritime",
+      "bois",
+      "technique",
+      "navigation",
+      "commerce"
+    ],
+    "origin": "Égypte ancienne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shipbuilding",
+    "description_en": "Technique for designing and manufacturing ships using wood or composite materials. Shipbuilding enables the creation of fishing, merchant and war vessels suited to different marine environments. This discipline combines carpentry, naval geometry and materials science.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Shipbuilding.png/600px-Shipbuilding.png",
+    "_ai_built_upon": [
+      {
+        "id": "bois",
+        "relation_type": "material"
+      },
+      {
+        "id": "hache",
+        "relation_type": "tool"
+      },
+      {
+        "id": "scie",
+        "relation_type": "tool"
+      },
+      {
+        "id": "soudure",
+        "relation_type": "process"
+      },
+      {
+        "id": "navigation",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "bateau-a-voile",
+        "relation_type": "tool"
+      },
+      {
+        "id": "navire-a-vapeur",
+        "relation_type": "tool"
+      },
+      {
+        "id": "sous-marin",
+        "relation_type": "tool"
+      },
+      {
+        "id": "conteneur-maritime",
+        "relation_type": "tool"
+      }
+    ]
+  },
+  "machine-outil": {
+    "name_en": "Machine Tool",
+    "description": "Machine destinée à transformer des matières premières en pièces finies par enlèvement de matière ou déformation. Les machines-outils incluent tours, fraiseuses, presses et autres équipements de précision actionnés mécaniquement puis électriquement. Elles sont fondamentales à la fabrication industrielle en série.",
+    "tags": [
+      "machine",
+      "fabrication",
+      "précision",
+      "usinage",
+      "industrie",
+      "automatisation",
+      "production"
+    ],
+    "origin": "Grande-Bretagne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Machine_tool",
+    "description_en": "Machine designed to transform raw materials into finished parts through material removal or deformation. Machine tools include lathes, milling machines, presses and other precision equipment driven mechanically then electrically. They are fundamental to industrial series manufacturing.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Conventional-lathe.jpg/600px-Conventional-lathe.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "tour",
+        "relation_type": "tool"
+      },
+      {
+        "id": "forge",
+        "relation_type": "tool"
+      },
+      {
+        "id": "acier",
+        "relation_type": "material"
+      },
+      {
+        "id": "machine-a-vapeur",
+        "relation_type": "tool"
+      },
+      {
+        "id": "engrenage",
+        "relation_type": "tool"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "industrie-automobile",
+        "relation_type": "tool"
+      },
+      {
+        "id": "usine-moderne",
+        "relation_type": "tool"
+      },
+      {
+        "id": "bras-robotique-industriel",
+        "relation_type": "tool"
+      },
+      {
+        "id": "mecanisation-agricole",
+        "relation_type": "tool"
+      }
+    ]
+  },
+  "chien-domestique": {
+    "name_en": "Domestic Dog",
+    "description": "Animal domestiqué issu de la sélection du loup gris, servant à la chasse, la garde et la compagnie. Le chien domestique représente le premier animal domestiqué par l'homme et a joué un rôle crucial dans le développement des sociétés humaines. Sa domestication a permis l'amélioration de la chasse et de l'élevage.",
+    "tags": [
+      "animal",
+      "domestication",
+      "chasse",
+      "compagnie",
+      "garde",
+      "élevage",
+      "sélection"
+    ],
+    "origin": "Inconnu",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dog",
+    "description_en": "Animal domesticated from selective breeding of the grey wolf, used for hunting, guarding and companionship. The domestic dog represents the first animal domesticated by humans and played a crucial role in the development of human societies. Its domestication improved hunting and herding practices.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Huskiesatrest.jpg/600px-Huskiesatrest.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "loup",
+        "relation_type": "material"
+      },
+      {
+        "id": "selection-animale",
+        "relation_type": "process"
+      },
+      {
+        "id": "elevage",
+        "relation_type": "process"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "selection-animale",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "elevage",
+        "relation_type": "process"
+      },
+      {
+        "id": "chasse-a-l-arc",
+        "relation_type": "process"
+      },
+      {
+        "id": "agriculture",
+        "relation_type": "process"
+      }
+    ]
+  },
+  "chat-domestique": {
+    "name_en": "Domestic Cat",
+    "description": "Animal domestiqué issu du chat sauvage africain, utilisé principalement pour la capture de rongeurs et la compagnie. Le chat domestique a été adopté par les sociétés agricoles pour protéger les récoltes et les stocks alimentaires. Son indépendance naturelle en fait un compagnon peu exigeant.",
+    "tags": [
+      "animal",
+      "domestication",
+      "prédateur",
+      "compagnie",
+      "rongeurs",
+      "agriculture",
+      "félin"
+    ],
+    "origin": "Moyen-Orient",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cat",
+    "description_en": "Animal domesticated from the African wildcat, used primarily for rodent control and companionship. The domestic cat was adopted by agricultural societies to protect crops and food stores. Its natural independence makes it a low-maintenance companion.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/600px-Cat_August_2010-4.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "chat-sauvage",
+        "relation_type": "material"
+      },
+      {
+        "id": "selection-animale",
+        "relation_type": "process"
+      },
+      {
+        "id": "agriculture",
+        "relation_type": "process"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "selection-animale",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "agriculture",
+        "relation_type": "process"
+      },
+      {
+        "id": "zootechnie",
+        "relation_type": "knowledge"
+      }
+    ]
+  },
+  "cheval-de-trait": {
+    "name_en": "Draft Horse",
+    "description": "Cheval sélectionné et élevé pour la force et l'endurance, utilisé pour le transport, l'agriculture et les travaux lourds. Le cheval de trait est plus massif et puissant que le cheval de selle, capable de tirer des charges importantes. Sa domestication a révolutionné le commerce, la guerre et l'agriculture.",
+    "tags": [
+      "animal",
+      "cheval",
+      "trait",
+      "force",
+      "agriculture",
+      "transport",
+      "sélection"
+    ],
+    "origin": "Asie centrale",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Draft_horse",
+    "description_en": "Horse selectively bred for strength and endurance, used for transport, agriculture and heavy labor. The draft horse is larger and more powerful than a riding horse, capable of pulling heavy loads. Its domestication revolutionized commerce, warfare and agriculture.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Aa_shirehorse.jpg/600px-Aa_shirehorse.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "cheval",
+        "relation_type": "material"
+      },
+      {
+        "id": "selection-animale",
+        "relation_type": "process"
+      },
+      {
+        "id": "harnais-de-cheval",
+        "relation_type": "tool"
+      },
+      {
+        "id": "fer-a-cheval",
+        "relation_type": "tool"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "chariot",
+        "relation_type": "tool"
+      },
+      {
+        "id": "labourage",
+        "relation_type": "process"
+      },
+      {
+        "id": "agriculture",
+        "relation_type": "process"
+      },
+      {
+        "id": "transport",
+        "relation_type": "process"
+      },
+      {
+        "id": "commerce",
+        "relation_type": "process"
+      }
+    ]
+  },
+  "abeille-domestique": {
+    "name_en": "Honeybee",
+    "description": "Insecte hyménoptère domestiqué pour la production de miel et de cire. L'abeille mellifère a été élevée systématiquement par les humains depuis l'Antiquité, particulièrement en Égypte et en Méditerranée. Elle constitue une ressource agricole majeure et un agent de pollinisation essentiel.",
+    "tags": [
+      "miel",
+      "cire",
+      "pollinisation",
+      "élevage",
+      "abeille",
+      "apiculture",
+      "agriculture"
+    ],
+    "origin": "Moyen-Orient",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Honey_bee",
+    "description_en": "Hymenopteran insect domesticated for honey and wax production. The honeybee has been systematically raised by humans since antiquity, particularly in Egypt and the Mediterranean. It is a major agricultural resource and essential pollination agent.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/The_Lone_Pollinator.jpg/600px-The_Lone_Pollinator.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "fleur",
+        "relation_type": "material"
+      },
+      {
+        "id": "agriculture",
+        "relation_type": "catalyst"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "apiculture",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "miel",
+        "relation_type": "material"
+      },
+      {
+        "id": "cire-d-abeille",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "poule-domestique": {
+    "name_en": "Domestic chicken",
+    "description": "Gallinacé domestiqué pour la production d'œufs et de viande. La poule domestique est issue de la Poule rouge du Bankiva et représente l'une des premières espèces animales élevées par l'homme. Elle constitue une source proteïque majeure dans l'alimentation humaine.",
+    "tags": [
+      "poule",
+      "œuf",
+      "viande",
+      "élevage",
+      "volaille",
+      "agriculture",
+      "domestication"
+    ],
+    "origin": "Asie du Sud",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chicken",
+    "description_en": "Gallinaceous bird domesticated for egg and meat production. The domestic chicken descends from the Red Junglefowl and represents one of the first animal species raised by humans. It is a major protein source in human nutrition.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Male_and_female_chicken_sitting_together.jpg/600px-Male_and_female_chicken_sitting_together.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "domestication-animale",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "agriculture",
+        "relation_type": "catalyst"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "œuf",
+        "relation_type": "material"
+      },
+      {
+        "id": "viande",
+        "relation_type": "material"
+      },
+      {
+        "id": "elevage",
+        "relation_type": "process"
+      },
+      {
+        "id": "selection-animale",
+        "relation_type": "knowledge"
+      }
+    ]
+  },
+  "poisson-d-elevage": {
+    "name_en": "Farmed fish",
+    "description": "Poisson élevé en captivité dans des bassins ou des enclos pour la production alimentaire. La pisciculture chinoise antique représente l'une des formes les plus anciennes d'aquaculture. Cet élevage contrôlé permet une production de protéines adaptée aux besoins humains.",
+    "tags": [
+      "aquaculture",
+      "pisciculture",
+      "poisson",
+      "élevage",
+      "protéine",
+      "eau douce",
+      "alimentation"
+    ],
+    "origin": "Chine",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Fish_farming",
+    "description_en": "Fish raised in captivity in ponds or enclosures for food production. Ancient Chinese fish farming represents one of the oldest forms of aquaculture. This controlled breeding allows protein production adapted to human needs.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Fish_farm_Amarynthos_Euboea_Greece_-_edit1.jpg/600px-Fish_farm_Amarynthos_Euboea_Greece_-_edit1.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "bassin-d-eau",
+        "relation_type": "tool"
+      },
+      {
+        "id": "irrigation",
+        "relation_type": "process"
+      },
+      {
+        "id": "domestication-animale",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "aquaculture-durable",
+        "relation_type": "process"
+      },
+      {
+        "id": "viande",
+        "relation_type": "material"
+      },
+      {
+        "id": "selection-animale",
+        "relation_type": "knowledge"
+      }
+    ]
+  },
+  "vers-de-terre-cultives": {
+    "name_en": "Cultivated earthworms",
+    "description": "Vers de terre élevés systématiquement pour l'amélioration des sols et la production de compost. L'élevage contrôlé de lombrics enrichit la terre agricole en matière organique et améliore sa structure. Cette pratique est devenue centrale en agriculture biologique.",
+    "tags": [
+      "lombric",
+      "ver",
+      "compostage",
+      "sol",
+      "agriculture biologique",
+      "fumure",
+      "élevage"
+    ],
+    "origin": "États-Unis",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Earthworm",
+    "description_en": "Earthworms raised systematically for soil improvement and compost production. Controlled breeding of earthworms enriches agricultural soil with organic matter and improves its structure. This practice has become central to organic farming.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Eisenia_foetida_R.H._%288%29.JPG/600px-Eisenia_foetida_R.H._%288%29.JPG",
+    "_ai_built_upon": [
+      {
+        "id": "compost",
+        "relation_type": "material"
+      },
+      {
+        "id": "agriculture",
+        "relation_type": "catalyst"
+      },
+      {
+        "id": "culture-biologique",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "compostage-industriel",
+        "relation_type": "process"
+      },
+      {
+        "id": "compost",
+        "relation_type": "material"
+      },
+      {
+        "id": "fertilisant-naturel",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "insecte-pollinisateur-controle": {
+    "name_en": "Controlled pollinator insect",
+    "description": "Insecte pollinisateur élevé intentionnellement pour assurer la pollinisation contrôlée des cultures sous serre. Les bourdons et autres insectes auxiliaires sont reproduits en captivité et utilisés en agriculture intensive. Cette technique garantit une pollinisation efficace et une meilleure productivité.",
+    "tags": [
+      "pollinisateur",
+      "bourdon",
+      "pollinisation contrôlée",
+      "serre",
+      "agriculture intensive",
+      "insecte auxiliaire",
+      "élevage"
+    ],
+    "origin": "Pays-Bas",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pollinator",
+    "description_en": "Pollinator insect intentionally bred to ensure controlled pollination of greenhouse crops. Bumblebees and other beneficial insects are reproduced in captivity and used in intensive agriculture. This technique ensures efficient pollination and better productivity.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Eristalinus_October_2007-6.jpg/600px-Eristalinus_October_2007-6.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "serre",
+        "relation_type": "tool"
+      },
+      {
+        "id": "agriculture-intensive",
+        "relation_type": "catalyst"
+      },
+      {
+        "id": "pollinisation-controlee",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "agriculture-intensive",
+        "relation_type": "process"
+      },
+      {
+        "id": "selection-animale",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "mecanisation-agricole",
+        "relation_type": "catalyst"
+      }
+    ]
+  },
+  "perspective-lineaire-renaissance": {
+    "name_en": "Linear Perspective Renaissance",
+    "description": "Technique mathématique de représentation graphique permettant de créer l'illusion de profondeur et de distance sur une surface plane. Utilise des points de fuite, des lignes parallèles et des proportions pour recréer la vision humaine en perspective. Fondamentale pour l'art occidental et l'architecture.",
+    "tags": [
+      "géométrie",
+      "optique",
+      "représentation",
+      "dessin",
+      "architecture",
+      "art"
+    ],
+    "origin": "Filippo Brunelleschi (Italie)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Linear_perspective",
+    "description_en": "Mathematical technique for graphical representation creating the illusion of depth and distance on a flat surface. Uses vanishing points, parallel lines and proportions to recreate human vision in perspective. Fundamental for Western art and architecture.",
+    "_ai_built_upon": [
+      {
+        "id": "geometrie",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "optique-geometrique-renaissance",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "anatomie-descriptive-renaissance",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "architecture-en-pierre",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "appareil-photo",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "photographie-numerique",
+        "relation_type": "knowledge"
+      }
+    ]
+  },
+  "memoire-associative": {
+    "name_en": "Associative Memory",
+    "description": "Type de mémoire informatique permettant d'accéder aux données par leur contenu plutôt que par une adresse précise. Fonctionne en associant des motifs d'entrée avec des motifs stockés, inspirée par le fonctionnement de la mémoire biologique. Utilisée en réseaux de neurones et systèmes d'apprentissage machine.",
+    "tags": [
+      "mémoire",
+      "informatique",
+      "neurones",
+      "apprentissage",
+      "reconnaissance de motifs"
+    ],
+    "origin": "John Hopfield (États-Unis)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Associative_memory",
+    "description_en": "Type of computer memory allowing data access by content rather than a specific address. Works by associating input patterns with stored patterns, inspired by biological memory function. Used in neural networks and machine learning systems.",
+    "_ai_built_upon": [
+      {
+        "id": "circuit-logique",
+        "relation_type": "tool"
+      },
+      {
+        "id": "transistor",
+        "relation_type": "material"
+      },
+      {
+        "id": "reseau-de-neurones",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "intelligence-artificielle",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "apprentissage-automatique",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "reseau-de-neurones",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "vision-par-ordinateur",
+        "relation_type": "knowledge"
+      }
+    ]
+  },
+  "batterie-miniaturisee": {
+    "name_en": "Miniaturized Battery",
+    "description": "Cellule énergétique extrêmement compacte intégrant les anode, cathode et électrolyte dans un format de quelques millimètres. Développée pour alimenter les appareils portables et implants médicaux. Utilisée massivement dans les montres intelligentes, capteurs wireless et microsystèmes embarqués.",
+    "tags": [
+      "batterie",
+      "miniaturisation",
+      "électronique",
+      "énergie portative",
+      "microsystème"
+    ],
+    "origin": "Tadiran Batteries (Israël)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Thin_film_battery",
+    "description_en": "Extremely compact energy cell integrating anode, cathode and electrolyte in a few millimeter format. Developed to power portable devices and medical implants. Widely used in smartwatches, wireless sensors and embedded microsystems.",
+    "_ai_built_upon": [
+      {
+        "id": "batterie-li",
+        "relation_type": "material"
+      },
+      {
+        "id": "electrolyte",
+        "relation_type": "material"
+      },
+      {
+        "id": "transistor",
+        "relation_type": "tool"
+      },
+      {
+        "id": "nanotechnologie",
+        "relation_type": "process"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "smartphone",
+        "relation_type": "material"
+      },
+      {
+        "id": "capteur-biologique",
+        "relation_type": "material"
+      },
+      {
+        "id": "drone",
+        "relation_type": "material"
+      },
+      {
+        "id": "wearable",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "recepteur-gps": {
+    "name_en": "GPS Receiver",
+    "description": "Appareil électronique capturant et traitant les signaux radio émis par les satellites du système GPS pour déterminer la position géographique, l'altitude et l'heure précise. Intègre des circuits de démodulation, des oscillateurs de très haute précision et des processeurs de signal. Révolutionne la navigation, la cartographie et la géolocalisation.",
+    "tags": [
+      "GPS",
+      "navigation",
+      "positionnement",
+      "satellite",
+      "géolocalisation",
+      "électronique"
+    ],
+    "origin": "United States Department of Defense (États-Unis)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/GPS_receiver",
+    "description_en": "Electronic device capturing and processing radio signals emitted by GPS satellites to determine geographical position, altitude and precise time. Integrates demodulation circuits, ultra-precise oscillators and signal processors. Revolutionizes navigation, mapping and geolocation.",
+    "_ai_built_upon": [
+      {
+        "id": "gps",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "satellite-de-communication",
+        "relation_type": "tool"
+      },
+      {
+        "id": "transistor",
+        "relation_type": "material"
+      },
+      {
+        "id": "circuit-integre",
+        "relation_type": "material"
+      },
+      {
+        "id": "antenne-radio",
+        "relation_type": "tool"
+      },
+      {
+        "id": "oscillateur",
+        "relation_type": "tool"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "smartphone",
+        "relation_type": "material"
+      },
+      {
+        "id": "systeme-de-positionnement-precis",
+        "relation_type": "material"
+      },
+      {
+        "id": "drone",
+        "relation_type": "material"
+      },
+      {
+        "id": "gestion-intelligente-de-la-recharge-ev",
+        "relation_type": "tool"
+      }
+    ]
+  },
+  "ecran-tactile-capacitif": {
+    "name_en": "Capacitive Touchscreen",
+    "description": "Interface de saisie détectant le contact du doigt par mesure de variation de capacitance électrique. Utilise une couche conductrice (ITO) sur verre ou polymère pour créer un champ électrique. Le doigt modifie ce champ, générant des signaux traités par des processeurs de gestion tactile. Technologie dominante des smartphones et tablettes modernes.",
+    "tags": [
+      "écran tactile",
+      "capacitance",
+      "interface",
+      "smartphone",
+      "électronique"
+    ],
+    "origin": "Éric Larson (États-Unis)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Capacitive_sensing",
+    "description_en": "Input interface detecting finger contact by measuring electrical capacitance variation. Uses a conductive layer (ITO) on glass or polymer to create an electric field. The finger modifies this field, generating signals processed by touch controllers. Dominant technology in modern smartphones and tablets.",
+    "_ai_built_upon": [
+      {
+        "id": "ecran-tactile",
+        "relation_type": "material"
+      },
+      {
+        "id": "circuit-integre",
+        "relation_type": "material"
+      },
+      {
+        "id": "transistor",
+        "relation_type": "material"
+      },
+      {
+        "id": "condensateur",
+        "relation_type": "material"
+      },
+      {
+        "id": "verre-trempe",
+        "relation_type": "material"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "smartphone",
+        "relation_type": "material"
+      },
+      {
+        "id": "tablette",
+        "relation_type": "material"
+      },
+      {
+        "id": "interface-homme-machine-ihm",
+        "relation_type": "tool"
+      },
+      {
+        "id": "ecran-lcd-couleur",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "knitwear": {
+    "name_en": "Knitwear",
+    "description": "Vêtement ou tissu créé par l'entrelacement de fils à l'aide d'aiguilles, formant des boucles interconnectées. Le tricot permet une grande flexibilité et confort comparé aux tissus tissés, et peut être produit à la main ou à la machine. Cette technique révolutionne la production textile et devient dominante pour les vêtements ajustés et stretch.",
+    "tags": [
+      "tricot",
+      "textile",
+      "vêtement",
+      "maille",
+      "fibre",
+      "artisanat",
+      "confection"
+    ],
+    "origin": "Moyen-Orient / Europe médiévale",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Knitting",
+    "description_en": "Garment or fabric created by interlocking loops of yarn with needles, forming interconnected loops. Knitting provides great flexibility and comfort compared to woven fabrics, and can be produced by hand or machine. This technique revolutionizes textile production and becomes dominant for fitted and stretch clothing.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Oma_strickt_Str%C3%BCmpfe.jpg/600px-Oma_strickt_Str%C3%BCmpfe.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "fil-de-laine",
+        "relation_type": "material"
+      },
+      {
+        "id": "fil-de-coton",
+        "relation_type": "material"
+      },
+      {
+        "id": "soie-naturelle",
+        "relation_type": "material"
+      },
+      {
+        "id": "fibres-synthetiques",
+        "relation_type": "material"
+      },
+      {
+        "id": "needle",
+        "relation_type": "tool"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "vetement",
+        "relation_type": "material"
+      },
+      {
+        "id": "machine-a-coudre",
+        "relation_type": "tool"
+      },
+      {
+        "id": "industrie-textile",
+        "relation_type": "knowledge"
+      }
+    ]
+  },
+  "petrole-brut": {
+    "name_en": "Crude oil",
+    "description": "Fluide naturel composé d'hydrocarbures extraits du sous-sol terrestre. Le pétrole brut est la source principale d'énergie fossile et de matières premières pour la pétrochimie moderne. Son extraction et raffinage ont transformé l'économie mondiale depuis le XIXe siècle.",
+    "tags": [
+      "énergie",
+      "hydrocarbures",
+      "fossile",
+      "extraction",
+      "raffinerie",
+      "combustible"
+    ],
+    "origin": "États-Unis",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Petroleum",
+    "description_en": "Natural fluid composed of hydrocarbons extracted from Earth's subsurface. Crude oil is the primary source of fossil fuel energy and raw materials for modern petrochemistry. Its extraction and refining have transformed the global economy since the 19th century.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Petroleum_sample.jpg/600px-Petroleum_sample.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "terre",
+        "relation_type": "material"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "essence",
+        "relation_type": "material"
+      },
+      {
+        "id": "gazole",
+        "relation_type": "material"
+      },
+      {
+        "id": "raffinerie",
+        "relation_type": "process"
+      },
+      {
+        "id": "petrochimie",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "plastique",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "gaz-naturel": {
+    "name_en": "Natural gas",
+    "description": "Gaz fossile composé principalement de méthane, extrait du sous-sol en association avec le pétrole ou isolément. Le gaz naturel est une source d'énergie propre et polyvalente utilisée pour le chauffage, l'électricité et les matières premières chimiques.",
+    "tags": [
+      "énergie",
+      "gaz",
+      "fossile",
+      "méthane",
+      "chauffage",
+      "électricité"
+    ],
+    "origin": "États-Unis",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Natural_gas",
+    "description_en": "Fossil gas composed mainly of methane, extracted from the subsurface in association with oil or independently. Natural gas is a clean and versatile energy source used for heating, electricity, and chemical feedstocks.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Gas-natural.jpg/600px-Gas-natural.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "terre",
+        "relation_type": "material"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "gaz-de-houille",
+        "relation_type": "material"
+      },
+      {
+        "id": "ammoniac",
+        "relation_type": "material"
+      },
+      {
+        "id": "hydrogene",
+        "relation_type": "material"
+      },
+      {
+        "id": "electricite",
+        "relation_type": "energy"
+      }
+    ]
+  },
+  "lin": {
+    "name_en": "Flax",
+    "description": "Fibre naturelle extraite des tiges de la plante Linum usitatissimum. Le lin est l'une des fibres textiles les plus anciennes, utilisée depuis l'Antiquité pour fabriquer des vêtements, des voiles et des toiles. Ses fibres sont résistantes et absorbantes.",
+    "tags": [
+      "textile",
+      "fibre naturelle",
+      "vêtement",
+      "toile",
+      "lin",
+      "plante"
+    ],
+    "origin": "Mésopotamie",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Flax",
+    "description_en": "Natural fiber extracted from the stems of Linum usitatissimum plant. Flax is one of the oldest textile fibers, used since antiquity to make clothes, sails, and canvases. Its fibers are resistant and absorbent.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/K%C3%B6hler%27s_Medizinal-Pflanzen_in_naturgetreuen_Abbildungen_mit_kurz_erl%C3%A4uterndem_Texte_%28Plate_16%29_BHL303594.jpg/600px-K%C3%B6hler%27s_Medizinal-Pflanzen_in_naturgetreuen_Abbildungen_mit_kurz_erl%C3%A4uterndem_Texte_%28Plate_16%29_BHL303594.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "bois",
+        "relation_type": "material"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "filature",
+        "relation_type": "process"
+      },
+      {
+        "id": "tissu",
+        "relation_type": "material"
+      },
+      {
+        "id": "vetement",
+        "relation_type": "material"
+      },
+      {
+        "id": "toile",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "caoutchouc-naturel": {
+    "name_en": "Natural rubber",
+    "description": "Polymère naturel issu de la sève de l'hévéa et d'autres plantes tropicales. Le caoutchouc naturel possède des propriétés d'élasticité et d'étanchéité remarquables. Il a été utilisé par les civilisations précolombiennes avant sa vulcanisation au XIXe siècle.",
+    "tags": [
+      "caoutchouc",
+      "élasticité",
+      "polymère",
+      "hévéa",
+      "tropical",
+      "étanchéité"
+    ],
+    "origin": "Amérique centrale",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Natural_rubber",
+    "description_en": "Natural polymer derived from the sap of rubber trees and other tropical plants. Natural rubber has remarkable elasticity and waterproofing properties. It was used by pre-Columbian civilizations before its vulcanization in the 19th century.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Caoutchouc_naturel.jpg/600px-Caoutchouc_naturel.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "bois",
+        "relation_type": "material"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "caoutchouc",
+        "relation_type": "material"
+      },
+      {
+        "id": "vulcanisation",
+        "relation_type": "process"
+      },
+      {
+        "id": "pneu",
+        "relation_type": "material"
+      },
+      {
+        "id": "joint-etancheite",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "phosphore": {
+    "name_en": "Phosphorus",
+    "description": "Élément chimique de numéro atomique 15 extrait de minéraux phosphatés. Le phosphore existe sous plusieurs formes allotropiques dont le phosphore blanc et le phosphore rouge. Il est essentiel en agriculture, dans les engrais, et en chimie industrielle.",
+    "tags": [
+      "élément chimique",
+      "phosphate",
+      "engrais",
+      "agriculture",
+      "allotrope",
+      "luminescence"
+    ],
+    "origin": "Henning Brand (Allemagne)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Phosphorus",
+    "description_en": "Chemical element with atomic number 15 extracted from phosphate minerals. Phosphorus exists in several allotropic forms including white phosphorus and red phosphorus. It is essential in agriculture, fertilizers, and industrial chemistry.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Phosphor_rot.jpg/600px-Phosphor_rot.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "minerai-de-phosphate",
+        "relation_type": "material"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "engrais",
+        "relation_type": "material"
+      },
+      {
+        "id": "acide-phosphorique",
+        "relation_type": "material"
+      },
+      {
+        "id": "nitrate",
+        "relation_type": "material"
+      },
+      {
+        "id": "agriculture-intensive",
+        "relation_type": "process"
+      }
+    ]
+  },
+  "bauxite-aluminium": {
+    "name_en": "Bauxite (aluminium ore)",
+    "description": "Minerai naturel contenant de l'alumine, principal composant rocheux d'où est extrait l'aluminium. Se présente sous forme de gisements terrestres, particulièrement en zones tropicales et subtropicales. Indispensable à la production industrielle d'aluminium par électrolyse.",
+    "tags": [
+      "minerai",
+      "aluminium",
+      "extraction",
+      "géologie",
+      "ressource naturelle"
+    ],
+    "origin": "Pierre Berthier (France)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bauxite",
+    "description_en": "Natural ore containing alumina, the primary rock component from which aluminum is extracted. Found in terrestrial deposits, especially in tropical and subtropical zones. Essential for industrial aluminum production through electrolysis.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Bauxite_h%C3%A9rault.JPG/600px-Bauxite_h%C3%A9rault.JPG",
+    "_ai_built_upon": [],
+    "_ai_led_to": [
+      {
+        "id": "aluminium",
+        "relation_type": "material"
+      },
+      {
+        "id": "alliage-d-aluminium",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "minerai-d-etain": {
+    "name_en": "Tin ore",
+    "description": "Cassitérite et autres minerais naturels contenant l'étain à l'état natif. Extrait des gisements alluviaux et filoniens depuis l'Antiquité. Constituant essentiel du bronze avec le cuivre, il a permis le développement des civilisations anciennes.",
+    "tags": [
+      "étain",
+      "minerai",
+      "bronze",
+      "alliage",
+      "ressource naturelle"
+    ],
+    "origin": "Cornouailles (Royaume-Uni), Bolivie",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tin_ore",
+    "description_en": "Cassiterite and other naturally occurring ores containing tin. Extracted from alluvial and vein deposits since antiquity. Essential component of bronze with copper, it enabled the development of ancient civilizations.",
+    "_ai_built_upon": [],
+    "_ai_led_to": [
+      {
+        "id": "etain",
+        "relation_type": "material"
+      },
+      {
+        "id": "bronze",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "minerai-de-zinc": {
+    "name_en": "Zinc ore",
+    "description": "Sphalérite et calamine sont les principaux minerais naturels de zinc. Gisements souterrains formés par processus géologiques. Exploité depuis l'Antiquité pour produire du laiton et utilisé ensuite en galvanisation et en alliages modernes.",
+    "tags": [
+      "zinc",
+      "minerai",
+      "galvanisation",
+      "laiton",
+      "ressource naturelle"
+    ],
+    "origin": "Chine, Pologne, Australie",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Zinc_ore",
+    "description_en": "Sphalerite and calamine are the primary natural zinc ores. Underground deposits formed by geological processes. Exploited since antiquity to produce brass and later used in galvanization and modern alloys.",
+    "_ai_built_upon": [],
+    "_ai_led_to": [
+      {
+        "id": "zinc",
+        "relation_type": "material"
+      },
+      {
+        "id": "galvanisation",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "granite": {
+    "name_en": "Granite",
+    "description": "Roche ignée cristalline composée de quartz, feldspath et mica, formée par refroidissement lent du magma en profondeur. Très dure et durable, utilisée depuis la Préhistoire pour la construction et la sculpture. Pierre de choix pour monuments, pavages et œuvres d'art.",
+    "tags": [
+      "pierre",
+      "roche",
+      "construction",
+      "sculpture",
+      "géologie"
+    ],
+    "origin": "Monde entier (géologie naturelle)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Granite",
+    "description_en": "Crystalline igneous rock composed of quartz, feldspar and mica, formed by slow cooling of magma deep underground. Very hard and durable, used since Prehistory for construction and sculpture. Preferred stone for monuments, paving and artworks.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Bianco_Sardo_Granit_mit_polierter_Oberfl%C3%A4che.jpg/600px-Bianco_Sardo_Granit_mit_polierter_Oberfl%C3%A4che.jpg",
+    "_ai_built_upon": [],
+    "_ai_led_to": [
+      {
+        "id": "pierre-de-taille",
+        "relation_type": "material"
+      },
+      {
+        "id": "mur-pierre",
+        "relation_type": "material"
+      },
+      {
+        "id": "taille-pierre",
+        "relation_type": "knowledge"
+      }
+    ]
+  },
+  "marbre": {
+    "name_en": "Marble",
+    "description": "Roche métamorphe résultant de la transformation du calcaire sous chaleur et pression. Possède une structure cristalline fine, translucide et extrêmement travaillable. Prisé depuis l'Antiquité pour la sculpture, l'architecture et l'ornementation des édifices prestigieux.",
+    "tags": [
+      "marbre",
+      "pierre",
+      "sculpture",
+      "architecture",
+      "géologie"
+    ],
+    "origin": "Italie (Carrare), Grèce, Espagne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Marble",
+    "description_en": "Metamorphic rock resulting from the transformation of limestone under heat and pressure. Fine crystalline structure, translucent and extremely workable. Prized since antiquity for sculpture, architecture and ornamentation of prestigious buildings.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Marmo_z17.JPG/600px-Marmo_z17.JPG",
+    "_ai_built_upon": [
+      {
+        "id": "calcaire",
+        "relation_type": "material"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "pierre-de-taille",
+        "relation_type": "material"
+      },
+      {
+        "id": "sculpture-sur-pierre",
+        "relation_type": "knowledge"
+      }
+    ]
+  },
+  "latex": {
+    "name_en": "Latex",
+    "description": "Liquide blanc laiteux extrait de l'écorce de l'hévéa et d'autres plantes tropicales. Substance naturelle contenant des polymères qui se solidifient à l'air. Base du caoutchouc naturel et de nombreuses applications industrielles.",
+    "tags": [
+      "liquide blanc",
+      "polymère naturel",
+      "plante tropicale",
+      "caoutchouc",
+      "résine"
+    ],
+    "origin": "Amérique centrale et du Sud",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Latex",
+    "description_en": "White milky liquid extracted from the bark of the rubber tree and other tropical plants. Natural substance containing polymers that solidify in air. Base of natural rubber and many industrial applications.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Latex-production.jpg/600px-Latex-production.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "air",
+        "relation_type": "material"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "caoutchouc",
+        "relation_type": "material"
+      },
+      {
+        "id": "vulcanisation",
+        "relation_type": "knowledge"
+      }
+    ]
+  },
+  "cire-d-abeille": {
+    "name_en": "Beeswax",
+    "description": "Substance solide crémeuse sécrétée par les abeilles mellifères pour construire les rayons. Cire naturelle aux propriétés hydrophobes et plastiques, utilisée depuis l'antiquité pour l'éclairage et le cosmétique. Mélange complexe d'hydrocarbures et d'esters.",
+    "tags": [
+      "abeille",
+      "cire naturelle",
+      "rayon de miel",
+      "éclairage",
+      "cosmétique"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Beeswax",
+    "description_en": "Creamy solid substance secreted by honeybees to build honeycombs. Natural wax with hydrophobic and plastic properties, used since antiquity for lighting and cosmetics. Complex mixture of hydrocarbons and esters.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Honey_comb.jpg/600px-Honey_comb.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "abeille-domestique",
+        "relation_type": "material"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "chandelle",
+        "relation_type": "material"
+      },
+      {
+        "id": "cosmetique",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "cuir-brut": {
+    "name_en": "Raw leather",
+    "description": "Peau d'animal nettoyée et séchée, transformée par tannage pour préserver sa souplesse et résistance. Matériau durable obtenu par traitement chimique ou naturel de la peau brute. Utilisé pour la confection de vêtements, chaussures et équipements.",
+    "tags": [
+      "peau d'animal",
+      "tannage",
+      "tannin",
+      "vêtement",
+      "chaussure"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Leather",
+    "description_en": "Cleaned and dried animal skin, transformed by tanning to preserve its flexibility and resistance. Durable material obtained by chemical or natural treatment of raw hide. Used for making clothing, footwear and equipment.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Leathertools.jpg/600px-Leathertools.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "viande",
+        "relation_type": "material"
+      },
+      {
+        "id": "tannin",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "vetement",
+        "relation_type": "material"
+      },
+      {
+        "id": "chaussure",
+        "relation_type": "tool"
+      }
+    ]
+  },
+  "chanvre": {
+    "name_en": "Hemp",
+    "description": "Plante herbacée dont les fibres de la tige sont extraites et transformées en fil et tissu. Fibre naturelle robuste et durable aux propriétés isolantes et respirantes. Utilisée depuis l'antiquité pour les cordes, voiles, vêtements et tissage.",
+    "tags": [
+      "plante fibreuse",
+      "tissu naturel",
+      "corde",
+      "voile",
+      "vêtement"
+    ],
+    "origin": "Asie centrale",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hemp",
+    "description_en": "Herbaceous plant whose stem fibers are extracted and transformed into thread and fabric. Robust and durable natural fiber with insulating and breathable properties. Used since antiquity for ropes, sails, clothing and weaving.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/La_Roche_Jagu_chanvre_1.JPG/600px-La_Roche_Jagu_chanvre_1.JPG",
+    "_ai_built_upon": [
+      {
+        "id": "eau",
+        "relation_type": "material"
+      },
+      {
+        "id": "air",
+        "relation_type": "material"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "fil-de-chanvre",
+        "relation_type": "material"
+      },
+      {
+        "id": "tissu",
+        "relation_type": "material"
+      },
+      {
+        "id": "corde",
+        "relation_type": "tool"
+      }
+    ]
+  },
+  "tourbe": {
+    "name_en": "Peat",
+    "description": "Combustible fossile formé par l'accumulation de matière organique végétale décomposée partiellement dans les zones humides. Matière brune riche en carbone extraite des tourbières. Utilisée historiquement comme source d'énergie de chauffage avant le charbon et le gaz naturel.",
+    "tags": [
+      "combustible fossile",
+      "carbone",
+      "tourbière",
+      "chauffage",
+      "énergie"
+    ],
+    "origin": null,
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Peat",
+    "description_en": "Fossil fuel formed by the accumulation of partially decomposed plant organic matter in wetlands. Brown matter rich in carbon extracted from peatlands. Historically used as a heating energy source before coal and natural gas.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Peat_%2849302157252%29.jpg/600px-Peat_%2849302157252%29.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "eau",
+        "relation_type": "material"
+      },
+      {
+        "id": "bois",
+        "relation_type": "material"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "charbon",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "feu",
+        "relation_type": "energy"
+      }
+    ]
+  },
+  "plastique-pe": {
+    "name_en": "Polyethylene (PE) Plastic",
+    "description": "Polymère thermoplastique léger et flexible obtenu par polymérisation de l'éthylène. Le polyéthylène est le plastique le plus produit et le plus utilisé au monde, notamment pour les emballages souples, les sacs, les films et les conteneurs. Il existe en deux formes principales : haute densité (HDPE) et basse densité (LDPE).",
+    "tags": [
+      "plastique",
+      "polymère",
+      "emballage",
+      "synthétique",
+      "thermoplastique",
+      "polyéthylène"
+    ],
+    "origin": "Eric Fawcett & Reginald Gibson (Royaume-Uni)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polyethylene",
+    "description_en": "A lightweight and flexible thermoplastic polymer made from ethylene polymerization. Polyethylene is the most produced and widely used plastic globally, particularly for flexible packaging, bags, films, and containers. It exists in two main forms: high-density (HDPE) and low-density (LDPE).",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Polyethylene_balls1.jpg/600px-Polyethylene_balls1.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "petrole",
+        "relation_type": "material"
+      },
+      {
+        "id": "raffinage",
+        "relation_type": "process"
+      },
+      {
+        "id": "polymeres",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "bouteille-plastique",
+        "relation_type": "material"
+      },
+      {
+        "id": "sachet",
+        "relation_type": "material"
+      },
+      {
+        "id": "film-plastique",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "pp": {
+    "name_en": "Polypropylene (PP)",
+    "description": "Polymère thermoplastique semi-cristallin dérivé du propylène. Le polypropylène combine légèreté, rigidité et résistance thermique, ce qui le rend idéal pour les pièces automobiles, les emballages alimentaires, les tuyaux et les articles ménagers. Il résiste bien aux chocs et aux produits chimiques.",
+    "tags": [
+      "plastique",
+      "polymère",
+      "propylène",
+      "thermoplastique",
+      "emballage",
+      "rigidité"
+    ],
+    "origin": "Giulio Natta (Italie)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polypropylene",
+    "description_en": "A semi-crystalline thermoplastic polymer derived from propylene. Polypropylene combines lightness, rigidity, and thermal resistance, making it ideal for automotive parts, food packaging, pipes, and household items. It resists impacts and chemicals well.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Polypropylene_isotactic_mini_trp.png/600px-Polypropylene_isotactic_mini_trp.png",
+    "_ai_built_upon": [
+      {
+        "id": "petrole",
+        "relation_type": "material"
+      },
+      {
+        "id": "raffinage",
+        "relation_type": "process"
+      },
+      {
+        "id": "polymeres",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "tuyau",
+        "relation_type": "material"
+      },
+      {
+        "id": "conteneur-maritime",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "pvc": {
+    "name_en": "Polyvinyl Chloride (PVC)",
+    "description": "Polymère thermoplastique rigide ou flexible selon sa formulation, obtenu par polymérisation du chlorure de vinyle. Le PVC est largement utilisé pour les tuyauteries, les câbles électriques, les revêtements de sol, les fenêtres et les articles de mobilier. Il offre une bonne durabilité et une excellente résistance au feu.",
+    "tags": [
+      "plastique",
+      "polymère",
+      "vinyle",
+      "tuyau",
+      "câble",
+      "construction"
+    ],
+    "origin": "Fritz Klatte (Allemagne)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polyvinyl_chloride",
+    "description_en": "A rigid or flexible thermoplastic polymer depending on its formulation, obtained from vinyl chloride polymerization. PVC is widely used for pipes, electrical cables, flooring, windows, and furniture items. It offers good durability and excellent fire resistance.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Pure_Polyvinyl_Chloride_powder.jpg/600px-Pure_Polyvinyl_Chloride_powder.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "petrole",
+        "relation_type": "material"
+      },
+      {
+        "id": "chlore-gazeux",
+        "relation_type": "material"
+      },
+      {
+        "id": "polymeres",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "tuyau",
+        "relation_type": "material"
+      },
+      {
+        "id": "cable-electrique",
+        "relation_type": "material"
+      },
+      {
+        "id": "fenetre",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "caoutchouc-vulcanise": {
+    "name_en": "Vulcanized Rubber",
+    "description": "Caoutchouc naturel traité par ajout de soufre et chauffage, rendant le matériau plus élastique, durable et résistant aux variations de température. La vulcanisation a révolutionné l'industrie en permettant la production de pneus, de joints, de tuyaux et d'objets élastiques stables et durables.",
+    "tags": [
+      "caoutchouc",
+      "traitement",
+      "soufre",
+      "pneu",
+      "élastique",
+      "chimie"
+    ],
+    "origin": "Charles Goodyear (États-Unis)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Vulcanization",
+    "description_en": "Natural rubber treated by adding sulfur and heating, making the material more elastic, durable, and resistant to temperature variations. Vulcanization revolutionized the industry by enabling the production of tires, seals, hoses, and stable, durable elastic objects.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/VulcanizationMold1941.jpg/600px-VulcanizationMold1941.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "caoutchouc",
+        "relation_type": "material"
+      },
+      {
+        "id": "soufre",
+        "relation_type": "material"
+      },
+      {
+        "id": "vulcanisation",
+        "relation_type": "process"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "pneu",
+        "relation_type": "material"
+      },
+      {
+        "id": "joint-elastique",
+        "relation_type": "material"
+      },
+      {
+        "id": "automobile",
+        "relation_type": "tool"
+      }
+    ]
+  },
+  "laiton": {
+    "name_en": "Brass",
+    "description": "Alliage de cuivre et de zinc offrant une excellent malléabilité, une belle couleur jaune dorée et une bonne résistance à la corrosion. Le laiton est utilisé depuis l'Antiquité pour les instruments musicaux, les ornements, les conduites d'eau, les articles de quincaillerie et les pièces de mécanique de précision.",
+    "tags": [
+      "alliage",
+      "cuivre",
+      "zinc",
+      "conducteur",
+      "ornement",
+      "mécanique"
+    ],
+    "origin": "Moyen-Orient & Méditerranée antique",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Brass",
+    "description_en": "An alloy of copper and zinc offering excellent malleability, a beautiful golden-yellow color, and good corrosion resistance. Brass has been used since ancient times for musical instruments, ornaments, water pipes, hardware items, and precision mechanical parts.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Planispheric_Astrolabe_MET_DP105325.jpg/600px-Planispheric_Astrolabe_MET_DP105325.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "cuivre",
+        "relation_type": "material"
+      },
+      {
+        "id": "zinc",
+        "relation_type": "material"
+      },
+      {
+        "id": "metallurgie",
+        "relation_type": "process"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "instrument-musique",
+        "relation_type": "material"
+      },
+      {
+        "id": "tuyau",
+        "relation_type": "material"
+      },
+      {
+        "id": "engrenage",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "graphite": {
+    "name_en": "Graphite",
+    "description": "Forme cristalline du carbone extraite de gisements naturels, caractérisée par sa structure en feuillets. Le graphite se distingue par sa conductivité électrique, son inertie chimique et sa capacité de lubrification. Découvert et nommé au XVIe siècle en Angleterre, il devient rapidement un matériau stratégique pour de nombreuses applications.",
+    "tags": [
+      "carbone",
+      "minéral",
+      "conducteur",
+      "lubrifiant",
+      "électricité"
+    ],
+    "origin": "Royaume-Uni",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Graphite",
+    "description_en": "Crystalline form of carbon extracted from natural deposits, characterized by its layered structure. Graphite is distinguished by its electrical conductivity, chemical inertness, and lubricating ability. Discovered and named in the 16th century in England, it quickly becomes a strategic material for numerous applications.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Graphite-233436.jpg/600px-Graphite-233436.jpg",
+    "_ai_built_upon": [],
+    "_ai_led_to": [
+      {
+        "id": "crayon",
+        "relation_type": "material"
+      },
+      {
+        "id": "lubrification",
+        "relation_type": "material"
+      },
+      {
+        "id": "electrodes",
+        "relation_type": "material"
+      },
+      {
+        "id": "batterie-li",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "platre": {
+    "name_en": "Plaster",
+    "description": "Matériau de construction obtenu par calcination du gypse et réhydratation contrôlée. Le plâtre durcit rapidement et adhère bien aux surfaces, ce qui le rend idéal pour les finitions intérieures et le modelage. Utilisé depuis l'Antiquité égyptienne, il reste un élément fondamental de la construction.",
+    "tags": [
+      "construction",
+      "gypse",
+      "revêtement",
+      "intérieur",
+      "finition"
+    ],
+    "origin": "Égypte ancienne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Plaster",
+    "description_en": "Construction material obtained by calcining gypsum and controlled rehydration. Plaster hardens quickly and adheres well to surfaces, making it ideal for interior finishes and modeling. Used since ancient Egypt, it remains a fundamental element of construction.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Fontainebleau_escalier_roi5.jpg/600px-Fontainebleau_escalier_roi5.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "gypse",
+        "relation_type": "material"
+      },
+      {
+        "id": "feu",
+        "relation_type": "energy"
+      },
+      {
+        "id": "calcination",
+        "relation_type": "process"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "enduit",
+        "relation_type": "material"
+      },
+      {
+        "id": "moulure",
+        "relation_type": "material"
+      },
+      {
+        "id": "sculpture",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "porcelaine": {
+    "name_en": "Porcelain",
+    "description": "Céramique fine obtenue par cuisson à haute température d'un mélange de kaolin, feldspath et silice. La porcelaine se distingue par sa dureté, sa blancheur, sa translucidité et son étanchéité. Perfectionnée en Chine lors de la dynastie Tang, elle devient un matériau de prestige pour la vaisselle, la décoration et les objets rituels.",
+    "tags": [
+      "céramique",
+      "kaolin",
+      "blanche",
+      "fine",
+      "luxe"
+    ],
+    "origin": "Chine",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Porcelain",
+    "description_en": "Fine ceramic obtained by high-temperature firing of a mixture of kaolin, feldspar, and silica. Porcelain is distinguished by its hardness, whiteness, translucency, and impermeability. Perfected in China during the Tang dynasty, it becomes a prestigious material for tableware, decoration, and ritual objects.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/%E6%B1%9D%E7%AA%AF_%E9%9D%92%E7%93%B7%E8%86%BD%E7%93%B6.png/600px-%E6%B1%9D%E7%AA%AF_%E9%9D%92%E7%93%B7%E8%86%BD%E7%93%B6.png",
+    "_ai_built_upon": [
+      {
+        "id": "kaolin",
+        "relation_type": "material"
+      },
+      {
+        "id": "feldspath",
+        "relation_type": "material"
+      },
+      {
+        "id": "silice",
+        "relation_type": "material"
+      },
+      {
+        "id": "four-haute-temp",
+        "relation_type": "tool"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "assiette",
+        "relation_type": "material"
+      },
+      {
+        "id": "bol",
+        "relation_type": "material"
+      },
+      {
+        "id": "objet-decoratif",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "alcool": {
+    "name_en": "Alcohol",
+    "description": "Substance organique obtenue par fermentation microbienne de sucres, particulièrement l'éthanol (C2H5OH). L'alcool a d'abord été produit comme boisson fermentée avant de devenir un solvant, un désinfectant et un matière première en synthèse chimique. C'est un composé fondamental de la chimie organique et de l'industrie pharmaceutique.",
+    "tags": [
+      "fermentation",
+      "éthanol",
+      "solvant",
+      "désinfectant",
+      "chimie"
+    ],
+    "origin": "Mésopotamie / Égypte",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Alcohol",
+    "description_en": "Organic substance obtained by microbial fermentation of sugars, particularly ethanol (C2H5OH). Alcohol was first produced as a fermented beverage before becoming a solvent, disinfectant, and raw material in chemical synthesis. It is a fundamental compound in organic chemistry and the pharmaceutical industry.",
+    "_ai_built_upon": [
+      {
+        "id": "sucre",
+        "relation_type": "material"
+      },
+      {
+        "id": "levure",
+        "relation_type": "catalyst"
+      },
+      {
+        "id": "fermentation",
+        "relation_type": "process"
+      },
+      {
+        "id": "distillation",
+        "relation_type": "process"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "alcool-ethylique",
+        "relation_type": "material"
+      },
+      {
+        "id": "parfum",
+        "relation_type": "material"
+      },
+      {
+        "id": "medicament",
+        "relation_type": "material"
+      },
+      {
+        "id": "desinfectant",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "moulage": {
+    "name_en": "Casting",
+    "description": "Procédé de transformation de matière liquide (métal fondu, cire, résine) versée dans un moule pour obtenir une forme définie. Le moulage permet de créer des objets complexes en une seule opération, sans avoir besoin de forger ou d'usiner. C'est une technique fondamentale pour la production de pièces en métal, céramique et polymères.",
+    "tags": [
+      "transformation",
+      "moule",
+      "métal",
+      "forme",
+      "production",
+      "technique"
+    ],
+    "origin": "Égypte ancienne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Casting_(metalworking)",
+    "description_en": "Process of pouring liquid material (molten metal, wax, resin) into a mold to obtain a defined shape. Casting enables creation of complex objects in a single operation without forging or machining. It is fundamental for producing metal, ceramic and polymer parts.",
+    "_ai_built_upon": [
+      {
+        "id": "feu",
+        "relation_type": "energy"
+      },
+      {
+        "id": "moule",
+        "relation_type": "tool"
+      },
+      {
+        "id": "four",
+        "relation_type": "tool"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "fonderie",
+        "relation_type": "tool"
+      },
+      {
+        "id": "bronze",
+        "relation_type": "material"
+      },
+      {
+        "id": "fer",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "tissage": {
+    "name_en": "Weaving",
+    "description": "Procédé d'entrecroisement de fils pour créer un tissu. Le tissage combine des fils de chaîne et de trame perpendiculaires, permettant de produire des textiles robustes à partir de fibres végétales ou animales. C'est une technique ancestrale fondamentale pour l'habillement et les matériaux textiles.",
+    "tags": [
+      "fil",
+      "textile",
+      "entrecroisement",
+      "tissu",
+      "trame",
+      "chaîne"
+    ],
+    "origin": "Moyen-Orient préhistorique",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Weaving",
+    "description_en": "Process of interlacing threads to create fabric. Weaving combines warp and weft threads perpendicularly, enabling production of sturdy textiles from plant or animal fibers. It is an ancestral technique fundamental for clothing and textile materials.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Warp_and_weft_2.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "fil-de-coton",
+        "relation_type": "material"
+      },
+      {
+        "id": "fil-de-laine",
+        "relation_type": "material"
+      },
+      {
+        "id": "soie-naturelle",
+        "relation_type": "material"
+      },
+      {
+        "id": "metier-tisser",
+        "relation_type": "tool"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "tissu",
+        "relation_type": "material"
+      },
+      {
+        "id": "vetement",
+        "relation_type": "material"
+      },
+      {
+        "id": "industrie-textile",
+        "relation_type": "process"
+      }
+    ]
+  },
+  "tannage": {
+    "name_en": "Tanning",
+    "description": "Procédé chimique de transformation de peau brute en cuir durable et flexible. Le tannage utilise des agents chimiques (tanins, sels de chrome) pour fixer les protéines de la peau et la protéger contre la décomposition. Cette technique est essentielle pour produire du cuir utilisé en vêtements, chaussures et équipements.",
+    "tags": [
+      "cuir",
+      "peau",
+      "chimie",
+      "transformation",
+      "conservation",
+      "matière"
+    ],
+    "origin": "Égypte ancienne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tanning_(leather)",
+    "description_en": "Chemical process transforming raw hide into durable and flexible leather. Tanning uses chemical agents (tannins, chromium salts) to fix skin proteins and protect against decomposition. This technique is essential for producing leather used in clothing, footwear and equipment.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/JBS_Tannery.jpg/600px-JBS_Tannery.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "cuir-brut",
+        "relation_type": "material"
+      },
+      {
+        "id": "acide-sulfurique",
+        "relation_type": "material"
+      },
+      {
+        "id": "eau",
+        "relation_type": "material"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "cuir",
+        "relation_type": "material"
+      },
+      {
+        "id": "vetement",
+        "relation_type": "material"
+      },
+      {
+        "id": "chaussure",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "raffinage": {
+    "name_en": "Refining",
+    "description": "Procédé de purification et de transformation du pétrole brut en produits utilisables. Le raffinage utilise la distillation fractionnée pour séparer les hydrocarbures selon leur point d'ébullition, produisant essence, gazole, fioul et autres fractions. C'est un procédé industriel critique pour l'énergie et la pétrochimie modernes.",
+    "tags": [
+      "pétrole",
+      "distillation",
+      "essence",
+      "carburant",
+      "transformation",
+      "industrie"
+    ],
+    "origin": "États-Unis",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Oil_refinery",
+    "description_en": "Process of purifying and transforming crude oil into usable products. Refining uses fractional distillation to separate hydrocarbons by boiling point, producing gasoline, diesel, fuel oil and other fractions. It is a critical industrial process for modern energy and petrochemistry.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Anacortes_Refinery_31911.JPG/600px-Anacortes_Refinery_31911.JPG",
+    "_ai_built_upon": [
+      {
+        "id": "petrole-brut",
+        "relation_type": "material"
+      },
+      {
+        "id": "raffinerie",
+        "relation_type": "tool"
+      },
+      {
+        "id": "distillation-fractionnee",
+        "relation_type": "process"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "essence",
+        "relation_type": "material"
+      },
+      {
+        "id": "gazole",
+        "relation_type": "material"
+      },
+      {
+        "id": "carburant-synthetique",
+        "relation_type": "material"
+      },
+      {
+        "id": "petrochimie",
+        "relation_type": "process"
+      }
+    ]
+  },
+  "frittage": {
+    "name_en": "Sintering",
+    "description": "Procédé de consolidation de poudres minérales ou métalliques par chauffage à température contrôlée sans fusion complète. Les particules se soudent par diffusion atomique, créant un matériau solide et dense. Le frittage permet de produire céramiques, métaux et composites avec une porosité maîtrisée.",
+    "tags": [
+      "poudre",
+      "céramique",
+      "consolidation",
+      "chauffage",
+      "matériau",
+      "densification"
+    ],
+    "origin": "Allemagne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sintering",
+    "description_en": "Process of consolidating mineral or metal powders by heating at controlled temperature without complete fusion. Particles bond through atomic diffusion, creating solid and dense material. Sintering produces ceramics, metals and composites with controlled porosity.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/LDClinkerScaled.jpg/600px-LDClinkerScaled.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "four-haute-temp",
+        "relation_type": "tool"
+      },
+      {
+        "id": "poudre",
+        "relation_type": "material"
+      },
+      {
+        "id": "thermodynamique",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "ceramique",
+        "relation_type": "material"
+      },
+      {
+        "id": "beton-precontraint",
+        "relation_type": "material"
+      },
+      {
+        "id": "materiaux-composites",
+        "relation_type": "material"
+      }
+    ]
+  },
+  "usinage": {
+    "name_en": "Machining",
+    "description": "Procédé de transformation de matériaux par enlèvement de matière à l'aide d'outils coupants montés sur des machines-outils. L'usinage permet de créer des pièces de précision en façonnant des matériaux comme les métaux, le plastique ou le bois selon des formes et dimensions définies. C'est un processus fondamental de la fabrication industrielle et de la production de composants.",
+    "tags": [
+      "usinage",
+      "fabrication",
+      "machine-outil",
+      "précision",
+      "enlèvement de matière",
+      "transformation"
+    ],
+    "origin": "Royaume-Uni",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Machining",
+    "description_en": "Process of transforming materials by removing material using cutting tools mounted on machine tools. Machining creates precision parts by shaping materials like metals, plastics, or wood to defined shapes and dimensions. It is a fundamental process in industrial manufacturing and component production.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Wheel_Machining.jpg/600px-Wheel_Machining.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "machine-outil",
+        "relation_type": "tool"
+      },
+      {
+        "id": "metallurgie",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "acier",
+        "relation_type": "material"
+      },
+      {
+        "id": "mecanique-classique",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "composant",
+        "relation_type": "material"
+      },
+      {
+        "id": "precision-manufacturing",
+        "relation_type": "process"
+      },
+      {
+        "id": "industrie-automobile",
+        "relation_type": "tool"
+      }
+    ]
+  },
+  "extrusion": {
+    "name_en": "Extrusion",
+    "description": "Procédé de transformation de matériaux plastiques ou métalliques en les forçant à passer à travers une filière sous forte pression. L'extrusion produit des profils, tubes, fils ou tiges avec une section transversale constante. C'est une méthode efficace et économique pour fabriquer des pièces de grandes longueurs avec des formes complexes.",
+    "tags": [
+      "extrusion",
+      "fabrication",
+      "filière",
+      "polymères",
+      "métaux",
+      "profilé"
+    ],
+    "origin": "Royaume-Uni",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Extrusion",
+    "description_en": "Process of transforming plastic or metal materials by forcing them through a die under high pressure. Extrusion produces profiles, tubes, wires, or rods with a constant cross-section. It is an efficient and economical method for manufacturing long pieces with complex shapes.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/S%C3%A8vres_-_Moulin_-_boudineuse-d%C3%A9sa%C3%A9reuse_027.jpg/600px-S%C3%A8vres_-_Moulin_-_boudineuse-d%C3%A9sa%C3%A9reuse_027.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "machine-outil",
+        "relation_type": "tool"
+      },
+      {
+        "id": "polymeres",
+        "relation_type": "material"
+      },
+      {
+        "id": "acier",
+        "relation_type": "material"
+      },
+      {
+        "id": "thermodynamique",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "presse-hydraulique",
+        "relation_type": "tool"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "profile-acier",
+        "relation_type": "material"
+      },
+      {
+        "id": "fibre-synthetique",
+        "relation_type": "material"
+      },
+      {
+        "id": "tuyau",
+        "relation_type": "component"
+      },
+      {
+        "id": "cable-electrique",
+        "relation_type": "component"
+      }
+    ]
+  },
+  "injection-plastique": {
+    "name_en": "Plastic injection molding",
+    "description": "Procédé de fabrication de pièces en plastique en injectant du matériau fondu sous pression dans un moule. L'injection plastique permet de produire des formes complexes en grande série avec une excellente précision et une haute productivité. C'est la méthode dominante pour fabriquer des composants plastiques dans presque tous les secteurs industriels.",
+    "tags": [
+      "injection plastique",
+      "moulage",
+      "polymères",
+      "fabrication rapide",
+      "grande série",
+      "moule"
+    ],
+    "origin": "Allemagne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Injection_molding",
+    "description_en": "Manufacturing process that creates plastic parts by injecting melted material under pressure into a mold. Plastic injection molding enables mass production of complex shapes with excellent precision and high productivity. It is the dominant method for manufacturing plastic components across nearly all industrial sectors.",
+    "_ai_built_upon": [
+      {
+        "id": "moule",
+        "relation_type": "tool"
+      },
+      {
+        "id": "polymeres",
+        "relation_type": "material"
+      },
+      {
+        "id": "plastique",
+        "relation_type": "material"
+      },
+      {
+        "id": "machine-outil",
+        "relation_type": "tool"
+      },
+      {
+        "id": "thermodynamique",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "presse-hydraulique",
+        "relation_type": "tool"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "composant",
+        "relation_type": "material"
+      },
+      {
+        "id": "smartphone",
+        "relation_type": "tool"
+      },
+      {
+        "id": "automobile",
+        "relation_type": "tool"
+      },
+      {
+        "id": "gps",
+        "relation_type": "component"
+      },
+      {
+        "id": "electronique-numerique",
+        "relation_type": "process"
+      }
+    ]
+  },
+  "laminage": {
+    "name_en": "Rolling (metalworking)",
+    "description": "Procédé de déformation plastique de métaux ou de polymères en les faisant passer entre deux rouleaux tournants qui réduisent progressivement l'épaisseur. Le laminage produit des tôles, plaques, feuilles ou bandes avec une épaisseur uniforme et des propriétés mécaniques contrôlées. C'est une technique essentielle pour fabriquer les matériaux de base de la construction et de l'industrie.",
+    "tags": [
+      "laminage",
+      "tôle",
+      "métaux",
+      "fabrication",
+      "rouleaux",
+      "déformation"
+    ],
+    "origin": "Royaume-Uni",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Rolling_(metalworking)",
+    "description_en": "Process of plastic deformation of metals or polymers by passing them between two rotating rollers that progressively reduce thickness. Rolling produces sheets, plates, or strips with uniform thickness and controlled mechanical properties. It is an essential technique for manufacturing basic materials for construction and industry.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Laminage_schema_gene.svg/600px-Laminage_schema_gene.svg.png",
+    "_ai_built_upon": [
+      {
+        "id": "forge",
+        "relation_type": "tool"
+      },
+      {
+        "id": "metallurgie",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "acier",
+        "relation_type": "material"
+      },
+      {
+        "id": "fer",
+        "relation_type": "material"
+      },
+      {
+        "id": "machine-a-vapeur",
+        "relation_type": "tool"
+      },
+      {
+        "id": "mecanique-classique",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "poutre-acier",
+        "relation_type": "material"
+      },
+      {
+        "id": "tole",
+        "relation_type": "material"
+      },
+      {
+        "id": "structure-metallique",
+        "relation_type": "component"
+      },
+      {
+        "id": "automobile",
+        "relation_type": "tool"
+      },
+      {
+        "id": "gratte-ciel",
+        "relation_type": "tool"
+      },
+      {
+        "id": "chassis-auto",
+        "relation_type": "component"
+      }
+    ]
+  },
+  "haut-fourneau": {
+    "name_en": "Blast furnace",
+    "description": "Grand four de fusion capable de atteindre des températures extrêmement élevées grâce à l'injection d'air sous pression. Permet la production d'acier et de fonte en quantités industrielles bien supérieures aux forges traditionnelles. Révolutionne la métallurgie en rendant l'acier accessible à grande échelle.",
+    "tags": [
+      "fusion",
+      "métallurgie",
+      "acier",
+      "fonte",
+      "production",
+      "industrie"
+    ],
+    "origin": "Europe (Pays-Bas/Belgique)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Blast_furnace",
+    "description_en": "A large smelting furnace capable of reaching extremely high temperatures through forced air injection. Enables the production of steel and cast iron in industrial quantities far exceeding traditional forges. Revolutionizes metallurgy by making steel accessible at large scale.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Alto_Horno%2C_Puerto_de_Sagunto%2C_Espa%C3%B1a%2C_2015-01-04%2C_DD_91.JPG/600px-Alto_Horno%2C_Puerto_de_Sagunto%2C_Espa%C3%B1a%2C_2015-01-04%2C_DD_91.JPG",
+    "_ai_built_upon": [
+      {
+        "id": "four-haute-temp",
+        "relation_type": "tool"
+      },
+      {
+        "id": "minerai-fer",
+        "relation_type": "material"
+      },
+      {
+        "id": "charbon",
+        "relation_type": "energy"
+      },
+      {
+        "id": "combustion",
+        "relation_type": "process"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "fonte",
+        "relation_type": "material"
+      },
+      {
+        "id": "acier",
+        "relation_type": "material"
+      },
+      {
+        "id": "revolution-industrielle",
+        "relation_type": "catalyst"
+      }
+    ]
+  },
+  "enclume": {
+    "name_en": "Anvil",
+    "description": "Bloc massif de métal, généralement en fer ou acier, servant de surface de travail pour façonner et forger des métaux au marteau. Outil fondamental du forgeron, permettant la fabrication d'outils, d'armes et de pièces métalliques complexes. L'enclume est essentielle à toute activité de forge.",
+    "tags": [
+      "forge",
+      "métal",
+      "forgeage",
+      "outil",
+      "marteau",
+      "artisanat"
+    ],
+    "origin": "Moyen-Orient/Égypte ancienne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Anvil",
+    "description_en": "A massive block of metal, typically iron or steel, serving as a work surface for shaping and forging metals with a hammer. A fundamental blacksmith's tool enabling the manufacture of tools, weapons, and complex metal parts. Essential to all forge activities.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/2011-09-17._%D0%9A%D1%83%D0%B7%D0%BD%D0%B5%D1%87%D0%BD%D1%8B%D0%B9_%D1%84%D0%B5%D1%81%D1%82%D0%B8%D0%B2%D0%B0%D0%BB%D1%8C_%D0%B2_%D0%94%D0%BE%D0%BD%D0%B5%D1%86%D0%BA%D0%B5_286.jpg/600px-2011-09-17._%D0%9A%D1%83%D0%B7%D0%BD%D0%B5%D1%87%D0%BD%D1%8B%D0%B9_%D1%84%D0%B5%D1%81%D1%82%D0%B8%D0%B2%D0%B0%D0%BB%D1%8C_%D0%B2_%D0%94%D0%BE%D0%BD%D0%B5%D1%86%D0%BA%D0%B5_286.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "fer",
+        "relation_type": "material"
+      },
+      {
+        "id": "acier",
+        "relation_type": "material"
+      },
+      {
+        "id": "forge",
+        "relation_type": "tool"
+      },
+      {
+        "id": "marteau",
+        "relation_type": "tool"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "clou",
+        "relation_type": "tool"
+      },
+      {
+        "id": "vis",
+        "relation_type": "tool"
+      },
+      {
+        "id": "boulon",
+        "relation_type": "tool"
+      },
+      {
+        "id": "epee",
+        "relation_type": "weapon"
+      }
+    ]
+  },
+  "robot-industriel": {
+    "name_en": "Industrial robot",
+    "description": "Machine programmable capable de réaliser automatiquement des tâches répétitives, précises et souvent dangereuses dans un environnement industriel. Équipé de bras articules, de capteurs et d'un système de contrôle numérique. Augmente la productivité, la précision et la sécurité dans les usines modernes.",
+    "tags": [
+      "robot",
+      "automatisation",
+      "industrie",
+      "bras robotique",
+      "programmation",
+      "precision"
+    ],
+    "origin": "États-Unis (George Devol, Joseph Engelberger)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Industrial_robot",
+    "description_en": "A programmable machine capable of automatically performing repetitive, precise, and often dangerous tasks in an industrial environment. Equipped with articulated arms, sensors, and digital control systems. Increases productivity, precision, and safety in modern factories.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Automation_of_foundry_with_robot.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "moteur-electrique",
+        "relation_type": "tool"
+      },
+      {
+        "id": "microprocesseur",
+        "relation_type": "component"
+      },
+      {
+        "id": "systeme-de-controle-en-temps-reel",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "capteur-de-distance",
+        "relation_type": "component"
+      },
+      {
+        "id": "servo-moteur",
+        "relation_type": "tool"
+      },
+      {
+        "id": "programmation-informatique",
+        "relation_type": "knowledge"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "bras-robotise",
+        "relation_type": "tool"
+      },
+      {
+        "id": "robotique",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "automation",
+        "relation_type": "process"
+      },
+      {
+        "id": "usine-moderne",
+        "relation_type": "infrastructure"
+      }
+    ]
+  },
+  "navire": {
+    "name_en": "Ship",
+    "description": "Construction flottante destinée au transport de personnes et de marchandises sur l'eau. Les premiers navires égyptiens utilisaient des roseaux et du bois pour naviguer sur le Nil et la Méditerranée. Ils sont devenus progressivement plus sophistiqués avec l'ajout de voiles et de structures en bois renforcées.",
+    "tags": [
+      "transport",
+      "navigation",
+      "maritime",
+      "commerce",
+      "exploration",
+      "construction navale"
+    ],
+    "origin": "Égypte ancienne",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ship",
+    "description_en": "Floating vessel designed for transporting people and cargo on water. Early Egyptian ships used reeds and wood to navigate the Nile and Mediterranean. They became progressively more sophisticated with the addition of sails and reinforced wooden structures.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Containerterminal_Altenwerder_%28Hamburg-Altenwerder%29.Iris_Bolten.4.phb.ajb.jpg/600px-Containerterminal_Altenwerder_%28Hamburg-Altenwerder%29.Iris_Bolten.4.phb.ajb.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "bois",
+        "relation_type": "material"
+      },
+      {
+        "id": "roue",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "corde",
+        "relation_type": "material"
+      },
+      {
+        "id": "voile",
+        "relation_type": "tool"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "commerce",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "navigation",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "bateau-a-voile",
+        "relation_type": "tool"
+      },
+      {
+        "id": "navire-a-vapeur",
+        "relation_type": "tool"
+      }
+    ]
+  },
+  "horloge": {
+    "name_en": "Clock",
+    "description": "Instrument de mesure du temps utilisant un système mécanique de roues et d'engrenages. Les premières horloges médiévales étaient des dispositifs à eau (clepsydres améliorées) puis des mécanismes à ressorts et poids. Elles ont révolutionné l'organisation du temps social et religieux.",
+    "tags": [
+      "temps",
+      "mécanique",
+      "précision",
+      "calendrier",
+      "synchronisation",
+      "instrument"
+    ],
+    "origin": "Europe médiévale",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Clock",
+    "description_en": "Time-measuring instrument using a mechanical system of wheels and gears. Early medieval clocks were water-driven devices (improved clepsydras) then mechanisms with springs and weights. They revolutionized the social and religious organization of time.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Pendulum_clock_by_Jacob_Kock%2C_antique_furniture_photography%2C_IMG_0931_edit.jpg/600px-Pendulum_clock_by_Jacob_Kock%2C_antique_furniture_photography%2C_IMG_0931_edit.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "engrenage",
+        "relation_type": "tool"
+      },
+      {
+        "id": "ressort",
+        "relation_type": "material"
+      },
+      {
+        "id": "metier-a-tisser",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "acier",
+        "relation_type": "material"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "horloge-mecanique",
+        "relation_type": "tool"
+      },
+      {
+        "id": "chronometre",
+        "relation_type": "tool"
+      },
+      {
+        "id": "synchronisation-temporelle-ntp",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "calendrier",
+        "relation_type": "knowledge"
+      }
+    ]
+  },
+  "led": {
+    "name_en": "Light-emitting diode (LED)",
+    "description": "Composant électronique qui émet de la lumière visible lorsqu'un courant électrique le traverse. Basée sur la jonction de deux matériaux semiconducteurs dopés, la LED convertit directement l'énergie électrique en lumière. Elle est devenue l'élément fondamental de l'éclairage moderne et de l'affichage numérique.",
+    "tags": [
+      "électronique",
+      "lumière",
+      "semiconducteur",
+      "éclairage",
+      "affichage",
+      "énergie"
+    ],
+    "origin": "Nick Holonyak (États-Unis)",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Light-emitting_diode",
+    "description_en": "Electronic component that emits visible light when electric current flows through it. Based on the junction of two doped semiconductor materials, the LED directly converts electrical energy into light. It has become the fundamental element of modern lighting and digital displays.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/RBG-LED.jpg/600px-RBG-LED.jpg",
+    "_ai_built_upon": [
+      {
+        "id": "diode",
+        "relation_type": "material"
+      },
+      {
+        "id": "silicium",
+        "relation_type": "material"
+      },
+      {
+        "id": "semiconducteur",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "jonction pn",
+        "relation_type": "knowledge"
+      },
+      {
+        "id": "materiau-semiconducteur",
+        "relation_type": "material"
+      }
+    ],
+    "_ai_led_to": [
+      {
+        "id": "ecran-lcd",
+        "relation_type": "tool"
+      },
+      {
+        "id": "eclairage-led-connecte",
+        "relation_type": "tool"
+      },
+      {
+        "id": "variateur-de-lumiere-dimmer",
+        "relation_type": "tool"
+      },
+      {
+        "id": "affichage-numerique",
+        "relation_type": "tool"
+      },
+      {
+        "id": "photographie-numerique",
+        "relation_type": "tool"
       }
     ]
   }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { useGraphStore } from '@/stores/graph-store';
@@ -37,6 +37,9 @@ import type {
 import { RelationType } from '@/lib/types';
 import { mergeDimensionMaterialLevel } from '@/lib/node-dimension';
 import { rowIsDraft } from '@/lib/draft-flag';
+import { getCategoryColor } from '@/lib/colors';
+import { BuiltUponBadgePopover } from '@/components/explore/BuiltUponBadgePopover';
+import { seedNodeIsLocked } from '@/lib/node-lock';
 
 type PendingAddLink = {
   tempId: string;
@@ -59,12 +62,24 @@ export function SuggestNodeCorrectionPanel({
   onClose,
   variant = 'suggestion',
   onAdminSaved,
+  adminStayOpenAfterSave = false,
+  /** Remplit la hauteur du parent (comparaison doublons) pour que overflow-y-auto du formulaire fonctionne. */
+  fillContainerHeight = false,
+  /** Comparaison doublons : suppression de cette fiche (confirm + API côté parent). */
+  onAdminDeleteCard,
+  /** Admin : nombre de cartes en amont direct (badge comme dans le tableau). */
+  compareUpstreamCount,
 }: {
   node: TechNodeBasic;
   onClose: () => void;
   /** `admin` : titre « Modifier », bouton Sauvegarder, écriture directe (API) au lieu d’une suggestion. */
   variant?: 'suggestion' | 'admin';
   onAdminSaved?: () => void | Promise<void>;
+  /** Admin : après sauvegarde réussie, ne pas fermer le panneau (comparaison de doublons). */
+  adminStayOpenAfterSave?: boolean;
+  fillContainerHeight?: boolean;
+  onAdminDeleteCard?: () => void | Promise<void>;
+  compareUpstreamCount?: number;
 }) {
   const locale = useLocale();
   const tExplore = useTranslations('explore');
@@ -76,12 +91,14 @@ export function SuggestNodeCorrectionPanel({
   const getNodeById = useGraphStore((s) => s.getNodeById);
   const updateNode = useGraphStore((s) => s.updateNode);
   const graphNodes = useGraphStore((s) => s.nodes);
+  const graphEdges = useGraphStore((s) => s.edges);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
   const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
   const getUsagesOfNode = useGraphStore((s) => s.getUsagesOfNode);
   const pushToast = useToastStore((s) => s.pushToast);
   const { user } = useAuthStore();
   const detailsById = useNodeDetailsStore((s) => s.byId);
+  const patchDetail = useNodeDetailsStore((s) => s.patchDetail);
 
   const [suggestForm, setSuggestForm] = useState<SuggestNodeFormState>(() =>
     createEmptySuggestNodeFormState()
@@ -113,6 +130,10 @@ export function SuggestNodeCorrectionPanel({
   const [stagedLinkRemovals, setStagedLinkRemovals] = useState<
     Record<string, SuggestLinkSnapshot>
   >({});
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [imageActionBusy, setImageActionBusy] = useState<
+    'upload' | 'wikimedia' | null
+  >(null);
 
   const snapshotFromForm = useCallback(
     (f: SuggestNodeFormState, _uiLocale: string) => {
@@ -253,6 +274,11 @@ export function SuggestNodeCorrectionPanel({
     }
     return node.is_draft === true;
   }, [seedNode, node.is_draft]);
+
+  const adminPanelLocked = useMemo(
+    () => variant === 'admin' && seedNode != null && seedNodeIsLocked(seedNode),
+    [variant, seedNode]
+  );
 
   const addPendingPeer = useCallback(
     (section: 'ledTo' | 'builtUpon', peerId: string) => {
@@ -457,6 +483,10 @@ export function SuggestNodeCorrectionPanel({
       ) {
         return;
       }
+      if (seedNodeIsLocked(seedNode)) {
+        pushToast(tEditor('toastNodeLockedNoEdit'), 'error');
+        return;
+      }
       const publish = mode === 'publish';
       setSuggestSubmitting(true);
       try {
@@ -635,7 +665,9 @@ export function SuggestNodeCorrectionPanel({
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('craftree:editor-refresh'));
         }
-        onClose();
+        if (!(variant === 'admin' && adminStayOpenAfterSave)) {
+          onClose();
+        }
       } catch {
         pushToast(tEditor('toastNetworkError'), 'error');
       } finally {
@@ -659,6 +691,7 @@ export function SuggestNodeCorrectionPanel({
       onClose,
       isDraftCard,
       updateNode,
+      adminStayOpenAfterSave,
     ]
   );
 
@@ -676,6 +709,113 @@ export function SuggestNodeCorrectionPanel({
     }
     onClose();
   }, [baselineForm, originalLinkEdits, onClose]);
+
+  const applyImageUrlClient = useCallback(
+    (url: string) => {
+      updateNode(node.id, { image_url: url });
+      patchDetail(node.id, { image_url: url });
+      setSeedNode((s) => (s ? { ...s, image_url: url } : null));
+    },
+    [node.id, updateNode, patchDetail]
+  );
+
+  const handleAdminImageFile = useCallback(
+    async (file: File) => {
+      setImageActionBusy('upload');
+      try {
+        if (seedNode && seedNodeIsLocked(seedNode)) {
+          pushToast(tEditor('toastNodeLockedNoEdit'), 'error');
+          setImageActionBusy(null);
+          return;
+        }
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('nodeId', node.id);
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+          credentials: 'same-origin',
+        });
+        const data = (await res.json()) as {
+          success?: boolean;
+          image_url?: string;
+          error?: string;
+        };
+        if (!res.ok || !data.success || !data.image_url) {
+          pushToast(data.error ?? tEditor('toastError'), 'error');
+          return;
+        }
+        const putRes = await fetch(
+          `/api/nodes/${encodeURIComponent(node.id)}`,
+          {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({ image_url: data.image_url }),
+          }
+        );
+        if (!putRes.ok) {
+          const err = await putRes.json().catch(() => ({}));
+          pushToast(
+            String((err as { error?: string }).error ?? tEditor('toastSaveError')),
+            'error'
+          );
+          return;
+        }
+        applyImageUrlClient(data.image_url);
+        pushToast(tEditor('toastImageApplied'), 'success');
+        await onAdminSaved?.();
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('craftree:editor-refresh'));
+        }
+      } catch {
+        pushToast(tEditor('toastNetworkError'), 'error');
+      } finally {
+        setImageActionBusy(null);
+      }
+    },
+    [node.id, applyImageUrlClient, pushToast, tEditor, onAdminSaved, seedNode]
+  );
+
+  const handleWikimediaImage = useCallback(async () => {
+    setImageActionBusy('wikimedia');
+    try {
+      if (seedNode && seedNodeIsLocked(seedNode)) {
+        pushToast(tEditor('toastNodeLockedNoEdit'), 'error');
+        setImageActionBusy(null);
+        return;
+      }
+      const res = await fetch(
+        `/api/admin/nodes/${encodeURIComponent(node.id)}/wikimedia-image`,
+        {
+          method: 'POST',
+          credentials: 'same-origin',
+        }
+      );
+      const data = (await res.json()) as {
+        image_url?: string;
+        error?: string;
+      };
+      if (res.status === 404 && data.error === 'wikimedia_no_image') {
+        pushToast(tEditor('toastWikimediaNoImage'), 'error');
+        return;
+      }
+      if (!res.ok || !data.image_url) {
+        pushToast(data.error ?? tEditor('toastError'), 'error');
+        return;
+      }
+      applyImageUrlClient(data.image_url);
+      pushToast(tEditor('toastImageApplied'), 'success');
+      await onAdminSaved?.();
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('craftree:editor-refresh'));
+      }
+    } catch {
+      pushToast(tEditor('toastNetworkError'), 'error');
+    } finally {
+      setImageActionBusy(null);
+    }
+  }, [node.id, applyImageUrlClient, pushToast, tEditor, onAdminSaved, seedNode]);
 
   const peerSearchBlobMap = useMemo(
     () => buildPeerSearchBlobMap(graphNodes, detailsById),
@@ -924,31 +1064,136 @@ export function SuggestNodeCorrectionPanel({
     onClose();
   }, [isDirty, onClose, tAuth]);
 
+  /** Sur /tree, `compareUpstreamCount` n’est pas fourni : on calcule le badge comme dans l’éditeur. */
+  const adminUpstreamCount = useMemo(() => {
+    if (variant !== 'admin') return undefined;
+    if (compareUpstreamCount !== undefined) return compareUpstreamCount;
+    return graphEdges.filter((e) => e.target_id === node.id).length;
+  }, [variant, compareUpstreamCount, graphEdges, node.id]);
+
+  const displayName = pickNodeDisplayName(
+    locale,
+    node.name,
+    detailsById[node.id]?.name_en ?? node.name_en
+  );
+
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
+    <div
+      className={`flex min-h-0 flex-1 flex-col ${fillContainerHeight ? 'h-full min-w-0' : ''}`}
+    >
       <motion.div
         variants={staggerItem}
-        className="sticky top-0 z-10 flex shrink-0 items-center justify-between gap-2 glass-app-header px-5 py-4"
+        className={`z-10 flex shrink-0 flex-col gap-3 border-b border-border/70 glass-app-header px-5 py-4 ${fillContainerHeight ? '' : 'sticky top-0'}`}
       >
-        <h2 className="text-lg font-semibold text-foreground">
-          {variant === 'admin' ? tEditor('panelEditInvention') : tAuth('suggestCorrection')}
-        </h2>
-        <button
-          type="button"
-          onClick={requestClose}
-          className="shrink-0 rounded p-1.5 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
-          aria-label={tSidebar('backToDetail')}
-        >
-          <span className="text-xl leading-none">×</span>
-        </button>
+        <div className="flex items-center justify-between gap-2">
+          <h2
+            className="text-lg font-semibold text-foreground"
+            {...(variant === 'admin'
+              ? {}
+              : { id: 'explore-detail-title' as const })}
+          >
+            {variant === 'admin' ? tEditor('panelEditInvention') : tAuth('suggestCorrection')}
+          </h2>
+          <button
+            type="button"
+            onClick={requestClose}
+            className="shrink-0 rounded p-1.5 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
+            aria-label={tSidebar('backToDetail')}
+          >
+            <span className="text-xl leading-none">×</span>
+          </button>
+        </div>
+        {variant === 'admin' ? (
+          <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1.5">
+            <span
+              id="explore-detail-title"
+              className="min-w-0 text-base font-semibold leading-snug text-foreground"
+            >
+              {displayName}
+            </span>
+            <BuiltUponBadgePopover
+              count={adminUpstreamCount ?? 0}
+              borderColor={getCategoryColor(node.category as NodeCategory)}
+            />
+            {rowIsDraft(node as unknown as Record<string, unknown>) ? (
+              <span
+                className="inline-block h-2 w-2 shrink-0 rounded-full bg-orange-500"
+                title={tEditor('draftRowIndicator')}
+                aria-label={tEditor('draftRowIndicator')}
+              />
+            ) : null}
+          </div>
+        ) : null}
       </motion.div>
       <div className="flex min-h-0 flex-1 flex-col">
-        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-4 pt-4">
+        <div
+          className={`min-h-0 flex-1 overflow-y-auto px-4 pb-4 pt-4 ${
+            fillContainerHeight ? 'editor-scrollbar' : ''
+          }`}
+        >
+        {adminPanelLocked ? (
+          <div className="mb-3 rounded-md border border-amber-500/40 bg-amber-950/30 px-3 py-2 text-xs leading-snug text-amber-100">
+            {tEditor('adminPanelLockedNotice')}
+          </div>
+        ) : null}
+        <div
+          className={
+            adminPanelLocked ? 'pointer-events-none opacity-[0.68]' : undefined
+          }
+        >
         <SuggestionNodeForm
           form={suggestForm}
           setForm={setSuggestForm}
           baselineForm={baselineForm}
           cardImageUrl={suggestCardImageUrl}
+          cardImageToolbar={
+            variant === 'admin' ? (
+              <>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/gif"
+                  className="sr-only"
+                  aria-hidden
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    e.target.value = '';
+                    if (f) void handleAdminImageFile(f);
+                  }}
+                />
+                <button
+                  type="button"
+                  disabled={
+                    Boolean(imageActionBusy) ||
+                    suggestSubmitting ||
+                    !originalSnapshot ||
+                    adminPanelLocked
+                  }
+                  onClick={() => fileInputRef.current?.click()}
+                  className="rounded-md border border-border/70 bg-surface/80 px-2.5 py-1.5 text-[11px] font-medium text-foreground transition-colors hover:bg-border/40 disabled:opacity-50"
+                >
+                  {imageActionBusy === 'upload'
+                    ? tEditor('adminImageBusy')
+                    : tEditor('adminImageManualButton')}
+                </button>
+                <button
+                  type="button"
+                  disabled={
+                    Boolean(imageActionBusy) ||
+                    suggestSubmitting ||
+                    !originalSnapshot ||
+                    adminPanelLocked
+                  }
+                  onClick={() => void handleWikimediaImage()}
+                  className="rounded-md border border-border/70 bg-surface/80 px-2.5 py-1.5 text-[11px] font-medium text-foreground transition-colors hover:bg-border/40 disabled:opacity-50"
+                >
+                  {imageActionBusy === 'wikimedia'
+                    ? tEditor('adminImageBusy')
+                    : tEditor('adminImageWikimediaButton')}
+                </button>
+              </>
+            ) : undefined
+          }
         />
         {variant === 'suggestion' ? (
           <>
@@ -1032,12 +1277,15 @@ export function SuggestNodeCorrectionPanel({
           />
         </div>
         </div>
+        </div>
         <div className="shrink-0 glass-footer px-5 pb-4 pt-3">
           <div className="flex flex-col gap-2">
             {variant === 'admin' && isDraftCard ? (
               <button
                 type="button"
-                disabled={suggestSubmitting || !originalSnapshot}
+                disabled={
+                  suggestSubmitting || !originalSnapshot || adminPanelLocked
+                }
                 onClick={() => void persistAdminPanel('publish')}
                 className="rounded-lg border border-emerald-500/45 bg-emerald-600/25 px-4 py-3 text-sm font-semibold text-emerald-100 shadow-md transition-colors hover:bg-emerald-600/40 disabled:opacity-50"
               >
@@ -1046,7 +1294,10 @@ export function SuggestNodeCorrectionPanel({
             ) : null}
             <button
               type="button"
-              disabled={suggestSubmitting}
+              disabled={
+                suggestSubmitting ||
+                (variant === 'admin' && adminPanelLocked)
+              }
               onClick={() =>
                 void (variant === 'admin'
                   ? persistAdminPanel('save')
@@ -1056,6 +1307,18 @@ export function SuggestNodeCorrectionPanel({
             >
               {variant === 'admin' ? tCommon('save') : tAuth('sendSuggestion')}
             </button>
+            {variant === 'admin' &&
+            fillContainerHeight &&
+            onAdminDeleteCard ? (
+              <button
+                type="button"
+                disabled={suggestSubmitting || adminPanelLocked}
+                onClick={() => void onAdminDeleteCard()}
+                className="rounded-lg border border-red-500/60 bg-red-950/35 px-4 py-2.5 text-sm font-semibold text-red-200 shadow-md transition-colors hover:border-red-400/80 hover:bg-red-950/55 disabled:opacity-50"
+              >
+                {tEditor('duplicateCompareDeleteCard')}
+              </button>
+            ) : null}
             <button
               type="button"
               disabled={suggestSubmitting}

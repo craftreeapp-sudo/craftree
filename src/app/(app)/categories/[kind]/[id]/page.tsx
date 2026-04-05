@@ -1,7 +1,16 @@
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-import { TechListByFilterClient } from '@/components/categories/TechListByFilterClient';
+import { TechListPageSkeleton } from '@/components/performance/route-loading-skeletons';
+
+const TechListByFilterClient = dynamic(
+  () =>
+    import('@/components/categories/TechListByFilterClient').then(
+      (m) => m.TechListByFilterClient
+    ),
+  { loading: () => <TechListPageSkeleton /> }
+);
 import {
   EDITOR_DIM_KEY,
   EDITOR_LEVEL_KEY,

@@ -314,7 +314,8 @@ export function AddCardModal() {
     setOpen(false);
   }, [setOpen]);
 
-  const onSave = useCallback(async () => {
+  const onSubmit = useCallback(
+    async (adminDraft?: boolean) => {
     const validation = validateSuggestForm(form, tEditor);
     if (Object.keys(validation).length > 0) {
       setFieldErrors(validation);
@@ -343,10 +344,11 @@ export function AddCardModal() {
     setSubmitting(true);
     try {
       if (isAdmin) {
+        const isDraft = adminDraft === true;
         const res = await fetch('/api/nodes', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
+          body: JSON.stringify({ ...body, is_draft: isDraft }),
         });
         if (!res.ok) {
           const e = await res.json().catch(() => ({}));
@@ -385,7 +387,12 @@ export function AddCardModal() {
             }
           }
         }
-        pushToast(tEditor('toastNodeCreated'), 'success');
+        pushToast(
+          isDraft
+            ? tEditor('toastNodeCreatedDraft')
+            : tEditor('toastNodeCreated'),
+          'success'
+        );
         setOpen(false);
         await refreshData();
         if (typeof window !== 'undefined') {
@@ -424,7 +431,8 @@ export function AddCardModal() {
     } finally {
       setSubmitting(false);
     }
-  }, [
+  },
+  [
     form,
     graphNodes,
     isAdmin,
@@ -434,7 +442,8 @@ export function AddCardModal() {
     setOpen,
     tAuth,
     tEditor,
-  ]);
+  ]
+);
 
   if (!open) return null;
 
@@ -514,22 +523,53 @@ export function AddCardModal() {
           />
         </div>
         <div className="flex shrink-0 flex-col gap-2 border-t border-border px-4 py-3">
-          <button
-            type="button"
-            disabled={submitting}
-            onClick={() => void onSave()}
-            className="rounded-lg bg-amber-600 px-4 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-amber-500 disabled:opacity-50"
-          >
-            {isAdmin ? tc('save') : tAuth('sendSuggestion')}
-          </button>
-          <button
-            type="button"
-            disabled={submitting}
-            onClick={onClose}
-            className="rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-red-500 disabled:opacity-50"
-          >
-            {tc('cancel')}
-          </button>
+          {isAdmin ? (
+            <>
+              <button
+                type="button"
+                disabled={submitting}
+                onClick={() => void onSubmit(false)}
+                className="rounded-lg bg-emerald-600 px-4 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-emerald-500 disabled:opacity-50"
+              >
+                {tEditor('addCardPublishLive')}
+              </button>
+              <button
+                type="button"
+                disabled={submitting}
+                onClick={() => void onSubmit(true)}
+                className="rounded-lg border border-amber-500/60 bg-amber-500/15 px-4 py-3 text-sm font-semibold text-amber-100 shadow-sm transition-colors hover:bg-amber-500/25 disabled:opacity-50"
+              >
+                {tEditor('addCardSaveDraft')}
+              </button>
+              <button
+                type="button"
+                disabled={submitting}
+                onClick={onClose}
+                className="rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-red-500 disabled:opacity-50"
+              >
+                {tc('cancel')}
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                type="button"
+                disabled={submitting}
+                onClick={() => void onSubmit()}
+                className="rounded-lg bg-amber-600 px-4 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-amber-500 disabled:opacity-50"
+              >
+                {tAuth('sendSuggestion')}
+              </button>
+              <button
+                type="button"
+                disabled={submitting}
+                onClick={onClose}
+                className="rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-red-500 disabled:opacity-50"
+              >
+                {tc('cancel')}
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

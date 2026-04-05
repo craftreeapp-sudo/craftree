@@ -66,6 +66,13 @@ export function stripLinkEditsFromPayload(o: Record<string, unknown>) {
   return rest;
 }
 
+/** Évite qu’un `proposedAddLinks` mal placé dans `proposed` pollue le diff nœud. */
+export function stripProposedAddLinksFromPayload(o: Record<string, unknown>) {
+  const rest = { ...o };
+  delete rest.proposedAddLinks;
+  return rest;
+}
+
 /** Texte libre laissé par le contributeur (correction, ajout de carte, etc.). Retours anonymes : `data.message`. */
 export function getContributorFacingMessageFromSuggestion(
   row: Pick<SuggestionRow, 'suggestion_type' | 'data'>
@@ -94,6 +101,91 @@ export function getContributorContactHintFromSuggestion(
   return null;
 }
 
+/**
+ * Texte d’explication agrégé pour les suggestions générées par l’IA (panneau admin).
+ * Ne remplace pas `contributorMessage` (contributeurs humains).
+ */
+export function getAiExplanationFromSuggestion(
+  row: Pick<SuggestionRow, 'suggestion_type' | 'data'>
+): string | null {
+  const data = row.data;
+  if (!data || typeof data !== 'object') return null;
+  const d = data as Record<string, unknown>;
+  if (d.source !== 'ai') return null;
+
+  const parts: string[] = [];
+
+  if (row.suggestion_type === 'ai_review') {
+    const ar = d.ai_review as Record<string, unknown> | undefined;
+    if (ar && typeof ar === 'object') {
+      const low = ar.low_confidence_warning;
+      if (low === true) {
+        parts.push(
+          'Confiance faible : une vérification humaine approfondie est recommandée.'
+        );
+      }
+      const conf = ar.confidence;
+      if (typeof conf === 'number' && Number.isFinite(conf)) {
+        parts.push(`Confiance estimée : ${Math.round(conf * 100)} %.`);
+      }
+      const raw = ar.raw_issues as
+        | Array<{ reason?: string; field?: string }>
+        | undefined;
+      if (Array.isArray(raw)) {
+        for (const issue of raw) {
+          const r = issue?.reason;
+          if (typeof r === 'string' && r.trim()) parts.push(r.trim());
+        }
+      }
+      const un = ar.unresolved_missing_links as
+        | Array<{ reason?: string; suggested_name?: string; type?: string }>
+        | undefined;
+      if (Array.isArray(un)) {
+        for (const u of un) {
+          const name = typeof u.suggested_name === 'string' ? u.suggested_name : '';
+          const rs = typeof u.reason === 'string' ? u.reason : '';
+          const bit = [name, rs].filter(Boolean).join(' — ');
+          if (bit) parts.push(`Lien suggéré non résolu : ${bit}`);
+        }
+      }
+      const suspects = ar.raw_suspect_links as
+        | Array<{ reason?: string; link_id?: string }>
+        | undefined;
+      if (Array.isArray(suspects)) {
+        for (const s of suspects) {
+          const r = s?.reason;
+          if (typeof r === 'string' && r.trim()) {
+            parts.push(`Suppression de lien proposée : ${r.trim()}`);
+          }
+        }
+      }
+    }
+  }
+
+  if (row.suggestion_type === 'enrichment') {
+    const em = d.enrichment_meta as {
+      notes?: string;
+      confidence?: number | null;
+    } | null;
+    if (em && typeof em === 'object') {
+      if (typeof em.notes === 'string' && em.notes.trim()) {
+        parts.push(em.notes.trim());
+      }
+      if (typeof em.confidence === 'number' && Number.isFinite(em.confidence)) {
+        parts.push(`Confiance estimée : ${Math.round(em.confidence * 100)} %.`);
+      }
+    }
+  }
+
+  if (row.suggestion_type === 'delete_link') {
+    const r = d.ai_reason;
+    if (typeof r === 'string' && r.trim()) parts.push(r.trim());
+  }
+
+  if (parts.length === 0) return null;
+  return parts.join('\n\n');
+}
+
 export function formatLinkSnapLine(
   s: LinkSnap,
   relLabel: (code: string) => string
@@ -110,6 +202,7 @@ export type AdminEditNodeLinkListsOverride = {
     target_id: string;
     relation_type: RelationType;
     section?: 'ledTo' | 'builtUpon';
+    notes?: string | null;
   }>;
 };
 
@@ -134,16 +227,29 @@ export function sanitizeAdminProposedAddLinks(
     if (o.section === 'ledTo' || o.section === 'builtUpon') {
       entry.section = o.section;
     }
+    if (typeof o.notes === 'string' && o.notes.trim()) {
+      entry.notes = o.notes.trim();
+    }
     out.push(entry);
   }
   return out;
+}
+
+export function isEditNodeSuggestionType(
+  suggestionType: string
+): boolean {
+  return (
+    suggestionType === 'edit_node' ||
+    suggestionType === 'ai_review' ||
+    suggestionType === 'enrichment'
+  );
 }
 
 /** Brouillon initial pour la page détail (fusion original + proposé pour edit_node). */
 export function initSuggestionEditDraft(
   row: Pick<SuggestionRow, 'suggestion_type' | 'data' | 'node_id'>
 ): Record<string, unknown> | null {
-  if (row.suggestion_type === 'edit_node') {
+  if (isEditNodeSuggestionType(row.suggestion_type)) {
     const d = row.data as {
       original?: Record<string, unknown>;
       proposed?: Record<string, unknown>;
@@ -152,8 +258,12 @@ export function initSuggestionEditDraft(
     };
     const proposedFull = { ...(d.proposed ?? {}) };
     const linkEdits = proposedFull.linkEdits;
-    const proposedNoLe = stripLinkEditsFromPayload(proposedFull);
-    const origNoLe = stripLinkEditsFromPayload(d.original ?? {});
+    const proposedNoLe = stripProposedAddLinksFromPayload(
+      stripLinkEditsFromPayload(proposedFull)
+    );
+    const origNoLe = stripProposedAddLinksFromPayload(
+      stripLinkEditsFromPayload(d.original ?? {})
+    );
     const merged = { ...origNoLe, ...proposedNoLe };
     const draft: Record<string, unknown> = { ...merged };
     if (linkEdits && typeof linkEdits === 'object') {
@@ -162,11 +272,17 @@ export function initSuggestionEditDraft(
     draft[ADMIN_DRAFT_REMOVED_IDS] = Array.isArray(d.removedLinkIds)
       ? d.removedLinkIds.map((x) => String(x))
       : [];
-    draft[ADMIN_DRAFT_PROPOSED_ADD] = Array.isArray(d.proposedAddLinks)
-      ? d.proposedAddLinks.map((x) =>
-          x && typeof x === 'object' ? { ...(x as Record<string, unknown>) } : {}
-        )
-      : [];
+    const nestedAdds = (() => {
+      const p = d.proposed;
+      if (!p || typeof p !== 'object') return [];
+      const pa = (p as { proposedAddLinks?: unknown }).proposedAddLinks;
+      return Array.isArray(pa) ? pa : [];
+    })();
+    const topAdds = Array.isArray(d.proposedAddLinks) ? d.proposedAddLinks : [];
+    const addsRaw = topAdds.length ? topAdds : nestedAdds;
+    draft[ADMIN_DRAFT_PROPOSED_ADD] = addsRaw.map((x) =>
+      x && typeof x === 'object' ? { ...(x as Record<string, unknown>) } : {}
+    );
     return draft;
   }
   if (row.suggestion_type === 'add_link') {

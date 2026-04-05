@@ -1,5 +1,6 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { eraLabelFromMessages } from '@/lib/era-display';
 import { DIMENSION_ORDER, ERA_ORDER, MATERIAL_LEVEL_ORDER } from '@/lib/node-labels';
@@ -73,6 +74,8 @@ type Props = {
   baselineForm: SuggestNodeFormState | null;
   /** Image de la carte (fiche / graphe), au-dessus du champ nom. */
   cardImageUrl?: string | null;
+  /** Admin : boutons sous l’image (upload, Wikimedia). */
+  cardImageToolbar?: ReactNode;
   /** Noms de cartes existantes proches de la saisie (ex. ajout de carte). */
   similarNameMatches?: { id: string; name: string }[];
   /** Textes d’aide pour classer la carte (formulaire « ajouter une carte »). */
@@ -95,6 +98,7 @@ export function SuggestionNodeForm({
   setForm,
   baselineForm,
   cardImageUrl = null,
+  cardImageToolbar,
   similarNameMatches,
   showFieldHints = false,
   fieldErrors,
@@ -125,7 +129,7 @@ export function SuggestionNodeForm({
     <div className="space-y-4">
       <div>
         {cardImageUrl ? (
-          <div className="mb-3 overflow-hidden rounded-lg border border-border bg-page">
+          <div className="mb-2 overflow-hidden rounded-lg border border-border bg-page">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={cardImageUrl}
@@ -133,6 +137,9 @@ export function SuggestionNodeForm({
               className="aspect-[16/10] w-full object-cover"
             />
           </div>
+        ) : null}
+        {cardImageToolbar ? (
+          <div className="mb-3 flex flex-wrap gap-2">{cardImageToolbar}</div>
         ) : null}
         <label className={suggestFormLabelClass(false)}>{te('name')}</label>
         {showFieldHints ? (

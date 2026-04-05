@@ -196,29 +196,50 @@ export function InventionCard({
     </div>
   );
 
+  /** Grilles (compact) : même hauteur par rangée — texte en flex, méta en bas. */
   const textBlock = (
-    <div className="flex w-full min-w-0 flex-col gap-2.5 border-t border-border bg-surface-elevated px-3.5 py-3 sm:px-4 sm:py-3.5">
+    <div
+      className={
+        isHero
+          ? 'flex w-full min-w-0 flex-col gap-2.5 border-t border-border bg-surface-elevated px-3.5 py-3 sm:px-4 sm:py-3.5'
+          : 'flex min-h-0 w-full min-w-0 flex-1 flex-col gap-2.5 border-t border-border bg-surface-elevated px-3.5 py-3 sm:px-4 sm:py-3.5'
+      }
+    >
       <h3
-        className="flex min-h-[2.625rem] min-w-0 flex-wrap items-baseline gap-x-1.5 gap-y-1 text-sm font-bold leading-snug text-foreground"
+        className={`flex min-h-[2.625rem] min-w-0 flex-wrap items-baseline gap-x-1.5 gap-y-1 text-sm font-bold leading-snug text-foreground ${!isHero ? 'min-h-0 flex-1 items-start' : ''}`}
         title={displayName}
       >
         <span className="min-w-0 line-clamp-2">{displayName}</span>
         <BuiltUponBadgePopover count={builtUponCount} borderColor={catColor} />
       </h3>
-      <span className="w-fit rounded-full bg-border/20 px-2.5 py-1 text-[11px] font-medium tabular-nums text-muted-foreground">
-        {formatYear(node.year_approx ?? null)}
-      </span>
-      <span
-        className="w-fit max-w-full rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white"
-        style={{ backgroundColor: hexToRgba(catColor, 0.42) }}
+      <div
+        className={
+          isHero
+            ? 'contents'
+            : 'mt-auto flex flex-col gap-2.5'
+        }
       >
-        {safeCategoryLabel(tCat, cat)}
-      </span>
+        <span className="w-fit rounded-full bg-border/20 px-2.5 py-1 text-[11px] font-medium tabular-nums text-muted-foreground">
+          {formatYear(node.year_approx ?? null)}
+        </span>
+        <span
+          className="w-fit max-w-full rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white"
+          style={{ backgroundColor: hexToRgba(catColor, 0.42) }}
+        >
+          {safeCategoryLabel(tCat, cat)}
+        </span>
+      </div>
     </div>
   );
 
   const cardBody = (
-    <div className="flex min-h-0 flex-col">
+    <div
+      className={
+        isHero
+          ? 'flex min-h-0 flex-col'
+          : 'flex h-full min-h-0 flex-col'
+      }
+    >
       {imageBlock}
       {textBlock}
     </div>
@@ -230,7 +251,7 @@ export function InventionCard({
     isInteractive && !canHover ? 'hover:scale-[1.02] active:scale-[0.99]' : '';
   /** `group` sur la carte seulement si pas de barre admin (sinon le groupe est sur le wrapper). */
   const groupClass = showAdminTreeActions ? '' : 'group ';
-  const cardClass = `${groupClass}relative flex flex-col overflow-hidden rounded-xl glass-card transition-[border-color,transform,box-shadow] duration-200 hover:border-[var(--card-cat)] hover:shadow-lg ${scaleHoverClass} ${isHero ? 'w-full max-w-[min(100%,23rem)] sm:max-w-[min(100%,27rem)]' : 'w-full min-w-0'} ${isInteractive ? 'cursor-pointer' : ''} ${className}`;
+  const cardClass = `${groupClass}relative flex flex-col overflow-hidden rounded-xl glass-card transition-[border-color,transform,box-shadow] duration-200 hover:border-[var(--card-cat)] hover:shadow-lg ${scaleHoverClass} ${isHero ? 'w-full max-w-[min(100%,23rem)] sm:max-w-[min(100%,27rem)]' : 'h-full min-h-0 w-full min-w-0'} ${isInteractive ? 'cursor-pointer' : ''} ${className}`;
 
   const adminToolbar =
     showAdminTreeActions ? (
@@ -342,7 +363,9 @@ export function InventionCard({
     );
 
     const linkEl = showAdminTreeActions ? (
-      <div className="group relative w-full min-w-0 pt-8">
+      <div
+        className={`group relative w-full min-w-0 pt-8 ${!isHero ? 'h-full' : ''}`}
+      >
         {adminToolbar}
         {linkCard}
       </div>
@@ -353,9 +376,8 @@ export function InventionCard({
     if (layoutId) {
       return (
         <motion.div
-          layout
           layoutId={layoutId}
-          className="w-full min-w-0"
+          className={`w-full min-w-0 ${!isHero ? 'h-full' : ''}`}
         >
           {linkEl}
         </motion.div>
@@ -375,7 +397,9 @@ export function InventionCard({
   const divCard = <div {...commonDivProps}>{cardBody}</div>;
 
   const body = showAdminTreeActions ? (
-    <div className="group relative w-full min-w-0 pt-8">
+    <div
+      className={`group relative w-full min-w-0 pt-8 ${!isHero ? 'h-full' : ''}`}
+    >
       {adminToolbar}
       {divCard}
     </div>
@@ -386,9 +410,8 @@ export function InventionCard({
   if (layoutId) {
     return (
       <motion.div
-        layout
         layoutId={layoutId}
-        className="w-full min-w-0"
+        className={`w-full min-w-0 ${!isHero ? 'h-full' : ''}`}
       >
         {body}
       </motion.div>

@@ -214,6 +214,7 @@ ALTER TABLE nodes ADD COLUMN IF NOT EXISTS nature_type TEXT;
 
 /** Brouillon : masqué pour le public ; visible éditeur + explore pour l’admin. */
 ALTER TABLE nodes ADD COLUMN IF NOT EXISTS is_draft BOOLEAN NOT NULL DEFAULT false;
+ALTER TABLE nodes ADD COLUMN IF NOT EXISTS is_locked BOOLEAN NOT NULL DEFAULT false;
 ALTER TABLE nodes DROP CONSTRAINT IF EXISTS nodes_origin_type_check;
 ALTER TABLE nodes ADD CONSTRAINT nodes_origin_type_check CHECK (
   origin_type IS NULL OR origin_type IN ('mineral', 'vegetal', 'animal')
@@ -222,3 +223,20 @@ ALTER TABLE nodes DROP CONSTRAINT IF EXISTS nodes_nature_type_check;
 ALTER TABLE nodes ADD CONSTRAINT nodes_nature_type_check CHECK (
   nature_type IS NULL OR nature_type IN ('element', 'compose', 'materiau')
 );
+
+-- Journal des opérations IA (admin — lecture via API service role)
+CREATE TABLE IF NOT EXISTS ai_operations (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  tool TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'running',
+  params JSONB,
+  results JSONB,
+  cards_processed INT DEFAULT 0,
+  cards_modified INT DEFAULT 0,
+  cost_estimate NUMERIC(10, 4),
+  started_at TIMESTAMPTZ DEFAULT NOW(),
+  completed_at TIMESTAMPTZ,
+  created_by UUID REFERENCES auth.users(id) ON DELETE SET NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_ai_operations_started ON ai_operations(started_at DESC);

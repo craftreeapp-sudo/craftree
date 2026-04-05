@@ -17,6 +17,7 @@ import type {
   SeedNode,
 } from '@/lib/types';
 import { rowIsDraft } from '@/lib/draft-flag';
+import { rowIsLocked } from '@/lib/node-lock';
 import { getEraFromYear } from '@/lib/utils';
 
 export { rowIsDraft };
@@ -67,30 +68,55 @@ function mapRowNatureType(row: Record<string, unknown>): NatureType | null {
 
 /** Colonnes minimales pour le graphe /explore (pas de textes longs). Sans colonne legacy `type`. */
 export const GRAPH_NODES_SELECT =
-  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type, is_draft';
+  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type, is_draft, is_locked';
 
 /** Même projection sans `natural_origin` / `chemical_nature` (bases non migrées). */
 export const GRAPH_NODES_SELECT_LEGACY =
-  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, is_draft';
+  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, is_draft, is_locked';
 
 /** Liste admin / API `?full=1` — avec colonnes nature. */
 export const FULL_NODES_SELECT =
-  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type, is_draft';
+  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type, is_draft, is_locked';
 
 export const FULL_NODES_SELECT_LEGACY =
-  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, is_draft';
+  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, is_draft, is_locked';
 
 /** Même projection sans `is_draft` (migration non appliquée sur Supabase). */
 export const GRAPH_NODES_SELECT_NO_DRAFT =
-  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type';
+  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type, is_locked';
 
 export const GRAPH_NODES_SELECT_LEGACY_NO_DRAFT =
-  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level';
+  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, is_locked';
 
 export const FULL_NODES_SELECT_NO_DRAFT =
-  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type';
+  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type, is_locked';
 
 export const FULL_NODES_SELECT_LEGACY_NO_DRAFT =
+  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, is_locked';
+
+/** Repli si la colonne `is_locked` n’existe pas encore (même projection sans le suffixe). */
+export const GRAPH_NODES_SELECT_NO_LOCK =
+  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type, is_draft';
+
+export const GRAPH_NODES_SELECT_NO_DRAFT_NO_LOCK =
+  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type';
+
+export const GRAPH_NODES_SELECT_LEGACY_NO_LOCK =
+  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level, is_draft';
+
+export const GRAPH_NODES_SELECT_LEGACY_NO_DRAFT_NO_LOCK =
+  'id, name, name_en, category, era, year_approx, image_url, complexity_depth, dimension, material_level';
+
+export const FULL_NODES_SELECT_NO_LOCK =
+  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type, is_draft';
+
+export const FULL_NODES_SELECT_NO_DRAFT_NO_LOCK =
+  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, natural_origin, chemical_nature, origin_type, nature_type';
+
+export const FULL_NODES_SELECT_LEGACY_NO_LOCK =
+  'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level, is_draft';
+
+export const FULL_NODES_SELECT_LEGACY_NO_DRAFT_NO_LOCK =
   'id, name, name_en, description, description_en, category, era, year_approx, origin, image_url, wikipedia_url, tags, complexity_depth, dimension, material_level';
 
 export function isMissingNatureColumnsError(
@@ -128,6 +154,24 @@ export function isMissingDraftColumnError(
   return m.includes('is_draft');
 }
 
+/** Colonne `is_locked` absente (migration non appliquée). */
+export function isMissingLockedColumnError(
+  err: {
+    code?: string;
+    message?: string;
+    details?: string;
+    hint?: string;
+  } | null
+): boolean {
+  if (!err) return false;
+  const m = [
+    String(err.message ?? ''),
+    String(err.details ?? ''),
+    String(err.hint ?? ''),
+  ].join(' ');
+  return m.includes('is_locked');
+}
+
 type NodesFetchMode = 'graph' | 'full';
 
 /** Même plafond PostgREST que pour les liens : une requête sans `.range()` ne renvoie que les N premières lignes. */
@@ -148,12 +192,20 @@ export async function fetchNodesOrdered(
           GRAPH_NODES_SELECT_NO_DRAFT,
           GRAPH_NODES_SELECT_LEGACY,
           GRAPH_NODES_SELECT_LEGACY_NO_DRAFT,
+          GRAPH_NODES_SELECT_NO_LOCK,
+          GRAPH_NODES_SELECT_NO_DRAFT_NO_LOCK,
+          GRAPH_NODES_SELECT_LEGACY_NO_LOCK,
+          GRAPH_NODES_SELECT_LEGACY_NO_DRAFT_NO_LOCK,
         ]
       : [
           FULL_NODES_SELECT,
           FULL_NODES_SELECT_NO_DRAFT,
           FULL_NODES_SELECT_LEGACY,
           FULL_NODES_SELECT_LEGACY_NO_DRAFT,
+          FULL_NODES_SELECT_NO_LOCK,
+          FULL_NODES_SELECT_NO_DRAFT_NO_LOCK,
+          FULL_NODES_SELECT_LEGACY_NO_LOCK,
+          FULL_NODES_SELECT_LEGACY_NO_DRAFT_NO_LOCK,
         ];
 
   let lastError: unknown = null;
@@ -186,7 +238,7 @@ export async function fetchNodesOrdered(
 
 /** Une ligne `nodes` complète (lecture fiche) avec la même chaîne de repli que `fetchNodesOrdered`. */
 export async function fetchFullNodeRowById(
-  supabase: ReturnType<typeof createSupabaseServerReadClient>,
+  supabase: SupabaseClient,
   id: string
 ): Promise<Record<string, unknown> | null> {
   const chain = [
@@ -194,6 +246,10 @@ export async function fetchFullNodeRowById(
     FULL_NODES_SELECT_NO_DRAFT,
     FULL_NODES_SELECT_LEGACY,
     FULL_NODES_SELECT_LEGACY_NO_DRAFT,
+    FULL_NODES_SELECT_NO_LOCK,
+    FULL_NODES_SELECT_NO_DRAFT_NO_LOCK,
+    FULL_NODES_SELECT_LEGACY_NO_LOCK,
+    FULL_NODES_SELECT_LEGACY_NO_DRAFT_NO_LOCK,
   ];
   let lastError: unknown = null;
   for (const select of chain) {
@@ -242,6 +298,30 @@ export async function fetchAllLinkRowsPaginated(
 }
 
 /**
+ * Tous les ids `nodes` (paginé). Sans `.range()`, PostgREST ne renvoie qu’environ les 1000
+ * premières lignes — ce qui faisait échouer `POST /api/links` pour les cartes au-delà.
+ */
+export async function fetchAllNodeIdsSet(sb: SupabaseClient): Promise<Set<string>> {
+  const ids = new Set<string>();
+  let from = 0;
+  for (;;) {
+    const { data, error } = await sb
+      .from('nodes')
+      .select('id')
+      .order('id', { ascending: true })
+      .range(from, from + NODES_PAGE_SIZE - 1);
+    if (error) throw error;
+    const batch = (data ?? []) as { id: string }[];
+    for (const row of batch) {
+      if (row.id) ids.add(String(row.id));
+    }
+    if (batch.length < NODES_PAGE_SIZE) break;
+    from += NODES_PAGE_SIZE;
+  }
+  return ids;
+}
+
+/**
  * Projection graphe → SeedNode : champs lourds vides jusqu’à chargement détail / ?full=1.
  */
 export function mapGraphNodeRowToSeedNode(row: Record<string, unknown>): SeedNode {
@@ -273,6 +353,7 @@ export function mapGraphNodeRowToSeedNode(row: Record<string, unknown>): SeedNod
     origin_type: mapRowOriginType(row),
     nature_type: mapRowNatureType(row),
     is_draft: rowIsDraft(row),
+    is_locked: rowIsLocked(row),
   };
 }
 
@@ -303,6 +384,7 @@ export function mapNodeRowToSeedNode(row: Record<string, unknown>): SeedNode {
     origin_type: mapRowOriginType(row),
     nature_type: mapRowNatureType(row),
     is_draft: rowIsDraft(row),
+    is_locked: rowIsLocked(row),
   };
 }
 

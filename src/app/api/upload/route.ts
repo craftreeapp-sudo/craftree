@@ -1,12 +1,25 @@
-import { writeFile, mkdir, readFile } from 'fs/promises';
+import { writeFile, mkdir } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
 import { NextResponse } from 'next/server';
+import { requireAdminFromRequest } from '@/lib/auth-server';
+import { fetchFullNodeRowById, mapNodeRowToSeedNode } from '@/lib/data';
+import { seedNodeIsLocked } from '@/lib/node-lock';
+import { readSeedData, writeSeedData } from '@/lib/seed-data-fs';
+import { isSupabaseConfigured } from '@/lib/supabase-env-check';
+import {
+  createSupabaseServerReadClient,
+  createSupabaseServiceRoleClient,
+} from '@/lib/supabase-server';
 
-const SEED_PATH = path.join(process.cwd(), 'src/data/seed-data.json');
 const NODES_IMG_DIR = path.join(process.cwd(), 'public/images/nodes');
 
 export async function POST(request: Request) {
+  const admin = await requireAdminFromRequest();
+  if (!admin) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
+
   const formData = await request.formData();
   const file = formData.get('file') as File | null;
   const nodeId = formData.get('nodeId') as string | null;
@@ -20,6 +33,26 @@ export async function POST(request: Request) {
 
   if (!/^[\w-]+$/.test(nodeId)) {
     return NextResponse.json({ error: 'nodeId invalide' }, { status: 400 });
+  }
+
+  if (isSupabaseConfigured()) {
+    const sbRead = createSupabaseServerReadClient();
+    const row = await fetchFullNodeRowById(sbRead, nodeId);
+    if (!row) {
+      return NextResponse.json({ error: 'Node not found' }, { status: 404 });
+    }
+    if (seedNodeIsLocked(mapNodeRowToSeedNode(row as Record<string, unknown>))) {
+      return NextResponse.json({ error: 'node_locked' }, { status: 423 });
+    }
+  } else {
+    const data = readSeedData();
+    const n = data.nodes.find((x) => x.id === nodeId);
+    if (!n) {
+      return NextResponse.json({ error: 'Node not found' }, { status: 404 });
+    }
+    if (seedNodeIsLocked(n)) {
+      return NextResponse.json({ error: 'node_locked' }, { status: 423 });
+    }
   }
 
   const allowedTypes = [
@@ -63,22 +96,29 @@ export async function POST(request: Request) {
   const publicPath = `/images/nodes/${filename}`;
 
   try {
-    const raw = await readFile(SEED_PATH, 'utf-8');
-    const seedData = JSON.parse(raw) as {
-      nodes: Array<{ id: string; image_url?: string | null }>;
-      links: unknown[];
-    };
+    const seedData = readSeedData();
     const node = seedData.nodes.find((n) => n.id === nodeId);
     if (node) {
       node.image_url = publicPath;
-      await writeFile(SEED_PATH, JSON.stringify(seedData, null, 2));
+      writeSeedData(seedData);
     }
   } catch (e) {
-    console.error('upload: seed-data update failed', e);
-    return NextResponse.json(
-      { error: 'Image enregistrée mais mise à jour du JSON échouée' },
-      { status: 500 }
-    );
+    console.warn('upload: seed update skipped', e);
+  }
+
+  if (isSupabaseConfigured()) {
+    const sb = createSupabaseServiceRoleClient();
+    const { error } = await sb
+      .from('nodes')
+      .update({ image_url: publicPath, updated_at: new Date().toISOString() })
+      .eq('id', nodeId);
+    if (error) {
+      console.error('upload: supabase update failed', error);
+      return NextResponse.json(
+        { error: 'Image enregistrée mais la base distante n’a pas été mise à jour.' },
+        { status: 500 }
+      );
+    }
   }
 
   return NextResponse.json({

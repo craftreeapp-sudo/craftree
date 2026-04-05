@@ -26,6 +26,7 @@ import {
   upsertNodes,
   upsertLinks,
   updateNodeImageUrl,
+  fetchExistingNodeIdentity,
 } from './supabase-seed-sync.mjs';
 import { fetchWikipediaImageUrl } from './wikimedia-fetch.mjs';
 import { confirm, hasYesFlag } from './cli-confirm.mjs';
@@ -80,6 +81,25 @@ const ALLOWED_ERAS = new Set([
   'digital',
   'contemporary',
 ]);
+
+/**
+ * Fusionne le seed local avec l’identité distante (ids + noms name / name_en).
+ * @param {ReturnType<typeof readDB>} db
+ * @param {{ ids: Set<string>, namesLower: Set<string> }} remote
+ */
+function buildMergedIdentity(db, remote) {
+  const nodeIds = new Set(db.nodes.map((n) => n.id));
+  const nameLower = new Set();
+  for (const n of db.nodes) {
+    nameLower.add(n.name.toLowerCase());
+    if (n.name_en?.trim()) {
+      nameLower.add(String(n.name_en).trim().toLowerCase());
+    }
+  }
+  for (const id of remote.ids) nodeIds.add(id);
+  for (const name of remote.namesLower) nameLower.add(name);
+  return { nodeIds, nameLower };
+}
 
 function splitCommaList(raw) {
   return String(raw)
@@ -890,11 +910,12 @@ function printAddSummary({
  * @param {import('@anthropic-ai/sdk').default} client
  * @param {unknown} supabase
  * @param {{ name: string, preferredId?: string, smartTag?: string }[]} workList
+ * @param {{ nodeIds: Set<string>, nameLower: Set<string> }} mergedIdentity seed + Supabase
  */
-async function runInventionBatches(client, supabase, workList) {
+async function runInventionBatches(client, supabase, workList, mergedIdentity) {
   let db = readDB();
-  const nodeIds = new Set(db.nodes.map((n) => n.id));
-  const nameLower = new Set(db.nodes.map((n) => n.name.toLowerCase()));
+  const nodeIds = new Set(mergedIdentity.nodeIds);
+  const nameLower = new Set(mergedIdentity.nameLower);
   /** @type {Set<string>} */
   const createdIds = new Set();
 
@@ -968,12 +989,25 @@ async function runInventionBatches(client, supabase, workList) {
         continue;
       }
       if (nodeIds.has(node.id)) {
-        console.log(`⏭️  ${node.name} : existe déjà`);
+        console.log(`⏭️  ${node.name} : existe déjà (id)`);
+        continue;
+      }
+      const nameLc = node.name.toLowerCase();
+      if (nameLower.has(nameLc)) {
+        console.log(`⏭️  ${node.name} : nom déjà en base`);
+        continue;
+      }
+      const nameEnLc = node.name_en?.trim()
+        ? String(node.name_en).trim().toLowerCase()
+        : '';
+      if (nameEnLc && nameLower.has(nameEnLc)) {
+        console.log(`⏭️  ${node.name} : name_en déjà en base`);
         continue;
       }
       newNodes.push(node);
       nodeIds.add(node.id);
-      nameLower.add(node.name.toLowerCase());
+      nameLower.add(nameLc);
+      if (nameEnLc) nameLower.add(nameEnLc);
     }
 
     for (const node of newNodes) {
@@ -1044,10 +1078,21 @@ async function runInventionBatches(client, supabase, workList) {
   return { totalLinks, imagesOk, createdIds, sec, workListLength: workList.length };
 }
 
-/** @param {import('@anthropic-ai/sdk').default} client */
-async function buildSmartWorkList(client, db, diag, slots, categoryFilter, count) {
-  const nodeIds = new Set(db.nodes.map((n) => n.id));
-  const nameLower = new Set(db.nodes.map((n) => n.name.toLowerCase()));
+/**
+ * @param {import('@anthropic-ai/sdk').default} client
+ * @param {{ nodeIds: Set<string>, nameLower: Set<string> }} mergedIdentity
+ */
+async function buildSmartWorkList(
+  client,
+  db,
+  diag,
+  slots,
+  categoryFilter,
+  count,
+  mergedIdentity
+) {
+  const nodeIds = new Set(mergedIdentity.nodeIds);
+  const nameLower = new Set(mergedIdentity.nameLower);
   /** @type {{ name: string, preferredId?: string, smartTag?: string }[]} */
   const workList = [];
 
@@ -1057,6 +1102,8 @@ async function buildSmartWorkList(client, db, diag, slots, categoryFilter, count
     if (nodeIds.has(o.id)) continue;
     if (nameLower.has(o.pretty.toLowerCase())) continue;
     workList.push({ name: o.pretty, preferredId: o.id, smartTag: 'orphan' });
+    nodeIds.add(o.id);
+    nameLower.add(o.pretty.toLowerCase());
   }
 
   const needDiscover = count - workList.length;
@@ -1247,13 +1294,21 @@ async function runSmartMode({ count, categoryFilter, autoYes }) {
   const client = new Anthropic({ apiKey });
   const supabase = createServiceSupabaseClient();
 
+  console.log('\n📡 Lecture des nœuds existants (Supabase)…');
+  const remoteIdentity = await fetchExistingNodeIdentity(supabase);
+  const mergedIdentity = buildMergedIdentity(db, remoteIdentity);
+  console.log(
+    `   ${remoteIdentity.ids.size} nœud(s) en base — fusion avec le seed pour détecter les doublons.`
+  );
+
   const workList = await buildSmartWorkList(
     client,
     db,
     diag,
     slots,
     categoryFilter,
-    count
+    count,
+    mergedIdentity
   );
 
   if (workList.length === 0) {
@@ -1261,7 +1316,12 @@ async function runSmartMode({ count, categoryFilter, autoYes }) {
     return;
   }
 
-  const stats = await runInventionBatches(client, supabase, workList);
+  const stats = await runInventionBatches(
+    client,
+    supabase,
+    workList,
+    mergedIdentity
+  );
   db = readDB();
   const after = snapshotGraphStats(db);
   printSmartFinalSummary(
@@ -1320,9 +1380,36 @@ async function main() {
     beforeYear,
   });
 
-  let db = readDB();
-  const nodeIds = new Set(db.nodes.map((n) => n.id));
-  const nameLower = new Set(db.nodes.map((n) => n.name.toLowerCase()));
+  if (!nameArg && (count == null || count < 1)) {
+    console.error(
+      'Usage : node scripts/add-inventions.mjs --count N [options] | --name "A,B,C"\n' +
+        '        node scripts/add-inventions.mjs --smart --count N [--category "x"] [--yes]\n' +
+        'Options (combinables) :\n' +
+        '  --smart                       analyse du graphe + stratégie (avec --count ou --limit)\n' +
+        '  --category "energy,medical"   catégories (liste séparée par des virgules)\n' +
+        '  --era "industrial,modern"     époques\n' +
+        '  --after YEAR                  année min (invention)\n' +
+        '  --before YEAR                 année max (invention)'
+    );
+    console.error(
+      'Avec npm, tout doit être sur une même ligne après -- :\n' +
+        '  npm run add -- --count 5 --category infrastructure\n' +
+        '  npm run add -- - - count 5 --category infrastructure'
+    );
+    process.exit(1);
+  }
+
+  const db = readDB();
+  const supabase = createServiceSupabaseClient();
+  console.log('\n📡 Lecture des nœuds existants (Supabase)…');
+  const remoteIdentity = await fetchExistingNodeIdentity(supabase);
+  const mergedIdentity = buildMergedIdentity(db, remoteIdentity);
+  console.log(
+    `   ${remoteIdentity.ids.size} nœud(s) en base — fusion avec le seed pour détecter les doublons.`
+  );
+
+  const nodeIds = mergedIdentity.nodeIds;
+  const nameLower = mergedIdentity.nameLower;
 
   /** @type {{ name: string, preferredId?: string }[]} */
   let workList = [];
@@ -1331,39 +1418,25 @@ async function main() {
 
   if (nameArg) {
     const parts = nameArg.split(',').map((s) => s.trim()).filter(Boolean);
+    const seenInArg = new Set();
     for (const p of parts) {
       const id = slugify(p);
+      if (seenInArg.has(id)) continue;
       if (nodeIds.has(id) || nameLower.has(p.toLowerCase())) {
         console.log(`⏭️  « ${p} » existe déjà, ignoré.`);
         continue;
       }
+      seenInArg.add(id);
       workList.push({ name: p, preferredId: id });
     }
   } else {
-    if (count == null || count < 1) {
-      console.error(
-        'Usage : node scripts/add-inventions.mjs --count N [options] | --name "A,B,C"\n' +
-          '        node scripts/add-inventions.mjs --smart --count N [--category "x"] [--yes]\n' +
-          'Options (combinables) :\n' +
-          '  --smart                       analyse du graphe + stratégie (avec --count ou --limit)\n' +
-          '  --category "energy,medical"   catégories (liste séparée par des virgules)\n' +
-          '  --era "industrial,modern"     époques\n' +
-          '  --after YEAR                  année min (invention)\n' +
-          '  --before YEAR                 année max (invention)'
-      );
-      console.error(
-        'Avec npm, tout doit être sur une même ligne après -- :\n' +
-          '  npm run add -- --count 5 --category infrastructure\n' +
-          '  npm run add -- - - count 5 --category infrastructure'
-      );
-      process.exit(1);
-    }
     const orphans = findOrphanIds(db);
     const fromOrphans = [];
     for (const oid of orphans) {
       if (fromOrphans.length >= count) break;
       if (nodeIds.has(oid)) continue;
       const name = idToPrettyName(oid);
+      if (nameLower.has(name.toLowerCase())) continue;
       fromOrphans.push({ name, preferredId: oid });
     }
     needSuggest = Math.max(0, count - fromOrphans.length);
@@ -1400,7 +1473,6 @@ async function main() {
     process.exit(1);
   }
   const client = new Anthropic({ apiKey });
-  const supabase = createServiceSupabaseClient();
 
   if (!nameArg && needSuggest > 0) {
     const need = needSuggest;
@@ -1441,6 +1513,13 @@ async function main() {
       const name = typeof raw === 'string' ? raw : raw?.name || String(raw);
       const id = slugify(name);
       if (nodeIds.has(id) || nameLower.has(name.toLowerCase())) continue;
+      const alreadyQueued = workList.some(
+        (w) =>
+          (w.preferredId && w.preferredId === id) ||
+          slugify(w.name) === id ||
+          w.name.toLowerCase() === name.toLowerCase()
+      );
+      if (alreadyQueued) continue;
       workList.push({ name, preferredId: id });
     }
   }
@@ -1450,7 +1529,12 @@ async function main() {
     return;
   }
 
-  const stats = await runInventionBatches(client, supabase, workList);
+  const stats = await runInventionBatches(
+    client,
+    supabase,
+    workList,
+    mergedIdentity
+  );
   const estFinal = (stats.workListLength * 0.002).toFixed(2);
   console.log('\n' + '═'.repeat(46));
   console.log('📊 Résumé — add-inventions');

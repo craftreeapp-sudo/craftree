@@ -36,6 +36,7 @@ import { SearchableSelect, type SearchableOption } from './SearchableSelect';
 import { eraLabelFromMessages } from '@/lib/era-display';
 import { filterValidCraftingLinks } from '@/lib/graph-utils';
 import { rowIsDraft } from '@/lib/draft-flag';
+import { seedNodeIsLocked } from '@/lib/node-lock';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
 import { treeInventionPath, getDefaultTreeNodeId } from '@/lib/tree-routes';
 import { EXPLORE_DETAIL_PANEL_WIDTH_PX } from '@/lib/explore-layout';
@@ -43,6 +44,7 @@ import { useGraphStore } from '@/stores/graph-store';
 import { useAuthStore } from '@/stores/auth-store';
 import { useUIStore } from '@/stores/ui-store';
 import { AdminPageClient } from '@/components/admin/AdminPageClient';
+import { AIToolsTab } from '@/components/admin/AIToolsTab';
 import {
   DEFAULT_EDITOR_INVENTION_COLUMN_ORDER,
   EDITOR_INVENTION_COLUMN_STORAGE_KEY,
@@ -56,7 +58,10 @@ import {
   renderEditorInventionColumnHeader,
   type NodeSortKey,
 } from './EditorInventionColumnCells';
-import { duplicateNodeIdsFromNodes } from '@/lib/editor-duplicates';
+import {
+  duplicateNodeIdsFromNodes,
+  findDuplicatePeerNodeId,
+} from '@/lib/editor-duplicates';
 
 const RELATION_BADGE_COLORS: Record<RelationType, string> = {
   [RT.MATERIAL]: 'bg-teal-500/20 text-teal-200 border-teal-500/40',
@@ -111,6 +116,7 @@ function seedNodeToTechBasic(n: SeedNode): TechNodeBasic {
     origin_type: n.origin_type ?? null,
     nature_type: n.nature_type ?? null,
     is_draft: n.is_draft === true,
+    is_locked: n.is_locked === true,
   };
 }
 
@@ -295,7 +301,9 @@ export function EditorPageClient() {
   pushRef.current = push;
   const hydrateFromRawRef = useRef(hydrateFromRaw);
   hydrateFromRawRef.current = hydrateFromRaw;
-  const [tab, setTab] = useState<'nodes' | 'suggestions' | 'links'>('nodes');
+  const [tab, setTab] = useState<'nodes' | 'suggestions' | 'links' | 'aiTools'>(
+    'nodes'
+  );
   const [nodes, setNodes] = useState<SeedNode[]>([]);
   const [links, setLinks] = useState<CraftingLink[]>([]);
   const [loading, setLoading] = useState(true);
@@ -336,15 +344,6 @@ export function EditorPageClient() {
     void loadAll();
   }, [loadAll]);
 
-  useEffect(() => {
-    const onRefresh = () => {
-      void loadAll();
-    };
-    window.addEventListener('craftree:editor-refresh', onRefresh);
-    return () =>
-      window.removeEventListener('craftree:editor-refresh', onRefresh);
-  }, [loadAll]);
-
   const nodeById = useMemo(
     () => new Map(nodes.map((n) => [n.id, n])),
     [nodes]
@@ -354,6 +353,49 @@ export function EditorPageClient() {
     () => new Intl.NumberFormat(locale).format(nodes.length),
     [locale, nodes.length]
   );
+
+  const [pendingSuggestionsCount, setPendingSuggestionsCount] =
+    useState<number>(0);
+
+  const refreshSuggestionStats = useCallback(async () => {
+    try {
+      const res = await fetch('/api/admin/stats', {
+        credentials: 'same-origin',
+        cache: 'no-store',
+      });
+      const j = (await res.json().catch(() => ({}))) as { pending?: number };
+      if (!res.ok) {
+        setPendingSuggestionsCount(0);
+        return;
+      }
+      setPendingSuggestionsCount(
+        typeof j.pending === 'number' ? j.pending : 0
+      );
+    } catch {
+      setPendingSuggestionsCount(0);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isAdmin || authLoading) return;
+    void refreshSuggestionStats();
+  }, [isAdmin, authLoading, refreshSuggestionStats]);
+
+  useEffect(() => {
+    if (tab === 'suggestions') {
+      void refreshSuggestionStats();
+    }
+  }, [tab, refreshSuggestionStats]);
+
+  useEffect(() => {
+    const onRefresh = () => {
+      void loadAll();
+      void refreshSuggestionStats();
+    };
+    window.addEventListener('craftree:editor-refresh', onRefresh);
+    return () =>
+      window.removeEventListener('craftree:editor-refresh', onRefresh);
+  }, [loadAll, refreshSuggestionStats]);
 
   const [columnOrder, setColumnOrder] = useState<EditorInventionColumnId[]>(
     DEFAULT_EDITOR_INVENTION_COLUMN_ORDER
@@ -376,6 +418,7 @@ export function EditorPageClient() {
 
   const stickyActionsColumn =
     columnOrder[columnOrder.length - 1] === 'actions';
+  const stickySelectColumn = columnOrder[0] === 'select';
 
   const [draggingColumnId, setDraggingColumnId] =
     useState<EditorInventionColumnId | null>(null);
@@ -483,13 +526,62 @@ export function EditorPageClient() {
   const [sortKey, setSortKey] = useState<NodeSortKey>('name');
   const [sortDir, setSortDir] = useState<SortDir>('asc');
 
+  const duplicatePeerById = useMemo(() => {
+    if (!duplicatesOnly) return null;
+    const m = new Map<string, string>();
+    for (const n of nodes) {
+      const peer = findDuplicatePeerNodeId(nodes, n.id);
+      if (peer) m.set(n.id, peer);
+    }
+    return m;
+  }, [nodes, duplicatesOnly]);
+
   const [panelOpen, setPanelOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  /** Comparaison doublons : deux ids triés [a, b] pour panneaux jumeaux. */
+  const [comparePairIds, setComparePairIds] = useState<
+    [string, string] | null
+  >(null);
+  const [compareDataEpoch, setCompareDataEpoch] = useState(0);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(
+    () => new Set()
+  );
+  const [toggleLockBusyId, setToggleLockBusyId] = useState<string | null>(
+    null
+  );
 
   const editNodeForPanel = useMemo(
     () => (editingId ? nodes.find((x) => x.id === editingId) : undefined),
     [nodes, editingId]
   );
+
+  const compareNodeLeft = useMemo(() => {
+    if (!comparePairIds) return undefined;
+    return nodes.find((x) => x.id === comparePairIds[0]);
+  }, [nodes, comparePairIds]);
+
+  const compareNodeRight = useMemo(() => {
+    if (!comparePairIds) return undefined;
+    return nodes.find((x) => x.id === comparePairIds[1]);
+  }, [nodes, comparePairIds]);
+
+  const compareUpstreamLeft = useMemo(() => {
+    if (!compareNodeLeft) return 0;
+    return graphModelEdges.filter((l) => l.target_id === compareNodeLeft.id)
+      .length;
+  }, [compareNodeLeft, graphModelEdges]);
+
+  const compareUpstreamRight = useMemo(() => {
+    if (!compareNodeRight) return 0;
+    return graphModelEdges.filter((l) => l.target_id === compareNodeRight.id)
+      .length;
+  }, [compareNodeRight, graphModelEdges]);
+
+  const editPanelUpstreamCount = useMemo(() => {
+    if (!editNodeForPanel) return 0;
+    return graphModelEdges.filter((l) => l.target_id === editNodeForPanel.id)
+      .length;
+  }, [editNodeForPanel, graphModelEdges]);
 
   const [deleteTarget, setDeleteTarget] = useState<SeedNode | null>(null);
   const [draftPublishingId, setDraftPublishingId] = useState<string | null>(
@@ -691,6 +783,93 @@ export function EditorPageClient() {
     return arr;
   }, [filteredNodes, sortKey, sortDir, graphModelEdges, locale]);
 
+  const visibleRowIds = useMemo(
+    () => sortedNodes.map((n) => n.id),
+    [sortedNodes]
+  );
+
+  const selectColumnHeaderState = useMemo(() => {
+    const c = visibleRowIds.filter((id) => selectedIds.has(id)).length;
+    return {
+      allVisibleSelected:
+        visibleRowIds.length > 0 && c === visibleRowIds.length,
+      someVisibleSelected: c > 0 && c < visibleRowIds.length,
+    };
+  }, [visibleRowIds, selectedIds]);
+
+  useEffect(() => {
+    setSelectedIds((prev) => {
+      const idSet = new Set(nodes.map((n) => n.id));
+      const next = new Set<string>();
+      let changed = false;
+      for (const id of prev) {
+        if (idSet.has(id)) next.add(id);
+        else changed = true;
+      }
+      return changed ? next : prev;
+    });
+  }, [nodes]);
+
+  const toggleRowSelect = useCallback((id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
+  const toggleSelectAllVisible = useCallback(() => {
+    setSelectedIds((prev) => {
+      if (visibleRowIds.length === 0) return prev;
+      const allSelected = visibleRowIds.every((id) => prev.has(id));
+      const next = new Set(prev);
+      if (allSelected) {
+        for (const id of visibleRowIds) next.delete(id);
+      } else {
+        for (const id of visibleRowIds) next.add(id);
+      }
+      return next;
+    });
+  }, [visibleRowIds]);
+
+  const clearSelection = useCallback(() => setSelectedIds(new Set()), []);
+
+  const toggleNodeLock = useCallback(
+    async (n: SeedNode) => {
+      setToggleLockBusyId(n.id);
+      try {
+        const res = await fetch(
+          `/api/nodes/${encodeURIComponent(n.id)}`,
+          {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({ is_locked: !n.is_locked }),
+          }
+        );
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          push(
+            String((err as { error?: string }).error ?? te('toastError')),
+            'err'
+          );
+          return;
+        }
+        push(
+          n.is_locked ? te('toastNodeUnlocked') : te('toastNodeLocked'),
+          'ok'
+        );
+        await loadAll();
+      } catch {
+        push(te('toastNetworkError'), 'err');
+      } finally {
+        setToggleLockBusyId(null);
+      }
+    },
+    [loadAll, push, te]
+  );
+
   const toggleSort = (k: NodeSortKey) => {
     if (sortKey === k) setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
     else {
@@ -704,9 +883,33 @@ export function EditorPageClient() {
   };
 
   const openEdit = (n: SeedNode) => {
+    setComparePairIds(null);
     setEditingId(n.id);
     setPanelOpen(true);
   };
+
+  const openCompareDuplicates = useCallback(
+    (n: SeedNode) => {
+      const peer = findDuplicatePeerNodeId(nodes, n.id);
+      if (!peer) return;
+      const peerNode = nodes.find((x) => x.id === peer);
+      if (!peerNode) return;
+      if (seedNodeIsLocked(n) || seedNodeIsLocked(peerNode)) {
+        push(te('toastCompareLocked'), 'err');
+        return;
+      }
+      const a = n.id < peer ? n.id : peer;
+      const b = n.id < peer ? peer : n.id;
+      setComparePairIds([a, b]);
+      setPanelOpen(false);
+      setEditingId(null);
+    },
+    [nodes, push, te]
+  );
+
+  const closeDuplicateCompare = useCallback(() => {
+    setComparePairIds(null);
+  }, []);
 
   useEffect(() => {
     if (searchParams.get('new') !== '1') {
@@ -721,6 +924,7 @@ export function EditorPageClient() {
     const n = nodes.find((x) => x.id === raw);
     if (!n) return;
     openedEditFromUrl.current = true;
+    setComparePairIds(null);
     setEditingId(n.id);
     setPanelOpen(true);
     router.replace('/admin', { scroll: false });
@@ -738,6 +942,18 @@ export function EditorPageClient() {
   useEffect(() => {
     if (searchParams.get('duplicates') === '1') setDuplicatesOnly(true);
   }, [searchParams]);
+
+  useEffect(() => {
+    if (!duplicatesOnly) setComparePairIds(null);
+  }, [duplicatesOnly]);
+
+  useEffect(() => {
+    if (!comparePairIds) return;
+    const [a, b] = comparePairIds;
+    if (!nodes.some((x) => x.id === a) || !nodes.some((x) => x.id === b)) {
+      setComparePairIds(null);
+    }
+  }, [comparePairIds, nodes]);
 
   const adminTableFocusHandledRef = useRef<string | null>(null);
 
@@ -781,6 +997,39 @@ export function EditorPageClient() {
       push(te('toastNetworkError'), 'err');
     }
   };
+
+  const deleteNodeFromCompare = useCallback(
+    async (n: SeedNode) => {
+      const cnt = links.filter(
+        (l) => l.source_id === n.id || l.target_id === n.id
+      ).length;
+      if (
+        !window.confirm(
+          te('deleteConfirmRich', {
+            name: pickNodeDisplayName(locale, n.name, n.name_en),
+            count: cnt,
+          })
+        )
+      ) {
+        return;
+      }
+      try {
+        const res = await fetch(`/api/nodes/${encodeURIComponent(n.id)}`, {
+          method: 'DELETE',
+        });
+        if (!res.ok) {
+          push(te('toastDeleteFailed'), 'err');
+          return;
+        }
+        push(te('toastNodeDeleted'));
+        await loadAll();
+        setCompareDataEpoch((e) => e + 1);
+      } catch {
+        push(te('toastNetworkError'), 'err');
+      }
+    },
+    [links, te, locale, push, loadAll]
+  );
 
   // ——— Links ———
   const sourceRef = useRef<HTMLInputElement>(null);
@@ -1000,7 +1249,11 @@ export function EditorPageClient() {
                 : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >
-            {te('tabSuggestions')}
+            {te('tabSuggestionsWithCount', {
+              count: new Intl.NumberFormat(locale).format(
+                pendingSuggestionsCount
+              ),
+            })}
           </button>
           <button
             type="button"
@@ -1013,6 +1266,17 @@ export function EditorPageClient() {
           >
             {te('links')}
           </button>
+          <button
+            type="button"
+            onClick={() => setTab('aiTools')}
+            className={`relative border-b-2 pb-3 text-sm font-medium transition-colors ${
+              tab === 'aiTools'
+                ? 'border-[#3B82F6] text-white'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            {te('tabAiTools')}
+          </button>
         </div>
 
         {loading ? (
@@ -1021,6 +1285,8 @@ export function EditorPageClient() {
           <div className="flex min-h-0 min-h-[50vh] flex-1 flex-col overflow-hidden">
             <AdminPageClient embedded />
           </div>
+        ) : tab === 'aiTools' ? (
+          <AIToolsTab onToast={push} />
         ) : tab === 'nodes' ? (
           <>
             <div className="mb-4 flex flex-wrap items-center gap-3">
@@ -1285,8 +1551,35 @@ export function EditorPageClient() {
               </EditorToolbarFilterTextButton>
             </div>
 
+            {selectedIds.size > 0 ? (
+              <div className="mb-2 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-surface/60 px-3 py-2 text-sm">
+                <span className="text-muted-foreground">
+                  {te('selectedCount', { count: selectedIds.size })}
+                </span>
+                <button
+                  type="button"
+                  onClick={clearSelection}
+                  className="rounded-md border border-border px-2 py-1 text-xs text-foreground hover:bg-border/40"
+                >
+                  {te('clearSelection')}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    void navigator.clipboard.writeText(
+                      [...selectedIds].join('\n')
+                    );
+                    push(te('toastIdsCopied'), 'ok');
+                  }}
+                  className="rounded-md border border-border px-2 py-1 text-xs text-foreground hover:bg-border/40"
+                >
+                  {te('copySelectedIds')}
+                </button>
+              </div>
+            ) : null}
+
             <div className="editor-scrollbar min-h-0 flex-1 overflow-auto rounded-lg border border-border">
-              <table className="w-full min-w-[1450px] border-collapse text-sm">
+              <table className="w-full min-w-[1520px] border-collapse text-sm">
                 <thead className="sticky top-0 z-10 bg-surface-elevated text-start text-xs font-bold uppercase tracking-wide text-muted-foreground">
                   <tr>
                     {columnOrder.map((columnId) => (
@@ -1314,6 +1607,14 @@ export function EditorPageClient() {
                             onDragLeave: onColumnDragLeave,
                           },
                           stickyActionsColumn,
+                          stickySelectColumn,
+                          selectColumnHeader: {
+                            allVisibleSelected:
+                              selectColumnHeaderState.allVisibleSelected,
+                            someVisibleSelected:
+                              selectColumnHeaderState.someVisibleSelected,
+                            onToggleAllVisible: toggleSelectAllVisible,
+                          },
                         })}
                       </Fragment>
                     ))}
@@ -1345,6 +1646,18 @@ export function EditorPageClient() {
                             draftPublishingId,
                             stickyActionsColumn,
                             rowStripeClass: bg,
+                            duplicatePeerId:
+                              duplicatePeerById?.get(n.id) ?? null,
+                            onCompareDuplicates: duplicatesOnly
+                              ? openCompareDuplicates
+                              : undefined,
+                            selectedIds,
+                            onToggleRowSelect: toggleRowSelect,
+                            stickySelectColumn,
+                            onToggleNodeLock: toggleNodeLock,
+                            toggleLockBusyId,
+                            onAiReviewToast: (message, kind) =>
+                              push(message, kind),
                           })
                         )}
                       </tr>
@@ -1612,8 +1925,82 @@ export function EditorPageClient() {
         )}
       </div>
 
+      {/* Comparaison doublons : deux panneaux d’édition */}
+      {comparePairIds && compareNodeLeft && compareNodeRight ? (
+        <div
+          className="fixed right-0 top-14 z-[70] flex h-[calc(100dvh-3.5rem)] max-w-[min(100vw,836px)] flex-col overflow-hidden border-l border-border bg-page/95 shadow-2xl backdrop-blur-sm"
+        >
+          <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border px-3 py-2">
+            <span className="text-xs font-medium text-amber-100">
+              {te('duplicateCompareHeading')}
+            </span>
+            <button
+              type="button"
+              onClick={closeDuplicateCompare}
+              className="rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
+            >
+              {tc('close')}
+            </button>
+          </div>
+          <div className="flex min-h-0 flex-1 overflow-hidden divide-x divide-border">
+            <aside className="flex min-h-0 min-w-0 w-[min(50vw,418px)] flex-1 flex-col overflow-hidden">
+              <div className="shrink-0 border-b border-border bg-surface/80 px-2 py-1.5 text-[11px] font-medium text-muted-foreground">
+                {te('duplicateCompareBadgeA')} ·{' '}
+                <span className="font-mono text-[10px] text-foreground/90">
+                  {compareNodeLeft.id}
+                </span>
+              </div>
+              <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+                <SuggestNodeCorrectionPanel
+                  key={`${compareNodeLeft.id}-${compareDataEpoch}`}
+                  variant="admin"
+                  node={seedNodeToTechBasic(compareNodeLeft)}
+                  adminStayOpenAfterSave
+                  fillContainerHeight
+                  compareUpstreamCount={compareUpstreamLeft}
+                  onAdminDeleteCard={() =>
+                    void deleteNodeFromCompare(compareNodeLeft)
+                  }
+                  onClose={closeDuplicateCompare}
+                  onAdminSaved={async () => {
+                    await loadAll();
+                    setCompareDataEpoch((e) => e + 1);
+                  }}
+                />
+              </div>
+            </aside>
+            <aside className="flex min-h-0 min-w-0 w-[min(50vw,418px)] flex-1 flex-col overflow-hidden">
+              <div className="shrink-0 border-b border-border bg-surface/80 px-2 py-1.5 text-[11px] font-medium text-muted-foreground">
+                {te('duplicateCompareBadgeB')} ·{' '}
+                <span className="font-mono text-[10px] text-foreground/90">
+                  {compareNodeRight.id}
+                </span>
+              </div>
+              <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+                <SuggestNodeCorrectionPanel
+                  key={`${compareNodeRight.id}-${compareDataEpoch}`}
+                  variant="admin"
+                  node={seedNodeToTechBasic(compareNodeRight)}
+                  adminStayOpenAfterSave
+                  fillContainerHeight
+                  compareUpstreamCount={compareUpstreamRight}
+                  onAdminDeleteCard={() =>
+                    void deleteNodeFromCompare(compareNodeRight)
+                  }
+                  onClose={closeDuplicateCompare}
+                  onAdminSaved={async () => {
+                    await loadAll();
+                    setCompareDataEpoch((e) => e + 1);
+                  }}
+                />
+              </div>
+            </aside>
+          </div>
+        </div>
+      ) : null}
+
       {/* Panneau nœud : édition = même UI que « Suggérer une correction » */}
-      {panelOpen && editNodeForPanel ? (
+      {panelOpen && editNodeForPanel && !comparePairIds ? (
         <aside
           className="fixed right-0 top-14 z-[70] flex h-[calc(100dvh-3.5rem)] min-h-0 w-full flex-col overflow-hidden glass-panel-right shadow-2xl"
           style={{
@@ -1625,6 +2012,7 @@ export function EditorPageClient() {
             key={editNodeForPanel.id}
             variant="admin"
             node={seedNodeToTechBasic(editNodeForPanel)}
+            compareUpstreamCount={editPanelUpstreamCount}
             onClose={() => setPanelOpen(false)}
             onAdminSaved={async () => {
               await loadAll();

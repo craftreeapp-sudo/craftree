@@ -580,7 +580,7 @@
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Wire.agr.jpg/600px-Wire.agr.jpg",
       "complexity_depth": 1,
       "dimension": "matter",
-      "materialLevel": null,
+      "materialLevel": "processed",
       "origin_type": "mineral",
       "nature_type": "materiau"
     },
@@ -956,7 +956,7 @@
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Indigo_cake.jpg/600px-Indigo_cake.jpg",
       "complexity_depth": 0,
       "dimension": "matter",
-      "materialLevel": null,
+      "materialLevel": "raw",
       "origin_type": "vegetal",
       "nature_type": "materiau"
     },
@@ -1165,8 +1165,8 @@
       "complexity_depth": 3,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "charpente-bois",
@@ -1177,7 +1177,7 @@
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Charpente_eglise_Saint-Girons_Monein.jpg/600px-Charpente_eglise_Saint-Girons_Monein.jpg",
       "complexity_depth": 2,
       "dimension": "matter",
-      "materialLevel": null,
+      "materialLevel": "processed",
       "origin_type": "vegetal",
       "nature_type": "materiau"
     },
@@ -1190,7 +1190,7 @@
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Pierres_de_taille_livr%C3%A9es_par_la_carri%C3%A8re.JPG/600px-Pierres_de_taille_livr%C3%A9es_par_la_carri%C3%A8re.JPG",
       "complexity_depth": 0,
       "dimension": "matter",
-      "materialLevel": null,
+      "materialLevel": "raw",
       "origin_type": "mineral",
       "nature_type": "materiau"
     },
@@ -1205,7 +1205,7 @@
       "dimension": "process",
       "materialLevel": null,
       "origin_type": "mineral",
-      "nature_type": null
+      "nature_type": "compose"
     },
     {
       "id": "mur-pierre",
@@ -1216,7 +1216,7 @@
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Hadrian%27s_Wall_west_of_Housesteads_3.jpg/600px-Hadrian%27s_Wall_west_of_Housesteads_3.jpg",
       "complexity_depth": 3,
       "dimension": "matter",
-      "materialLevel": null,
+      "materialLevel": "industrial",
       "origin_type": "mineral",
       "nature_type": "materiau"
     },
@@ -1229,7 +1229,7 @@
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Calcium_oxide_powder.JPG/600px-Calcium_oxide_powder.JPG",
       "complexity_depth": 1,
       "dimension": "matter",
-      "materialLevel": null,
+      "materialLevel": "processed",
       "origin_type": "mineral",
       "nature_type": "compose"
     },
@@ -1242,7 +1242,7 @@
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Un_fabricant_de_mortier_04.jpg/600px-Un_fabricant_de_mortier_04.jpg",
       "complexity_depth": 2,
       "dimension": "matter",
-      "materialLevel": null,
+      "materialLevel": "industrial",
       "origin_type": "mineral",
       "nature_type": "compose"
     },
@@ -1255,7 +1255,7 @@
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Ch%C3%A2teau_de_Vitr%C3%A9_Place_St-Yves.JPG/600px-Ch%C3%A2teau_de_Vitr%C3%A9_Place_St-Yves.JPG",
       "complexity_depth": 2,
       "dimension": "matter",
-      "materialLevel": null,
+      "materialLevel": "processed",
       "origin_type": "mineral",
       "nature_type": "materiau"
     },
@@ -1281,7 +1281,7 @@
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Book_of_the_Dead_of_Hunefer_sheet_3.jpg/600px-Book_of_the_Dead_of_Hunefer_sheet_3.jpg",
       "complexity_depth": 1,
       "dimension": "matter",
-      "materialLevel": null,
+      "materialLevel": "raw",
       "origin_type": "vegetal",
       "nature_type": "materiau"
     },
@@ -1293,10 +1293,10 @@
       "year_approx": 200,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/%D7%A7%D7%9C%D7%A3%2C_%D7%A0%D7%95%D7%A6%D7%94_%D7%95%D7%93%D7%99%D7%95.jpg/600px-%D7%A7%D7%9C%D7%A3%2C_%D7%A0%D7%95%D7%A6%D7%94_%D7%95%D7%93%D7%99%D7%95.jpg",
       "complexity_depth": 1,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "animal",
+      "nature_type": "materiau"
     },
     {
       "id": "imprimerie",
@@ -1306,7 +1306,7 @@
       "year_approx": 1814,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Indienne%2C_Wesserling.JPG/600px-Indienne%2C_Wesserling.JPG",
       "complexity_depth": 3,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -1319,10 +1319,10 @@
       "year_approx": 1704,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/1945%EB%85%84_11%EC%9B%94_23%EC%9D%BC_%EC%84%9C%EC%9A%B8%EC%8B%A0%EB%AC%B8.jpg/600px-1945%EB%85%84_11%EC%9B%94_23%EC%9D%BC_%EC%84%9C%EC%9A%B8%EC%8B%A0%EB%AC%B8.jpg",
       "complexity_depth": 4,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "vegetal",
+      "nature_type": "materiau"
     },
     {
       "id": "radio",
@@ -1332,7 +1332,7 @@
       "year_approx": 1920,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Icom_IC-R7000_radio_receiver.jpg/600px-Icom_IC-R7000_radio_receiver.jpg",
       "complexity_depth": 4,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -1345,7 +1345,7 @@
       "year_approx": 1927,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Braun_HF_1.jpg/600px-Braun_HF_1.jpg",
       "complexity_depth": 5,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -1358,7 +1358,7 @@
       "year_approx": 1945,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/ENIAC-changing_a_tube_%28cropped%29.jpg/600px-ENIAC-changing_a_tube_%28cropped%29.jpg",
       "complexity_depth": 5,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -1371,7 +1371,7 @@
       "year_approx": 2007,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/HA0478-006_%286011470974%29.jpg/600px-HA0478-006_%286011470974%29.jpg",
       "complexity_depth": 7,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -1384,10 +1384,10 @@
       "year_approx": 1907,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Plastic_objects.jpg/600px-Plastic_objects.jpg",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "vegetal",
+      "nature_type": "compose"
     },
     {
       "id": "bouteille-plastique",
@@ -1397,10 +1397,10 @@
       "year_approx": 1973,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Inyecci%C3%B3n-soplado.gif",
       "complexity_depth": 3,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "vegetal",
+      "nature_type": "compose"
     },
     {
       "id": "engrais",
@@ -1410,10 +1410,10 @@
       "year_approx": 1913,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Flexible_intermediate_bulk_containers-Fertilizer.jpg/600px-Flexible_intermediate_bulk_containers-Fertilizer.jpg",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "salpetre",
@@ -1423,10 +1423,10 @@
       "year_approx": 1200,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Potassium_nitrate_structure.png",
       "complexity_depth": 0,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "element"
     },
     {
       "id": "soufre",
@@ -1436,10 +1436,10 @@
       "year_approx": -500,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Sulfur-sample.jpg/600px-Sulfur-sample.jpg",
       "complexity_depth": 0,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "element"
     },
     {
       "id": "poudre-a-canon",
@@ -1449,10 +1449,10 @@
       "year_approx": 850,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Black_Powder-1.JPG/600px-Black_Powder-1.JPG",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "lentille",
@@ -1462,10 +1462,10 @@
       "year_approx": 1280,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Candle_light_projected_through_a_glass_orb.jpg/600px-Candle_light_projected_through_a_glass_orb.jpg",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "materiau"
     },
     {
       "id": "lunettes",
@@ -1475,10 +1475,10 @@
       "year_approx": 1286,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/2023_Okulary_korekcyjne.jpg/600px-2023_Okulary_korekcyjne.jpg",
       "complexity_depth": 3,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "materiau"
     },
     {
       "id": "microscope",
@@ -1488,10 +1488,10 @@
       "year_approx": 1590,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Leitz_117298_frei.jpg",
       "complexity_depth": 4,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "materiau"
     },
     {
       "id": "telescope",
@@ -1501,10 +1501,10 @@
       "year_approx": 1608,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/OHP_T193_Pano.jpg/600px-OHP_T193_Pano.jpg",
       "complexity_depth": 4,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "materiau"
     },
     {
       "id": "viande",
@@ -1514,10 +1514,10 @@
       "year_approx": -50000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/FoodMeat.jpg/600px-FoodMeat.jpg",
       "complexity_depth": 0,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "animal",
+      "nature_type": "materiau"
     },
     {
       "id": "salaison",
@@ -1527,10 +1527,10 @@
       "year_approx": -2000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Saint_Etienne_de_Ba%C3%AFgorry_Salaisons.jpg/600px-Saint_Etienne_de_Ba%C3%AFgorry_Salaisons.jpg",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "process",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "animal",
+      "nature_type": "materiau"
     },
     {
       "id": "canne-a-sucre",
@@ -1540,10 +1540,10 @@
       "year_approx": -8000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Cut_sugarcane.jpg/600px-Cut_sugarcane.jpg",
       "complexity_depth": 0,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "vegetal",
+      "nature_type": "materiau"
     },
     {
       "id": "sucre",
@@ -1553,10 +1553,10 @@
       "year_approx": 500,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Cut_sugarcane.jpg/600px-Cut_sugarcane.jpg",
       "complexity_depth": 1,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "vegetal",
+      "nature_type": "compose"
     },
     {
       "id": "confiserie",
@@ -1566,10 +1566,10 @@
       "year_approx": 1200,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Confectionary_and_candy_at_display_in_Kiwi_Allehelgensgate_grocery_store-supermarket_in_Bergen%2C_Norway_2017-10-18_a.jpg/600px-Confectionary_and_candy_at_display_in_Kiwi_Allehelgensgate_grocery_store-supermarket_in_Bergen%2C_Norway_2017-10-18_a.jpg",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "vegetal",
+      "nature_type": "compose"
     },
     {
       "id": "cacao",
@@ -1579,10 +1579,10 @@
       "year_approx": -1500,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Cacao-pod-k4636-14.jpg/600px-Cacao-pod-k4636-14.jpg",
       "complexity_depth": 0,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "vegetal",
+      "nature_type": "materiau"
     },
     {
       "id": "chocolat",
@@ -1592,10 +1592,10 @@
       "year_approx": 1520,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/00_Ganach%C3%A9_de_chocolate.jpg/600px-00_Ganach%C3%A9_de_chocolate.jpg",
       "complexity_depth": 3,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "vegetal",
+      "nature_type": "compose"
     },
     {
       "id": "houblon",
@@ -1605,10 +1605,10 @@
       "year_approx": 800,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Humulus_lupulus_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-072.jpg/600px-Humulus_lupulus_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-072.jpg",
       "complexity_depth": 0,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "vegetal",
+      "nature_type": "materiau"
     },
     {
       "id": "orge",
@@ -1618,10 +1618,10 @@
       "year_approx": -5000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Savigny-sur-Orge_061.jpg/600px-Savigny-sur-Orge_061.jpg",
       "complexity_depth": 0,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "vegetal",
+      "nature_type": "materiau"
     },
     {
       "id": "biere",
@@ -1631,10 +1631,10 @@
       "year_approx": -3500,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Beer_mug_transparent.png/600px-Beer_mug_transparent.png",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "process",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "vegetal",
+      "nature_type": "compose"
     },
     {
       "id": "metier-tisser",
@@ -1644,7 +1644,7 @@
       "year_approx": -4000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Weaving_profile.jpg",
       "complexity_depth": 1,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -1657,10 +1657,10 @@
       "year_approx": -1000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Limewater.jpg/600px-Limewater.jpg",
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "bauxite",
@@ -1670,10 +1670,10 @@
       "year_approx": 1821,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Bauxite.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "materiau"
     },
     {
       "id": "raffinerie",
@@ -1683,7 +1683,7 @@
       "year_approx": 1860,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Anacortes_Refinery_31911.JPG/600px-Anacortes_Refinery_31911.JPG",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -1696,7 +1696,7 @@
       "year_approx": 1895,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Moosbrunn_SW_Antenna.jpg/600px-Moosbrunn_SW_Antenna.jpg",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -1722,10 +1722,10 @@
       "year_approx": 1934,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Heavy_water.svg/600px-Heavy_water.svg.png",
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "beton-arme",
@@ -1735,10 +1735,10 @@
       "year_approx": 1853,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Trebar.jpg",
       "complexity_depth": 4,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "industrial",
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "pneu",
@@ -1748,10 +1748,10 @@
       "year_approx": 1888,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Si%C3%A8ge_de_Michelin_%C3%A0_Clermont-Ferrand_II.jpg/600px-Si%C3%A8ge_de_Michelin_%C3%A0_Clermont-Ferrand_II.jpg",
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "vegetal",
+      "nature_type": "materiau"
     },
     {
       "id": "chassis-auto",
@@ -1761,7 +1761,7 @@
       "year_approx": 1900,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Chassis_with_suspension_and_exhaust_system.jpg/600px-Chassis_with_suspension_and_exhaust_system.jpg",
       "complexity_depth": 3,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -1774,10 +1774,10 @@
       "year_approx": 1935,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Plaque_Gestapo_fran%C3%A7aise%2C_93_rue_Lauriston%2C_Paris_16.jpg/600px-Plaque_Gestapo_fran%C3%A7aise%2C_93_rue_Lauriston%2C_Paris_16.jpg",
       "complexity_depth": 4,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "materiau"
     },
     {
       "id": "gazole",
@@ -1787,10 +1787,10 @@
       "year_approx": 1892,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Diesel_in_mason_jar.JPG/600px-Diesel_in_mason_jar.JPG",
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "turbine-vapeur",
@@ -1800,7 +1800,7 @@
       "year_approx": 1884,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Dampfturbine_Laeufer01.jpg/600px-Dampfturbine_Laeufer01.jpg",
       "complexity_depth": 3,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -1813,10 +1813,10 @@
       "year_approx": 1891,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm/600px--Comment_convertir_l%27%C3%A9nergie_m%C3%A9canique_en_%C3%A9lectricit%C3%A9.webm.jpg",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "materiau"
     },
     {
       "id": "reseau-electrique",
@@ -1826,7 +1826,7 @@
       "year_approx": 1896,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Poste_Waconichi06.JPG/600px-Poste_Waconichi06.JPG",
       "complexity_depth": 3,
-      "dimension": null,
+      "dimension": "process",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -1839,7 +1839,7 @@
       "year_approx": 1995,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Sunny_Boy_3000.jpg/600px-Sunny_Boy_3000.jpg",
       "complexity_depth": 3,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -1852,10 +1852,10 @@
       "year_approx": 1709,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Poids_fonte_5_kg_trapezoidal.jpg/600px-Poids_fonte_5_kg_trapezoidal.jpg",
       "complexity_depth": 2,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "industrial",
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "acier-inox",
@@ -1865,10 +1865,10 @@
       "year_approx": 1913,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Sink_and_taps_in_the_men%27s_locker_room_3_BW.jpg/600px-Sink_and_taps_in_the_men%27s_locker_room_3_BW.jpg",
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "industrial",
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "tissu-teint",
@@ -1878,10 +1878,10 @@
       "year_approx": -1500,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Casquette_marine.jpg/600px-Casquette_marine.jpg",
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "vegetal",
+      "nature_type": "materiau"
     },
     {
       "id": "filature",
@@ -1891,9 +1891,9 @@
       "year_approx": 1771,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Fabricante_de_fil_pour_tisserand.jpg/600px-Fabricante_de_fil_pour_tisserand.jpg",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "process",
       "materialLevel": null,
-      "origin_type": null,
+      "origin_type": "vegetal",
       "nature_type": null
     },
     {
@@ -1904,10 +1904,10 @@
       "year_approx": -9000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flock_of_sheep.jpg/600px-Flock_of_sheep.jpg",
       "complexity_depth": 0,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "animal",
+      "nature_type": "materiau"
     },
     {
       "id": "mulberry",
@@ -1917,10 +1917,10 @@
       "year_approx": -3000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Morus-nigra.JPG/600px-Morus-nigra.JPG",
       "complexity_depth": 0,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "vegetal",
+      "nature_type": "materiau"
     },
     {
       "id": "feuille-or",
@@ -1930,10 +1930,10 @@
       "year_approx": -500,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Kinpaku.JPG/600px-Kinpaku.JPG",
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "materiau"
     },
     {
       "id": "or",
@@ -1943,10 +1943,10 @@
       "year_approx": -4000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Gold_nugget_%28placer_gold%29_1_%2817001285916%29.jpg/600px-Gold_nugget_%28placer_gold%29_1_%2817001285916%29.jpg",
       "complexity_depth": 0,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "element"
     },
     {
       "id": "scierie",
@@ -1956,7 +1956,7 @@
       "year_approx": 1300,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Moteur_Deutz_-_Fourneau_St-Michel.JPG/600px-Moteur_Deutz_-_Fourneau_St-Michel.JPG",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -1969,10 +1969,10 @@
       "year_approx": -2000,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Wood_Seller.jpg/600px-Wood_Seller.jpg",
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "vegetal",
+      "nature_type": "materiau"
     },
     {
       "id": "verre-trempe",
@@ -1982,10 +1982,10 @@
       "year_approx": 1929,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/EclatSecurit.JPG/600px-EclatSecurit.JPG",
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "acier-structure",
@@ -1995,10 +1995,10 @@
       "year_approx": 1850,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Galvanized_Steelbeams.jpg/600px-Galvanized_Steelbeams.jpg",
       "complexity_depth": 3,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "hydrogene",
@@ -2008,10 +2008,10 @@
       "year_approx": 1913,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Liquid_hydrogen_bubblechamber.jpg/600px-Liquid_hydrogen_bubblechamber.jpg",
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "element"
     },
     {
       "id": "azote",
@@ -2021,10 +2021,10 @@
       "year_approx": 1913,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/LN22.jpg/600px-LN22.jpg",
       "complexity_depth": 1,
-      "dimension": null,
-      "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "element"
     },
     {
       "id": "ammoniac",
@@ -2034,10 +2034,10 @@
       "year_approx": 1913,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Ammonia_lone_electron_pair_2.svg/600px-Ammonia_lone_electron_pair_2.svg.png",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "nitrate",
@@ -2047,10 +2047,10 @@
       "year_approx": 1920,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Nitrate_anion.svg/600px-Nitrate_anion.svg.png",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "polycarbonate",
@@ -2060,10 +2060,10 @@
       "year_approx": 1953,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/%D0%9F%D0%BE%D0%BB%D0%B8%D0%BA%D0%B0%D1%80%D0%B1%D0%BE%D0%BD%D0%B0%D1%82.jpg/600px-%D0%9F%D0%BE%D0%BB%D0%B8%D0%BA%D0%B0%D1%80%D0%B1%D0%BE%D0%BD%D0%B0%D1%82.jpg",
       "complexity_depth": 3,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "route-bitee",
@@ -2073,10 +2073,10 @@
       "year_approx": 1870,
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Transfagaras.jpg/600px-Transfagaras.jpg",
       "complexity_depth": 3,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "materiau"
     },
     {
       "id": "bitume",
@@ -2084,11 +2084,12 @@
       "category": "industry",
       "era": "industrial",
       "year_approx": 1870,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Bitumen.jpg/600px-Bitumen.jpg",
       "complexity_depth": 1,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "materiau"
     },
     {
       "id": "signal-numerique",
@@ -2096,8 +2097,9 @@
       "category": "software",
       "era": "digital",
       "year_approx": 1948,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Digital-signal-noise.svg/600px-Digital-signal-noise.svg.png",
       "complexity_depth": 2,
-      "dimension": null,
+      "dimension": "process",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -2108,11 +2110,12 @@
       "category": "electronics",
       "era": "digital",
       "year_approx": 1971,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Wiktionnaire_sur_IPhone_%281%29.JPG/600px-Wiktionnaire_sur_IPhone_%281%29.JPG",
       "complexity_depth": 4,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "batterie-li",
@@ -2120,11 +2123,12 @@
       "category": "electronics",
       "era": "contemporary",
       "year_approx": 1991,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Li_ion_laptop_battery.jpg/600px-Li_ion_laptop_battery.jpg",
       "complexity_depth": 3,
-      "dimension": null,
+      "dimension": "matter",
       "materialLevel": null,
-      "origin_type": null,
-      "nature_type": null
+      "origin_type": "mineral",
+      "nature_type": "compose"
     },
     {
       "id": "reseau-cellulaire",
@@ -2132,8 +2136,9 @@
       "category": "communication",
       "era": "contemporary",
       "year_approx": 1980,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/CellTowerRichmondHill.jpg/600px-CellTowerRichmondHill.jpg",
       "complexity_depth": 5,
-      "dimension": null,
+      "dimension": "tool",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -2145,7 +2150,7 @@
       "era": "contemporary",
       "year_approx": 2010,
       "complexity_depth": 0,
-      "dimension": null,
+      "dimension": "process",
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null
@@ -2233,6 +2238,7 @@
       "category": "energy",
       "era": "modern",
       "year_approx": 1954,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Paneles_solares_en_Cari%C3%B1ena%2C_Espa%C3%B1a%2C_2015-01-08%2C_DD_08.JPG/600px-Paneles_solares_en_Cari%C3%B1ena%2C_Espa%C3%B1a%2C_2015-01-08%2C_DD_08.JPG",
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
@@ -2284,6 +2290,7 @@
       "category": "industry",
       "era": "ancient",
       "year_approx": -3000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Jinshu_Xi.JPG/600px-Jinshu_Xi.JPG",
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
@@ -2309,6 +2316,7 @@
       "category": "automation",
       "era": "renaissance",
       "year_approx": 1745,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/HwacheonCentreLathe_460x1000.jpg/600px-HwacheonCentreLathe_460x1000.jpg",
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
@@ -2502,6 +2510,7 @@
       "category": "transport",
       "era": "industrial",
       "year_approx": 1885,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Cycliste_%C3%A0_place_d%27Italie-Paris.jpg/600px-Cycliste_%C3%A0_place_d%27Italie-Paris.jpg",
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
@@ -2865,6 +2874,7 @@
       "category": "industry",
       "era": "modern",
       "year_approx": 1935,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Nylon_6_and_Nylon_6-6.svg/600px-Nylon_6_and_Nylon_6-6.svg.png",
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
@@ -3020,6 +3030,7 @@
       "category": "automation",
       "era": "prehistoric",
       "year_approx": -50000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Food_lab_scientist_packages_food_for_spaceflight_at_Space_Food_Lab.jpg/600px-Food_lab_scientist_packages_food_for_spaceflight_at_Space_Food_Lab.jpg",
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
@@ -3149,7 +3160,7 @@
       "category": "transport",
       "era": "industrial",
       "year_approx": 1827,
-      "image_url": "/images/nodes/tunnel-ferroviaire.jpg",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Thames_tunnel_construction_1830.jpg",
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
@@ -3330,6 +3341,7 @@
       "category": "chemistry",
       "era": "ancient",
       "year_approx": 800,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Hydrochloric_acid_30_percent.jpg/600px-Hydrochloric_acid_30_percent.jpg",
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
@@ -3446,6 +3458,7 @@
       "category": "construction",
       "era": "industrial",
       "year_approx": 1860,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/DeTomasoPanteraBlack.jpg/600px-DeTomasoPanteraBlack.jpg",
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "industrial",
@@ -3549,6 +3562,7 @@
       "category": "aeronautics",
       "era": "modern",
       "year_approx": 1930,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/B747-engine.jpg/600px-B747-engine.jpg",
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
@@ -3962,6 +3976,7 @@
       "category": "chemistry",
       "era": "modern",
       "year_approx": 1906,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/68/Fraction_collector_-_sampler_LAMBDA_OMNICOLL.jpg",
       "complexity_depth": 0,
       "dimension": "process",
       "materialLevel": null,
@@ -4130,6 +4145,7 @@
       "category": "infrastructure",
       "era": "ancient",
       "year_approx": -700,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Canal_d%27Ille_et_Rance_%C3%A0_Chevaign%C3%A9.jpg/600px-Canal_d%27Ille_et_Rance_%C3%A0_Chevaign%C3%A9.jpg",
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
@@ -4142,6 +4158,7 @@
       "category": "infrastructure",
       "era": "ancient",
       "year_approx": -700,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Avlopp_-_Ystad-2018.jpg/600px-Avlopp_-_Ystad-2018.jpg",
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
@@ -4193,6 +4210,7 @@
       "category": "energy",
       "era": "prehistoric",
       "year_approx": -10000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Maglite_Flashlight.jpg/600px-Maglite_Flashlight.jpg",
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
@@ -4256,6 +4274,7 @@
       "category": "chemistry",
       "era": "ancient",
       "year_approx": -5000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Ethanol-3D-balls.png/600px-Ethanol-3D-balls.png",
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
@@ -4268,6 +4287,7 @@
       "category": "chemistry",
       "era": "industrial",
       "year_approx": 1850,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Fractional_distillation_lab_apparatus-fr.svg/600px-Fractional_distillation_lab_apparatus-fr.svg.png",
       "complexity_depth": 0,
       "dimension": "process",
       "materialLevel": null,
@@ -4280,6 +4300,7 @@
       "category": "chemistry",
       "era": "ancient",
       "year_approx": -3000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/LDLimeShaftKilnBasic.jpg/600px-LDLimeShaftKilnBasic.jpg",
       "complexity_depth": 0,
       "dimension": "process",
       "materialLevel": null,
@@ -4473,6 +4494,7 @@
       "category": "chemistry",
       "era": "modern",
       "year_approx": 1920,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Masse_volumique_isopropanol.svg/600px-Masse_volumique_isopropanol.svg.png",
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
@@ -4511,6 +4533,7 @@
       "category": "electronics",
       "era": "digital",
       "year_approx": 1960,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Digital_Pressure_Sensor.jpg/600px-Digital_Pressure_Sensor.jpg",
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
@@ -4536,6 +4559,7 @@
       "category": "chemistry",
       "era": "modern",
       "year_approx": 1920,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Catalyst_2156.jpg/600px-Catalyst_2156.jpg",
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
@@ -12828,6 +12852,776 @@
       "year_approx": 1998,
       "complexity_depth": 0,
       "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "microscopie",
+      "name": "Microscopie",
+      "category": "optical",
+      "era": "renaissance",
+      "year_approx": 1590,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Misc_pollen_colorized.jpg/600px-Misc_pollen_colorized.jpg",
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "wifi",
+      "name": "WiFi",
+      "category": "network",
+      "era": "digital",
+      "year_approx": 1997,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/WiFi_Logo.svg/600px-WiFi_Logo.svg.png",
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "telephone-mobile",
+      "name": "Téléphone Mobile",
+      "category": "communication",
+      "era": "digital",
+      "year_approx": 1973,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Mobile_Phone_Evolution_1992_-_2014.jpg/600px-Mobile_Phone_Evolution_1992_-_2014.jpg",
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "centrale-nucleaire",
+      "name": "Centrale Nucléaire",
+      "category": "energy",
+      "era": "modern",
+      "year_approx": 1954,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Centrale-nucl%C3%A9aire-de-saint-alban-1.jpg/600px-Centrale-nucl%C3%A9aire-de-saint-alban-1.jpg",
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "medecine-nucleaire",
+      "name": "Médecine Nucléaire",
+      "category": "medical",
+      "era": "modern",
+      "year_approx": 1950,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Viewer_medecine_nucleaire_keosys.JPG/600px-Viewer_medecine_nucleaire_keosys.JPG",
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "construction-navale",
+      "name": "Construction Navale",
+      "category": "transport",
+      "era": "ancient",
+      "year_approx": -4000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Shipbuilding.png/600px-Shipbuilding.png",
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "machine-outil",
+      "name": "Machine Outil",
+      "category": "industry",
+      "era": "industrial",
+      "year_approx": 1775,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Conventional-lathe.jpg/600px-Conventional-lathe.jpg",
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "chien-domestique",
+      "name": "Chien domestique",
+      "category": "animal",
+      "era": "prehistoric",
+      "year_approx": -10000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Huskiesatrest.jpg/600px-Huskiesatrest.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "component",
+      "origin_type": "animal",
+      "nature_type": null
+    },
+    {
+      "id": "chat-domestique",
+      "name": "Chat domestique",
+      "category": "animal",
+      "era": "ancient",
+      "year_approx": -10000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/600px-Cat_August_2010-4.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "component",
+      "origin_type": "animal",
+      "nature_type": null
+    },
+    {
+      "id": "cheval-de-trait",
+      "name": "Cheval de trait",
+      "category": "animal",
+      "era": "ancient",
+      "year_approx": -4000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Aa_shirehorse.jpg/600px-Aa_shirehorse.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "component",
+      "origin_type": "animal",
+      "nature_type": null
+    },
+    {
+      "id": "abeille-domestique",
+      "name": "Abeille domestique",
+      "category": "animal",
+      "era": "ancient",
+      "year_approx": -8000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/The_Lone_Pollinator.jpg/600px-The_Lone_Pollinator.jpg",
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": "animal",
+      "nature_type": null
+    },
+    {
+      "id": "poule-domestique",
+      "name": "Poule domestique",
+      "category": "animal",
+      "era": "ancient",
+      "year_approx": -8000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Male_and_female_chicken_sitting_together.jpg/600px-Male_and_female_chicken_sitting_together.jpg",
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": "animal",
+      "nature_type": null
+    },
+    {
+      "id": "poisson-d-elevage",
+      "name": "Poisson d'élevage",
+      "category": "animal",
+      "era": "ancient",
+      "year_approx": -4000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Fish_farm_Amarynthos_Euboea_Greece_-_edit1.jpg/600px-Fish_farm_Amarynthos_Euboea_Greece_-_edit1.jpg",
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": "animal",
+      "nature_type": null
+    },
+    {
+      "id": "vers-de-terre-cultives",
+      "name": "Vers de terre cultivés",
+      "category": "animal",
+      "era": "modern",
+      "year_approx": 1920,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Eisenia_foetida_R.H._%288%29.JPG/600px-Eisenia_foetida_R.H._%288%29.JPG",
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": "animal",
+      "nature_type": null
+    },
+    {
+      "id": "insecte-pollinisateur-controle",
+      "name": "Insecte pollinisateur contrôlé",
+      "category": "animal",
+      "era": "modern",
+      "year_approx": 1970,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Eristalinus_October_2007-6.jpg/600px-Eristalinus_October_2007-6.jpg",
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": "animal",
+      "nature_type": null
+    },
+    {
+      "id": "perspective-lineaire-renaissance",
+      "name": "Perspective linéaire Renaissance",
+      "category": "optical",
+      "era": "renaissance",
+      "year_approx": 1415,
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "memoire-associative",
+      "name": "Mémoire associative",
+      "category": "electronics",
+      "era": "contemporary",
+      "year_approx": 1982,
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "batterie-miniaturisee",
+      "name": "Batterie miniaturisée",
+      "category": "electronics",
+      "era": "contemporary",
+      "year_approx": 1990,
+      "complexity_depth": 0,
+      "dimension": null,
+      "materialLevel": null,
+      "origin_type": "mineral",
+      "nature_type": "compose"
+    },
+    {
+      "id": "recepteur-gps",
+      "name": "Récepteur GPS",
+      "category": "network",
+      "era": "contemporary",
+      "year_approx": 1985,
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "ecran-tactile-capacitif",
+      "name": "Écran tactile capacitif",
+      "category": "electronics",
+      "era": "contemporary",
+      "year_approx": 2001,
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "knitwear",
+      "name": "Tricot",
+      "category": "textile",
+      "era": "medieval",
+      "year_approx": 1000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Oma_strickt_Str%C3%BCmpfe.jpg/600px-Oma_strickt_Str%C3%BCmpfe.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "industrial",
+      "origin_type": null,
+      "nature_type": "materiau"
+    },
+    {
+      "id": "petrole-brut",
+      "name": "Pétrole brut",
+      "category": "energy",
+      "era": "modern",
+      "year_approx": 1859,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Petroleum_sample.jpg/600px-Petroleum_sample.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "compose"
+    },
+    {
+      "id": "gaz-naturel",
+      "name": "Gaz naturel",
+      "category": "energy",
+      "era": "modern",
+      "year_approx": 1821,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Gas-natural.jpg/600px-Gas-natural.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "compose"
+    },
+    {
+      "id": "lin",
+      "name": "Lin",
+      "category": "textile",
+      "era": "ancient",
+      "year_approx": -5000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/K%C3%B6hler%27s_Medizinal-Pflanzen_in_naturgetreuen_Abbildungen_mit_kurz_erl%C3%A4uterndem_Texte_%28Plate_16%29_BHL303594.jpg/600px-K%C3%B6hler%27s_Medizinal-Pflanzen_in_naturgetreuen_Abbildungen_mit_kurz_erl%C3%A4uterndem_Texte_%28Plate_16%29_BHL303594.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "vegetal",
+      "nature_type": null
+    },
+    {
+      "id": "caoutchouc-naturel",
+      "name": "Caoutchouc naturel",
+      "category": "industry",
+      "era": "ancient",
+      "year_approx": -1500,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Caoutchouc_naturel.jpg/600px-Caoutchouc_naturel.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "vegetal",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "phosphore",
+      "name": "Phosphore",
+      "category": "chemistry",
+      "era": "modern",
+      "year_approx": 1669,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Phosphor_rot.jpg/600px-Phosphor_rot.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "element"
+    },
+    {
+      "id": "bauxite-aluminium",
+      "name": "Bauxite (minerai d'aluminium)",
+      "category": "industry",
+      "era": "modern",
+      "year_approx": 1821,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Bauxite_h%C3%A9rault.JPG/600px-Bauxite_h%C3%A9rault.JPG",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": null
+    },
+    {
+      "id": "minerai-d-etain",
+      "name": "Minerai d'étain",
+      "category": "industry",
+      "era": "ancient",
+      "year_approx": -3500,
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": null
+    },
+    {
+      "id": "minerai-de-zinc",
+      "name": "Minerai de zinc",
+      "category": "industry",
+      "era": "ancient",
+      "year_approx": -1000,
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": null
+    },
+    {
+      "id": "granite",
+      "name": "Granite",
+      "category": "construction",
+      "era": "prehistoric",
+      "year_approx": -5000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Bianco_Sardo_Granit_mit_polierter_Oberfl%C3%A4che.jpg/600px-Bianco_Sardo_Granit_mit_polierter_Oberfl%C3%A4che.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "marbre",
+      "name": "Marbre",
+      "category": "construction",
+      "era": "ancient",
+      "year_approx": -2000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Marmo_z17.JPG/600px-Marmo_z17.JPG",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "latex",
+      "name": "Latex",
+      "category": "chemistry",
+      "era": "ancient",
+      "year_approx": -2000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Latex-production.jpg/600px-Latex-production.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "vegetal",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "cire-d-abeille",
+      "name": "Cire d'abeille",
+      "category": "food",
+      "era": "ancient",
+      "year_approx": -6000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Honey_comb.jpg/600px-Honey_comb.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "animal",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "cuir-brut",
+      "name": "Cuir brut",
+      "category": "textile",
+      "era": "prehistoric",
+      "year_approx": -8000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Leathertools.jpg/600px-Leathertools.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "animal",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "chanvre",
+      "name": "Chanvre",
+      "category": "textile",
+      "era": "ancient",
+      "year_approx": -4000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/La_Roche_Jagu_chanvre_1.JPG/600px-La_Roche_Jagu_chanvre_1.JPG",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "vegetal",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "tourbe",
+      "name": "Tourbe",
+      "category": "energy",
+      "era": "medieval",
+      "year_approx": 1000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Peat_%2849302157252%29.jpg/600px-Peat_%2849302157252%29.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "vegetal",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "plastique-pe",
+      "name": "Plastique PE (Polyéthylène)",
+      "category": "chemistry",
+      "era": "contemporary",
+      "year_approx": 1933,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Polyethylene_balls1.jpg/600px-Polyethylene_balls1.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "pp",
+      "name": "Polypropylène (PP)",
+      "category": "chemistry",
+      "era": "contemporary",
+      "year_approx": 1954,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Polypropylene_isotactic_mini_trp.png/600px-Polypropylene_isotactic_mini_trp.png",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "pvc",
+      "name": "Chlorure de polyvinyle (PVC)",
+      "category": "chemistry",
+      "era": "modern",
+      "year_approx": 1912,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Pure_Polyvinyl_Chloride_powder.jpg/600px-Pure_Polyvinyl_Chloride_powder.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "caoutchouc-vulcanise",
+      "name": "Caoutchouc vulcanisé",
+      "category": "chemistry",
+      "era": "industrial",
+      "year_approx": 1844,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/VulcanizationMold1941.jpg/600px-VulcanizationMold1941.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "vegetal",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "laiton",
+      "name": "Laiton",
+      "category": "chemistry",
+      "era": "ancient",
+      "year_approx": -500,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Planispheric_Astrolabe_MET_DP105325.jpg/600px-Planispheric_Astrolabe_MET_DP105325.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "graphite",
+      "name": "Graphite",
+      "category": "industry",
+      "era": "modern",
+      "year_approx": 1564,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Graphite-233436.jpg/600px-Graphite-233436.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "raw",
+      "origin_type": "mineral",
+      "nature_type": "element"
+    },
+    {
+      "id": "platre",
+      "name": "Plâtre",
+      "category": "construction",
+      "era": "ancient",
+      "year_approx": -2000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Fontainebleau_escalier_roi5.jpg/600px-Fontainebleau_escalier_roi5.jpg",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "porcelaine",
+      "name": "Porcelaine",
+      "category": "construction",
+      "era": "ancient",
+      "year_approx": 620,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/%E6%B1%9D%E7%AA%AF_%E9%9D%92%E7%93%B7%E8%86%BD%E7%93%B6.png/600px-%E6%B1%9D%E7%AA%AF_%E9%9D%92%E7%93%B7%E8%86%BD%E7%93%B6.png",
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "mineral",
+      "nature_type": "materiau"
+    },
+    {
+      "id": "alcool",
+      "name": "Alcool",
+      "category": "chemistry",
+      "era": "ancient",
+      "year_approx": -5000,
+      "complexity_depth": 0,
+      "dimension": "matter",
+      "materialLevel": "processed",
+      "origin_type": "vegetal",
+      "nature_type": "compose"
+    },
+    {
+      "id": "moulage",
+      "name": "Moulage",
+      "category": "industry",
+      "era": "ancient",
+      "year_approx": -3000,
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "tissage",
+      "name": "Tissage",
+      "category": "textile",
+      "era": "prehistoric",
+      "year_approx": -6000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Warp_and_weft_2.jpg",
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "tannage",
+      "name": "Tannage",
+      "category": "chemistry",
+      "era": "ancient",
+      "year_approx": -2000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/JBS_Tannery.jpg/600px-JBS_Tannery.jpg",
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "raffinage",
+      "name": "Raffinage",
+      "category": "industry",
+      "era": "modern",
+      "year_approx": 1850,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Anacortes_Refinery_31911.JPG/600px-Anacortes_Refinery_31911.JPG",
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "frittage",
+      "name": "Frittage",
+      "category": "industry",
+      "era": "modern",
+      "year_approx": 1900,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/LDClinkerScaled.jpg/600px-LDClinkerScaled.jpg",
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "usinage",
+      "name": "Usinage",
+      "category": "industry",
+      "era": "industrial",
+      "year_approx": 1800,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Wheel_Machining.jpg/600px-Wheel_Machining.jpg",
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "extrusion",
+      "name": "Extrusion",
+      "category": "industry",
+      "era": "industrial",
+      "year_approx": 1820,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/S%C3%A8vres_-_Moulin_-_boudineuse-d%C3%A9sa%C3%A9reuse_027.jpg/600px-S%C3%A8vres_-_Moulin_-_boudineuse-d%C3%A9sa%C3%A9reuse_027.jpg",
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "injection-plastique",
+      "name": "Injection plastique",
+      "category": "industry",
+      "era": "modern",
+      "year_approx": 1950,
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "laminage",
+      "name": "Laminage",
+      "category": "industry",
+      "era": "industrial",
+      "year_approx": 1750,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Laminage_schema_gene.svg/600px-Laminage_schema_gene.svg.png",
+      "complexity_depth": 0,
+      "dimension": "process",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "haut-fourneau",
+      "name": "Haut fourneau",
+      "category": "industry",
+      "era": "medieval",
+      "year_approx": 1340,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Alto_Horno%2C_Puerto_de_Sagunto%2C_Espa%C3%B1a%2C_2015-01-04%2C_DD_91.JPG/600px-Alto_Horno%2C_Puerto_de_Sagunto%2C_Espa%C3%B1a%2C_2015-01-04%2C_DD_91.JPG",
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "enclume",
+      "name": "Enclume",
+      "category": "industry",
+      "era": "ancient",
+      "year_approx": -1500,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/2011-09-17._%D0%9A%D1%83%D0%B7%D0%BD%D0%B5%D1%87%D0%BD%D1%8B%D0%B9_%D1%84%D0%B5%D1%81%D1%82%D0%B8%D0%B2%D0%B0%D0%BB%D1%8C_%D0%B2_%D0%94%D0%BE%D0%BD%D0%B5%D1%86%D0%BA%D0%B5_286.jpg/600px-2011-09-17._%D0%9A%D1%83%D0%B7%D0%BD%D0%B5%D1%87%D0%BD%D1%8B%D0%B9_%D1%84%D0%B5%D1%81%D1%82%D0%B8%D0%B2%D0%B0%D0%BB%D1%8C_%D0%B2_%D0%94%D0%BE%D0%BD%D0%B5%D1%86%D0%BA%D0%B5_286.jpg",
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "robot-industriel",
+      "name": "Robot industriel",
+      "category": "robotics",
+      "era": "modern",
+      "year_approx": 1961,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Automation_of_foundry_with_robot.jpg",
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "navire",
+      "name": "Navire",
+      "category": "transport",
+      "era": "ancient",
+      "year_approx": -3000,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Containerterminal_Altenwerder_%28Hamburg-Altenwerder%29.Iris_Bolten.4.phb.ajb.jpg/600px-Containerterminal_Altenwerder_%28Hamburg-Altenwerder%29.Iris_Bolten.4.phb.ajb.jpg",
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "horloge",
+      "name": "Horloge",
+      "category": "infrastructure",
+      "era": "medieval",
+      "year_approx": 1300,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Pendulum_clock_by_Jacob_Kock%2C_antique_furniture_photography%2C_IMG_0931_edit.jpg/600px-Pendulum_clock_by_Jacob_Kock%2C_antique_furniture_photography%2C_IMG_0931_edit.jpg",
+      "complexity_depth": 0,
+      "dimension": "tool",
+      "materialLevel": null,
+      "origin_type": null,
+      "nature_type": null
+    },
+    {
+      "id": "led",
+      "name": "Diode électroluminescente (LED)",
+      "category": "electronics",
+      "era": "digital",
+      "year_approx": 1962,
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/RBG-LED.jpg/600px-RBG-LED.jpg",
+      "complexity_depth": 0,
+      "dimension": null,
       "materialLevel": null,
       "origin_type": null,
       "nature_type": null

@@ -3,6 +3,7 @@ import {
   FULL_NODES_SELECT,
   FULL_NODES_SELECT_LEGACY,
   fetchAllLinkRowsPaginated,
+  fetchAllNodeIdsSet,
   isMissingNatureColumnsError,
   mapNodeRowToSeedNode,
 } from '@/lib/data';
@@ -48,8 +49,7 @@ async function uniqueNodeId(
   sb: ReturnType<typeof createSupabaseServiceRoleClient>,
   base: string
 ): Promise<string> {
-  const { data: nodes } = await sb.from('nodes').select('id');
-  const existing = new Set((nodes ?? []).map((n: { id: string }) => n.id));
+  const existing = await fetchAllNodeIdsSet(sb);
   let id = slugify(base);
   if (!id) id = 'node';
   if (!existing.has(id)) return id;
@@ -100,7 +100,7 @@ export async function applyApprovedSuggestion(
   const type = String(row.suggestion_type);
   const data = row.data as Record<string, unknown>;
 
-  if (type === 'edit_node') {
+  if (type === 'edit_node' || type === 'ai_review' || type === 'enrichment') {
     const nodeId = row.node_id as string | null;
     if (!nodeId) throw new Error('node_id manquant');
 
@@ -243,6 +243,14 @@ export async function applyApprovedSuggestion(
         .maybeSingle();
       if (dup) continue;
 
+      const addRec = add as {
+        notes?: string | null;
+      };
+      const addNotes =
+        typeof addRec.notes === 'string' && addRec.notes.trim() !== ''
+          ? addRec.notes.trim()
+          : null;
+
       const newId = await nextLinkId(sb);
       const { error: insNewErr } = await sb.from('links').insert({
         id: newId,
@@ -250,7 +258,7 @@ export async function applyApprovedSuggestion(
         target_id: add.target_id,
         relation_type: rel as RelationType,
         is_optional: false,
-        notes: null,
+        notes: addNotes,
       });
       if (insNewErr) throw insNewErr;
     }
@@ -577,6 +585,8 @@ export async function applyApprovedSuggestion(
   const uid = row.user_id as string | null;
   const countsContribution =
     type === 'edit_node' ||
+    type === 'ai_review' ||
+    type === 'enrichment' ||
     type === 'new_node' ||
     type === 'add_link' ||
     type === 'delete_link';
