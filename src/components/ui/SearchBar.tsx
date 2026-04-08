@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import Fuse from 'fuse.js';
 import { useIsMobileBreakpoint } from '@/hooks/use-media-query';
 import { useExploreNavigation } from '@/hooks/use-explore-navigation';
-import { getCategoryColor } from '@/lib/colors';
+import { getCategoryColor, hexToRgba } from '@/lib/colors';
 import { formatYear } from '@/lib/utils';
 import { eraLabelFromMessages } from '@/lib/era-display';
 import type { Era, MaterialLevel, NodeCategory, NodeDimension } from '@/lib/types';
@@ -20,6 +20,8 @@ import { safeCategoryLabel } from '@/lib/safe-category-label';
 import { getNameEnForNode } from '@/lib/name-en-lookup';
 import { trackEvent } from '@/lib/analytics';
 import { CardImagePlaceholder } from '@/components/explore/CardImagePlaceholder';
+import { inventionKindFromNode } from '@/lib/invention-classification';
+import { directBuiltUponPeerCount } from '@/lib/built-upon-utils';
 
 interface SearchNode {
   id: string;
@@ -58,6 +60,7 @@ export function SearchBar({
   const tc = useTranslations('common');
   const tCat = useTranslations('categories');
   const tExplore = useTranslations('explore');
+  const tInv = useTranslations('inventionKinds');
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchNode[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -71,7 +74,7 @@ export function SearchBar({
     (pathname?.startsWith('/tree/') ?? false) && isMobile;
 
   const graphNodes = useGraphStore((s) => s.nodes);
-  const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
+  const graphEdges = useGraphStore((s) => s.edges);
   const isAdmin = useAuthStore((s) => s.isAdmin);
   const nodes = useMemo(
     () =>
@@ -224,7 +227,16 @@ export function SearchBar({
     );
     const thumbUrl = node.image_url?.trim();
     const yearStr = formatYear(node.year_approx ?? undefined);
-    const builtUponCount = getRecipeForNode(node.id).length;
+    const kindKey = inventionKindFromNode({
+      dimension: node.dimension ?? null,
+      materialLevel: node.materialLevel ?? null,
+    });
+    const kindLabel = tInv(kindKey);
+    const builtUponDirectCount = directBuiltUponPeerCount(node.id, graphEdges);
+    const eraLabel = eraLabelFromMessages(locale, node.era as Era);
+    const metaParts = [yearStr, eraLabel].filter(
+      (s): s is string => Boolean(s && String(s).trim())
+    );
     const rowHighlight =
       index === highlightedIndex
         ? isLanding
@@ -262,13 +274,25 @@ export function SearchBar({
           )}
         </span>
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex min-w-0 flex-wrap items-center gap-x-1.5 gap-y-1">
             <span
-              className={`truncate font-medium ${
+              className={`min-w-0 shrink truncate font-medium ${
                 isLanding ? 'text-white' : 'text-foreground'
               }`}
             >
               {displayName}
+            </span>
+            <span
+              className="flex min-h-7 min-w-7 shrink-0 items-center justify-center rounded border-2 px-1 text-xs font-semibold tabular-nums text-foreground"
+              style={{
+                borderColor: categoryColor,
+                backgroundColor: hexToRgba(categoryColor, 0.12),
+              }}
+              title={tExplore('badgeBuiltUponTitle', {
+                count: builtUponDirectCount,
+              })}
+            >
+              {builtUponDirectCount}
             </span>
             <span
               className="shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium capitalize"
@@ -279,24 +303,25 @@ export function SearchBar({
             >
               {safeCategoryLabel(tCat, node.category)}
             </span>
-          </div>
-          <div
-            className={`mt-0.5 flex flex-wrap gap-x-2 text-[11px] ${
-              isLanding ? 'text-white/55' : 'text-muted-foreground'
-            }`}
-          >
-            {yearStr ? (
-              <>
-                <span>{yearStr}</span>
-                <span className="opacity-50">·</span>
-              </>
-            ) : null}
-            <span>
-              {tExplore('searchBuiltUponMeta', { count: builtUponCount })}
+            <span
+              className={`shrink-0 rounded-full px-2.5 py-0.5 text-[10px] font-medium ${
+                isLanding
+                  ? 'bg-white/10 text-white/85'
+                  : 'bg-border/25 text-muted-foreground'
+              }`}
+            >
+              {kindLabel}
             </span>
-            <span className="opacity-50">·</span>
-            <span>{eraLabelFromMessages(locale, node.era as Era)}</span>
           </div>
+          {metaParts.length > 0 ? (
+            <div
+              className={`mt-0.5 text-[11px] ${
+                isLanding ? 'text-white/55' : 'text-muted-foreground'
+              }`}
+            >
+              {metaParts.join(' · ')}
+            </div>
+          ) : null}
         </div>
       </button>
     );

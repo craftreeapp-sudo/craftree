@@ -16,6 +16,7 @@ import {
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 import { dimensionMaterialLevelFromCreateBody } from '@/lib/node-dimension';
 import {
+  naturalOriginAppToDb,
   parseChemicalNature,
   parseNaturalOrigin,
 } from '@/lib/suggest-nature-fields';
@@ -311,7 +312,8 @@ export async function POST(request: Request) {
             : null,
       dimension: dm.dimension,
       material_level: dm.materialLevel,
-      natural_origin: naturalOrigin === '' ? null : naturalOrigin,
+      natural_origin:
+        naturalOrigin === '' ? null : naturalOriginAppToDb(naturalOrigin),
       chemical_nature: chemicalNature === '' ? null : chemicalNature,
       is_draft,
     };

@@ -20,20 +20,24 @@ import {
   applyIssueToProposed,
   DEFAULT_ADD_LINK_RELATION,
   parseClaudeJson,
-  type ClaudeReviewJson,
 } from '@/lib/ai-review/map-issues';
 import { seedNodeToEditSnapshot } from '@/lib/ai-review/seed-snapshot';
 import { mapPoolWithStagger } from '@/lib/ai-review/pool';
 import type { SeedNode } from '@/lib/types';
+import { resolveNodeIdByName } from '@/lib/resolve-node-by-name';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import {
   clampYearBound,
   filterNodeIdsByAdminScope,
+  normalizeComplexityBounds,
   normalizeYearBounds,
-  parseInventionIdList,
   type AdminNodeScope,
   type DraftScope,
 } from '@/lib/ai-tools/admin-node-scope';
+import { parseInventionIdOrNameList } from '@/lib/ai-tools/parse-invention-list-for-review';
+import {
+  resolveInventionTokensToIdsPartial,
+} from '@/lib/ai-tools/resolve-invention-tokens';
 
 export const maxDuration = 300;
 
@@ -48,6 +52,8 @@ type Body = {
   inventionIds?: string[];
   /** Liste d’ids (texte libre, une par ligne ou séparés par virgules). */
   inventionIdsText?: string;
+  /** Jetons ambigus → id de fiche choisi (après résolution partielle). */
+  explicitTokenOverrides?: Array<{ token?: string; inventionId?: string }>;
   mode?: ReviewMode;
   dryRun?: boolean;
   batchFilter?: BatchFilter;
@@ -60,6 +66,8 @@ type Body = {
   draftScope?: DraftScope;
   complexityMin?: number | null;
   complexityMax?: number | null;
+  /** Limite le nombre de cartes après filtres (dry-run et analyse). */
+  maxCards?: number | null;
 };
 
 type BatchScope = {
@@ -89,6 +97,31 @@ function parseBatchScopeFromBody(body: Body): BatchScope {
   return { category, era, yearMin, yearMax };
 }
 
+function parseExplicitTokenOverrides(
+  body: Body
+): { token: string; inventionId: string }[] {
+  const raw = body.explicitTokenOverrides;
+  if (!Array.isArray(raw)) return [];
+  const out: { token: string; inventionId: string }[] = [];
+  for (const item of raw) {
+    if (!item || typeof item !== 'object') continue;
+    const token = typeof item.token === 'string' ? item.token.trim() : '';
+    const inventionId =
+      typeof item.inventionId === 'string' ? item.inventionId.trim() : '';
+    if (!token || !inventionId) continue;
+    out.push({ token, inventionId });
+  }
+  return out;
+}
+
+function parseMaxCards(body: Body): number | null {
+  const v = body.maxCards;
+  if (v === undefined || v === null) return null;
+  const n = Number(v);
+  if (!Number.isFinite(n) || n <= 0) return null;
+  return Math.min(100_000, Math.floor(n));
+}
+
 function parseReviewExclusionScope(body: Body): AdminNodeScope {
   let excludeLocked = true;
   if (body.excludeLocked === false) {
@@ -98,19 +131,20 @@ function parseReviewExclusionScope(body: Body): AdminNodeScope {
   if (body.draftScope === 'drafts_only' || body.draftScope === 'published_only') {
     draftScope = body.draftScope;
   }
+  let complexityMin =
+    body.complexityMin != null && Number.isFinite(Number(body.complexityMin))
+      ? Math.max(0, Math.floor(Number(body.complexityMin)))
+      : null;
+  let complexityMax =
+    body.complexityMax != null && Number.isFinite(Number(body.complexityMax))
+      ? Math.max(0, Math.floor(Number(body.complexityMax)))
+      : null;
+  const cx = normalizeComplexityBounds(complexityMin, complexityMax);
   return {
     excludeLocked,
     draftScope,
-    complexityMin:
-      body.complexityMin != null &&
-      Number.isFinite(Number(body.complexityMin))
-        ? Math.max(0, Math.floor(Number(body.complexityMin)))
-        : null,
-    complexityMax:
-      body.complexityMax != null &&
-      Number.isFinite(Number(body.complexityMax))
-        ? Math.max(0, Math.floor(Number(body.complexityMax)))
-        : null,
+    complexityMin: cx.complexityMin,
+    complexityMax: cx.complexityMax,
   };
 }
 
@@ -166,27 +200,6 @@ function snapshotDiffers(
   b: Record<string, unknown>
 ): boolean {
   return JSON.stringify(a) !== JSON.stringify(b);
-}
-
-async function resolveNodeIdByName(
-  sb: SupabaseClient,
-  name: string
-): Promise<string | null> {
-  const t = name.trim();
-  if (!t) return null;
-  const { data: exact } = await sb
-    .from('nodes')
-    .select('id')
-    .eq('name', t)
-    .limit(2);
-  if (exact?.length === 1) return String((exact[0] as { id: string }).id);
-  const { data: like } = await sb
-    .from('nodes')
-    .select('id, name')
-    .ilike('name', `%${t.replace(/%/g, '\\%')}%`)
-    .limit(5);
-  if (like?.length === 1) return String((like[0] as { id: string }).id);
-  return null;
 }
 
 async function fetchIdsForBatchFilter(
@@ -254,8 +267,6 @@ function nodeToPromptObject(seed: SeedNode): Record<string, unknown> {
     materialLevel: seed.materialLevel ?? null,
     naturalOrigin: seed.naturalOrigin ?? null,
     chemicalNature: seed.chemicalNature ?? null,
-    origin_type: seed.origin_type ?? null,
-    nature_type: seed.nature_type ?? null,
     description: seed.description ?? '',
     description_en: seed.description_en ?? '',
     wikipedia_url: seed.wikipedia_url ?? null,
@@ -318,6 +329,43 @@ function loadContextForNodeFromEdges(
   }
 
   return { seed, builtUpon, ledTo };
+}
+
+function sectionFromLinkToCurrent(v: unknown): 'ledTo' | 'builtUpon' {
+  const s = String(v ?? 'built_upon').toLowerCase();
+  if (s === 'led_to' || s === 'ledto') return 'ledTo';
+  return 'builtUpon';
+}
+
+function inferSectionForEdgeToCurrent(
+  inventionId: string,
+  sourceId: string,
+  targetId: string
+): 'ledTo' | 'builtUpon' {
+  if (sourceId === inventionId) return 'ledTo';
+  if (targetId === inventionId) return 'builtUpon';
+  return 'ledTo';
+}
+
+async function resolveGraphEndpointFirstPass(
+  sb: SupabaseClient,
+  ref: string,
+  inventionId: string,
+  logicalIds: Set<string>
+): Promise<{ uuid: string | null; pendingLogical: boolean }> {
+  const t = ref.trim();
+  if (!t) return { uuid: null, pendingLogical: false };
+  if (t === 'current') return { uuid: inventionId, pendingLogical: false };
+  if (logicalIds.has(t)) return { uuid: null, pendingLogical: true };
+  const { data: row } = await sb
+    .from('nodes')
+    .select('id')
+    .eq('id', t)
+    .maybeSingle();
+  if (row) return { uuid: (row as { id: string }).id, pendingLogical: false };
+  const byName = await resolveNodeIdByName(sb, t);
+  if (byName) return { uuid: byName, pendingLogical: false };
+  return { uuid: null, pendingLogical: false };
 }
 
 /** Une seule ligne `ai_review` par carte : champs + `proposedAddLinks` + `removedLinkIds`. */
@@ -404,7 +452,7 @@ async function processOneInvention(
 
   const response = await anthropic.messages.create({
     model: AI_REVIEW_MODEL,
-    max_tokens: 1000,
+    max_tokens: 4096,
     system: AI_REVIEW_SYSTEM_PROMPT,
     messages: [{ role: 'user', content: userContent }],
   });
@@ -435,6 +483,31 @@ async function processOneInvention(
   const lowConfidence = confidence != null && confidence < 0.7;
 
   const unresolvedMissing: Record<string, unknown>[] = [];
+  const seenUnresolvedName = new Set<string>();
+
+  const pushUnresolved = (
+    name: string,
+    reason: unknown,
+    section: 'builtUpon' | 'ledTo',
+    logicalId?: string
+  ) => {
+    const key = name.toLowerCase();
+    if (seenUnresolvedName.has(key)) return;
+    seenUnresolvedName.add(key);
+    unresolvedMissing.push({
+      id: logicalId?.trim() || undefined,
+      suggested_name: name,
+      reason,
+      section: section === 'ledTo' ? 'led_to' : 'built_upon',
+    });
+  };
+
+  const logicalIds = new Set<string>();
+  for (const mn of parsed.missing_nodes ?? []) {
+    if (!mn || typeof mn !== 'object') continue;
+    const id = String((mn as { id?: unknown }).id ?? '').trim();
+    if (id) logicalIds.add(id);
+  }
 
   const hasFieldDiff = snapshotDiffers(original, proposed);
 
@@ -446,24 +519,94 @@ async function processOneInvention(
     section: 'ledTo' | 'builtUpon';
   }> = [];
 
+  const pushProposedEdge = (
+    source_id: string,
+    target_id: string,
+    relation_type: string,
+    notes: string | null
+  ) => {
+    const rel = String(relation_type || DEFAULT_ADD_LINK_RELATION).toLowerCase();
+    const valid = [
+      'material',
+      'component',
+      'tool',
+      'energy',
+      'process',
+      'infrastructure',
+    ];
+    const r = valid.includes(rel) ? rel : DEFAULT_ADD_LINK_RELATION;
+    proposedAddLinks.push({
+      source_id,
+      target_id,
+      relation_type: r,
+      notes,
+      section: inferSectionForEdgeToCurrent(inventionId, source_id, target_id),
+    });
+  };
+
+  for (const mn of parsed.missing_nodes ?? []) {
+    if (!mn || typeof mn !== 'object') continue;
+    const m = mn as {
+      id?: unknown;
+      suggested_name?: unknown;
+      reason?: unknown;
+      link_to_current?: unknown;
+    };
+    const peerName = String(m.suggested_name ?? '').trim();
+    if (!peerName) continue;
+    const peerId = await resolveNodeIdByName(sb, peerName);
+    const reasonNoteMn =
+      m.reason != null && String(m.reason).trim()
+        ? `AI: ${String(m.reason).trim()}`
+        : null;
+    const sec = sectionFromLinkToCurrent(m.link_to_current);
+    if (peerId) {
+      if (sec === 'builtUpon') {
+        proposedAddLinks.push({
+          source_id: peerId,
+          target_id: inventionId,
+          relation_type: DEFAULT_ADD_LINK_RELATION,
+          notes: reasonNoteMn,
+          section: 'builtUpon',
+        });
+      } else {
+        proposedAddLinks.push({
+          source_id: inventionId,
+          target_id: peerId,
+          relation_type: DEFAULT_ADD_LINK_RELATION,
+          notes: reasonNoteMn,
+          section: 'ledTo',
+        });
+      }
+      continue;
+    }
+    const lid = String(m.id ?? '').trim();
+    pushUnresolved(peerName, m.reason, sec, lid || undefined);
+  }
+
   for (const ml of parsed.missing_links ?? []) {
-    const t = String(ml.type ?? '')
+    if (!ml || typeof ml !== 'object') continue;
+    const t = String((ml as { type?: unknown }).type ?? '')
       .toLowerCase()
       .trim();
-    const peerName = String(ml.suggested_name ?? '').trim();
+    const peerName = String((ml as { suggested_name?: unknown }).suggested_name ?? '').trim();
     if (!peerName) continue;
     const peerId = await resolveNodeIdByName(sb, peerName);
     if (!peerId) {
-      unresolvedMissing.push({
-        type: ml.type,
-        suggested_name: peerName,
-        reason: ml.reason,
-      });
+      const sec =
+        t === 'led_to' || t === 'ledto' ? 'ledTo' : 'builtUpon';
+      pushUnresolved(
+        peerName,
+        (ml as { reason?: unknown }).reason,
+        sec,
+        undefined
+      );
       continue;
     }
     const reasonNote =
-      ml.reason != null && String(ml.reason).trim()
-        ? `AI: ${String(ml.reason).trim()}`
+      (ml as { reason?: unknown }).reason != null &&
+      String((ml as { reason?: unknown }).reason).trim()
+        ? `AI: ${String((ml as { reason?: unknown }).reason).trim()}`
         : null;
     if (t === 'built_upon' || t === 'builtupon') {
       proposedAddLinks.push({
@@ -482,6 +625,43 @@ async function processOneInvention(
         section: 'ledTo',
       });
     }
+  }
+
+  for (const me of parsed.missing_edges ?? []) {
+    if (!me || typeof me !== 'object') continue;
+    const edge = me as {
+      source?: unknown;
+      target?: unknown;
+      relation_type?: unknown;
+      notes?: unknown;
+    };
+    const srcRef = String(edge.source ?? '').trim();
+    const tgtRef = String(edge.target ?? '').trim();
+    if (!srcRef || !tgtRef) continue;
+    const ra = await resolveGraphEndpointFirstPass(
+      sb,
+      srcRef,
+      inventionId,
+      logicalIds
+    );
+    const rb = await resolveGraphEndpointFirstPass(
+      sb,
+      tgtRef,
+      inventionId,
+      logicalIds
+    );
+    if (ra.pendingLogical || rb.pendingLogical) continue;
+    if (!ra.uuid || !rb.uuid) continue;
+    const involvesCurrent =
+      ra.uuid === inventionId || rb.uuid === inventionId;
+    /** Liens uniquement entre pairs (hors « current ») : appliqués à l’approbation via missing_edges. */
+    if (!involvesCurrent) continue;
+    const n =
+      edge.notes != null && String(edge.notes).trim()
+        ? `AI: ${String(edge.notes).trim()}`
+        : null;
+    const rel = String(edge.relation_type ?? DEFAULT_ADD_LINK_RELATION);
+    pushProposedEdge(ra.uuid, rb.uuid, rel, n);
   }
 
   const removedLinkIds: string[] = [];
@@ -518,6 +698,8 @@ async function processOneInvention(
       low_confidence_warning: lowConfidence,
       raw_issues: parsed.issues ?? [],
       unresolved_missing_links: unresolvedMissing,
+      missing_nodes: Array.isArray(parsed.missing_nodes) ? parsed.missing_nodes : [],
+      missing_edges: Array.isArray(parsed.missing_edges) ? parsed.missing_edges : [],
       raw_suspect_links: Array.isArray(parsed.suspect_links)
         ? parsed.suspect_links
         : [],
@@ -540,6 +722,8 @@ async function processOneInvention(
   const nothingToReport =
     !(parsed.issues?.length) &&
     !(parsed.missing_links?.length) &&
+    !(parsed.missing_nodes?.length) &&
+    !(parsed.missing_edges?.length) &&
     !(parsed.suspect_links?.length);
 
   if (created === 0 && nothingToReport) {
@@ -581,36 +765,96 @@ export async function POST(request: Request) {
     const mode: ReviewMode = body.mode ?? 'full';
     const dryRun = Boolean(body.dryRun);
     const batchScope = parseBatchScopeFromBody(body);
-    const exclusionScope = parseReviewExclusionScope(body);
+    let exclusionScope = parseReviewExclusionScope(body);
+
+    const sb = createSupabaseServiceRoleClient();
+
+    const explicitListFromText =
+      typeof body.inventionIdsText === 'string' &&
+      body.inventionIdsText.trim() !== '';
+
+    let unresolvedTokens: string[] = [];
+    let ambiguousMatches: {
+      token: string;
+      candidates: { id: string; name: string }[];
+    }[] = [];
 
     let inventionIds: string[] = [];
-    if (typeof body.inventionIdsText === 'string' && body.inventionIdsText.trim()) {
-      inventionIds = parseInventionIdList(body.inventionIdsText);
+    if (explicitListFromText) {
+      const tokens = parseInventionIdOrNameList(body.inventionIdsText!);
+      const partial = await resolveInventionTokensToIdsPartial(sb, tokens);
+      inventionIds = partial.ids;
+      unresolvedTokens = partial.unresolved;
+      ambiguousMatches = partial.ambiguous;
+
+      const ovr = parseExplicitTokenOverrides(body);
+      if (ovr.length > 0) {
+        const seen = new Set(inventionIds);
+        const resolvedOverrideTokens = new Set<string>();
+        for (const { token, inventionId } of ovr) {
+          const { data: row } = await sb
+            .from('nodes')
+            .select('id')
+            .eq('id', inventionId)
+            .maybeSingle();
+          if (row?.id) {
+            resolvedOverrideTokens.add(token);
+            if (!seen.has(row.id)) {
+              inventionIds.push(row.id);
+              seen.add(row.id);
+            }
+          }
+        }
+        ambiguousMatches = ambiguousMatches.filter(
+          (a) => !resolvedOverrideTokens.has(a.token)
+        );
+      }
+      /** Liste déjà ciblée : ne pas restreindre par profondeur graphe (sinon incohérent). */
+      exclusionScope = {
+        ...exclusionScope,
+        complexityMin: null,
+        complexityMax: null,
+      };
     } else if (Array.isArray(body.inventionIds)) {
       inventionIds = body.inventionIds.map((x) => String(x).trim()).filter(Boolean);
     }
 
-    const sb = createSupabaseServiceRoleClient();
-
     if (inventionIds.length === 0 && body.batchFilter) {
       inventionIds = await fetchIdsForBatchFilter(sb, body.batchFilter);
       inventionIds = await filterIdsByBatchScope(sb, inventionIds, batchScope);
-    } else if (inventionIds.length > 0) {
+    } else if (inventionIds.length > 0 && !explicitListFromText) {
       inventionIds = await filterIdsByBatchScope(sb, inventionIds, batchScope);
     }
 
     let unique = [...new Set(inventionIds)];
     unique = await filterNodeIdsByAdminScope(sb, unique, exclusionScope);
 
+    const maxCards = parseMaxCards(body);
+    if (maxCards != null) {
+      unique = unique.slice(0, maxCards);
+    }
+
     if (dryRun) {
       return NextResponse.json({
         resolvedCount: unique.length,
         estimatedCostEur: unique.length * EST_EUR_PER_CARD,
         inventionIds: unique,
+        unresolvedTokens,
+        ambiguousMatches,
       });
     }
 
     if (unique.length === 0) {
+      if (explicitListFromText) {
+        return NextResponse.json({
+          analyzed: 0,
+          createdSuggestions: 0,
+          cleanCards: 0,
+          errors: [] as { inventionId: string; message: string }[],
+          unresolvedTokens,
+          ambiguousMatches,
+        });
+      }
       return NextResponse.json(
         { error: 'inventionIds vide ou batchFilter sans résultat' },
         { status: 400 }
@@ -668,6 +912,8 @@ export async function POST(request: Request) {
       cleanCards,
       analyzed: unique.length,
       errors,
+      unresolvedTokens,
+      ambiguousMatches,
     });
   } catch (e) {
     console.error(e);

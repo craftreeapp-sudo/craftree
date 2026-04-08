@@ -1,6 +1,14 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { useGraphStore } from '@/stores/graph-store';
@@ -22,12 +30,18 @@ import {
   type SuggestLinkSnapshot,
   type SuggestLinkContextEntry,
 } from '@/lib/suggestion-link-snapshot';
-import { SuggestLinkSection } from '@/components/ui/SuggestLinkEditRows';
+import {
+  SuggestLinkEditCard,
+  SuggestLinkSection,
+  type SuggestLinkCardVariant,
+} from '@/components/ui/SuggestLinkEditRows';
+import { ExploreExtendedPeerRow } from '@/components/explore/ExploreDetailLinkRows';
 import {
   parseChemicalNature,
   parseNaturalOrigin,
 } from '@/lib/suggest-nature-fields';
 import type {
+  CraftingLink,
   NodeCategory,
   SeedNode,
   TechNodeBasic,
@@ -35,17 +49,37 @@ import type {
   TechNodeDetails,
 } from '@/lib/types';
 import { RelationType } from '@/lib/types';
+import {
+  type InventionKindKey,
+  inventionKindToNodeFields,
+  relationTypeFromInventionKind,
+} from '@/lib/invention-classification';
 import { mergeDimensionMaterialLevel } from '@/lib/node-dimension';
 import { rowIsDraft } from '@/lib/draft-flag';
 import { getCategoryColor } from '@/lib/colors';
 import { BuiltUponBadgePopover } from '@/components/explore/BuiltUponBadgePopover';
 import { seedNodeIsLocked } from '@/lib/node-lock';
+import {
+  buildExtendedDownstreamPeerInfos,
+  buildExtendedUpstreamPeerInfos,
+  findLinkByEndpoints,
+} from '@/lib/built-upon-utils';
+import {
+  useUIStore,
+  hydrateLinkNeighborhoodModeFromStorage,
+  type LinkNeighborhoodMode,
+} from '@/stores/ui-store';
+import { treeInventionPath } from '@/lib/tree-routes';
+import { VALID_RELATIONS } from '@/lib/admin-suggestion-shared';
 
 type PendingAddLink = {
   tempId: string;
   peerId: string;
   section: 'ledTo' | 'builtUpon';
   relation_type: RelationType;
+  is_optional?: boolean;
+  /** Lien graphe retiré pour ce déplacement (ne pas afficher la carte « suppression »). */
+  movedFromLinkId?: string;
 };
 
 const staggerItem = {
@@ -93,6 +127,13 @@ export function SuggestNodeCorrectionPanel({
   const graphNodes = useGraphStore((s) => s.nodes);
   const graphEdges = useGraphStore((s) => s.edges);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
+  const router = useRouter();
+  const linkNeighborhoodMode = useUIStore((s) => s.linkNeighborhoodMode);
+  const showExtended = linkNeighborhoodMode === 'direct_and_extended';
+
+  useLayoutEffect(() => {
+    hydrateLinkNeighborhoodModeFromStorage();
+  }, []);
   const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
   const getUsagesOfNode = useGraphStore((s) => s.getUsagesOfNode);
   const pushToast = useToastStore((s) => s.pushToast);
@@ -218,7 +259,7 @@ export function SuggestNodeCorrectionPanel({
           : String(seed.year_approx),
       origin: seed.origin ?? '',
       tags: mergedTags.join(', '),
-      naturalOrigin: parseNaturalOrigin(seed.naturalOrigin ?? undefined),
+      naturalOrigin: parseNaturalOrigin(seed.naturalOrigin as string | undefined),
       chemicalNature: parseChemicalNature(seed.chemicalNature ?? undefined),
       dimension: seed.dimension ?? '',
       materialLevel: seed.materialLevel ?? '',
@@ -313,7 +354,22 @@ export function SuggestNodeCorrectionPanel({
 
   const onSuggestLinkRemove = useCallback((linkId: string) => {
     if (linkId.startsWith('pending-')) {
-      setPendingAddLinks((prev) => prev.filter((p) => p.tempId !== linkId));
+      setPendingAddLinks((prev) => {
+        const item = prev.find((p) => p.tempId === linkId);
+        const movedFrom = item?.movedFromLinkId?.trim();
+        if (movedFrom) {
+          setStagedLinkRemovals((sr) => {
+            const snap = sr[movedFrom];
+            if (snap) {
+              setSuggestLinkEdits((edits) => ({ ...edits, [movedFrom]: snap }));
+            }
+            const next = { ...sr };
+            delete next[movedFrom];
+            return next;
+          });
+        }
+        return prev.filter((p) => p.tempId !== linkId);
+      });
       return;
     }
     setSuggestLinkEdits((prev) => {
@@ -337,6 +393,162 @@ export function SuggestNodeCorrectionPanel({
     });
   }, []);
 
+  const onChangeLinkInventionKind = useCallback(
+    (linkId: string, peerId: string, kind: InventionKindKey) => {
+      const relationType = relationTypeFromInventionKind(kind);
+      const { dimension, materialLevel } = inventionKindToNodeFields(kind);
+      updateNode(peerId, { dimension, materialLevel });
+      if (linkId.startsWith('pending-')) {
+        setPendingAddLinks((prev) =>
+          prev.map((p) =>
+            p.tempId === linkId ? { ...p, relation_type: relationType } : p
+          )
+        );
+        return;
+      }
+      setStagedLinkRemovals((staged) => {
+        const st = staged[linkId];
+        if (!st) return staged;
+        return { ...staged, [linkId]: { ...st, relation_type: relationType } };
+      });
+      setSuggestLinkEdits((prev) => {
+        const snap = prev[linkId];
+        if (!snap) return prev;
+        return {
+          ...prev,
+          [linkId]: { ...snap, relation_type: relationType },
+        };
+      });
+    },
+    [updateNode]
+  );
+
+  const onChangeLinkNeighborhood = useCallback(
+    (linkId: string, mode: LinkNeighborhoodMode) => {
+      const is_optional = mode === 'direct_and_extended';
+      if (linkId.startsWith('pending-')) {
+        setPendingAddLinks((prev) =>
+          prev.map((p) =>
+            p.tempId === linkId ? { ...p, is_optional } : p
+          )
+        );
+        return;
+      }
+      setStagedLinkRemovals((staged) => {
+        const st = staged[linkId];
+        if (!st) return staged;
+        return { ...staged, [linkId]: { ...st, is_optional } };
+      });
+      setSuggestLinkEdits((prev) => {
+        const snap = prev[linkId];
+        if (!snap) return prev;
+        return {
+          ...prev,
+          [linkId]: { ...snap, is_optional },
+        };
+      });
+    },
+    []
+  );
+
+  const movedFromSuppressIds = useMemo(() => {
+    const s = new Set<string>();
+    for (const p of pendingAddLinks) {
+      const m = p.movedFromLinkId?.trim();
+      if (m) s.add(m);
+    }
+    return s;
+  }, [pendingAddLinks]);
+
+  const wouldDuplicateEdge = useCallback(
+    (
+      source_id: string,
+      target_id: string,
+      opts?: { ignorePendingTempId?: string; ignoreGraphEdgeId?: string }
+    ) => {
+      if (!source_id || !target_id || source_id === target_id) return true;
+      for (const p of pendingAddLinks) {
+        if (opts?.ignorePendingTempId && p.tempId === opts.ignorePendingTempId) {
+          continue;
+        }
+        const s = p.section === 'ledTo' ? node.id : p.peerId;
+        const t = p.section === 'ledTo' ? p.peerId : node.id;
+        if (s === source_id && t === target_id) return true;
+      }
+      const stagedIds = new Set(Object.keys(stagedLinkRemovals));
+      for (const e of graphEdges) {
+        if (opts?.ignoreGraphEdgeId && e.id === opts.ignoreGraphEdgeId) continue;
+        if (stagedIds.has(e.id)) continue;
+        if (e.source_id === source_id && e.target_id === target_id) return true;
+      }
+      return false;
+    },
+    [pendingAddLinks, graphEdges, node.id, stagedLinkRemovals]
+  );
+
+  const moveLinkToOtherSection = useCallback(
+    (linkId: string, from: 'ledTo' | 'builtUpon') => {
+      const to: 'ledTo' | 'builtUpon' = from === 'ledTo' ? 'builtUpon' : 'ledTo';
+
+      if (linkId.startsWith('pending-')) {
+        setPendingAddLinks((prev) => {
+          const idx = prev.findIndex((p) => p.tempId === linkId);
+          if (idx < 0) return prev;
+          const p = prev[idx];
+          if (p.section !== from) return prev;
+          const src = to === 'ledTo' ? node.id : p.peerId;
+          const tgt = to === 'ledTo' ? p.peerId : node.id;
+          if (wouldDuplicateEdge(src, tgt, { ignorePendingTempId: linkId })) {
+            return prev;
+          }
+          return prev.map((x, i) => (i === idx ? { ...x, section: to } : x));
+        });
+        return;
+      }
+
+      const edge = graphEdges.find((e) => e.id === linkId);
+      if (!edge) return;
+      const isLedTo = edge.source_id === node.id;
+      const currentSec: 'ledTo' | 'builtUpon' = isLedTo ? 'ledTo' : 'builtUpon';
+      if (currentSec !== from) return;
+      const peerId = isLedTo ? edge.target_id : edge.source_id;
+
+      setSuggestLinkEdits((prevEdits) => {
+        const snap =
+          prevEdits[linkId] ?? craftingLinkToSnapshot(edge);
+        const relType = (VALID_RELATIONS.has(String(snap.relation_type))
+          ? snap.relation_type
+          : RelationType.MATERIAL) as RelationType;
+        const is_opt = Boolean(snap.is_optional);
+
+        const src = to === 'ledTo' ? node.id : peerId;
+        const tgt = to === 'ledTo' ? peerId : node.id;
+        if (wouldDuplicateEdge(src, tgt, { ignoreGraphEdgeId: linkId })) {
+          return prevEdits;
+        }
+
+        setStagedLinkRemovals((sr) => ({ ...sr, [linkId]: snap }));
+        setPendingAddLinks((pl) => [
+          ...pl,
+          {
+            tempId: `pending-${crypto.randomUUID()}`,
+            peerId,
+            section: to,
+            relation_type: relType,
+            is_optional: is_opt,
+            movedFromLinkId: linkId,
+          },
+        ]);
+        const next = { ...prevEdits };
+        delete next[linkId];
+        return next;
+      });
+    },
+    [graphEdges, node.id, wouldDuplicateEdge]
+  );
+
+  const showRelationPicker = variant === 'admin' || Boolean(user);
+
   const submitSuggestion = useCallback(async () => {
     if (!originalSnapshot || !originalLinkEdits) return;
     setSuggestSubmitting(true);
@@ -357,6 +569,7 @@ export function SuggestNodeCorrectionPanel({
         target_id: p.section === 'ledTo' ? p.peerId : node.id,
         relation_type: p.relation_type,
         section: p.section,
+        is_optional: Boolean(p.is_optional),
       }));
 
       const hasNodeChange = Object.keys(diff).length > 0;
@@ -505,9 +718,18 @@ export function SuggestNodeCorrectionPanel({
           target_id: p.section === 'ledTo' ? p.peerId : node.id,
           relation_type: p.relation_type,
           section: p.section,
+          is_optional: Boolean(p.is_optional),
         }));
 
         const hasNodeChange = Object.keys(diff).length > 0;
+        const proposedNatural =
+          suggestForm.naturalOrigin === '' ? null : suggestForm.naturalOrigin;
+        const proposedChem =
+          suggestForm.chemicalNature === '' ? null : suggestForm.chemicalNature;
+        const seedNat = seedNode.naturalOrigin ?? null;
+        const seedChem = seedNode.chemicalNature ?? null;
+        const natureFieldsDirty =
+          proposedNatural !== seedNat || proposedChem !== seedChem;
         const hasLinkChange =
           Object.keys(linkDiff).length > 0 ||
           removedLinkIds.length > 0 ||
@@ -560,13 +782,18 @@ export function SuggestNodeCorrectionPanel({
 
         let nodePutBody: Record<string, unknown> | null = null;
         if (publish) {
-          if (hasNodeChange) {
+          if (hasNodeChange || natureFieldsDirty) {
             nodePutBody = { ...buildFullPutBody(), is_draft: false };
           } else if (isDraftCard) {
             nodePutBody = { is_draft: false };
           }
         } else if (hasNodeChange) {
           nodePutBody = buildFullPutBody();
+        } else if (natureFieldsDirty) {
+          nodePutBody = {
+            naturalOrigin: proposedNatural,
+            chemicalNature: proposedChem,
+          };
         }
 
         if (!nodePutBody && !hasLinkChange) {
@@ -587,11 +814,22 @@ export function SuggestNodeCorrectionPanel({
             }
           );
           if (!putRes.ok) {
-            const err = await putRes.json().catch(() => ({}));
-            pushToast(
-              String((err as { error?: string }).error ?? tEditor('toastError')),
-              'error'
-            );
+            const raw = await putRes.text();
+            let err: {
+              error?: unknown;
+              message?: unknown;
+              code?: unknown;
+            } = {};
+            try {
+              err = raw ? (JSON.parse(raw) as typeof err) : {};
+            } catch {
+              err = { error: raw.slice(0, 400) };
+            }
+            const apiMsg =
+              (typeof err.error === 'string' && err.error.trim()) ||
+              (typeof err.message === 'string' && err.message.trim()) ||
+              '';
+            pushToast(apiMsg || tEditor('toastError'), 'error');
             return;
           }
           const putJson = (await putRes.json()) as {
@@ -644,7 +882,7 @@ export function SuggestNodeCorrectionPanel({
               source_id: p.section === 'ledTo' ? node.id : p.peerId,
               target_id: p.section === 'ledTo' ? p.peerId : node.id,
               relation_type: p.relation_type,
-              is_optional: false,
+              is_optional: Boolean(p.is_optional),
               notes: '',
             }),
           });
@@ -853,6 +1091,7 @@ export function SuggestNodeCorrectionPanel({
           };
         }
         if (vStaged) {
+          if (movedFromSuppressIds.has(link.id)) return null;
           const peerId = product.id;
           return {
             linkId: link.id,
@@ -890,7 +1129,7 @@ export function SuggestNodeCorrectionPanel({
           id: p.tempId,
           relation_type: p.relation_type,
           notes: '',
-          is_optional: false,
+          is_optional: Boolean(p.is_optional),
         };
         return {
           linkId: p.tempId,
@@ -927,6 +1166,7 @@ export function SuggestNodeCorrectionPanel({
     pendingAddLinks,
     locale,
     detailsById,
+    movedFromSuppressIds,
   ]);
 
   const suggestRecipeRows = useMemo(() => {
@@ -952,6 +1192,7 @@ export function SuggestNodeCorrectionPanel({
           };
         }
         if (vStaged) {
+          if (movedFromSuppressIds.has(link.id)) return null;
           const peerId = input.id;
           return {
             linkId: link.id,
@@ -989,7 +1230,7 @@ export function SuggestNodeCorrectionPanel({
           id: p.tempId,
           relation_type: p.relation_type,
           notes: '',
-          is_optional: false,
+          is_optional: Boolean(p.is_optional),
         };
         return {
           linkId: p.tempId,
@@ -1026,7 +1267,144 @@ export function SuggestNodeCorrectionPanel({
     pendingAddLinks,
     locale,
     detailsById,
+    movedFromSuppressIds,
   ]);
+
+  const extendedUpstreamInfos = useMemo(
+    () => buildExtendedUpstreamPeerInfos(node.id, graphEdges, graphNodes),
+    [node.id, graphEdges, graphNodes]
+  );
+
+  const extendedDownstreamInfos = useMemo(
+    () => buildExtendedDownstreamPeerInfos(node.id, graphEdges, graphNodes),
+    [node.id, graphEdges, graphNodes]
+  );
+
+  /** Hops étendus : arête réelle P→B (amont) ou B→S (aval) pour édition type de relation / direct-étendu. */
+  const extendedDownstreamHopsForEdit = useMemo(() => {
+    const out: {
+      key: string;
+      peerId: string;
+      edge: CraftingLink;
+      subtitle: string;
+      value: SuggestLinkSnapshot;
+      variant: SuggestLinkCardVariant;
+    }[] = [];
+    for (const info of extendedDownstreamInfos) {
+      for (const viaId of info.viaNodeIds) {
+        const edge = findLinkByEndpoints(graphEdges, viaId, info.peerId);
+        if (!edge) continue;
+        const bridge = getNodeById(viaId);
+        const names = bridge
+          ? pickNodeDisplayName(
+              locale,
+              bridge.name,
+              detailsById[viaId]?.name_en
+            )
+          : viaId;
+        const subtitle = tExplore('linkNeighborhoodVia', { names });
+        const linkId = edge.id;
+        const vActive = suggestLinkEdits[linkId];
+        const vStaged = stagedLinkRemovals[linkId];
+        let value: SuggestLinkSnapshot;
+        let variant: SuggestLinkCardVariant;
+        if (vActive) {
+          value = vActive;
+          variant = 'default';
+        } else if (vStaged) {
+          value = vStaged;
+          variant = 'stagedRemoval';
+        } else {
+          value = craftingLinkToSnapshot(edge);
+          variant = 'default';
+        }
+        out.push({
+          key: `xd:${info.peerId}:${viaId}`,
+          peerId: info.peerId,
+          edge,
+          subtitle,
+          value,
+          variant,
+        });
+      }
+    }
+    return out;
+  }, [
+    extendedDownstreamInfos,
+    graphEdges,
+    getNodeById,
+    locale,
+    detailsById,
+    tExplore,
+    suggestLinkEdits,
+    stagedLinkRemovals,
+  ]);
+
+  const extendedUpstreamHopsForEdit = useMemo(() => {
+    const out: {
+      key: string;
+      peerId: string;
+      edge: CraftingLink;
+      subtitle: string;
+      value: SuggestLinkSnapshot;
+      variant: SuggestLinkCardVariant;
+    }[] = [];
+    for (const info of extendedUpstreamInfos) {
+      for (const viaId of info.viaNodeIds) {
+        const edge = findLinkByEndpoints(graphEdges, info.peerId, viaId);
+        if (!edge) continue;
+        const bridge = getNodeById(viaId);
+        const names = bridge
+          ? pickNodeDisplayName(
+              locale,
+              bridge.name,
+              detailsById[viaId]?.name_en
+            )
+          : viaId;
+        const subtitle = tExplore('linkNeighborhoodVia', { names });
+        const linkId = edge.id;
+        const vActive = suggestLinkEdits[linkId];
+        const vStaged = stagedLinkRemovals[linkId];
+        let value: SuggestLinkSnapshot;
+        let variant: SuggestLinkCardVariant;
+        if (vActive) {
+          value = vActive;
+          variant = 'default';
+        } else if (vStaged) {
+          value = vStaged;
+          variant = 'stagedRemoval';
+        } else {
+          value = craftingLinkToSnapshot(edge);
+          variant = 'default';
+        }
+        out.push({
+          key: `xu:${info.peerId}:${viaId}`,
+          peerId: info.peerId,
+          edge,
+          subtitle,
+          value,
+          variant,
+        });
+      }
+    }
+    return out;
+  }, [
+    extendedUpstreamInfos,
+    graphEdges,
+    getNodeById,
+    locale,
+    detailsById,
+    tExplore,
+    suggestLinkEdits,
+    stagedLinkRemovals,
+  ]);
+
+  const openPeerInTree = useCallback(
+    (id: string) => {
+      router.push(treeInventionPath(id));
+    },
+    [router]
+  );
 
   const isDirty = useMemo(() => {
     if (!baselineForm) return false;
@@ -1241,7 +1619,7 @@ export function SuggestNodeCorrectionPanel({
             ) : null}
           </>
         ) : null}
-        <div className="mt-6">
+        <div className="mt-6 space-y-4">
           <SuggestLinkSection
             className="!mt-0"
             sectionTitle={tExplore('ledTo')}
@@ -1258,7 +1636,69 @@ export function SuggestNodeCorrectionPanel({
             onRemove={onSuggestLinkRemove}
             onRestoreLink={onRestoreLink}
             onAddPeer={(peerId) => addPendingPeer('ledTo', peerId)}
+            showRelationPicker={showRelationPicker}
+            onChangeInventionKind={onChangeLinkInventionKind}
+            linkNeighborhoodInLinkRows
+            onChangeLinkNeighborhood={onChangeLinkNeighborhood}
+            listSection="ledTo"
+            onMoveLinkToOtherSection={(id) =>
+              moveLinkToOtherSection(id, 'ledTo')
+            }
           />
+          {showExtended && extendedDownstreamInfos.length > 0 ? (
+            <div className="rounded-lg border border-dashed border-border/70 bg-surface/20 px-3 py-3">
+              <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                {tExplore('linkNeighborhoodExtended')}
+              </p>
+              <ul className="space-y-2">
+                {showRelationPicker &&
+                extendedDownstreamHopsForEdit.length > 0
+                  ? extendedDownstreamHopsForEdit.map((hop) => {
+                      const peer = getNodeById(hop.peerId);
+                      if (!peer) return null;
+                      return (
+                        <SuggestLinkEditCard
+                          key={hop.key}
+                          linkId={hop.edge.id}
+                          peerId={hop.peerId}
+                          peerLabel={pickNodeDisplayName(
+                            locale,
+                            peer.name,
+                            detailsById[hop.peerId]?.name_en
+                          )}
+                          peerCategory={peer.category as NodeCategory}
+                          detailsById={detailsById}
+                          value={hop.value}
+                          variant={hop.variant}
+                          onRemove={onSuggestLinkRemove}
+                          onRestore={onRestoreLink}
+                          showRelationPicker={showRelationPicker}
+                          onChangeInventionKind={onChangeLinkInventionKind}
+                          showInlineLinkNeighborhood
+                          onChangeLinkNeighborhood={onChangeLinkNeighborhood}
+                          subtitle={hop.subtitle}
+                          listItemExtraClassName={
+                            hop.variant === 'stagedRemoval'
+                              ? undefined
+                              : '!border-2 !border-dashed !border-white/70 !bg-surface/25'
+                          }
+                        />
+                      );
+                    })
+                  : extendedDownstreamInfos.map((info) => (
+                      <ExploreExtendedPeerRow
+                        key={info.peerId}
+                        info={info}
+                        getNodeById={getNodeById}
+                        locale={locale}
+                        detailsById={detailsById}
+                        imageBust={imageBustByNodeId[info.peerId] ?? 0}
+                        onSelectPeer={openPeerInTree}
+                      />
+                    ))}
+              </ul>
+            </div>
+          ) : null}
           <SuggestLinkSection
             sectionTitle={tExplore('builtUpon')}
             count={suggestRecipeRows.length}
@@ -1274,7 +1714,70 @@ export function SuggestNodeCorrectionPanel({
             onRemove={onSuggestLinkRemove}
             onRestoreLink={onRestoreLink}
             onAddPeer={(peerId) => addPendingPeer('builtUpon', peerId)}
+            showRelationPicker={showRelationPicker}
+            onChangeInventionKind={onChangeLinkInventionKind}
+            linkNeighborhoodInLinkRows
+            onChangeLinkNeighborhood={onChangeLinkNeighborhood}
+            hideSectionHeading
+            listSection="builtUpon"
+            onMoveLinkToOtherSection={(id) =>
+              moveLinkToOtherSection(id, 'builtUpon')
+            }
           />
+          {showExtended && extendedUpstreamInfos.length > 0 ? (
+            <div className="rounded-lg border border-dashed border-border/70 bg-surface/20 px-3 py-3">
+              <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                {tExplore('linkNeighborhoodExtended')}
+              </p>
+              <ul className="space-y-2">
+                {showRelationPicker &&
+                extendedUpstreamHopsForEdit.length > 0
+                  ? extendedUpstreamHopsForEdit.map((hop) => {
+                      const peer = getNodeById(hop.peerId);
+                      if (!peer) return null;
+                      return (
+                        <SuggestLinkEditCard
+                          key={hop.key}
+                          linkId={hop.edge.id}
+                          peerId={hop.peerId}
+                          peerLabel={pickNodeDisplayName(
+                            locale,
+                            peer.name,
+                            detailsById[hop.peerId]?.name_en
+                          )}
+                          peerCategory={peer.category as NodeCategory}
+                          detailsById={detailsById}
+                          value={hop.value}
+                          variant={hop.variant}
+                          onRemove={onSuggestLinkRemove}
+                          onRestore={onRestoreLink}
+                          showRelationPicker={showRelationPicker}
+                          onChangeInventionKind={onChangeLinkInventionKind}
+                          showInlineLinkNeighborhood
+                          onChangeLinkNeighborhood={onChangeLinkNeighborhood}
+                          subtitle={hop.subtitle}
+                          listItemExtraClassName={
+                            hop.variant === 'stagedRemoval'
+                              ? undefined
+                              : '!border-2 !border-dashed !border-white/70 !bg-surface/25'
+                          }
+                        />
+                      );
+                    })
+                  : extendedUpstreamInfos.map((info) => (
+                      <ExploreExtendedPeerRow
+                        key={info.peerId}
+                        info={info}
+                        getNodeById={getNodeById}
+                        locale={locale}
+                        detailsById={detailsById}
+                        imageBust={imageBustByNodeId[info.peerId] ?? 0}
+                        onSelectPeer={openPeerInTree}
+                      />
+                    ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
         </div>
         </div>

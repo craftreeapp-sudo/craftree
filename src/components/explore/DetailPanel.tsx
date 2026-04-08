@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
@@ -18,15 +19,20 @@ import {
   pickNodeDisplayName,
   pickNodeDescriptionForLocale,
 } from '@/lib/node-display-name';
-import type { NodeCategory, TechNodeDetails } from '@/lib/types';
+import type { NodeCategory, SeedNode, TechNodeDetails } from '@/lib/types';
 import { SuggestNodeCorrectionPanel } from '@/components/ui/SuggestNodeCorrectionPanel';
 import { safeCategoryLabel } from '@/lib/safe-category-label';
 import { getTagDisplayLabel } from '@/lib/tag-display';
 import {
-  natureTypeToExploreKey,
-  originTypeToExploreKey,
+  chemicalNatureToExploreKey,
+  naturalOriginToExploreKey,
 } from '@/lib/explore-classification-badges';
 import {
+  parseChemicalNature,
+  parseNaturalOrigin,
+} from '@/lib/suggest-nature-fields';
+import {
+  ExploreExtendedPeerRow,
   ExploreLedToRow,
   ExploreRecipeRow,
 } from '@/components/explore/ExploreDetailLinkRows';
@@ -39,13 +45,19 @@ import {
   effectiveMaterialLevel,
 } from '@/lib/node-dimension-helpers';
 import { EDITOR_DIM_KEY, EDITOR_LEVEL_KEY } from '@/components/editor/dimension-editor-keys';
+import { EXPLORE_DETAIL_PANEL_WIDTH_PX } from '@/lib/explore-layout';
+import { treeInventionPath } from '@/lib/tree-routes';
+import { AIReviewButton } from '@/components/admin/AIReviewButton';
+import { rowIsLocked, seedNodeIsLocked } from '@/lib/node-lock';
 import {
-  EXPLORE_DETAIL_PANEL_WIDTH_PX,
-  EXPLORE_TREE_PANEL_FIXED_TOP_CLASS,
-} from '@/lib/explore-layout';
+  buildExtendedDownstreamPeerInfos,
+  buildExtendedUpstreamPeerInfos,
+} from '@/lib/built-upon-utils';
+import { useUIStore } from '@/stores/ui-store';
 const TRANSITION = { duration: 0.35, ease: [0.4, 0, 0.2, 1] as const };
 
 export function ExploreDetailPanel() {
+  const router = useRouter();
   const ctx = useExploreCardOptional();
   const locale = useLocale();
   const tExplore = useTranslations('explore');
@@ -56,6 +68,7 @@ export function ExploreDetailPanel() {
   const tCommon = useTranslations('common');
 
   const graphNodes = useGraphStore((s) => s.nodes);
+  const graphEdges = useGraphStore((s) => s.edges);
   const getRecipeForNode = useGraphStore((s) => s.getRecipeForNode);
   const getUsagesOfNode = useGraphStore((s) => s.getUsagesOfNode);
   const imageBustByNodeId = useGraphStore((s) => s.imageBustByNodeId);
@@ -66,10 +79,14 @@ export function ExploreDetailPanel() {
   const refreshData = useGraphStore((s) => s.refreshData);
   const updateNode = useGraphStore((s) => s.updateNode);
 
+  const linkNeighborhoodMode = useUIStore((s) => s.linkNeighborhoodMode);
+  const showExtended = linkNeighborhoodMode === 'direct_and_extended';
+
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
   const detailAsideRef = useRef<HTMLElement | null>(null);
   const [draftSaving, setDraftSaving] = useState(false);
+  const [lockSaving, setLockSaving] = useState(false);
   const [mainImgErr, setMainImgErr] = useState(false);
   const [ledToOpen, setLedToOpen] = useState(true);
   const [builtUponOpen, setBuiltUponOpen] = useState(true);
@@ -99,6 +116,37 @@ export function ExploreDetailPanel() {
       cancelled = true;
     };
   }, [detailNodeId, mergeDetail]);
+
+  /** Complète naturalOrigin / chemicalNature dans le graphe depuis la fiche API (projection locale parfois incomplète). */
+  useEffect(() => {
+    if (!detailNodeId) return;
+    let cancelled = false;
+    void fetch(`/api/nodes/${encodeURIComponent(detailNodeId)}`, {
+      credentials: 'same-origin',
+    })
+      .then(async (res) => {
+        if (!res.ok || cancelled) return;
+        const json = (await res.json()) as { node?: SeedNode };
+        if (cancelled || !json.node) return;
+        const n = json.node;
+        const no = parseNaturalOrigin(
+          n.naturalOrigin != null ? String(n.naturalOrigin) : undefined
+        );
+        const cn = parseChemicalNature(
+          n.chemicalNature != null ? String(n.chemicalNature) : undefined
+        );
+        if (cancelled) return;
+        if (no === '' && cn === '') return;
+        updateNode(detailNodeId, {
+          ...(no !== '' ? { naturalOrigin: no } : {}),
+          ...(cn !== '' ? { chemicalNature: cn } : {}),
+        });
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [detailNodeId, updateNode]);
 
   /* Réinitialise menu / image quand on change d’invention dans le panneau */
   useEffect(() => {
@@ -184,10 +232,58 @@ export function ExploreDetailPanel() {
       if (typeof window !== 'undefined') {
         window.dispatchEvent(new CustomEvent('craftree:editor-refresh'));
       }
+      setMoreOpen(false);
     } catch {
       pushToast(tEd('toastNetworkError'), 'error');
     } finally {
       setDraftSaving(false);
+    }
+  }, [node, refreshData, updateNode, pushToast, tEd]);
+
+  const toggleLockStatus = useCallback(async () => {
+    if (!node) return;
+    setLockSaving(true);
+    try {
+      const res = await fetch(`/api/nodes/${encodeURIComponent(node.id)}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ is_locked: !node.is_locked }),
+      });
+      if (!res.ok) {
+        let msg = tEd('toastSaveError');
+        try {
+          const errBody = (await res.json()) as {
+            message?: string;
+            error?: string;
+          };
+          if (errBody.message) msg = errBody.message;
+          else if (errBody.error) msg = errBody.error;
+        } catch {
+          /* ignore */
+        }
+        pushToast(msg, 'error');
+        return;
+      }
+      const json = (await res.json()) as { node?: Record<string, unknown> };
+      await refreshData();
+      if (json.node) {
+        updateNode(node.id, {
+          is_locked: rowIsLocked(json.node),
+        });
+      }
+      pushToast(
+        node.is_locked ? tEd('toastNodeUnlocked') : tEd('toastNodeLocked'),
+        'success'
+      );
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('craftree:editor-refresh'));
+      }
+      setMoreOpen(false);
+    } catch {
+      pushToast(tEd('toastNetworkError'), 'error');
+    } finally {
+      setLockSaving(false);
     }
   }, [node, refreshData, updateNode, pushToast, tEd]);
 
@@ -251,6 +347,18 @@ export function ExploreDetailPanel() {
     return dLabel;
   }, [node, tEd]);
 
+  const pillNaturalOrigin = useMemo(() => {
+    if (!node) return null;
+    const p = parseNaturalOrigin(node.naturalOrigin as string | undefined);
+    return p === '' ? null : p;
+  }, [node]);
+
+  const pillChemicalNature = useMemo(() => {
+    if (!node) return null;
+    const p = parseChemicalNature(node.chemicalNature as string | undefined);
+    return p === '' ? null : p;
+  }, [node]);
+
   const originLine = (node?.origin ?? detail?.origin ?? '').trim();
 
   const recipeLinks = useMemo(
@@ -262,6 +370,28 @@ export function ExploreDetailPanel() {
     () => (node ? getUsagesOfNode(node.id) : []),
     [node, getUsagesOfNode]
   );
+
+  const extendedUpstreamInfos = useMemo(() => {
+    if (!node) return [];
+    return buildExtendedUpstreamPeerInfos(node.id, graphEdges, graphNodes);
+  }, [node, graphEdges, graphNodes]);
+
+  const extendedDownstreamInfos = useMemo(() => {
+    if (!node) return [];
+    return buildExtendedDownstreamPeerInfos(node.id, graphEdges, graphNodes);
+  }, [node, graphEdges, graphNodes]);
+
+  const builtUponBadgeCount = useMemo(() => {
+    let n = recipeLinks.length;
+    if (showExtended) n += extendedUpstreamInfos.length;
+    return n;
+  }, [recipeLinks.length, extendedUpstreamInfos.length, showExtended]);
+
+  const ledToSectionCount = useMemo(() => {
+    let n = usages.length;
+    if (showExtended) n += extendedDownstreamInfos.length;
+    return n;
+  }, [usages.length, extendedDownstreamInfos.length, showExtended]);
 
   const duplicatePeerId = useMemo(() => {
     if (!node) return null;
@@ -276,16 +406,17 @@ export function ExploreDetailPanel() {
           direction,
         });
       }
-      ctx?.openDetail(id);
+      router.push(treeInventionPath(id));
     },
-    [ctx, node]
+    [router, node]
   );
 
   const panelInner =
     !node ? null : (
       <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+        <header className="sticky top-0 z-[15] shrink-0 border-b border-border/90 bg-page/95 pb-3 pt-4 backdrop-blur-md supports-[backdrop-filter]:bg-page/85">
         {/* 1. Titre + badge (nombre de cartes built upon) | actions */}
-        <div className="flex min-w-0 shrink-0 items-start gap-x-2 border-b border-border px-5 pb-3 pt-4">
+        <div className="flex min-w-0 shrink-0 items-start gap-x-2 px-5 pb-3">
           <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-2 gap-y-1">
             <h2
               id="explore-detail-title"
@@ -298,9 +429,16 @@ export function ExploreDetailPanel() {
               {displayName}
             </h2>
             <BuiltUponBadgePopover
-              count={recipeLinks.length}
+              count={builtUponBadgeCount}
               borderColor={categoryColor}
             />
+            {node.is_draft ? (
+              <span
+                className="inline-block h-2 w-2 shrink-0 rounded-full bg-orange-500"
+                title={tEd('draftRowIndicator')}
+                aria-label={tEd('draftRowIndicator')}
+              />
+            ) : null}
           </div>
           <div className="flex shrink-0 items-center justify-end gap-0.5">
           {!isAdmin ? <ShareInventionButton nodeId={node.id} /> : null}
@@ -353,64 +491,22 @@ export function ExploreDetailPanel() {
             )
           ) : null}
           {isAdmin ? (
-            <button
-              type="button"
-              onClick={() => void toggleDraftStatus()}
-              disabled={draftSaving}
-              title={
-                node.is_draft
-                  ? tEd('toggleDraftOnline')
-                  : tEd('toggleDraftOffline')
-              }
-              aria-label={
-                node.is_draft
-                  ? tEd('toggleDraftOnline')
-                  : tEd('toggleDraftOffline')
-              }
-              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-border/30 hover:text-foreground disabled:opacity-50"
-            >
-              {node.is_draft ? (
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-orange-400"
-                  aria-hidden
-                >
-                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                  <polyline points="14 2 14 8 20 8" />
-                  <path d="m10 13 2 2 4-4" />
-                </svg>
-              ) : (
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden
-                >
-                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                  <polyline points="14 2 14 8 20 8" />
-                  <line x1="10" y1="13" x2="14" y2="17" />
-                  <line x1="14" y1="13" x2="10" y2="17" />
-                </svg>
-              )}
-            </button>
+            <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center [&_button]:h-9 [&_button]:w-9 [&_button]:min-h-0">
+              <AIReviewButton
+                inventionId={node.id}
+                disabled={seedNodeIsLocked(node)}
+                onResult={(message, kind) =>
+                  pushToast(message, kind === 'ok' ? 'success' : 'error')
+                }
+              />
+            </span>
           ) : null}
           {isAdmin ? (
             <button
               type="button"
               onClick={() => void enterEdit()}
-              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-border/30 hover:text-foreground"
+              disabled={seedNodeIsLocked(node)}
+              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-border/30 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
               aria-label={tSidebar('editInvention')}
             >
               <svg
@@ -482,6 +578,101 @@ export function ExploreDetailPanel() {
                       {tCommon('share')}
                     </button>
                   ) : null}
+                  {isAdmin ? (
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={() => void toggleDraftStatus()}
+                      disabled={draftSaving || seedNodeIsLocked(node)}
+                      className="flex w-full items-center gap-2 px-3 py-2 text-[13px] text-foreground hover:bg-border/25 disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      {node.is_draft ? (
+                        <svg
+                          width={18}
+                          height={18}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="shrink-0 text-orange-400"
+                          aria-hidden
+                        >
+                          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                          <polyline points="14 2 14 8 20 8" />
+                          <path d="m10 13 2 2 4-4" />
+                        </svg>
+                      ) : (
+                        <svg
+                          width={18}
+                          height={18}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="shrink-0"
+                          aria-hidden
+                        >
+                          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                          <polyline points="14 2 14 8 20 8" />
+                          <line x1="10" y1="13" x2="14" y2="17" />
+                          <line x1="14" y1="13" x2="10" y2="17" />
+                        </svg>
+                      )}
+                      {node.is_draft
+                        ? tEd('toggleDraftOnline')
+                        : tEd('toggleDraftOffline')}
+                    </button>
+                  ) : null}
+                  {isAdmin ? (
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={() => void toggleLockStatus()}
+                      disabled={lockSaving}
+                      className="flex w-full items-center gap-2 px-3 py-2 text-[13px] text-foreground hover:bg-border/25 disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      {seedNodeIsLocked(node) ? (
+                        <svg
+                          width={18}
+                          height={18}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="shrink-0 text-amber-300"
+                          aria-hidden
+                        >
+                          <rect x="5" y="11" width="14" height="10" rx="2" />
+                          <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+                        </svg>
+                      ) : (
+                        <svg
+                          width={18}
+                          height={18}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="shrink-0"
+                          aria-hidden
+                        >
+                          <rect x="5" y="11" width="14" height="10" rx="2" />
+                          <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                        </svg>
+                      )}
+                      {seedNodeIsLocked(node)
+                        ? tEd('rowActionUnlock')
+                        : tEd('rowActionLock')}
+                    </button>
+                  ) : null}
                   {detail?.wikipedia_url ? (
                     <a
                       href={detail.wikipedia_url}
@@ -501,7 +692,7 @@ export function ExploreDetailPanel() {
         </div>
 
         {/* 2. Pastilles : catégorie + nature (matière / procédé / outil & niveau) */}
-        <div className="flex flex-wrap gap-2 px-5 pt-4">
+        <div className="flex flex-wrap gap-2 px-5 pt-1">
           <span
             className="rounded-full px-2.5 py-1 text-xs font-medium"
             style={{
@@ -514,21 +705,22 @@ export function ExploreDetailPanel() {
           <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
             {natureLine}
           </span>
-          {node.origin_type ? (
+          {pillNaturalOrigin ? (
             <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
-              {tExplore(originTypeToExploreKey(node.origin_type))}
+              {tExplore(naturalOriginToExploreKey(pillNaturalOrigin))}
             </span>
           ) : null}
-          {node.nature_type ? (
+          {pillChemicalNature ? (
             <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
-              {tExplore(natureTypeToExploreKey(node.nature_type))}
+              {tExplore(chemicalNatureToExploreKey(pillChemicalNature))}
             </span>
           ) : null}
         </div>
+        </header>
 
         {/* 3. Tags */}
         {secondaryTags.length > 0 ? (
-          <div className="px-5 pt-4">
+          <div className="mb-5 px-5 pt-4">
             <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
               {tExplore('detailTagsHeading')}
             </div>
@@ -546,7 +738,7 @@ export function ExploreDetailPanel() {
         ) : null}
 
         {/* 4. Visuel */}
-        <div className="mt-4 w-full shrink-0 px-5">
+        <div className="w-full shrink-0 px-5">
           {imageSrc && !mainImgErr ? (
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-page">
               <Image
@@ -620,7 +812,7 @@ export function ExploreDetailPanel() {
             aria-expanded={ledToOpen}
           >
             <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              {tExplore('ledTo')} ({usages.length})
+              {tExplore('ledTo')} ({ledToSectionCount})
             </h3>
             <svg
               width="16"
@@ -640,23 +832,51 @@ export function ExploreDetailPanel() {
             </svg>
           </button>
           {ledToOpen ? (
-            usages.length === 0 ? (
+            usages.length === 0 &&
+            (!showExtended || extendedDownstreamInfos.length === 0) ? (
               <p className="text-sm text-muted-foreground">
                 {tExplore('noDownstream')}
               </p>
             ) : (
-              <ul className="space-y-3">
-                {usages.map(({ link, product }) => (
-                  <ExploreLedToRow
-                    key={link.id}
-                    link={link}
-                    product={product}
-                    locale={locale}
-                    detailsById={detailsById}
-                    onSelectProduct={(id) => openPeerDetail(id, 'downstream')}
-                  />
-                ))}
-              </ul>
+              <div className="space-y-4">
+                {usages.length > 0 ? (
+                  <ul className="space-y-3">
+                    {usages.map(({ link, product }) => (
+                      <ExploreLedToRow
+                        key={link.id}
+                        link={link}
+                        product={product}
+                        locale={locale}
+                        detailsById={detailsById}
+                        imageBust={imageBustByNodeId[product.id] ?? 0}
+                        onSelectProduct={(id) => openPeerDetail(id, 'downstream')}
+                      />
+                    ))}
+                  </ul>
+                ) : null}
+                {showExtended && extendedDownstreamInfos.length > 0 ? (
+                  <div>
+                    <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      {tExplore('linkNeighborhoodExtended')}
+                    </p>
+                    <ul className="space-y-3">
+                      {extendedDownstreamInfos.map((info) => (
+                        <ExploreExtendedPeerRow
+                          key={info.peerId}
+                          info={info}
+                          getNodeById={getNodeById}
+                          locale={locale}
+                          detailsById={detailsById}
+                          imageBust={imageBustByNodeId[info.peerId] ?? 0}
+                          onSelectPeer={(id) =>
+                            openPeerDetail(id, 'downstream')
+                          }
+                        />
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
             )
           ) : null}
 
@@ -667,7 +887,7 @@ export function ExploreDetailPanel() {
             aria-expanded={builtUponOpen}
           >
             <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              {tExplore('builtUpon')} ({recipeLinks.length})
+              {tExplore('builtUpon')} ({builtUponBadgeCount})
             </h3>
             <svg
               width="16"
@@ -687,23 +907,51 @@ export function ExploreDetailPanel() {
             </svg>
           </button>
           {builtUponOpen ? (
-            recipeLinks.length === 0 ? (
+            recipeLinks.length === 0 &&
+            (!showExtended || extendedUpstreamInfos.length === 0) ? (
               <p className="text-sm text-muted-foreground">
                 {tExplore('noUpstream')}
               </p>
             ) : (
-              <ul className="space-y-3">
-                {recipeLinks.map((link) => (
-                  <ExploreRecipeRow
-                    key={link.id}
-                    link={link}
-                    getNodeById={getNodeById}
-                    locale={locale}
-                    detailsById={detailsById}
-                    onSelectIngredient={(id) => openPeerDetail(id, 'upstream')}
-                  />
-                ))}
-              </ul>
+              <div className="space-y-4">
+                {recipeLinks.length > 0 ? (
+                  <ul className="space-y-3">
+                    {recipeLinks.map((link) => (
+                      <ExploreRecipeRow
+                        key={link.id}
+                        link={link}
+                        getNodeById={getNodeById}
+                        locale={locale}
+                        detailsById={detailsById}
+                        imageBust={imageBustByNodeId[link.source_id] ?? 0}
+                        onSelectIngredient={(id) =>
+                          openPeerDetail(id, 'upstream')
+                        }
+                      />
+                    ))}
+                  </ul>
+                ) : null}
+                {showExtended && extendedUpstreamInfos.length > 0 ? (
+                  <div>
+                    <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      {tExplore('linkNeighborhoodExtended')}
+                    </p>
+                    <ul className="space-y-3">
+                      {extendedUpstreamInfos.map((info) => (
+                        <ExploreExtendedPeerRow
+                          key={info.peerId}
+                          info={info}
+                          getNodeById={getNodeById}
+                          locale={locale}
+                          detailsById={detailsById}
+                          imageBust={imageBustByNodeId[info.peerId] ?? 0}
+                          onSelectPeer={(id) => openPeerDetail(id, 'upstream')}
+                        />
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
             )
           ) : null}
         </section>
@@ -716,6 +964,7 @@ export function ExploreDetailPanel() {
     <AnimatePresence>
       {detailNodeId && node ? (
         <motion.aside
+          id="explore-detail-panel"
           ref={detailAsideRef}
           key="explore-detail"
           role="complementary"
@@ -724,7 +973,7 @@ export function ExploreDetailPanel() {
           animate={{ x: 0 }}
           exit={{ x: '100%' }}
           transition={TRANSITION}
-          className={`glass-explore-detail ${EXPLORE_TREE_PANEL_FIXED_TOP_CLASS} fixed bottom-0 right-0 z-[80] flex flex-col ${
+          className={`glass-explore-detail fixed bottom-0 right-0 top-14 z-[95] flex flex-col ${
             isMobile ? 'w-full' : ''
           }`}
           style={

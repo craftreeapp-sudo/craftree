@@ -1,6 +1,6 @@
-import type { MaterialLevel, NodeDimension } from '@/lib/types';
+import { NODE_DIMENSION_ORDER, type MaterialLevel, type NodeDimension } from '@/lib/types';
 
-const DIMENSIONS = new Set<NodeDimension>(['matter', 'process', 'tool']);
+const DIMENSIONS = new Set<NodeDimension>(NODE_DIMENSION_ORDER);
 const LEVELS = new Set<MaterialLevel>([
   'raw',
   'processed',

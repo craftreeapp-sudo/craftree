@@ -1,18 +1,21 @@
 /**
  * Classification d’une invention : `dimension` + `materialLevel` (remplace l’ancien champ `type`).
  */
-import type { MaterialLevel, NodeDimension } from '@/lib/types';
+import {
+  NODE_DIMENSION_ORDER,
+  type MaterialLevel,
+  type NodeDimension,
+} from '@/lib/types';
 
 const MATTER: NodeDimension = 'matter';
-const PROCESS: NodeDimension = 'process';
-const TOOL: NodeDimension = 'tool';
+const DIMENSION_SET = new Set<NodeDimension>(NODE_DIMENSION_ORDER);
 
-/** Dimension effective : défaut `matter` si non renseigné. */
+/** Dimension effective : défaut `matter` si non renseigné ou valeur inconnue. */
 export function effectiveDimension(n: {
   dimension?: NodeDimension | null;
 }): NodeDimension {
   const d = n.dimension;
-  if (d === MATTER || d === PROCESS || d === TOOL) return d;
+  if (d != null && DIMENSION_SET.has(d as NodeDimension)) return d;
   return MATTER;
 }
 

@@ -179,7 +179,7 @@ Each invention (`node`) has the following attributes:
 | `tags` | Search and classification tags |
 | `complexity_depth` | Total cards required upstream (computed) |
 
-Inventions are connected by **links** (`source_id` → `target_id`) with a `relation_type`: material, tool, energy, knowledge, or catalyst.
+Inventions are connected by **links** (`source_id` → `target_id`) with a `relation_type`: `material`, `component`, `tool`, `energy`, `process`, or `infrastructure`.
 
 ---
 

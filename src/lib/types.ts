@@ -48,8 +48,24 @@ export enum Era {
   CONTEMPORARY = 'contemporary', // 2010+
 }
 
-/** Nature de l’invention : matière / procédé / outil (+ niveau matière si matter). */
-export type NodeDimension = 'matter' | 'process' | 'tool';
+/** Nature de l’invention (niveau matière si `matter` uniquement). */
+export type NodeDimension =
+  | 'matter'
+  | 'composant'
+  | 'tool'
+  | 'energy'
+  | 'process'
+  | 'infrastructure';
+
+/** Ordre UI (formulaires, filtres) — aligné fiche produit. */
+export const NODE_DIMENSION_ORDER: readonly NodeDimension[] = [
+  'matter',
+  'composant',
+  'tool',
+  'energy',
+  'process',
+  'infrastructure',
+] as const;
 
 /** Niveau matière — uniquement si dimension = matter. */
 export type MaterialLevel =
@@ -58,17 +74,11 @@ export type MaterialLevel =
   | 'industrial'
   | 'component';
 
-/** Origine naturelle (fiche / suggestion de correction). */
-export type NaturalOrigin = 'mineral' | 'vegetal' | 'animal';
+/** Origine naturelle — seules valeurs stockées (anglais). */
+export type NaturalOrigin = 'mineral' | 'plant' | 'animal';
 
-/** Nature chimique ou physique (fiche / suggestion de correction). */
+/** Nature chimique / physique — seules valeurs stockées (anglais). */
 export type ChemicalNature = 'element' | 'compound' | 'material';
-
-/** Origine naturelle (colonnes DB / seed `origin_type`). */
-export type OriginType = 'mineral' | 'vegetal' | 'animal';
-
-/** Nature chimique/physique (colonnes DB / seed `nature_type`). */
-export type NatureType = 'element' | 'compose' | 'materiau';
 
 // ─── Nœuds (technologies / ressources) ───────────────────────────────────────
 
@@ -95,10 +105,6 @@ export interface TechNodeBasic {
   naturalOrigin?: NaturalOrigin | null;
   /** Nature chimique/physique (optionnel). */
   chemicalNature?: ChemicalNature | null;
-  /** Classification origine naturelle (seed / Supabase). */
-  origin_type?: OriginType | null;
-  /** Classification nature chimique/physique (seed / Supabase). */
-  nature_type?: NatureType | null;
   /** Brouillon (admin uniquement dans les listes / recherche). */
   is_draft?: boolean;
   /** Verrouillage admin : aucune modification de la fiche ni des liens. */
@@ -127,11 +133,12 @@ export type TechNode = TechNodeBasic & TechNodeDetails;
 // ─── Type de relation (liens de fabrication) ─────────────────────────────────
 
 export enum RelationType {
-  MATERIAL = 'material',   // Matière première consommée
-  TOOL = 'tool',           // Outil nécessaire (non consommé)
-  ENERGY = 'energy',       // Source d'énergie nécessaire
-  KNOWLEDGE = 'knowledge', // Connaissance/procédé prérequis
-  CATALYST = 'catalyst',   // Catalyseur (facilite mais non strictement requis)
+  MATERIAL = 'material',           // Matière nécessaire (niveau détaillé côté nœud materialLevel)
+  COMPONENT = 'component',         // Composant / pièce assemblée (lien, pas confondre avec materialLevel)
+  TOOL = 'tool',                   // Outil ou machine (non consommé)
+  ENERGY = 'energy',               // Source d'énergie
+  PROCESS = 'process',             // Procédé / savoir prérequis
+  INFRASTRUCTURE = 'infrastructure', // Réseau, service, organisation externe
 }
 
 // ─── Liens (recettes de fabrication) ─────────────────────────────────────────
@@ -166,8 +173,6 @@ export interface SeedNode {
   naturalOrigin?: NaturalOrigin | null;
   /** Nature chimique/physique (optionnel). */
   chemicalNature?: ChemicalNature | null;
-  origin_type?: OriginType | null;
-  nature_type?: NatureType | null;
   _ai_built_upon?: string[];
   _ai_led_to?: string[];
   is_draft?: boolean;

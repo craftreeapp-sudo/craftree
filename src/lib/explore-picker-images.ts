@@ -60,11 +60,14 @@ export const PICKER_IMAGE_ERA: Record<Era, string> = {
   [Era.CONTEMPORARY]: u('photo-1519389950473-47ba0277781c'),
 };
 
-/** Une image par dimension (matière / procédé / outil). */
+/** Une image par dimension (aperçu page Catégories). */
 export const PICKER_IMAGE_DIMENSION: Record<NodeDimension, string> = {
   matter: u('photo-1506905925346-21bda4d32df4'),
-  process: u('photo-1565043666747-89394e2a4b95'),
+  composant: u('photo-1581091226825-a6a2a5aee158'),
   tool: u('photo-1551434678-e076c223a692'),
+  energy: u('photo-1509391366360-2e959784a276'),
+  process: u('photo-1565043666747-89394e2a4b95'),
+  infrastructure: u('photo-1590674899484-d5640e854abe'),
 };
 
 /** Une image par niveau matière (si dimension = matter). */

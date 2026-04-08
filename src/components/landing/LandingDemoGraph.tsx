@@ -4,19 +4,20 @@ import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import nodesIndex from '@/data/nodes-index.json';
 import { treeInventionPath } from '@/lib/tree-routes';
-import type { TechNodeBasic } from '@/lib/types';
 
 const DEMO_IDS = ['sable', 'verre', 'ampoule'] as const;
+
+type NodesIndexEntry = (typeof nodesIndex.nodes)[number];
 
 export function LandingDemoGraph() {
   const [phase, setPhase] = useState(0);
 
-  const steps = useMemo(() => {
-    const byId = new Map(
-      nodesIndex.nodes.map((n) => [n.id, n as TechNodeBasic])
+  const steps = useMemo((): NodesIndexEntry[] => {
+    const byId = new Map<string, NodesIndexEntry>(
+      nodesIndex.nodes.map((n) => [n.id, n])
     );
     return DEMO_IDS.map((id) => byId.get(id)).filter(
-      (n): n is TechNodeBasic => n != null
+      (n): n is NodesIndexEntry => n != null
     );
   }, []);
 

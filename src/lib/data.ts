@@ -11,9 +11,7 @@ import type {
   CraftingLink,
   MaterialLevel,
   NaturalOrigin,
-  NatureType,
   NodeDimension,
-  OriginType,
   SeedNode,
 } from '@/lib/types';
 import { rowIsDraft } from '@/lib/draft-flag';
@@ -34,35 +32,34 @@ function mapRowMaterialLevel(row: Record<string, unknown>): MaterialLevel | null
   return String(m) as MaterialLevel;
 }
 
-function mapRowNaturalOrigin(
+export function mapRowNaturalOrigin(
   row: Record<string, unknown>
 ): NaturalOrigin | null {
-  const v = row.natural_origin;
-  if (v == null || v === '') return null;
-  return String(v) as NaturalOrigin;
-}
-
-function mapRowChemicalNature(
-  row: Record<string, unknown>
-): ChemicalNature | null {
-  const v = row.chemical_nature;
-  if (v == null || v === '') return null;
-  return String(v) as ChemicalNature;
-}
-
-function mapRowOriginType(row: Record<string, unknown>): OriginType | null {
-  const v = row.origin_type;
-  if (v == null || v === '') return null;
-  const s = String(v);
-  if (s === 'mineral' || s === 'vegetal' || s === 'animal') return s;
+  const raw =
+    row.natural_origin != null && String(row.natural_origin).trim() !== ''
+      ? row.natural_origin
+      : row.origin_type;
+  if (raw == null || raw === '') return null;
+  const s = String(raw);
+  if (s === 'vegetal') return 'plant';
+  if (s === 'mineral' || s === 'plant' || s === 'animal') return s as NaturalOrigin;
   return null;
 }
 
-function mapRowNatureType(row: Record<string, unknown>): NatureType | null {
-  const v = row.nature_type;
-  if (v == null || v === '') return null;
-  const s = String(v);
-  if (s === 'element' || s === 'compose' || s === 'materiau') return s;
+export function mapRowChemicalNature(
+  row: Record<string, unknown>
+): ChemicalNature | null {
+  const raw =
+    row.chemical_nature != null && String(row.chemical_nature).trim() !== ''
+      ? row.chemical_nature
+      : row.nature_type;
+  if (raw == null || raw === '') return null;
+  const s = String(raw);
+  if (s === 'compose') return 'compound';
+  if (s === 'materiau') return 'material';
+  if (s === 'element' || s === 'compound' || s === 'material') {
+    return s as ChemicalNature;
+  }
   return null;
 }
 
@@ -133,7 +130,15 @@ export function isMissingNatureColumnsError(
     String(err.details ?? ''),
     String(err.hint ?? ''),
   ].join(' ');
-  return m.includes('natural_origin') || m.includes('chemical_nature');
+  const mentions =
+    m.includes('natural_origin') || m.includes('chemical_nature');
+  if (!mentions) return false;
+  /** Postgres 42703 ; PostgREST « Could not find … column … schema cache » ; « does not exist ». */
+  if (String(err.code ?? '') === '42703') return true;
+  if (/\bdoes not exist\b/i.test(m)) return true;
+  if (/\bschema cache\b/i.test(m)) return true;
+  if (/\bcould not find\b/i.test(m) && /\bcolumn\b/i.test(m)) return true;
+  return false;
 }
 
 /** Colonne `is_draft` absente (migration non appliquée). */
@@ -350,8 +355,6 @@ export function mapGraphNodeRowToSeedNode(row: Record<string, unknown>): SeedNod
     materialLevel: mapRowMaterialLevel(row),
     naturalOrigin: mapRowNaturalOrigin(row),
     chemicalNature: mapRowChemicalNature(row),
-    origin_type: mapRowOriginType(row),
-    nature_type: mapRowNatureType(row),
     is_draft: rowIsDraft(row),
     is_locked: rowIsLocked(row),
   };
@@ -381,8 +384,6 @@ export function mapNodeRowToSeedNode(row: Record<string, unknown>): SeedNode {
     materialLevel: mapRowMaterialLevel(row),
     naturalOrigin: mapRowNaturalOrigin(row),
     chemicalNature: mapRowChemicalNature(row),
-    origin_type: mapRowOriginType(row),
-    nature_type: mapRowNatureType(row),
     is_draft: rowIsDraft(row),
     is_locked: rowIsLocked(row),
   };

@@ -31,7 +31,12 @@ export function trackEvent(
       session_id: getSessionId(),
       metadata: metadata ?? {},
     })
-    .then(() => {
-      /* résultat ignoré */
-    });
+    .then(
+      () => {
+        /* résultat ignoré */
+      },
+      () => {
+        /* réseau / RLS / hors-ligne : ne pas polluer la console */
+      }
+    );
 }

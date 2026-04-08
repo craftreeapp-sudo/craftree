@@ -2,82 +2,162 @@
 
 import { useId, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import type {
-  RelationType,
-  NodeCategory,
-  TechNodeBasic,
-  TechNodeDetails,
-} from '@/lib/types';
+import type { NodeCategory, TechNodeBasic, TechNodeDetails } from '@/lib/types';
 import type { SuggestLinkSnapshot } from '@/lib/suggestion-link-snapshot';
 import { getCategoryColor } from '@/lib/colors';
 import { matchesSearchTokens } from '@/lib/suggest-peer-search';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
 import { safeCategoryLabel } from '@/lib/safe-category-label';
+import { normalizeRelationTypeForUi } from '@/lib/relation-display';
+import { PeerInventionThumb } from '@/components/explore/PeerInventionThumb';
+import { useGraphStore } from '@/stores/graph-store';
+import type { LinkNeighborhoodMode } from '@/stores/ui-store';
+import {
+  INVENTION_KIND_ORDER,
+  type InventionKindKey,
+  inventionKindFromLinkAndPeer,
+  relationTypeFromInventionKind,
+} from '@/lib/invention-classification';
+import { RelationType } from '@/lib/types';
 
-/** Inclut `process` : valeur parfois présente en base (confusion avec la dimension nœud), hors enum RelationType. */
-const RELATION_DOT: Record<RelationType | 'process', string> = {
-  material: '#94A3B8',
-  tool: '#A78BFA',
-  energy: '#EF4444',
-  knowledge: '#38BDF8',
-  catalyst: 'rgba(139, 149, 168, 0.5)',
-  process: '#4ADE80',
+const RELATION_DOT: Record<RelationType, string> = {
+  [RelationType.MATERIAL]: '#94A3B8',
+  [RelationType.COMPONENT]: '#EAB308',
+  [RelationType.TOOL]: '#A78BFA',
+  [RelationType.ENERGY]: '#EF4444',
+  [RelationType.PROCESS]: '#38BDF8',
+  [RelationType.INFRASTRUCTURE]: '#64748B',
 };
 
 const MAX_GLOBAL_RESULTS = 200;
 
-export type SuggestLinkCardVariant = 'default' | 'stagedRemoval' | 'pendingAdd';
+export type SuggestLinkCardVariant =
+  | 'default'
+  | 'existing'
+  | 'stagedRemoval'
+  | 'pendingAdd'
+  | 'unresolvedAdd';
 
 type CardProps = {
   linkId: string;
+  peerId: string;
   peerLabel: string;
   peerCategory: NodeCategory;
+  detailsById: Record<string, TechNodeDetails | undefined>;
   value: SuggestLinkSnapshot;
   onRemove: (linkId: string) => void;
   /** Pas de bouton retirer (contributeur non connecté). */
   readOnly?: boolean;
   variant?: SuggestLinkCardVariant;
   onRestore?: (linkId: string) => void;
+  /** Admin ou utilisateur connecté : liste déroulante pour le type de relation */
+  showRelationPicker?: boolean;
+  onChangeInventionKind?: (
+    linkId: string,
+    peerId: string,
+    kind: InventionKindKey
+  ) => void;
+  /**
+   * Affiche le choix direct / étendu par lien (`is_optional` ↔ étendu) entre le type de relation et le bouton retirer.
+   */
+  showInlineLinkNeighborhood?: boolean;
+  /** Requis si `showInlineLinkNeighborhood` : met à jour le type direct/étendu pour ce lien uniquement. */
+  onChangeLinkNeighborhood?: (
+    linkId: string,
+    mode: LinkNeighborhoodMode
+  ) => void;
+  /** Admin modération : déplacer le lien vers l’autre section (À permis ↔ Obtenu à partir de). */
+  onMoveToOtherLinkSection?: () => void;
+  moveToOtherLinkSectionAria?: string;
+  /** Sous-titre sous le nom (ex. « via … » pour un hop étendu). */
+  subtitle?: string | null;
+  /** Classes additionnelles sur le `<li>` (ex. bordure en pointillés). */
+  listItemExtraClassName?: string;
+  /** Quand le pair n’est pas dans le graphe (ex. `__unresolved__`), classification stockée sur le brouillon d’ajout. */
+  peerKindHint?: Pick<TechNodeBasic, 'dimension' | 'materialLevel'>;
 };
 
 export function SuggestLinkEditCard({
   linkId,
+  peerId,
   peerLabel,
   peerCategory,
+  detailsById,
   value,
   onRemove,
   readOnly = false,
   variant = 'default',
   onRestore,
+  showRelationPicker = false,
+  onChangeInventionKind,
+  showInlineLinkNeighborhood = false,
+  onChangeLinkNeighborhood,
+  onMoveToOtherLinkSection,
+  moveToOtherLinkSectionAria,
+  subtitle,
+  listItemExtraClassName,
+  peerKindHint,
 }: CardProps) {
-  const tRel = useTranslations('relationTypes');
+  const relationFieldId = useId();
+  const neighborhoodFieldId = useId();
+  const tInv = useTranslations('inventionKinds');
   const tEx = useTranslations('explore');
   const te = useTranslations('editor');
-  const rel = value.relation_type;
+  const peerNode = useGraphStore((s) => s.getNodeById(peerId));
+  const imageBust = useGraphStore((s) => s.imageBustByNodeId[peerId] ?? 0);
+  const peerImageUrl =
+    peerNode?.image_url?.trim() ??
+    detailsById[peerId]?.image_url?.trim() ??
+    null;
+  const rel = normalizeRelationTypeForUi(String(value.relation_type));
+  const peerForKind = peerNode ?? peerKindHint;
+  const kind = inventionKindFromLinkAndPeer(rel, peerForKind);
+  const rtForDot = relationTypeFromInventionKind(kind);
   const dotColor =
-    rel === 'material'
+    kind === 'matter_raw' ||
+    kind === 'matter_processed' ||
+    kind === 'matter_industrial'
       ? getCategoryColor(peerCategory)
-      : RELATION_DOT[rel as RelationType | 'process'] ?? RELATION_DOT.knowledge;
+      : RELATION_DOT[rtForDot] ?? RELATION_DOT[RelationType.INFRASTRUCTURE];
 
-  const isOrange =
-    variant === 'stagedRemoval' || variant === 'pendingAdd';
-  const cardClass = isOrange
-    ? 'border-[#F59E0B]/80 bg-amber-950/25 ring-1 ring-[#F59E0B]/35'
-    : 'border-border/80 bg-surface/40';
+  const showNeighborhoodRow =
+    Boolean(showInlineLinkNeighborhood) &&
+    showRelationPicker &&
+    Boolean(onChangeInventionKind) &&
+    Boolean(onChangeLinkNeighborhood) &&
+    !readOnly;
+
+  const linkTypeMode: LinkNeighborhoodMode = value.is_optional
+    ? 'direct_and_extended'
+    : 'direct';
+
+  /** Accent : orange = suppression proposée, vert = lien vers fiche existante, bleu = fiche à créer, gris = inchangé. */
+  const cardClass =
+    variant === 'stagedRemoval'
+      ? 'border-[#F59E0B]/80 bg-amber-950/25 ring-1 ring-[#F59E0B]/35'
+      : variant === 'pendingAdd'
+        ? 'border-emerald-500/50 bg-emerald-950/20 ring-1 ring-emerald-500/25'
+        : variant === 'unresolvedAdd'
+          ? 'border-sky-500/50 bg-sky-950/25 ring-1 ring-sky-500/30'
+          : variant === 'existing' || variant === 'default'
+            ? 'border-border/50 bg-surface/25 ring-1 ring-border/30'
+            : 'border-border/80 bg-surface/40';
+
+  const showListHover = !readOnly && variant === 'default';
 
   return (
     <li
       className={`relative rounded-md border px-2 py-2.5 transition-[background-color,border-color,box-shadow] duration-150 ${
-        isOrange
-          ? ''
-          : 'hover:border-accent/35 hover:bg-surface/60 hover:shadow-sm'
-      } ${cardClass} ${readOnly ? 'pr-2' : 'pr-9'}`}
+        showListHover
+          ? 'hover:border-accent/35 hover:bg-surface/60 hover:shadow-sm'
+          : ''
+      } ${cardClass} ${readOnly ? 'pr-2' : 'pr-9'} ${listItemExtraClassName ?? ''}`}
     >
       {!readOnly && variant === 'stagedRemoval' && onRestore ? (
         <button
           type="button"
           onClick={() => onRestore(linkId)}
-          className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded p-0.5 text-[#F59E0B] transition-colors hover:bg-[#F59E0B]/20 hover:text-amber-300"
+          className="absolute right-2 top-2 z-10 rounded p-0.5 text-[#F59E0B] transition-colors hover:bg-[#F59E0B]/20 hover:text-amber-300"
           aria-label={tEx('suggestLinkRestoreAria')}
         >
           <svg
@@ -100,29 +180,157 @@ export function SuggestLinkEditCard({
         <button
           type="button"
           onClick={() => onRemove(linkId)}
-          className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded p-0.5 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
+          className="absolute right-2 top-2 z-10 rounded p-0.5 text-muted-foreground transition-colors hover:bg-border hover:text-foreground"
           aria-label={te('removeLinkAria')}
+          title={
+            variant === 'unresolvedAdd'
+              ? te('unresolvedCardCreateOnApproveHint')
+              : undefined
+          }
         >
           <span className="text-lg leading-none" aria-hidden>
             ×
           </span>
         </button>
       ) : null}
-      <div className="flex gap-3">
-        <span
-          className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full ring-2 ring-white/10"
-          style={{
-            backgroundColor: dotColor,
-            opacity: rel === 'catalyst' ? 0.6 : 1,
-          }}
-          title={tRel(rel)}
+      <div className="flex items-start gap-1.5 sm:gap-2">
+        {onMoveToOtherLinkSection &&
+        !readOnly &&
+        variant !== 'stagedRemoval' ? (
+          <button
+            type="button"
+            onClick={onMoveToOtherLinkSection}
+            className="mt-0.5 shrink-0 rounded-md border border-border/70 bg-surface/80 p-1 text-muted-foreground transition-colors hover:border-accent/40 hover:bg-surface hover:text-foreground"
+            aria-label={moveToOtherLinkSectionAria ?? ''}
+            title={moveToOtherLinkSectionAria}
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <path d="M7 16V4M7 4 3 8M7 4l4 4" />
+              <path d="M17 8v12m0 0 4-4m-4 4-4-4" />
+            </svg>
+          </button>
+        ) : null}
+        <div className="flex min-w-0 flex-1 items-start gap-2.5">
+        <PeerInventionThumb
+          category={peerCategory}
+          imageUrl={peerImageUrl}
+          imageBust={imageBust}
         />
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium leading-snug text-accent">{peerLabel}</p>
-          <p className="mt-0.5 text-xs text-muted-foreground">
-            {tRel(rel)}
-            {value.is_optional ? ` · ${tEx('optional')}` : ''}
-          </p>
+          <div className="flex w-full min-w-0 items-center gap-1.5">
+            <span className="min-w-0 truncate text-sm font-medium leading-snug text-accent">
+              {peerLabel}
+            </span>
+            <span
+              className="h-2.5 w-2.5 shrink-0 rounded-full ring-2 ring-white/10"
+              style={{
+                backgroundColor: dotColor,
+              }}
+              title={tInv(kind)}
+            />
+          </div>
+          {subtitle ? (
+            <p className="mt-0.5 text-xs text-muted-foreground">{subtitle}</p>
+          ) : null}
+          {showRelationPicker &&
+          onChangeInventionKind &&
+          !readOnly ? (
+            <div className="mt-1.5 w-full min-w-0">
+              {showNeighborhoodRow ? (
+                <div className="flex w-full min-w-0 flex-nowrap items-end gap-x-2 sm:gap-x-3">
+                  <div className="min-w-0 flex-[1_1_0]">
+                    <p className="mb-1 truncate text-[10px] font-medium text-muted-foreground">
+                      {te('linkColumnRelationTypes')}
+                    </p>
+                    <label className="sr-only" htmlFor={relationFieldId}>
+                      {te('relationTypeLabel')}
+                    </label>
+                    <select
+                      id={relationFieldId}
+                      value={kind}
+                      onChange={(e) =>
+                        onChangeInventionKind(
+                          linkId,
+                          peerId,
+                          e.target.value as InventionKindKey
+                        )
+                      }
+                      className="w-full min-w-0 max-w-full rounded-md border border-border/80 bg-surface px-2 py-1.5 text-xs font-medium text-foreground outline-none ring-1 ring-border/40 focus:border-accent focus:ring-2 focus:ring-accent/25"
+                    >
+                      {INVENTION_KIND_ORDER.map((k) => (
+                        <option key={k} value={k}>
+                          {tInv(k)}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="min-w-0 flex-[1_1_0]">
+                    <p className="mb-1 truncate text-[10px] font-medium text-muted-foreground">
+                      {te('linkColumnLinkType')}
+                    </p>
+                    <label className="sr-only" htmlFor={neighborhoodFieldId}>
+                      {tEx('linkNeighborhoodSelectAria')}
+                    </label>
+                    <select
+                      id={neighborhoodFieldId}
+                      value={linkTypeMode}
+                      onChange={(e) =>
+                        onChangeLinkNeighborhood?.(
+                          linkId,
+                          e.target.value as LinkNeighborhoodMode
+                        )
+                      }
+                      className="w-full min-w-0 rounded-md border border-border/80 bg-surface px-2 py-1.5 text-xs font-medium text-foreground outline-none ring-1 ring-border/40 focus:border-accent focus:ring-2 focus:ring-accent/25"
+                    >
+                      <option value="direct">
+                        {tEx('linkNeighborhoodDirect')}
+                      </option>
+                      <option value="direct_and_extended">
+                        {tEx('linkNeighborhoodDirectAndExtended')}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex w-full min-w-0 flex-wrap items-center gap-2">
+                  <label className="sr-only" htmlFor={relationFieldId}>
+                    {te('relationTypeLabel')}
+                  </label>
+                  <select
+                    id={relationFieldId}
+                    value={kind}
+                    onChange={(e) =>
+                      onChangeInventionKind(
+                        linkId,
+                        peerId,
+                        e.target.value as InventionKindKey
+                      )
+                    }
+                    className="min-w-[6.5rem] max-w-full shrink-0 rounded-md border border-border/80 bg-surface px-2 py-1.5 text-xs font-medium text-foreground outline-none ring-1 ring-border/40 focus:border-accent focus:ring-2 focus:ring-accent/25 sm:max-w-[12rem]"
+                  >
+                    {INVENTION_KIND_ORDER.map((k) => (
+                      <option key={k} value={k}>
+                        {tInv(k)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+            </div>
+          ) : (
+            <p className="mt-0.5 text-xs text-muted-foreground">{tInv(kind)}</p>
+          )}
+        </div>
         </div>
       </div>
     </li>
@@ -142,6 +350,9 @@ function SuggestBrowseReadOnlyCard({
 }) {
   const tCat = useTranslations('categories');
   const te = useTranslations('editor');
+  const imageBust = useGraphStore((s) => s.imageBustByNodeId[node.id] ?? 0);
+  const peerImageUrl =
+    node.image_url?.trim() ?? detailsById[node.id]?.image_url?.trim() ?? null;
   const label = pickNodeDisplayName(
     locale,
     node.name,
@@ -150,13 +361,22 @@ function SuggestBrowseReadOnlyCard({
   const dotColor = getCategoryColor(node.category as NodeCategory);
 
   const inner = (
-    <div className="flex gap-3">
-      <span
-        className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full ring-2 ring-white/10"
-        style={{ backgroundColor: dotColor }}
+    <div className="flex items-start gap-2.5">
+      <PeerInventionThumb
+        category={node.category as NodeCategory}
+        imageUrl={peerImageUrl}
+        imageBust={imageBust}
       />
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-medium leading-snug text-accent">{label}</p>
+        <div className="flex w-full min-w-0 items-center gap-1.5">
+          <span className="min-w-0 truncate text-sm font-medium leading-snug text-accent">
+            {label}
+          </span>
+          <span
+            className="h-2.5 w-2.5 shrink-0 rounded-full ring-2 ring-white/10"
+            style={{ backgroundColor: dotColor }}
+          />
+        </div>
         <p className="mt-0.5 text-xs text-muted-foreground">
           {safeCategoryLabel(tCat, String(node.category))}
         </p>
@@ -205,6 +425,7 @@ type SectionProps = {
     peerCategory: NodeCategory;
     value: SuggestLinkSnapshot;
     variant?: SuggestLinkCardVariant;
+    peerKindHint?: Pick<TechNodeBasic, 'dimension' | 'materialLevel'>;
   }[];
   onRemove: (linkId: string) => void;
   /** Annuler une suppression de lien existant. */
@@ -213,6 +434,27 @@ type SectionProps = {
   onAddPeer?: (peerId: string) => void;
   /** Masque recherche / ajout ; cartes sans bouton retirer. */
   readOnly?: boolean;
+  /** Admin ou utilisateur connecté : permet de choisir le type de relation par lien */
+  showRelationPicker?: boolean;
+  onChangeInventionKind?: (
+    linkId: string,
+    peerId: string,
+    kind: InventionKindKey
+  ) => void;
+  /** Masque le titre repliable « Section (n) » (ex. section Obtenu à partir de). */
+  hideSectionHeading?: boolean;
+  /**
+   * Affiche le sélecteur direct / étendu par lien sur chaque ligne (entre type de relation et ×).
+   */
+  linkNeighborhoodInLinkRows?: boolean;
+  onChangeLinkNeighborhood?: (
+    linkId: string,
+    mode: LinkNeighborhoodMode
+  ) => void;
+  /** Section de cette liste : sert au libellé du bouton « déplacer vers l’autre section ». */
+  listSection?: 'ledTo' | 'builtUpon';
+  /** Déplace un lien vers l’autre section (admin). */
+  onMoveLinkToOtherSection?: (linkId: string) => void;
   /** Classes additionnelles sur le `<section>` (ex. `!mt-0`). */
   className?: string;
 };
@@ -233,12 +475,26 @@ export function SuggestLinkSection({
   onRestoreLink,
   onAddPeer,
   readOnly = false,
+  showRelationPicker = false,
+  onChangeInventionKind,
+  linkNeighborhoodInLinkRows = false,
+  onChangeLinkNeighborhood,
+  listSection,
+  onMoveLinkToOtherSection,
   className,
+  hideSectionHeading = false,
 }: SectionProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const searchInputId = useId();
   const tConn = useTranslations('connectionPopup');
   const tCommon = useTranslations('common');
+  const tEditor = useTranslations('editor');
+  const moveOtherAria =
+    listSection === 'ledTo'
+      ? tEditor('moveLinkToBuiltUponSection')
+      : listSection === 'builtUpon'
+        ? tEditor('moveLinkToLedToSection')
+        : undefined;
 
   const globalMatches = useMemo(() => {
     const q = searchQuery.trim();
@@ -264,35 +520,39 @@ export function SuggestLinkSection({
     return m;
   }, [existingRows]);
 
+  const sectionOpen = hideSectionHeading || open;
+
   return (
     <section className={`mt-6 ${className ?? ''}`}>
-      <button
-        type="button"
-        onClick={onToggleOpen}
-        className="mb-3 flex w-full items-center justify-between gap-2 rounded-md py-1.5 text-start transition-colors hover:bg-surface/50"
-        aria-expanded={open}
-      >
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          {sectionTitle} ({count})
-        </h3>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={`shrink-0 text-muted-foreground transition-transform duration-200 ${
-            open ? 'rotate-180' : ''
-          }`}
-          aria-hidden
+      {!hideSectionHeading ? (
+        <button
+          type="button"
+          onClick={onToggleOpen}
+          className="mb-3 flex w-full items-center justify-between gap-2 rounded-md py-1.5 text-start transition-colors hover:bg-surface/50"
+          aria-expanded={open}
         >
-          <path d="m6 9 6 6 6-6" />
-        </svg>
-      </button>
-      {open ? (
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            {sectionTitle} ({count})
+          </h3>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`shrink-0 text-muted-foreground transition-transform duration-200 ${
+              open ? 'rotate-180' : ''
+            }`}
+            aria-hidden
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </button>
+      ) : null}
+      {sectionOpen ? (
         <>
           {readOnly ? (
             existingRows.length === 0 ? (
@@ -300,17 +560,40 @@ export function SuggestLinkSection({
             ) : (
               <ul className="space-y-3">
                 {existingRows.map(
-                  ({ linkId, peerLabel, peerCategory, value, variant }) => (
+                  ({
+                    linkId,
+                    peerId,
+                    peerLabel,
+                    peerCategory,
+                    value,
+                    variant,
+                    peerKindHint,
+                  }) => (
                     <SuggestLinkEditCard
                       key={linkId}
                       linkId={linkId}
+                      peerId={peerId}
                       peerLabel={peerLabel}
                       peerCategory={peerCategory}
+                      detailsById={detailsById}
                       value={value}
                       onRemove={onRemove}
                       variant={variant ?? 'default'}
                       onRestore={onRestoreLink}
                       readOnly
+                      showRelationPicker={showRelationPicker}
+                      onChangeInventionKind={onChangeInventionKind}
+                      showInlineLinkNeighborhood={linkNeighborhoodInLinkRows}
+                      onChangeLinkNeighborhood={onChangeLinkNeighborhood}
+                      peerKindHint={peerKindHint}
+                      onMoveToOtherLinkSection={
+                        onMoveLinkToOtherSection &&
+                        moveOtherAria &&
+                        (variant ?? 'default') !== 'stagedRemoval'
+                          ? () => onMoveLinkToOtherSection(linkId)
+                          : undefined
+                      }
+                      moveToOtherLinkSectionAria={moveOtherAria}
                     />
                   )
                 )}
@@ -339,16 +622,39 @@ export function SuggestLinkSection({
             ) : (
               <ul className="space-y-3">
                 {existingRows.map(
-                  ({ linkId, peerLabel, peerCategory, value, variant }) => (
+                  ({
+                    linkId,
+                    peerId,
+                    peerLabel,
+                    peerCategory,
+                    value,
+                    variant,
+                    peerKindHint,
+                  }) => (
                     <SuggestLinkEditCard
                       key={linkId}
                       linkId={linkId}
+                      peerId={peerId}
                       peerLabel={peerLabel}
                       peerCategory={peerCategory}
+                      detailsById={detailsById}
                       value={value}
                       onRemove={onRemove}
                       variant={variant ?? 'default'}
                       onRestore={onRestoreLink}
+                      showRelationPicker={showRelationPicker}
+                      onChangeInventionKind={onChangeInventionKind}
+                      showInlineLinkNeighborhood={linkNeighborhoodInLinkRows}
+                      onChangeLinkNeighborhood={onChangeLinkNeighborhood}
+                      peerKindHint={peerKindHint}
+                      onMoveToOtherLinkSection={
+                        onMoveLinkToOtherSection &&
+                        moveOtherAria &&
+                        (variant ?? 'default') !== 'stagedRemoval'
+                          ? () => onMoveLinkToOtherSection(linkId)
+                          : undefined
+                      }
+                      moveToOtherLinkSectionAria={moveOtherAria}
                     />
                   )
                 )}
@@ -367,12 +673,27 @@ export function SuggestLinkSection({
                       <SuggestLinkEditCard
                         key={row.linkId}
                         linkId={row.linkId}
+                        peerId={row.peerId}
                         peerLabel={row.peerLabel}
                         peerCategory={row.peerCategory}
+                        detailsById={detailsById}
                         value={row.value}
                         onRemove={onRemove}
                         variant={row.variant ?? 'default'}
                         onRestore={onRestoreLink}
+                        showRelationPicker={showRelationPicker}
+                        onChangeInventionKind={onChangeInventionKind}
+                        showInlineLinkNeighborhood={linkNeighborhoodInLinkRows}
+                        onChangeLinkNeighborhood={onChangeLinkNeighborhood}
+                        peerKindHint={row.peerKindHint}
+                        onMoveToOtherLinkSection={
+                          onMoveLinkToOtherSection &&
+                          moveOtherAria &&
+                          (row.variant ?? 'default') !== 'stagedRemoval'
+                            ? () => onMoveLinkToOtherSection(row.linkId)
+                            : undefined
+                        }
+                        moveToOtherLinkSectionAria={moveOtherAria}
                       />
                     );
                   }

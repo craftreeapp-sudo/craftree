@@ -39,18 +39,17 @@ function seedNodeToTechBasic(n: SeedNode): TechNodeBasic {
     materialLevel: n.materialLevel ?? null,
     naturalOrigin: n.naturalOrigin ?? null,
     chemicalNature: n.chemicalNature ?? null,
-    origin_type: n.origin_type ?? null,
-    nature_type: n.nature_type ?? null,
   };
 }
 
 function relationSortOrder(r: RelationType): number {
   const order: Record<RelationType, number> = {
     material: 0,
-    energy: 1,
-    tool: 2,
-    knowledge: 3,
-    catalyst: 4,
+    component: 1,
+    energy: 2,
+    tool: 3,
+    process: 4,
+    infrastructure: 5,
   };
   return order[r] ?? 9;
 }

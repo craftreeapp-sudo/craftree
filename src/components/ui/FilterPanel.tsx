@@ -4,20 +4,15 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useUIStore } from '@/stores/ui-store';
 import { getCategoryColor } from '@/lib/colors';
-import {
-  DIMENSION_ORDER,
-  ERA_ORDER,
-  MATERIAL_LEVEL_ORDER,
-  NODE_CATEGORY_ORDER,
-} from '@/lib/node-labels';
-import {
-  EDITOR_DIM_KEY,
-  EDITOR_LEVEL_KEY,
-} from '@/components/editor/dimension-editor-keys';
+import { ERA_ORDER, NODE_CATEGORY_ORDER } from '@/lib/node-labels';
 import { eraLabelFromMessages } from '@/lib/era-display';
-import type { Era, MaterialLevel, NodeDimension } from '@/lib/types';
+import type { Era } from '@/lib/types';
+import {
+  INVENTION_KIND_ORDER,
+  type InventionKindKey,
+} from '@/lib/invention-classification';
 
-type OpenPanel = 'categories' | 'eras' | 'dimensions' | 'materialLevels' | null;
+type OpenPanel = 'categories' | 'eras' | 'classification' | null;
 
 const CATEGORY_PREVIEW_COUNT = 5;
 
@@ -32,7 +27,7 @@ export function FilterPanel() {
   const tf = useTranslations('filters');
   const tc = useTranslations('common');
   const tCat = useTranslations('categories');
-  const te = useTranslations('editor');
+  const tInv = useTranslations('inventionKinds');
 
   const [open, setOpen] = useState<OpenPanel>(null);
   const [showAllCategories, setShowAllCategories] = useState(false);
@@ -40,20 +35,17 @@ export function FilterPanel() {
 
   const activeCategories = useUIStore((s) => s.activeCategories);
   const activeEras = useUIStore((s) => s.activeEras);
-  const activeDimensions = useUIStore((s) => s.activeDimensions);
-  const activeMaterialLevels = useUIStore((s) => s.activeMaterialLevels);
+  const activeInventionKinds = useUIStore((s) => s.activeInventionKinds);
   const toggleCategory = useUIStore((s) => s.toggleCategory);
   const toggleEra = useUIStore((s) => s.toggleEra);
-  const toggleDimension = useUIStore((s) => s.toggleDimension);
-  const toggleMaterialLevel = useUIStore((s) => s.toggleMaterialLevel);
+  const toggleInventionKind = useUIStore((s) => s.toggleInventionKind);
   const setAllCategories = useUIStore((s) => s.setAllCategories);
   const setAllEras = useUIStore((s) => s.setAllEras);
-  const setAllDimensions = useUIStore((s) => s.setAllDimensions);
-  const setAllMaterialLevels = useUIStore((s) => s.setAllMaterialLevels);
+  const setAllInventionKinds = useUIStore((s) => s.setAllInventionKinds);
 
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
-      if (rootRef.current && !rootRef.current.contains(e.target as Node)) {
+      if (rootRef.current && !rootRef.current.contains(e.target as globalThis.Node)) {
         setOpen(null);
         setShowAllCategories(false);
       }
@@ -212,47 +204,47 @@ export function FilterPanel() {
         ) : null}
       </div>
 
-      {/* Dimensions / procédé / outil */}
+      {/* Types de fiche (8 kinds) */}
       <div className="relative">
         <button
           type="button"
           className={panelBtnClass}
-          aria-expanded={open === 'dimensions'}
+          aria-expanded={open === 'classification'}
           aria-haspopup="listbox"
-          onClick={() => toggle('dimensions')}
+          onClick={() => toggle('classification')}
         >
-          {tf('dimensions')}
+          {tf('classification')}
           <span className="text-muted-foreground" aria-hidden>
             ▾
           </span>
         </button>
-        {open === 'dimensions' ? (
+        {open === 'classification' ? (
           <div
             className={dropdownClass}
             role="listbox"
-            aria-label={tf('dimensions')}
+            aria-label={tf('classification')}
           >
             <div className="mb-2 flex gap-2 border-b border-border px-3 pb-2">
               <button
                 type="button"
                 className="rounded bg-border/35 px-2 py-1 text-[11px] text-foreground hover:bg-border/55"
-                onClick={() => setAllDimensions(true)}
+                onClick={() => setAllInventionKinds(true)}
               >
                 {tc('all')}
               </button>
               <button
                 type="button"
                 className="rounded bg-border/35 px-2 py-1 text-[11px] text-foreground hover:bg-border/55"
-                onClick={() => setAllDimensions(false)}
+                onClick={() => setAllInventionKinds(false)}
               >
                 {tc('none')}
               </button>
             </div>
             <ul className="space-y-0.5 px-2">
-              {DIMENSION_ORDER.map((d) => {
-                const active = activeDimensions.has(d);
+              {INVENTION_KIND_ORDER.map((k) => {
+                const active = activeInventionKinds.has(k);
                 return (
-                  <li key={d}>
+                  <li key={k}>
                     <button
                       type="button"
                       role="option"
@@ -262,74 +254,9 @@ export function FilterPanel() {
                           ? 'bg-surface-elevated text-foreground'
                           : 'text-muted-foreground hover:bg-surface-elevated/80'
                       }`}
-                      onClick={() => toggleDimension(d as NodeDimension)}
+                      onClick={() => toggleInventionKind(k)}
                     >
-                      <span className="flex-1">{te(EDITOR_DIM_KEY[d])}</span>
-                      {active ? (
-                        <span className="text-[10px] text-accent">✓</span>
-                      ) : null}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        ) : null}
-      </div>
-
-      {/* Niveau matière (cartes « matière ») */}
-      <div className="relative">
-        <button
-          type="button"
-          className={panelBtnClass}
-          aria-expanded={open === 'materialLevels'}
-          aria-haspopup="listbox"
-          onClick={() => toggle('materialLevels')}
-        >
-          {tf('materialLevels')}
-          <span className="text-muted-foreground" aria-hidden>
-            ▾
-          </span>
-        </button>
-        {open === 'materialLevels' ? (
-          <div
-            className={dropdownClass}
-            role="listbox"
-            aria-label={tf('materialLevels')}
-          >
-            <div className="mb-2 flex gap-2 border-b border-border px-3 pb-2">
-              <button
-                type="button"
-                className="rounded bg-border/35 px-2 py-1 text-[11px] text-foreground hover:bg-border/55"
-                onClick={() => setAllMaterialLevels(true)}
-              >
-                {tc('all')}
-              </button>
-              <button
-                type="button"
-                className="rounded bg-border/35 px-2 py-1 text-[11px] text-foreground hover:bg-border/55"
-                onClick={() => setAllMaterialLevels(false)}
-              >
-                {tc('none')}
-              </button>
-            </div>
-            <ul className="space-y-0.5 px-2">
-              {MATERIAL_LEVEL_ORDER.map((lv) => {
-                const active = activeMaterialLevels.has(lv);
-                return (
-                  <li key={lv}>
-                    <button
-                      type="button"
-                      role="option"
-                      aria-selected={active}
-                      className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-start text-sm transition-colors ${
-                        active
-                          ? 'bg-surface-elevated text-foreground'
-                          : 'text-muted-foreground hover:bg-surface-elevated/80'
-                      }`}
-                      onClick={() => toggleMaterialLevel(lv as MaterialLevel)}
-                    >
-                      <span className="flex-1">{te(EDITOR_LEVEL_KEY[lv])}</span>
+                      <span className="flex-1">{tInv(k)}</span>
                       {active ? (
                         <span className="text-[10px] text-accent">✓</span>
                       ) : null}

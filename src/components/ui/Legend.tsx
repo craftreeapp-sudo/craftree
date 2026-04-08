@@ -7,6 +7,32 @@ import { getCategoryColor } from '@/lib/colors';
 import { isRtlLocale } from '@/lib/i18n-config';
 import { NODE_CATEGORY_ORDER } from '@/lib/node-labels';
 import type { NodeCategory } from '@/lib/types';
+import {
+  INVENTION_KIND_ORDER,
+  type InventionKindKey,
+  relationTypeFromInventionKind,
+} from '@/lib/invention-classification';
+import { RelationType } from '@/lib/types';
+
+const LEGEND_RELATION_DOT: Record<RelationType, string> = {
+  [RelationType.MATERIAL]: '#94A3B8',
+  [RelationType.COMPONENT]: '#EAB308',
+  [RelationType.TOOL]: '#A78BFA',
+  [RelationType.ENERGY]: '#EF4444',
+  [RelationType.PROCESS]: '#38BDF8',
+  [RelationType.INFRASTRUCTURE]: '#64748B',
+};
+
+function legendLinkDot(kind: InventionKindKey): string {
+  if (
+    kind === 'matter_raw' ||
+    kind === 'matter_processed' ||
+    kind === 'matter_industrial'
+  ) {
+    return '#94A3B8';
+  }
+  return LEGEND_RELATION_DOT[relationTypeFromInventionKind(kind)];
+}
 
 const LEGEND_MARGIN_PX = 20;
 /** Marge cohérente avec la zone principale /explore. */
@@ -36,6 +62,7 @@ export function Legend() {
   const locale = useLocale();
   const isRtl = isRtlLocale(locale);
   const t = useTranslations('legend');
+  const tInv = useTranslations('inventionKinds');
   const tc = useTranslations('common');
   const tCat = useTranslations('categories');
   const tSidebar = useTranslations('sidebar');
@@ -114,29 +141,17 @@ export function Legend() {
                 {t('linkTypes')}
               </h3>
               <ul className="space-y-1.5">
-                <li className="flex items-center gap-2">
-                  <span className="inline-block h-px w-7 shrink-0 bg-[#94A3B8]" />
-                  <span>{t('material')}</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span
-                    className="inline-block h-0 w-7 shrink-0 border-t-2 border-dotted border-[#A78BFA]"
-                    style={{ borderStyle: 'dotted' }}
-                  />
-                  <span>{t('tool')}</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="inline-block w-7 shrink-0 border-t-2 border-dashed border-[#EF4444]" />
-                  <span>{t('energy')}</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="inline-block w-7 shrink-0 border-t border-dotted border-[#38BDF8]" />
-                  <span>{t('knowledge')}</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="inline-block h-px w-7 shrink-0 bg-[#8B95A8]/60" />
-                  <span>{t('catalyst')}</span>
-                </li>
+                {INVENTION_KIND_ORDER.map((kind) => (
+                  <li key={kind} className="flex items-center gap-2">
+                    <span
+                      className="inline-block h-1.5 w-7 shrink-0 rounded-sm"
+                      style={{
+                        backgroundColor: legendLinkDot(kind),
+                      }}
+                    />
+                    <span>{tInv(kind)}</span>
+                  </li>
+                ))}
               </ul>
             </section>
             <section>

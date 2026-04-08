@@ -4,6 +4,7 @@ import {
   FULL_NODES_SELECT_LEGACY,
   fetchAllLinkRowsPaginated,
   fetchAllNodeIdsSet,
+  isMissingDraftColumnError,
   isMissingNatureColumnsError,
   mapNodeRowToSeedNode,
 } from '@/lib/data';
@@ -11,15 +12,147 @@ import { createSupabaseServiceRoleClient } from '@/lib/supabase-server';
 import { notifyContributorSuggestionResult } from '@/lib/notify-contributor-suggestion';
 import { dimensionMaterialLevelFromCreateBody } from '@/lib/node-dimension';
 import {
+  naturalOriginAppToDb,
   parseChemicalNature,
   parseNaturalOrigin,
 } from '@/lib/suggest-nature-fields';
 import { slugify } from '@/lib/utils';
 import { fetchWikipediaThumbnailUrl } from '@/lib/wikipedia-thumb';
-import type { AdminEditNodeLinkListsOverride } from '@/lib/admin-suggestion-shared';
-import type { RelationType } from '@/lib/types';
+import type {
+  AdminEditNodeLinkListsOverride,
+  AdminUnresolvedPeerCreate,
+} from '@/lib/admin-suggestion-shared';
+import type { RelationType, SeedNode } from '@/lib/types';
+import { resolveNodeIdByName } from '@/lib/resolve-node-by-name';
 
 export type { AdminEditNodeLinkListsOverride };
+
+/** Résumé renvoyé à l’admin après application d’une suggestion (toasts / traçabilité). */
+export type AdminApproveSummary = {
+  suggestionType: string;
+  /** Nouvelles fiches (new_node + pairs résolus par création). */
+  nodesCreated: number;
+  /** Au moins une fiche existante mise à jour (édition / enrichissement / revue IA). */
+  nodeUpdated: boolean;
+  linksInserted: number;
+  linksUpdated: number;
+  linksDeleted: number;
+};
+
+async function resolvePeerEdgeRef(
+  sb: ReturnType<typeof createSupabaseServiceRoleClient>,
+  ref: string,
+  inventionId: string,
+  logicalToUuid: Map<string, string>,
+  nameToPeerId: Map<string, string>,
+  logicalIdsMeta: Set<string>
+): Promise<string | null> {
+  const t = ref.trim();
+  if (!t) return null;
+  if (t === 'current') return inventionId;
+  if (logicalToUuid.has(t)) return logicalToUuid.get(t)!;
+  const tl = t.toLowerCase();
+  if (nameToPeerId.has(tl)) return nameToPeerId.get(tl)!;
+  if (logicalIdsMeta.has(t) && !logicalToUuid.has(t)) return null;
+  const { data: row } = await sb
+    .from('nodes')
+    .select('id')
+    .eq('id', t)
+    .maybeSingle();
+  if (row) return (row as { id: string }).id;
+  return resolveNodeIdByName(sb, t);
+}
+
+function descriptionFromUnresolvedPeerNotes(
+  notes: string | null | undefined
+): string {
+  if (!notes || !notes.trim()) return '';
+  const t = notes.trim();
+  if (t.toLowerCase().startsWith('ai:')) return t.slice(3).trim();
+  return t;
+}
+
+async function insertMinimalPeerNodeFromParentRow(
+  sb: ReturnType<typeof createSupabaseServiceRoleClient>,
+  parentRow: Record<string, unknown>,
+  suggestedName: string,
+  aiNotesForDescription: string,
+  parentSeed: SeedNode
+): Promise<string> {
+  const cur = parentSeed;
+  let dm = dimensionMaterialLevelFromCreateBody({
+    dimension: cur.dimension,
+    materialLevel: cur.materialLevel,
+  });
+  if (dm.dimension === null) {
+    dm = { dimension: 'matter', materialLevel: 'component' };
+  }
+  const nodeId = await uniqueNodeId(sb, suggestedName);
+
+  const descTrim = aiNotesForDescription.trim();
+  const description = descTrim
+    ? `${suggestedName}\n\n${descTrim}`
+    : `Carte créée lors de l’approbation d’une suggestion (lien avec « ${cur.name} »). À compléter : description détaillée, classification, sources et médias.`;
+
+  const parsedParentNaturalOrigin = parseNaturalOrigin(
+    (parentRow.natural_origin ?? parentRow.origin_type) as string | undefined
+  );
+
+  const insertRow = {
+    id: nodeId,
+    name: suggestedName,
+    name_en: suggestedName,
+    description,
+    description_en: null as string | null,
+    category: cur.category,
+    type: String(cur.category),
+    era: cur.era,
+    year_approx: cur.year_approx ?? null,
+    origin:
+      parentRow.origin != null && String(parentRow.origin).trim()
+        ? String(parentRow.origin)
+        : null,
+    tags: [] as string[],
+    complexity_depth: 0,
+    updated_at: new Date().toISOString(),
+    wikipedia_url: null,
+    image_url: null,
+    dimension: dm.dimension,
+    material_level: dm.materialLevel,
+    /** CHECK SQL : mineral | vegetal | animal — pas la variante app « plant ». */
+    natural_origin:
+      parsedParentNaturalOrigin === ''
+        ? null
+        : naturalOriginAppToDb(parsedParentNaturalOrigin),
+    chemical_nature:
+      parseChemicalNature(
+        (parentRow.chemical_nature ?? parentRow.nature_type) as
+          | string
+          | undefined
+      ) || null,
+    is_draft: true,
+  };
+
+  const rowForInsert: Record<string, unknown> = { ...insertRow };
+  let attempt = await sb.from('nodes').insert(rowForInsert);
+  let nErr = attempt.error;
+
+  if (nErr && isMissingDraftColumnError(nErr)) {
+    delete rowForInsert.is_draft;
+    attempt = await sb.from('nodes').insert(rowForInsert);
+    nErr = attempt.error;
+  }
+
+  if (nErr && isMissingNatureColumnsError(nErr)) {
+    delete rowForInsert.natural_origin;
+    delete rowForInsert.chemical_nature;
+    attempt = await sb.from('nodes').insert(rowForInsert);
+    nErr = attempt.error;
+  }
+
+  if (nErr) throw nErr;
+  return nodeId;
+}
 
 function nextLinkIdFromRows(rows: { id: string }[]): string {
   let max = 0;
@@ -80,7 +213,7 @@ export async function applyApprovedSuggestion(
     /** Commentaire admin (email contributeur, colonne `suggestions.admin_comment`). */
     adminComment?: string | null;
   }
-): Promise<void> {
+): Promise<AdminApproveSummary> {
   const sb = createSupabaseServiceRoleClient();
   const { data: row, error: fetchErr } = await sb
     .from('suggestions')
@@ -99,6 +232,15 @@ export async function applyApprovedSuggestion(
 
   const type = String(row.suggestion_type);
   const data = row.data as Record<string, unknown>;
+
+  const summary: AdminApproveSummary = {
+    suggestionType: type,
+    nodesCreated: 0,
+    nodeUpdated: false,
+    linksInserted: 0,
+    linksUpdated: 0,
+    linksDeleted: 0,
+  };
 
   if (type === 'edit_node' || type === 'ai_review' || type === 'enrichment') {
     const nodeId = row.node_id as string | null;
@@ -151,6 +293,7 @@ export async function applyApprovedSuggestion(
     }
 
     if (upErr) throw upErr;
+    summary.nodeUpdated = true;
 
     const listsOverride = options?.overrideEditNodeLinkLists;
     const removedLinkIds =
@@ -176,6 +319,7 @@ export async function applyApprovedSuggestion(
       if (lr.source_id !== nodeId && lr.target_id !== nodeId) continue;
       const { error: delErr } = await sb.from('links').delete().eq('id', linkId);
       if (delErr) throw delErr;
+      summary.linksDeleted += 1;
     }
 
     if (linkEdits && typeof linkEdits === 'object') {
@@ -205,6 +349,7 @@ export async function applyApprovedSuggestion(
           })
           .eq('id', linkId);
         if (luErr) throw luErr;
+        summary.linksUpdated += 1;
       }
     }
 
@@ -223,10 +368,11 @@ export async function applyApprovedSuggestion(
 
     const validRelations = new Set<string>([
       'material',
+      'component',
       'tool',
       'energy',
-      'knowledge',
-      'catalyst',
+      'process',
+      'infrastructure',
     ]);
 
     for (const add of proposedAddLinks) {
@@ -252,15 +398,159 @@ export async function applyApprovedSuggestion(
           : null;
 
       const newId = await nextLinkId(sb);
+      const addOpt = add as { is_optional?: boolean };
       const { error: insNewErr } = await sb.from('links').insert({
         id: newId,
         source_id: add.source_id,
         target_id: add.target_id,
         relation_type: rel as RelationType,
-        is_optional: false,
+        is_optional: Boolean(addOpt.is_optional),
         notes: addNotes,
       });
       if (insNewErr) throw insNewErr;
+      summary.linksInserted += 1;
+    }
+
+    const proposedUnresolvedRaw =
+      listsOverride &&
+      Object.prototype.hasOwnProperty.call(
+        listsOverride,
+        'proposedUnresolvedPeers'
+      )
+        ? listsOverride.proposedUnresolvedPeers
+        : undefined;
+    const proposedUnresolvedPeers: AdminUnresolvedPeerCreate[] = Array.isArray(
+      proposedUnresolvedRaw
+    )
+      ? (proposedUnresolvedRaw as AdminUnresolvedPeerCreate[])
+      : [];
+
+    const seenUnresolvedKey = new Set<string>();
+    const logicalToUuid = new Map<string, string>();
+    const nameToPeerId = new Map<string, string>();
+    for (const u of proposedUnresolvedPeers) {
+      const name = String(u.suggested_name ?? '').trim();
+      if (!name) continue;
+      const section = u.section === 'builtUpon' ? 'builtUpon' : 'ledTo';
+      const k = `${name.toLowerCase()}|${section}`;
+      if (seenUnresolvedKey.has(k)) continue;
+      seenUnresolvedKey.add(k);
+
+      const peerResolved = await resolveNodeIdByName(sb, name);
+      let peerId: string;
+      if (peerResolved) {
+        peerId = peerResolved;
+      } else {
+        peerId = await insertMinimalPeerNodeFromParentRow(
+          sb,
+          prevRow as unknown as Record<string, unknown>,
+          name,
+          descriptionFromUnresolvedPeerNotes(u.notes),
+          cur
+        );
+        summary.nodesCreated += 1;
+      }
+      nameToPeerId.set(name.toLowerCase(), peerId);
+      const lid = u.logical_id?.trim();
+      if (lid) logicalToUuid.set(lid, peerId);
+
+      const rel = String(u.relation_type ?? '');
+      if (!validRelations.has(rel)) continue;
+
+      const linkSource: string =
+        section === 'ledTo' ? nodeId : peerId;
+      const linkTarget: string =
+        section === 'ledTo' ? peerId : nodeId;
+
+      if (linkSource !== nodeId && linkTarget !== nodeId) continue;
+
+      const { data: dupU } = await sb
+        .from('links')
+        .select('id')
+        .eq('source_id', linkSource)
+        .eq('target_id', linkTarget)
+        .maybeSingle();
+      if (dupU) continue;
+
+      const uNotes =
+        typeof u.notes === 'string' && u.notes.trim() !== ''
+          ? u.notes.trim()
+          : null;
+
+      const newUnId = await nextLinkId(sb);
+      const { error: insUnErr } = await sb.from('links').insert({
+        id: newUnId,
+        source_id: linkSource,
+        target_id: linkTarget,
+        relation_type: rel as RelationType,
+        is_optional: false,
+        notes: uNotes,
+      });
+      if (insUnErr) throw insUnErr;
+      summary.linksInserted += 1;
+    }
+
+    const aiReview = (data as { ai_review?: Record<string, unknown> }).ai_review;
+    const peerEdgesRaw = aiReview?.missing_edges;
+    const missingNodesRaw = aiReview?.missing_nodes;
+    const logicalIdsMeta = new Set<string>();
+    if (Array.isArray(missingNodesRaw)) {
+      for (const m of missingNodesRaw) {
+        if (m && typeof m === 'object') {
+          const id = String((m as Record<string, unknown>).id ?? '').trim();
+          if (id) logicalIdsMeta.add(id);
+        }
+      }
+    }
+    if (Array.isArray(peerEdgesRaw)) {
+      for (const e of peerEdgesRaw) {
+        if (!e || typeof e !== 'object') continue;
+        const o = e as Record<string, unknown>;
+        const srcRef = String(o.source ?? '').trim();
+        const tgtRef = String(o.target ?? '').trim();
+        if (!srcRef || !tgtRef) continue;
+        const rel = String(o.relation_type ?? 'material');
+        if (!validRelations.has(rel)) continue;
+        const srcId = await resolvePeerEdgeRef(
+          sb,
+          srcRef,
+          nodeId,
+          logicalToUuid,
+          nameToPeerId,
+          logicalIdsMeta
+        );
+        const tgtId = await resolvePeerEdgeRef(
+          sb,
+          tgtRef,
+          nodeId,
+          logicalToUuid,
+          nameToPeerId,
+          logicalIdsMeta
+        );
+        if (!srcId || !tgtId || srcId === tgtId) continue;
+        const { data: dupE } = await sb
+          .from('links')
+          .select('id')
+          .eq('source_id', srcId)
+          .eq('target_id', tgtId)
+          .maybeSingle();
+        if (dupE) continue;
+        const edgeNotes =
+          o.notes != null && String(o.notes).trim()
+            ? String(o.notes).trim()
+            : null;
+        const newEdgeId = await nextLinkId(sb);
+        const { error: insEErr } = await sb.from('links').insert({
+          id: newEdgeId,
+          source_id: srcId,
+          target_id: tgtId,
+          relation_type: rel as RelationType,
+          is_optional: false,
+          notes: edgeNotes,
+        });
+        if (insEErr) throw insEErr;
+        summary.linksInserted += 1;
+      }
     }
   } else if (type === 'add_link') {
     let d = data as {
@@ -283,6 +573,7 @@ export async function applyApprovedSuggestion(
       notes: d.notes ?? null,
     });
     if (insErr) throw insErr;
+    summary.linksInserted = 1;
   } else if (type === 'new_node') {
     type NewNodePayload = {
       node: {
@@ -303,6 +594,7 @@ export async function applyApprovedSuggestion(
         materialLevel?: string | null;
         naturalOrigin?: string | null;
         chemicalNature?: string | null;
+        /** @deprecated fusionné dans naturalOrigin / chemicalNature via parse* */
         origin_type?: string | null;
         nature_type?: string | null;
       };
@@ -382,14 +674,18 @@ export async function applyApprovedSuggestion(
     }
 
     const naturalOrigin = parseNaturalOrigin(
-      typeof d.node.naturalOrigin === 'string'
+      typeof d.node.naturalOrigin === 'string' && d.node.naturalOrigin.trim()
         ? d.node.naturalOrigin
-        : undefined
+        : typeof d.node.origin_type === 'string'
+          ? d.node.origin_type
+          : undefined
     );
     const chemicalNature = parseChemicalNature(
-      typeof d.node.chemicalNature === 'string'
+      typeof d.node.chemicalNature === 'string' && d.node.chemicalNature.trim()
         ? d.node.chemicalNature
-        : undefined
+        : typeof d.node.nature_type === 'string'
+          ? d.node.nature_type
+          : undefined
     );
 
     const descEn =
@@ -397,24 +693,7 @@ export async function applyApprovedSuggestion(
         ? d.node.description_en.trim()
         : '';
 
-    const otRaw = d.node.origin_type;
-    const ntRaw = d.node.nature_type;
-    const originTypeVal =
-      otRaw === null || otRaw === ''
-        ? null
-        : typeof otRaw === 'string' &&
-            ['mineral', 'vegetal', 'animal'].includes(otRaw)
-          ? otRaw
-          : null;
-    const natureTypeVal =
-      ntRaw === null || ntRaw === ''
-        ? null
-        : typeof ntRaw === 'string' &&
-            ['element', 'compose', 'materiau'].includes(ntRaw)
-          ? ntRaw
-          : null;
-
-    /** Colonne legacy `nodes.type` (NOT NULL en base) — non confondre avec origin_type / nature_type. */
+    /** Colonne legacy `nodes.type` (NOT NULL en base). */
     const nodeTypeLegacy =
       typeof d.node.type === 'string' && d.node.type.trim()
         ? d.node.type.trim()
@@ -438,43 +717,33 @@ export async function applyApprovedSuggestion(
       image_url: imageUrl,
       dimension: dm.dimension,
       material_level: dm.materialLevel,
-      natural_origin: naturalOrigin === '' ? null : naturalOrigin,
+      natural_origin:
+        naturalOrigin === '' ? null : naturalOriginAppToDb(naturalOrigin),
       chemical_nature: chemicalNature === '' ? null : chemicalNature,
-      origin_type: originTypeVal,
-      nature_type: natureTypeVal,
+      is_draft: true,
     };
 
-    let firstIns = await sb.from('nodes').insert(insertRow);
-    let nErr = firstIns.error;
+    const newNodeRowForInsert: Record<string, unknown> = { ...insertRow };
+    let attempt = await sb.from('nodes').insert(newNodeRowForInsert);
+    let nErr = attempt.error;
 
-    if (nErr && isMissingNatureColumnsError(nErr)) {
-      const {
-        natural_origin: _no,
-        chemical_nature: _cn,
-        ...insertWithoutNature
-      } = insertRow;
-      const retry = await sb.from('nodes').insert(insertWithoutNature);
-      nErr = retry.error;
+    if (nErr && isMissingDraftColumnError(nErr)) {
+      delete newNodeRowForInsert.is_draft;
+      attempt = await sb.from('nodes').insert(newNodeRowForInsert);
+      nErr = attempt.error;
     }
 
-    if (
-      nErr &&
-      String((nErr as { message?: string }).message ?? '').includes(
-        'origin_type'
-      )
-    ) {
-      const {
-        origin_type: _ot,
-        nature_type: _nt,
-        ...withoutOriginNature
-      } = insertRow;
-      const retry2 = await sb.from('nodes').insert(withoutOriginNature);
-      nErr = retry2.error;
+    if (nErr && isMissingNatureColumnsError(nErr)) {
+      delete newNodeRowForInsert.natural_origin;
+      delete newNodeRowForInsert.chemical_nature;
+      attempt = await sb.from('nodes').insert(newNodeRowForInsert);
+      nErr = attempt.error;
     }
 
     if (nErr) {
       throw nErr;
     }
+    summary.nodesCreated = 1;
 
     const ph = d.node.proposed_id?.trim() || '';
     const linkItems: {
@@ -520,10 +789,11 @@ export async function applyApprovedSuggestion(
 
     const validRelations = new Set<string>([
       'material',
+      'component',
       'tool',
       'energy',
-      'knowledge',
-      'catalyst',
+      'process',
+      'infrastructure',
     ]);
 
     const existingLinkRows = (await fetchAllLinkRowsPaginated(
@@ -554,12 +824,14 @@ export async function applyApprovedSuggestion(
         notes: null,
       });
       if (lErr) throw lErr;
+      summary.linksInserted += 1;
     }
   } else if (type === 'delete_link') {
     const linkId = String(data.link_id ?? '');
     if (!linkId) throw new Error('link_id manquant');
     const { error: delErr } = await sb.from('links').delete().eq('id', linkId);
     if (delErr) throw delErr;
+    summary.linksDeleted = 1;
   } else if (type === 'anonymous_feedback') {
     /* Pas d’application automatique : l’admin interprète le message. */
   } else {
@@ -619,4 +891,6 @@ export async function applyApprovedSuggestion(
     },
     adminComment: hasAdminCommentKey ? (adminCommentForRow ?? null) : null,
   });
+
+  return summary;
 }

@@ -10,6 +10,15 @@ import { useGraphStore } from '@/stores/graph-store';
 import type { CraftingLink, SeedNode } from '@/lib/types';
 import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
 
+/** Évite une boucle replace si l’id « défaut » (index) n’est pas dans le graphe chargé. */
+function resolveTreeFallbackInventionId(): string | null {
+  const { nodes, getNodeById } = useGraphStore.getState();
+  if (nodes.length === 0) return null;
+  const preferred = getDefaultTreeNodeId();
+  if (getNodeById(preferred)) return preferred;
+  return nodes[0]!.id;
+}
+
 const BuiltUponView = dynamic(
   () =>
     import('@/components/explore/BuiltUponView').then((m) => m.BuiltUponView),
@@ -29,6 +38,7 @@ function TreeExploreInner({
   const closeSidebar = useUIStore((s) => s.closeSidebar);
   const refreshData = useGraphStore((s) => s.refreshData);
   const hydrateFromRaw = useGraphStore((s) => s.hydrateFromRaw);
+  const nodeCount = useGraphStore((s) => s.nodes.length);
   const [dataReady, setDataReady] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -59,8 +69,17 @@ function TreeExploreInner({
 
     const found = useGraphStore.getState().getNodeById(inventionId);
     if (!found) {
+      const fallback = resolveTreeFallbackInventionId();
+      if (fallback === null) {
+        queueMicrotask(() => setToast('Aucune invention disponible'));
+        return;
+      }
+      if (inventionId === fallback) {
+        queueMicrotask(() => setToast('Invention non trouvée'));
+        return;
+      }
       queueMicrotask(() => setToast('Invention non trouvée'));
-      router.replace(treeInventionPath(getDefaultTreeNodeId()));
+      router.replace(treeInventionPath(fallback));
       closeSidebar();
       return;
     }
@@ -71,7 +90,14 @@ function TreeExploreInner({
     }
 
     selectNode(inventionId, { center: false });
-  }, [dataReady, inventionId, selectNode, closeSidebar, router]);
+  }, [
+    dataReady,
+    inventionId,
+    nodeCount,
+    selectNode,
+    closeSidebar,
+    router,
+  ]);
 
   return (
     <main className="relative flex h-full min-h-0 min-h-[calc(100dvh-3.5rem)] flex-1 flex-col overflow-hidden bg-page pt-14">

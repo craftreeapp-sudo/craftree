@@ -3,27 +3,11 @@
  */
 import { mergeDimensionMaterialLevel } from '@/lib/node-dimension';
 import {
+  naturalOriginAppToDb,
   parseChemicalNature,
   parseNaturalOrigin,
 } from '@/lib/suggest-nature-fields';
 import type { SeedNode } from '@/lib/types';
-
-const ORIGIN_TYPES = new Set(['mineral', 'vegetal', 'animal']);
-const NATURE_TYPES = new Set(['element', 'compose', 'materiau']);
-
-function parseOriginTypeCol(v: unknown): string | null | undefined {
-  if (v === undefined) return undefined;
-  if (v === null || v === '') return null;
-  const s = String(v);
-  return ORIGIN_TYPES.has(s) ? s : undefined;
-}
-
-function parseNatureTypeCol(v: unknown): string | null | undefined {
-  if (v === undefined) return undefined;
-  if (v === null || v === '') return null;
-  const s = String(v);
-  return NATURE_TYPES.has(s) ? s : undefined;
-}
 
 /**
  * @param body — `proposed` fusionné (sans `linkEdits`)
@@ -72,24 +56,22 @@ export function buildSupabaseNodePatchFromBody(
   if (body.naturalOrigin !== undefined) {
     if (body.naturalOrigin === null || body.naturalOrigin === '') {
       patch.natural_origin = null;
+      patch.origin_type = null;
     } else {
       const p = parseNaturalOrigin(String(body.naturalOrigin));
-      patch.natural_origin = p === '' ? null : p;
+      patch.natural_origin =
+        p === '' ? null : naturalOriginAppToDb(p);
     }
   }
   if (body.chemicalNature !== undefined) {
     if (body.chemicalNature === null || body.chemicalNature === '') {
       patch.chemical_nature = null;
+      patch.nature_type = null;
     } else {
       const p = parseChemicalNature(String(body.chemicalNature));
       patch.chemical_nature = p === '' ? null : p;
     }
   }
-
-  const ot = parseOriginTypeCol(body.origin_type);
-  if (ot !== undefined) patch.origin_type = ot;
-  const nt = parseNatureTypeCol(body.nature_type);
-  if (nt !== undefined) patch.nature_type = nt;
 
   return patch;
 }

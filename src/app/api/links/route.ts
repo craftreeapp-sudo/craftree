@@ -36,10 +36,11 @@ function nextLinkId(links: CraftingLink[]): string {
 
 const RELATIONS: RelationType[] = [
   RT.MATERIAL,
+  RT.COMPONENT,
   RT.TOOL,
   RT.ENERGY,
-  RT.KNOWLEDGE,
-  RT.CATALYST,
+  RT.PROCESS,
+  RT.INFRASTRUCTURE,
 ];
 
 function isRelationType(s: string): s is RelationType {

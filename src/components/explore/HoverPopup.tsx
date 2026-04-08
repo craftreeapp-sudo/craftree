@@ -24,8 +24,8 @@ import { safeCategoryLabel } from '@/lib/safe-category-label';
 import { getTagDisplayLabel } from '@/lib/tag-display';
 import { getScrollableAncestors } from '@/lib/dom-scroll-parents';
 import {
-  natureTypeToExploreKey,
-  originTypeToExploreKey,
+  chemicalNatureToExploreKey,
+  naturalOriginToExploreKey,
 } from '@/lib/explore-classification-badges';
 import { CardImagePlaceholder } from '@/components/explore/CardImagePlaceholder';
 import { ShareInventionButton } from '@/components/explore/ShareInventionButton';
@@ -321,14 +321,14 @@ export function ExploreHoverPopup() {
             <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
               {natureLine}
             </span>
-            {node.origin_type ? (
+            {node.naturalOrigin ? (
               <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
-                {tExplore(originTypeToExploreKey(node.origin_type))}
+                {tExplore(naturalOriginToExploreKey(node.naturalOrigin))}
               </span>
             ) : null}
-            {node.nature_type ? (
+            {node.chemicalNature ? (
               <span className="rounded-full bg-border/25 px-2.5 py-1 text-xs font-medium text-muted-foreground">
-                {tExplore(natureTypeToExploreKey(node.nature_type))}
+                {tExplore(chemicalNatureToExploreKey(node.chemicalNature))}
               </span>
             ) : null}
           </div>

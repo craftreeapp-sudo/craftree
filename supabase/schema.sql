@@ -22,7 +22,15 @@ CREATE TABLE IF NOT EXISTS nodes (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   CONSTRAINT nodes_dimension_check CHECK (
-    dimension IS NULL OR dimension IN ('matter', 'process', 'tool')
+    dimension IS NULL
+    OR dimension IN (
+      'matter',
+      'composant',
+      'tool',
+      'energy',
+      'process',
+      'infrastructure'
+    )
   ),
   CONSTRAINT nodes_material_level_check CHECK (
     material_level IS NULL
@@ -77,7 +85,15 @@ ALTER TABLE nodes ADD COLUMN IF NOT EXISTS dimension TEXT;
 ALTER TABLE nodes ADD COLUMN IF NOT EXISTS material_level TEXT;
 ALTER TABLE nodes DROP CONSTRAINT IF EXISTS nodes_dimension_check;
 ALTER TABLE nodes ADD CONSTRAINT nodes_dimension_check CHECK (
-  dimension IS NULL OR dimension IN ('matter', 'process', 'tool')
+  dimension IS NULL
+  OR dimension IN (
+    'matter',
+    'composant',
+    'tool',
+    'energy',
+    'process',
+    'infrastructure'
+  )
 );
 ALTER TABLE nodes DROP CONSTRAINT IF EXISTS nodes_material_level_check;
 ALTER TABLE nodes ADD CONSTRAINT nodes_material_level_check CHECK (

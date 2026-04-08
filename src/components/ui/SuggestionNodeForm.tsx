@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { eraLabelFromMessages } from '@/lib/era-display';
-import { DIMENSION_ORDER, ERA_ORDER, MATERIAL_LEVEL_ORDER } from '@/lib/node-labels';
+import { ERA_ORDER } from '@/lib/node-labels';
 import { PRIMARY_CARD_CATEGORY_ORDER } from '@/lib/card-primary-categories';
 import {
   CHEMICAL_NATURE_ORDER,
@@ -18,7 +18,12 @@ import {
   suggestSelectClass,
 } from '@/components/ui/suggest-form-classes';
 import { SuggestionTagsField } from '@/components/ui/SuggestionTagsField';
-import { EDITOR_DIM_KEY, EDITOR_LEVEL_KEY } from '@/components/editor/dimension-editor-keys';
+import {
+  INVENTION_KIND_ORDER,
+  type InventionKindKey,
+  inventionKindFromFormStrings,
+  inventionKindToFormStrings,
+} from '@/lib/invention-classification';
 import {
   NodeCategory as NC,
   Era as EraEnum,
@@ -41,7 +46,7 @@ export type SuggestNodeFormState = {
   tags: string;
   naturalOrigin: NaturalOrigin | '';
   chemicalNature: ChemicalNature | '';
-  /** Vide = non renseigné ; sinon matter | process | tool */
+  /** Vide = non renseigné ; sinon une des dimensions Craftree (matter, composant, tool, …). */
   dimension: string;
   /** Vide = non renseigné ; pertinent si dimension === matter */
   materialLevel: string;
@@ -108,6 +113,7 @@ export function SuggestionNodeForm({
   const tSidebar = useTranslations('sidebar');
   const te = useTranslations('editor');
   const tExplore = useTranslations('explore');
+  const tInv = useTranslations('inventionKinds');
 
   const fd = (key: keyof SuggestNodeFormState) =>
     isFieldDirty(baselineForm, form, key);
@@ -117,8 +123,6 @@ export function SuggestionNodeForm({
       baselineForm!.chemicalNature !== form.chemicalNature);
   const natureBlockError =
     fieldErrors?.naturalOrigin || fieldErrors?.chemicalNature;
-
-  const matterSelected = form.dimension === 'matter';
 
   const inputClass = (dirty: boolean, error?: string) =>
     suggestInputClass({ suggested: dirty, error, comfortableText: false });
@@ -251,6 +255,41 @@ export function SuggestionNodeForm({
             {fieldErrors.category}
           </p>
         ) : null}
+      </div>
+
+      <div>
+        <label className={suggestFormLabelClass(false)}>{te('labelDimension')}</label>
+        <select
+          value={inventionKindFromFormStrings(
+            form.dimension,
+            form.materialLevel
+          )}
+          onChange={(e) => {
+            const v = e.target.value as InventionKindKey | '';
+            if (!v) {
+              setForm((f) => ({ ...f, dimension: '', materialLevel: '' }));
+              return;
+            }
+            const { dimension, materialLevel } =
+              inventionKindToFormStrings(v);
+            setForm((f) => ({
+              ...f,
+              dimension,
+              materialLevel,
+            }));
+          }}
+          className={selectClass(
+            fd('dimension') || fd('materialLevel'),
+            fieldErrors?.dimension ?? fieldErrors?.materialLevel
+          )}
+        >
+          <option value="">{te('notSet')}</option>
+          {INVENTION_KIND_ORDER.map((k) => (
+            <option key={k} value={k}>
+              {tInv(k)}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div
@@ -442,54 +481,6 @@ export function SuggestionNodeForm({
       </div>
 
       <div>
-        <label className={suggestFormLabelClass(false)}>{te('labelDimension')}</label>
-        <select
-          value={form.dimension}
-          onChange={(e) => {
-            const v = e.target.value;
-            setForm((f) => ({
-              ...f,
-              dimension: v,
-              materialLevel: v === 'matter' ? f.materialLevel : '',
-            }));
-          }}
-          className={selectClass(fd('dimension'), fieldErrors?.dimension)}
-        >
-          <option value="">{te('notSet')}</option>
-          {DIMENSION_ORDER.map((d) => (
-            <option key={d} value={d}>
-              {te(EDITOR_DIM_KEY[d])}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {matterSelected ? (
-        <div>
-          <label className={suggestFormLabelClass(false)}>
-            {te('labelMaterialLevel')}
-          </label>
-          <select
-            value={form.materialLevel}
-            onChange={(e) =>
-              setForm((f) => ({ ...f, materialLevel: e.target.value }))
-            }
-            className={selectClass(
-              fd('materialLevel'),
-              fieldErrors?.materialLevel
-            )}
-          >
-            <option value="">{te('notSet')}</option>
-            {MATERIAL_LEVEL_ORDER.map((lv) => (
-              <option key={lv} value={lv}>
-                {te(EDITOR_LEVEL_KEY[lv])}
-              </option>
-            ))}
-          </select>
-        </div>
-      ) : null}
-
-      <div>
         <label className={suggestFormLabelClass(false)}>{te('wikipediaUrl')}</label>
         <input
           type="url"
@@ -498,7 +489,7 @@ export function SuggestionNodeForm({
             setForm((f) => ({ ...f, wikipedia_url: e.target.value }))
           }
           className={inputClass(fd('wikipedia_url'), fieldErrors?.wikipedia_url)}
-          placeholder={tExplore('wikipediaPlaceholder')}
+          placeholder={te('wikipediaPlaceholder')}
           autoComplete="off"
         />
       </div>

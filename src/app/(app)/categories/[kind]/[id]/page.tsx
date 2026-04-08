@@ -43,7 +43,10 @@ function fallbackLabel(kind: string, id: string): string {
   if (kind === 'dimension') {
     return DIMENSION_LABELS_FR[id as NodeDimension] ?? id;
   }
-  return MATERIAL_LEVEL_LABELS_FR[id as MaterialLevel] ?? id;
+  if (kind === 'materialLevel') {
+    return MATERIAL_LEVEL_LABELS_FR[id as MaterialLevel] ?? id;
+  }
+  return id;
 }
 
 export async function generateMetadata({
@@ -66,9 +69,12 @@ export async function generateMetadata({
   } else if (v.kind === 'dimension') {
     const k = EDITOR_DIM_KEY[v.id as NodeDimension];
     label = k && te.has(k) ? te(k) : fallbackLabel('dimension', v.id);
-  } else {
+  } else if (v.kind === 'materialLevel') {
     const k = EDITOR_LEVEL_KEY[v.id as MaterialLevel];
     label = k && te.has(k) ? te(k) : fallbackLabel('materialLevel', v.id);
+  } else {
+    const tInv = await getTranslations('inventionKinds');
+    label = tInv.has(v.id) ? tInv(v.id) : fallbackLabel('inventionKind', v.id);
   }
   return {
     title: { absolute: `${t('listPageTitle', { label })} — Craftree` },

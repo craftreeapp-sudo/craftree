@@ -19,6 +19,7 @@ import {
 import { nodeRowToTechNodeDetails } from '@/lib/db-map';
 import { mergeDimensionMaterialLevel } from '@/lib/node-dimension';
 import {
+  naturalOriginAppToDb,
   parseChemicalNature,
   parseNaturalOrigin,
 } from '@/lib/suggest-nature-fields';
@@ -155,7 +156,6 @@ export async function PUT(request: Request, ctx: Ctx) {
             ? null
             : parseChemicalNature(String(body.chemicalNature)) || null;
       }
-
       const adminLocal = await requireAdminFromRequest();
       if (body.is_draft !== undefined) {
         if (!adminLocal) {
@@ -230,20 +230,22 @@ export async function PUT(request: Request, ctx: Ctx) {
     if (body.naturalOrigin !== undefined) {
       if (body.naturalOrigin === null || body.naturalOrigin === '') {
         patch.natural_origin = null;
+        patch.origin_type = null;
       } else {
         const p = parseNaturalOrigin(String(body.naturalOrigin));
-        patch.natural_origin = p === '' ? null : p;
+        patch.natural_origin =
+          p === '' ? null : naturalOriginAppToDb(p);
       }
     }
     if (body.chemicalNature !== undefined) {
       if (body.chemicalNature === null || body.chemicalNature === '') {
         patch.chemical_nature = null;
+        patch.nature_type = null;
       } else {
         const p = parseChemicalNature(String(body.chemicalNature));
         patch.chemical_nature = p === '' ? null : p;
       }
     }
-
     if (body.is_draft !== undefined) {
       patch.is_draft = Boolean(body.is_draft);
     }
@@ -257,8 +259,9 @@ export async function PUT(request: Request, ctx: Ctx) {
       message?: string;
       details?: string;
       hint?: string;
+      code?: string;
     } | null = null;
-    for (let attempt = 0; attempt < 3; attempt++) {
+    for (let i = 0; i < 3; i++) {
       const r = await sb
         .from('nodes')
         .update(attemptPatch)
@@ -271,6 +274,8 @@ export async function PUT(request: Request, ctx: Ctx) {
       if (isMissingNatureColumnsError(error)) {
         delete attemptPatch.natural_origin;
         delete attemptPatch.chemical_nature;
+        delete attemptPatch.origin_type;
+        delete attemptPatch.nature_type;
         continue;
       }
       if (isMissingDraftColumnError(error) && attemptPatch.is_draft !== undefined) {
@@ -301,8 +306,25 @@ export async function PUT(request: Request, ctx: Ctx) {
     return NextResponse.json({ node });
   } catch (e) {
     console.error(e);
+    const fromObj =
+      e &&
+      typeof e === 'object' &&
+      'message' in e &&
+      typeof (e as { message: unknown }).message === 'string'
+        ? (e as { message: string }).message
+        : null;
+    const code =
+      e &&
+      typeof e === 'object' &&
+      'code' in e &&
+      typeof (e as { code: unknown }).code === 'string'
+        ? (e as { code: string }).code
+        : undefined;
     return NextResponse.json(
-      { error: 'Failed to update node' },
+      {
+        error: fromObj?.trim() || 'Failed to update node',
+        ...(code ? { code } : {}),
+      },
       { status: 500 }
     );
   }

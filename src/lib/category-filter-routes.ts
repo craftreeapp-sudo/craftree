@@ -4,12 +4,20 @@
 import { NodeCategory, Era } from '@/lib/types';
 import type { MaterialLevel, NodeDimension } from '@/lib/types';
 import { DIMENSION_ORDER, MATERIAL_LEVEL_ORDER } from '@/lib/node-labels';
+import { INVENTION_KIND_ORDER, type InventionKindKey } from '@/lib/invention-classification';
 
-export const FILTER_KINDS = ['category', 'era', 'dimension', 'materialLevel'] as const;
+export const FILTER_KINDS = [
+  'category',
+  'era',
+  'dimension',
+  'materialLevel',
+  'inventionKind',
+] as const;
 export type FilterKind = (typeof FILTER_KINDS)[number];
 
 const DIMENSION_SET = new Set<string>(DIMENSION_ORDER);
 const MATERIAL_LEVEL_SET = new Set<string>(MATERIAL_LEVEL_ORDER);
+const INVENTION_KIND_SET = new Set<string>(INVENTION_KIND_ORDER);
 
 export function isFilterKind(s: string): s is FilterKind {
   return FILTER_KINDS.includes(s as FilterKind);
@@ -31,6 +39,10 @@ export function isValidMaterialLevelId(id: string): id is MaterialLevel {
   return MATERIAL_LEVEL_SET.has(id);
 }
 
+export function isValidInventionKindId(id: string): id is InventionKindKey {
+  return INVENTION_KIND_SET.has(id);
+}
+
 export function validateFilterParams(
   kind: string,
   id: string
@@ -43,5 +55,7 @@ export function validateFilterParams(
     return { ok: true, kind: 'dimension', id };
   if (kind === 'materialLevel' && isValidMaterialLevelId(id))
     return { ok: true, kind: 'materialLevel', id };
+  if (kind === 'inventionKind' && isValidInventionKindId(id))
+    return { ok: true, kind: 'inventionKind', id };
   return { ok: false };
 }

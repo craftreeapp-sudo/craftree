@@ -14,27 +14,26 @@ import { SuggestNodeCorrectionPanel } from '@/components/ui/SuggestNodeCorrectio
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
+import { NODE_CATEGORY_ORDER, ERA_ORDER } from '@/lib/node-labels';
 import {
-  NODE_CATEGORY_ORDER,
-  ERA_ORDER,
-  DIMENSION_ORDER,
-  MATERIAL_LEVEL_ORDER,
-} from '@/lib/node-labels';
-import {
-  RelationType as RT,
   type CraftingLink,
   type NodeCategory,
-  type RelationType,
   type SeedNode,
   type TechNodeBasic,
   type Era,
-  type NodeDimension,
-  type MaterialLevel,
 } from '@/lib/types';
-import { EDITOR_DIM_KEY, EDITOR_LEVEL_KEY } from './dimension-editor-keys';
+import {
+  INVENTION_KIND_ORDER,
+  type InventionKindKey,
+  inventionKindFromLinkAndPeer,
+  inventionKindFromNode,
+  inventionKindToFormStrings,
+  relationTypeFromInventionKind,
+} from '@/lib/invention-classification';
 import { SearchableSelect, type SearchableOption } from './SearchableSelect';
 import { eraLabelFromMessages } from '@/lib/era-display';
 import { filterValidCraftingLinks } from '@/lib/graph-utils';
+import { normalizeRelationTypeForUi } from '@/lib/relation-display';
 import { rowIsDraft } from '@/lib/draft-flag';
 import { seedNodeIsLocked } from '@/lib/node-lock';
 import { pickNodeDisplayName } from '@/lib/node-display-name';
@@ -62,14 +61,7 @@ import {
   duplicateNodeIdsFromNodes,
   findDuplicatePeerNodeId,
 } from '@/lib/editor-duplicates';
-
-const RELATION_BADGE_COLORS: Record<RelationType, string> = {
-  [RT.MATERIAL]: 'bg-teal-500/20 text-teal-200 border-teal-500/40',
-  [RT.TOOL]: 'bg-violet-500/20 text-violet-200 border-violet-500/40',
-  [RT.ENERGY]: 'bg-red-500/20 text-red-200 border-red-500/40',
-  [RT.KNOWLEDGE]: 'bg-sky-500/20 text-sky-200 border-sky-500/40',
-  [RT.CATALYST]: 'bg-slate-500/20 text-slate-200 border-slate-500/40',
-};
+import { RELATION_BADGE_COLORS } from '@/components/editor/editor-relation-styles';
 
 type Toast = { id: number; kind: 'ok' | 'err'; text: string };
 
@@ -113,8 +105,6 @@ function seedNodeToTechBasic(n: SeedNode): TechNodeBasic {
     materialLevel: n.materialLevel ?? null,
     naturalOrigin: n.naturalOrigin ?? null,
     chemicalNature: n.chemicalNature ?? null,
-    origin_type: n.origin_type ?? null,
-    nature_type: n.nature_type ?? null,
     is_draft: n.is_draft === true,
     is_locked: n.is_locked === true,
   };
@@ -138,22 +128,21 @@ function nodePassesEditorBaseFilters(
   n: SeedNode,
   qNode: string,
   catF: string,
-  dimensionF: string,
-  materialLevelF: string,
+  classificationF: string,
   eraF: string
 ): boolean {
   if (catF !== 'all' && n.category !== catF) return false;
-  if (dimensionF !== 'all') {
-    const nd = n.dimension ?? null;
-    if (dimensionF === 'unset') {
-      if (nd !== null && nd !== undefined) return false;
-    } else if (nd !== dimensionF) return false;
-  }
-  if (materialLevelF !== 'all') {
-    const nl = n.materialLevel ?? null;
-    if (materialLevelF === 'unset') {
-      if (nl !== null && nl !== undefined) return false;
-    } else if (nl !== materialLevelF) return false;
+  if (classificationF !== 'all') {
+    if (classificationF === 'unset') {
+      const unsetDim =
+        n.dimension === null ||
+        n.dimension === undefined ||
+        String(n.dimension).trim() === '';
+      if (!unsetDim) return false;
+    } else {
+      const k = inventionKindFromNode(seedNodeToTechBasic(n));
+      if (k !== classificationF) return false;
+    }
   }
   if (eraF !== 'all' && n.era !== eraF) return false;
   const qt = qNode.trim().toLowerCase();
@@ -278,7 +267,7 @@ function nodeIsIncompleteForFilter(n: SeedNode): boolean {
 export function EditorPageClient() {
   const locale = useLocale();
   const te = useTranslations('editor');
-  const tRel = useTranslations('relationTypes');
+  const tInv = useTranslations('inventionKinds');
   const tCat = useTranslations('categories');
   const tc = useTranslations('common');
   const tExplore = useTranslations('explore');
@@ -505,8 +494,7 @@ export function EditorPageClient() {
   const [qNode, setQNode] = useState('');
   const [catF, setCatF] = useState<string>('all');
   const [eraF, setEraF] = useState<string>('all');
-  const [dimensionF, setDimensionF] = useState<string>('all');
-  const [materialLevelF, setMaterialLevelF] = useState<string>('all');
+  const [classificationF, setClassificationF] = useState<string>('all');
   /** Nœuds sans aucun lien entrant ni sortant. */
   const [isolatedOnly, setIsolatedOnly] = useState(false);
   /** Admin : n’afficher que les fiches marquées brouillon. */
@@ -647,8 +635,7 @@ export function EditorPageClient() {
           n,
           qNode,
           catF,
-          dimensionF,
-          materialLevelF,
+          classificationF,
           eraF
         )
       ) {
@@ -676,8 +663,7 @@ export function EditorPageClient() {
     nodes,
     qNode,
     catF,
-    dimensionF,
-    materialLevelF,
+    classificationF,
     eraF,
     graphModelEdges,
     duplicateNodeIds,
@@ -690,8 +676,7 @@ export function EditorPageClient() {
           n,
           qNode,
           catF,
-          dimensionF,
-          materialLevelF,
+          classificationF,
           eraF
         )
       ) {
@@ -718,8 +703,7 @@ export function EditorPageClient() {
     nodes,
     qNode,
     catF,
-    dimensionF,
-    materialLevelF,
+    classificationF,
     eraF,
     isolatedOnly,
     draftsOnly,
@@ -1035,7 +1019,8 @@ export function EditorPageClient() {
   const sourceRef = useRef<HTMLInputElement>(null);
   const [quickSource, setQuickSource] = useState('');
   const [quickTarget, setQuickTarget] = useState('');
-  const [quickRel, setQuickRel] = useState<RelationType>(RT.MATERIAL);
+  const [quickRelKind, setQuickRelKind] =
+    useState<InventionKindKey>('matter_raw');
 
   const [linkQ, setLinkQ] = useState('');
   const [relFilter, setRelFilter] = useState<string>('all');
@@ -1046,7 +1031,7 @@ export function EditorPageClient() {
 
   const [linkPanel, setLinkPanel] = useState<CraftingLink | null>(null);
   const [linkForm, setLinkForm] = useState({
-    relation_type: RT.MATERIAL as RelationType,
+    inventionKind: 'matter_raw' as InventionKindKey,
     is_optional: false,
     notes: '',
   });
@@ -1060,7 +1045,14 @@ export function EditorPageClient() {
         ? `${n.name} ${n.name_en ?? ''}`.toLowerCase()
         : '';
     return links.filter((l) => {
-      if (relFilter !== 'all' && l.relation_type !== relFilter) return false;
+      if (relFilter !== 'all') {
+        const s = nodeById.get(l.source_id);
+        const kind = inventionKindFromLinkAndPeer(
+          normalizeRelationTypeForUi(String(l.relation_type)),
+          s ? seedNodeToTechBasic(s) : undefined
+        );
+        if (kind !== relFilter) return false;
+      }
       const s = nodeById.get(l.source_id);
       const t = nodeById.get(l.target_id);
       if (sf && !nameBlob(s).includes(sf)) return false;
@@ -1095,9 +1087,22 @@ export function EditorPageClient() {
         case 'target':
           cmp = ta.localeCompare(tb, locale, { sensitivity: 'base' });
           break;
-        case 'relation':
-          cmp = a.relation_type.localeCompare(b.relation_type);
+        case 'relation': {
+          const ka = inventionKindFromLinkAndPeer(
+            normalizeRelationTypeForUi(String(a.relation_type)),
+            nodeById.get(a.source_id)
+              ? seedNodeToTechBasic(nodeById.get(a.source_id)!)
+              : undefined
+          );
+          const kb = inventionKindFromLinkAndPeer(
+            normalizeRelationTypeForUi(String(b.relation_type)),
+            nodeById.get(b.source_id)
+              ? seedNodeToTechBasic(nodeById.get(b.source_id)!)
+              : undefined
+          );
+          cmp = ka.localeCompare(kb, locale, { sensitivity: 'base' });
           break;
+        }
         case 'optional':
           cmp = Number(a.is_optional) - Number(b.is_optional);
           break;
@@ -1126,13 +1131,14 @@ export function EditorPageClient() {
       return;
     }
     try {
+      const relation_type = relationTypeFromInventionKind(quickRelKind);
       const res = await fetch('/api/links', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           source_id: quickSource,
           target_id: quickTarget,
-          relation_type: quickRel,
+          relation_type,
         }),
       });
       if (res.status === 409) {
@@ -1144,10 +1150,19 @@ export function EditorPageClient() {
         push((e as { error?: string }).error ?? te('toastError'), 'err');
         return;
       }
+      const peerFields = inventionKindToFormStrings(quickRelKind);
+      await fetch(`/api/nodes/${encodeURIComponent(quickSource)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          dimension: peerFields.dimension || null,
+          materialLevel: peerFields.materialLevel || null,
+        }),
+      });
       push(te('toastLinkAdded'));
       setQuickTarget('');
       setQuickSource('');
-      setQuickRel(RT.MATERIAL);
+      setQuickRelKind('matter_raw');
       await loadAll();
       sourceRef.current?.focus();
     } catch {
@@ -1158,13 +1173,17 @@ export function EditorPageClient() {
   const saveLinkEdit = async () => {
     if (!linkPanel) return;
     try {
+      const relation_type = relationTypeFromInventionKind(
+        linkForm.inventionKind
+      );
+      const peerFields = inventionKindToFormStrings(linkForm.inventionKind);
       const res = await fetch(
         `/api/links/${encodeURIComponent(linkPanel.id)}`,
         {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            relation_type: linkForm.relation_type,
+            relation_type,
             is_optional: linkForm.is_optional,
             notes: linkForm.notes.trim() || undefined,
           }),
@@ -1174,7 +1193,18 @@ export function EditorPageClient() {
         push(te('toastSaveError'), 'err');
         return;
       }
-        push(te('toastLinkUpdated'));
+      await fetch(
+        `/api/nodes/${encodeURIComponent(linkPanel.source_id)}`,
+        {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            dimension: peerFields.dimension || null,
+            materialLevel: peerFields.materialLevel || null,
+          }),
+        }
+      );
+      push(te('toastLinkUpdated'));
       setLinkPanel(null);
       await loadAll();
     } catch {
@@ -1332,28 +1362,15 @@ export function EditorPageClient() {
                 ))}
               </select>
               <select
-                value={dimensionF}
-                onChange={(e) => setDimensionF(e.target.value)}
+                value={classificationF}
+                onChange={(e) => setClassificationF(e.target.value)}
                 className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
               >
                 <option value="all">{te('allDimensions')}</option>
                 <option value="unset">{te('notSet')}</option>
-                {DIMENSION_ORDER.map((d) => (
-                  <option key={d} value={d}>
-                    {te(EDITOR_DIM_KEY[d])}
-                  </option>
-                ))}
-              </select>
-              <select
-                value={materialLevelF}
-                onChange={(e) => setMaterialLevelF(e.target.value)}
-                className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
-              >
-                <option value="all">{te('allLevels')}</option>
-                <option value="unset">{te('notSet')}</option>
-                {MATERIAL_LEVEL_ORDER.map((lv) => (
-                  <option key={lv} value={lv}>
-                    {te(EDITOR_LEVEL_KEY[lv])}
+                {INVENTION_KIND_ORDER.map((k) => (
+                  <option key={k} value={k}>
+                    {tInv(k)}
                   </option>
                 ))}
               </select>
@@ -1686,21 +1703,15 @@ export function EditorPageClient() {
                   {te('relationTypeLabel')}
                 </label>
                 <select
-                  value={quickRel}
-                  onChange={(e) => setQuickRel(e.target.value as RelationType)}
+                  value={quickRelKind}
+                  onChange={(e) =>
+                    setQuickRelKind(e.target.value as InventionKindKey)
+                  }
                   className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
                 >
-                  {(
-                    [
-                      RT.MATERIAL,
-                      RT.TOOL,
-                      RT.ENERGY,
-                      RT.KNOWLEDGE,
-                      RT.CATALYST,
-                    ] as const
-                  ).map((r) => (
-                    <option key={r} value={r}>
-                      {tRel(r)}
+                  {INVENTION_KIND_ORDER.map((k) => (
+                    <option key={k} value={k}>
+                      {tInv(k)}
                     </option>
                   ))}
                 </select>
@@ -1738,17 +1749,9 @@ export function EditorPageClient() {
                 className="rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
               >
                 <option value="all">{te('allRelations')}</option>
-                {(
-                  [
-                    RT.MATERIAL,
-                    RT.TOOL,
-                    RT.ENERGY,
-                    RT.KNOWLEDGE,
-                    RT.CATALYST,
-                  ] as const
-                ).map((r) => (
-                  <option key={r} value={r}>
-                    {tRel(r)}
+                {INVENTION_KIND_ORDER.map((k) => (
+                  <option key={k} value={k}>
+                    {tInv(k)}
                   </option>
                 ))}
               </select>
@@ -1846,9 +1849,27 @@ export function EditorPageClient() {
                         </td>
                         <td className="px-3 py-2">
                           <span
-                            className={`inline-block rounded border px-2 py-0.5 text-xs ${RELATION_BADGE_COLORS[l.relation_type]}`}
+                            className={`inline-block rounded border px-2 py-0.5 text-xs ${RELATION_BADGE_COLORS[relationTypeFromInventionKind(
+                              inventionKindFromLinkAndPeer(
+                                normalizeRelationTypeForUi(
+                                  String(l.relation_type)
+                                ),
+                                s
+                                  ? seedNodeToTechBasic(s)
+                                  : undefined
+                              )
+                            )]}`}
                           >
-                            {tRel(l.relation_type)}
+                            {tInv(
+                              inventionKindFromLinkAndPeer(
+                                normalizeRelationTypeForUi(
+                                  String(l.relation_type)
+                                ),
+                                s
+                                  ? seedNodeToTechBasic(s)
+                                  : undefined
+                              )
+                            )}
                           </span>
                         </td>
                         <td className="px-3 py-2 text-muted-foreground">
@@ -1866,8 +1887,16 @@ export function EditorPageClient() {
                               title={te('editLink')}
                               onClick={() => {
                                 setLinkPanel(l);
+                                const srcN = nodeById.get(l.source_id);
                                 setLinkForm({
-                                  relation_type: l.relation_type,
+                                  inventionKind: inventionKindFromLinkAndPeer(
+                                    normalizeRelationTypeForUi(
+                                      String(l.relation_type)
+                                    ),
+                                    srcN
+                                      ? seedNodeToTechBasic(srcN)
+                                      : undefined
+                                  ),
                                   is_optional: l.is_optional,
                                   notes: l.notes ?? '',
                                 });
@@ -2119,26 +2148,18 @@ export function EditorPageClient() {
                   {te('relationTypeLabel')}
                 </label>
                 <select
-                  value={linkForm.relation_type}
+                  value={linkForm.inventionKind}
                   onChange={(e) =>
                     setLinkForm((f) => ({
                       ...f,
-                      relation_type: e.target.value as RelationType,
+                      inventionKind: e.target.value as InventionKindKey,
                     }))
                   }
                   className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
                 >
-                  {(
-                    [
-                      RT.MATERIAL,
-                      RT.TOOL,
-                      RT.ENERGY,
-                      RT.KNOWLEDGE,
-                      RT.CATALYST,
-                    ] as const
-                  ).map((r) => (
-                    <option key={r} value={r}>
-                      {tRel(r)}
+                  {INVENTION_KIND_ORDER.map((k) => (
+                    <option key={k} value={k}>
+                      {tInv(k)}
                     </option>
                   ))}
                 </select>

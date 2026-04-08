@@ -11,8 +11,6 @@ import type {
   NodeDimension,
   NaturalOrigin,
   ChemicalNature,
-  OriginType,
-  NatureType,
 } from '@/lib/types';
 import { rowIsDraft } from '@/lib/draft-flag';
 import {
@@ -38,8 +36,6 @@ interface RawNode {
   materialLevel?: MaterialLevel | null;
   naturalOrigin?: NaturalOrigin | null;
   chemicalNature?: ChemicalNature | null;
-  origin_type?: OriginType | null;
-  nature_type?: NatureType | null;
   is_draft?: boolean;
 }
 
@@ -131,8 +127,6 @@ function normalizeNode(raw: RawNode): TechNodeBasic {
     ...(raw.chemicalNature !== undefined
       ? { chemicalNature: raw.chemicalNature }
       : {}),
-    ...(raw.origin_type !== undefined ? { origin_type: raw.origin_type } : {}),
-    ...(raw.nature_type !== undefined ? { nature_type: raw.nature_type } : {}),
     /** Toujours un booléen — sinon `undefined` vs `false` casse l’abonnement / l’UI brouillon. */
     is_draft: rowIsDraft(raw as unknown as Record<string, unknown>),
   };
@@ -164,8 +158,6 @@ function nodesToRaw(nodes: TechNodeBasic[]): RawNode[] {
     materialLevel: n.materialLevel ?? null,
     naturalOrigin: n.naturalOrigin ?? null,
     chemicalNature: n.chemicalNature ?? null,
-    origin_type: n.origin_type ?? null,
-    nature_type: n.nature_type ?? null,
     is_draft: n.is_draft,
   }));
 }
@@ -265,8 +257,6 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
       materialLevel: n.materialLevel ?? null,
       naturalOrigin: n.naturalOrigin ?? null,
       chemicalNature: n.chemicalNature ?? null,
-      origin_type: n.origin_type ?? null,
-      nature_type: n.nature_type ?? null,
       is_draft: rowIsDraft(n as unknown as Record<string, unknown>),
     }));
     const rawLinks: RawLink[] = craftingLinks.map((l) => ({

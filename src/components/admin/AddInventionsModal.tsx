@@ -2,10 +2,10 @@
 
 import { useMemo, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { NODE_CATEGORY_ORDER, ERA_ORDER } from '@/lib/node-labels';
+import { DIMENSION_ORDER, NODE_CATEGORY_ORDER, ERA_ORDER } from '@/lib/node-labels';
 import { eraLabelFromMessages } from '@/lib/era-display';
-import type { NodeCategory } from '@/lib/types';
-import type { Era } from '@/lib/types';
+import { EDITOR_DIM_KEY } from '@/components/editor/dimension-editor-keys';
+import type { Era, NodeCategory, NodeDimension } from '@/lib/types';
 import { AIProgressBar } from '@/components/admin/AIProgressBar';
 import {
   AiToolsModalCloseButton,
@@ -36,9 +36,7 @@ export function AddInventionsModal({
   const [category, setCategory] = useState<NodeCategory>(NODE_CATEGORY_ORDER[0]!);
   const [era, setEra] = useState<Era | 'all'>('all');
   const [count, setCount] = useState(5);
-  const [dimension, setDimension] = useState<'matter' | 'process' | 'tool' | 'all'>(
-    'all'
-  );
+  const [dimension, setDimension] = useState<'all' | NodeDimension>('all');
   const [cascade, setCascade] = useState(true);
   const [yearMin, setYearMin] = useState('');
   const [yearMax, setYearMax] = useState('');
@@ -68,11 +66,7 @@ export function AddInventionsModal({
     const dimLabel =
       dimension === 'all'
         ? t('allDimensions')
-        : dimension === 'matter'
-          ? t('dimensionMatter')
-          : dimension === 'process'
-            ? t('dimensionProcess')
-            : t('dimensionTool');
+        : t(EDITOR_DIM_KEY[dimension]);
     const items: { key: string; text: string }[] = [
       {
         key: 'cat',
@@ -321,15 +315,18 @@ export function AddInventionsModal({
                 {t('columnDimension')}
                 <select
                   value={dimension}
-                  onChange={(e) =>
-                    setDimension(e.target.value as typeof dimension)
-                  }
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setDimension(v === 'all' ? 'all' : (v as NodeDimension));
+                  }}
                   className="mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2 text-foreground"
                 >
                   <option value="all">{t('allDimensions')}</option>
-                  <option value="matter">{t('dimensionMatter')}</option>
-                  <option value="process">{t('dimensionProcess')}</option>
-                  <option value="tool">{t('dimensionTool')}</option>
+                  {DIMENSION_ORDER.map((d) => (
+                    <option key={d} value={d}>
+                      {t(EDITOR_DIM_KEY[d])}
+                    </option>
+                  ))}
                 </select>
               </label>
               <label className="flex items-center gap-2 text-foreground">

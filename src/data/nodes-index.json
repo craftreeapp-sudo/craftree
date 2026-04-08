@@ -10,8 +10,8 @@
       "complexity_depth": 0,
       "dimension": "process",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "eau",
@@ -23,8 +23,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "air",
@@ -36,8 +36,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "sable",
@@ -49,8 +49,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "charbon",
@@ -62,8 +62,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "cuivre",
@@ -75,8 +75,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "minerai-fer",
@@ -88,8 +88,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "calcaire",
@@ -101,8 +101,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "argile",
@@ -114,8 +114,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "bois",
@@ -127,8 +127,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "sel",
@@ -140,8 +140,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "ble",
@@ -153,8 +153,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "raisin",
@@ -166,8 +166,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "lait",
@@ -179,8 +179,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "animal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "levure",
@@ -192,8 +192,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "presure",
@@ -205,8 +205,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "animal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "plantes-medicinales",
@@ -218,8 +218,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "petrole",
@@ -231,8 +231,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "four",
@@ -244,8 +244,8 @@
       "complexity_depth": 1,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "four-haute-temp",
@@ -257,8 +257,8 @@
       "complexity_depth": 2,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "soude",
@@ -270,8 +270,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "verre",
@@ -283,8 +283,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "silicium",
@@ -296,8 +296,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "wafer-silicium",
@@ -309,8 +309,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "acide-gravure",
@@ -322,8 +322,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "photolithographie",
@@ -335,8 +335,8 @@
       "complexity_depth": 2,
       "dimension": "process",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "resine-epoxy",
@@ -348,8 +348,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "fibre-verre",
@@ -361,8 +361,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "circuit-imprime",
@@ -374,8 +374,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "transistor",
@@ -387,8 +387,8 @@
       "complexity_depth": 4,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "circuit-integre",
@@ -400,8 +400,8 @@
       "complexity_depth": 5,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "microprocesseur",
@@ -413,8 +413,8 @@
       "complexity_depth": 6,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "fer",
@@ -426,8 +426,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "acier",
@@ -439,8 +439,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "poutre-acier",
@@ -452,8 +452,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "structure-metallique",
@@ -465,8 +465,8 @@
       "complexity_depth": 4,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "ciment",
@@ -478,8 +478,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "beton",
@@ -491,8 +491,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "fondations",
@@ -503,8 +503,8 @@
       "complexity_depth": 4,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "pate-papier",
@@ -516,8 +516,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "papier",
@@ -529,8 +529,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "encre",
@@ -542,8 +542,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "presse-imprimer",
@@ -555,8 +555,8 @@
       "complexity_depth": 3,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "livre",
@@ -568,8 +568,8 @@
       "complexity_depth": 4,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "fil-cuivre",
@@ -581,8 +581,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "cable-electrique",
@@ -594,8 +594,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "generateur",
@@ -607,8 +607,8 @@
       "complexity_depth": 2,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "electricite",
@@ -620,8 +620,8 @@
       "complexity_depth": 2,
       "dimension": "process",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "telegraphe",
@@ -633,8 +633,8 @@
       "complexity_depth": 3,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "telephone",
@@ -646,8 +646,8 @@
       "complexity_depth": 4,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "fibre-optique",
@@ -659,8 +659,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "serveur-informatique",
@@ -672,8 +672,8 @@
       "complexity_depth": 6,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "internet",
@@ -685,8 +685,8 @@
       "complexity_depth": 7,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "extraits-vegetaux",
@@ -698,8 +698,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "principes-actifs",
@@ -710,8 +710,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "chimie-organique",
@@ -723,8 +723,8 @@
       "complexity_depth": 1,
       "dimension": "process",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "polymeres",
@@ -736,8 +736,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "gelules",
@@ -749,8 +749,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "animal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "medicaments",
@@ -762,8 +762,8 @@
       "complexity_depth": 4,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "pain",
@@ -775,8 +775,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "fromage",
@@ -788,8 +788,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "animal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "tonneau",
@@ -801,8 +801,8 @@
       "complexity_depth": 1,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "vin",
@@ -814,8 +814,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "ampoule",
@@ -827,8 +827,8 @@
       "complexity_depth": 2,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "coton",
@@ -840,8 +840,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "fil-de-coton",
@@ -853,8 +853,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "tissu",
@@ -866,8 +866,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "vetement",
@@ -879,8 +879,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "animal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "laine",
@@ -892,8 +892,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "animal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "fil-de-laine",
@@ -905,8 +905,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "animal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "tricot",
@@ -918,8 +918,8 @@
       "complexity_depth": 2,
       "dimension": "process",
       "materialLevel": null,
-      "origin_type": "animal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "ver-a-soie",
@@ -931,8 +931,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "animal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "soie-naturelle",
@@ -944,8 +944,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "animal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "plantes-teinture",
@@ -957,8 +957,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "mordant",
@@ -970,8 +970,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "teinture-textile",
@@ -983,8 +983,8 @@
       "complexity_depth": 2,
       "dimension": "process",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "roue",
@@ -996,8 +996,8 @@
       "complexity_depth": 1,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "chariot",
@@ -1009,8 +1009,8 @@
       "complexity_depth": 2,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "caoutchouc",
@@ -1022,8 +1022,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "moteur-explosion",
@@ -1035,8 +1035,8 @@
       "complexity_depth": 3,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "automobile",
@@ -1048,8 +1048,8 @@
       "complexity_depth": 5,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "aluminium",
@@ -1061,8 +1061,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "moteur-reaction",
@@ -1074,8 +1074,8 @@
       "complexity_depth": 4,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "avion",
@@ -1087,8 +1087,8 @@
       "complexity_depth": 6,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "charbon-de-bois",
@@ -1100,8 +1100,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "houille",
@@ -1113,8 +1113,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "essence",
@@ -1126,8 +1126,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "uranium",
@@ -1139,8 +1139,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "reacteur-nucleaire",
@@ -1152,8 +1152,8 @@
       "complexity_depth": 3,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "panneau-solaire",
@@ -1165,8 +1165,8 @@
       "complexity_depth": 3,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "charpente-bois",
@@ -1178,8 +1178,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "pierre",
@@ -1191,8 +1191,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "taille-pierre",
@@ -1204,8 +1204,8 @@
       "complexity_depth": 1,
       "dimension": "process",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "mur-pierre",
@@ -1217,8 +1217,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "chaux",
@@ -1230,8 +1230,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "mortier",
@@ -1243,8 +1243,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "vitre",
@@ -1256,8 +1256,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "fenetre",
@@ -1282,8 +1282,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "parchemin",
@@ -1295,8 +1295,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "animal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "imprimerie",
@@ -1321,8 +1321,8 @@
       "complexity_depth": 4,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "radio",
@@ -1386,8 +1386,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "bouteille-plastique",
@@ -1399,8 +1399,8 @@
       "complexity_depth": 3,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "engrais",
@@ -1412,8 +1412,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "salpetre",
@@ -1425,8 +1425,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "soufre",
@@ -1438,8 +1438,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "poudre-a-canon",
@@ -1451,8 +1451,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "lentille",
@@ -1464,8 +1464,8 @@
       "complexity_depth": 2,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "lunettes",
@@ -1477,8 +1477,8 @@
       "complexity_depth": 3,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "microscope",
@@ -1490,8 +1490,8 @@
       "complexity_depth": 4,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "telescope",
@@ -1503,8 +1503,8 @@
       "complexity_depth": 4,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "viande",
@@ -1516,8 +1516,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "animal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "salaison",
@@ -1529,8 +1529,8 @@
       "complexity_depth": 2,
       "dimension": "process",
       "materialLevel": null,
-      "origin_type": "animal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "canne-a-sucre",
@@ -1542,8 +1542,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "sucre",
@@ -1555,8 +1555,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "confiserie",
@@ -1568,8 +1568,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "cacao",
@@ -1581,8 +1581,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "chocolat",
@@ -1594,8 +1594,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "houblon",
@@ -1607,8 +1607,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "orge",
@@ -1620,8 +1620,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "biere",
@@ -1633,8 +1633,8 @@
       "complexity_depth": 2,
       "dimension": "process",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "metier-tisser",
@@ -1659,8 +1659,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "bauxite",
@@ -1672,8 +1672,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "raffinerie",
@@ -1724,8 +1724,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "beton-arme",
@@ -1737,8 +1737,8 @@
       "complexity_depth": 4,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "pneu",
@@ -1750,8 +1750,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "chassis-auto",
@@ -1776,8 +1776,8 @@
       "complexity_depth": 4,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "gazole",
@@ -1789,8 +1789,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "turbine-vapeur",
@@ -1815,8 +1815,8 @@
       "complexity_depth": 2,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "reseau-electrique",
@@ -1854,8 +1854,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "acier-inox",
@@ -1867,8 +1867,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "tissu-teint",
@@ -1880,8 +1880,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "filature",
@@ -1893,7 +1893,7 @@
       "complexity_depth": 2,
       "dimension": "process",
       "materialLevel": null,
-      "origin_type": "vegetal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -1906,8 +1906,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "animal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "mulberry",
@@ -1919,8 +1919,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "feuille-or",
@@ -1932,8 +1932,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "or",
@@ -1945,8 +1945,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "scierie",
@@ -1971,8 +1971,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "verre-trempe",
@@ -1984,8 +1984,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "acier-structure",
@@ -1997,8 +1997,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "hydrogene",
@@ -2010,8 +2010,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "azote",
@@ -2023,8 +2023,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "ammoniac",
@@ -2036,8 +2036,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "nitrate",
@@ -2049,8 +2049,8 @@
       "complexity_depth": 2,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "polycarbonate",
@@ -2062,8 +2062,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "route-bitee",
@@ -2075,8 +2075,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "bitume",
@@ -2088,8 +2088,8 @@
       "complexity_depth": 1,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "signal-numerique",
@@ -2114,8 +2114,8 @@
       "complexity_depth": 4,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "batterie-li",
@@ -2127,8 +2127,8 @@
       "complexity_depth": 3,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "reseau-cellulaire",
@@ -3384,8 +3384,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "minerai-de-fer",
@@ -3397,8 +3397,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "four-a-haute-temperature",
@@ -3423,8 +3423,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "acide-de-gravure",
@@ -3437,7 +3437,7 @@
       "dimension": "matter",
       "materialLevel": "processed",
       "origin_type": null,
-      "nature_type": "compose"
+      "nature_type": null
     },
     {
       "id": "fibre-de-verre",
@@ -3449,8 +3449,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "poutre-en-acier",
@@ -3462,8 +3462,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "pate-a-papier",
@@ -3475,8 +3475,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "presse-a-imprimer",
@@ -3501,8 +3501,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "generateur-electrique",
@@ -3540,8 +3540,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "moteur-a-explosion",
@@ -3579,8 +3579,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "fermeture-eclair",
@@ -3605,8 +3605,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "transistor-bipolaire",
@@ -3618,8 +3618,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "condensateur",
@@ -3683,8 +3683,8 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "batterie-rechargeable",
@@ -3696,7 +3696,7 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "mineral",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -3798,7 +3798,7 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "mineral",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -3824,7 +3824,7 @@
       "complexity_depth": 0,
       "dimension": "process",
       "materialLevel": null,
-      "origin_type": "mineral",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -4071,8 +4071,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "cryogenie",
@@ -4123,8 +4123,8 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "electrification-domestique",
@@ -4227,7 +4227,7 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -4239,8 +4239,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "acide-acetique",
@@ -4252,8 +4252,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "fermentation-lactique",
@@ -4278,8 +4278,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "distillation-fractionnee",
@@ -4485,8 +4485,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "alcool-isopropylique",
@@ -4498,8 +4498,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "alliage-d-aluminium",
@@ -4511,8 +4511,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "beton-prefabrique",
@@ -4524,8 +4524,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "capteur-de-pression",
@@ -4550,8 +4550,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "catalyseur-industriel",
@@ -4563,8 +4563,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "cellulose",
@@ -4576,8 +4576,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "ceramique",
@@ -4589,8 +4589,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "chlore-gazeux",
@@ -4602,8 +4602,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "circuit-logique",
@@ -4628,7 +4628,7 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "mineral",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -4640,8 +4640,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "fermentation-acetique",
@@ -4664,8 +4664,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "fluorescence",
@@ -4703,8 +4703,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "animal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "glycerine",
@@ -4715,8 +4715,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "hydroponie",
@@ -4921,7 +4921,7 @@
       "dimension": "matter",
       "materialLevel": "industrial",
       "origin_type": null,
-      "nature_type": "materiau"
+      "nature_type": null
     },
     {
       "id": "metallurgie",
@@ -5364,8 +5364,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "alliage-de-nickel",
@@ -5376,8 +5376,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "ambre",
@@ -5389,8 +5389,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "amiante",
@@ -5402,8 +5402,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "argile-cuite",
@@ -5415,8 +5415,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "asphalte-naturel",
@@ -5427,8 +5427,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "bentonite",
@@ -5440,8 +5440,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "borax",
@@ -5453,8 +5453,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "brique-refractaire",
@@ -5466,8 +5466,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "carbonate-de-calcium",
@@ -5479,8 +5479,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "thermometrie",
@@ -5796,8 +5796,8 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "irrigation",
@@ -5835,8 +5835,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "tracteur",
@@ -5923,8 +5923,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "herbicide",
@@ -5936,8 +5936,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "acaricide",
@@ -5948,8 +5948,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "fongicide",
@@ -5960,8 +5960,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "selection-animale",
@@ -5985,7 +5985,7 @@
       "complexity_depth": 0,
       "dimension": "process",
       "materialLevel": null,
-      "origin_type": "animal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -6036,8 +6036,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "concentre-animal",
@@ -6048,8 +6048,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "zootechnie",
@@ -6780,7 +6780,7 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -6805,8 +6805,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "ammoniac-synthetique",
@@ -6819,7 +6819,7 @@
       "dimension": "matter",
       "materialLevel": "processed",
       "origin_type": null,
-      "nature_type": "compose"
+      "nature_type": null
     },
     {
       "id": "batteries-a-air-metal",
@@ -7816,8 +7816,8 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "carburant-synthetique",
@@ -7829,8 +7829,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "boite-de-vitesses",
@@ -7931,8 +7931,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "electroaimant",
@@ -8034,8 +8034,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "condensateur-variable",
@@ -8499,7 +8499,7 @@
       "dimension": "matter",
       "materialLevel": "processed",
       "origin_type": null,
-      "nature_type": "compose"
+      "nature_type": null
     },
     {
       "id": "enzyme",
@@ -8511,8 +8511,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "animal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "proteine-recombinante",
@@ -8524,7 +8524,7 @@
       "dimension": "matter",
       "materialLevel": "component",
       "origin_type": null,
-      "nature_type": "materiau"
+      "nature_type": null
     },
     {
       "id": "fermentation-controlee",
@@ -8842,8 +8842,8 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "cloitre",
@@ -8869,7 +8869,7 @@
       "dimension": "matter",
       "materialLevel": "component",
       "origin_type": null,
-      "nature_type": "materiau"
+      "nature_type": null
     },
     {
       "id": "parchemin-teinte",
@@ -8881,8 +8881,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "animal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "reliure-de-livre",
@@ -8946,8 +8946,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "plume-d-oie",
@@ -8959,7 +8959,7 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "animal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -9036,8 +9036,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "navigation-cotiere",
@@ -9061,8 +9061,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "cadran-solaire",
@@ -9074,8 +9074,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "cartes-marines",
@@ -9087,8 +9087,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "mercantilisme",
@@ -9563,8 +9563,8 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "masque-chirurgical",
@@ -10001,7 +10001,7 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "animal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -10466,7 +10466,7 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -10479,7 +10479,7 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "animal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -10504,7 +10504,7 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "vegetal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -10543,7 +10543,7 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "animal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -10708,8 +10708,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "sculpture-sur-pierre",
@@ -10734,8 +10734,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "culte-des-ancetres",
@@ -10784,7 +10784,7 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -10797,7 +10797,7 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -10810,7 +10810,7 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -10822,7 +10822,7 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -10886,8 +10886,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "encrier",
@@ -10912,7 +10912,7 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "vegetal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -10925,8 +10925,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "tablette-d-argile",
@@ -10938,8 +10938,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "industrial",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "codex",
@@ -11214,8 +11214,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "billet-de-banque-antique",
@@ -11227,8 +11227,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "lettre-de-change",
@@ -11240,8 +11240,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "comptabilite",
@@ -11314,8 +11314,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "auberge",
@@ -11376,8 +11376,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "clepsydre",
@@ -11389,8 +11389,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "engrenage-antique",
@@ -11402,8 +11402,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "mecanisme-d-anticythere",
@@ -11415,8 +11415,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "automate-antique",
@@ -11427,8 +11427,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "porte-automatique",
@@ -11439,8 +11439,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "canon-a-eau",
@@ -11451,8 +11451,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "catapulte-a-ressort",
@@ -11719,8 +11719,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "corde",
@@ -11745,7 +11745,7 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -11797,8 +11797,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "bobine",
@@ -11835,8 +11835,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "nanotube-de-carbone",
@@ -11849,7 +11849,7 @@
       "dimension": "matter",
       "materialLevel": "component",
       "origin_type": null,
-      "nature_type": "materiau"
+      "nature_type": null
     },
     {
       "id": "propulsion-ionique",
@@ -11938,8 +11938,8 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "processeur-graphique-gpu",
@@ -11951,8 +11951,8 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "memoire-flash",
@@ -11964,8 +11964,8 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "cheval",
@@ -11976,7 +11976,7 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "animal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -12003,7 +12003,7 @@
       "dimension": "matter",
       "materialLevel": "processed",
       "origin_type": null,
-      "nature_type": "materiau"
+      "nature_type": null
     },
     {
       "id": "amplificateur",
@@ -12028,8 +12028,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "sous-marin-nucleaire",
@@ -12067,8 +12067,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "energie-eolienne",
@@ -12118,8 +12118,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "perspectif-lineaire",
@@ -12232,8 +12232,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "statistique",
@@ -12258,8 +12258,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "servomoteur",
@@ -12283,8 +12283,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "navigation",
@@ -12309,8 +12309,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "revolution-industrielle",
@@ -12334,8 +12334,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "farine",
@@ -12347,8 +12347,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "outils-fer",
@@ -12359,8 +12359,8 @@
       "complexity_depth": 0,
       "dimension": "tool",
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "usine-moderne",
@@ -12436,8 +12436,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "conservation-aliments",
@@ -12553,7 +12553,7 @@
       "dimension": "matter",
       "materialLevel": "processed",
       "origin_type": null,
-      "nature_type": "materiau"
+      "nature_type": null
     },
     {
       "id": "capteur-biologique",
@@ -12790,8 +12790,8 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "systeme-de-positionnement-precis",
@@ -12957,7 +12957,7 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "animal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -12970,7 +12970,7 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "animal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -12983,7 +12983,7 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "component",
-      "origin_type": "animal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -12996,7 +12996,7 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "animal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -13009,7 +13009,7 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "animal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -13022,7 +13022,7 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "animal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -13035,7 +13035,7 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "animal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -13048,7 +13048,7 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "animal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -13084,8 +13084,8 @@
       "complexity_depth": 0,
       "dimension": null,
       "materialLevel": null,
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "recepteur-gps",
@@ -13122,7 +13122,7 @@
       "dimension": "matter",
       "materialLevel": "industrial",
       "origin_type": null,
-      "nature_type": "materiau"
+      "nature_type": null
     },
     {
       "id": "petrole-brut",
@@ -13134,8 +13134,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "gaz-naturel",
@@ -13147,8 +13147,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "lin",
@@ -13160,7 +13160,7 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -13173,8 +13173,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "phosphore",
@@ -13186,8 +13186,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "bauxite-aluminium",
@@ -13199,7 +13199,7 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -13211,7 +13211,7 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -13223,7 +13223,7 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
+      "origin_type": null,
       "nature_type": null
     },
     {
@@ -13236,8 +13236,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "marbre",
@@ -13249,8 +13249,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "latex",
@@ -13262,8 +13262,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "cire-d-abeille",
@@ -13275,8 +13275,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "animal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "cuir-brut",
@@ -13288,8 +13288,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "animal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "chanvre",
@@ -13301,8 +13301,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "tourbe",
@@ -13314,8 +13314,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "plastique-pe",
@@ -13327,8 +13327,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "pp",
@@ -13340,8 +13340,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "pvc",
@@ -13353,8 +13353,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "caoutchouc-vulcanise",
@@ -13366,8 +13366,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "laiton",
@@ -13379,8 +13379,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "graphite",
@@ -13392,8 +13392,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "raw",
-      "origin_type": "mineral",
-      "nature_type": "element"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "platre",
@@ -13405,8 +13405,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "porcelaine",
@@ -13418,8 +13418,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "mineral",
-      "nature_type": "materiau"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "alcool",
@@ -13430,8 +13430,8 @@
       "complexity_depth": 0,
       "dimension": "matter",
       "materialLevel": "processed",
-      "origin_type": "vegetal",
-      "nature_type": "compose"
+      "origin_type": null,
+      "nature_type": null
     },
     {
       "id": "moulage",

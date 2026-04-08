@@ -1,4 +1,6 @@
-import { RelationType } from '@/lib/types';
+import { NODE_DIMENSION_ORDER, RelationType } from '@/lib/types';
+
+const REVIEW_DIM_SET = new Set<string>(NODE_DIMENSION_ORDER);
 
 export type ClaudeReviewJson = {
   has_issues?: boolean;
@@ -8,10 +10,26 @@ export type ClaudeReviewJson = {
     suggested_value?: unknown;
     reason?: string;
   }>;
+  /** @deprecated Préférer missing_nodes + missing_edges ; conservé pour compatibilité. */
   missing_links?: Array<{
     type?: string;
     suggested_name?: string;
     reason?: string;
+  }>;
+  /** Cartes absentes du graphe : id logique stable (ex. mn_thermostat) pour missing_edges. */
+  missing_nodes?: Array<{
+    id?: string;
+    suggested_name?: string;
+    reason?: string;
+    /** Lien avec la fiche courante : prérequis ou aval. */
+    link_to_current?: 'built_upon' | 'led_to' | string;
+  }>;
+  /** Liens entre current, ids logiques (missing_nodes.id) ou id nœud existant. */
+  missing_edges?: Array<{
+    source?: string;
+    target?: string;
+    relation_type?: string;
+    notes?: string;
   }>;
   suspect_links?: Array<{
     link_id?: string;
@@ -21,17 +39,6 @@ export type ClaudeReviewJson = {
   }>;
   confidence?: number;
 };
-
-function normalizeNatureTypeForDb(
-  v: unknown
-): 'element' | 'compose' | 'materiau' | null | undefined {
-  if (v === null || v === undefined || v === '') return null;
-  const s = String(v).toLowerCase().trim();
-  if (s === 'element') return 'element';
-  if (s === 'compound' || s === 'compose') return 'compose';
-  if (s === 'material' || s === 'materiau') return 'materiau';
-  return undefined;
-}
 
 function coerceYearApprox(v: unknown): number | null | undefined {
   if (v === null || v === undefined || v === '') return null;
@@ -54,7 +61,9 @@ export function applyIssueToProposed(
 
   if (f === 'dimension') {
     const s = String(suggested ?? '').trim();
-    if (['matter', 'process', 'tool'].includes(s)) proposed.dimension = s;
+    if (REVIEW_DIM_SET.has(s)) {
+      proposed.dimension = s;
+    }
     return true;
   }
   if (f === 'material_level' || f === 'materiallevel') {
@@ -69,28 +78,38 @@ export function applyIssueToProposed(
     if (y !== undefined) proposed.year_approx = y;
     return true;
   }
-  if (f === 'origin_type' || f === 'origintype') {
+  if (
+    f === 'natural_origin' ||
+    f === 'naturalorigin' ||
+    f === 'origin_type' ||
+    f === 'origintype'
+  ) {
     const s = String(suggested ?? '').trim();
-    if (['mineral', 'vegetal', 'animal'].includes(s)) proposed.origin_type = s;
-    else if (s === '' || suggested === null) proposed.origin_type = null;
+    if (['mineral', 'plant', 'vegetal', 'animal'].includes(s)) {
+      proposed.naturalOrigin = s === 'vegetal' ? 'plant' : s;
+    } else if (s === '' || suggested === null) proposed.naturalOrigin = null;
     return true;
   }
-  if (f === 'nature_type' || f === 'naturetype') {
-    const nt = normalizeNatureTypeForDb(suggested);
-    if (nt !== undefined) proposed.nature_type = nt;
-    return true;
-  }
-  if (f === 'natural_origin' || f === 'naturalorigin') {
-    const s = String(suggested ?? '').trim();
-    if (['mineral', 'vegetal', 'animal'].includes(s)) proposed.naturalOrigin = s;
-    else if (s === '' || suggested === null) proposed.naturalOrigin = null;
-    return true;
-  }
-  if (f === 'chemical_nature' || f === 'chemicalnature') {
-    const s = String(suggested ?? '').trim();
-    if (['element', 'compound', 'material'].includes(s)) {
+  if (
+    f === 'chemical_nature' ||
+    f === 'chemicalnature' ||
+    f === 'nature_type' ||
+    f === 'naturetype'
+  ) {
+    const s = String(suggested ?? '').trim().toLowerCase();
+    if (
+      s === 'element' ||
+      s === 'compound' ||
+      s === 'material' ||
+      s === 'compose' ||
+      s === 'materiau'
+    ) {
       proposed.chemicalNature =
-        s === 'compound' ? 'compound' : s === 'material' ? 'material' : 'element';
+        s === 'compose'
+          ? 'compound'
+          : s === 'materiau'
+            ? 'material'
+            : (s as 'element' | 'compound' | 'material');
     } else if (s === '' || suggested === null) proposed.chemicalNature = null;
     return true;
   }
@@ -115,11 +134,22 @@ export function applyIssueToProposed(
     return true;
   }
   if (f === 'description') {
-    proposed.description = String(suggested ?? '').trim();
+    proposed.description = String(suggested ?? '');
     return true;
   }
   if (f === 'description_en' || f === 'descriptionen') {
-    proposed.description_en = String(suggested ?? '').trim();
+    proposed.description_en = String(suggested ?? '');
+    return true;
+  }
+  if (f === 'tags') {
+    if (Array.isArray(suggested)) {
+      proposed.tags = suggested.map((x) => String(x).trim()).filter(Boolean);
+    } else if (typeof suggested === 'string') {
+      proposed.tags = suggested
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean);
+    }
     return true;
   }
   if (f === 'wikipedia_url' || f === 'wikipediaurl') {
@@ -127,7 +157,6 @@ export function applyIssueToProposed(
     proposed.wikipedia_url = w === '' ? null : w;
     return true;
   }
-
   return false;
 }
 

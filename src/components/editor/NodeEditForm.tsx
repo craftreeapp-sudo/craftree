@@ -8,31 +8,30 @@ import {
   useState,
 } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import {
-  NODE_CATEGORY_ORDER,
-  ERA_ORDER,
-  DIMENSION_ORDER,
-  MATERIAL_LEVEL_ORDER,
-} from '@/lib/node-labels';
+import { NODE_CATEGORY_ORDER, ERA_ORDER } from '@/lib/node-labels';
 import { eraLabelFromMessages } from '@/lib/era-display';
 import { slugify } from '@/lib/utils';
 import {
   NodeCategory as NC,
   Era as EraEnum,
-  RelationType as RT,
   type CraftingLink,
   type NodeCategory,
-  type RelationType,
+  type TechNodeBasic,
   type SeedNode,
   type Era,
 } from '@/lib/types';
 import { SearchableSelect, type SearchableOption } from './SearchableSelect';
-import {
-  RELATION_BADGE_COLORS,
-  RELATION_TYPES_LIST,
-} from './editor-relation-styles';
+import { RELATION_BADGE_COLORS } from './editor-relation-styles';
 import { ImageUploader } from '@/components/ui/ImageUploader';
-import { EDITOR_DIM_KEY, EDITOR_LEVEL_KEY } from './dimension-editor-keys';
+import { normalizeRelationTypeForUi } from '@/lib/relation-display';
+import {
+  INVENTION_KIND_ORDER,
+  type InventionKindKey,
+  inventionKindFromFormStrings,
+  inventionKindFromLinkAndPeer,
+  inventionKindToFormStrings,
+  relationTypeFromInventionKind,
+} from '@/lib/invention-classification';
 
 export interface NodeEditFormState {
   name: string;
@@ -116,7 +115,7 @@ export function NodeEditForm({
   const locale = useLocale();
   const te = useTranslations('editor');
   const tCat = useTranslations('categories');
-  const tRel = useTranslations('relationTypes');
+  const tInv = useTranslations('inventionKinds');
   const tc = useTranslations('common');
 
   const previewId = editingId ?? slugify(form.name);
@@ -156,8 +155,9 @@ export function NodeEditForm({
   );
 
   const [builtSource, setBuiltSource] = useState('');
-  const [builtRel, setBuiltRel] = useState<RelationType>(RT.MATERIAL);
-  const [ledRel, setLedRel] = useState<RelationType>(RT.MATERIAL);
+  const [builtRelKind, setBuiltRelKind] =
+    useState<InventionKindKey>('matter_raw');
+  const [ledRelKind, setLedRelKind] = useState<InventionKindKey>('matter_raw');
   const [ledTarget, setLedTarget] = useState('');
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
@@ -174,39 +174,59 @@ export function NodeEditForm({
 
   const addBuiltUpon = useCallback(async () => {
     if (!editingId || !builtSource || builtSource === editingId) return;
+    const relation_type = relationTypeFromInventionKind(builtRelKind);
+    const peerFields = inventionKindToFormStrings(builtRelKind);
     const res = await fetch('/api/links', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         source_id: builtSource,
         target_id: editingId,
-        relation_type: builtRel,
+        relation_type,
       }),
     });
     if (res.ok) {
+      await fetch(`/api/nodes/${encodeURIComponent(builtSource)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          dimension: peerFields.dimension || null,
+          materialLevel: peerFields.materialLevel || null,
+        }),
+      });
       setBuiltSource('');
-      setBuiltRel(RT.MATERIAL);
+      setBuiltRelKind('matter_raw');
       await onRefreshData();
     }
-  }, [editingId, builtSource, builtRel, onRefreshData, setBuiltSource, setBuiltRel]);
+  }, [editingId, builtSource, builtRelKind, onRefreshData]);
 
   const addLedTo = useCallback(async () => {
     if (!editingId || !ledTarget || ledTarget === editingId) return;
+    const relation_type = relationTypeFromInventionKind(ledRelKind);
+    const peerFields = inventionKindToFormStrings(ledRelKind);
     const res = await fetch('/api/links', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         source_id: editingId,
         target_id: ledTarget,
-        relation_type: ledRel,
+        relation_type,
       }),
     });
     if (res.ok) {
+      await fetch(`/api/nodes/${encodeURIComponent(ledTarget)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          dimension: peerFields.dimension || null,
+          materialLevel: peerFields.materialLevel || null,
+        }),
+      });
       setLedTarget('');
-      setLedRel(RT.MATERIAL);
+      setLedRelKind('matter_raw');
       await onRefreshData();
     }
-  }, [editingId, ledTarget, ledRel, onRefreshData, setLedTarget, setLedRel]);
+  }, [editingId, ledTarget, ledRelKind, onRefreshData]);
 
   const removeLink = useCallback(
     async (linkId: string) => {
@@ -273,44 +293,30 @@ export function NodeEditForm({
             {te('labelDimension')}
           </label>
           <select
-            value={form.dimension}
+            value={inventionKindFromFormStrings(
+              form.dimension,
+              form.materialLevel
+            )}
             onChange={(e) => {
-              const v = e.target.value;
+              const v = e.target.value as InventionKindKey | '';
+              if (!v) {
+                setForm((f) => ({ ...f, dimension: '', materialLevel: '' }));
+                return;
+              }
+              const { dimension, materialLevel } =
+                inventionKindToFormStrings(v);
               setForm((f) => ({
                 ...f,
-                dimension: v,
-                materialLevel: v === 'matter' ? f.materialLevel : '',
+                dimension,
+                materialLevel,
               }));
             }}
             className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
           >
             <option value="">{te('notSet')}</option>
-            {DIMENSION_ORDER.map((d) => (
-              <option key={d} value={d}>
-                {te(EDITOR_DIM_KEY[d])}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="mb-1 block text-xs text-muted-foreground">
-            {te('labelMaterialLevel')}
-          </label>
-          <select
-            value={form.materialLevel}
-            onChange={(e) =>
-              setForm((f) => ({
-                ...f,
-                materialLevel: e.target.value,
-              }))
-            }
-            disabled={form.dimension !== 'matter'}
-            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <option value="">{te('notSet')}</option>
-            {MATERIAL_LEVEL_ORDER.map((lv) => (
-              <option key={lv} value={lv}>
-                {te(EDITOR_LEVEL_KEY[lv])}
+            {INVENTION_KIND_ORDER.map((k) => (
+              <option key={k} value={k}>
+                {tInv(k)}
               </option>
             ))}
           </select>
@@ -419,15 +425,22 @@ export function NodeEditForm({
               <ul className="mb-3 space-y-2">
                 {incomingLinks.map((l) => {
                   const src = nodeById.get(l.source_id);
+                  const relNorm = normalizeRelationTypeForUi(
+                    String(l.relation_type)
+                  );
+                  const linkKind = inventionKindFromLinkAndPeer(
+                    relNorm,
+                    src as TechNodeBasic | undefined
+                  );
                   return (
                     <li
                       key={l.id}
                       className="flex items-center gap-2 rounded border border-border bg-surface/60 px-2 py-1.5"
                     >
                       <span
-                        className={`inline-block shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-medium ${RELATION_BADGE_COLORS[l.relation_type]}`}
+                        className={`inline-block shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-medium ${RELATION_BADGE_COLORS[relationTypeFromInventionKind(linkKind)]}`}
                       >
-                        {tRel(l.relation_type)}
+                        {tInv(linkKind)}
                       </span>
                       <span className="min-w-0 flex-1 truncate text-sm text-foreground">
                         {src?.name ?? l.source_id}
@@ -455,15 +468,15 @@ export function NodeEditForm({
                 </div>
                 <div className="w-[130px]">
                   <select
-                    value={builtRel}
+                    value={builtRelKind}
                     onChange={(e) =>
-                      setBuiltRel(e.target.value as RelationType)
+                      setBuiltRelKind(e.target.value as InventionKindKey)
                     }
                     className="w-full rounded-lg border border-border bg-surface px-2 py-2 text-xs text-foreground outline-none focus:border-accent"
                   >
-                    {RELATION_TYPES_LIST.map((r) => (
-                      <option key={r} value={r}>
-                        {tRel(r)}
+                    {INVENTION_KIND_ORDER.map((k) => (
+                      <option key={k} value={k}>
+                        {tInv(k)}
                       </option>
                     ))}
                   </select>
@@ -485,15 +498,22 @@ export function NodeEditForm({
               <ul className="mb-3 space-y-2">
                 {outgoingLinks.map((l) => {
                   const tgt = nodeById.get(l.target_id);
+                  const relNorm = normalizeRelationTypeForUi(
+                    String(l.relation_type)
+                  );
+                  const linkKind = inventionKindFromLinkAndPeer(
+                    relNorm,
+                    tgt as TechNodeBasic | undefined
+                  );
                   return (
                     <li
                       key={l.id}
                       className="flex items-center gap-2 rounded border border-border bg-surface/60 px-2 py-1.5"
                     >
                       <span
-                        className={`inline-block shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-medium ${RELATION_BADGE_COLORS[l.relation_type]}`}
+                        className={`inline-block shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-medium ${RELATION_BADGE_COLORS[relationTypeFromInventionKind(linkKind)]}`}
                       >
-                        {tRel(l.relation_type)}
+                        {tInv(linkKind)}
                       </span>
                       <span className="min-w-0 flex-1 truncate text-sm text-foreground">
                         {tgt?.name ?? l.target_id}
@@ -513,15 +533,15 @@ export function NodeEditForm({
               <div className="flex flex-wrap items-end gap-2">
                 <div className="w-[130px]">
                   <select
-                    value={ledRel}
+                    value={ledRelKind}
                     onChange={(e) =>
-                      setLedRel(e.target.value as RelationType)
+                      setLedRelKind(e.target.value as InventionKindKey)
                     }
                     className="w-full rounded-lg border border-border bg-surface px-2 py-2 text-xs text-foreground outline-none focus:border-accent"
                   >
-                    {RELATION_TYPES_LIST.map((r) => (
-                      <option key={r} value={r}>
-                        {tRel(r)}
+                    {INVENTION_KIND_ORDER.map((k) => (
+                      <option key={k} value={k}>
+                        {tInv(k)}
                       </option>
                     ))}
                   </select>

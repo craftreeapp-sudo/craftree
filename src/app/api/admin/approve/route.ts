@@ -51,12 +51,12 @@ export async function POST(request: Request) {
     }
 
     console.log('[admin/approve] POST applyApprovedSuggestion', { id });
-    await applyApprovedSuggestion(id, opts);
+    const summary = await applyApprovedSuggestion(id, opts);
     console.log(
       '[admin/approve] applyApprovedSuggestion finished (contributor notify awaited inside)'
     );
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, summary });
   } catch (e) {
     console.error(e);
     const msg = approveErrorMessage(e);

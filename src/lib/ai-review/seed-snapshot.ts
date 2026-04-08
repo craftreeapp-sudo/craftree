@@ -22,7 +22,5 @@ export function seedNodeToEditSnapshot(seed: SeedNode): Record<string, unknown> 
     dimension: seed.dimension ?? null,
     materialLevel: seed.materialLevel ?? null,
     wikipedia_url: seed.wikipedia_url ?? null,
-    origin_type: seed.origin_type ?? null,
-    nature_type: seed.nature_type ?? null,
   };
 }

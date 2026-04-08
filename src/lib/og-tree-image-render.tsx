@@ -28,13 +28,16 @@ function relationColors(rt: RelationType): { border: string; text: string } {
   switch (rt) {
     case 'material':
       return { border: GREEN, text: GREEN_L };
-    case 'tool':
+    case 'component':
       return { border: ORANGE, text: ORANGE_L };
+    case 'tool':
+      return { border: VIOLET, text: VIOLET_L };
     case 'energy':
       return { border: AMBER, text: AMBER_L };
-    case 'knowledge':
-    case 'catalyst':
-      return { border: VIOLET, text: VIOLET_L };
+    case 'process':
+      return { border: BLUE, text: BLUE_L };
+    case 'infrastructure':
+      return { border: '#64748b', text: '#94a3b8' };
     default:
       return { border: VIOLET, text: VIOLET_L };
   }
@@ -44,19 +47,21 @@ function relationLabel(rt: RelationType, locale: OgLocale): string {
   if (locale === 'en') {
     const en: Record<RelationType, string> = {
       material: 'Material',
+      component: 'Component',
       tool: 'Tool',
       energy: 'Energy',
-      knowledge: 'Knowledge',
-      catalyst: 'Catalyst',
+      process: 'Process',
+      infrastructure: 'Infrastructure',
     };
     return en[rt] ?? rt;
   }
   const fr: Record<RelationType, string> = {
     material: 'Matière',
+    component: 'Composant',
     tool: 'Outil',
     energy: 'Énergie',
-    knowledge: 'Savoir',
-    catalyst: 'Catalyseur',
+    process: 'Procédé',
+    infrastructure: 'Infrastructure',
   };
   return fr[rt] ?? rt;
 }
@@ -402,7 +407,12 @@ function OgPyramid(props: {
 }) {
   const { nodeId, name, year_approx, origin, upstreamCount, buckets, locale } = props;
 
-  const processTools = [...buckets.process, ...buckets.tools];
+  const processTools = [
+    ...buckets.process,
+    ...buckets.tools,
+    ...buckets.energy,
+    ...buckets.infrastructure,
+  ];
 
   return (
     <div
@@ -488,7 +498,7 @@ function OgPyramid(props: {
           VIOLET_L,
           VIOLET,
           VIOLET_L,
-          buckets.matters.component,
+          buckets.composants,
           4,
           100
         )}

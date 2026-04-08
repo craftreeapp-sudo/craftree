@@ -1,6 +1,7 @@
 /** Filtres communs pour les outils IA admin (ciblage par métadonnées nœud). */
 
 import type { SupabaseClient } from '@supabase/supabase-js';
+import type { NodeDimension } from '@/lib/types';
 
 export type DraftScope = 'all' | 'drafts_only' | 'published_only';
 
@@ -16,7 +17,7 @@ export type AdminNodeScope = {
   /** Uniquement les cartes avec URL Wikipédia non vide. */
   requireWikipediaUrl?: boolean;
   /** Filtrer par dimension Craftree. */
-  dimension?: 'all' | 'matter' | 'process' | 'tool';
+  dimension?: 'all' | NodeDimension;
 };
 
 export function clampYearBound(v: unknown): number | null {
@@ -24,6 +25,25 @@ export function clampYearBound(v: unknown): number | null {
   const n = Number(v);
   if (!Number.isFinite(n)) return null;
   return Math.min(2030, Math.max(-10000, Math.round(n)));
+}
+
+/** Si min > max, échange (même logique que les filtres année). */
+export function normalizeComplexityBounds(
+  min: number | null,
+  max: number | null
+): { complexityMin: number | null; complexityMax: number | null } {
+  let complexityMin = min;
+  let complexityMax = max;
+  if (
+    complexityMin != null &&
+    complexityMax != null &&
+    complexityMin > complexityMax
+  ) {
+    const t = complexityMin;
+    complexityMin = complexityMax;
+    complexityMax = t;
+  }
+  return { complexityMin, complexityMax };
 }
 
 export function normalizeYearBounds(

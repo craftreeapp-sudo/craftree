@@ -1,11 +1,10 @@
 import { create } from 'zustand';
-import type {
-  Era,
-  MaterialLevel,
-  NodeCategory,
-  NodeDimension,
-} from '@/lib/types';
+import type { Era, NodeCategory } from '@/lib/types';
 import { NodeCategory as NC, Era as EraEnum } from '@/lib/types';
+import {
+  INVENTION_KIND_ORDER,
+  type InventionKindKey,
+} from '@/lib/invention-classification';
 
 export interface SelectNodeOptions {
   /** Centrer la vue sur le nœud (ex. navigation depuis la recherche) */
@@ -16,15 +15,15 @@ export interface SelectNodeOptions {
 
 const ALL_CATEGORIES = new Set(Object.values(NC) as NodeCategory[]);
 const ALL_ERAS = new Set(Object.values(EraEnum) as Era[]);
-const ALL_DIMENSIONS = new Set<NodeDimension>(['matter', 'process', 'tool']);
-const ALL_MATERIAL_LEVELS = new Set<MaterialLevel>([
-  'raw',
-  'processed',
-  'industrial',
-  'component',
-]);
+const ALL_INVENTION_KINDS = new Set<InventionKindKey>(INVENTION_KIND_ORDER);
 
 export type EdgeStyle = 'angular' | 'smooth';
+
+/** Affichage arbre / fiche : intrants-sortants directs seuls, ou + niveau 2 (étendu). */
+export type LinkNeighborhoodMode = 'direct' | 'direct_and_extended';
+
+export const LINK_NEIGHBORHOOD_MODE_STORAGE_KEY =
+  'craftree:linkNeighborhoodMode';
 
 interface UIStore {
   selectedNodeId: string | null;
@@ -52,10 +51,8 @@ interface UIStore {
   /** Filtres visuels : sous-ensembles actifs (tout activé par défaut) */
   activeCategories: Set<NodeCategory>;
   activeEras: Set<Era>;
-  /** Matière / procédé / outil */
-  activeDimensions: Set<NodeDimension>;
-  /** Sous-filtre si dimension = matter (nœuds non-matter ignorés pour ce critère) */
-  activeMaterialLevels: Set<MaterialLevel>;
+  /** Types de fiche (8 kinds) — aligné éditeur / liens. */
+  activeInventionKinds: Set<InventionKindKey>;
 
   selectNode: (id: string, options?: SelectNodeOptions) => void;
   closeSidebar: () => void;
@@ -67,19 +64,15 @@ interface UIStore {
 
   toggleCategory: (category: NodeCategory) => void;
   toggleEra: (era: Era) => void;
-  toggleDimension: (dimension: NodeDimension) => void;
-  toggleMaterialLevel: (level: MaterialLevel) => void;
+  toggleInventionKind: (kind: InventionKindKey) => void;
   setAllCategories: (active: boolean) => void;
   setAllEras: (active: boolean) => void;
-  setAllDimensions: (active: boolean) => void;
-  setAllMaterialLevels: (active: boolean) => void;
+  setAllInventionKinds: (active: boolean) => void;
 
   /** Page picker : un seul critère actif, les autres dimensions restent « tout ». */
   setOnlyCategory: (category: NodeCategory) => void;
   setOnlyEra: (era: Era) => void;
-  setOnlyDimension: (dimension: NodeDimension) => void;
-  /** Filtre uniquement les cartes matière avec ce niveau (dimension matter implicite). */
-  setOnlyMaterialLevel: (level: MaterialLevel) => void;
+  setOnlyInventionKind: (kind: InventionKindKey) => void;
 
   /** /explore : liens orthogonaux (angles droits) ou courbes de Bézier */
   edgeStyle: EdgeStyle;
@@ -96,6 +89,14 @@ interface UIStore {
   /** Modal globale « Ajouter une carte » (création / suggestion) */
   addCardModalOpen: boolean;
   setAddCardModalOpen: (open: boolean) => void;
+
+  /** Vue arbre / fiche / édition liens : direct ou direct + étendu (2e niveau). */
+  linkNeighborhoodMode: LinkNeighborhoodMode;
+  /** `persist` : écrit aussi dans localStorage (défaut true). */
+  setLinkNeighborhoodMode: (
+    mode: LinkNeighborhoodMode,
+    persist?: boolean
+  ) => void;
 }
 
 export const useUIStore = create<UIStore>((set) => ({
@@ -118,8 +119,7 @@ export const useUIStore = create<UIStore>((set) => ({
 
   activeCategories: new Set(ALL_CATEGORIES),
   activeEras: new Set(ALL_ERAS),
-  activeDimensions: new Set(ALL_DIMENSIONS),
-  activeMaterialLevels: new Set(ALL_MATERIAL_LEVELS),
+  activeInventionKinds: new Set(ALL_INVENTION_KINDS),
 
   selectNode: (id, options) =>
     set((s) => {
@@ -211,20 +211,12 @@ export const useUIStore = create<UIStore>((set) => ({
       return { activeEras: next };
     }),
 
-  toggleDimension: (dimension) =>
+  toggleInventionKind: (kind) =>
     set((s) => {
-      const next = new Set(s.activeDimensions);
-      if (next.has(dimension)) next.delete(dimension);
-      else next.add(dimension);
-      return { activeDimensions: next };
-    }),
-
-  toggleMaterialLevel: (level) =>
-    set((s) => {
-      const next = new Set(s.activeMaterialLevels);
-      if (next.has(level)) next.delete(level);
-      else next.add(level);
-      return { activeMaterialLevels: next };
+      const next = new Set(s.activeInventionKinds);
+      if (next.has(kind)) next.delete(kind);
+      else next.add(kind);
+      return { activeInventionKinds: next };
     }),
 
   setAllCategories: (active) =>
@@ -237,46 +229,30 @@ export const useUIStore = create<UIStore>((set) => ({
       activeEras: active ? new Set(ALL_ERAS) : new Set(),
     }),
 
-  setAllDimensions: (active) =>
+  setAllInventionKinds: (active) =>
     set({
-      activeDimensions: active ? new Set(ALL_DIMENSIONS) : new Set(),
-    }),
-
-  setAllMaterialLevels: (active) =>
-    set({
-      activeMaterialLevels: active ? new Set(ALL_MATERIAL_LEVELS) : new Set(),
+      activeInventionKinds: active ? new Set(ALL_INVENTION_KINDS) : new Set(),
     }),
 
   setOnlyCategory: (category) =>
     set({
       activeCategories: new Set([category]),
       activeEras: new Set(ALL_ERAS),
-      activeDimensions: new Set(ALL_DIMENSIONS),
-      activeMaterialLevels: new Set(ALL_MATERIAL_LEVELS),
+      activeInventionKinds: new Set(ALL_INVENTION_KINDS),
     }),
 
   setOnlyEra: (era) =>
     set({
       activeCategories: new Set(ALL_CATEGORIES),
       activeEras: new Set([era]),
-      activeDimensions: new Set(ALL_DIMENSIONS),
-      activeMaterialLevels: new Set(ALL_MATERIAL_LEVELS),
+      activeInventionKinds: new Set(ALL_INVENTION_KINDS),
     }),
 
-  setOnlyDimension: (dimension) =>
+  setOnlyInventionKind: (kind) =>
     set({
       activeCategories: new Set(ALL_CATEGORIES),
       activeEras: new Set(ALL_ERAS),
-      activeDimensions: new Set([dimension]),
-      activeMaterialLevels: new Set(ALL_MATERIAL_LEVELS),
-    }),
-
-  setOnlyMaterialLevel: (level) =>
-    set({
-      activeCategories: new Set(ALL_CATEGORIES),
-      activeEras: new Set(ALL_ERAS),
-      activeDimensions: new Set(['matter']),
-      activeMaterialLevels: new Set([level]),
+      activeInventionKinds: new Set([kind]),
     }),
 
   edgeStyle: 'smooth',
@@ -293,4 +269,28 @@ export const useUIStore = create<UIStore>((set) => ({
 
   addCardModalOpen: false,
   setAddCardModalOpen: (open) => set({ addCardModalOpen: open }),
+
+  linkNeighborhoodMode: 'direct',
+  setLinkNeighborhoodMode: (mode, persist = true) => {
+    set({ linkNeighborhoodMode: mode });
+    if (!persist || typeof window === 'undefined') return;
+    try {
+      localStorage.setItem(LINK_NEIGHBORHOOD_MODE_STORAGE_KEY, mode);
+    } catch {
+      /* ignore quota / private mode */
+    }
+  },
 }));
+
+/** Hydrate le mode depuis localStorage (appeler une fois au montage client). */
+export function hydrateLinkNeighborhoodModeFromStorage(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const v = localStorage.getItem(LINK_NEIGHBORHOOD_MODE_STORAGE_KEY);
+    if (v === 'direct_and_extended' || v === 'direct') {
+      useUIStore.getState().setLinkNeighborhoodMode(v, true);
+    }
+  } catch {
+    /* ignore */
+  }
+}

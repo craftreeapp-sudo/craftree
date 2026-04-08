@@ -113,7 +113,7 @@ interface CraftingLink {
   id: string;
   source_id: string;             // ID de l'intrant
   target_id: string;             // ID du produit
-  relation_type: string;         // material, tool, energy, knowledge, catalyst
+  relation_type: string;         // material, component, tool, energy, process, infrastructure
   is_optional: boolean;
   notes?: string;
 }
@@ -126,6 +126,15 @@ interface CraftingLink {
 - **Peuplement IA** : script `scripts/populate.mjs` utilisant l'API Claude — écrit dans seed-data.json ET directement dans Supabase
 - **Schéma SQL** : `supabase/schema.sql`
 - **Images** : URLs Wikimedia Commons stockées dans `image_url` (jamais de fichiers locaux)
+
+### Migration `relation_type` (anciennes valeurs → officielles)
+
+Si la base Supabase contient encore `knowledge` ou `catalyst` sur `links.relation_type` :
+
+```sql
+UPDATE links SET relation_type = 'process' WHERE relation_type = 'knowledge';
+UPDATE links SET relation_type = 'tool' WHERE relation_type = 'catalyst';
+```
 
 ### 2.3 Contraintes SQL importantes
 

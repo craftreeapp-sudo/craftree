@@ -6,6 +6,8 @@ import { createSupabaseServiceRoleClient } from '@/lib/supabase-server';
 import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 import {
   fetchFullNodeRowById,
+  mapRowChemicalNature,
+  mapRowNaturalOrigin,
   mapNodeRowToSeedNode,
 } from '@/lib/data';
 import { seedNodeIsLocked } from '@/lib/node-lock';
@@ -23,6 +25,7 @@ import {
 } from '@/lib/ai-tools/operations-log';
 import {
   clampYearBound,
+  normalizeComplexityBounds,
   normalizeYearBounds,
   nodeRowMatchesAdminScope,
   type AdminNodeScope,
@@ -53,8 +56,9 @@ function parseFilters(sp: URLSearchParams | Record<string, unknown>) {
   };
 }
 
+/** `origin_type` / `nature_type` couvrent aussi les schémas sans `natural_origin` / `chemical_nature`. */
 const ENRICH_NODE_SELECT =
-  'id, description, year_approx, wikipedia_url, dimension, material_level, category, era, is_locked, is_draft, complexity_depth';
+  'id, description, year_approx, wikipedia_url, dimension, material_level, origin_type, nature_type, category, era, is_locked, is_draft, complexity_depth';
 
 function parseEnrichScope(
   sp: URLSearchParams | Record<string, unknown>
@@ -100,14 +104,17 @@ function parseEnrichScope(
   const cmax = sp instanceof URLSearchParams
     ? sp.get('complexityMax')
     : (sp as Record<string, unknown>).complexityMax;
-  const complexityMin =
+  let complexityMin =
     cmin != null && cmin !== '' && Number.isFinite(Number(cmin))
       ? Math.max(0, Math.floor(Number(cmin)))
       : null;
-  const complexityMax =
+  let complexityMax =
     cmax != null && cmax !== '' && Number.isFinite(Number(cmax))
       ? Math.max(0, Math.floor(Number(cmax)))
       : null;
+  const cx = normalizeComplexityBounds(complexityMin, complexityMax);
+  complexityMin = cx.complexityMin;
+  complexityMax = cx.complexityMax;
 
   return {
     filterCategory: cat && cat !== 'all' ? cat : null,
@@ -116,12 +123,8 @@ function parseEnrichScope(
     filterYearMax,
     excludeLocked,
     draftScope,
-    complexityMin: Number.isFinite(complexityMin as number)
-      ? (complexityMin as number)
-      : null,
-    complexityMax: Number.isFinite(complexityMax as number)
-      ? (complexityMax as number)
-      : null,
+    complexityMin,
+    complexityMax,
   };
 }
 
@@ -145,11 +148,15 @@ function missingScore(seed: SeedNode): number {
   if (seed.year_approx === null || seed.year_approx === undefined) s += 1;
   if (!seed.wikipedia_url?.trim()) s += 1;
   if (seed.dimension == null || String(seed.dimension).trim() === '') s += 1;
-  if (
-    seed.dimension === 'matter' &&
-    (seed.materialLevel == null || String(seed.materialLevel).trim() === '')
-  ) {
-    s += 1;
+  if (seed.dimension === 'matter') {
+    if (
+      seed.materialLevel == null ||
+      String(seed.materialLevel).trim() === ''
+    ) {
+      s += 1;
+    }
+    if (seed.naturalOrigin == null) s += 1;
+    if (seed.chemicalNature == null) s += 1;
   }
   return s;
 }
@@ -195,7 +202,9 @@ function rowMatchesFilters(
     if (dim == null || String(dim).trim() === '') return true;
     if (String(dim) === 'matter') {
       const ml = r.material_level;
-      return ml == null || String(ml).trim() === '';
+      if (ml == null || String(ml).trim() === '') return true;
+      if (mapRowNaturalOrigin(r) == null) return true;
+      if (mapRowChemicalNature(r) == null) return true;
     }
     return false;
   }
@@ -362,7 +371,7 @@ export async function POST(request: Request) {
 
     const system = `Tu enrichis une fiche invention pour Craftree. Réponds par un JSON unique (sans markdown) de la forme:
 {
-  "fields_updated": { ... champs modifiés au format camelCase aligné sur l'éditeur: name, name_en, description, description_en, category, era, year_approx, origin, tags, dimension, materialLevel, naturalOrigin, chemicalNature, wikipedia_url, origin_type, nature_type },
+  "fields_updated": { ... champs modifiés au format camelCase aligné sur l'éditeur: name, name_en, description, description_en, category, era, year_approx, origin, tags, dimension, materialLevel, naturalOrigin, chemicalNature, wikipedia_url },
   "missing_links": [ { "type": "built_upon" | "led_to", "suggested_name": "nom d'une carte existante", "reason": "..." } ],
   "confidence": 0.0-1.0,
   "notes": "brève justification"

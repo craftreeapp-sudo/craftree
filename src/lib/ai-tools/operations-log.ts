@@ -1,6 +1,11 @@
 import { createSupabaseServiceRoleClient } from '@/lib/supabase-server';
 
-export type AiToolKind = 'add' | 'enrich' | 'images' | 'review';
+export type AiToolKind =
+  | 'add'
+  | 'enrich'
+  | 'images'
+  | 'review'
+  | 'seed_named_drafts';
 
 export async function startAiOperation(params: {
   tool: AiToolKind;

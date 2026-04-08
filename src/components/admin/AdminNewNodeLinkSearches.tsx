@@ -11,11 +11,18 @@ import { slugify } from '@/lib/utils';
 import { VALID_RELATIONS } from '@/lib/admin-suggestion-shared';
 import type { SuggestLinkSnapshot } from '@/lib/suggestion-link-snapshot';
 import { NodeCategory, RelationType } from '@/lib/types';
+import type { LinkNeighborhoodMode } from '@/stores/ui-store';
+import {
+  type InventionKindKey,
+  inventionKindToNodeFields,
+  relationTypeFromInventionKind,
+} from '@/lib/invention-classification';
 
 type LinkEdge = {
   source_id: string;
   target_id: string;
   relation_type: string;
+  is_optional?: boolean;
 };
 
 type Props = {
@@ -43,6 +50,7 @@ export function AdminNewNodeLinkSearches({
   const tExplore = useTranslations('explore');
   const graphNodes = useGraphStore((s) => s.nodes);
   const getNodeById = useGraphStore((s) => s.getNodeById);
+  const updateNode = useGraphStore((s) => s.updateNode);
   const refreshData = useGraphStore((s) => s.refreshData);
   const detailsById = useNodeDetailsStore((s) => s.byId);
 
@@ -71,7 +79,12 @@ export function AdminNewNodeLinkSearches({
       const r = String(o.relation_type ?? RelationType.MATERIAL);
       if (!s || !t) continue;
       if (!VALID_RELATIONS.has(r)) continue;
-      out.push({ source_id: s, target_id: t, relation_type: r });
+      out.push({
+        source_id: s,
+        target_id: t,
+        relation_type: r,
+        is_optional: Boolean(o.is_optional),
+      });
     }
     return out;
   }, [draft.links]);
@@ -126,6 +139,7 @@ export function AdminNewNodeLinkSearches({
             source_id,
             target_id,
             relation_type: RelationType.MATERIAL,
+            is_optional: false,
           },
         ],
       });
@@ -166,7 +180,7 @@ export function AdminNewNodeLinkSearches({
         id: `newnode-link-${i}`,
         relation_type: rel,
         notes: '',
-        is_optional: false,
+        is_optional: Boolean(add.is_optional),
       };
       out.push({
         linkId: `newnode-link-${i}`,
@@ -204,7 +218,7 @@ export function AdminNewNodeLinkSearches({
         id: `newnode-link-${i}`,
         relation_type: rel,
         notes: '',
-        is_optional: false,
+        is_optional: Boolean(add.is_optional),
       };
       out.push({
         linkId: `newnode-link-${i}`,
@@ -223,6 +237,44 @@ export function AdminNewNodeLinkSearches({
       const idx = linkIndexFromId(linkId);
       if (idx === null || idx < 0 || idx >= draftLinks.length) return;
       const next = draftLinks.filter((_, j) => j !== idx);
+      onEditDraftChange({
+        ...draft,
+        link: {},
+        links: next,
+      });
+    },
+    [draft, draftLinks, onEditDraftChange]
+  );
+
+  const onChangeInventionKind = useCallback(
+    (linkId: string, peerId: string, kind: InventionKindKey) => {
+      const relationType = relationTypeFromInventionKind(kind);
+      const { dimension, materialLevel } = inventionKindToNodeFields(kind);
+      if (getNodeById(peerId)) {
+        updateNode(peerId, { dimension, materialLevel });
+      }
+      const idx = linkIndexFromId(linkId);
+      if (idx === null || idx < 0 || idx >= draftLinks.length) return;
+      const next = draftLinks.map((edge, j) =>
+        j === idx ? { ...edge, relation_type: relationType } : edge
+      );
+      onEditDraftChange({
+        ...draft,
+        link: {},
+        links: next,
+      });
+    },
+    [draft, draftLinks, getNodeById, onEditDraftChange, updateNode]
+  );
+
+  const onChangeLinkNeighborhood = useCallback(
+    (linkId: string, mode: LinkNeighborhoodMode) => {
+      const idx = linkIndexFromId(linkId);
+      if (idx === null || idx < 0 || idx >= draftLinks.length) return;
+      const is_optional = mode === 'direct_and_extended';
+      const next = draftLinks.map((edge, j) =>
+        j === idx ? { ...edge, is_optional } : edge
+      );
       onEditDraftChange({
         ...draft,
         link: {},
@@ -252,6 +304,10 @@ export function AdminNewNodeLinkSearches({
         existingRows={ledToRows}
         onRemove={onRemove}
         onAddPeer={(peerId) => appendLink('ledTo', peerId)}
+        showRelationPicker
+        onChangeInventionKind={onChangeInventionKind}
+        linkNeighborhoodInLinkRows
+        onChangeLinkNeighborhood={onChangeLinkNeighborhood}
       />
       <SuggestLinkSection
         className="!mt-4"
@@ -268,6 +324,10 @@ export function AdminNewNodeLinkSearches({
         existingRows={builtUponRows}
         onRemove={onRemove}
         onAddPeer={(peerId) => appendLink('builtUpon', peerId)}
+        showRelationPicker
+        onChangeInventionKind={onChangeInventionKind}
+        linkNeighborhoodInLinkRows
+        onChangeLinkNeighborhood={onChangeLinkNeighborhood}
       />
     </>
   );

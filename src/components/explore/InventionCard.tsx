@@ -249,65 +249,69 @@ export function InventionCard({
   /** Pas de scale au survol si aperçu latéral : le transform déplace les bords sous le curseur et peut provoquer pointerleave/enter en boucle. */
   const scaleHoverClass =
     isInteractive && !canHover ? 'hover:scale-[1.02] active:scale-[0.99]' : '';
-  /** `group` sur la carte seulement si pas de barre admin (sinon le groupe est sur le wrapper). */
+  /** Avec barre admin : `group` sur le wrapper (boutons hors carte). Sinon `group` sur la carte pour cohérence. */
   const groupClass = showAdminTreeActions ? '' : 'group ';
   const cardClass = `${groupClass}relative flex flex-col overflow-hidden rounded-xl glass-card transition-[border-color,transform,box-shadow] duration-200 hover:border-[var(--card-cat)] hover:shadow-lg ${scaleHoverClass} ${isHero ? 'w-full max-w-[min(100%,23rem)] sm:max-w-[min(100%,27rem)]' : 'h-full min-h-0 w-full min-w-0'} ${isInteractive ? 'cursor-pointer' : ''} ${className}`;
+
+  const adminCardShellClass = `group relative w-full min-w-0 overflow-visible ${!isHero ? 'h-full min-h-0' : ''}`;
 
   const adminToolbar =
     showAdminTreeActions ? (
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 z-10 flex h-8 items-center justify-end gap-0.5 opacity-0 transition-opacity duration-150 group-hover:pointer-events-auto group-hover:opacity-100"
+        className="pointer-events-none absolute inset-x-0 bottom-full z-30 flex items-end justify-end pb-2 opacity-0 transition-opacity duration-150 group-hover:pointer-events-auto group-hover:opacity-100"
         onClick={(e) => e.stopPropagation()}
         onPointerDown={(e) => e.stopPropagation()}
       >
-        <button
-          type="button"
-          className="pointer-events-auto rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-border/35 hover:text-foreground"
-          title={tCommon('edit')}
-          aria-label={tCommon('edit')}
-          onClick={openAdminEditInPanel}
-        >
-          <svg
-            width={18}
-            height={18}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden
+        <div className="pointer-events-auto flex items-center gap-0.5 rounded-lg border border-border/70 bg-page/95 px-1 py-0.5 shadow-md backdrop-blur-sm">
+          <button
+            type="button"
+            className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-border/35 hover:text-foreground"
+            title={tCommon('edit')}
+            aria-label={tCommon('edit')}
+            onClick={openAdminEditInPanel}
           >
-            <path d="M12 20h9" />
-            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-          </svg>
-        </button>
-        <button
-          type="button"
-          disabled={deleteBusy}
-          title={tCommon('delete')}
-          aria-label={tCommon('delete')}
-          className="pointer-events-auto rounded-lg p-1.5 text-red-400 transition-colors hover:bg-red-500/15 hover:text-red-300 disabled:opacity-50"
-          onClick={handleAdminDelete}
-        >
-          <svg
-            width={18}
-            height={18}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden
+            <svg
+              width={18}
+              height={18}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <path d="M12 20h9" />
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            disabled={deleteBusy}
+            title={tCommon('delete')}
+            aria-label={tCommon('delete')}
+            className="rounded-lg p-1.5 text-red-400 transition-colors hover:bg-red-500/15 hover:text-red-300 disabled:opacity-50"
+            onClick={handleAdminDelete}
           >
-            <path d="M3 6h18" />
-            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-            <line x1="10" y1="11" x2="10" y2="17" />
-            <line x1="14" y1="11" x2="14" y2="17" />
-          </svg>
-        </button>
+            <svg
+              width={18}
+              height={18}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <path d="M3 6h18" />
+              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+              <line x1="10" y1="11" x2="10" y2="17" />
+              <line x1="14" y1="11" x2="14" y2="17" />
+            </svg>
+          </button>
+        </div>
       </div>
     ) : null;
 
@@ -363,9 +367,7 @@ export function InventionCard({
     );
 
     const linkEl = showAdminTreeActions ? (
-      <div
-        className={`group relative w-full min-w-0 pt-8 ${!isHero ? 'h-full' : ''}`}
-      >
+      <div className={adminCardShellClass}>
         {adminToolbar}
         {linkCard}
       </div>
@@ -394,17 +396,19 @@ export function InventionCard({
     ...hoverPointerHandlers,
   };
 
-  const divCard = <div {...commonDivProps}>{cardBody}</div>;
+  const innerDiv = (
+    <div {...commonDivProps}>
+      {cardBody}
+    </div>
+  );
 
   const body = showAdminTreeActions ? (
-    <div
-      className={`group relative w-full min-w-0 pt-8 ${!isHero ? 'h-full' : ''}`}
-    >
+    <div className={adminCardShellClass}>
       {adminToolbar}
-      {divCard}
+      {innerDiv}
     </div>
   ) : (
-    divCard
+    innerDiv
   );
 
   if (layoutId) {

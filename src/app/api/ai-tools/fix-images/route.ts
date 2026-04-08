@@ -15,12 +15,20 @@ import {
 } from '@/lib/ai-tools/operations-log';
 import {
   clampYearBound,
+  normalizeComplexityBounds,
   normalizeYearBounds,
   nodeRowMatchesAdminScope,
-  parseInventionIdList,
   type AdminNodeScope,
   type DraftScope,
 } from '@/lib/ai-tools/admin-node-scope';
+import { parseInventionIdOrNameList } from '@/lib/ai-tools/parse-invention-list-for-review';
+import {
+  formatInventionResolveError,
+  resolveInventionTokensToIds,
+} from '@/lib/ai-tools/resolve-invention-tokens';
+import { NODE_DIMENSION_ORDER, type NodeDimension } from '@/lib/types';
+
+const FIX_IMG_DIMENSION_SET = new Set<NodeDimension>(NODE_DIMENSION_ORDER);
 
 const IMG_EXT = /\.(jpe?g|png|webp)(\?|$)/i;
 
@@ -50,6 +58,17 @@ function parseFixImagesScope(body: Record<string, unknown>): AdminNodeScope {
   const dim = str('dimension');
   const cmin = body.complexityMin;
   const cmax = body.complexityMax;
+  let complexityMin =
+    cmin != null && cmin !== '' && Number.isFinite(Number(cmin))
+      ? Math.max(0, Math.floor(Number(cmin)))
+      : null;
+  let complexityMax =
+    cmax != null && cmax !== '' && Number.isFinite(Number(cmax))
+      ? Math.max(0, Math.floor(Number(cmax)))
+      : null;
+  const cx = normalizeComplexityBounds(complexityMin, complexityMax);
+  complexityMin = cx.complexityMin;
+  complexityMax = cx.complexityMax;
   return {
     filterCategory: cat && cat !== 'all' ? cat : null,
     filterEra: era && era !== 'all' ? era : null,
@@ -57,21 +76,35 @@ function parseFixImagesScope(body: Record<string, unknown>): AdminNodeScope {
     filterYearMax,
     excludeLocked,
     draftScope,
-    complexityMin:
-      cmin != null && cmin !== '' && Number.isFinite(Number(cmin))
-        ? Math.max(0, Math.floor(Number(cmin)))
-        : null,
-    complexityMax:
-      cmax != null && cmax !== '' && Number.isFinite(Number(cmax))
-        ? Math.max(0, Math.floor(Number(cmax)))
-        : null,
+    complexityMin,
+    complexityMax,
     requireWikipediaUrl:
       body.requireWikipediaUrl === true ||
       body.requireWikipediaUrl === '1' ||
       body.requireWikipediaUrl === 'true',
     dimension:
-      dim === 'matter' || dim === 'process' || dim === 'tool' ? dim : 'all',
+      typeof dim === 'string' && FIX_IMG_DIMENSION_SET.has(dim as NodeDimension)
+        ? (dim as NodeDimension)
+        : 'all',
   };
+}
+
+async function resolveInventionIdsFromText(
+  sb: SupabaseClient,
+  raw: string
+): Promise<
+  | { ok: true; ids: string[] | null }
+  | { ok: false; error: string }
+> {
+  const s = raw.trim();
+  if (!s) return { ok: true, ids: null };
+  const tokens = parseInventionIdOrNameList(s);
+  if (tokens.length === 0) return { ok: true, ids: null };
+  const resolved = await resolveInventionTokensToIds(sb, tokens);
+  if (!resolved.ok) {
+    return { ok: false, error: formatInventionResolveError(resolved) };
+  }
+  return { ok: true, ids: resolved.ids };
 }
 
 function isValidImageUrl(url: string | null): boolean {
@@ -115,8 +148,15 @@ export async function GET(request: Request) {
     const scope = parseFixImagesScope(body as Record<string, unknown>);
     const onlyWithoutImage = searchParams.get('onlyWithoutImage') !== '0';
     const idRaw = searchParams.get('inventionIdsText') ?? '';
-    const idList = idRaw.trim() ? parseInventionIdList(idRaw) : null;
     const sb = createSupabaseServiceRoleClient();
+    let idList: string[] | null = null;
+    if (idRaw.trim()) {
+      const resolved = await resolveInventionIdsFromText(sb, idRaw);
+      if (!resolved.ok) {
+        return NextResponse.json({ error: resolved.error }, { status: 400 });
+      }
+      idList = resolved.ids;
+    }
     const rows = await loadFixImageCandidateRows(sb, scope, idList, onlyWithoutImage);
     return NextResponse.json({
       count: rows.length,
@@ -147,9 +187,16 @@ export async function POST(request: Request) {
       const onlyWithoutImage = body.onlyWithoutImage !== false;
       const idRaw =
         typeof body.inventionIdsText === 'string' ? body.inventionIdsText : '';
-      const idList = idRaw.trim() ? parseInventionIdList(idRaw) : null;
       const limit = Math.min(500, Math.max(1, Number(body.limit) || 50));
       const sb = createSupabaseServiceRoleClient();
+      let idList: string[] | null = null;
+      if (idRaw.trim()) {
+        const resolved = await resolveInventionIdsFromText(sb, idRaw);
+        if (!resolved.ok) {
+          return NextResponse.json({ error: resolved.error }, { status: 400 });
+        }
+        idList = resolved.ids;
+      }
       const rows = await loadFixImageCandidateRows(
         sb,
         scope,
@@ -223,10 +270,17 @@ export async function POST(request: Request) {
     const onlyWithoutImage = body.onlyWithoutImage !== false;
     const idRaw =
       typeof body.inventionIdsText === 'string' ? body.inventionIdsText : '';
-    const idList = idRaw.trim() ? parseInventionIdList(idRaw) : null;
     const requireWiki = Boolean(scope.requireWikipediaUrl);
 
     const sb = createSupabaseServiceRoleClient();
+    let idList: string[] | null = null;
+    if (idRaw.trim()) {
+      const resolved = await resolveInventionIdsFromText(sb, idRaw);
+      if (!resolved.ok) {
+        return NextResponse.json({ error: resolved.error }, { status: 400 });
+      }
+      idList = resolved.ids;
+    }
     const filtered = await loadFixImageCandidateRows(
       sb,
       scope,

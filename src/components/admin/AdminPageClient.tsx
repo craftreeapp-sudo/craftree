@@ -17,6 +17,7 @@ import { AppContentShell } from '@/components/layout/AppContentShell';
 import { BackToExploreLink } from '@/components/layout/BackToExploreLink';
 import { useAuthStore } from '@/stores/auth-store';
 import { useToastStore } from '@/stores/toast-store';
+import { useGraphStore } from '@/stores/graph-store';
 import {
   SuggestionSourceBadge,
   suggestionRowIsAi,
@@ -25,7 +26,8 @@ import {
   ADMIN_DRAFT_PROPOSED_ADD,
   ADMIN_DRAFT_REMOVED_IDS,
   type AdminEditNodeLinkListsOverride,
-  getAiExplanationFromSuggestion,
+  adminFieldMessageKeyForAiExplanation,
+  getAiExplanationBlocksFromSuggestion,
   getContributorContactHintFromSuggestion,
   getContributorFacingMessageFromSuggestion,
   getExploreNodeId,
@@ -34,11 +36,18 @@ import {
   type LinkSnap,
   type SuggestionRow,
   sanitizeAdminProposedAddLinks,
+  extractUnresolvedPeerCreatesFromDraftAdds,
   VALID_RELATIONS,
   formatLinkSnapLine,
   stripLinkEditsFromPayload,
   stripProposedAddLinksFromPayload,
 } from '@/lib/admin-suggestion-shared';
+import type { AdminApproveSummary } from '@/lib/admin-approve-suggestion';
+import {
+  aggregateApproveSummaries,
+  toastMessageForAggregatedApprove,
+  toastMessageForApproveSummary,
+} from '@/lib/format-admin-approve-summary';
 import { PRIMARY_CARD_CATEGORY_ORDER } from '@/lib/card-primary-categories';
 import {
   EDIT_NODE_EXTRA_KEYS_AFTER_ADD_CARD,
@@ -47,22 +56,23 @@ import {
 import { computeDiff } from '@/lib/suggestion-diff';
 import { getCategoryLabelFr } from '@/lib/category-labels';
 import { eraLabelFromMessages } from '@/lib/era-display';
-import {
-  DIMENSION_ORDER,
-  ERA_ORDER,
-  MATERIAL_LEVEL_ORDER,
-  NODE_CATEGORY_ORDER,
-} from '@/lib/node-labels';
+import { ERA_ORDER, NODE_CATEGORY_ORDER } from '@/lib/node-labels';
 import {
   CHEMICAL_NATURE_ORDER,
   NATURAL_ORIGIN_ORDER,
 } from '@/lib/suggest-nature-fields';
 import { NodeCategory, RelationType, type Era } from '@/lib/types';
+import { normalizeRelationTypeForUi } from '@/lib/relation-display';
 import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
 import {
-  EDITOR_DIM_KEY,
-  EDITOR_LEVEL_KEY,
-} from '@/components/editor/dimension-editor-keys';
+  INVENTION_KIND_ORDER,
+  type InventionKindKey,
+  inventionKindFromFormStrings,
+  inventionKindFromLinkAndPeer,
+  inventionKindToFormStrings,
+  inventionKindToNodeFields,
+  relationTypeFromInventionKind,
+} from '@/lib/invention-classification';
 import {
   suggestFormLabelClass,
   suggestFormLabelSectionClass,
@@ -396,7 +406,13 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
         pushToast(String(e?.error ?? 'Erreur'), 'error');
         return;
       }
-      pushToast(t('toastApproved'), 'success');
+      const okJson = (await res.json()) as { summary?: AdminApproveSummary };
+      pushToast(
+        okJson.summary
+          ? toastMessageForApproveSummary(t, okJson.summary)
+          : t('toastApproved'),
+        'success'
+      );
       removeAfterExit(id);
       if (tab === 'contributors') void loadContributors();
     },
@@ -452,6 +468,7 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
     setBulkProcessing(true);
     setBulkProgress(0);
     const successIds: string[] = [];
+    const summaries: AdminApproveSummary[] = [];
     for (let i = 0; i < ids.length; i++) {
       const id = ids[i]!;
       const res = await fetch('/api/admin/approve', {
@@ -459,13 +476,30 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }),
       });
-      if (res.ok) successIds.push(id);
+      if (res.ok) {
+        successIds.push(id);
+        const j = (await res.json().catch(() => ({}))) as {
+          summary?: AdminApproveSummary;
+        };
+        if (j.summary) summaries.push(j.summary);
+      }
       setBulkProgress((i + 1) / ids.length);
     }
     setBulkProcessing(false);
     finishBulkRemove(successIds);
     if (tab === 'contributors') void loadContributors();
-    pushToast(`${successIds.length} suggestions approuvées`, 'success');
+    if (successIds.length === 0) {
+      pushToast(t('approveBulkAllFailed'), 'error');
+    } else {
+      pushToast(
+        toastMessageForAggregatedApprove(
+          t,
+          successIds.length,
+          aggregateApproveSummaries(summaries)
+        ),
+        'success'
+      );
+    }
   }, [
     selectedIds,
     bulkProcessing,
@@ -473,6 +507,7 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
     tab,
     loadContributors,
     pushToast,
+    t,
   ]);
 
   const bulkReject = useCallback(async () => {
@@ -1122,15 +1157,30 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
                 ) : null}
               </div>
             ) : null}
-            <div className="relative flex min-w-0 min-h-0 flex-1 flex-col gap-4 pb-0 xl:grid xl:min-h-0 xl:grid-cols-[minmax(0,55fr)_minmax(0,20fr)_minmax(0,25fr)] xl:items-start xl:gap-4">
-              <div className="relative min-w-0 self-start xl:min-w-0">
+            <div className="relative flex min-w-0 min-h-0 flex-1 flex-col gap-4 pb-0 xl:grid xl:min-h-0 xl:grid-cols-[minmax(0,50fr)_minmax(0,18fr)_minmax(0,32fr)] xl:items-start xl:gap-4 xl:overflow-visible">
+              <div className="relative min-w-0 self-start xl:min-w-0 xl:pr-[30px]">
               <div className="overflow-x-auto rounded-lg border border-border">
                 <table className="w-full min-w-0 table-fixed border-collapse text-left text-[13px]">
                   <colgroup>
                     {tab === 'pending' ? <col className="w-9" /> : null}
-                    <col className="min-w-0" />
-                    <col className="min-w-0" />
-                    <col className="min-w-0" />
+                    <col
+                      className="min-w-0"
+                      style={{
+                        width: tab === 'pending' ? '38%' : '42%',
+                      }}
+                    />
+                    <col
+                      className="min-w-0"
+                      style={{
+                        width: tab === 'pending' ? '36%' : '38%',
+                      }}
+                    />
+                    <col
+                      className="min-w-0"
+                      style={{
+                        width: tab === 'pending' ? '22%' : '18%',
+                      }}
+                    />
                   </colgroup>
                   <thead>
                     <tr className="border-b border-border bg-surface-elevated/40">
@@ -1230,13 +1280,13 @@ export function AdminPageClient({ embedded = false }: { embedded?: boolean } = {
               ) : null}
             </div>
             <aside
-              className="min-w-0 w-full shrink-0 self-start rounded-lg border border-border bg-surface-elevated/25 p-3 xl:sticky xl:top-0 xl:max-h-[calc(100vh-3rem)] xl:overflow-y-auto"
+              className="relative z-[1] min-w-0 w-full shrink-0 self-start rounded-lg border border-border bg-surface-elevated/25 p-3 xl:-ml-[30px] xl:w-[calc(100%+30px)] xl:sticky xl:top-0 xl:max-h-[calc(100vh-3rem)] xl:overflow-y-auto"
               aria-label={t('panelAiExplanationAria')}
             >
               <AdminSuggestionAiExplanationPanel row={selectedDetailRow} />
             </aside>
             <aside
-              className="min-w-0 w-full shrink-0 self-start rounded-lg border border-border bg-surface-elevated/30 p-4 xl:sticky xl:top-0 xl:max-h-[calc(100vh-3rem)] xl:overflow-y-auto"
+              className="min-w-0 w-full shrink-0 self-start rounded-lg border border-border bg-surface-elevated/30 p-4 xl:min-w-[26rem] xl:sticky xl:top-0 xl:max-h-[calc(100vh-3rem)] xl:overflow-y-auto"
               aria-label={t('panelApprovalAria')}
             >
               <AdminSuggestionApprovalPanel
@@ -1274,7 +1324,7 @@ function AdminSuggestionAiExplanationPanel({
   row: SuggestionRow | null;
 }) {
   const t = useTranslations('admin');
-  const aiExplanation = row ? getAiExplanationFromSuggestion(row) : null;
+  const blocks = row ? getAiExplanationBlocksFromSuggestion(row) : null;
 
   if (!row) {
     return (
@@ -1286,7 +1336,7 @@ function AdminSuggestionAiExplanationPanel({
     );
   }
 
-  if (!aiExplanation || !suggestionRowIsAi(row)) {
+  if (!blocks || !suggestionRowIsAi(row)) {
     return (
       <div className="flex min-h-[140px] flex-col items-center justify-center rounded-lg border border-dashed border-border/50 bg-surface/20 px-3 py-6 text-center">
         <p className="text-[12px] leading-snug text-muted-foreground">
@@ -1296,15 +1346,106 @@ function AdminSuggestionAiExplanationPanel({
     );
   }
 
+  const showPreamble = blocks.preamble.length > 0;
+  const showFields = blocks.fieldBlocks.length > 0;
+  const showLinks = blocks.linkBlocks.length > 0;
+
   return (
     <div className="rounded-xl border border-violet-500/40 bg-violet-950/30 p-3 sm:p-4 ring-1 ring-violet-500/25">
       <p className="text-[11px] font-semibold uppercase tracking-wide text-violet-200/95">
         {t('aiExplanationTitle')}
       </p>
-      <p className="mt-2 whitespace-pre-wrap text-[13px] leading-relaxed text-foreground">
-        {aiExplanation}
-      </p>
-      <p className="mt-2 text-[11px] text-muted-foreground">
+
+      {showPreamble ? (
+        <section className="mt-3 space-y-2">
+          <p className="text-[10px] font-semibold uppercase tracking-wide text-violet-200/85">
+            {t('aiExplanationSectionOverview')}
+          </p>
+          {blocks.preamble.map((text, i) => (
+            <p
+              key={`preamble-${i}`}
+              className="text-[13px] leading-relaxed text-foreground"
+            >
+              {text}
+            </p>
+          ))}
+        </section>
+      ) : null}
+
+      {showFields ? (
+        <section
+          className={`mt-4 space-y-4 ${showPreamble ? 'border-t border-violet-500/25 pt-4' : ''}`}
+        >
+          <p className="text-[10px] font-semibold uppercase tracking-wide text-violet-200/95">
+            {t('aiExplanationSectionFields')}
+          </p>
+          {blocks.fieldBlocks.map((fb, i) => {
+            const mk = adminFieldMessageKeyForAiExplanation(fb.fieldKey);
+            const heading = mk
+              ? t(mk)
+              : fb.rawField?.trim()
+                ? t('aiExplanationFieldUnknown', {
+                    field: fb.rawField.trim(),
+                  })
+                : t('aiExplanationGenericAnalysis');
+            return (
+              <div key={`field-${i}`} className="space-y-1">
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-violet-200/85">
+                  {heading}
+                </p>
+                <p className="whitespace-pre-wrap text-[13px] leading-relaxed text-foreground">
+                  {fb.text}
+                </p>
+              </div>
+            );
+          })}
+        </section>
+      ) : null}
+
+      {showLinks ? (
+        <section
+          className={`mt-4 space-y-3 ${showPreamble || showFields ? 'border-t border-violet-500/25 pt-4' : ''}`}
+        >
+          <p className="text-[10px] font-semibold uppercase tracking-wide text-violet-200/95">
+            {t('aiExplanationSectionLinks')}
+          </p>
+          {blocks.linkBlocks.map((lb, i) => (
+            <div
+              key={`link-${i}`}
+              className="space-y-1.5 rounded-lg border border-violet-500/20 bg-violet-950/25 px-3 py-2.5"
+            >
+              {lb.kind === 'unresolved_add' ? (
+                <>
+                  <p className="text-[10px] font-semibold uppercase tracking-wide text-amber-200/90">
+                    {t('aiExplanationLinkUnresolved')}
+                  </p>
+                  {lb.title ? (
+                    <p className="text-[13px] font-semibold leading-snug text-foreground">
+                      {lb.title}
+                    </p>
+                  ) : null}
+                  {lb.body ? (
+                    <p className="text-[13px] leading-relaxed text-muted-foreground">
+                      {lb.body}
+                    </p>
+                  ) : null}
+                </>
+              ) : (
+                <>
+                  <p className="text-[10px] font-semibold uppercase tracking-wide text-amber-200/90">
+                    {t('aiExplanationLinkSuspect')}
+                  </p>
+                  <p className="whitespace-pre-wrap text-[13px] leading-relaxed text-foreground">
+                    {lb.body}
+                  </p>
+                </>
+              )}
+            </div>
+          ))}
+        </section>
+      ) : null}
+
+      <p className="mt-3 text-[11px] text-muted-foreground">
         {t('aiExplanationHint')}
       </p>
     </div>
@@ -1382,6 +1523,8 @@ function AdminSuggestionApprovalPanel({
         body.overrideEditNodeLinkLists = {
           removedLinkIds: removedIds,
           proposedAddLinks: proposedAdds,
+          proposedUnresolvedPeers:
+            extractUnresolvedPeerCreatesFromDraftAdds(adds),
         } satisfies AdminEditNodeLinkListsOverride;
       } else if (
         row.suggestion_type === 'add_link' ||
@@ -1400,7 +1543,13 @@ function AdminSuggestionApprovalPanel({
         pushToast(String(e?.error ?? t('detailLoadError')), 'error');
         return;
       }
-      pushToast(t('toastApproved'), 'success');
+      const okJson = (await res.json()) as { summary?: AdminApproveSummary };
+      pushToast(
+        okJson.summary
+          ? toastMessageForApproveSummary(t, okJson.summary)
+          : t('toastApproved'),
+        'success'
+      );
       onResolved(row.id);
     } finally {
       setBusy(false);
@@ -1468,62 +1617,65 @@ function AdminSuggestionApprovalPanel({
           ) : null}
         </div>
       ) : null}
-      <div className="rounded-xl border border-border/60 bg-surface/40 p-4 sm:p-5">
-        <div className="flex flex-wrap items-start gap-3 sm:gap-4">
-          {cardPreviewUrl ? (
-            <div className="w-[min(128px,32vw)] shrink-0 overflow-hidden rounded-lg border border-border bg-page">
-              {/* eslint-disable-next-line @next/next/no-img-element -- URL dynamique graphe / stockage */}
-              <img
-                src={cardPreviewUrl}
-                alt=""
-                className="aspect-[16/10] w-full object-cover"
-              />
-            </div>
-          ) : null}
-          <div className="min-w-0 flex-1 space-y-1.5">
-            <div className="flex items-start justify-between gap-2">
-              <h2
-                className="text-[15px] font-bold leading-snug text-foreground"
-                style={{
-                  fontFamily:
-                    'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
-                }}
-              >
-                {headline}
-              </h2>
-              {exploreId ? (
-                <a
-                  href={treeInventionPath(exploreId)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-border/60 bg-surface text-muted-foreground transition-colors hover:bg-muted/25 hover:text-foreground"
-                  aria-label={t('panelViewInTreeAria')}
-                  title={t('panelViewInTreeAria')}
+      {/* Reste visible en haut du panneau lors du défilement (ascendant : aside overflow-y-auto). */}
+      <div className="sticky top-0 z-10 -mx-4 border-b border-border/50 bg-surface-elevated/95 px-4 pb-3 pt-0 backdrop-blur-md supports-[backdrop-filter]:bg-surface-elevated/85">
+        <div className="rounded-xl border border-border/60 bg-surface/40 p-4 sm:p-5 shadow-sm">
+          <div className="flex flex-wrap items-start gap-3 sm:gap-4">
+            {cardPreviewUrl ? (
+              <div className="w-[min(128px,32vw)] shrink-0 overflow-hidden rounded-lg border border-border bg-page">
+                {/* eslint-disable-next-line @next/next/no-img-element -- URL dynamique graphe / stockage */}
+                <img
+                  src={cardPreviewUrl}
+                  alt=""
+                  className="aspect-[16/10] w-full object-cover"
+                />
+              </div>
+            ) : null}
+            <div className="min-w-0 flex-1 space-y-1.5">
+              <div className="flex items-start justify-between gap-2">
+                <h2
+                  className="text-[15px] font-bold leading-snug text-foreground"
+                  style={{
+                    fontFamily:
+                      'var(--font-space-grotesk), Space Grotesk, system-ui, sans-serif',
+                  }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden
+                  {headline}
+                </h2>
+                {exploreId ? (
+                  <a
+                    href={treeInventionPath(exploreId)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-border/60 bg-surface text-muted-foreground transition-colors hover:bg-muted/25 hover:text-foreground"
+                    aria-label={t('panelViewInTreeAria')}
+                    title={t('panelViewInTreeAria')}
                   >
-                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                </a>
-              ) : null}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden
+                    >
+                      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  </a>
+                ) : null}
+              </div>
+              <p className="text-[13px] text-muted-foreground">
+                {row.suggestion_type} ·{' '}
+                {new Date(row.created_at).toLocaleString()}
+                {' · '}
+                {t('panelListTotal', { count: listTotalCount })}
+              </p>
             </div>
-            <p className="text-[13px] text-muted-foreground">
-              {row.suggestion_type} ·{' '}
-              {new Date(row.created_at).toLocaleString()}
-              {' · '}
-              {t('panelListTotal', { count: listTotalCount })}
-            </p>
           </div>
         </div>
       </div>
@@ -1541,16 +1693,18 @@ function AdminSuggestionApprovalPanel({
       />
       {!readOnly ? (
         <div className="space-y-3 border-t border-border pt-3">
-          <label className="block text-[14px] text-muted-foreground">
-            {t('adminCommentLabel')}
-            <textarea
-              value={adminComment}
-              onChange={(e) => setAdminComment(e.target.value)}
-              rows={3}
-              className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-[15px] text-foreground"
-              placeholder={t('adminCommentPlaceholder')}
-            />
-          </label>
+          {!suggestionRowIsAi(row) ? (
+            <label className="block text-[14px] text-muted-foreground">
+              {t('adminCommentLabel')}
+              <textarea
+                value={adminComment}
+                onChange={(e) => setAdminComment(e.target.value)}
+                rows={3}
+                className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-[15px] text-foreground"
+                placeholder={t('adminCommentPlaceholder')}
+              />
+            </label>
+          ) : null}
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
@@ -1627,7 +1781,9 @@ export function AdminSuggestionFormBody({
   suggestedFieldHighlight?: boolean;
 }) {
   const ta = useTranslations('admin');
-  const tRel = useTranslations('relationTypes');
+  const getNodeById = useGraphStore((s) => s.getNodeById);
+  const updateNode = useGraphStore((s) => s.updateNode);
+  const tInv = useTranslations('inventionKinds');
   const locale = useLocale();
   const tEditor = useTranslations('editor');
   const tCat = useTranslations('categories');
@@ -1636,8 +1792,14 @@ export function AdminSuggestionFormBody({
 
   const fieldLabel = (key: string) =>
     ta(`field_${key}` as Parameters<typeof ta>[0]);
-  const relLabel = (code: string) =>
-    tRel(code as Parameters<typeof tRel>[0]);
+  const relLabel = useCallback(
+    (code: string, peerId?: string) => {
+      const rel = normalizeRelationTypeForUi(code);
+      const peer = peerId ? getNodeById(peerId) : undefined;
+      return tInv(inventionKindFromLinkAndPeer(rel, peer));
+    },
+    [getNodeById, tInv]
+  );
 
   /** Libellés alignés sur `SuggestionNodeForm` / modal ajout de carte. */
   const getSuggestFormFieldLabel = (key: string): string => {
@@ -1801,20 +1963,14 @@ export function AdminSuggestionFormBody({
             : s;
         }
         if (key === 'dimension') {
-          const s = typeof v === 'string' ? v : '';
-          if (!s) return '—';
-          return DIMENSION_ORDER.includes(s as (typeof DIMENSION_ORDER)[number])
-            ? tEditor(EDITOR_DIM_KEY[s as keyof typeof EDITOR_DIM_KEY])
-            : s;
+          const dim = typeof v === 'string' ? v : '';
+          const mlRaw = origRecord.materialLevel;
+          const ml = typeof mlRaw === 'string' ? mlRaw : '';
+          const k = inventionKindFromFormStrings(dim, ml);
+          return k ? tInv(k) : '—';
         }
         if (key === 'materialLevel') {
-          const s = typeof v === 'string' ? v : '';
-          if (!s) return '—';
-          return MATERIAL_LEVEL_ORDER.includes(
-            s as (typeof MATERIAL_LEVEL_ORDER)[number]
-          )
-            ? tEditor(EDITOR_LEVEL_KEY[s as keyof typeof EDITOR_LEVEL_KEY])
-            : s;
+          return '—';
         }
         if (key === 'naturalOrigin') {
           const s = typeof v === 'string' ? v : '';
@@ -1832,34 +1988,6 @@ export function AdminSuggestionFormBody({
             ? tExplore(
                 `suggestChemicalNature_${s}` as Parameters<typeof tExplore>[0]
               )
-            : s;
-        }
-        if (key === 'origin_type') {
-          const s = typeof v === 'string' ? v : '';
-          if (!s) return '—';
-          const opts = ['mineral', 'vegetal', 'animal'] as const;
-          const lab: Record<(typeof opts)[number], Parameters<typeof tExplore>[0]> =
-            {
-              mineral: 'originTypeMineral',
-              vegetal: 'originTypeVegetal',
-              animal: 'originTypeAnimal',
-            };
-          return opts.includes(s as (typeof opts)[number])
-            ? tExplore(lab[s as (typeof opts)[number]])
-            : s;
-        }
-        if (key === 'nature_type') {
-          const s = typeof v === 'string' ? v : '';
-          if (!s) return '—';
-          const opts = ['element', 'compose', 'materiau'] as const;
-          const lab: Record<(typeof opts)[number], Parameters<typeof tExplore>[0]> =
-            {
-              element: 'natureTypeElement',
-              compose: 'natureTypeCompose',
-              materiau: 'natureTypeMateriau',
-            };
-          return opts.includes(s as (typeof opts)[number])
-            ? tExplore(lab[s as (typeof opts)[number]])
             : s;
         }
         if (v === null || v === undefined) return '—';
@@ -1959,48 +2087,42 @@ export function AdminSuggestionFormBody({
           );
         }
         if (key === 'dimension') {
-          const cur = fieldValue('dimension');
+          const dim = fieldValue('dimension');
+          const ml = fieldValue('materialLevel');
+          const kindVal = inventionKindFromFormStrings(dim, ml);
           return (
             <select
               className={fieldSelectClass(key)}
-              value={cur}
-              onChange={(e) =>
+              value={kindVal}
+              onChange={(e) => {
+                const next = e.target.value as InventionKindKey | '';
+                if (!next) {
+                  onEditDraftChange({
+                    ...draft,
+                    dimension: '',
+                    materialLevel: '',
+                  });
+                  return;
+                }
+                const fields = inventionKindToFormStrings(next);
                 onEditDraftChange({
                   ...draft,
-                  dimension: e.target.value,
-                })
-              }
+                  dimension: fields.dimension,
+                  materialLevel: fields.materialLevel,
+                });
+              }}
             >
               <option value="">{ta('field_empty')}</option>
-              {DIMENSION_ORDER.map((dim) => (
-                <option key={dim} value={dim}>
-                  {tEditor(EDITOR_DIM_KEY[dim])}
+              {INVENTION_KIND_ORDER.map((k) => (
+                <option key={k} value={k}>
+                  {tInv(k)}
                 </option>
               ))}
             </select>
           );
         }
         if (key === 'materialLevel') {
-          const cur = fieldValue('materialLevel');
-          return (
-            <select
-              className={fieldSelectClass(key)}
-              value={cur}
-              onChange={(e) =>
-                onEditDraftChange({
-                  ...draft,
-                  materialLevel: e.target.value,
-                })
-              }
-            >
-              <option value="">{ta('field_empty')}</option>
-              {MATERIAL_LEVEL_ORDER.map((lv) => (
-                <option key={lv} value={lv}>
-                  {tEditor(EDITOR_LEVEL_KEY[lv])}
-                </option>
-              ))}
-            </select>
-          );
+          return null;
         }
         if (key === 'naturalOrigin') {
           const cur = fieldValue('naturalOrigin');
@@ -2045,58 +2167,6 @@ export function AdminSuggestionFormBody({
                   {tExplore(
                     `suggestChemicalNature_${cn}` as Parameters<typeof tExplore>[0]
                   )}
-                </option>
-              ))}
-            </select>
-          );
-        }
-        if (key === 'origin_type') {
-          const cur = fieldValue('origin_type');
-          const opts = ['mineral', 'vegetal', 'animal'] as const;
-          const lab: Record<(typeof opts)[number], Parameters<typeof tExplore>[0]> =
-            {
-              mineral: 'originTypeMineral',
-              vegetal: 'originTypeVegetal',
-              animal: 'originTypeAnimal',
-            };
-          return (
-            <select
-              className={fieldSelectClass(key)}
-              value={opts.includes(cur as (typeof opts)[number]) ? cur : ''}
-              onChange={(e) =>
-                onEditDraftChange({ ...draft, origin_type: e.target.value })
-              }
-            >
-              <option value="">{ta('field_empty')}</option>
-              {opts.map((o) => (
-                <option key={o} value={o}>
-                  {tExplore(lab[o])}
-                </option>
-              ))}
-            </select>
-          );
-        }
-        if (key === 'nature_type') {
-          const cur = fieldValue('nature_type');
-          const opts = ['element', 'compose', 'materiau'] as const;
-          const lab: Record<(typeof opts)[number], Parameters<typeof tExplore>[0]> =
-            {
-              element: 'natureTypeElement',
-              compose: 'natureTypeCompose',
-              materiau: 'natureTypeMateriau',
-            };
-          return (
-            <select
-              className={fieldSelectClass(key)}
-              value={opts.includes(cur as (typeof opts)[number]) ? cur : ''}
-              onChange={(e) =>
-                onEditDraftChange({ ...draft, nature_type: e.target.value })
-              }
-            >
-              <option value="">{ta('field_empty')}</option>
-              {opts.map((o) => (
-                <option key={o} value={o}>
-                  {tExplore(lab[o])}
                 </option>
               ))}
             </select>
@@ -2276,7 +2346,6 @@ export function AdminSuggestionFormBody({
                 {renderFieldRow('description')}
                 {renderFieldRow('description_en')}
                 {renderFieldRow('dimension')}
-                {renderFieldRow('materialLevel')}
                 {renderFieldRow('wikipedia_url')}
                 <p
                   className={`${
@@ -2334,21 +2403,60 @@ export function AdminSuggestionFormBody({
                             {ta('fieldCurrentCard')}
                           </span>{' '}
                           <span className="whitespace-pre-wrap">
-                            {formatLinkSnapLine(chTyped.from, relLabel)}
+                            {formatLinkSnapLine(
+                              chTyped.from,
+                              relLabel,
+                              ctx?.peerId
+                            )}
                           </span>
                         </p>
                       ) : null}
-                      <p
-                        className={`mb-2 ${
+                      <label
+                        className={`mb-2 block ${
                           comfortableText ? 'text-[13px]' : 'text-[11px]'
                         } text-muted-foreground`}
                       >
-                        {relLabel(
-                          VALID_RELATIONS.has(snap.relation_type)
-                            ? snap.relation_type
-                            : RelationType.MATERIAL
-                        )}
-                      </p>
+                        {tEditor('relationTypeLabel')}
+                        <select
+                          className={linkFieldClass()}
+                          value={inventionKindFromLinkAndPeer(
+                            normalizeRelationTypeForUi(
+                              String(snap.relation_type)
+                            ),
+                            ctx?.peerId
+                              ? getNodeById(ctx.peerId)
+                              : undefined
+                          )}
+                          onChange={(e) => {
+                            const kind = e.target.value as InventionKindKey;
+                            const v = relationTypeFromInventionKind(kind);
+                            const { dimension, materialLevel } =
+                              inventionKindToNodeFields(kind);
+                            if (ctx?.peerId) {
+                              updateNode(ctx.peerId, {
+                                dimension,
+                                materialLevel,
+                              });
+                            }
+                            onEditDraftChange({
+                              ...draft,
+                              linkEdits: {
+                                ...draftLinkEdits,
+                                [linkId]: {
+                                  ...snap,
+                                  relation_type: v,
+                                },
+                              },
+                            });
+                          }}
+                        >
+                          {INVENTION_KIND_ORDER.map((k) => (
+                            <option key={k} value={k}>
+                              {tInv(k)}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
                       <label
                         className={`mb-2 block ${
                           comfortableText ? 'text-[13px]' : 'text-[11px]'
@@ -2495,7 +2603,7 @@ export function AdminSuggestionFormBody({
                         {sectionLabel} · {ctx?.peerName ?? linkId}
                       </p>
                       <p className="line-through" style={{ color: '#EF4444' }}>
-                        {formatLinkSnapLine(ch.from, relLabel)}
+                        {formatLinkSnapLine(ch.from, relLabel, ctx?.peerId)}
                       </p>
                       <p className="text-muted-foreground">→</p>
                       <p
@@ -2504,7 +2612,7 @@ export function AdminSuggestionFormBody({
                         }
                         style={suggestedFieldHighlight ? undefined : { color: '#22C55E' }}
                       >
-                        {formatLinkSnapLine(ch.to, relLabel)}
+                        {formatLinkSnapLine(ch.to, relLabel, ctx?.peerId)}
                       </p>
                     </li>
                   );
@@ -2533,7 +2641,10 @@ export function AdminSuggestionFormBody({
                       : add.section === 'ledTo'
                         ? 'Led to'
                         : 'Lien';
-                  const addRelCaption = relLabel(add.relation_type);
+                  const addRelCaption = relLabel(
+                    add.relation_type,
+                    add.section === 'ledTo' ? add.target_id : add.source_id
+                  );
                   return (
                     <li key={`${add.source_id}-${add.target_id}-${i}`} className="text-[12px]">
                       <p className="mb-1 text-[11px]" style={{ color: '#5A6175' }}>
@@ -2585,7 +2696,7 @@ export function AdminSuggestionFormBody({
                       </p>
                       {snap ? (
                         <p className="line-through" style={{ color: '#EF4444' }}>
-                          {formatLinkSnapLine(snap, relLabel)}
+                          {formatLinkSnapLine(snap, relLabel, ctx?.peerId)}
                         </p>
                       ) : (
                         <p style={{ color: '#5A6175' }}>{linkId}</p>
@@ -2646,10 +2757,12 @@ export function AdminSuggestionFormBody({
                       {sectionLabel} · {ctx?.peerName ?? linkId}
                     </p>
                     <p className="text-red-600 line-through">
-                      {formatLinkSnapLine(ch.from, relLabel)}
+                      {formatLinkSnapLine(ch.from, relLabel, ctx?.peerId)}
                     </p>
                     <p className="text-muted-foreground">→</p>
-                    <p className="text-emerald-600">{formatLinkSnapLine(ch.to, relLabel)}</p>
+                    <p className="text-emerald-600">
+                      {formatLinkSnapLine(ch.to, relLabel, ctx?.peerId)}
+                    </p>
                   </li>
                 );
               })}
@@ -2671,7 +2784,10 @@ export function AdminSuggestionFormBody({
                     : add.section === 'ledTo'
                       ? 'Led to'
                       : 'Lien';
-                const addRelCaption = relLabel(add.relation_type);
+                const addRelCaption = relLabel(
+                  add.relation_type,
+                  add.section === 'ledTo' ? add.target_id : add.source_id
+                );
                 return (
                   <li key={`${add.source_id}-${add.target_id}-${i}`} className="text-[12px]">
                     <p className="mb-1 text-[11px] text-muted-foreground">{sectionLabel}</p>
@@ -2710,7 +2826,7 @@ export function AdminSuggestionFormBody({
                     </p>
                     {snap ? (
                       <p className="text-red-600 line-through">
-                        {formatLinkSnapLine(snap, relLabel)}
+                        {formatLinkSnapLine(snap, relLabel, ctx?.peerId)}
                       </p>
                     ) : (
                       <p className="text-muted-foreground">{linkId}</p>
@@ -2737,7 +2853,7 @@ export function AdminSuggestionFormBody({
     const isAiAddLink = d.source === 'ai';
     const srcName = nodeNames[d.source_id] ?? d.source_id;
     const tgtName = nodeNames[d.target_id] ?? d.target_id;
-    const relTypeLabel = tRel(d.relation_type as Parameters<typeof tRel>[0]);
+    const relTypeLabel = relLabel(d.relation_type, d.source_id);
     const srcResolved = Boolean(nodeNames[d.source_id]);
     const tgtResolved = Boolean(nodeNames[d.target_id]);
 
@@ -2810,7 +2926,8 @@ export function AdminSuggestionFormBody({
                 String(draft.relation_type ?? d.relation_type)
               )
                 ? String(draft.relation_type ?? d.relation_type)
-                : RelationType.MATERIAL
+                : RelationType.MATERIAL,
+              d.source_id
             )}
           </p>
           <label className={addLinkLabelClass}>
@@ -2980,7 +3097,6 @@ export function AdminSuggestionFormBody({
           link: { ...l },
           links: draft.links,
         });
-      const matterDim = nv('dimension') === 'matter';
       const tagsCsv = nv('tags');
       const setTagsFromCsv = (csv: string) =>
         patchNode({
@@ -3222,39 +3338,31 @@ export function AdminSuggestionFormBody({
               </label>
               <select
                 className={nnSelect}
-                value={nv('dimension')}
-                onChange={(e) => patchNode({ dimension: e.target.value })}
+                value={inventionKindFromFormStrings(
+                  nv('dimension'),
+                  nv('materialLevel')
+                )}
+                onChange={(e) => {
+                  const next = e.target.value as InventionKindKey | '';
+                  if (!next) {
+                    patchNode({ dimension: '', materialLevel: '' });
+                    return;
+                  }
+                  const fields = inventionKindToFormStrings(next);
+                  patchNode({
+                    dimension: fields.dimension,
+                    materialLevel: fields.materialLevel,
+                  });
+                }}
               >
                 <option value="">{emptyDash}</option>
-                {DIMENSION_ORDER.map((dim) => (
-                  <option key={dim} value={dim}>
-                    {tEditor(EDITOR_DIM_KEY[dim])}
+                {INVENTION_KIND_ORDER.map((k) => (
+                  <option key={k} value={k}>
+                    {tInv(k)}
                   </option>
                 ))}
               </select>
             </div>
-
-            {matterDim ? (
-              <div>
-                <label className={lbl}>
-                  {getSuggestFormFieldLabel('materialLevel')}
-                </label>
-                <select
-                  className={nnSelect}
-                  value={nv('materialLevel')}
-                  onChange={(e) =>
-                    patchNode({ materialLevel: e.target.value })
-                  }
-                >
-                  <option value="">{emptyDash}</option>
-                  {MATERIAL_LEVEL_ORDER.map((lv) => (
-                    <option key={lv} value={lv}>
-                      {tEditor(EDITOR_LEVEL_KEY[lv])}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            ) : null}
 
             <div>
               <label className={lbl}>
@@ -3278,69 +3386,6 @@ export function AdminSuggestionFormBody({
               />
             </div>
 
-            <div>
-              <label className={lbl}>{fieldLabel('origin_type')}</label>
-              <select
-                className={nnSelect}
-                value={
-                  (() => {
-                    const opts = ['mineral', 'vegetal', 'animal'] as const;
-                    const cur = nv('origin_type');
-                    return opts.includes(cur as (typeof opts)[number])
-                      ? cur
-                      : '';
-                  })()
-                }
-                onChange={(e) => patchNode({ origin_type: e.target.value })}
-              >
-                <option value="">{ta('field_empty')}</option>
-                {(
-                  ['mineral', 'vegetal', 'animal'] as const
-                ).map((o) => (
-                  <option key={o} value={o}>
-                    {tExplore(
-                      {
-                        mineral: 'originTypeMineral',
-                        vegetal: 'originTypeVegetal',
-                        animal: 'originTypeAnimal',
-                      }[o] as Parameters<typeof tExplore>[0]
-                    )}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className={lbl}>{fieldLabel('nature_type')}</label>
-              <select
-                className={nnSelect}
-                value={
-                  (() => {
-                    const opts = ['element', 'compose', 'materiau'] as const;
-                    const cur = nv('nature_type');
-                    return opts.includes(cur as (typeof opts)[number])
-                      ? cur
-                      : '';
-                  })()
-                }
-                onChange={(e) => patchNode({ nature_type: e.target.value })}
-              >
-                <option value="">{ta('field_empty')}</option>
-                {(
-                  ['element', 'compose', 'materiau'] as const
-                ).map((o) => (
-                  <option key={o} value={o}>
-                    {tExplore(
-                      {
-                        element: 'natureTypeElement',
-                        compose: 'natureTypeCompose',
-                        materiau: 'natureTypeMateriau',
-                      }[o] as Parameters<typeof tExplore>[0]
-                    )}
-                  </option>
-                ))}
-              </select>
-            </div>
           </div>
 
           <div className="mt-4 space-y-3 rounded-xl border border-border/60 bg-surface/40 p-4 sm:p-5">
@@ -3401,35 +3446,18 @@ export function AdminSuggestionFormBody({
               <span className="text-muted-foreground">
                 {fieldLabel('dimension')} :{' '}
               </span>
-              {typeof d.node.dimension === 'string' &&
-              DIMENSION_ORDER.includes(
-                d.node.dimension as (typeof DIMENSION_ORDER)[number]
-              )
-                ? tEditor(
-                    EDITOR_DIM_KEY[
-                      d.node.dimension as keyof typeof EDITOR_DIM_KEY
-                    ]
-                  )
-                : d.node.dimension
-                  ? String(d.node.dimension)
-                  : '—'}
-            </p>
-            <p>
-              <span className="text-muted-foreground">
-                {fieldLabel('materialLevel')} :{' '}
-              </span>
-              {typeof d.node.materialLevel === 'string' &&
-              MATERIAL_LEVEL_ORDER.includes(
-                d.node.materialLevel as (typeof MATERIAL_LEVEL_ORDER)[number]
-              )
-                ? tEditor(
-                    EDITOR_LEVEL_KEY[
-                      d.node.materialLevel as keyof typeof EDITOR_LEVEL_KEY
-                    ]
-                  )
-                : d.node.materialLevel
-                  ? String(d.node.materialLevel)
-                  : '—'}
+              {(() => {
+                const dim =
+                  typeof d.node.dimension === 'string'
+                    ? d.node.dimension
+                    : '';
+                const ml =
+                  typeof d.node.materialLevel === 'string'
+                    ? d.node.materialLevel
+                    : '';
+                const k = inventionKindFromFormStrings(dim, ml);
+                return k ? tInv(k) : '—';
+              })()}
             </p>
             <p>
               <span className="text-muted-foreground">Époque : </span>
@@ -3467,7 +3495,7 @@ export function AdminSuggestionFormBody({
                   <span className="mx-1 text-muted-foreground">→</span>
                   <span className="font-medium">{tgtName}</span>
                   <span className="ml-2 text-[10px] text-muted-foreground">
-                    ({relLabel(rel)})
+                    ({relLabel(rel, lnk.source_id)})
                   </span>
                 </div>
               );
@@ -3492,35 +3520,16 @@ export function AdminSuggestionFormBody({
             <span className="text-muted-foreground">
               {fieldLabel('dimension')} :{' '}
             </span>
-            {typeof d.node.dimension === 'string' &&
-            DIMENSION_ORDER.includes(
-              d.node.dimension as (typeof DIMENSION_ORDER)[number]
-            )
-              ? tEditor(
-                  EDITOR_DIM_KEY[
-                    d.node.dimension as keyof typeof EDITOR_DIM_KEY
-                  ]
-                )
-              : d.node.dimension
-                ? String(d.node.dimension)
-                : '—'}
-          </p>
-          <p>
-            <span className="text-muted-foreground">
-              {fieldLabel('materialLevel')} :{' '}
-            </span>
-            {typeof d.node.materialLevel === 'string' &&
-            MATERIAL_LEVEL_ORDER.includes(
-              d.node.materialLevel as (typeof MATERIAL_LEVEL_ORDER)[number]
-            )
-              ? tEditor(
-                  EDITOR_LEVEL_KEY[
-                    d.node.materialLevel as keyof typeof EDITOR_LEVEL_KEY
-                  ]
-                )
-              : d.node.materialLevel
-                ? String(d.node.materialLevel)
-                : '—'}
+            {(() => {
+              const dim =
+                typeof d.node.dimension === 'string' ? d.node.dimension : '';
+              const ml =
+                typeof d.node.materialLevel === 'string'
+                  ? d.node.materialLevel
+                  : '';
+              const k = inventionKindFromFormStrings(dim, ml);
+              return k ? tInv(k) : '—';
+            })()}
           </p>
           <p>
             <span className="text-muted-foreground">Époque : </span>
@@ -3557,7 +3566,7 @@ export function AdminSuggestionFormBody({
                 <span className="mx-1 text-muted-foreground">→</span>
                 <span className="font-medium text-foreground">{tgtName}</span>
                 <span className="ml-2 text-[10px] text-muted-foreground">
-                  ({relLabel(rel)})
+                  ({relLabel(rel, lnk.source_id)})
                 </span>
               </div>
             );

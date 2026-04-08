@@ -8,6 +8,8 @@ export const SUGGEST_ADD_CARD_NODE_KEYS = [
   'name_en',
   'year_approx',
   'category',
+  'dimension',
+  'materialLevel',
   'naturalOrigin',
   'chemicalNature',
   'tags',
@@ -15,8 +17,6 @@ export const SUGGEST_ADD_CARD_NODE_KEYS = [
   'origin',
   'description',
   'description_en',
-  'dimension',
-  'materialLevel',
   'wikipedia_url',
 ] as const;
 
@@ -38,10 +38,6 @@ export const NEW_NODE_EXTRA_KEYS = [
   'description_en',
   'wikipedia_url',
   'image_url',
-  'dimension',
-  'materialLevel',
-  'origin_type',
-  'nature_type',
 ] as const;
 
 export function newNodeFullKeyOrder(): readonly string[] {

@@ -1,21 +1,21 @@
-import type { OriginType, NatureType } from '@/lib/types';
+import type { ChemicalNature, NaturalOrigin } from '@/lib/types';
 
-const ORIGIN_EXPLORE_KEYS: Record<OriginType, string> = {
+const ORIGIN_EXPLORE_KEYS: Record<NaturalOrigin, string> = {
   mineral: 'originTypeMineral',
-  vegetal: 'originTypeVegetal',
+  plant: 'originTypePlant',
   animal: 'originTypeAnimal',
 };
 
-const NATURE_EXPLORE_KEYS: Record<NatureType, string> = {
+const NATURE_EXPLORE_KEYS: Record<ChemicalNature, string> = {
   element: 'natureTypeElement',
-  compose: 'natureTypeCompose',
-  materiau: 'natureTypeMateriau',
+  compound: 'natureTypeCompound',
+  material: 'natureTypeMaterial',
 };
 
-export function originTypeToExploreKey(v: OriginType): string {
+export function naturalOriginToExploreKey(v: NaturalOrigin): string {
   return ORIGIN_EXPLORE_KEYS[v];
 }
 
-export function natureTypeToExploreKey(v: NatureType): string {
+export function chemicalNatureToExploreKey(v: ChemicalNature): string {
   return NATURE_EXPLORE_KEYS[v];
 }

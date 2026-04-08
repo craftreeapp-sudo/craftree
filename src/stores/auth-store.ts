@@ -4,6 +4,7 @@ import { create } from 'zustand';
 import type { User } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import { isAdminEmail } from '@/lib/auth-utils';
+import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 interface AuthStore {
   user: User | null;
@@ -34,6 +35,16 @@ export const useAuthStore = create<AuthStore>((set) => ({
   initialize: () => {
     if (useAuthStore.getState().initialized) return;
     set({ initialized: true });
+
+    if (!isSupabaseConfigured()) {
+      set({
+        user: null,
+        isLoggedIn: false,
+        isAdmin: false,
+        isLoading: false,
+      });
+      return;
+    }
 
     void supabase.auth
       .getSession()

@@ -2,6 +2,7 @@
  * Libellés FR pour filtres et UI (catégories, époques, dimensions, niveaux matière)
  */
 import {
+  NODE_DIMENSION_ORDER,
   NodeCategory as NC,
   Era as EraEnum,
   type Era,
@@ -66,16 +67,15 @@ export const NODE_CATEGORY_LABELS_FR: Record<NC, string> = {
 /** Ordre d’affichage des catégories (aligné sur les cartes site). */
 export const NODE_CATEGORY_ORDER: NC[] = [...PRIMARY_CARD_CATEGORY_ORDER];
 
-export const DIMENSION_ORDER: NodeDimension[] = [
-  'matter',
-  'process',
-  'tool',
-];
+export const DIMENSION_ORDER: NodeDimension[] = [...NODE_DIMENSION_ORDER];
 
 export const DIMENSION_LABELS_FR: Record<NodeDimension, string> = {
   matter: 'Matière',
-  process: 'Procédé',
+  composant: 'Composant',
   tool: 'Outil',
+  energy: 'Énergie',
+  process: 'Procédé',
+  infrastructure: 'Infrastructure',
 };
 
 export const MATERIAL_LEVEL_ORDER: MaterialLevel[] = [

@@ -18,10 +18,13 @@ import {
   initSuggestionEditDraft,
   isEditNodeSuggestionType,
   sanitizeAdminProposedAddLinks,
+  extractUnresolvedPeerCreatesFromDraftAdds,
 } from '@/lib/admin-suggestion-shared';
 import { AdminSuggestionFormBody } from '@/components/admin/AdminPageClient';
 import { useAdminSuggestionCardImageUrl } from '@/components/admin/use-admin-suggestion-card-image';
 import { getDefaultTreeNodeId, treeInventionPath } from '@/lib/tree-routes';
+import type { AdminApproveSummary } from '@/lib/admin-approve-suggestion';
+import { toastMessageForApproveSummary } from '@/lib/format-admin-approve-summary';
 
 export function AdminSuggestionDetailClient({ id }: { id: string }) {
   const router = useRouter();
@@ -107,6 +110,8 @@ export function AdminSuggestionDetailClient({ id }: { id: string }) {
         body.overrideEditNodeLinkLists = {
           removedLinkIds: removedIds,
           proposedAddLinks: proposedAdds,
+          proposedUnresolvedPeers:
+            extractUnresolvedPeerCreatesFromDraftAdds(adds),
         } satisfies AdminEditNodeLinkListsOverride;
       } else if (
         row.suggestion_type === 'add_link' ||
@@ -125,7 +130,13 @@ export function AdminSuggestionDetailClient({ id }: { id: string }) {
         pushToast(String(e?.error ?? t('detailLoadError')), 'error');
         return;
       }
-      pushToast(t('toastApproved'), 'success');
+      const okJson = (await res.json()) as { summary?: AdminApproveSummary };
+      pushToast(
+        okJson.summary
+          ? toastMessageForApproveSummary(t, okJson.summary)
+          : t('toastApproved'),
+        'success'
+      );
       router.push('/admin');
       router.refresh();
     } finally {

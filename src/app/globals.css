@@ -342,8 +342,8 @@ tr[role='button'] {
 }
 
 /*
- * Explore /tree : panneaux latéraux fixes — `top` = header site (3.5rem) + hauteur réelle
- * de la barre « How to read » (variable --explore-tree-toolbar-h en px, définie sur le wrapper BuiltUponViewInner).
+ * Explore /tree : légende (gauche) — sous header + barre arbre (--explore-tree-toolbar-h).
+ * Fiche détail (droite) : `ExploreDetailPanel` utilise `top: 3.5rem` + z-[95] pour recouvrir la barre arbre.
  */
 .explore-tree-panel-fixed-top {
   top: calc(3.5rem + var(--explore-tree-toolbar-h, 3.5rem));

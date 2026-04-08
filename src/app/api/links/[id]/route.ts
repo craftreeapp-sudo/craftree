@@ -16,10 +16,11 @@ import { isSupabaseConfigured } from '@/lib/supabase-env-check';
 
 const RELATIONS: RelationType[] = [
   RT.MATERIAL,
+  RT.COMPONENT,
   RT.TOOL,
   RT.ENERGY,
-  RT.KNOWLEDGE,
-  RT.CATALYST,
+  RT.PROCESS,
+  RT.INFRASTRUCTURE,
 ];
 
 function isRelationType(s: string): s is RelationType {

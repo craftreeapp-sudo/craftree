@@ -31,6 +31,10 @@ import type {
 } from '@/lib/types';
 import { treeInventionPath } from '@/lib/tree-routes';
 import {
+  inventionKindFromNode,
+  type InventionKindKey,
+} from '@/lib/invention-classification';
+import {
   EDITOR_DIM_KEY,
   EDITOR_LEVEL_KEY,
 } from '@/components/editor/dimension-editor-keys';
@@ -66,12 +70,16 @@ function filterNodes(
     const dim = rawId as NodeDimension;
     return nodes.filter((n) => effectiveDimension(n) === dim);
   }
-  const ml = rawId as MaterialLevel;
-  return nodes.filter(
-    (n) =>
-      effectiveDimension(n) === 'matter' &&
-      effectiveMaterialLevel(n) === ml
-  );
+  if (kind === 'materialLevel') {
+    const ml = rawId as MaterialLevel;
+    return nodes.filter(
+      (n) =>
+        effectiveDimension(n) === 'matter' &&
+        effectiveMaterialLevel(n) === ml
+    );
+  }
+  const kindKey = rawId as InventionKindKey;
+  return nodes.filter((n) => inventionKindFromNode(n) === kindKey);
 }
 
 function fallbackMetaLabel(kind: FilterKind, id: string): string {
@@ -84,7 +92,10 @@ function fallbackMetaLabel(kind: FilterKind, id: string): string {
   if (kind === 'dimension') {
     return DIMENSION_LABELS_FR[id as NodeDimension] ?? id;
   }
-  return MATERIAL_LEVEL_LABELS_FR[id as MaterialLevel] ?? id;
+  if (kind === 'materialLevel') {
+    return MATERIAL_LEVEL_LABELS_FR[id as MaterialLevel] ?? id;
+  }
+  return id;
 }
 
 function cardLayoutId(nodeId: string) {
@@ -170,6 +181,7 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
   const tCat = useTranslations('categories');
   const tEra = useTranslations('eras');
   const te = useTranslations('editor');
+  const tInv = useTranslations('inventionKinds');
   const isMobile = useIsMobileBreakpoint();
 
   const allNodes = useGraphStore((s) => s.nodes);
@@ -198,14 +210,19 @@ export function TechListByFilterClient({ kind, id }: TechListByFilterClientProps
       const k = EDITOR_LEVEL_KEY[lv];
       return k && te.has(k) ? te(k) : fallbackMetaLabel(kind, id);
     }
+    if (kind === 'inventionKind') {
+      const k = id as InventionKindKey;
+      return tInv.has(k) ? tInv(k) : fallbackMetaLabel(kind, id);
+    }
     return fallbackMetaLabel(kind, id);
-  }, [kind, id, tCat, tEra, te]);
+  }, [kind, id, tCat, tEra, te, tInv]);
 
   const subtitle = useMemo(() => {
     if (kind === 'category') return tPage('listSubtitleCategory');
     if (kind === 'era') return tPage('listSubtitleEra');
     if (kind === 'dimension') return tPage('listSubtitleDimension');
-    return tPage('listSubtitleMaterialLevel');
+    if (kind === 'materialLevel') return tPage('listSubtitleMaterialLevel');
+    return tPage('listSubtitleInventionKind');
   }, [kind, tPage]);
 
   const rawItems = useMemo(() => {

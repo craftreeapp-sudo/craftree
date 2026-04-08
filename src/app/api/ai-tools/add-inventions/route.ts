@@ -11,11 +11,19 @@ import {
 } from '@/lib/data';
 import { dimensionMaterialLevelFromCreateBody } from '@/lib/node-dimension';
 import {
+  naturalOriginAppToDb,
   parseChemicalNature,
   parseNaturalOrigin,
 } from '@/lib/suggest-nature-fields';
 import { normalizeInventionName, slugify } from '@/lib/utils';
-import { NodeCategory, Era } from '@/lib/types';
+import {
+  Era,
+  NODE_DIMENSION_ORDER,
+  NodeCategory,
+  type NodeDimension,
+} from '@/lib/types';
+
+const ADD_INV_DIMENSION_SET = new Set<string>(NODE_DIMENSION_ORDER);
 import {
   completeAiOperation,
   startAiOperation,
@@ -59,25 +67,6 @@ function clampYear(
   return v;
 }
 
-function normalizeNatureTypeDb(
-  v: unknown
-): 'element' | 'compose' | 'materiau' | null {
-  if (v === null || v === undefined || v === '') return null;
-  const s = String(v).toLowerCase().trim();
-  if (s === 'element') return 'element';
-  if (s === 'compound' || s === 'compose') return 'compose';
-  if (s === 'material' || s === 'materiau') return 'materiau';
-  return null;
-}
-
-function normalizeOriginTypeDb(
-  v: unknown
-): 'mineral' | 'vegetal' | 'animal' | null {
-  if (v === null || v === undefined || v === '') return null;
-  const s = String(v).toLowerCase().trim();
-  if (s === 'mineral' || s === 'vegetal' || s === 'animal') return s;
-  return null;
-}
 
 async function fetchNameSample(sb: SupabaseClient): Promise<string[]> {
   const names: string[] = [];
@@ -143,8 +132,6 @@ type InventionPayload = {
   materialLevel?: string;
   naturalOrigin?: string;
   chemicalNature?: string;
-  origin_type?: string | null;
-  nature_type?: string | null;
   built_upon?: string[];
 };
 
@@ -205,9 +192,7 @@ export async function POST(request: Request) {
     }
     if (
       dimFilter !== 'all' &&
-      dimFilter !== 'matter' &&
-      dimFilter !== 'process' &&
-      dimFilter !== 'tool'
+      !ADD_INV_DIMENSION_SET.has(dimFilter)
     ) {
       return NextResponse.json(
         { error: 'dimension invalide' },
@@ -239,7 +224,7 @@ export async function POST(request: Request) {
 
     const dimHint =
       dimFilter === 'all'
-        ? 'dimension peut être matter, process ou tool (avec materialLevel si matter).'
+        ? `dimension ∈ { ${NODE_DIMENSION_ORDER.join(', ')} } (materialLevel si matter uniquement).`
         : `dimension doit être "${dimFilter}" (et materialLevel si matter).`;
 
     const eraHint =
@@ -265,12 +250,10 @@ Schéma JSON attendu:
       "category": "${category}",
       "era": "une de: prehistoric, ancient, medieval, renaissance, industrial, modern, digital, contemporary",
       "year_approx": nombre ou null (entre -10000 et 2030),
-      "dimension": "matter" | "process" | "tool",
+      "dimension": "matter" | "composant" | "tool" | "energy" | "process" | "infrastructure",
       "materialLevel": "raw"|"processed"|"industrial"|"component" (si dimension matter, sinon null),
-      "naturalOrigin": "mineral"|"vegetal"|"animal" ou omis,
+      "naturalOrigin": "mineral"|"plant"|"animal" ou omis (synonyme historique: vegetal → plant),
       "chemicalNature": "element"|"compound"|"material" ou omis,
-      "origin_type": "mineral"|"vegetal"|"animal" ou null,
-      "nature_type": "element"|"compose"|"materiau" ou null (compose pas compound, materiau pas material),
       "built_upon": ["nom d'ingrédient ou matière déjà connue", ...] — noms de matières dont cette invention dépend (lien material: ingrédient → invention)
     }
   ]
@@ -339,14 +322,6 @@ Contraintes: exactement ${count} inventions. Noms inédits (pas dans la liste fo
           typeof o.naturalOrigin === 'string' ? o.naturalOrigin.trim() : undefined,
         chemicalNature:
           typeof o.chemicalNature === 'string' ? o.chemicalNature.trim() : undefined,
-        origin_type:
-          o.origin_type === null || o.origin_type === undefined
-            ? undefined
-            : String(o.origin_type),
-        nature_type:
-          o.nature_type === null || o.nature_type === undefined
-            ? undefined
-            : String(o.nature_type),
         built_upon: Array.isArray(o.built_upon)
           ? o.built_upon.map((x) => String(x).trim()).filter(Boolean)
           : [],
@@ -428,8 +403,6 @@ Contraintes: exactement ${count} inventions. Noms inédits (pas dans la liste fo
           material_level: dm.materialLevel,
           natural_origin: no === '' ? null : no,
           chemical_nature: cn === '' ? null : cn,
-          origin_type: null,
-          nature_type: null,
           is_draft: true,
         };
 
@@ -473,7 +446,7 @@ Contraintes: exactement ${count} inventions. Noms inédits (pas dans la liste fo
       let dm = bodyDm;
       if (dimFilter !== 'all') {
         dm = {
-          dimension: dimFilter as 'matter' | 'process' | 'tool',
+          dimension: dimFilter as NodeDimension,
           materialLevel:
             dimFilter === 'matter' ? dm.materialLevel ?? 'component' : null,
         };
@@ -483,8 +456,16 @@ Contraintes: exactement ${count} inventions. Noms inédits (pas dans la liste fo
       }
 
       const year = clampYear(inv.year_approx, yearMin, yearMax);
-      const naturalOrigin = parseNaturalOrigin(inv.naturalOrigin);
-      const chemicalNature = parseChemicalNature(inv.chemicalNature);
+      const naturalOrigin = parseNaturalOrigin(
+        inv.naturalOrigin ??
+          (inv as { origin_type?: string }).origin_type ??
+          undefined
+      );
+      const chemicalNature = parseChemicalNature(
+        inv.chemicalNature ??
+          (inv as { nature_type?: string }).nature_type ??
+          undefined
+      );
 
       try {
         const id = await uniqueNodeId(sb, inv.name, reservedIds);
@@ -505,10 +486,11 @@ Contraintes: exactement ${count} inventions. Noms inédits (pas dans la liste fo
           complexity_depth: 0,
           dimension: dm.dimension,
           material_level: dm.materialLevel,
-          natural_origin: naturalOrigin === '' ? null : naturalOrigin,
+          natural_origin:
+            naturalOrigin === ''
+              ? null
+              : naturalOriginAppToDb(naturalOrigin),
           chemical_nature: chemicalNature === '' ? null : chemicalNature,
-          origin_type: normalizeOriginTypeDb(inv.origin_type),
-          nature_type: normalizeNatureTypeDb(inv.nature_type),
           is_draft: true,
         };
 
@@ -522,15 +504,6 @@ Contraintes: exactement ${count} inventions. Noms inédits (pas dans la liste fo
           } = insertRow;
           const retry = await sb.from('nodes').insert(rest).select().single();
           insErr = retry.error;
-        }
-        if (insErr && String(insErr.message ?? '').includes('origin_type')) {
-          const {
-            origin_type: _o,
-            nature_type: _n,
-            ...withoutOn
-          } = insertRow;
-          const retry2 = await sb.from('nodes').insert(withoutOn).select().single();
-          insErr = retry2.error;
         }
         if (insErr) {
           errors.push(`${inv.name}: ${insErr.message}`);
@@ -570,8 +543,6 @@ Contraintes: exactement ${count} inventions. Noms inédits (pas dans la liste fo
               material_level: dmS.materialLevel,
               natural_origin: null,
               chemical_nature: null,
-              origin_type: null,
-              nature_type: null,
               is_draft: true,
             };
             const ins = await sb.from('nodes').insert(stubRow).select().single();
